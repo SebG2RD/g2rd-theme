@@ -1,217 +1,248 @@
 # G2RD Theme
 
-Un thème WordPress Full Site Editing (FSE) moderne et flexible pour les agences web.
+Thème WordPress **Full Site Editing (FSE)** pour agences web : blocs sur mesure, personnalisation via l’éditeur de site et performances prises en compte.
+
+---
+
+## Sommaire
+
+- [Description](#description)
+- [Fonctionnalités](#fonctionnalités)
+- [Fonctionnalités détaillées](#fonctionnalités-détaillées)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Système de licences](#système-de-licences)
+- [Développement](#développement)
+- [Structure du projet](#structure-du-projet)
+- [Support](#support)
+- [Licence](#licence)
+- [Crédits](#crédits)
+- [Documentation](#documentation)
+- [Changelog](#changelog)
+
+---
 
 ## Description
 
-Ce thème offre une expérience d'édition complète avec des blocs personnalisés, des animations fluides et une interface intuitive. Idéal pour les sites vitrines, portfolios et sites d'agences web.
+Ce thème offre une expérience d’édition complète avec des blocs personnalisés, des animations fluides et une interface intuitive. Il convient aux sites vitrines, portfolios et sites d’agences.
+
+---
 
 ## Fonctionnalités
 
-- Full Site Editing (FSE)
-- Design moderne et responsive
-- Support des blocs Gutenberg
-- Personnalisation avancée via l'interface WordPress
-- Optimisé pour les performances
-- Support multilingue
-- Système de licences et mises à jour intégré
-- Gestion avancée des membres d'équipe
-- Sélecteur de médias WordPress intégré
-- Interface d'administration native
-- Types de contenu personnalisés
-- Portfolio professionnel
-- Section "Qui sommes nous" avec gestion des icônes
-- Effet particules automatiquement désactivé pour Google PageSpeed Insights et Lighthouse (depuis 1.0.8) pour optimiser le score de performance sans impacter l'expérience utilisateur réelle.
+- **Full Site Editing (FSE)** — édition globale du site (templates, parties, styles).
+- **Design** moderne et responsive.
+- **Blocs Gutenberg** personnalisés et patterns.
+- **Personnalisation** avancée via l’interface WordPress.
+- **Performances** : optimisations et bonnes pratiques.
+- **Multilingue** (fichiers de traduction dans `languages/`).
+- **Licences et mises à jour** intégrées (SureCart + GitHub).
+- **Équipe** : gestion des membres (section « Qui sommes-nous »).
+- **Médias** : sélecteur WordPress natif où pertinent.
+- **Administration** alignée sur l’interface WordPress.
+- **Types de contenu** personnalisés (portfolio, prestations, etc.).
+- **Portfolio** professionnel.
+- **Particules** : désactivation automatique pour les audits **PageSpeed Insights** et **Lighthouse** (v1.0.8+) afin d’améliorer le score sans dégrader l’expérience réelle des visiteurs.
+
+---
 
 ## Fonctionnalités détaillées
 
-### Section "Qui sommes nous"
+### Section « Qui sommes-nous »
 
-- Profils détaillés des membres
-- Gestion des compétences et expériences
-- Sélection multiple d'icônes via la bibliothèque de médias
-- Interface d'administration native WordPress
-- Prévisualisation des icônes en temps réel
+- Profils détaillés des membres.
+- Compétences et expériences.
+- Sélection d’icônes via la bibliothèque de médias.
+- Interface d’administration native WordPress.
+- Prévisualisation des icônes en temps réel.
 
-### Interface d'administration
+### Interface d’administration
 
-- Utilisation des classes natives WordPress
-- Sélecteur de médias intégré
-- Gestion intuitive des contenus
-- Interface responsive et accessible
+- Classes et composants familiers aux utilisateurs WordPress.
+- Sélecteur de médias intégré.
+- Gestion des contenus intuitive.
+- Interface responsive et accessible.
+
+---
 
 ## Installation
 
-1. Téléchargez le thème depuis votre espace client SureCart
-2. Dans votre administration WordPress, allez dans Apparence > Thèmes
-3. Cliquez sur "Ajouter" puis "Téléverser un thème"
-4. Sélectionnez le fichier ZIP du thème et cliquez sur "Installer maintenant"
-5. Activez le thème
+1. Téléchargez le thème depuis votre **espace client SureCart**.
+2. Dans WordPress : **Apparence → Thèmes**.
+3. Cliquez sur **Ajouter**, puis **Téléverser un thème**.
+4. Choisissez le fichier **ZIP** du thème, puis **Installer maintenant**.
+5. **Activez** le thème.
+
+---
 
 ## Configuration
 
-### Configuration de la licence
+### Licence
 
-1. Dans votre administration WordPress, allez dans Apparence > G2RD Settings
-2. Entrez votre clé API SureCart
-3. Allez dans Apparence > G2RD License
-4. Entrez votre clé de licence
-5. Cliquez sur "Enregistrer les modifications"
+1. **Apparence → G2RD Settings** : renseignez votre **clé API SureCart**.
+2. **Apparence → G2RD License** : saisissez votre **clé de licence**.
+3. Enregistrez les modifications.
 
 ### Mises à jour
 
-Le thème se met à jour automatiquement lorsque de nouvelles versions sont disponibles sur GitHub. Pour bénéficier des mises à jour :
+Les mises à jour sont proposées lorsque de nouvelles versions sont publiées sur **GitHub**. Pour en bénéficier :
 
-1. Assurez-vous d'avoir une licence valide
-2. Votre clé de licence doit être entrée dans les paramètres du thème
-3. Les mises à jour apparaîtront automatiquement dans votre administration WordPress
+1. Disposer d’une **licence valide**.
+2. Avoir enregistré la clé dans les **paramètres du thème**.
+
+Les mises à jour apparaissent alors dans l’administration WordPress comme pour les autres extensions/thèmes.
+
+---
 
 ## Système de licences
 
-Le thème utilise un système de licences basé sur SureCart pour gérer les abonnements et les mises à jour :
+Le thème s’appuie sur **SureCart** pour les abonnements et le contrôle d’accès aux mises à jour :
 
-- Licences annuelles
-- Vérification automatique de la validité des licences
-- Mises à jour automatiques pour les licences valides
-- Support de plusieurs licences par utilisateur
-- Interface d'administration pour gérer les licences
+- Licences annuelles.
+- Vérification de validité.
+- Mises à jour pour les licences actives.
+- Plusieurs licences possibles par contexte (selon votre offre).
+- Écran dédié dans l’administration.
 
-### Fonctionnement des licences
+### Fonctionnement (résumé)
 
-1. L'utilisateur achète une licence via SureCart
-2. La licence est liée à son compte WordPress
-3. Le système vérifie automatiquement la validité de la licence
-4. Les mises à jour sont disponibles uniquement pour les licences valides
-5. Les licences expirées ne permettent plus l'accès aux mises à jour
+1. Achat d’une licence via SureCart.
+2. Liaison au site / au compte selon votre processus.
+3. Vérification périodique de la validité.
+4. Mises à jour réservées aux licences valides.
+
+---
 
 ## Développement
 
 ### Prérequis
 
-- WordPress 6.5+
-- PHP 8.0+
-- Node.js 16+
-- npm ou yarn
+| Outil        | Version recommandée |
+| ------------ | ------------------- |
+| WordPress    | 6.5+                |
+| PHP          | 8.0+                |
+| Node.js      | 18+                 |
+| Gestionnaire | npm 8+ (ou yarn)    |
 
-### Installation pour le développement
-
-1. Clonez le dépôt :
+### Cloner et installer
 
 ```bash
 git clone https://github.com/g2rd/g2rd-theme.git
 cd g2rd-theme
-```
-
-2. Installez les dépendances :
-
-```bash
 npm install
 ```
 
-3. Lancez le serveur de développement :
+### Scripts npm
+
+| Commande           | Rôle                                      |
+| ---------------- | ----------------------------------------- |
+| `npm run build`  | Compile tous les blocs (workspaces).      |
+| `npm run start`  | Mode watch sur les blocs (développement). |
+
+Exemple pour un seul bloc (voir `package.json` pour la liste complète) :
 
 ```bash
-npm run dev
+npm run build:carousel
 ```
+
+### PHP (optionnel)
+
+Si le thème utilise des dépendances Composer (ex. coloration syntaxique du bloc code) :
+
+```bash
+composer install
+```
+
+---
 
 ## Structure du projet
 
 ```
-G2RD-theme/
-├── assets/           # Assets compilés (CSS, JS, images)
-├── blocks/           # Blocs personnalisés
-├── classes/          # Classes PHP
-│   ├── class-github-updater.php
-│   ├── class-surecart-license-manager.php
-│   └── ...
-├── docs/            # Documentation complémentaire
-├── includes/        # Fichiers d'inclusion
-│   └── license-init.php
-├── languages/       # Fichiers de traduction
-├── parts/           # Templates de parties
-├── patterns/        # Patterns FSE
-├── styles/          # Styles FSE
-├── templates/       # Templates FSE
-├── configuration.json  # Configuration du thème
-├── functions.php    # Fonctions principales
-├── index.php        # Template par défaut
-├── license.txt      # Licence (format WordPress.org)
-├── LICENSE          # Licence (format GitHub)
-├── readme.txt       # Documentation utilisateur (WordPress.org)
-├── screenshot.png   # Capture d'écran du thème
-├── style.css        # Fichier de style principal
-├── theme.json       # Configuration FSE principale
-├── theme-settings.json  # Paramètres du thème
-└── theme-styles.json    # Styles du thème
+g2rd-theme/
+├── assets/                 # CSS/JS compilés, images, polices
+├── blocks/                 # Blocs Gutenberg (un dossier par bloc)
+├── categories/             # Catégories de blocs
+├── classes/                # Classes PHP du thème (autoload, CPT, licence, etc.)
+├── docs/                   # Documentation complémentaire
+├── includes/               # Fichiers inclus (ex. licence)
+├── languages/              # Traductions (.pot, .po…)
+├── parts/                  # Parties de modèle FSE (header, footer…)
+├── patterns/               # Patterns de blocs
+├── styles/                 # Variations de style FSE
+├── templates/              # Templates FSE
+├── configuration.json      # Configuration composée du thème
+├── functions.php
+├── style.css               # Métadonnées du thème (obligatoire)
+├── theme.json              # Configuration FSE de base
+├── theme-settings.json     # Paramètres / tokens
+├── theme-styles.json       # Styles déclaratifs
+├── LICENSE / license.txt   # Licence (GitHub / format WordPress.org)
+├── readme.txt              # Description utilisateur (WordPress.org)
+└── README.md               # Ce fichier (GitHub / développeurs)
 ```
+
+---
 
 ## Support
 
-Pour toute question ou assistance :
+- Documentation en ligne et dossier **`docs/`**.
+- Support via votre **espace client SureCart**.
+- **Issues GitHub** pour les bugs et retours techniques.
 
-- Consultez la documentation en ligne
-- Contactez le support via votre espace client SureCart
-- Ouvrez une issue sur GitHub pour les bugs
+---
 
 ## Licence
 
-Ce thème est distribué sous licence EUPL-1.2. Voir le fichier LICENSE pour plus de détails.
+Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` pour le texte complet.
+
+---
 
 ## Crédits
 
-- Développé par Sebastien GERARD
-- Basé sur WordPress
-- Utilise l'API GitHub pour les mises à jour
-- Intégration avec SureCart pour la gestion des licences
+- Développement : **Sebastien GERARD**
+- Bâti sur **WordPress**
+- Mises à jour via l’**API GitHub**
+- Licences et vente : **SureCart**
 
-## Structure de la documentation
+---
 
-- **README.md** : Documentation développeur, instructions d'installation, scripts, contribution. Ce fichier reste à la racine pour GitHub.
-- **readme.txt** : Documentation utilisateur, format WordPress.org, reste à la racine du thème.
-- **/docs/** : Documentation complémentaire (ex : [accessibilité](docs/accessibility.md), guides avancés, tutoriels).
-- **LICENSE** et **license.txt** : Licences du projet, à la racine.
+## Documentation
+
+| Fichier / dossier | Public visé        | Contenu principal                          |
+| ----------------- | ------------------ | ------------------------------------------ |
+| **README.md**     | Développeurs       | Git, npm, structure, contribution          |
+| **readme.txt**    | Utilisateurs / WP  | Description courte, conforme WordPress.org |
+| **docs/**         | Tous               | Guides détaillés (ex. accessibilité)       |
+| **LICENSE**       | Juridique          | Licence EUPL (dépôt Git)                   |
+| **license.txt**   | WordPress.org      | Même licence, format attendu par le répertoire |
+
+---
 
 ## Changelog
 
 ### 1.0.8
 
-- Amélioration : l'effet particules est automatiquement désactivé lors de l'analyse par Google PageSpeed Insights et Lighthouse, ce qui améliore le score de performance sans impacter l'expérience utilisateur réelle.
-- Technique : nettoyage du JS pour compatibilité WordPress, sans prise en compte des avertissements linter non pertinents.
+- **Performances** : l’effet particules est désactivé pendant les analyses PageSpeed Insights / Lighthouse, pour un meilleur score sans impact sur les visiteurs réels.
+- **Technique** : nettoyage JS pour compatibilité WordPress.
 
 ### 1.0.7
 
-- Correction : le préfixe et le suffixe du bloc Counter ne sont plus dupliqués en front (JS d'animation).
-- Ajout : possibilité de personnaliser la taille de l'icône ou de l'image dans le bloc Counter (contrôle dans l'éditeur).
-- Correction : effet glass (verre) fusionne désormais correctement le style inline (padding, etc.) au lieu de l'écraser.
+- **Counter** : préfixe et suffixe non dupliqués en front.
+- **Counter** : taille d’icône / image personnalisable dans l’éditeur.
+- **Glass** : fusion correcte des styles inline (padding, etc.).
 
 ### 1.0.6
 
-- Création d'un bloc "G2RD Info" similaire au bloc info d'Astra
-- Support complet des icônes WordPress (Dashicons) et images personnalisées
-- 4 layouts possibles : gauche, droite, haut, bas
-- Personnalisation complète : couleurs, typographie, espacement, bordures, ombres
-- Effets de survol : scale, lift, glow
-- Design responsive et accessible
-- Intégration native avec les classes WordPress
-- Sélecteur d'icônes visuel avec aperçu des Dashicons
-- Plus de 100 icônes organisées par catégories
-- Contrôle d'espacement (gap) dynamique entre icône et texte
-- Optimisation du code avec factorisation et commentaires complets
-- Correction des conflits CSS/inline styles
-- Amélioration de l'alignement et du positionnement des icônes
+- Bloc **G2RD Info** (icônes Dashicons + images, layouts, accessibilité).
+- Nombreuses options de style et d’espacement.
 
 ### 1.0.5
 
-- Création d'un bloc "Toggle Content" pour afficher/masquer deux groupes de blocs.
-- Ajout d'options de personnalisation pour le bloc Toggle : alignement, style et couleurs.
-- Le bloc Toggle utilise une technique 100% CSS (pas de JS en frontend) pour la performance.
-- Création d'une catégorie de blocs "G2RD Bloks" pour regrouper les blocs du thème.
+- Bloc **Toggle Content** (afficher / masquer, 100 % CSS côté front).
+- Catégorie de blocs **G2RD Bloks**.
 
 ### 1.0.4
 
-- Correction du champ titre éditable dans le bloc countdown
-- Ajout/fiabilisation de l'option d'orientation (ligne/colonne) pour le timer
-- Chargement du CSS du bloc via block.json (compatibilité build)
-- Amélioration du .gitignore pour le dépôt GitHub
-#   g 2 r d - t h e m e  
- 
+- **Countdown** : titre éditable et orientation ligne/colonne fiabilisée.
+- Chargement CSS du bloc via `block.json`.
+- `.gitignore` adapté au dépôt GitHub.
