@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Cartoon",
+  "settings": {
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "Borel, sans-serif",
+          "name": "Borel",
+          "slug": "primary",
+          "fontFace": [
+            {
+              "fontDisplay": "block",
+              "fontFamily": "Borel",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Borel-Regular.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "ACME, sans-serif",
+          "name": "ACME",
+          "slug": "secondary",
+          "fontFace": [
+            {
+              "fontDisplay": "block",
+              "fontFamily": "ACME",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Acme-Regular.woff2"]
+            }
+          ]
+        }
+      ],
+      "fontSizes": [
+        {
+          "name": "Petit",
+          "size": "0.8rem",
+          "slug": "s"
+        },
+        {
+          "name": "Moyen",
+          "size": "1.1rem",
+          "slug": "m"
+        },
+        {
+          "name": "Grand",
+          "size": "2rem",
+          "slug": "l"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "elements": {
+      "h1": {
+        "typography": {
+          "fontFamily": "ACME",
+          "fontSize": "var:preset|font-size|l"
+        }
+      }
+    }
+  }
+}

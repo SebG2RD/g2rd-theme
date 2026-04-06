@@ -1,0 +1,99 @@
+/* ── G2RD FAQ — styles partagés éditeur + frontend ── */
+
+.g2rd-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.g2rd-faq__item {
+  background: var(--g2rd-faq-bg, transparent);
+  border: 1px solid var(--g2rd-faq-border, var(--wp--preset--color--primary, #2f425d));
+  border-radius: var(--g2rd-faq-radius, 8px);
+  overflow: hidden;
+}
+
+/* ─── Bouton question ─── */
+.g2rd-faq__question {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--g2rd-faq-question-color, var(--wp--preset--color--primary, #2f425d));
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 16px 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.g2rd-faq__question:hover {
+  opacity: 0.85;
+}
+
+.g2rd-faq__question-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.g2rd-faq__icon {
+  color: var(--g2rd-faq-icon-color, var(--wp--preset--color--primary, #2f425d));
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 700;
+  transition: transform 0.3s ease;
+  user-select: none;
+  width: 1.2em;
+  text-align: center;
+}
+
+/* ─── Réponse — animation CSS grid ─── */
+.g2rd-faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.g2rd-faq__item.is-open .g2rd-faq__answer {
+  grid-template-rows: 1fr;
+}
+
+.g2rd-faq__answer-inner {
+  overflow: hidden;
+}
+
+.g2rd-faq__answer-inner > * {
+  border-top: 1px solid var(--g2rd-faq-separator, #e5e7eb);
+  color: var(--g2rd-faq-answer-color, inherit);
+  margin: 0;
+  padding: 14px 20px 18px;
+}
+
+/* ─── Éditeur : champ de saisie ─── */
+.g2rd-faq__question-input input,
+.g2rd-faq__question-input input:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--g2rd-faq-question-color, var(--wp--preset--color--primary, #2f425d)) !important;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0 !important;
+}
+
+.g2rd-faq__answer-editor {
+  padding: 12px 16px;
+  border-top: 1px solid var(--g2rd-faq-separator, #e5e7eb);
+}
+
+.g2rd-faq__item-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}

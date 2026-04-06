@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/dynamic-content",
+    "version": "1.0.0",
+    "title": "Contenu dynamique G2RD",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "database",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Affiche une grille de contenus dynamiques (articles, CPT…) filtrables par catégorie, date, auteur. Personnalisable selon les paramètres du thème.",
+    "keywords": ["query", "articles", "grille", "dynamique", "archive", "posts", "boucle"],
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./src/style.css",
+    "style": "file:./src/style.css",
+    "render": "file:./render.php",
+    "attributes": {
+        "postType":       { "type": "string",  "default": "post" },
+        "postsPerPage":   { "type": "number",  "default": 6 },
+        "columns":        { "type": "number",  "default": 3 },
+        "orderby":        { "type": "string",  "default": "date" },
+        "order":          { "type": "string",  "default": "DESC" },
+        "categoryId":     { "type": "number",  "default": 0 },
+        "authorId":       { "type": "number",  "default": 0 },
+        "showImage":      { "type": "boolean", "default": true },
+        "showTitle":      { "type": "boolean", "default": true },
+        "showExcerpt":    { "type": "boolean", "default": true },
+        "showDate":       { "type": "boolean", "default": true },
+        "showCategory":   { "type": "boolean", "default": false },
+        "showAuthor":     { "type": "boolean", "default": false },
+        "showReadMore":   { "type": "boolean", "default": true },
+        "readMoreText":   { "type": "string",  "default": "Lire la suite" },
+        "imageRatio":     { "type": "string",  "default": "16/9" },
+        "cardRadius":     { "type": "number",  "default": 8 },
+        "cardShadow":     { "type": "boolean", "default": true },
+        "accentColor":    { "type": "string",  "default": "" },
+        "textColor":      { "type": "string",  "default": "" },
+        "backgroundColor":{ "type": "string",  "default": "" }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": { "margin": true, "padding": true }
+    }
+}

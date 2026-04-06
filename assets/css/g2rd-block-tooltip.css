@@ -1,0 +1,56 @@
+/* ── G2RD Infobulle (tooltip) ── */
+
+[data-g2rd-tooltip] {
+  position: relative;
+}
+
+[data-g2rd-tooltip]::after {
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: 6px;
+  bottom: calc(100% + 8px);
+  color: #fff;
+  content: attr(data-g2rd-tooltip);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  left: 50%;
+  line-height: 1.5;
+  max-width: 260px;
+  opacity: 0;
+  padding: 6px 12px;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%) translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: normal;
+  width: max-content;
+  z-index: 9999;
+}
+
+[data-g2rd-tooltip]::before {
+  border: 6px solid transparent;
+  border-top-color: rgba(15, 23, 42, 0.92);
+  bottom: calc(100% + 2px);
+  content: "";
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+}
+
+[data-g2rd-tooltip]:hover::after,
+[data-g2rd-tooltip]:hover::before,
+[data-g2rd-tooltip]:focus-within::after,
+[data-g2rd-tooltip]:focus-within::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Flèche position: triangle pseudo-element sans transform X */
+[data-g2rd-tooltip]:hover::before,
+[data-g2rd-tooltip]:focus-within::before {
+  transform: translateX(-50%);
+}

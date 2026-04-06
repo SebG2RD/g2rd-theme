@@ -1,0 +1,76 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/modal",
+    "version": "1.0.0",
+    "title": "G2RD Modal",
+    "category": "g2rd-blocks",
+    "description": "Ouvre une fenêtre modale au clic sur un bouton, un texte ou une image.",
+    "keywords": [
+        "modal",
+        "popup",
+        "fenêtre",
+        "bouton"
+    ],
+    "attributes": {
+        "triggerType": {
+            "type": "string",
+            "default": "button"
+        },
+        "triggerButtonText": {
+            "type": "string",
+            "default": "Ouvrir"
+        },
+        "triggerText": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerImageId": {
+            "type": "number"
+        },
+        "triggerImageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerImageAlt": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerButtonBackground": {
+            "type": "string"
+        },
+        "triggerButtonTextColor": {
+            "type": "string"
+        },
+        "modalWidth": {
+            "type": "string",
+            "default": "medium"
+        },
+        "blockId": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "triggerType": "button",
+            "triggerButtonText": "Ouvrir"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}

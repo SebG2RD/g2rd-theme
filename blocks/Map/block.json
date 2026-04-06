@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/map",
+    "version": "1.0.0",
+    "title": "G2RD Carte",
+    "category": "g2rd-blocks",
+    "description": "Carte Google Maps (clé API) ou OpenStreetMap (sans clé). Taille, zoom, style. Marqueurs illimités avec titre, description et icône personnalisée (SVG, image ou bibliothèque).",
+    "keywords": [
+        "map",
+        "carte",
+        "google",
+        "openstreetmap",
+        "marker",
+        "marqueur"
+    ],
+    "attributes": {
+        "mapProvider": {
+            "type": "string",
+            "default": "osm"
+        },
+        "apiKey": {
+            "type": "string",
+            "default": ""
+        },
+        "centerLat": {
+            "type": "number",
+            "default": 48.8566
+        },
+        "centerLng": {
+            "type": "number",
+            "default": 2.3522
+        },
+        "zoom": {
+            "type": "number",
+            "default": 12
+        },
+        "height": {
+            "type": "number",
+            "default": 400
+        },
+        "mapStyle": {
+            "type": "string",
+            "default": "roadmap"
+        },
+        "markers": {
+            "type": "array",
+            "default": []
+        },
+        "useAddress": {
+            "type": "boolean",
+            "default": false
+        },
+        "address": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "example": {
+        "attributes": {
+            "mapProvider": "osm",
+            "zoom": 14,
+            "height": 300
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": [
+            "wide",
+            "full"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": false
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": ["file:./index.js", "file:./address-editor.js"],
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "g2rd-charts",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack --config webpack.config.js --mode development --watch"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.7.0"
+  }
+}

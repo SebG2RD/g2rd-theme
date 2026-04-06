@@ -1,0 +1,475 @@
+/* Styles d'accessibilité pour le thème G2RD */
+
+/* Focus visible */
+:focus {
+  outline: 2px solid var(--wp--preset--color--primary);
+  outline-offset: 2px;
+}
+
+/* Support du mode sombre */
+@media (prefers-color-scheme: dark) {
+  /* Suppression des changements de couleurs automatiques */
+}
+
+/* Ajustement de la taille du texte */
+.text-large {
+  font-size: var(--wp--preset--font-size--l);
+  line-height: var(--wp--custom--line-height--regular);
+}
+
+.text-larger {
+  font-size: var(--wp--preset--font-size--xl);
+  line-height: var(--wp--custom--line-height--regular);
+}
+
+/* Navigation au clavier */
+.keyboard-navigation :focus {
+  outline: 2px solid var(--wp--preset--color--primary);
+  outline-offset: 2px;
+}
+
+/* Amélioration de la lisibilité */
+.readable-text {
+  max-width: 70ch;
+  line-height: var(--wp--custom--line-height--regular);
+}
+
+/* Espacement des paragraphes */
+p {
+  margin-bottom: 1.5em;
+}
+
+/* Liens accessibles */
+a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+a:hover,
+a:focus {
+  text-decoration-thickness: 2px;
+}
+
+/* Formulaires accessibles */
+.form-group {
+  margin-bottom: var(--wp--preset--spacing--s);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--wp--preset--spacing--xs);
+  font-weight: var(--wp--custom--font-weight--semibold);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: var(--wp--preset--spacing--xs);
+  border: 2px solid var(--wp--preset--color--primary);
+  border-radius: var(--wp--custom--radius--s);
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--wp--preset--color--primary);
+  box-shadow: 0 0 0 2px rgba(47, 66, 93, 0.2);
+}
+
+.form-group .required {
+  color: var(--wp--preset--color--primary);
+}
+
+.error-message {
+  color: var(--wp--preset--color--primary);
+  font-size: var(--wp--preset--font-size--s);
+  margin-top: var(--wp--preset--spacing--xs);
+  padding: var(--wp--preset--spacing--xs);
+  background: rgba(47, 66, 93, 0.1);
+  border-radius: var(--wp--custom--radius--s);
+}
+
+/* Support des lecteurs d'écran */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  clip: auto !important;
+  clip-path: none;
+  height: auto;
+  width: auto;
+  padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--s);
+  background: var(--wp--preset--color--white);
+  border-radius: var(--wp--custom--radius--s);
+  box-shadow: var(--wp--preset--shadow--light);
+  z-index: 100000;
+}
+
+/* Support RTL */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Support des animations réduites */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Amélioration des listes */
+ul,
+ol {
+  padding-left: 2em;
+  margin-bottom: 1.5em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Amélioration des tableaux */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+}
+
+th,
+td {
+  padding: 0.75em;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+/* Amélioration du panneau d'accessibilité */
+.accessibility-panel {
+  position: fixed;
+  bottom: var(--wp--preset--spacing--m);
+  left: 32px;
+  z-index: 9999;
+  background: var(--wp--preset--color--white);
+  border-radius: 18px;
+  box-shadow:
+    0 8px 32px rgba(47, 66, 93, 0.18),
+    0 1.5px 4px rgba(47, 66, 93, 0.1);
+  font-family: var(--wp--preset--font-family--inter);
+  max-width: 320px;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.accessibility-panel:not(.is-open) {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(30px);
+}
+
+.accessibility-panel__toggle {
+  background: var(--wp--preset--color--primary);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--wp--preset--color--white);
+  box-shadow: 0 2px 8px rgba(47, 66, 93, 0.12);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+  position: absolute;
+  top: -30px;
+  right: 0;
+}
+
+.accessibility-panel__toggle:hover,
+.accessibility-panel__toggle:focus {
+  background: var(--wp--custom--color--primaryhover);
+  color: var(--wp--preset--color--white);
+  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
+}
+
+.accessibility-panel__content {
+  display: none;
+  padding: var(--wp--preset--spacing--s);
+}
+
+.accessibility-panel.is-open .accessibility-panel__content {
+  display: block;
+}
+
+.accessibility-panel__button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--s);
+  margin-bottom: var(--wp--preset--spacing--xs);
+  background: var(--wp--preset--color--white);
+  border: 1px solid var(--wp--preset--color--primary);
+  border-radius: var(--wp--custom--radius--s);
+  cursor: pointer;
+  font-size: var(--wp--preset--font-size--m);
+  color: var(--wp--preset--color--primary);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.accessibility-panel__button:hover,
+.accessibility-panel__button:focus {
+  background: var(--wp--custom--color--primaryhover);
+  color: var(--wp--preset--color--white);
+  border-color: var(--wp--custom--color--primaryhover);
+}
+
+.accessibility-panel__button.is-active {
+  background: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--white);
+  border-color: var(--wp--preset--color--primary);
+}
+
+.accessibility-panel__icon {
+  width: 20px;
+  height: 20px;
+  margin-right: var(--wp--preset--spacing--xs);
+}
+
+/* Amélioration des images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Amélioration des boutons */
+button {
+  padding: 0.75em 1.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+button:hover,
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
+}
+
+/* Amélioration des titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+/* Amélioration des citations */
+blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-left: 4px solid #0073aa;
+  background: #f5f5f5;
+  font-style: italic;
+}
+
+/* Amélioration du code */
+code,
+pre {
+  font-family: Consolas, Monaco, "Andale Mono", monospace;
+  background: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+/* Hauteur de ligne augmentée */
+.line-height-large {
+  line-height: 2 !important;
+}
+
+/* Alignement du texte centré */
+.text-align-center {
+  text-align: center !important;
+}
+
+/* Police très lisible */
+.readable-font,
+.readable-font * {
+  font-family: Arial, Verdana, Tahoma, sans-serif !important;
+  letter-spacing: 0.5px;
+}
+
+/* Niveaux de gris */
+.grayscale {
+  filter: grayscale(1) !important;
+}
+
+/* Masquer les images */
+.hide-images img {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Mettre en pause les animations */
+.pause-animations *,
+.pause-animations *::before,
+.pause-animations *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* Amélioration du masque de lecture */
+.reading-mask::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  top: var(--reading-mask-top, 200px);
+  background: rgba(47, 66, 93, 0.13);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(47, 66, 93, 0.1);
+  pointer-events: none;
+  z-index: 99999;
+  transition:
+    top 0.15s,
+    background 0.2s;
+}
+
+.accessibility-floating-btn {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 10000;
+  background: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--white);
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    color 0.2s;
+  font-size: 20px;
+}
+
+.accessibility-floating-btn:hover,
+.accessibility-floating-btn:focus {
+  background: var(--wp--custom--color--primaryhover);
+  color: var(--wp--preset--color--white);
+  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.22);
+  outline: none;
+}
+
+.accessibility-floating-btn svg,
+.accessibility-floating-btn svg * {
+  fill: var(--wp--preset--color--white) !important;
+  color: var(--wp--preset--color--white) !important;
+}
+
+.accessibility-floating-btn img {
+  width: 32px !important;
+  height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  display: block;
+  margin: auto;
+  pointer-events: none;
+  object-fit: contain;
+}
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10001;
+  background: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--white);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    color 0.2s,
+    opacity 0.2s,
+    border-color 0.2s;
+  font-size: 20px;
+  opacity: 1;
+}
+
+.scroll-to-top-btn:hover,
+.scroll-to-top-btn:focus {
+  background: var(--wp--custom--color--primaryhover);
+  color: var(--wp--preset--color--white);
+  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.22);
+  outline: none;
+}
+
+.scroll-to-top-btn svg,
+.scroll-to-top-btn svg * {
+  fill: var(--wp--preset--color--white) !important;
+  color: var(--wp--preset--color--white) !important;
+}
+
+.scroll-to-top-btn img {
+  width: 32px !important;
+  height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  display: block;
+  margin: 0 auto;
+  pointer-events: none;
+  object-fit: contain;
+  padding: 2px;
+  box-sizing: content-box;
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Transparent",
+  "slug": "transparent",
+  "blockTypes": ["core/button"],
+  "styles": {
+    "color": {
+      "background": "transparent",
+      "text": "var:custom|color|primaryhover"
+    },
+    "border": {
+      "color": "currentColor",
+      "width": "2px",
+      "style": "solid"
+    },
+    "spacing": {
+      "padding": {
+        "top": "calc(var(--wp--preset--spacing--xs) - 2px)",
+        "bottom": "calc(var(--wp--preset--spacing--xs) - 2px)"
+      }
+    }
+  }
+}

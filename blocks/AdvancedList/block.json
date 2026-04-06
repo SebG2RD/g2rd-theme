@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/advanced-list",
+    "version": "1.0.0",
+    "title": "G2RD Liste avancée",
+    "category": "g2rd-blocks",
+    "description": "Liste avec icônes personnalisables (bibliothèque ou image/SVG). Options de couleur et d'espacement par ligne et pour l'ensemble du bloc. Idéal pour listes, menus, boutons.",
+    "keywords": [
+        "list",
+        "liste",
+        "icône",
+        "menu",
+        "boutons"
+    ],
+    "attributes": {
+        "items": {
+            "type": "array",
+            "default": []
+        },
+        "listTag": {
+            "type": "string",
+            "default": "ul"
+        },
+        "iconPosition": {
+            "type": "string",
+            "default": "left"
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 24
+        },
+        "gapBetweenItems": {
+            "type": "number",
+            "default": 12
+        },
+        "styleVariant": {
+            "type": "string",
+            "default": "list"
+        }
+    },
+    "example": {
+        "attributes": {
+            "items": [
+                {
+                    "id": "1",
+                    "content": "Premier élément",
+                    "iconType": "dashicon",
+                    "iconValue": "yes"
+                },
+                {
+                    "id": "2",
+                    "content": "Deuxième élément",
+                    "iconType": "dashicon",
+                    "iconValue": "star-filled"
+                }
+            ]
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "typography": {
+            "fontSize": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

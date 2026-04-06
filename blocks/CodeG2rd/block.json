@@ -1,0 +1,92 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/code",
+    "version": "1.0.0",
+    "title": "G2RD Code",
+    "category": "g2rd-blocks",
+    "icon": {
+      "src": "media-code",
+      "foreground": "#FAFAFA",
+      "background": "#2F425D"
+    },
+    "description": "Bloc de coloration syntaxique avec highlight.js. Éditez votre code en direct avec 0 JS en frontend.",
+    "keywords": [
+        "code",
+        "syntax",
+        "highlight",
+        "coloration"
+    ],
+    "attributes": {
+        "source": {
+            "type": "string",
+            "default": ""
+        },
+        "file": {
+            "type": "string",
+            "default": ""
+        },
+        "language": {
+            "type": "string",
+            "default": "html"
+        },
+        "theme": {
+            "type": "string",
+            "default": "monokai"
+        },
+        "fontSize": {
+            "type": "number",
+            "default": 14
+        },
+        "startLine": {
+            "type": "number",
+            "default": 1
+        },
+        "showLines": {
+            "type": "boolean",
+            "default": true
+        },
+        "wrapLines": {
+            "type": "boolean",
+            "default": true
+        },
+        "border": {
+            "type": "object",
+            "default": []
+        },
+        "borderRadius": {
+            "type": "number",
+            "default": 0
+        },
+        "shadow": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "example": {
+        "attributes": {
+            "source": "<div class=\"example\">Hello World</div>",
+            "language": "html",
+            "theme": "monokai"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": [
+            "left",
+            "right",
+            "wide",
+            "full"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": false
+        },
+        "shadow": false
+    },
+    "textdomain": "g2rd",
+    "render": "file:./render.php",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

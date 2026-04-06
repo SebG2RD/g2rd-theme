@@ -1,0 +1,119 @@
+/* ==========================================================================
+   G2RD Visibilité par appareil — styles Inspector (éditeur uniquement)
+   ========================================================================== */
+
+/* Description */
+.g2rd-vis-description {
+	font-size:   12px;
+	color:       #757575;
+	margin:      0 0 12px;
+	line-height: 1.5;
+}
+
+/* Grille des 3 boutons */
+.g2rd-vis-devices {
+	display:   grid;
+	grid-template-columns: repeat( 3, 1fr );
+	gap:       8px;
+	margin:    0 0 12px;
+}
+
+/* Bouton de base */
+.g2rd-vis-btn {
+	display:          flex;
+	flex-direction:   column;
+	align-items:      center;
+	justify-content:  center;
+	gap:              4px;
+	padding:          10px 6px;
+	border:           2px solid transparent;
+	border-radius:    6px;
+	background:       #f0f0f0;
+	cursor:           pointer;
+	transition:       background 0.15s, border-color 0.15s, opacity 0.15s;
+	font-size:        11px;
+	font-weight:      600;
+	color:            #1e1e1e;
+	text-align:       center;
+	line-height:      1.2;
+}
+
+.g2rd-vis-btn:focus {
+	outline:      2px solid var( --wp-admin-theme-color, #007cba );
+	outline-offset: 1px;
+}
+
+/* Icône appareil */
+.g2rd-vis-btn__device {
+	font-size:    22px;
+	width:        22px;
+	height:       22px;
+}
+
+/* Œil */
+.g2rd-vis-btn__eye {
+	font-size:    14px;
+	width:        14px;
+	height:       14px;
+}
+
+/* ── État : visible (actif) ── */
+.g2rd-vis-btn--visible {
+	background:    #ffffff;
+	border-color:  var( --wp-admin-theme-color, #007cba );
+	color:         var( --wp-admin-theme-color, #007cba );
+}
+
+.g2rd-vis-btn--visible .g2rd-vis-btn__eye {
+	color: #00a32a; /* vert */
+}
+
+/* ── État : masqué (désactivé) ── */
+.g2rd-vis-btn--hidden {
+	background:    #fff3cd;
+	border-color:  #e0aa00;
+	color:         #856404;
+	opacity:       0.85;
+}
+
+.g2rd-vis-btn--hidden .g2rd-vis-btn__eye {
+	color: #dc3232; /* rouge */
+}
+
+.g2rd-vis-btn--hidden .g2rd-vis-btn__device {
+	opacity: 0.5;
+}
+
+/* Résumé */
+.g2rd-vis-summary {
+	display:       flex;
+	align-items:   center;
+	gap:           4px;
+	font-size:     11px;
+	color:         #856404;
+	background:    #fff3cd;
+	border:        1px solid #e0aa00;
+	border-radius: 4px;
+	padding:       6px 10px;
+	margin:        0;
+}
+
+.g2rd-vis-summary .dashicons {
+	font-size:  14px;
+	width:      14px;
+	height:     14px;
+	flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Indicateur visuel dans le canvas éditeur
+   (bloc avec opacity réduite + outline orange quand masqué sur au moins 1 appareil)
+   ========================================================================== */
+
+.block-editor-block-list__block.g2rd-hide-desktop,
+.block-editor-block-list__block.g2rd-hide-tablet,
+.block-editor-block-list__block.g2rd-hide-mobile {
+	outline:        2px dashed #e0aa00 !important;
+	outline-offset: 2px;
+	opacity:        0.65;
+}

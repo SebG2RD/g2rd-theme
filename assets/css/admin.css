@@ -1,0 +1,213 @@
+/* Style pour le tableau de bord des plugins */
+.website-link {
+  color: #2271b1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.website-link:hover {
+  color: #135e96;
+  text-decoration: underline;
+}
+
+/* Style pour les colonnes du tableau */
+.wp-list-table .column-thumbnail {
+  width: 4% !important;
+}
+.wp-list-table .column-title {
+  width: 15% !important;
+}
+.wp-list-table .column-expiration_date {
+  width: 6% !important;
+}
+.wp-list-table .column-days_remaining {
+  width: 6% !important;
+}
+.wp-list-table .column-price {
+  width: 6% !important;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.password-mask {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.password-mask:hover {
+  color: #135e96;
+}
+
+.password-mask.copied {
+  background-color: #edfaff;
+  color: #0078a0;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.toggle-password {
+  cursor: pointer;
+  color: #2271b1;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #135e96;
+}
+
+/* Style pour les jours restants */
+.days-remaining.warning {
+  color: #d63638;
+  font-weight: bold;
+}
+/* style pour la colonne title */
+.wp-list-table .column-title {
+  width: 10% !important;
+}
+
+/* Style pour l'image à la une */
+.plugin-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Style pour l'icône par défaut quand il n'y a pas d'image */
+.dashicons-format-image {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f1;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Admin Styles */
+
+/* Utilisation des variables définies (potentiellement dans login.css ou un fichier global) */
+:root {
+  /* Assurez-vous que ces variables sont définies globalement si admin.css
+       est chargé sur des pages où login.css n'est pas chargé.
+       Si login.css est toujours chargé avant, cette redéfinition n'est pas strictement nécessaire,
+       mais elle sert de fallback. */
+  --primary-color: #2f425d;
+  --secondary-color: #d4a373;
+  --text-light: #f0f0f0; /* Un blanc cassé pour le texte sur fond sombre */
+  --text-dark: #1d2327; /* Couleur texte standard de WP Admin */
+  --menu-highlight-color: var(--secondary-color);
+  --menu-submenu-bg: #25354a; /* Un bleu légèrement plus foncé pour les sous-menus */
+}
+
+/* Admin Bar */
+#wpadminbar {
+  background-color: var(--primary-color) !important;
+}
+
+/* Main Menu */
+#adminmenuwrap,
+#adminmenu,
+#adminmenuback {
+  background-color: var(--primary-color) !important;
+}
+
+/* Menu Links */
+#adminmenu a {
+  color: var(--text-light) !important;
+}
+
+#adminmenu div.wp-menu-image::before {
+  color: var(--text-light) !important;
+}
+
+/* Menu Hover/Focus/Current Styles */
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+  background-color: var(--menu-submenu-bg) !important;
+  color: var(--text-light) !important;
+}
+
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+  background-color: var(--menu-submenu-bg) !important;
+  color: var(--menu-highlight-color) !important;
+}
+
+#adminmenu li.current a.menu-top:hover,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu:hover,
+#adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head {
+  background-color: var(--menu-submenu-bg) !important;
+  color: var(--menu-highlight-color) !important;
+}
+
+#adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+#adminmenu li.current div.wp-menu-image::before,
+#adminmenu a.current:hover div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image::before {
+  color: var(--menu-highlight-color) !important;
+}
+
+/* Submenu */
+#adminmenu .wp-submenu {
+  background-color: var(--menu-submenu-bg) !important;
+}
+
+#adminmenu .wp-submenu a {
+  color: var(--text-light) !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+#adminmenu .wp-submenu a:hover,
+#adminmenu .wp-submenu a:focus,
+#adminmenu .wp-submenu li.current a {
+  color: var(--menu-highlight-color) !important;
+}
+
+/* Admin Bar Text Color */
+#wpadminbar #wp-admin-bar-site-name > a.ab-item,
+#wpadminbar .ab-icon::before,
+#wpadminbar .ab-item::before,
+#wpadminbar a.ab-item,
+#wpadminbar > #wp-toolbar span.ab-label,
+#wpadminbar > #wp-toolbar span.noticon {
+  color: var(--text-light) !important;
+}
+
+/* Admin bar hover */
+#wpadminbar .ab-top-menu > li:hover > .ab-item,
+#wpadminbar .ab-top-menu > li.hover > .ab-item,
+#wpadminbar > #wp-toolbar li.hover span.ab-label,
+#wpadminbar > #wp-toolbar li:hover span.ab-label,
+#wpadminbar .ab-top-menu > li > .ab-item:focus {
+  background-color: var(--menu-submenu-bg) !important;
+  color: var(--text-light) !important;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper {
+  background-color: var(--menu-submenu-bg) !important;
+}
+
+#wpadminbar .quicklinks .menupop ul li a:hover,
+#wpadminbar .quicklinks .menupop ul li a:focus,
+#wpadminbar .quicklinks .menupop ul li a:hover strong,
+#wpadminbar .quicklinks .menupop ul li a:focus strong,
+#wpadminbar .quicklinks .menupop .ab-sub-secondary li a:hover,
+#wpadminbar .quicklinks .menupop .ab-sub-secondary li a:focus,
+#wpadminbar .quicklinks .menupop li:hover a,
+#wpadminbar .quicklinks .menupop li a:focus,
+#wpadminbar .quicklinks .menupop li a:focus span#ab-awaiting-mod,
+#wpadminbar .quicklinks .menupop li a:hover span#ab-updates {
+  color: var(--menu-highlight-color) !important;
+}

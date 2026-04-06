@@ -1,0 +1,17 @@
+[
+  { "label": "HTML", "value": "html", "hljs": "xml" },
+  { "label": "CSS", "value": "css", "hljs": "css" },
+  { "label": "SCSS", "value": "scss", "hljs": "scss" },
+  { "label": "JavaScript", "value": "javascript", "hljs": "javascript" },
+  { "label": "TypeScript", "value": "typescript", "hljs": "typescript" },
+  { "label": "JSON", "value": "json", "hljs": "json" },
+  { "label": "PHP", "value": "php", "hljs": "php" },
+  { "label": "Python", "value": "python", "hljs": "python" },
+  { "label": "Bash / Shell", "value": "bash", "hljs": "bash" },
+  { "label": "SQL", "value": "sql", "hljs": "sql" },
+  { "label": "YAML", "value": "yaml", "hljs": "yaml" },
+  { "label": "Markdown", "value": "markdown", "hljs": "markdown" },
+  { "label": "XML", "value": "xml", "hljs": "xml" },
+  { "label": "Diff", "value": "diff", "hljs": "diff" },
+  { "label": "Texte brut", "value": "plaintext", "hljs": "plaintext" }
+]

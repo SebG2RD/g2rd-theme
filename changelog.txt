@@ -1,0 +1,66 @@
+= 1.2.0 =
+* Refactoring : toutes les fonctionnalites inline de functions.php deplacees dans des classes dediees (/classes/)
+* Nouveau : class-block-editor-enhancements.php (Dashicons canvas, tooltip, responsive, render_block combine)
+* Nouveau : class-coming-soon.php (mode maintenance configurable)
+* Nouveau : class-fluent-cart-support.php (menu support client FluentCart)
+* Nouveau : class-license-manager.php (remplacement SureCart par FluentCart, verification cle API)
+* Suppression : class-surecart-license-manager.php et proxy-g2rd-license.php
+* CPT Prestations : passage a Gutenberg full (suppression des metaboxes)
+* Bloc g2rd/countdown : correction validation (CSS units doubles 20pxpx -> 20px) via deprecation
+* Bloc g2rd/countdown : correction warnings Gutenberg 6.8 (__next40pxDefaultSize, __nextHasNoMarginBottom)
+* Variation de style : ajout WP Manager (Plus Jakarta Sans, palette midnight navy + lime accent)
+* Fix : PHP Fatal Error functions.php (utilisation de __NAMESPACE__ pour le callback after_setup_theme)
+* Fix : preg_replace() retour null dans renderBlock (ajout ?? fallback)
+= 1.0.8 =
+* Amélioration : l'effet particules est automatiquement désactivé lors de l'analyse par Google PageSpeed Insights et Lighthouse, ce qui améliore le score de performance sans impacter l'expérience utilisateur réelle.
+* Technique : nettoyage du JS pour compatibilité WordPress, sans prise en compte des avertissements linter non pertinents. 
+
+= 1.0.7 =
+* Correction : le préfixe et le suffixe du bloc Counter ne sont plus dupliqués en front (JS d'animation).
+* Ajout : possibilité de personnaliser la taille de l'icône ou de l'image dans le bloc Counter (contrôle dans l'éditeur).
+* Correction : effet glass (verre) fusionne désormais correctement le style inline (padding, etc.) au lieu de l'écraser.
+
+= 1.0.6 =
+* Création d'un bloc "G2RD Info" similaire au bloc info d'Astra
+* Support complet des icônes WordPress (Dashicons) et images personnalisées
+* 4 layouts possibles : gauche, droite, haut, bas
+* Personnalisation complète : couleurs, typographie, espacement, bordures, ombres
+* Effets de survol : scale, lift, glow
+* Design responsive et accessible
+* Intégration native avec les classes WordPress
+* Sélecteur d'icônes visuel avec aperçu des Dashicons
+* Plus de 100 icônes organisées par catégories
+* Contrôle d'espacement (gap) dynamique entre icône et texte
+* Optimisation du code avec factorisation et commentaires complets
+* Correction des conflits CSS/inline styles
+* Amélioration de l'alignement et du positionnement des icônes
+
+= 1.0.5 =
+* Création d'un bloc "Toggle Content" pour afficher/masquer deux groupes de blocs.
+* Ajout d'options de personnalisation pour le bloc Toggle : alignement, style et couleurs.
+* Le bloc Toggle utilise une technique 100% CSS (pas de JS en frontend) pour la performance.
+* Création d'une catégorie de blocs "G2RD Bloks" pour regrouper les blocs du thème.
+
+= 1.0.4 =
+* Correction du champ titre éditable dans le bloc countdown
+* Ajout/fiabilisation de l'option d'orientation (ligne/colonne) pour le timer
+* Chargement du CSS du bloc via block.json (compatibilité build)
+* Amélioration du .gitignore pour le dépôt GitHub 
+
+= 1.0.0 =
+* Version initiale
+* Support complet du Full Site Editing
+* Intégration des animations GSAP
+* Effets de particules interactifs
+* Blocs personnalisés pour agences web
+* Support multilingue
+* Optimisations de performance
+* Interface d'administration personnalisée
+* Support des types de contenu personnalisés
+* Configuration JSON pour les blocs et patterns
+* Animations et effets visuels avancés
+* Design responsive
+* Support RTL
+* Accessibilité WCAG 2.1
+* Compatibilité PHP 8.0+
+* Compatibilité WordPress 6.5+ 

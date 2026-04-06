@@ -1,0 +1,11 @@
+/* ==========================================================================
+   G2RD Titre avancé — styles exclusifs à l'éditeur Gutenberg
+   ========================================================================== */
+
+/* Indicateur visuel : contour pointillé sur l'enveloppe animée */
+
+.g2rd-adv-heading__animated-outer {
+	outline:        1px dashed rgba( 0, 100, 255, 0.3 );
+	outline-offset: 2px;
+}
+

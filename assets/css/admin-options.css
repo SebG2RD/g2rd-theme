@@ -1,0 +1,519 @@
+/* ============================================================
+   Page d'options du thème G2RD — admin-options.css
+   Chargé uniquement sur appearance_page_g2rd-theme-settings
+   ============================================================ */
+
+/* ── Wrapper ──────────────────────────────────────────────── */
+.g2rd-options-wrap {
+    max-width: 1100px;
+}
+
+.g2rd-options-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.g2rd-options-title .dashicons {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ── Section ──────────────────────────────────────────────── */
+.g2rd-section {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+}
+
+.g2rd-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    margin: 0 0 6px;
+    padding: 0;
+    border: none;
+    color: #1d2327;
+}
+
+.g2rd-section-title .dashicons {
+    color: #2271b1;
+}
+
+.g2rd-section-desc {
+    color: #646970;
+    font-size: 13px;
+    margin: 0 0 20px;
+}
+
+/* ── Grille de cartes ─────────────────────────────────────── */
+.g2rd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+
+.g2rd-grid--blocks {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+/* ── Carte ────────────────────────────────────────────────── */
+.g2rd-card {
+    background: #fafafa;
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    padding: 14px 16px;
+    transition: border-color 0.15s, opacity 0.15s;
+}
+
+.g2rd-card.is-active {
+    background: #f0f6fc;
+    border-color: #2271b1;
+}
+
+.g2rd-card.is-inactive {
+    opacity: 0.6;
+}
+
+.g2rd-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.g2rd-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.g2rd-card-info strong {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.g2rd-card-desc {
+    color: #646970;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* ── Variante bloc (icône + nom technique) ────────────────── */
+.g2rd-card-info--block {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.g2rd-block-icon {
+    color: #2271b1;
+    flex-shrink: 0;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+}
+
+.g2rd-block-name {
+    color: #8c8f94;
+    display: block;
+    font-size: 10px;
+}
+
+/* ── Toolbar "tout activer / désactiver" ──────────────────── */
+.g2rd-blocks-toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.g2rd-blocks-count {
+    color: #646970;
+    font-size: 12px;
+    margin-left: auto;
+}
+
+/* ── Toggle switch ────────────────────────────────────────── */
+.g2rd-toggle {
+    cursor: pointer;
+    display: inline-block;
+    flex-shrink: 0;
+    height: 22px;
+    position: relative;
+    width: 40px;
+}
+
+.g2rd-toggle input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+}
+
+.g2rd-toggle-slider {
+    background: #c3c4c7;
+    border-radius: 22px;
+    inset: 0;
+    position: absolute;
+    transition: background 0.2s;
+}
+
+.g2rd-toggle-slider::before {
+    background: #fff;
+    border-radius: 50%;
+    bottom: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    content: "";
+    height: 16px;
+    left: 3px;
+    position: absolute;
+    transition: transform 0.2s;
+    width: 16px;
+}
+
+.g2rd-toggle input:checked + .g2rd-toggle-slider {
+    background: #2271b1;
+}
+
+.g2rd-toggle input:checked + .g2rd-toggle-slider::before {
+    transform: translateX(18px);
+}
+
+.g2rd-toggle input:focus-visible + .g2rd-toggle-slider {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+/* ── Section CPT ─────────────────────────────────────────── */
+.g2rd-cpt-panel {
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.15s, opacity 0.15s;
+}
+
+.g2rd-cpt-panel.is-active {
+    border-color: #2271b1;
+}
+
+.g2rd-cpt-panel.is-inactive {
+    opacity: 0.65;
+}
+
+.g2rd-cpt-panel-header {
+    align-items: center;
+    background: #f6f7f7;
+    border-bottom: 1px solid #dcdcde;
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+}
+
+.g2rd-cpt-panel.is-active .g2rd-cpt-panel-header {
+    background: #f0f6fc;
+    border-bottom-color: #c5d9ed;
+}
+
+.g2rd-cpt-icon {
+    color: #2271b1;
+    flex-shrink: 0;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+}
+
+.g2rd-cpt-key {
+    background: #e8eaec;
+    border-radius: 3px;
+    color: #50575e;
+    font-size: 11px;
+    padding: 2px 6px;
+}
+
+.g2rd-cpt-panel-header strong {
+    flex: 1;
+    font-size: 14px;
+}
+
+.g2rd-cpt-toggle {
+    margin-left: auto;
+}
+
+.g2rd-cpt-panel-body {
+    padding: 16px;
+}
+
+.g2rd-cpt-fields-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    margin-bottom: 16px;
+}
+
+.g2rd-cpt-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.g2rd-cpt-group-title {
+    border-bottom: 1px solid #e8eaec;
+    color: #50575e;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0 0 4px;
+    padding-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.g2rd-cpt-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.g2rd-cpt-field span,
+label.g2rd-cpt-field > span:first-child {
+    color: #1d2327;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.g2rd-cpt-field input[type="text"],
+.g2rd-cpt-field input[type="number"] {
+    width: 100%;
+}
+
+.g2rd-cpt-checkbox {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.g2rd-cpt-checkbox span {
+    font-size: 13px;
+}
+
+/* Icône picker */
+.g2rd-icon-picker {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.g2rd-icon-preview-dash {
+    color: #2271b1;
+    flex-shrink: 0;
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+}
+
+.g2rd-icon-input {
+    flex: 1;
+}
+
+/* Taxonomie */
+.g2rd-cpt-taxonomy {
+    background: #fafafa;
+    border: 1px solid #e8eaec;
+    border-radius: 4px;
+    padding: 12px 14px;
+}
+
+.g2rd-cpt-tax-header {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.g2rd-cpt-tax-header .g2rd-cpt-group-title {
+    border: none;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.g2rd-cpt-tax-fields {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.g2rd-cpt-tax-fields.is-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ── Barre de soumission ──────────────────────────────────── */
+.g2rd-submit-bar {
+    padding: 8px 0 16px;
+}
+
+/* ── Section couleurs admin ───────────────────────────────── */
+.g2rd-color-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.g2rd-color-slot {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.g2rd-color-slot-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+    min-width: 230px;
+    flex-shrink: 0;
+}
+
+.g2rd-palette-swatches {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.g2rd-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s, outline-color 0.15s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.g2rd-swatch input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.g2rd-swatch:hover {
+    transform: scale(1.15);
+}
+
+.g2rd-swatch.is-selected {
+    outline-color: #2271b1;
+    transform: scale(1.1);
+}
+
+.g2rd-swatch.is-selected::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Prévisualisation ─────────────────────────────────────── */
+.g2rd-admin-preview {
+    margin-top: 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #dcdcde;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.g2rd-preview-bar {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-weight: 600;
+    font-size: 13px;
+    gap: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.g2rd-preview-body {
+    display: flex;
+    min-height: 100px;
+}
+
+.g2rd-preview-sidebar {
+    width: 160px;
+    flex-shrink: 0;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.g2rd-preview-item {
+    padding: 7px 14px;
+    font-size: 12px;
+    cursor: default;
+    opacity: 0.85;
+}
+
+.g2rd-preview-item--current {
+    opacity: 1;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.g2rd-preview-content {
+    flex: 1;
+    padding: 20px;
+    background: #f0f0f1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.g2rd-preview-label {
+    font-size: 11px;
+    color: #646970;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.g2rd-preview-btn {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    cursor: default;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    align-self: flex-start;
+}

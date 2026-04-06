@@ -1,0 +1,13 @@
+{
+  "name": "g2rd/g2rd-theme",
+  "description": "Thème WordPress G2RD — dépendances PHP (coloration syntaxique du bloc code)",
+  "license": "EUPL-1.2",
+  "require": {
+    "php": ">=7.4",
+    "scrivo/highlight.php": "^9.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/charts",
+    "version": "1.0.0",
+    "title": "G2RD Graphiques",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "chart-bar",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Graphiques interactifs : barres horizontales/verticales, cercle, courbes, aires et barres empilées.",
+    "keywords": ["chart", "graphique", "barres", "cercle", "courbe", "statistiques", "données"],
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./build/index.css",
+    "style": "file:./build/style-index.css",
+    "viewScript": "file:./build/view.js",
+    "attributes": {
+        "chartType": {
+            "type": "string",
+            "default": "bar"
+        },
+        "chartTitle": {
+            "type": "string",
+            "default": ""
+        },
+        "labels": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": ["Janvier", "Février", "Mars", "Avril", "Mai"]
+        },
+        "datasets": {
+            "type": "array",
+            "default": [
+                { "label": "Série A", "data": [65, 59, 80, 81, 56], "color": "#2F425D" },
+                { "label": "Série B", "data": [28, 48, 40, 19, 86], "color": "#4A90D9" }
+            ]
+        },
+        "chartHeight": {
+            "type": "number",
+            "default": 350
+        },
+        "showLegend": {
+            "type": "boolean",
+            "default": true
+        },
+        "showGrid": {
+            "type": "boolean",
+            "default": true
+        },
+        "showValues": {
+            "type": "boolean",
+            "default": false
+        },
+        "stacked": {
+            "type": "boolean",
+            "default": false
+        },
+        "borderRadius": {
+            "type": "number",
+            "default": 4
+        },
+        "tension": {
+            "type": "number",
+            "default": 40
+        },
+        "specMaxValue": {
+            "type": "number",
+            "default": 100
+        },
+        "backgroundColor": {
+            "type": "string",
+            "default": ""
+        },
+        "gridColor": {
+            "type": "string",
+            "default": "rgba(0,0,0,0.08)"
+        },
+        "labelColor": {
+            "type": "string",
+            "default": "#374151"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "color": { "background": true },
+        "spacing": { "margin": true, "padding": true }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/device-mockup",
+    "version": "1.0.0",
+    "title": "G2RD Device Mockup",
+    "category": "g2rd-blocks",
+    "description": "Enveloppe vos images ou vidéos dans des cadres réalistes (smartphone, tablette, ordinateur) générés en CSS.",
+    "keywords": [
+        "mockup",
+        "device",
+        "smartphone",
+        "laptop",
+        "présentation",
+        "écran"
+    ],
+    "attributes": {
+        "deviceType": {
+            "type": "string",
+            "default": "smartphone"
+        },
+        "mediaId": {
+            "type": "number"
+        },
+        "mediaUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "mediaType": {
+            "type": "string",
+            "default": "image"
+        },
+        "mediaAlt": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "example": {
+        "attributes": {
+            "deviceType": "smartphone",
+            "mediaUrl": ""
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

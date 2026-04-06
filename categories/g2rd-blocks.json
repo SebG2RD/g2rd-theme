@@ -1,0 +1,7 @@
+{
+  "slug": "g2rd-blocks",
+  "label": "G2RD Block",
+  "description": "Blocs personnalisés du thème G2RD.",
+  "icon": "layout",
+  "priority": 1
+}

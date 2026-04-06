@@ -1,0 +1,87 @@
+<!-- wp:template-part {"slug":"header","theme":"g2rd-theme","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}}},"backgroundColor":"gray","layout":{"type":"constrained"}} -->
+<main
+  class="wp-block-group has-gray-background-color has-background"
+  style="
+    padding-top: var(--wp--preset--spacing--l);
+    padding-bottom: var(--wp--preset--spacing--l);
+  "
+>
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+  <div class="wp-block-group">
+    <!-- wp:group {"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group">
+      <!-- wp:heading {"level":1} -->
+      <h1 class="wp-block-heading">
+        Un projet, une ambition ? Donnez vie à vos idées avec G2RD Agence Web
+      </h1>
+      <!-- /wp:heading -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:image {"lightbox":{"enabled":false},"id":127,"width":"400px","sizeSlug":"full","linkDestination":"none"} -->
+    <figure class="wp-block-image size-full is-resized">
+      <img
+        src="https://g2rd.fr/wp-content/uploads/2025/05/g2rd-agence-web_solution_mindset_re_57bf.svg"
+        alt="g2rd-agence-web_solution_mindset_re_57bf"
+        class="wp-image-127"
+        style="width: 400px"
+      />
+    </figure>
+    <!-- /wp:image -->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:paragraph -->
+  <p>
+    Chez G2RD Agence Web, nous transformons vos besoins numériques en solutions
+    concrètes et performantes. Spécialisés dans la création et la refonte de
+    sites web, le web design, le référencement SEO, la maintenance et la
+    formation WordPress, nous vous accompagnons à chaque étape de votre projet.
+    Notre objectif : vous fournir une présence en ligne qui reflète votre
+    identité et atteint vos objectifs.
+  </p>
+  <!-- /wp:paragraph -->
+
+  <!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"prestations","order":"asc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"parents":[],"format":[]},"align":"wide","layout":{"type":"constrained"}} -->
+  <div class="wp-block-query alignwide">
+    <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+    <!-- wp:group {"className":"is-style-default","style":{"border":{"width":"1px","radius":"15px"},"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained","justifyContent":"left"},"glassEffect":true,"clickableArticles":true} -->
+    <div
+      class="wp-block-group is-style-default"
+      style="
+        border-width: 1px;
+        border-radius: 15px;
+        padding-top: var(--wp--preset--spacing--xs);
+        padding-right: var(--wp--preset--spacing--s);
+        padding-bottom: var(--wp--preset--spacing--xs);
+        padding-left: var(--wp--preset--spacing--s);
+      "
+    >
+      <!-- wp:post-featured-image {"width":"2.5em","height":"2.5em","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0rem","bottomRight":"0rem"}}}} /-->
+
+      <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|xs","left":"var:preset|spacing|xs","top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs"}}},"layout":{"type":"constrained"}} -->
+      <div
+        class="wp-block-group"
+        style="
+          padding-top: var(--wp--preset--spacing--xs);
+          padding-right: var(--wp--preset--spacing--xs);
+          padding-bottom: var(--wp--preset--spacing--xs);
+          padding-left: var(--wp--preset--spacing--xs);
+        "
+      >
+        <!-- wp:post-title {"textAlign":"left","level":3,"isLink":true} /-->
+
+        <!-- wp:post-excerpt {"textAlign":"left","excerptLength":25,"style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} /-->
+      </div>
+      <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+    <!-- /wp:post-template -->
+  </div>
+  <!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

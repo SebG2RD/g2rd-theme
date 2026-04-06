@@ -1,0 +1,84 @@
+/* ── G2RD Pricing Table — styles frontend ───────────────────────────── */
+
+.g2rd-pricing-table {
+    container-type: inline-size;
+}
+
+/* Grille responsive — les colonnes et breakpoints sont générés dynamiquement
+   en inline CSS par render.php selon le nombre de colonnes réel.
+   Ces règles génériques servent de fallback. */
+.g2rd-pricing-table .g2rd-pt__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--wp--preset--spacing--m);
+    align-items: end;
+}
+
+@media (max-width: 960px) {
+    .g2rd-pricing-table .g2rd-pt__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .g2rd-pricing-table .g2rd-pt__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Container query pour adaptation fine */
+@container (max-width: 600px) {
+    .g2rd-pricing-table .g2rd-pt__grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── Colonne ─────────────────────────────────────────────────────────── */
+.g2rd-pt__col {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.g2rd-pt__col:hover {
+    transform: translateY(-4px) !important;
+}
+
+.g2rd-pt__col--featured:hover {
+    transform: scale(1.04) translateY(-4px) !important;
+}
+
+/* ── Badge ───────────────────────────────────────────────────────────── */
+.g2rd-pt__badge {
+    text-transform: uppercase;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────── */
+.g2rd-pt__cta {
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.g2rd-pt__cta:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+/* ── Features ────────────────────────────────────────────────────────── */
+.g2rd-pt__features li {
+    line-height: 1.5;
+}
+
+/* ── Design : glass ──────────────────────────────────────────────────── */
+.g2rd-pricing-table--glass .g2rd-pt__col {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── Design : minimal ────────────────────────────────────────────────── */
+.g2rd-pricing-table--minimal .g2rd-pt__col {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* ── Design : gradient ───────────────────────────────────────────────── */
+.g2rd-pricing-table--gradient .g2rd-pt__col--featured {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+}

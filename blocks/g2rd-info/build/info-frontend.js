@@ -1,0 +1,2 @@
+document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".g2rd-info-block").forEach(t=>{const e=t.getAttribute("data-hover-effect");e&&"none"!==e&&t.classList.add(`hover-${e}`),t.style.transition="all 0.3s ease",t.addEventListener("focusin",function(){this.style.outline="2px solid #007cba",this.style.outlineOffset="2px"}),t.addEventListener("focusout",function(){this.style.outline="",this.style.outlineOffset=""})})});
+//# sourceMappingURL=info-frontend.js.map

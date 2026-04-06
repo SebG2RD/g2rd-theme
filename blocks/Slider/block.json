@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/slider",
+    "version": "1.0.0",
+    "title": "G2RD Slider",
+    "category": "g2rd-blocks",
+    "description": "Slider avec images et texte. Ajoutez des groupes de blocs (images, paragraphes, etc.) et configurez transitions, pagination et flèches.",
+    "keywords": [
+        "slider",
+        "carousel",
+        "diaporama",
+        "images",
+        "slides"
+    ],
+    "attributes": {
+        "transitionEffect": {
+            "type": "string",
+            "default": "slide"
+        },
+        "transitionDuration": {
+            "type": "number",
+            "default": 500
+        },
+        "showPagination": {
+            "type": "boolean",
+            "default": true
+        },
+        "paginationStyle": {
+            "type": "string",
+            "default": "dots"
+        },
+        "paginationPosition": {
+            "type": "string",
+            "default": "bottom"
+        },
+        "showArrows": {
+            "type": "boolean",
+            "default": true
+        },
+        "arrowType": {
+            "type": "string",
+            "default": "chevron"
+        },
+        "arrowPosition": {
+            "type": "string",
+            "default": "sides"
+        },
+        "autoplay": {
+            "type": "boolean",
+            "default": false
+        },
+        "autoplayInterval": {
+            "type": "number",
+            "default": 5000
+        },
+        "loop": {
+            "type": "boolean",
+            "default": true
+        },
+        "pauseOnHover": {
+            "type": "boolean",
+            "default": true
+        },
+        "blockId": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "transitionEffect": "slide",
+            "showPagination": true,
+            "showArrows": true
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": [
+            "wide",
+            "full"
+        ],
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "script": "file:./view.js"
+}

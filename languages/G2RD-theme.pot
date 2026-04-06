@@ -1,0 +1,225 @@
+# Copyright (C) 2024 Sebastien GERARD
+# This file is distributed under the EUPL-1.2.
+msgid ""
+msgstr ""
+"Project-Id-Version: g2rd-theme 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/g2rd-theme\n"
+"POT-Creation-Date: 2024-03-20T12:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: functions.php:30
+msgid "G2RD"
+msgstr ""
+
+#: classes/class-theme-setup.php:95
+msgid "Design"
+msgstr ""
+
+#: classes/class-theme-setup.php:96
+msgid "Card"
+msgstr ""
+
+#: classes/class-theme-setup.php:97
+msgid "Hero"
+msgstr ""
+
+#: classes/class-theme-setup.php:98
+msgid "Info"
+msgstr ""
+
+#: classes/class-theme-setup.php:99
+msgid "Posts"
+msgstr ""
+
+#: classes/class-theme-setup.php:100
+msgid "Header"
+msgstr ""
+
+#: classes/class-theme-setup.php:101
+msgid "Footer"
+msgstr ""
+
+#: classes/class-theme-setup.php:102
+msgid "Widgets"
+msgstr ""
+
+#: classes/class-shortcode.php:43
+msgid "portfolio_link"
+msgstr ""
+
+#: classes/class-shortcode.php:44
+msgid "portfolio_perf"
+msgstr ""
+
+#: classes/class-shortcode.php:45
+msgid "portfolio_a11y"
+msgstr ""
+
+#: classes/class-shortcode.php:46
+msgid "portfolio_bp"
+msgstr ""
+
+#: classes/class-shortcode.php:47
+msgid "portfolio_seo"
+msgstr ""
+
+#: classes/class-shortcode.php:49
+msgid "experience_dev"
+msgstr ""
+
+#: classes/class-shortcode.php:50
+msgid "soft_skills"
+msgstr ""
+
+#: classes/class-shortcode.php:51
+msgid "methodologie"
+msgstr ""
+
+#: classes/class-shortcode.php:52
+msgid "objectif"
+msgstr ""
+
+#: classes/class-shortcode.php:53
+msgid "icones_images"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:72
+msgid "Portfolio"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:73
+msgid "Tous les projets"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:74
+msgid "Projet"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:75
+msgid "Ajouter un projet"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:76
+msgid "Modifier le projet"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:77
+msgid "Portfolio"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:313
+msgid "Login"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:314
+msgid "Mot de passe"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:315
+msgid "Hébergement"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:316
+msgid "Maintenance"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:317
+msgid "Contrat"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:318
+msgid "Date anniversaire"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:349
+msgid "Oui"
+msgstr ""
+
+#: classes/classe-custom-post-types-portfolio.php:349
+msgid "Non"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:72
+msgid "Prestations"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:73
+msgid "Toutes les prestations"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:74
+msgid "Prestation"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:75
+msgid "Ajouter une prestation"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:76
+msgid "Modifier la prestation"
+msgstr ""
+
+#: classes/classe-custom-post-types-prestations.php:77
+msgid "Prestations"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:72
+msgid "Qui sommes nous"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:73
+msgid "Les membres de l'équipe"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:74
+msgid "Membre"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:75
+msgid "Ajouter un membre"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:76
+msgid "Modifier le membre"
+msgstr ""
+
+#: classes/classe-custom-post-types-qui-sommes-nous.php:77
+msgid "Qui sommes nous"
+msgstr ""
+
+#: assets/js/g2rd-particles-sidebar.js:69
+msgid "Effet de particules"
+msgstr ""
+
+#: assets/js/g2rd-particles-sidebar.js:74
+msgid "Activer l'effet"
+msgstr ""
+
+#: assets/js/g2rd-particles-sidebar.js:76
+msgid "Effet particules activé"
+msgstr ""
+
+#: assets/js/g2rd-particles-sidebar.js:77
+msgid "Effet particules désactivé"
+msgstr ""
+
+#: assets/js/g2rd-clickable-articles-sidebar.js:81
+msgid "Articles cliquables"
+msgstr ""
+
+#: assets/js/g2rd-clickable-articles-sidebar.js:86
+msgid "Activer les articles cliquables"
+msgstr ""
+
+#: assets/js/g2rd-clickable-articles-sidebar.js:88
+msgid "Les articles sont cliquables"
+msgstr ""
+
+#: assets/js/g2rd-clickable-articles-sidebar.js:89
+msgid "Les articles ne sont pas cliquables"
+msgstr "" 

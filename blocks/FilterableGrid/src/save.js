@@ -1,0 +1,101 @@
+import { useBlockProps } from "@wordpress/block-editor";
+
+export default function Save({ attributes }) {
+  const {
+    selectedPostTypes,
+    postsPerPage,
+    showSearch,
+    showTaxonomyFilter,
+    taxonomy,
+    layoutColumns,
+    cardDisplay,
+    linkType,
+    readMoreText,
+    excerptLength,
+    showPagination,
+    blockId,
+    showPrice,
+    showBadge,
+    showDate,
+    showRating,
+    showAddToCart,
+    orderby,
+    order,
+  } = attributes;
+
+  const blockProps = useBlockProps.save({
+    className: "g2rd-filter-grid",
+    "data-post-types":   JSON.stringify(selectedPostTypes),
+    "data-per-page":     String(postsPerPage),
+    "data-show-search":  String(showSearch),
+    "data-show-tax":     String(showTaxonomyFilter),
+    "data-taxonomy":     taxonomy || "",
+    "data-columns":      String(layoutColumns),
+    "data-card-display": cardDisplay,
+    "data-link-type":    linkType,
+    "data-read-more":    readMoreText,
+    "data-excerpt-len":  String(excerptLength),
+    "data-pagination":   String(showPagination),
+    "data-block-id":     blockId || "",
+    "data-show-price":   String(showPrice),
+    "data-show-badge":   String(showBadge),
+    "data-show-date":    String(showDate),
+    "data-show-rating":  String(showRating),
+    "data-show-cart":    String(showAddToCart),
+    "data-orderby":      orderby || "date",
+    "data-order":        order || "DESC",
+  });
+
+  // Squelettes de chargement initial (accessibilité : aria-hidden)
+  const skeletons = Array.from({ length: Math.min(postsPerPage, 6) });
+
+  return (
+    <div {...blockProps}>
+      {showSearch && (
+        <div className="g2rd-filter-grid__controls" aria-label="Filtres">
+          <div className="g2rd-filter-grid__search-form">
+            <input
+              type="search"
+              placeholder="Rechercher…"
+              aria-label="Recherche"
+              disabled
+            />
+          </div>
+          {showTaxonomyFilter && (
+            <div className="g2rd-filter-grid__taxonomy">
+              <select disabled aria-label="Filtrer par catégorie">
+                <option>Toutes les catégories</option>
+              </select>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div
+        className="g2rd-filter-grid__grid"
+        style={{ "--wrb-grid-columns": layoutColumns }}
+        aria-live="polite"
+        aria-busy="true"
+      >
+        {skeletons.map((_, i) => (
+          <div key={i} className="g2rd-filter-grid__card is-skeleton" aria-hidden="true">
+            <div className="g2rd-filter-grid__media"></div>
+            <div className="g2rd-filter-grid__content">
+              <div className="g2rd-filter-grid__badge"></div>
+              <div className="g2rd-filter-grid__title"></div>
+              <div className="g2rd-filter-grid__excerpt"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {showPagination && (
+        <div className="g2rd-filter-grid__pagination is-preview" aria-hidden="true">
+          <button type="button" disabled>←</button>
+          <button type="button" disabled>1</button>
+          <button type="button" disabled>→</button>
+        </div>
+      )}
+    </div>
+  );
+}

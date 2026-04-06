@@ -1,0 +1,379 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "960px",
+      "wideSize": "1440px",
+      "allowCustomContentAndWideSize": true,
+      "allowEditing": true
+    },
+    "appearanceTools": true,
+    "color": {
+      "defaultDuotone": false,
+      "customDuotone": false,
+      "defaultGradients": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "custom": false,
+      "palette": [
+        {
+          "name": "Bleu profond",
+          "slug": "primary",
+          "color": "#2F425D"
+        },
+        {
+          "name": "Beige doré",
+          "slug": "secondary",
+          "color": "#D4A373"
+        },
+        {
+          "name": "Blanc éclatant",
+          "slug": "white",
+          "color": "#FAFAFA"
+        }
+      ],
+      "gradients": [
+        {
+          "name": "Bleu dégradé",
+          "slug": "blue",
+          "gradient": "linear-gradient(90deg, #2f425d 0%, #fafafa 100%)"
+        },
+        {
+          "name": "Beige dégradé",
+          "slug": "beige",
+          "gradient": "linear-gradient(90deg, #d4a373 0%, #fafafa 100%)"
+        },
+        {
+          "name": "Bleu beige",
+          "slug": "bleubeige",
+          "gradient": "linear-gradient(135deg, #2f425d 0%, #d4a373 100%)"
+        }
+      ],
+      "duotone": [
+        {
+          "name": "Bleu",
+          "slug": "blue",
+          "colors": ["#2f425d", "#d4a373"]
+        },
+        {
+          "name": "Rose",
+          "slug": "pink",
+          "colors": ["#d4a373", "#fafafa"]
+        },
+        {
+          "name": "Vert",
+          "slug": "green",
+          "colors": ["#2f425d", "#d4a373"]
+        }
+      ],
+      "link": true,
+      "text": true,
+      "background": true,
+      "caption": true,
+      "button": true,
+      "heading": true
+    },
+    "spacing": {
+      "blockGap": true,
+      "customSpacingSize": false,
+      "defaultSpacingSizes": false,
+      "margin": false,
+      "padding": true,
+      "units": ["%", "em", "rem", "vh", "vw"],
+      "spacingSizes": [
+        {
+          "name": "Très petit",
+          "size": "1rem",
+          "slug": "xs"
+        },
+        {
+          "name": "Petit",
+          "size": "1.6rem",
+          "slug": "s"
+        },
+        {
+          "name": "Moyen",
+          "size": "3.2rem",
+          "slug": "m"
+        },
+        {
+          "name": "Grand",
+          "size": "4.8rem",
+          "slug": "l"
+        },
+        {
+          "name": "Très grand",
+          "size": "6.4rem",
+          "slug": "xl"
+        }
+      ],
+      "spacingScale": {}
+    },
+    "typography": {
+      "customFontSize": true,
+      "defaultFontSizes": true,
+      "dropCap": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "lineHeight": true,
+      "textAlign": true,
+      "textColumns": true,
+      "textDecoration": true,
+      "textTransform": true,
+      "writingMode": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "Rubik",
+          "name": "Rubik",
+          "slug": "rubik",
+          "fontFace": [
+            {
+              "fontFamily": "Rubik",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Rubik-Regular.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "'Quantum', sans-serif",
+          "name": "Quantum",
+          "slug": "Quantum",
+          "fontFace": [
+            {
+              "fontFamily": "Quantum",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Quantum.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "DM Serif Display",
+          "name": "DM Serif Display",
+          "slug": "dm-serif-display",
+          "fontFace": [
+            {
+              "fontFamily": "DM Serif Display",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/DMSerifDisplay-Regular.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "'Audiowide', sans-serif",
+          "name": "Audiowide",
+          "slug": "audiowide",
+          "fontFace": [
+            {
+              "fontFamily": "Audiowide",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/audiowide.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "Inter, sans-serif",
+          "name": "Inter",
+          "slug": "inter",
+          "fontFace": [
+            {
+              "fontFamily": "Inter",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Inter_28pt-Regular.woff2"]
+            }
+          ]
+        },
+        {
+          "fontFamily": "Plus Jakarta Sans, sans-serif",
+          "name": "Plus Jakarta Sans",
+          "slug": "plus-jakarta-sans",
+          "fontFace": [
+            {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/PlusJakartaSans-Regular.woff2"]
+            }
+          ]
+        },
+        {
+          "name": "Source Sans Pro",
+          "slug": "source-sans-pro",
+          "fontFamily": "Source Sans Pro, sans-serif"
+        },
+        {
+          "name": "Lora",
+          "slug": "lora",
+          "fontFamily": "Lora, serif"
+        }
+      ],
+      "fontSizes": [
+        {
+          "name": "Petit",
+          "size": "0.88rem",
+          "slug": "s",
+          "fluid": {
+            "min": "0.55rem",
+            "max": "0.88rem"
+          }
+        },
+        {
+          "name": "Moyen",
+          "size": "1.125rem",
+          "slug": "m",
+          "fluid": {
+            "min": "1rem",
+            "max": "1.125rem"
+          }
+        },
+        {
+          "name": "Grand",
+          "size": "1.4rem",
+          "slug": "l",
+          "fluid": {
+            "min": "1.125rem",
+            "max": "1.4rem"
+          }
+        },
+        {
+          "name": "Très Grand",
+          "size": "3rem",
+          "slug": "xl",
+          "fluid": {
+            "min": "1.5rem",
+            "max": "3rem"
+          }
+        },
+        {
+          "name": "Énorme",
+          "size": "4rem",
+          "slug": "xxl",
+          "fluid": {
+            "min": "2rem",
+            "max": "4rem"
+          }
+        }
+      ]
+    },
+    "custom": {
+      "fontWeight": {
+        "regular": 400,
+        "semibold": 600,
+        "bold": 700
+      },
+      "lineHeight": {
+        "narrow": 1.2,
+        "regular": 1.5,
+        "large": 1.8
+      },
+      "radius": {
+        "s": "4px",
+        "m": "10px",
+        "l": "20px",
+        "full": "999px"
+      },
+      "color": {
+        "primaryhover": "#4B6A95",
+        "secondaryhover": "#8C5C2B",
+        "whitehover": "#CCCCCC"
+      }
+    },
+    "blocks": {
+      "core/group": {
+        "layout": {
+          "allowEditing": true,
+          "allowCustomContentAndWideSize": true
+        },
+        "spacing": {
+          "padding": true,
+          "margin": true
+        }
+      },
+      "core/row": {
+        "layout": {
+          "allowEditing": true,
+          "allowCustomContentAndWideSize": true
+        }
+      },
+      "core/image": {
+        "lightbox": {
+          "enabled": true,
+          "allowEditing": true
+        }
+      },
+      "g2rd/countdown": {
+        "color": {
+          "background": true,
+          "text": true
+        },
+        "spacing": {
+          "margin": true,
+          "padding": true
+        },
+        "typography": {
+          "fontSize": true,
+          "fontFamily": true,
+          "fontWeight": true,
+          "lineHeight": true
+        }
+      }
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "background": {
+      "backgroundImage": true,
+      "backgroundSize": true
+    },
+    "dimensions": {
+      "defaultAspectRatios": true,
+      "aspectRatio": true,
+      "minHeight": true
+    },
+    "position": {
+      "sticky": true
+    },
+    "shadow": {
+      "defaultPresets": true,
+      "presets": [
+        {
+          "name": "Douce",
+          "slug": "light",
+          "shadow": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+        },
+        {
+          "name": "Fine",
+          "slug": "neat",
+          "shadow": "12px 12px 2px 1px rgba(99, 99, 99, 0.4)"
+        },
+        {
+          "name": "Imposante",
+          "slug": "huge",
+          "shadow": "10px 5px 5px rgba(0, 0, 0, 0.1);"
+        }
+      ]
+    }
+  }
+}

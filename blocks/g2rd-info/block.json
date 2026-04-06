@@ -1,0 +1,90 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/info",
+  "version": "1.0.0",
+  "title": "G2RD Info",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "info",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "A customizable info block with image/icon, title and description",
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": true,
+    "alignWide": true
+  },
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": ["dashicons", "file:./src/info.css"],
+  "attributes": {
+    "mediaType": {
+      "type": "string",
+      "default": "icon"
+    },
+    "icon": {
+      "type": "string",
+      "default": "dashicons-info"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Information"
+    },
+    "description": {
+      "type": "string",
+      "default": "Add your description here..."
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "descriptionColor": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "iconColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "iconSize": {
+      "type": "number",
+      "default": 48
+    },
+    "gap": {
+      "type": "string",
+      "default": "16px"
+    },
+    "layout": {
+      "type": "string",
+      "default": "icon-left"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/table-of-contents",
+    "version": "1.0.0",
+    "title": "G2RD Table des matières",
+    "category": "g2rd-blocks",
+    "description": "Sommaire interactif généré automatiquement à partir des titres du contenu pour faciliter la lecture et la navigation.",
+    "keywords": [
+        "sommaire",
+        "table des matières",
+        "navigation",
+        "titres",
+        "toc"
+    ],
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": "Sommaire"
+        },
+        "headingLevels": {
+            "type": "string",
+            "default": "2,3,4"
+        },
+        "listStyle": {
+            "type": "string",
+            "default": "bullet"
+        },
+        "blockId": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "title": "Sommaire"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "text": true,
+            "background": true
+        },
+        "typography": {
+            "fontSize": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}

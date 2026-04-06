@@ -1,0 +1,123 @@
+/* G2RD Block API — Styles éditeur uniquement */
+
+.g2rd-block-api-editor {
+	border: 2px dashed #2f425d;
+	border-radius: 8px;
+	padding: 16px;
+	background: #f8fafc;
+}
+
+.g2rd-block-api-header {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 12px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.g2rd-block-api-badge {
+	display: inline-block;
+	background: #2f425d;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 3px 10px;
+	border-radius: 20px;
+	white-space: nowrap;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.g2rd-block-api-url {
+	font-size: 12px;
+	color: #475569;
+	font-family: monospace;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 340px;
+}
+
+.g2rd-block-api-template-wrap {
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 6px;
+	padding: 12px;
+}
+
+.g2rd-block-api-template-label {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #94a3b8;
+	margin: 0 0 8px;
+}
+
+/* Lignes en-têtes / mappages dans le panneau latéral */
+
+.g2rd-api-header-row,
+.g2rd-api-mapping-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 0;
+	border-bottom: 1px solid #f1f5f9;
+	font-size: 12px;
+}
+
+.g2rd-api-header-row code,
+.g2rd-api-mapping-row code {
+	font-family: monospace;
+	background: #f1f5f9;
+	padding: 1px 5px;
+	border-radius: 3px;
+	max-width: 80%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Texte d'aide secondaire dans les panneaux */
+
+.g2rd-api-panel-hint {
+	font-size: 12px;
+	color: #6b7280;
+	margin: 4px 0 8px;
+}
+
+/* Notice d'erreur du test API */
+
+.g2rd-api-test-notice {
+	margin-top: 8px;
+}
+
+/* Label de résultat du test */
+
+.g2rd-api-test-label {
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+/* Zone de résultat du test API */
+
+.g2rd-api-test-result {
+	margin-top: 10px;
+}
+
+.g2rd-api-test-pre {
+	background: #1e293b;
+	color: #e2e8f0;
+	padding: 10px 12px;
+	border-radius: 6px;
+	font-size: 11px;
+	line-height: 1.5;
+	overflow: auto;
+	max-height: 220px;
+	white-space: pre-wrap;
+	word-break: break-all;
+	margin: 0;
+}
+

@@ -1,0 +1,113 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/filterable-grid",
+    "version": "1.0.0",
+    "title": "G2RD Grille filtrable de contenus",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "grid-view",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Affiche une grille dynamique de contenus avec onglets de filtrage par type, recherche instantanée et pagination.",
+    "keywords": [
+        "grille",
+        "filtre",
+        "post type",
+        "pagination",
+        "search"
+    ],
+    "attributes": {
+        "selectedPostTypes": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": [
+                "post"
+            ]
+        },
+        "postsPerPage": {
+            "type": "number",
+            "default": 6
+        },
+        "showSearch": {
+            "type": "boolean",
+            "default": true
+        },
+        "showTaxonomyFilter": {
+            "type": "boolean",
+            "default": false
+        },
+        "taxonomy": {
+            "type": "string",
+            "default": "category"
+        },
+        "layoutColumns": {
+            "type": "number",
+            "default": 3
+        },
+        "cardDisplay": {
+            "type": "string",
+            "default": "summary"
+        },
+        "linkType": {
+            "type": "string",
+            "default": "title"
+        },
+        "readMoreText": {
+            "type": "string",
+            "default": "Lire la suite"
+        },
+        "excerptLength": {
+            "type": "number",
+            "default": 150
+        },
+        "showPagination": {
+            "type": "boolean",
+            "default": true
+        },
+        "blockId":      { "type": "string" },
+        "showPrice":    { "type": "boolean", "default": true },
+        "showBadge":    { "type": "boolean", "default": true },
+        "showDate":     { "type": "boolean", "default": true },
+        "showRating":   { "type": "boolean", "default": false },
+        "showAddToCart":{ "type": "boolean", "default": false },
+        "orderby":      { "type": "string",  "default": "date" },
+        "order":        { "type": "string",  "default": "DESC" }
+    },
+    "example": {
+        "attributes": {
+            "selectedPostTypes": [
+                "post",
+                "page"
+            ],
+            "showSearch": true,
+            "layoutColumns": 3
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": [
+            "wide",
+            "full"
+        ],
+        "color": {
+            "text": true,
+            "background": true
+        },
+        "typography": {
+            "fontSize": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "script": "file:./build/view.js"
+}

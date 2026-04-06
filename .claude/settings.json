@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"C:/Users/gerar/Downloads/Développement Web/\"*.zip)",
+      "Bash(powershell -Command \"Get-ChildItem 'C:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\' -Filter '*.zip' | Select-Object Name, Length\")",
+      "Bash(powershell -Command ':*)",
+      "Read(//c/Users/gerar/.claude/projects/c--Users-gerar-Downloads-D-veloppement-Web-G2RD-theme/**)",
+      "Edit(/.claude/skills/react-best-practices/**)",
+      "Bash(grep -v \": void\\\\|: bool\\\\|: string\\\\|: int\\\\|: array\\\\|: \\\\?\\\\\\\\|: WP_\\\\|: \\\\\\\\\\\\\\\\WP_\\\\|__construct\")",
+      "Bash(php -l \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/classes/class-api-connector.php\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+<!-- wp:template-part {"slug":"header","theme":"g2rd-theme","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Publication"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}}},"layout":{"type":"constrained"}} -->
+<main
+  class="wp-block-group"
+  style="
+    padding-top: var(--wp--preset--spacing--l);
+    padding-bottom: var(--wp--preset--spacing--l);
+  "
+>
+  <!-- wp:post-terms {"term":"category"} /-->
+
+  <!-- wp:post-title {"level":1} /-->
+
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+  <div class="wp-block-group">
+    <!-- wp:post-author /-->
+
+    <!-- wp:image {"lightbox":{"enabled":false},"id":43,"width":"55px","height":"auto","sizeSlug":"full","linkDestination":"none","style":{"shadow":"none"}} -->
+    <figure class="wp-block-image size-full is-resized">
+      <img
+        src="http://projetg2rd.local/wp-content/uploads/2025/04/Fichier-2.png"
+        alt="Logo G2RD Agence Web"
+        class="wp-image-43"
+        style="box-shadow: none; width: 55px; height: auto"
+      />
+    </figure>
+    <!-- /wp:image -->
+
+    <!-- wp:post-date /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:post-featured-image {"aspectRatio":"16/9"} /-->
+
+  <!-- wp:post-content /-->
+
+  <!-- wp:post-author /-->
+
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+  <div class="wp-block-group">
+    <!-- wp:post-navigation-link {"type":"previous"} /-->
+
+    <!-- wp:post-navigation-link /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:group {"metadata":{"categories":["posts"],"patternName":"posts-loop","name":"Liste des articles en grille"},"align":"full","layout":{"type":"constrained"}} -->
+  <div class="wp-block-group alignfull">
+    <!-- wp:heading {"textAlign":"left"} -->
+    <h2 class="wp-block-heading has-text-align-left">Retrouvez également</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:query {"queryId":0,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[],"format":[]}} -->
+    <div class="wp-block-query">
+      <!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
+      <!-- wp:group {"className":"g2rd-clickable-article h-article","layout":{"type":"constrained"},"clickableArticles":true} -->
+      <div class="wp-block-group g2rd-clickable-article h-article">
+        <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0rem","bottomRight":"0rem"}}}} /-->
+
+        <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|xs","left":"var:preset|spacing|xs","top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs"}}},"layout":{"type":"constrained"}} -->
+        <div
+          class="wp-block-group"
+          style="
+            padding-top: var(--wp--preset--spacing--xs);
+            padding-right: var(--wp--preset--spacing--xs);
+            padding-bottom: var(--wp--preset--spacing--xs);
+            padding-left: var(--wp--preset--spacing--xs);
+          "
+        >
+          <!-- wp:post-title {"textAlign":"left","level":3} /-->
+
+          <!-- wp:post-date {"textAlign":"left"} /-->
+
+          <!-- wp:post-excerpt {"textAlign":"center","excerptLength":25} /-->
+        </div>
+        <!-- /wp:group -->
+      </div>
+      <!-- /wp:group -->
+      <!-- /wp:post-template -->
+
+      <!-- wp:query-no-results -->
+      <!-- wp:paragraph {"placeholder":"Ajouter un texte ou des blocs qui s'afficheront lorsqu'une requête ne renverra aucun résultat."} -->
+      <p>Il n'y a pas d'article.</p>
+      <!-- /wp:paragraph -->
+      <!-- /wp:query-no-results -->
+    </div>
+    <!-- /wp:query -->
+  </div>
+  <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:group {"metadata":{"name":"Commentaires"},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+  <!-- wp:columns {"align":"wide"} -->
+  <div class="wp-block-columns alignwide">
+    <!-- wp:column -->
+    <div class="wp-block-column">
+      <!-- wp:comments -->
+      <div class="wp-block-comments">
+        <!-- wp:comments-title /-->
+
+        <!-- wp:comment-template -->
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+          <!-- wp:column {"width":"40px"} -->
+          <div class="wp-block-column" style="flex-basis: 40px">
+            <!-- wp:avatar {"size":40,"style":{"border":{"radius":"20px"}}} /-->
+          </div>
+          <!-- /wp:column -->
+
+          <!-- wp:column -->
+          <div class="wp-block-column">
+            <!-- wp:comment-author-name {"fontSize":"small"} /-->
+
+            <!-- wp:group {"style":{"spacing":{"margin":{"top":"0px","bottom":"0px"}}},"layout":{"type":"flex"}} -->
+            <div
+              class="wp-block-group"
+              style="margin-top: 0px; margin-bottom: 0px"
+            >
+              <!-- wp:comment-date {"fontSize":"small"} /-->
+
+              <!-- wp:comment-edit-link {"fontSize":"small"} /-->
+            </div>
+            <!-- /wp:group -->
+
+            <!-- wp:comment-content /-->
+
+            <!-- wp:comment-reply-link {"fontSize":"small"} /-->
+          </div>
+          <!-- /wp:column -->
+        </div>
+        <!-- /wp:columns -->
+        <!-- /wp:comment-template -->
+
+        <!-- wp:comments-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+        <!-- wp:comments-pagination-previous /-->
+
+        <!-- wp:comments-pagination-numbers /-->
+
+        <!-- wp:comments-pagination-next /-->
+        <!-- /wp:comments-pagination -->
+      </div>
+      <!-- /wp:comments -->
+    </div>
+    <!-- /wp:column -->
+
+    <!-- wp:column -->
+    <div class="wp-block-column"><!-- wp:post-comments-form /--></div>
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

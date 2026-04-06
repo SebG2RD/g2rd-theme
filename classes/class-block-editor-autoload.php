@@ -1,0 +1,308 @@
+<?php
+/**
+ * Chargement automatique des blocs de l'éditeur
+ * 
+ * Cette classe gère le chargement automatique des blocs personnalisés
+ * et leur intégration dans l'éditeur Gutenberg.
+ *
+ * @package G2RD
+ * @since 1.0.0
+ * @license EUPL-1.2
+ * @copyright (c) 2024 Sebastien GERARD
+ * @link https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+ */
+
+namespace G2RD;
+
+/**
+ * Gestion de l'auto-chargement des blocs et des assets de l'éditeur
+ * 
+ * Cette classe gère l'enregistrement automatique des blocs personnalisés,
+ * le chargement des styles de blocs et la composition du theme.json.
+ *
+ * @package G2RD
+ * @since 1.0.0
+ */
+class BlockEditorAutoload
+{
+    /**
+     * Clé de cache pour les variations de style
+     */
+    private const CACHE_KEY = 'g2rd_style_variations';
+
+    /**
+     * Durée de validité du cache en secondes (24 heures)
+     */
+    private const CACHE_DURATION = 86400;
+
+    /**
+     * Version du thème pour le cache-busting
+     */
+    private string $theme_version;
+
+    /**
+     * Constructeur
+     */
+    public function __construct()
+    {
+        $this->theme_version = wp_get_theme()->get('Version') ?: '1.0.0';
+    }
+
+    /**
+     * Enregistre tous les hooks nécessaires pour l'éditeur de blocs
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function registerHooks(): void
+    {
+        \add_action('init', [$this, 'registerCustomBlocks']);
+        \add_action('init', [$this, 'registerBlocksAssets']);
+        \add_filter('wp_theme_json_data_theme', [$this, 'composeThemeJson']);
+        
+        // Forcer le rechargement des blocs en mode développement
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            \add_action('admin_init', [$this, 'clearBlockCache']);
+        }
+    }
+
+    /**
+     * Enregistre automatiquement les blocs personnalisés du dossier /blocks/
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function registerCustomBlocks(): void
+    {
+        $folders = \glob(\get_template_directory() . '/blocks/*/');
+
+        foreach ($folders as $folder) {
+            $block      = basename($folder);
+            $block_path = \get_template_directory() . "/blocks/$block";
+            $block_json = $block_path . '/block.json';
+
+            // Ignorer les dossiers sans block.json valide
+            if (!file_exists($block_json)) {
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log("G2RD: block.json introuvable pour le bloc « $block », ignoré.");
+                }
+                continue;
+            }
+
+            $decoded = json_decode((string) file_get_contents($block_json), true);
+            if (json_last_error() !== JSON_ERROR_NONE || empty($decoded['name'])) {
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log("G2RD: block.json invalide pour le bloc « $block » : " . json_last_error_msg());
+                }
+                continue;
+            }
+
+            // Respecter les préférences de la page d'options du thème
+            if (\G2RD\ThemeOptions::isBlockDisabled($decoded['name'])) {
+                continue;
+            }
+
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("Tentative d'enregistrement du bloc: $block_path");
+            }
+
+            $result = \register_block_type($block_path);
+
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                if ($result) {
+                    error_log("✅ Bloc enregistré avec succès: $block");
+                } else {
+                    error_log("❌ Échec de l'enregistrement du bloc: $block");
+                }
+            }
+        }
+    }
+
+    /**
+     * Charge automatiquement les styles CSS des blocs
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function registerBlocksAssets(): void
+    {
+        $dir   = \get_template_directory();
+        $cache_key = 'g2rd_block_css_' . md5( (string) @filemtime( $dir . '/assets/css' ) );
+
+        /** @var array<string>|false $files */
+        $files = \get_transient( $cache_key );
+        if ( false === $files ) {
+            $files = \glob( $dir . '/assets/css/*.css' ) ?: [];
+            // Cache 24 h — invalidé automatiquement dès qu'un fichier CSS change (mtime du dossier)
+            \set_transient( $cache_key, $files, DAY_IN_SECONDS );
+        }
+
+        foreach ( $files as $file ) {
+            $filename   = basename( $file, '.css' );
+            $block_name = str_replace( 'core-', 'core/', $filename );
+
+            \wp_enqueue_block_style(
+                $block_name,
+                [
+                    'handle' => "g2rd-{$filename}",
+                    'src'    => \get_theme_file_uri( "assets/css/{$filename}.css" ),
+                    'path'   => \get_theme_file_path( "assets/css/{$filename}.css" ),
+                    'ver'    => @filemtime( $file ),
+                ]
+            );
+        }
+    }
+
+    /**
+     * Charge et décode un fichier JSON avec gestion d'erreur.
+     *
+     * @since 1.0.0
+     * @param string $path Chemin absolu vers le fichier JSON.
+     * @return array<string, mixed>|null  Tableau décodé, ou null si fichier absent/invalide.
+     */
+    private function loadJsonFile(string $path): ?array
+    {
+        if (!file_exists($path) || !is_readable($path)) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("G2RD: Fichier JSON introuvable ou illisible : $path");
+            }
+            return null;
+        }
+
+        $content = file_get_contents($path);
+        if (false === $content) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("G2RD: Impossible de lire le fichier JSON : $path");
+            }
+            return null;
+        }
+
+        $decoded = json_decode($content, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("G2RD: JSON invalide dans $path — " . json_last_error_msg());
+            }
+            return null;
+        }
+
+        return $decoded;
+    }
+
+    /**
+     * Calcule une clé de cache basée sur le mtime des fichiers JSON sources.
+     * Le cache s'invalide automatiquement dès qu'un fichier est modifié.
+     *
+     * @since 1.0.0
+     * @return string
+     */
+    private function getThemeJsonCacheKey(): string
+    {
+        $dir  = \get_template_directory();
+        $mtimes = [
+            @filemtime($dir . '/theme-styles.json'),
+            @filemtime($dir . '/theme-settings.json'),
+        ];
+
+        foreach (\glob($dir . '/styles/*.json') ?: [] as $f) {
+            $mtimes[] = @filemtime($f);
+        }
+
+        return 'g2rd_theme_json_' . md5(implode('_', $mtimes));
+    }
+
+    /**
+     * Compose le theme.json à partir des fichiers de configuration
+     *
+     * Cette méthode fusionne les fichiers theme-styles.json, theme-settings.json
+     * et les variations de style pour créer une configuration complète.
+     * Le résultat est mis en cache via un transient WordPress.
+     *
+     * @since 1.0.0
+     * @param \WP_Theme_JSON_Data $theme_json Données du theme.json actuel
+     * @return \WP_Theme_JSON_Data Données mises à jour du theme.json
+     */
+    public function composeThemeJson($theme_json): mixed
+    {
+        $cache_key = $this->getThemeJsonCacheKey();
+
+        // En production, tenter de lire depuis le cache transient
+        if (!defined('WP_DEBUG') || !WP_DEBUG) {
+            $cached = \get_transient($cache_key);
+            if (false !== $cached) {
+                return $theme_json->update_with($cached);
+            }
+        }
+
+        // Charger les JSON secondaires avec gestion d'erreur défensive
+        $dir            = \get_template_directory();
+        $theme_styles   = $this->loadJsonFile($dir . '/theme-styles.json');
+        $theme_settings = $this->loadJsonFile($dir . '/theme-settings.json');
+
+        // Interrompre si les fichiers sources sont corrompus
+        if (null === $theme_styles || null === $theme_settings) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('G2RD: Impossible de composer theme.json — fichier source invalide.');
+            }
+            return $theme_json;
+        }
+
+        // Charger les variations de style
+        $style_files = \glob($dir . '/styles/*.json') ?: [];
+        $variations  = [];
+
+        foreach ($style_files as $style_file) {
+            $style_data = $this->loadJsonFile($style_file);
+            if (null !== $style_data && isset($style_data['title'])) {
+                $variations[] = $style_data;
+            }
+        }
+
+        $new_data = [
+            'version'    => 3,
+            'settings'   => $theme_settings['settings'] ?? [],
+            'styles'     => $theme_styles['styles'] ?? [],
+            'variations' => $variations,
+        ];
+
+        // Mettre en cache pour les prochaines requêtes (hors WP_DEBUG)
+        if (!defined('WP_DEBUG') || !WP_DEBUG) {
+            \set_transient($cache_key, $new_data, self::CACHE_DURATION);
+        }
+
+        return $theme_json->update_with($new_data);
+    }
+
+    /**
+     * Vide le cache des blocs et des transients du theme.json
+     *
+     * Utilise l'API WordPress (delete_transient) plutôt qu'une requête SQL directe
+     * afin d'assurer la compatibilité avec les backends de cache externes (Redis, Memcached).
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function clearBlockCache(): void
+    {
+        // Supprimer les transients du theme.json via l'API WordPress
+        // (compatible Redis / Memcached / tout object cache)
+        global $wpdb;
+
+        $transient_keys = $wpdb->get_col(
+            $wpdb->prepare(
+                "SELECT REPLACE(option_name, '_transient_', '') FROM {$wpdb->options}
+                 WHERE option_name LIKE %s",
+                $wpdb->esc_like('_transient_g2rd_theme_json_') . '%'
+            )
+        );
+
+        foreach ($transient_keys as $key) {
+            \delete_transient($key);
+        }
+
+        \wp_cache_flush();
+
+        if (function_exists('wp_clean_themes_cache')) {
+            \wp_clean_themes_cache();
+        }
+    }
+}

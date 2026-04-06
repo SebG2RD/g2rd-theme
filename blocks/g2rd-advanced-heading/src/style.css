@@ -1,0 +1,93 @@
+/* ==========================================================================
+   G2RD Titre avancé — styles frontend + éditeur
+   ========================================================================== */
+
+/* ── Conteneur principal ── */
+.g2rd-adv-heading-wrap {
+	position: relative;
+	display:  block;
+}
+
+/* ── Titre ── */
+.g2rd-adv-heading {
+	margin:      0;
+	line-height: 1.2;
+}
+
+/* ── Enveloppe des mots animés ── */
+.g2rd-adv-heading__animated-outer {
+	display: inline;
+}
+
+/* ── Wrapper interne (géré par JS) ── */
+.g2rd-adv-heading__animated-wrap {
+	display:        inline-block;
+	vertical-align: middle;
+}
+
+/* ── Chaque mot ── */
+.g2rd-adv-heading__word {
+	display:    block;
+	opacity:    0;
+	position:   absolute;
+	top:        0;
+	left:       0;
+	white-space: nowrap;
+	will-change: transform, opacity;
+}
+
+.g2rd-adv-heading__word.is-visible {
+	opacity:  1;
+	position: relative; /* donne la hauteur au conteneur au chargement */
+}
+
+/* ==========================================================================
+   Décorations
+   ========================================================================== */
+
+/* ── Zigzag ── */
+.has-decorator--zigzag {
+	text-decoration:           underline wavy;
+	text-decoration-color:     var( --g2rd-dec-color, currentColor );
+	text-decoration-thickness: var( --g2rd-dec-size, 3px );
+	text-underline-offset:     4px;
+}
+
+/* ── Soulignement / bordure ── */
+.has-decorator--border {
+	border-bottom:  var( --g2rd-dec-size, 3px ) solid var( --g2rd-dec-color, currentColor );
+	padding-bottom: 2px;
+}
+
+/* ── Cercle autour du texte ── */
+.has-decorator--circle {
+	outline:        var( --g2rd-dec-size, 3px ) solid var( --g2rd-dec-color, currentColor );
+	outline-offset: 6px;
+	border-radius:  100vw;
+	padding:        0 0.5em;
+	/* marge pour que le cercle ne colle pas aux éléments voisins */
+	margin:         0 0.2em;
+}
+
+/* ── Badge numéroté ── */
+.g2rd-adv-heading__number-badge {
+	display:          inline-flex;
+	align-items:      center;
+	justify-content:  center;
+	border-radius:    50%;
+	font-weight:      700;
+	line-height:      1;
+	vertical-align:   middle;
+	margin-right:     0.4em;
+	flex-shrink:      0;
+}
+
+/* ==========================================================================
+   Accessibilité
+   ========================================================================== */
+
+@media ( prefers-reduced-motion: reduce ) {
+	.g2rd-adv-heading__word {
+		transition: none !important;
+	}
+}

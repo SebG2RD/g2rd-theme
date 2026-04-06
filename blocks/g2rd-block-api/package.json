@@ -1,0 +1,11 @@
+{
+  "name": "g2rd-block-api",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack --config webpack.config.js --mode development --watch"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.7.0"
+  }
+}

@@ -1,0 +1,78 @@
+<!-- wp:template-part {"slug":"header","theme":"g2rd-theme","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}}},"backgroundColor":"gray","layout":{"type":"constrained"}} -->
+<main
+  class="wp-block-group has-gray-background-color has-background"
+  style="
+    padding-top: var(--wp--preset--spacing--l);
+    padding-bottom: var(--wp--preset--spacing--l);
+  "
+>
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+  <div class="wp-block-group">
+    <!-- wp:group {"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group">
+      <!-- wp:heading {"level":1} -->
+      <h1 class="wp-block-heading">Qui sommes nous ?</h1>
+      <!-- /wp:heading -->
+
+      <!-- wp:paragraph -->
+      <p>
+        <strong>G2RD Agence Web</strong>, votre partenaire pour la réussite en
+        ligne
+      </p>
+      <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:image {"id":97,"width":"400px","sizeSlug":"full","linkDestination":"none"} -->
+    <figure class="wp-block-image size-full is-resized">
+      <img
+        src="http://projetg2rd.local/wp-content/uploads/2025/05/g2rd-agence-web_engineering_team_a7n2.svg"
+        alt="g2rd-agence-web_engineering_team_a7n2"
+        class="wp-image-97"
+        style="width: 400px"
+      />
+    </figure>
+    <!-- /wp:image -->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:query {"queryId":4,"query":{"perPage":6,"pages":0,"offset":0,"postType":"qui-sommes-nous","order":"asc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"parents":[],"format":[]}} -->
+  <div class="wp-block-query">
+    <!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|m"}},"layout":{"type":"grid","columnCount":1,"minimumColumnWidth":null}} -->
+    <!-- wp:columns {"verticalAlignment":null,"style":{"border":{"width":"1px"},"shadow":"6px 6px 9px rgba(0, 0, 0, 0.2)"},"clickableArticles":true} -->
+    <div
+      class="wp-block-columns"
+      style="border-width: 1px; box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.2)"
+    >
+      <!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
+      <div
+        class="wp-block-column is-vertically-aligned-center"
+        style="flex-basis: 33.33%"
+      >
+        <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"auto","width":"","height":"","sizeSlug":"full","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}},"spacing":{"margin":{"bottom":"var:preset|spacing|xs"}},"layout":{"selfStretch":"fit","flexSize":null}}} /-->
+      </div>
+      <!-- /wp:column -->
+
+      <!-- wp:column {"verticalAlignment":"center","width":"66.66%"} -->
+      <div
+        class="wp-block-column is-vertically-aligned-center"
+        style="flex-basis: 66.66%"
+      >
+        <!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"fontSize":"l"} /-->
+
+        <!-- wp:post-terms {"term":"categories-qui-sommes-nous"} /-->
+
+        <!-- wp:post-excerpt /-->
+      </div>
+      <!-- /wp:column -->
+    </div>
+    <!-- /wp:columns -->
+    <!-- /wp:post-template -->
+  </div>
+  <!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

@@ -1,0 +1,69 @@
+/**
+ * Styles pour le bloc G2RD Typed
+ */
+
+.g2rd-typed {
+  display: block;
+  position: relative;
+}
+
+.g2rd-typed-editor {
+  display: block;
+  position: relative;
+}
+
+.typed-text-before {
+  display: inline;
+}
+
+.typed-text-animated {
+  display: inline;
+  min-height: 1.2em;
+}
+
+.typed-text-after {
+  display: inline;
+}
+
+.typed-cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Styles pour l'éditeur */
+.g2rd-typed-editor .typed-text-animated {
+  background-color: #f0f0f0;
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: 1px dashed #ccc;
+}
+
+/* Styles pour le frontend */
+.g2rd-typed .typed-cursor {
+  color: inherit;
+}
+
+/* Support pour le fondu */
+.typed-fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .g2rd-typed {
+    font-size: 0.9em;
+  }
+}

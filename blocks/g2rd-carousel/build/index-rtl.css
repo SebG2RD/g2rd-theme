@@ -1,0 +1,937 @@
+/* G2RD Carousel Styles */
+
+.g2rd-carousel {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Header Styles */
+
+.carousel-header {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.carousel-badge {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  z-index: 10;
+}
+
+.badge-icon {
+  margin-left: 6px;
+  color: #eebde0;
+}
+
+.carousel-title {
+  text-align: center;
+  padding-top: 60px;
+  margin-bottom: 30px;
+}
+
+.carousel-title h2 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0 0 10px 0;
+  color: inherit;
+  opacity: inherit;
+}
+
+.carousel-title p {
+  font-size: 1.1rem;
+  color: var(--wp--preset--color--secondary, #666);
+  margin: 0;
+}
+
+/* Container Styles */
+
+.carousel-container {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Swiper Styles - Version moderne */
+
+.swiper {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 280px;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide.no-shadow {
+  box-shadow: none;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide:hover .carousel-image {
+  transform: scale(1.05);
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide:hover .carousel-caption {
+  transform: translateY(0);
+}
+
+.carousel-post-info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide:hover .carousel-post-info {
+  transform: translateY(0);
+}
+
+.carousel-post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.carousel-post-excerpt {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0.9;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Navigation Buttons */
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.swiper-button-prev::before,
+.swiper-button-next::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(-135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.swiper-button-prev:hover::before,
+.swiper-button-next:hover::before {
+  opacity: 1;
+}
+
+.swiper-button-prev:active,
+.swiper-button-next:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid #333;
+  border-top: none;
+  border-left: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-button-prev::after {
+  transform: rotate(-45deg);
+  margin-right: 4px;
+}
+
+.swiper-button-next::after {
+  transform: rotate(-225deg);
+  margin-left: 4px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  animation: slideInButtons 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInButtons {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Couleurs personnalisées pour les boutons */
+
+.has-primary-color .swiper-button-prev,
+.has-primary-color .swiper-button-next {
+  background: var(--wp--preset--color--primary, #007cba);
+}
+
+.has-secondary-color .swiper-button-prev,
+.has-secondary-color .swiper-button-next {
+  background: var(--wp--preset--color--secondary, #6c757d);
+}
+
+.has-primary-background-color .swiper-button-prev,
+.has-primary-background-color .swiper-button-next {
+  background: var(--wp--preset--color--primary, #007cba);
+}
+
+.has-secondary-background-color .swiper-button-prev,
+.has-secondary-background-color .swiper-button-next {
+  background: var(--wp--preset--color--secondary, #6c757d);
+}
+
+/* Pagination */
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-pagination-bullet-active {
+  background: #007cba;
+  transform: scale(1.2);
+}
+
+/* Effets 3D et Coverflow */
+
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.swiper-effect-coverflow .swiper-slide {
+  transition-property: transform;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Responsive pour différents nombres de slides */
+
+.swiper[data-slides-per-view="1"] .swiper-slide {
+  width: 100% !important;
+}
+
+.swiper[data-slides-per-view="3"] .swiper-slide {
+  width: calc(33.333% - 20px) !important;
+}
+
+.swiper[data-slides-per-view="5"] .swiper-slide {
+  width: calc(20% - 16px) !important;
+}
+
+.swiper[data-slides-per-view="7"] .swiper-slide {
+  width: calc(14.285% - 14px) !important;
+}
+
+/* Effet Coverflow amélioré */
+
+.swiper-effect-coverflow .swiper-slide-active {
+  transform: scale(1.1) translateZ(0) !important;
+  z-index: 2;
+}
+
+.swiper-effect-coverflow .swiper-slide-prev,
+.swiper-effect-coverflow .swiper-slide-next {
+  transform: scale(0.85) translateZ(-100px) !important;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.swiper-effect-coverflow .swiper-slide-prev + .swiper-slide,
+.swiper-effect-coverflow .swiper-slide-next + .swiper-slide {
+  transform: scale(0.7) translateZ(-200px) !important;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.swiper-effect-coverflow .swiper-slide-prev + .swiper-slide + .swiper-slide,
+.swiper-effect-coverflow .swiper-slide-next + .swiper-slide + .swiper-slide {
+  transform: scale(0.55) translateZ(-300px) !important;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* Alignement WordPress */
+
+.wp-block-g2rd-carousel.alignwide {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wp-block-g2rd-carousel.alignfull {
+  width: 100vw;
+  max-width: 100vw;
+  margin-right: calc(-50vw + 50%);
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  right: 50%;
+  left: 50%;
+  transform: translateX(50%);
+}
+
+.has-global-padding > .wp-block-g2rd-carousel.alignfull {
+  width: 100vw;
+  max-width: 100vw;
+}
+
+.wp-block-g2rd-carousel.alignfull .g2rd-carousel {
+  max-width: none;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.wp-block-g2rd-carousel.alignfull .swiper {
+  width: 100%;
+  max-width: none;
+}
+
+/* Responsive Styles - Améliorés */
+
+@media (max-width: 1200px) {
+  .g2rd-carousel {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .swiper-slide {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .g2rd-carousel {
+    padding: 15px;
+  }
+
+  .swiper-slide {
+    width: 280px;
+    height: 280px;
+  }
+
+  .carousel-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .carousel-title p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .g2rd-carousel {
+    padding: 8px;
+  }
+
+  .carousel-title h2 {
+    font-size: 1.4rem;
+  }
+
+  .carousel-title p {
+    font-size: 0.85rem;
+  }
+
+  /* Ajuster les slides pour mobile - GRILLE 2x2 OPTIMISÉE */
+  .swiper-slide {
+    width: calc(50% - 5px) !important; /* 2 images par ligne avec espacement */
+    height: 140px !important; /* Hauteur optimisée pour mobile */
+    margin-left: 10px !important; /* Espacement horizontal */
+    margin-bottom: 10px !important; /* Espacement vertical */
+  }
+
+  /* Configuration spécifique pour la grille 2x2 */
+  .swiper-grid-column .swiper-slide {
+    height: calc((100% - 10px) / 2) !important; /* Hauteur pour 2 rangées */
+  }
+
+  /* Optimiser la taille des images sur mobile */
+  .carousel-slide {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 8px; /* Coins arrondis pour mobile */
+    overflow: hidden;
+  }
+
+  .carousel-image {
+    width: 100% !important;
+    height: 100% !important;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+  }
+
+  .carousel-badge {
+    right: 6px;
+    top: 6px;
+    font-size: 8px;
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+
+  .carousel-title {
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  /* Ajuster l'espacement */
+  .swiper {
+    padding-bottom: 20px;
+  }
+
+  /* Optimiser les boutons de navigation */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 25px;
+    height: 25px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 10px;
+  }
+
+  /* Optimiser l'effet Coverflow pour mobile */
+  .swiper-effect-coverflow .swiper-slide-active {
+    transform: scale(1.05) translateZ(0) !important;
+  }
+
+  .swiper-effect-coverflow .swiper-slide-prev,
+  .swiper-effect-coverflow .swiper-slide-next {
+    transform: scale(0.9) translateZ(-50px) !important;
+    opacity: 0.8;
+  }
+
+  /* Masquer les boutons de navigation sur mobile si nécessaire */
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: flex;
+  }
+
+  /* Améliorer la navigation tactile sur mobile */
+  .swiper {
+    touch-action: pan-y pinch-zoom;
+  }
+
+  /* Optimiser les légendes pour mobile */
+  .carousel-caption {
+    padding: 5px;
+    font-size: 0.65rem;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  }
+
+  .carousel-caption h3 {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    line-height: 1.1;
+  }
+
+  .carousel-caption p {
+    font-size: 0.6rem;
+    line-height: 1;
+    margin: 0;
+  }
+
+  /* Optimiser la pagination pour mobile */
+  .swiper-pagination {
+    bottom: 5px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    margin: 0 3px;
+  }
+
+  /* Masquer les boutons de navigation sur mobile (pas de défilement) */
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important; /* Masquer complètement sur mobile */
+  }
+
+  /* Masquer la pagination sur mobile (pas de défilement) */
+  .swiper-pagination {
+    display: none !important; /* Masquer complètement sur mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .g2rd-carousel {
+    padding: 5px !important; /* Réduire encore plus le padding */
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Grille 2x2 optimisée pour très petit écran */
+  .g2rd-carousel .swiper .swiper-wrapper .swiper-slide {
+    width: calc(50% - 3px) !important; /* Encore moins d'espacement */
+    height: 140px !important; /* Hauteur adaptée */
+    margin-left: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Wrapper et slides actives à 100% */
+  .g2rd-carousel .swiper-wrapper {
+    width: 100% !important;
+  }
+
+  .g2rd-carousel .swiper-slide.swiper-slide-active {
+    width: 100% !important;
+  }
+
+  .carousel-title h2 {
+    font-size: 1.3rem;
+  }
+
+  .carousel-title p {
+    font-size: 0.85rem;
+  }
+
+  .carousel-badge {
+    right: 10px;
+    top: 10px;
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .carousel-title {
+    padding-top: 30px;
+  }
+
+  /* Réduire encore plus les boutons */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 30px;
+    height: 30px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 12px;
+  }
+
+  /* Ajuster l'espacement */
+  .swiper {
+    padding-bottom: 35px;
+  }
+
+  /* Masquer les boutons sur très petit écran si nécessaire */
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: flex;
+  }
+
+  /* Améliorer l'espacement des slides sur mobile */
+  .swiper-slide {
+    margin-left: 10px;
+  }
+
+  /* Assurer une meilleure visibilité des slides */
+  .carousel-slide {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .g2rd-carousel {
+    padding: 3px !important; /* Padding minimal */
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Grille 2x2 pour très très petit écran */
+  .g2rd-carousel .swiper .swiper-wrapper .swiper-slide {
+    width: calc(50% - 2px) !important; /* Espacement minimal */
+    height: 120px !important; /* Hauteur compacte */
+    margin-left: 4px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Wrapper et slides actives à 100% */
+  .g2rd-carousel .swiper-wrapper {
+    width: 100% !important;
+  }
+
+  .g2rd-carousel .swiper-slide.swiper-slide-active {
+    width: 100% !important;
+  }
+
+  .carousel-title h2 {
+    font-size: 1.2rem;
+  }
+
+  .carousel-title p {
+    font-size: 0.8rem;
+  }
+
+  /* Masquer les boutons sur très petit écran */
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+
+  /* Optimiser l'espacement pour très petit écran */
+  .swiper-slide {
+    margin-left: 8px;
+  }
+
+  /* Améliorer la pagination sur très petit écran */
+  .swiper-pagination {
+    bottom: 5px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+  }
+}
+
+/* Editor Preview Styles */
+
+.g2rd-carousel-preview {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.g2rd-carousel-preview .carousel-slides {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.g2rd-carousel-preview .carousel-slide {
+  min-width: 200px;
+  height: 150px;
+  background: #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-carousel-preview .carousel-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.g2rd-carousel-preview .carousel-nav-prev,
+.g2rd-carousel-preview .carousel-nav-next {
+  width: 40px;
+  height: 40px;
+  background: #007cba;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-carousel-preview .carousel-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.g2rd-carousel-preview .pagination-dot {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.g2rd-carousel-preview .pagination-dot.active {
+  background: #007cba;
+}
+
+/* Styles pour les anciennes versions de Swiper */
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Effets spécifiques */
+
+.swiper-effect-slide .swiper-slide {
+  transition: transform 0.3s ease;
+}
+
+.swiper-effect-coverflow .swiper-slide {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-effect-fade .swiper-slide {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.swiper-effect-fade .swiper-slide-active {
+  opacity: 1;
+}
+
+/* Styles pour les liens d'images */
+
+.carousel-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.carousel-image-link:hover {
+  transform: scale(1.02);
+}
+
+.carousel-image-link:focus {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+
+/* Assurer que l'image dans le lien occupe tout l'espace */
+
+.carousel-image-link .carousel-image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  /* Masquer complètement les slides au-delà de la 4ème sur mobile */
+  .g2rd-carousel .swiper .swiper-wrapper .swiper-slide:nth-child(n + 5) {
+    display: none !important;
+  }
+
+  /* Forcer la grille 2x2 en mobile - PRENDRE TOUTE LA LARGEUR */
+  .g2rd-carousel .swiper[data-slides-per-view="3"] .swiper-slide,
+  .g2rd-carousel .swiper .swiper-wrapper .swiper-slide {
+    width: calc(50% - 5px) !important; /* Réduire l'espacement */
+    margin-left: 10px !important; /* Espacement entre les colonnes */
+    margin-bottom: 10px !important; /* Espacement entre les rangées */
+    height: 150px !important;
+  }
+
+  /* Grille 2x2 spécifique pour mobile */
+  .g2rd-carousel .swiper-grid-column .swiper-slide {
+    width: calc(50% - 5px) !important; /* Réduire l'espacement */
+    height: 150px !important;
+    margin-bottom: 10px !important;
+    transition: none !important; /* Pas d'animation sur mobile */
+  }
+
+  /* Ajuster le conteneur pour prendre toute la largeur */
+  .g2rd-carousel {
+    padding: 8px !important; /* Réduire le padding */
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Ajuster le wrapper pour optimiser l'espace */
+  .g2rd-carousel .swiper-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Forcer les slides actives à prendre toute la largeur */
+  .g2rd-carousel .swiper-slide.swiper-slide-active {
+    width: 100% !important;
+  }
+
+  /* Retirer la hauteur fixe du conteneur sur mobile */
+  .g2rd-carousel .carousel-container {
+    height: auto !important; /* Hauteur automatique au lieu de 400px */
+  }
+
+  /* S'assurer que l'image remplit bien la vignette */
+  .g2rd-carousel .carousel-image {
+    width: 100% !important;
+    height: 100% !important;
+    -o-object-fit: cover !important;
+       object-fit: cover !important;
+    display: block;
+  }
+
+  /* Désactiver les animations sur mobile */
+  .g2rd-carousel .swiper-slide,
+  .g2rd-carousel .carousel-slide {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  /* Masquer la navigation et pagination sur mobile */
+  .g2rd-carousel .swiper-button-prev,
+  .g2rd-carousel .swiper-button-next,
+  .g2rd-carousel .swiper-pagination {
+    display: none !important;
+  }
+
+  /* Masquer complètement le débordement sur mobile */
+  .g2rd-carousel .swiper {
+    overflow: hidden !important;
+  }
+
+  .g2rd-carousel .swiper-wrapper {
+    overflow: hidden !important;
+  }
+}
+

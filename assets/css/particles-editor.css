@@ -1,0 +1,45 @@
+/* Styles pour le panneau d'effet de particules dans l'éditeur */
+.g2rd-particles-panel {
+  order: 9 !important;
+}
+
+/* Style du panneau de contrôle */
+.g2rd-particles-panel
+  .components-toggle-control
+  .components-base-control__field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Titre du panneau */
+.g2rd-particles-panel .components-panel__body-title {
+  color: #0073aa;
+}
+
+/* Style pour le lazy loading des particules */
+.lazy-particles {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-particles.loaded {
+  opacity: 1;
+}
+
+/* Style pour les appareils mobiles */
+@media (max-width: 782px) {
+  .g2rd-particles-panel
+    .components-toggle-control
+    .components-base-control__field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Style pour les utilisateurs préférant les mouvements réduits */
+@media (prefers-reduced-motion: reduce) {
+  .lazy-particles {
+    transition: none;
+  }
+}

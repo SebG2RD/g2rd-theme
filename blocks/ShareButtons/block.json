@@ -1,0 +1,89 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/share-buttons",
+    "version": "1.0.0",
+    "title": "G2RD Boutons de partage",
+    "category": "g2rd-blocks",
+    "description": "Boutons de partage social (Facebook, Twitter, LinkedIn, etc.). Utilisable dans les articles et les blocs de requête. Styles : arrondi, icônes simples, boutons avec étiquettes. Affichage horizontal ou vertical.",
+    "keywords": [
+        "share",
+        "partage",
+        "social",
+        "facebook",
+        "twitter",
+        "linkedin"
+    ],
+    "attributes": {
+        "shares": {
+            "type": "array",
+            "default": [
+                {
+                    "network": "facebook",
+                    "enabled": true,
+                    "label": "Facebook"
+                },
+                {
+                    "network": "twitter",
+                    "enabled": true,
+                    "label": "X (Twitter)"
+                },
+                {
+                    "network": "linkedin",
+                    "enabled": true,
+                    "label": "LinkedIn"
+                },
+                {
+                    "network": "pinterest",
+                    "enabled": false,
+                    "label": "Pinterest"
+                },
+                {
+                    "network": "whatsapp",
+                    "enabled": false,
+                    "label": "WhatsApp"
+                },
+                {
+                    "network": "email",
+                    "enabled": true,
+                    "label": "Email"
+                }
+            ]
+        },
+        "styleVariant": {
+            "type": "string",
+            "default": "rounded"
+        },
+        "layout": {
+            "type": "string",
+            "default": "horizontal"
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 24
+        }
+    },
+    "example": {
+        "attributes": {
+            "styleVariant": "rounded",
+            "layout": "horizontal"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "render": "file:./render.php",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

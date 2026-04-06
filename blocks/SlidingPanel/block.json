@@ -1,0 +1,101 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/sliding-panel",
+    "version": "1.0.0",
+    "title": "G2RD Panneau coulissant",
+    "category": "g2rd-blocks",
+    "description": "Panneau coulissant ou fenêtre contextuelle : déclencheur (bouton, texte, image) et contenu en InnerBlocks. Idéal pour menus mobiles, méga menus, infobulles, popovers. Position : gauche, droite, haut, bas. Avec ou sans fond (overlay).",
+    "keywords": [
+        "panel",
+        "panneau",
+        "coulissant",
+        "slide",
+        "popup",
+        "drawer",
+        "menu",
+        "offcanvas"
+    ],
+    "attributes": {
+        "triggerType": {
+            "type": "string",
+            "default": "button"
+        },
+        "triggerButtonText": {
+            "type": "string",
+            "default": "Ouvrir le panneau"
+        },
+        "triggerText": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerImageId": {
+            "type": "number"
+        },
+        "triggerImageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerImageAlt": {
+            "type": "string",
+            "default": ""
+        },
+        "triggerButtonBackground": {
+            "type": "string"
+        },
+        "triggerButtonTextColor": {
+            "type": "string"
+        },
+        "panelPosition": {
+            "type": "string",
+            "default": "right"
+        },
+        "overlay": {
+            "type": "boolean",
+            "default": true
+        },
+        "showCloseButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "closeOnOverlayClick": {
+            "type": "boolean",
+            "default": true
+        },
+        "panelSize": {
+            "type": "string",
+            "default": "medium"
+        },
+        "animationDuration": {
+            "type": "number",
+            "default": 300
+        },
+        "blockId": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "triggerButtonText": "Menu",
+            "panelPosition": "right",
+            "overlay": true
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Alternatif",
+  "slug": "alt",
+  "blockTypes": ["core/button"],
+  "styles": {
+    "color": {
+      "background": "var:custom|color|secondaryhover",
+      "text": "var:preset|color|white"
+    }
+  }
+}

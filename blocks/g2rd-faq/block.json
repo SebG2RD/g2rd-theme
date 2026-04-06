@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/faq",
+    "version": "1.0.0",
+    "title": "FAQ G2RD",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "editor-help",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Bloc FAQ accordéon avec animation d'ouverture et personnalisation complète des couleurs du thème.",
+    "keywords": ["faq", "accordéon", "accordion", "questions", "réponses"],
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./src/style.css",
+    "style": "file:./src/style.css",
+    "script": "file:./build/view.js",
+    "attributes": {
+        "items": {
+            "type": "array",
+            "default": [
+                { "question": "Quelle est la première question ?", "answer": "Voici la réponse à la première question." },
+                { "question": "Quelle est la deuxième question ?", "answer": "Voici la réponse à la deuxième question." }
+            ]
+        },
+        "iconType": { "type": "string", "default": "plus-minus" },
+        "questionColor": { "type": "string", "default": "" },
+        "answerColor": { "type": "string", "default": "" },
+        "iconColor": { "type": "string", "default": "" },
+        "backgroundColor": { "type": "string", "default": "" },
+        "borderColor": { "type": "string", "default": "" },
+        "borderRadius": { "type": "number", "default": 8 },
+        "separatorColor": { "type": "string", "default": "" },
+        "openFirst": { "type": "boolean", "default": false },
+        "allowMultiple": { "type": "boolean", "default": false }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "spacing": { "margin": true, "padding": true }
+    }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/counter",
+  "version": "1.0.0",
+  "title": "G2RD Counter",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "chart-bar",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Bloc compteur animé avec différents styles et options de personnalisation.",
+  "keywords": ["counter", "number", "animation", "statistics"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": ["dashicons", "file:./build/style-index.css"],
+  "script": "file:./build/view.js",
+
+  "attributes": {
+    "layout": {
+      "type": "string",
+      "default": "number"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "center"
+    },
+    "startingNumber": {
+      "type": "number",
+      "default": 0
+    },
+    "endingNumber": {
+      "type": "number",
+      "default": 100
+    },
+    "decimalPlaces": {
+      "type": "number",
+      "default": 0
+    },
+    "numberPrefix": {
+      "type": "string",
+      "default": ""
+    },
+    "numberSuffix": {
+      "type": "string",
+      "default": "%"
+    },
+    "animationDuration": {
+      "type": "number",
+      "default": 2000
+    },
+    "thousands": {
+      "type": "string",
+      "default": "comma"
+    },
+    "enableIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "mediaType": {
+      "type": "string",
+      "default": "icon"
+    },
+    "iconName": {
+      "type": "string",
+      "default": "star-filled"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "iconPosition": {
+      "type": "string",
+      "default": "top"
+    },
+    "numberColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "iconColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Add Your Title Here..."
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "numberTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "titleTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "prefixRightMargin": {
+      "type": "number",
+      "default": 0
+    },
+    "suffixLeftMargin": {
+      "type": "number",
+      "default": 0
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    "iconSize": {
+      "type": "number",
+      "default": 48
+    },
+    "imageSize": {
+      "type": "number",
+      "default": 64
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": true
+  }
+}

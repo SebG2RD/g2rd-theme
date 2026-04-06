@@ -1,0 +1,204 @@
+/* Structure de la page de connexion */
+body.login {
+  background-color: #fafafa;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  --primary-color: #2f425d;
+  --secondary-color: #d4a373;
+  --secondary-color-darker: #8c5c2b;
+  --text-light: rgba(255, 255, 255, 0.8);
+  --input-bg: rgba(255, 255, 255, 0.95);
+}
+
+.login-container {
+  display: flex !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  flex-direction: row-reverse;
+}
+
+#login {
+  padding: 40px !important;
+  width: 50% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  background: var(--primary-color);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image {
+  width: 50% !important;
+  background-image: url("../img/g2rd_image_admin.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Logo G2RD */
+.login h1 {
+  margin-bottom: 40px !important;
+}
+
+/* Style des champs */
+.login form .input {
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  font-size: 16px !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  margin-top: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Style des labels */
+.login label {
+  color: var(--text-light) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+/* Style du bouton de connexion */
+.wp-core-ui .button-primary {
+  background-color: var(--secondary-color) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 25px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  margin-top: 20px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  height: auto !important;
+  line-height: normal !important;
+  box-sizing: border-box !important;
+}
+
+.wp-core-ui .button-primary:hover {
+  background-color: var(--secondary-color-darker) !important;
+  transform: translateY(-2px);
+}
+
+/* Style des liens */
+.login #nav,
+.login #backtoblog {
+  padding: 0 !important;
+  text-align: center !important;
+  margin: 20px 0 0 !important;
+}
+
+.login #nav a,
+.login #backtoblog a {
+  color: var(--text-light) !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.login #nav a:hover,
+.login #backtoblog a:hover {
+  color: var(--secondary-color) !important;
+}
+
+/* Messages d'erreur */
+.login .message,
+.login #login_error {
+  background-color: white !important;
+  border-left: 4px solid var(--secondary-color) !important;
+  border-radius: 8px !important;
+  margin-bottom: 25px !important;
+  padding: 12px 20px !important;
+}
+
+/* Case à cocher "Se souvenir de moi" */
+.login .forgetmenot {
+  margin: 15px 0 25px !important;
+}
+
+.login .forgetmenot label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: var(--text-light) !important;
+}
+
+input[type="checkbox"] {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: transparent !important;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+}
+
+/* Formulaire */
+#loginform {
+  background: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 80% !important;
+  box-sizing: border-box !important;
+}
+
+/* Sélecteur de langue dans le formulaire */
+.language-switcher-login {
+  margin-top: 20px !important;
+  width: 100% !important;
+}
+
+.language-switcher-login select {
+  width: 100% !important;
+  padding: 12px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background-color: var(--input-bg) !important;
+  color: var(--primary-color) !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232f425d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: calc(100% - 12px) center !important;
+  padding-right: 35px !important;
+}
+
+.language-switcher-login select:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Supprimer les styles précédents du sélecteur de langue */
+.language-switcher {
+  display: none !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .login-container {
+    flex-direction: column !important;
+  }
+
+  #login {
+    width: 100% !important;
+    padding: 30px 20px !important;
+  }
+
+  .login-image {
+    display: none !important;
+  }
+}

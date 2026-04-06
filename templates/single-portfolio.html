@@ -1,0 +1,64 @@
+<!-- wp:template-part {"slug":"header","theme":"g2rd-theme","area":"header"} /-->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<div
+  class="wp-block-group"
+  style="
+    padding-top: var(--wp--preset--spacing--l);
+    padding-right: var(--wp--preset--spacing--m);
+    padding-bottom: var(--wp--preset--spacing--l);
+    padding-left: var(--wp--preset--spacing--m);
+  "
+>
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+  <div class="wp-block-group">
+    <!-- wp:post-title {"level":1} /-->
+
+    <!-- wp:post-terms {"term":"type-projets"} /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:post-featured-image {"aspectRatio":"16/9","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|l"}}}} /-->
+
+  <!-- wp:columns {"verticalAlignment":"center"} -->
+  <div class="wp-block-columns are-vertically-aligned-center">
+    <!-- wp:column {"verticalAlignment":"center"} -->
+    <div class="wp-block-column is-vertically-aligned-center">
+      <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+      <div class="wp-block-group">
+        <!-- wp:paragraph -->
+        <p>Année de mise en ligne :</p>
+        <!-- /wp:paragraph -->
+
+        <!-- wp:post-date {"format":"Y"} /-->
+      </div>
+      <!-- /wp:group -->
+    </div>
+    <!-- /wp:column -->
+
+    <!-- wp:column {"verticalAlignment":"center"} -->
+    <div class="wp-block-column is-vertically-aligned-center">
+      <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+      <div class="wp-block-buttons">
+        <!-- wp:button {"className":"is-style-outline"} -->
+        <div class="wp-block-button is-style-outline">
+          <a
+            class="wp-block-button__link wp-element-button"
+            href="[portfolio_link]"
+            target="_blank"
+            >Visiter le site</a
+          >
+        </div>
+        <!-- /wp:button -->
+      </div>
+      <!-- /wp:buttons -->
+    </div>
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
+
+  <!-- wp:post-content /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

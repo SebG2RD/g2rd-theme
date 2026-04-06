@@ -1,0 +1,85 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/icon-box",
+    "version": "1.0.0",
+    "title": "G2RD Icône",
+    "category": "g2rd-blocks",
+    "description": "Affiche une icône prédéfinie, une image ou du SVG personnalisé. Deux styles (standard et emballé). Conteneur cliquable possible. Options de conception complètes (couleurs, espacement, effets).",
+    "keywords": [
+        "icon",
+        "icône",
+        "svg",
+        "image",
+        "bouton"
+    ],
+    "attributes": {
+        "iconType": {
+            "type": "string",
+            "default": "dashicon"
+        },
+        "iconValue": {
+            "type": "string",
+            "default": "star-filled"
+        },
+        "iconId": {
+            "type": "number"
+        },
+        "iconUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "iconAlt": {
+            "type": "string",
+            "default": ""
+        },
+        "svgCode": {
+            "type": "string",
+            "default": ""
+        },
+        "styleVariant": {
+            "type": "string",
+            "default": "standard"
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 48
+        },
+        "iconColor": {
+            "type": "string",
+            "default": ""
+        },
+        "linkUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "linkOpenInNewTab": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "example": {
+        "attributes": {
+            "iconType": "dashicon",
+            "iconValue": "star-filled",
+            "styleVariant": "wrapped"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "typography": false
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

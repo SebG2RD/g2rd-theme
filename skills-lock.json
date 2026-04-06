@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "wordpress-pro": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "ffe9fc142b4af6d7b8afe27c12c5e7c94599e0a0e6819c1d0e75a1bb22fc3b0f"
+    }
+  }
+}

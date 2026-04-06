@@ -1,0 +1,286 @@
+/**
+ * G2RD Counter Block Styles
+ * Styles for the counter block with different layouts and animations
+ */
+
+.wp-block-g2rd-counter {
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Counter Content */
+.g2rd-counter .counter-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.g2rd-counter.layout-number .counter-content {
+  align-items: center;
+}
+
+.g2rd-counter.layout-circle .counter-content,
+.g2rd-counter.layout-bar .counter-content {
+  align-items: center;
+  text-align: center;
+}
+
+/* Horizontal Layout */
+.g2rd-counter .counter-horizontal {
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.g2rd-counter .counter-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Icon Positioning */
+.g2rd-counter.icon-left .counter-content {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.g2rd-counter.icon-right .counter-content {
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.g2rd-counter.icon-top .counter-content {
+  flex-direction: column;
+}
+
+.g2rd-counter.icon-bottom .counter-content {
+  flex-direction: column-reverse;
+}
+
+/* Icon Wrapper */
+.g2rd-counter .counter-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-counter .counter-icon {
+  transition: transform 0.3s ease;
+}
+
+.g2rd-counter:hover .counter-icon {
+  transform: scale(1.1);
+}
+
+.g2rd-counter .counter-image {
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.g2rd-counter:hover .counter-image {
+  transform: scale(1.05);
+}
+
+/* Number Styles */
+.g2rd-counter .counter-number-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.g2rd-counter .counter-number {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.g2rd-counter .counter-prefix,
+.g2rd-counter .counter-suffix {
+  font-size: 24px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* Title Styles */
+.g2rd-counter .counter-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Circle Layout */
+.g2rd-counter.layout-circle .counter-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.g2rd-counter .counter-svg {
+  transform: rotate(-90deg);
+}
+
+.g2rd-counter .counter-circle-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-counter .counter-circle-content .counter-number-wrapper {
+  margin-bottom: 4px;
+}
+
+.g2rd-counter .counter-circle-content .counter-number {
+  font-size: 24px;
+}
+
+.g2rd-counter .counter-circle-progress {
+  transition: stroke-dasharray 0.3s ease;
+}
+
+/* Bar Layout */
+.g2rd-counter.layout-bar .counter-bar {
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.g2rd-counter .counter-bar-fill {
+  height: 100%;
+  border-radius: 20px;
+  position: relative;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+
+.g2rd-counter .counter-bar-content {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .g2rd-counter .counter-number {
+    font-size: 36px;
+  }
+
+  .g2rd-counter .counter-prefix,
+  .g2rd-counter .counter-suffix {
+    font-size: 18px;
+  }
+
+  .g2rd-counter .counter-title {
+    font-size: 16px;
+  }
+
+  .g2rd-counter .counter-horizontal {
+    flex-direction: column !important;
+    gap: 12px;
+  }
+
+  .g2rd-counter .counter-icon {
+    font-size: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .g2rd-counter .counter-circle-content .counter-number {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wp-block-g2rd-counter {
+    padding: 16px;
+  }
+
+  .g2rd-counter .counter-number {
+    font-size: 28px;
+  }
+
+  .g2rd-counter .counter-prefix,
+  .g2rd-counter .counter-suffix {
+    font-size: 14px;
+  }
+
+  .g2rd-counter .counter-title {
+    font-size: 14px;
+  }
+
+  .g2rd-counter .counter-content {
+    gap: 12px;
+  }
+}
+
+/* Animation States */
+.g2rd-counter.counting .counter-number {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Accessibility */
+.g2rd-counter:focus-within {
+  outline: 2px solid var(--wp--preset--color--primary, #007cba);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .g2rd-counter .counter-number,
+  .g2rd-counter .counter-prefix,
+  .g2rd-counter .counter-suffix,
+  .g2rd-counter .counter-title {
+    text-shadow: none;
+  }
+
+  .g2rd-counter .counter-bar {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-counter .counter-icon,
+  .g2rd-counter .counter-image,
+  .g2rd-counter .counter-circle-progress,
+  .g2rd-counter .counter-bar-fill {
+    transition: none;
+  }
+
+  .g2rd-counter.counting .counter-number {
+    animation: none;
+  }
+}

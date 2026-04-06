@@ -1,0 +1,120 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/pricing-table",
+    "version": "1.0.0",
+    "title": "G2RD Tableau de prix",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "money",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Tableau de prix moderne et configurable avec intégration WooCommerce, SureCart et FluentCart.",
+    "keywords": ["pricing", "price", "tableau", "prix", "tarif", "forfait", "plan"],
+    "textdomain": "g2rd",
+    "attributes": {
+        "blockId":        { "type": "string" },
+        "columns": {
+            "type": "array",
+            "default": [
+                {
+                    "id": "col-1",
+                    "title": "Essentiel",
+                    "subtitle": "Idéal pour démarrer",
+                    "price": "29",
+                    "pricePeriod": "/ mois",
+                    "pricePrefix": "",
+                    "description": "Parfait pour les petits projets et les indépendants.",
+                    "features": ["Fonctionnalité 1", "Fonctionnalité 2", "Fonctionnalité 3"],
+                    "ctaText": "Commencer",
+                    "ctaUrl": "#",
+                    "ctaTarget": false,
+                    "badge": "",
+                    "isFeatured": false,
+                    "accentColor": "",
+                    "productSource": "",
+                    "productId": 0,
+                    "elementsOrder": ["badge","title","subtitle","price","description","features","cta"]
+                },
+                {
+                    "id": "col-2",
+                    "title": "Pro",
+                    "subtitle": "Pour les professionnels",
+                    "price": "79",
+                    "pricePeriod": "/ mois",
+                    "pricePrefix": "",
+                    "description": "Toutes les fonctionnalités pour développer votre activité.",
+                    "features": ["Tout Essentiel", "Fonctionnalité 4", "Fonctionnalité 5", "Support prioritaire"],
+                    "ctaText": "Choisir Pro",
+                    "ctaUrl": "#",
+                    "ctaTarget": false,
+                    "badge": "Populaire",
+                    "isFeatured": true,
+                    "accentColor": "",
+                    "productSource": "",
+                    "productId": 0,
+                    "elementsOrder": ["badge","title","subtitle","price","description","features","cta"]
+                },
+                {
+                    "id": "col-3",
+                    "title": "Entreprise",
+                    "subtitle": "Solutions sur mesure",
+                    "price": "Sur devis",
+                    "pricePeriod": "",
+                    "pricePrefix": "",
+                    "description": "Accompagnement personnalisé pour les grands comptes.",
+                    "features": ["Tout Pro", "Fonctionnalités illimitées", "Gestionnaire dédié"],
+                    "ctaText": "Nous contacter",
+                    "ctaUrl": "#",
+                    "ctaTarget": false,
+                    "badge": "",
+                    "isFeatured": false,
+                    "accentColor": "",
+                    "productSource": "",
+                    "productId": 0,
+                    "elementsOrder": ["badge","title","subtitle","price","description","features","cta"]
+                }
+            ]
+        },
+        "design":           { "type": "string",  "default": "cards" },
+        "columnCount":      { "type": "number",  "default": 3 },
+        "showTitle":        { "type": "boolean", "default": true },
+        "showSubtitle":     { "type": "boolean", "default": true },
+        "showPrice":        { "type": "boolean", "default": true },
+        "showDescription":  { "type": "boolean", "default": true },
+        "showFeatures":     { "type": "boolean", "default": true },
+        "showCta":          { "type": "boolean", "default": true },
+        "showBadge":        { "type": "boolean", "default": true },
+        "showBoxShadow":    { "type": "boolean", "default": true },
+        "featuredScale":    { "type": "boolean", "default": true },
+        "globalAccentColor":{ "type": "string",  "default": "" },
+        "globalTextColor":  { "type": "string",  "default": "" },
+        "globalBgColor":    { "type": "string",  "default": "" },
+        "featureIcon":      { "type": "string",  "default": "✓" },
+        "borderRadius":     { "type": "number",  "default": 12 },
+        "gapSize":          { "type": "string",  "default": "var(--wp--preset--spacing--m)" }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide", "full"],
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "typography": {
+            "fontSize": true
+        },
+        "__experimentalBorder": {
+            "radius": true
+        }
+    },
+    "editorScript": "file:./build/index.js",
+    "editorStyle":  "file:./build/index.css",
+    "style":        "file:./build/style-index.css",
+    "render":       "file:./render.php"
+}

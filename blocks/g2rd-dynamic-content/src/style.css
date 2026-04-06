@@ -1,0 +1,164 @@
+/* ── G2RD Contenu dynamique — styles partagés éditeur + frontend ── */
+
+.g2rd-dynamic-content__hint {
+  align-items: center;
+  background: #f0f6ff;
+  border: 1px dashed #c3c4c7;
+  border-radius: 6px;
+  color: #555;
+  display: flex;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding: 10px 16px;
+}
+
+.g2rd-dynamic-content__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* ── Carte ── */
+.g2rd-dynamic-content__card {
+  background: var(--g2rd-dc-bg, var(--wp--preset--color--white, #fafafa));
+  border: 1px solid rgba(12, 31, 46, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.g2rd-dynamic-content__card.has-shadow {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.g2rd-dynamic-content__card.has-shadow:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ── Image ── */
+.g2rd-dynamic-content__image {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.g2rd-dynamic-content__image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.g2rd-dynamic-content__card:hover .g2rd-dynamic-content__image img {
+  transform: scale(1.04);
+}
+
+/* ── Corps ── */
+.g2rd-dynamic-content__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.g2rd-dynamic-content__category {
+  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.g2rd-dynamic-content__title {
+  color: var(--g2rd-dc-text, var(--wp--preset--color--primary, #2f425d));
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.g2rd-dynamic-content__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g2rd-dynamic-content__title a:hover {
+  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+}
+
+.g2rd-dynamic-content__excerpt {
+  color: var(--g2rd-dc-text, #555);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.g2rd-dynamic-content__meta {
+  align-items: center;
+  color: #9ca3af;
+  display: flex;
+  font-size: 0.75rem;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.g2rd-dynamic-content__readmore {
+  background: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+  border-radius: 4px;
+  color: var(--wp--preset--color--white, #fff) !important;
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding: 0.4em 1em;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.g2rd-dynamic-content__readmore:hover {
+  opacity: 0.88;
+}
+
+/* ── Squelettes éditeur ── */
+.g2rd-dynamic-content__card.is-skeleton .g2rd-dynamic-content__image {
+  background: linear-gradient(90deg, #e8eaed 25%, #f0f2f5 50%, #e8eaed 75%);
+  background-size: 200% 100%;
+  animation: g2rd-shimmer 1.6s infinite;
+}
+
+@keyframes g2rd-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.g2rd-dynamic-content__skeleton {
+  background: #e8eaed;
+  border-radius: 4px;
+  height: 0.75rem;
+}
+
+.g2rd-dynamic-content__skeleton--badge { width: 4rem; }
+.g2rd-dynamic-content__skeleton--title { height: 1rem; width: 80%; }
+.g2rd-dynamic-content__skeleton--text  { height: 0.65rem; width: 95%; }
+.g2rd-dynamic-content__skeleton--meta  { width: 50%; }
+.g2rd-dynamic-content__skeleton--btn   { border-radius: 4px; height: 1.8rem; width: 7rem; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .g2rd-dynamic-content__grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .g2rd-dynamic-content__grid[style*="repeat(3"],
+  .g2rd-dynamic-content__grid[style*="repeat(4"],
+  .g2rd-dynamic-content__grid[style*="repeat(5"],
+  .g2rd-dynamic-content__grid[style*="repeat(6"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

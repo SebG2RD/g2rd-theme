@@ -1,0 +1,65 @@
+# Dépendances (regénérables avec npm install / composer install)
+node_modules/
+vendor/
+
+# Variables d’environnement et secrets (ne jamais versionner)
+.env
+.env.*
+!.env.example
+
+# Composer : jetons / miroirs privés (ne jamais versionner)
+auth.json
+
+# WordPress — fichiers souvent ajoutés en local ou par l’hébergeur (hors code du thème)
+error_log
+php_errors.log
+*.sql
+*.zip
+.user.ini
+wp-cli.local.yml
+local-config.php
+wp-config-local.php
+
+# Docker local (surcharge avec chemins ou ports personnels)
+docker-compose.override.yml
+
+# Journaux et débogage npm/yarn/pnpm
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Caches d’outils
+.phpcs-cache
+.phpunit.result.cache
+.php-cs-fixer.cache
+.eslintcache
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / éditeurs (configurations locales)
+.idea/
+
+# Fichiers temporaires / éditeur
+*~
+*.swp
+*.swo
+*.tmp
+
+# Rapports de couverture de tests (si vous en ajoutez)
+coverage/
+.nyc_output/
+
+# Si ce dépôt est la racine d’une installation WordPress complète (pas seulement le dossier du thème),
+# décommentez les lignes suivantes :
+# /wp-config.php
+# /wp-content/uploads/
+# /wp-content/cache/
+# /wp-content/backup-db/
+# /wp-content/backups/
+# /wp-content/debug.log
+# /.maintenance

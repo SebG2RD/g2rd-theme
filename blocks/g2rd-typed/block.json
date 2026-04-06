@@ -1,0 +1,160 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/typed",
+  "version": "1.0.0",
+  "title": "G2RD Typed",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "text",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Bloc de texte animé avec effet de frappe utilisant Typed.js",
+  "keywords": ["typed", "animation", "text", "typing", "effect"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./src/style.css",
+  "style": "file:./src/style.css",
+  "script": "file:./build/view.js",
+  "attributes": {
+    "typedStrings": {
+      "type": "array",
+      "default": [
+        "Création de site internet",
+        "Refonte de site web",
+        "Automatisation",
+        "Référencement SEO",
+        "Formation WordPress",
+        "Maintenance de site web",
+        "Charte graphique"
+      ]
+    },
+    "textBefore": {
+      "type": "string",
+      "default": ""
+    },
+    "textAfter": {
+      "type": "string",
+      "default": ""
+    },
+    "typeSpeed": {
+      "type": "number",
+      "default": 70
+    },
+    "backSpeed": {
+      "type": "number",
+      "default": 35
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "startDelay": {
+      "type": "number",
+      "default": 0
+    },
+    "backDelay": {
+      "type": "number",
+      "default": 500
+    },
+    "fadeOut": {
+      "type": "boolean",
+      "default": false
+    },
+    "fadeOutClass": {
+      "type": "string",
+      "default": "typed-fade-out"
+    },
+    "fadeOutDelay": {
+      "type": "number",
+      "default": 500
+    },
+    "smartBackspace": {
+      "type": "boolean",
+      "default": true
+    },
+    "shuffle": {
+      "type": "boolean",
+      "default": false
+    },
+    "showCursor": {
+      "type": "boolean",
+      "default": true
+    },
+    "cursorChar": {
+      "type": "string",
+      "default": "|"
+    },
+    "autoInsertCss": {
+      "type": "boolean",
+      "default": true
+    },
+    "attr": {
+      "type": "string",
+      "default": ""
+    },
+    "bindInputFocusEvents": {
+      "type": "boolean",
+      "default": false
+    },
+    "contentType": {
+      "type": "string",
+      "default": "html"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "left"
+    },
+    "fontSize": {
+      "type": "string",
+      "default": "inherit"
+    },
+    "fontWeight": {
+      "type": "string",
+      "default": "inherit"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "inherit"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "transparent"
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": true,
+    "typography": {
+      "fontSize": true,
+      "fontWeight": true
+    }
+  }
+}

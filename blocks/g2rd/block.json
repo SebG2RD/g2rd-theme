@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/bases",
+    "version": "1.0.0",
+    "title": "Blocs de base G2RD",
+    "category": "g2rd-blocks",
+    "description": "Bloc de base pour G2RD",
+    "example": [],
+    "supports": {
+        "align": [
+            "wide",
+            "full"
+        ],
+        "color": {
+            "background": true,
+            "text": true,
+            "link": true,
+            "button": true,
+            "heading": true,
+            "gradients": true
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true,
+            "blockGap": true
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true,
+            "textAlign": true
+        },
+        "background": {
+            "backgroundImage": true,
+            "backgroundSize": true
+        },
+        "dimensions": {
+            "minHeight": true
+        },
+        "position": {
+            "sticky": true
+        },
+        "shadow": true,
+        "multiple": true,
+        "anchor": true,
+        "customClassName": false,
+        "className": true,
+        "html": true,
+        "reusable": true,
+        "renaming": true
+    },
+    "attributes": {
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": "p",
+            "default": "Hello World",
+            "role": "content"
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

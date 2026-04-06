@@ -1,0 +1,158 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/carousel",
+  "version": "1.0.0",
+  "title": "G2RD Carousel",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "slides",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "A customizable image carousel with Swiper.js",
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": ["wide", "full"],
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    }
+  },
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./src/carousel.css",
+  "script": "file:./build/carousel-frontend.js",
+  "attributes": {
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "autoplayDelay": {
+      "type": "number",
+      "default": 3000
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "showNavigation": {
+      "type": "boolean",
+      "default": true
+    },
+    "effect": {
+      "type": "string",
+      "default": "coverflow"
+    },
+    "slidesPerView": {
+      "type": "string",
+      "default": "3"
+    },
+    "spaceBetween": {
+      "type": "number",
+      "default": 50
+    },
+    "centeredSlides": {
+      "type": "boolean",
+      "default": true
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "grabCursor": {
+      "type": "boolean",
+      "default": true
+    },
+    "coverflowRotate": {
+      "type": "number",
+      "default": 50
+    },
+    "coverflowStretch": {
+      "type": "number",
+      "default": 0
+    },
+    "coverflowDepth": {
+      "type": "number",
+      "default": 200
+    },
+    "coverflowModifier": {
+      "type": "number",
+      "default": 1
+    },
+    "title": {
+      "type": "string",
+      "default": "Image Carousel"
+    },
+    "description": {
+      "type": "string",
+      "default": "Beautiful image carousel with smooth animations"
+    },
+    "showBadge": {
+      "type": "boolean",
+      "default": true
+    },
+    "badgeText": {
+      "type": "string",
+      "default": "Latest component"
+    },
+    "showCaptions": {
+      "type": "boolean",
+      "default": true
+    },
+    "titleColor": {
+      "type": "string"
+    },
+    "descriptionColor": {
+      "type": "string"
+    },
+    "navigationColor": {
+      "type": "string"
+    },
+    "paginationColor": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "gradient": {
+      "type": "string"
+    },
+    "style": {
+      "type": "object"
+    },
+    "visibleSlides": {
+      "type": "number",
+      "default": 3
+    },
+    "contentType": {
+      "type": "string",
+      "default": "images"
+    },
+    "selectedPosts": {
+      "type": "array",
+      "default": []
+    },
+    "showBoxShadow": {
+      "type": "boolean",
+      "default": true
+    },
+    "height": {
+      "type": "number",
+      "default": 400
+    }
+  }
+}

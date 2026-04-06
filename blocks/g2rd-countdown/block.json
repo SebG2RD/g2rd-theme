@@ -1,0 +1,105 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/countdown",
+  "version": "1.0.0",
+  "title": "G2RD Countdown",
+  "category": "g2rd-blocks",
+  "description": "Compte à rebours personnalisable jusqu'à une date cible.",
+  "icon": {
+    "src": "clock",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": true
+  },
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./src/countdown.css",
+  "viewScript": "file:./build/countdown-frontend.js",
+  "attributes": {
+    "endDate": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Countdown Timer"
+    },
+    "showYears": {
+      "type": "boolean",
+      "default": false
+    },
+    "showMonths": {
+      "type": "boolean",
+      "default": false
+    },
+    "showDays": {
+      "type": "boolean",
+      "default": true
+    },
+    "showHours": {
+      "type": "boolean",
+      "default": true
+    },
+    "showMinutes": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSeconds": {
+      "type": "boolean",
+      "default": true
+    },
+    "valueSize": {
+      "type": "string",
+      "default": "2em"
+    },
+    "labelSize": {
+      "type": "string",
+      "default": "0.9em"
+    },
+    "itemSpacing": {
+      "type": "string",
+      "default": "20px"
+    },
+    "itemPadding": {
+      "type": "string",
+      "default": "15px"
+    },
+    "itemBackground": {
+      "type": "string",
+      "default": "#f5f5f5"
+    },
+    "itemBorderRadius": {
+      "type": "string",
+      "default": "8px"
+    },
+    "timerStyle": {
+      "type": "string",
+      "default": "default"
+    },
+    "animation": {
+      "type": "string",
+      "default": "none"
+    },
+    "animationSpeed": {
+      "type": "string",
+      "default": "normal"
+    },
+    "layout": {
+      "type": "string",
+      "default": "row"
+    }
+  }
+}

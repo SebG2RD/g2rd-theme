@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/breadcrumb",
+    "version": "1.0.0",
+    "title": "G2RD Fil d'Ariane",
+    "category": "g2rd-blocks",
+    "description": "Fil d'Ariane intelligent avec microdonnées Schema.org. Améliore le SEO et l'expérience utilisateur.",
+    "keywords": [
+        "breadcrumb",
+        "fil d'ariane",
+        "navigation",
+        "seo",
+        "schema.org"
+    ],
+    "attributes": {
+        "showHome": {
+            "type": "boolean",
+            "default": true
+        },
+        "separator": {
+            "type": "string",
+            "default": "chevron"
+        },
+        "homeLabel": {
+            "type": "string",
+            "default": ""
+        },
+        "textColor": {
+            "type": "string"
+        },
+        "linkColor": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "showHome": true,
+            "separator": "chevron"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": true,
+        "typography": {
+            "fontSize": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "g2rd",
+    "render": "file:./render.php",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}

@@ -1,0 +1,30 @@
+/* ==========================================================================
+   G2RD Visibilité par appareil — CSS frontend
+   Masque les blocs selon l'appareil.
+
+   Breakpoints :
+     Desktop  > 1024 px
+     Tablette   768 px – 1024 px
+     Mobile   < 768 px
+   ========================================================================== */
+
+/* ── Masquer sur Desktop ── */
+@media ( min-width: 1025px ) {
+	.g2rd-hide-desktop {
+		display: none !important;
+	}
+}
+
+/* ── Masquer sur Tablette ── */
+@media ( min-width: 768px ) and ( max-width: 1024px ) {
+	.g2rd-hide-tablet {
+		display: none !important;
+	}
+}
+
+/* ── Masquer sur Mobile ── */
+@media ( max-width: 767px ) {
+	.g2rd-hide-mobile {
+		display: none !important;
+	}
+}

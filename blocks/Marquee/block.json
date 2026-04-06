@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/marquee",
+    "version": "1.0.0",
+    "title": "G2RD Marquee",
+    "category": "g2rd-blocks",
+    "description": "Bloc de texte défilant en boucle infinie.",
+    "attributes": {
+        "direction": {
+            "type": "string",
+            "default": "left"
+        },
+        "speed": {
+            "type": "number",
+            "default": 30
+        },
+        "gap": {
+            "type": "string",
+            "default": "40px"
+        },
+        "pauseOnHover": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "example": {
+        "attributes": {
+            "direction": "left",
+            "speed": 30,
+            "gap": "40px",
+            "pauseOnHover": true
+        }
+    },
+    "supports": {
+        "align": [
+            "wide",
+            "full"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "color": {
+            "text": true,
+            "background": true
+        }
+    },
+    "textdomain": "g2rd",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": "file:./view.js"
+}

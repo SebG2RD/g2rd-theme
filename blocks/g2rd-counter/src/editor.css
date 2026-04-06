@@ -1,0 +1,28 @@
+/**
+ * G2RD Counter Block Editor Styles
+ * Styles specific to the block editor interface
+ */
+
+.wp-block-g2rd-counter.is-selected {
+  border: 2px dashed var(--wp--preset--color--primary, #007cba);
+}
+
+.wp-block-g2rd-counter .block-editor-rich-text__editable {
+  min-height: 1.5em;
+}
+
+.wp-block-g2rd-counter .block-editor-rich-text__editable:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Editor specific overrides */
+.editor-styles-wrapper .wp-block-g2rd-counter {
+  max-width: none;
+}
+
+/* Preview styles in editor */
+.wp-block-g2rd-counter.preview-mode {
+  opacity: 0.8;
+  pointer-events: none;
+}

@@ -1,0 +1,307 @@
+/*
+Theme Name: G2RD Theme
+Theme URI: https://g2rd.fr/themes/g2rd-agence-web
+Author: Sebastien GERARD
+Author URI: https://g2rd.fr
+Copyright: © 2025 Sebastien GERARD
+Description: Un thème Full Site Editing (FSE) moderne et flexible pour les agences web. Ce thème offre une expérience d'édition complète avec des blocs personnalisés, des animations fluides et une interface intuitive. Idéal pour les sites vitrines, portfolios et sites d'agences web.
+Requires at least: 6.5
+Tested up to: 6.5
+Requires PHP: 8.0
+ Version: 1.2.1.4
+License: GPL-2.0-or-later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: g2rd
+Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, portfolio, blog, translation-ready, rtl-language-support, threaded-comments, accessibility-ready
+
+GitHub Theme URI: https://github.com/SebG2RD/G2RD-Theme-FSE
+*/
+
+/*
+  1.1.2 – Améliorations du bloc G2RD Carousel
+  - Mobile (<768px) : affichage fixe 2×2 (4 images) sans autoplay, sans loop, sans swipe,
+    sans pagination/navigation. Effet forcé « slide » pour éviter les artefacts 3D.
+  - Desktop/Tablette : comportement intact (effets, autoplay et loop selon réglages).
+  - Respect strict de « Show Captions » : l’overlay .carousel-post-info n’est plus rendu quand
+    l’option est désactivée.
+  - Robustesse front : fallback si le HTML n’a pas de slides (contentData/contentIds dans
+    data-config + récupération REST si besoin).
+  - CSS mobile : neutralise les largeurs 33.33% pour forcer 2×2 (50%).
+*/
+
+/* Logo TranslatePress plugin */
+.trp-language-switcher > div {
+  background-color: transparent !important;
+}
+.trp-language-switcher > div > a {
+  color: var(--wp--preset--color--secondary) !important;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Erreur avec l'activation de surecart */
+.wp-block-buttons {
+  width: auto !important;
+}
+
+/* Animation de découverte */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 100px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.scroll-animation {
+  animation: reveal linear both;
+  animation-timeline: view(block);
+  animation-range: cover -10% cover 25%;
+}
+
+/* Barre de cookies */
+
+.seopress-user-consent {
+  height: 20%;
+}
+
+.seopress-user-consent button {
+  padding: 1rem 2rem;
+}
+
+/* Visuel article */
+.img-h-100 {
+  height: 100%;
+  width: 100%;
+}
+
+/* Variables globales */
+:root {
+  --transition-standard: 0.2s ease;
+  --transition-slow: 0.5s ease;
+  --z-index-base: 1;
+  --z-index-links: 2;
+  --z-index-buttons: 2;
+  --z-index-overlay: 3;
+}
+
+/* Styles communs pour les articles et portfolios */
+.h-article,
+.portfolio {
+  height: 100%;
+  box-shadow: var(--wp--preset--shadow--huge);
+  transition: transform var(--transition-standard);
+
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: var(--z-index-base);
+}
+
+/* Effets de survol communs */
+.h-article:hover,
+.portfolio:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--wp--preset--shadow--huge);
+}
+
+.g2rd-clickable-article {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: var(--z-index-base);
+  height: 100%;
+}
+
+/* Image prestation */
+.resize-img {
+  width: 30%;
+}
+
+/* Styles communs pour les images */
+.h-article img,
+.portfolio img,
+.g2rd-clickable-article img {
+  transition: transform var(--transition-slow);
+}
+
+.h-article:hover img,
+.portfolio:hover img,
+.g2rd-clickable-article:hover img {
+  transform: scale(1.05);
+}
+
+/* Styles spécifiques pour les éléments cliquables */
+.g2rd-clickable-article {
+  cursor: pointer !important;
+}
+
+/* Gestion des z-index pour les éléments cliquables */
+.g2rd-clickable-article::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-index-base);
+  pointer-events: none;
+}
+
+.g2rd-clickable-article * {
+  position: relative;
+  z-index: 0;
+}
+
+.g2rd-clickable-article a {
+  position: relative;
+  z-index: var(--z-index-links);
+}
+
+.g2rd-clickable-article button {
+  position: relative;
+  z-index: var(--z-index-buttons);
+}
+
+/* Styles pour les blocs avec l'option clickableArticles */
+[data-clickable-articles="true"] {
+  position: relative;
+}
+
+[data-clickable-articles="true"] .g2rd-clickable-article {
+  position: relative;
+  z-index: var(--z-index-base);
+}
+
+/* Suppression de l'ancien effet de particules avec radial-gradient */
+[data-particles="true"]::after {
+  display: none;
+}
+
+/* Style pour les noeuds (points) du réseau */
+[data-particles="true"] .node {
+  position: absolute;
+  background: #cccccc;
+  border-radius: 50%;
+  width: 2.5px;
+  height: 2.5px;
+  opacity: 0.7;
+  z-index: -1;
+  transition:
+    transform 0.15s ease-out,
+    opacity 0.15s ease-out;
+  will-change: transform, left, top;
+}
+
+/* Style pour les lignes connectant les noeuds */
+[data-particles="true"] .line {
+  position: absolute;
+  background: #cccccc;
+  height: 0.5px;
+  transform-origin: 0 0;
+  opacity: 0.3;
+  z-index: -1;
+  transition: opacity 0.2s ease;
+  will-change: transform, width, opacity;
+}
+
+/* Z-index pour les particules et conteneurs */
+.particles-container {
+  z-index: 0;
+  position: relative;
+}
+
+/* Assurer que le contenu du bloc est au-dessus des particules */
+[data-particles="true"] > *:not(.node):not(.line):not(.particle) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Effet de survol au niveau du conteneur parent */
+[data-particles="true"]:hover .node {
+  opacity: 0.9;
+}
+
+[data-particles="true"]:hover .line {
+  opacity: 0.6;
+}
+
+/* Effet de particules pour les éléments avec data-particles=true */
+[data-particles="true"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-particles="true"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* Animation des particules */
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) translateX(30px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .groupe-flex {
+    flex-direction: column;
+  }
+  .responsive-group {
+    padding: 0.5rem;
+  }
+  .wp-block-group-is-layout-flex {
+    flex-direction: column;
+  }
+  .wp-container-core-social-links-is-layout-d445cf74 {
+    justify-content: center;
+  }
+  li.wp-social-link {
+    width: 10%;
+  }
+
+  /* Adaptation du CSS pour la verision mobile */
+  .ti-widget {
+    width: 100% !important;
+  }
+}
+
+/* Effet de verre */
+[data-glass="true"] {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Support pour les navigateurs qui ne supportent pas backdrop-filter */
+@supports not (backdrop-filter: blur(5px)) {
+  [data-glass="true"] {
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/*
+ * Depuis la version 1.0.8, l'effet particules est automatiquement désactivé pour Google PageSpeed Insights et Lighthouse afin d'améliorer le score de performance.
+ */

@@ -1,0 +1,82 @@
+/* Styles pour la grille de projets */
+.projets-grid .wp-block-post {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.projets-grid .wp-block-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.projets-grid .wp-block-post-featured-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.projets-grid .wp-block-post-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+.projets-grid .wp-block-post-title a:hover {
+  color: #0073aa;
+}
+
+.projets-grid .wp-block-post-date {
+  color: #666;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.projets-grid .wp-block-post-excerpt p {
+  margin-bottom: 10px;
+}
+
+.projets-grid .wp-block-post-excerpt__more-link {
+  color: #0073aa;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.projets-grid .wp-block-post-excerpt__more-link:hover {
+  text-decoration: underline;
+}
+
+/* Pagination */
+.wp-block-query-pagination {
+  margin-top: 40px;
+}
+
+.wp-block-query-pagination-numbers .page-numbers {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 2px;
+  border-radius: 3px;
+  background-color: #f1f1f1;
+  color: #333;
+  text-decoration: none;
+}
+
+.wp-block-query-pagination-numbers .page-numbers.current {
+  background-color: #0073aa;
+  color: white;
+}
+
+.wp-block-query-pagination-previous,
+.wp-block-query-pagination-next {
+  background-color: #f1f1f1;
+  padding: 5px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.wp-block-query-pagination-previous:hover,
+.wp-block-query-pagination-next:hover,
+.wp-block-query-pagination-numbers .page-numbers:hover {
+  background-color: #e0e0e0;
+}

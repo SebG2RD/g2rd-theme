@@ -1,0 +1,204 @@
+/**
+ * Styles du mode sombre (Dark Mode)
+ *
+ * Ce fichier surcharge les variables CSS du thème lorsque le dark mode est actif.
+ * L'activation se fait via la classe `.dark-mode-active` sur le body
+ * et l'attribut `[data-theme="dark"]` sur l'élément html.
+ *
+ * @package G2RD
+ * @since 1.0.0
+ */
+
+/* =========================================================
+   Bouton toggle dark mode
+   ========================================================= */
+
+.g2rd-dark-mode-toggle {
+	position: fixed;
+	bottom: 80px;
+	right: 20px;
+	z-index: 9998;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	border: 2px solid currentColor;
+	background-color: var(--wp--preset--color--background, #ffffff);
+	color: var(--wp--preset--color--foreground, #111111);
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.g2rd-dark-mode-toggle:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.g2rd-dark-mode-toggle:focus-visible {
+	outline: 2px solid var(--wp--preset--color--primary, #0073aa);
+	outline-offset: 3px;
+}
+
+.g2rd-dark-mode-toggle .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+}
+
+/* =========================================================
+   Variables du dark mode
+   Surcharge les propriétés définies dans theme.json
+   ========================================================= */
+
+.dark-mode-active,
+[data-theme="dark"] {
+	/* Couleurs de fond et de texte */
+	--wp--preset--color--background: #121212;
+	--wp--preset--color--foreground: #e8e8e8;
+	--wp--preset--color--base:       #1e1e1e;
+
+	/* Palette de gris */
+	--wp--preset--color--contrast:      #f0f0f0;
+	--wp--preset--color--contrast-2:    #b0b0b0;
+	--wp--preset--color--contrast-3:    #6e6e6e;
+
+	/* Fond des cartes et surfaces */
+	--wp--preset--color--surface:       #1e1e1e;
+	--wp--preset--color--surface-alt:   #2a2a2a;
+
+	color-scheme: dark;
+}
+
+/* =========================================================
+   Règles globales du dark mode
+   ========================================================= */
+
+.dark-mode-active body,
+[data-theme="dark"] body {
+	background-color: var(--wp--preset--color--background, #121212);
+	color: var(--wp--preset--color--foreground, #e8e8e8);
+}
+
+/* Liens */
+.dark-mode-active a,
+[data-theme="dark"] a {
+	color: var(--wp--preset--color--primary, #6ab0f5);
+}
+
+.dark-mode-active a:hover,
+[data-theme="dark"] a:hover {
+	color: var(--wp--preset--color--primary, #94c8ff);
+}
+
+/* =========================================================
+   Blocs Gutenberg core
+   ========================================================= */
+
+/* Group et Columns */
+.dark-mode-active .wp-block-group,
+.dark-mode-active .wp-block-columns,
+[data-theme="dark"] .wp-block-group,
+[data-theme="dark"] .wp-block-columns {
+	color: inherit;
+}
+
+/* Cover */
+.dark-mode-active .wp-block-cover,
+[data-theme="dark"] .wp-block-cover {
+	color: #f0f0f0;
+}
+
+/* Séparateurs */
+.dark-mode-active hr,
+.dark-mode-active .wp-block-separator,
+[data-theme="dark"] hr,
+[data-theme="dark"] .wp-block-separator {
+	border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Tableaux */
+.dark-mode-active .wp-block-table td,
+.dark-mode-active .wp-block-table th,
+[data-theme="dark"] .wp-block-table td,
+[data-theme="dark"] .wp-block-table th {
+	border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode-active .wp-block-table thead,
+[data-theme="dark"] .wp-block-table thead {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Code et préformaté */
+.dark-mode-active code,
+.dark-mode-active pre,
+.dark-mode-active .wp-block-code,
+[data-theme="dark"] code,
+[data-theme="dark"] pre,
+[data-theme="dark"] .wp-block-code {
+	background-color: #1a1a1a;
+	color: #e8e8e8;
+	border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Citations */
+.dark-mode-active blockquote,
+.dark-mode-active .wp-block-quote,
+[data-theme="dark"] blockquote,
+[data-theme="dark"] .wp-block-quote {
+	border-color: var(--wp--preset--color--primary, #6ab0f5);
+	color: inherit;
+}
+
+/* Formulaires */
+.dark-mode-active input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+.dark-mode-active textarea,
+.dark-mode-active select,
+[data-theme="dark"] input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+	background-color: #2a2a2a;
+	color: #e8e8e8;
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Bouton toggle en dark mode */
+.dark-mode-active .g2rd-dark-mode-toggle,
+[data-theme="dark"] .g2rd-dark-mode-toggle {
+	background-color: #1e1e1e;
+	color: #e8e8e8;
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   Images : légère désaturation pour réduire la fatigue
+   ========================================================= */
+
+.dark-mode-active img:not([src*=".svg"]),
+[data-theme="dark"] img:not([src*=".svg"]) {
+	filter: brightness(0.9) saturate(0.95);
+}
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+
+.dark-mode-active .wp-block-navigation,
+[data-theme="dark"] .wp-block-navigation {
+	--wp--custom--nav-color: #e8e8e8;
+	--wp--custom--nav-background: #1e1e1e;
+}
+
+/* =========================================================
+   Respect du prefers-color-scheme
+   Active automatiquement si aucune préférence manuelle n'est stockée
+   (géré côté JS ; cette règle sert de fallback)
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		color-scheme: dark;
+	}
+}

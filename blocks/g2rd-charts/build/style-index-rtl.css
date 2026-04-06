@@ -1,0 +1,21 @@
+/* ==========================================================================
+   G2RD Graphiques — styles frontend
+   ========================================================================== */
+
+.g2rd-charts-wrap {
+	display:       block;
+	width:         100%;
+	box-sizing:    border-box;
+}
+
+.g2rd-charts__canvas-wrap {
+	display:  block;
+	width:    100%;
+	position: relative;
+}
+
+.g2rd-charts__canvas {
+	display: block;
+	width:   100% !important; /* override Chart.js */
+}
+

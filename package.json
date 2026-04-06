@@ -1,0 +1,42 @@
+{
+  "name": "g2rd-theme",
+  "private": true,
+  "workspaces": [
+    "blocks/CardG2rd",
+    "blocks/PricingTable",
+    "blocks/CodeG2rd",
+    "blocks/FilterableGrid",
+    "blocks/g2rd-advanced-heading",
+    "blocks/g2rd-carousel",
+    "blocks/g2rd-charts",
+    "blocks/g2rd-countdown",
+    "blocks/g2rd-counter",
+    "blocks/g2rd-dynamic-content",
+    "blocks/g2rd-faq",
+    "blocks/g2rd-info",
+    "blocks/g2rd-typed",
+    "blocks/g2rd-block-api"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run start --workspaces --if-present",
+    "build:advanced-heading": "npm run build --workspace=blocks/g2rd-advanced-heading",
+    "build:card": "npm run build --workspace=blocks/CardG2rd",
+    "build:charts": "npm run build --workspace=blocks/g2rd-charts",
+    "build:filterable-grid": "npm run build --workspace=blocks/FilterableGrid",
+    "build:code": "npm run build --workspace=blocks/CodeG2rd",
+    "build:carousel": "npm run build --workspace=blocks/g2rd-carousel",
+    "build:countdown": "npm run build --workspace=blocks/g2rd-countdown",
+    "build:counter": "npm run build --workspace=blocks/g2rd-counter",
+    "build:dynamic-content": "npm run build --workspace=blocks/g2rd-dynamic-content",
+    "build:faq": "npm run build --workspace=blocks/g2rd-faq",
+    "build:info": "npm run build --workspace=blocks/g2rd-info",
+    "build:typed": "npm run build --workspace=blocks/g2rd-typed",
+    "build:pricing-table": "npm run build --workspace=blocks/PricingTable",
+    "build:block-api": "npm run build --workspace=blocks/g2rd-block-api"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

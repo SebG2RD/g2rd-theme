@@ -1,0 +1,14 @@
+{
+  "registerPatternsCategories": {
+    "hero": "Hero",
+    "card": "Cartes",
+    "info": "Info",
+    "posts": "Posts"
+  },
+  "deregisterBlocks": [
+    "core/preformatted",
+    "core/pullquote",
+    "core/rss",
+    "core/verse"
+  ]
+}

@@ -1,0 +1,216 @@
+/* G2RD Info Block Styles */
+
+.g2rd-info-block {
+  display: block;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.g2rd-info-content {
+  display: flex;
+}
+
+.g2rd-layout-icon-right .g2rd-info-text {
+  text-align: left;
+}
+
+.g2rd-layout-icon-top .g2rd-info-text,
+.g2rd-layout-icon-bottom .g2rd-info-text {
+  text-align: center;
+}
+
+.g2rd-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  line-height: 1;
+  position: relative;
+}
+
+.g2rd-info-icon .dashicons {
+  font-size: inherit;
+  line-height: 1;
+  vertical-align: middle;
+  background: none !important;
+  border-radius: 0 !important;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+}
+
+.g2rd-info-text {
+  flex: 1;
+}
+
+.g2rd-info-text h3 {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.g2rd-info-text p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.g2rd-info-image {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-info-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layout Variations */
+
+.g2rd-layout-icon-left .g2rd-info-content {
+  flex-direction: row;
+  align-items: center;
+}
+
+.g2rd-layout-icon-right .g2rd-info-content {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.g2rd-layout-icon-top .g2rd-info-content {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.g2rd-layout-icon-bottom .g2rd-info-content {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+/* Alignment Variations */
+
+.g2rd-info-content[style*="text-align: center"] {
+  justify-content: center;
+}
+
+.g2rd-info-content[style*="text-align: right"] {
+  justify-content: flex-end;
+}
+
+.g2rd-info-content[style*="text-align: left"] {
+  justify-content: flex-start;
+}
+
+/* Hover Effects */
+
+.g2rd-info-block.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.g2rd-info-block.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.g2rd-info-block.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .g2rd-info-content {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+  }
+  .g2rd-info-icon,
+  .g2rd-info-image {
+    margin-bottom: 1rem;
+    margin-left: 0;
+  }
+}
+
+/* WordPress Native Classes Integration */
+
+.wp-block-g2rd-info {
+  /* Inherit WordPress block styles */
+}
+
+.wp-block-g2rd-info.alignwide {
+  max-width: 1200px;
+}
+
+.wp-block-g2rd-info.alignfull {
+  max-width: none;
+}
+
+.wp-block-g2rd-info.alignleft {
+  float: right;
+  margin-left: 2em;
+}
+
+.wp-block-g2rd-info.alignright {
+  float: left;
+  margin-right: 2em;
+}
+
+.wp-block-g2rd-info.aligncenter {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Editor Specific Styles */
+
+.editor-styles-wrapper .g2rd-info-block {
+  /* Ensure proper display in editor */
+}
+
+.editor-styles-wrapper .g2rd-info-content {
+  /* Maintain layout in editor */
+}
+
+/* Accessibility */
+
+.g2rd-info-block:focus-within {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+
+.g2rd-info-image img {
+  /* Ensure images are accessible */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Print Styles */
+
+@media print {
+  .g2rd-info-block {
+    -moz-column-break-inside: avoid;
+         break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+.g2rd-layout-icon-bottom .g2rd-info-text {
+  flex: none !important;
+  width: auto !important;
+  text-align: right !important;
+}
+
+/* Espacement pour le sélecteur d'icônes */
+
+.components-dropdown.components-dropdown-menu {
+  margin-bottom: 16px;
+}
+

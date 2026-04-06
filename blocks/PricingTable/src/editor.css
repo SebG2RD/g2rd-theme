@@ -1,0 +1,13 @@
+/* ── G2RD Pricing Table — styles éditeur ───────────────────────────── */
+
+.g2rd-pricing-table .g2rd-pt__grid {
+    display: grid;
+    gap: var(--wp--preset--spacing--m, 24px);
+    align-items: end;
+}
+
+/* Feedback sélection colonne active */
+.g2rd-pricing-table .g2rd-pt__grid > div:focus-visible {
+    outline: 2px solid var(--wp-admin-theme-color, #0073aa);
+    outline-offset: 4px;
+}

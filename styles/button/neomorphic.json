@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Neomorphic",
+  "slug": "neomorphic",
+  "blockTypes": ["core/button"],
+  "settings": {
+    "border": {
+      "radius": "var:custom|radius|m",
+      "width": "1px",
+      "color": "var:preset|color|white"
+    },
+    "color": {
+      "background": "var:preset|color|primary",
+      "text": "var:preset|color|white"
+    },
+    "shadow": {
+      "boxShadow": "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
+    },
+    "typography": {
+      "fontSize": "18px"
+    },
+    "spacing": {
+      "padding": {
+        "top": "0.7em",
+        "right": "1.7em",
+        "bottom": "0.7em",
+        "left": "1.7em"
+      }
+    }
+  },
+  "styles": {
+    "border": {
+      "radius": "var:custom|radius|m",
+      "width": "1px",
+      "style": "solid",
+      "color": "var:preset|color|white"
+    },
+    "color": {
+      "background": "var:preset|color|primary",
+      "text": "var:preset|color|white"
+    },
+    "shadow": {
+      "boxShadow": "6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff"
+    },
+    "typography": {
+      "fontSize": "18px"
+    },
+    "spacing": {
+      "padding": {
+        "top": "0.7em",
+        "right": "1.7em",
+        "bottom": "0.7em",
+        "left": "1.7em"
+      }
+    },
+    ":hover": {
+      "color": {
+        "text": "var:preset|color|white"
+      }
+    },
+    ":active": {
+      "color": {
+        "text": "#666"
+      },
+      "shadow": {
+        "boxShadow": "inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff"
+      }
+    }
+  }
+}
