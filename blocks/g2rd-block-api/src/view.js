@@ -185,6 +185,10 @@
 	 * @param {Object}  config      Configuration du bloc.
 	 */
 	async function fetchClientApi( blockEl, config ) {
+		// Lire l'ID du bloc depuis le DOM (data-block-id) plutôt que depuis config
+		// où blockId n'est pas sérialisé — evite que bid soit toujours undefined.
+		const bid = blockEl.dataset.blockId || ( 'g2rd-api-tmp-' + Math.random().toString( 36 ).substring( 2, 9 ) );
+
 		const {
 			apiUrl,
 			apiMethod,
@@ -199,7 +203,6 @@
 			chatAssistantFormat,
 			chatResponseField,
 			enableStreaming,
-			blockId: bid,
 		} = config;
 
 		const url     = resolvePlaceholders( apiUrl );
@@ -244,6 +247,11 @@
 
 		try {
 			const response = await fetch( url, fetchOptions );
+
+			// Vérifier le statut HTTP avant tout traitement (4xx/5xx = erreur).
+			if ( ! response.ok ) {
+				throw new Error( `API HTTP ${ response.status } — ${ response.statusText }` );
+			}
 
 			if ( enableStreaming ) {
 				// --- Traitement Server-Sent Events ---
@@ -439,7 +447,9 @@
 
 	function pushAssistantMessage( bid, assistantFormat, addField, responseText ) {
 		try {
-			const assistantMsg = JSON.parse( assistantFormat.replace( '{{RESPONSE}}', responseText ) );
+			// Remplacement par fonction pour éviter que les séquences $& $1 etc.
+		// dans responseText soient interprétées comme des patterns de remplacement.
+		const assistantMsg = JSON.parse( assistantFormat.replace( '{{RESPONSE}}', () => responseText ) );
 			if ( ! chatHistories[ bid ] ) chatHistories[ bid ] = [];
 			chatHistories[ bid ].push( assistantMsg );
 		} catch ( e ) {

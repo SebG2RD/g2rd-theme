@@ -7,7 +7,13 @@
       "Read(//c/Users/gerar/.claude/projects/c--Users-gerar-Downloads-D-veloppement-Web-G2RD-theme/**)",
       "Edit(/.claude/skills/react-best-practices/**)",
       "Bash(grep -v \": void\\\\|: bool\\\\|: string\\\\|: int\\\\|: array\\\\|: \\\\?\\\\\\\\|: WP_\\\\|: \\\\\\\\\\\\\\\\WP_\\\\|__construct\")",
-      "Bash(php -l \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/classes/class-api-connector.php\")"
+      "Bash(php -l \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/classes/class-api-connector.php\")",
+      "Bash(python3)",
+      "Bash(node -e ':*)",
+      "Bash(ls \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/A verifier/\"*.json)",
+      "Bash(ls \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/\"*.json)",
+      "Bash(grep '\"category\"' \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/A verifier/blocks/\"*/block.json)",
+      "Bash(grep -v '//')"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"

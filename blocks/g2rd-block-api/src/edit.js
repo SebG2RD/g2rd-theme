@@ -17,7 +17,7 @@ import {
 	Spinner,
 	Divider,
 } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
@@ -51,6 +51,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const [ testResult, setTestResult ]         = useState( null );
 	const [ isTesting, setIsTesting ]           = useState( false );
 	const [ testError, setTestError ]           = useState( null );
+	const abortRef                              = useRef( null );
 	const [ newHeaderKey, setNewHeaderKey ]     = useState( '' );
 	const [ newHeaderValue, setNewHeaderValue ] = useState( '' );
 	const [ newMapSelector, setNewMapSelector ] = useState( '' );
@@ -63,11 +64,27 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		}
 	}, [] ); // eslint-disable-line react-hooks/exhaustive-deps
 
+	// Annuler le fetch de test si le bloc est démonté (navigation entre blocs, suppression).
+	useEffect( () => {
+		return () => {
+			if ( abortRef.current ) {
+				abortRef.current.abort();
+			}
+		};
+	}, [] );
+
 	const blockProps = useBlockProps( { className: 'g2rd-block-api-editor' } );
 
 	// --- Test de l'API depuis l'éditeur ---
 	const handleTestApi = async () => {
 		if ( ! apiUrl ) return;
+
+		// Annuler tout test précédent encore en cours avant d'en lancer un nouveau.
+		if ( abortRef.current ) {
+			abortRef.current.abort();
+		}
+		abortRef.current = new AbortController();
+
 		setIsTesting( true );
 		setTestError( null );
 		setTestResult( null );
@@ -80,7 +97,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				} );
 			}
 
-			const fetchOptions = { method: apiMethod, headers };
+			const fetchOptions = {
+				method:  apiMethod,
+				headers,
+				signal:  abortRef.current.signal,
+			};
 
 			if ( apiBody && [ 'POST', 'PUT', 'PATCH' ].includes( apiMethod ) ) {
 				fetchOptions.body = apiBody;
@@ -107,6 +128,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 			setTestResult( JSON.stringify( result, null, 2 ).substring( 0, 3000 ) );
 		} catch ( err ) {
+			// Ignorer l'erreur d'annulation (démontage ou re-clic).
+			if ( err.name === 'AbortError' ) return;
 			setTestError( err.message );
 		} finally {
 			setIsTesting( false );

@@ -172,9 +172,10 @@ class ApiConnector {
 		if ( \is_array( $raw_headers ) ) {
 			foreach ( $raw_headers as $header ) {
 				if ( ! empty( $header['key'] ) ) {
-					// sanitize_key normalise la clé ; wp_kses_no_null + trim préserve
-					// les valeurs d'en-têtes légitimes (ex. "Bearer token", "text/html; charset=utf-8").
-					$key             = \sanitize_key( $header['key'] );
+					// RFC 7230 : les noms d'en-têtes HTTP autorisent lettres, chiffres, tiret et underscore.
+					// sanitize_key() est trop restrictif (minuscules uniquement, retire les majuscules
+					// et les tirets après nettoyage) — on utilise une regex ciblée à la place.
+					$key             = \strtolower( \trim( \preg_replace( '/[^a-zA-Z0-9\-_]/', '', $header['key'] ) ) );
 					$value           = \trim( \wp_kses_no_null( $header['value'] ?? '' ) );
 					$headers[ $key ] = $value;
 				}
@@ -246,10 +247,20 @@ class ApiConnector {
 		$credentials = [];
 
 		// Parcourir tous les blocs de la page pour extraire les credentials serveur.
+		// Cas 1 : page/article classique avec contenu dans WP_Post.
 		$post = \get_post();
 		if ( $post instanceof \WP_Post ) {
 			$blocks = \parse_blocks( $post->post_content );
 			$this->collectServerCredentials( $blocks, $credentials );
+		} elseif ( \class_exists( 'WP_Block_Template' ) && \function_exists( 'get_block_template' ) ) {
+			// Cas 2 : contexte FSE (template de thème actif, pas de WP_Post classique).
+			// Détermine le slug du template actif (ex. "page", "index", "single").
+			$template_slug = \get_page_template_slug() ?: 'index';
+			$template      = \get_block_template( \get_stylesheet() . '//' . $template_slug );
+			if ( $template instanceof \WP_Block_Template && ! empty( $template->content ) ) {
+				$blocks = \parse_blocks( $template->content );
+				$this->collectServerCredentials( $blocks, $credentials );
+			}
 		}
 
 		\wp_localize_script(
