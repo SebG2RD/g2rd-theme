@@ -1,4 +1,4 @@
-name: Smart CI
+﻿name: Smart CI
 
 on:
   push:
