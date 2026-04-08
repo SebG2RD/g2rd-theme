@@ -136,6 +136,18 @@ class ThemeOptions
             'label'       => 'Mode sombre (Dark Mode)',
             'description' => 'Ajoute un bouton flottant pour basculer en mode sombre. Respecte la préférence système.',
         ],
+        'enable_ai' => [
+            'label'       => 'Intégration IA / MCP (WordPress Abilities API)',
+            'description' => 'Expose les CPTs et la configuration du thème à des outils IA compatibles MCP (Claude Desktop, Cursor…). Requiert WordPress 6.9+. <strong>Désactivé par défaut</strong> — activez uniquement si vous utilisez un client MCP de confiance.',
+        ],
+    ];
+
+    /**
+     * Fonctionnalités désactivées par défaut (opt-in).
+     * Toutes les clés non listées ici sont activées par défaut.
+     */
+    private const FEATURE_DEFAULTS = [
+        'enable_ai' => false,
     ];
 
     /**
@@ -170,6 +182,8 @@ class ThemeOptions
         'g2rd/toggle-content'    => ['title' => 'Toggle Content',        'icon' => 'plus-alt2'],
         'g2rd/toolbars'          => ['title' => 'Toolbars',              'icon' => 'admin-tools'],
         'g2rd/typed'             => ['title' => 'Texte animé (Typed)',   'icon' => 'edit'],
+        'g2rd/block-api'         => ['title' => 'Connecteur API',         'icon' => 'rest-api'],
+        'g2rd/container'         => ['title' => 'Conteneur responsive',    'icon' => 'layout'],
         'g2rd/bases'             => ['title' => 'Blocs de base G2RD',    'icon' => 'layout'],
     ];
 
@@ -179,7 +193,7 @@ class ThemeOptions
 
     /**
      * Indique si une fonctionnalité du thème est activée.
-     * Par défaut, toutes les fonctionnalités sont activées.
+     * Par défaut, les fonctionnalités sont activées sauf celles listées dans FEATURE_DEFAULTS.
      *
      * @param  string $key Identifiant de la fonctionnalité.
      * @return bool
@@ -187,7 +201,12 @@ class ThemeOptions
     public static function isFeatureEnabled(string $key): bool
     {
         $features = (array) \get_option(self::OPTION_FEATURES, []);
-        return !isset($features[$key]) || (bool) $features[$key];
+        if ( isset( $features[$key] ) ) {
+            return (bool) $features[$key];
+        }
+        // Respecter la valeur par défaut définie dans FEATURE_DEFAULTS (opt-in = false).
+        // Toute clé absente de FEATURE_DEFAULTS est considérée activée par défaut.
+        return self::FEATURE_DEFAULTS[$key] ?? true;
     }
 
     /**

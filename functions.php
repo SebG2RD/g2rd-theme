@@ -48,6 +48,7 @@ require_once __DIR__ . '/classes/class-coming-soon.php';
 require_once __DIR__ . '/classes/class-fluent-cart-support.php';
 require_once __DIR__ . '/classes/class-conditional-menu.php';
 require_once __DIR__ . '/classes/class-api-connector.php';
+require_once __DIR__ . '/classes/class-abilities.php';
 
 /**
  * Initialise toutes les composantes du thème
@@ -83,6 +84,7 @@ function bootstrap_theme(): void
         FluentCartSupport::class,
         ConditionalMenu::class,
         ApiConnector::class,
+        Abilities::class,
     ];
 
     // Fonctionnalités optionnelles (activables/désactivables depuis la page d'options)

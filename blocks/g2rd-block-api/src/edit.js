@@ -15,7 +15,6 @@ import {
 	Button,
 	Notice,
 	Spinner,
-	Divider,
 } from '@wordpress/components';
 import { useState, useEffect, useRef } from '@wordpress/element';
 
@@ -364,7 +363,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							placeholder="api-results"
 							help={ __( 'Les résultats seront injectés ici.', 'g2rd' ) }
 						/>
-						<Divider />
+						<hr />
 						<strong>{ __( 'Mappages de champs API → DOM', 'g2rd' ) }</strong>
 						<p className="g2rd-api-panel-hint">
 							{ __( 'Associez un sélecteur CSS à une clé de la réponse API.', 'g2rd' ) }

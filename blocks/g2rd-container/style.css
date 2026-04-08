@@ -1,0 +1,37 @@
+/**
+ * Styles frontend du bloc Conteneur G2RD
+ * Les valeurs dynamiques (flex-direction, gap, padding…) sont injectées
+ * par render.php dans une balise <style> scopée par ID.
+ */
+
+/* Masquage responsive — classes appliquées par render.php */
+@media (min-width: 1025px) {
+	.g2rd-hide-desktop { display: none !important; }
+}
+@media (max-width: 1024px) {
+	.g2rd-hide-tablet  { display: none !important; }
+}
+@media (max-width: 768px) {
+	.g2rd-hide-mobile  { display: none !important; }
+}
+
+/* Animations d'entrée */
+[data-g2rd-animate] {
+	opacity: 0;
+	transition-property: opacity, transform;
+}
+[data-g2rd-animate].g2rd-animated {
+	opacity: 1;
+}
+
+[data-g2rd-animate="fadeIn"].g2rd-animated           { transform: none; }
+[data-g2rd-animate="fadeInUp"]                        { transform: translateY(40px); }
+[data-g2rd-animate="fadeInUp"].g2rd-animated          { transform: translateY(0); }
+[data-g2rd-animate="fadeInDown"]                      { transform: translateY(-40px); }
+[data-g2rd-animate="fadeInDown"].g2rd-animated        { transform: translateY(0); }
+[data-g2rd-animate="fadeInLeft"]                      { transform: translateX(-40px); }
+[data-g2rd-animate="fadeInLeft"].g2rd-animated        { transform: translateX(0); }
+[data-g2rd-animate="fadeInRight"]                     { transform: translateX(40px); }
+[data-g2rd-animate="fadeInRight"].g2rd-animated       { transform: translateX(0); }
+[data-g2rd-animate="zoomIn"]                          { transform: scale(0.85); }
+[data-g2rd-animate="zoomIn"].g2rd-animated            { transform: scale(1); }

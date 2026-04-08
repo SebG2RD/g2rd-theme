@@ -13,7 +13,23 @@
       "Bash(ls \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/A verifier/\"*.json)",
       "Bash(ls \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/\"*.json)",
       "Bash(grep '\"category\"' \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/A verifier/blocks/\"*/block.json)",
-      "Bash(grep -v '//')"
+      "Bash(grep -v '//')",
+      "WebSearch",
+      "WebFetch(domain:make.wordpress.org)",
+      "WebFetch(domain:developer.wordpress.org)",
+      "WebFetch(domain:wsform.com)",
+      "WebFetch(domain:en.inithtml.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.hongkiat.com)",
+      "WebFetch(domain:developer.woocommerce.com)",
+      "WebFetch(domain:www.miniorange.com)",
+      "WebFetch(domain:www.advancedcustomfields.com)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme\\\\export-theme.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command ':*)",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"cmd /c 'for %I in \\(\\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\D?veloppement Web\\\\G2RD-theme\\\\\"\\) do @echo %~sI'\")",
+      "Bash(cmd /c \"for %I in \\(\\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\D?veloppement Web\\\\G2RD-theme\\\\\"\\) do echo %~sI\")",
+      "Bash(cmd /c \"dir /x \\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\\" | findstr /i veloppement\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command 'Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads'\\\\'' | Get-ChildItem | Where-Object { $_.Name -like '\\\\''*veloppement*'\\\\'' } | Select-Object FullName')"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"

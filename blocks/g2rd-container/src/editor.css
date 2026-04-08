@@ -1,0 +1,58 @@
+/* Styles éditeur du bloc Conteneur G2RD */
+
+/* Sélecteur d'appareil */
+.g2rd-device-switcher {
+	display: flex;
+	gap: 4px;
+	margin-bottom: 12px;
+}
+
+.g2rd-device-btn {
+	background: none;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 4px 8px;
+	transition: background 0.15s;
+}
+
+.g2rd-device-btn.is-active {
+	background: #007cba;
+	border-color: #007cba;
+}
+
+/* Label de contrôle */
+.g2rd-control-label {
+	font-size: 11px;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: #757575;
+	margin: 12px 0 6px;
+}
+
+/* Sélecteur de type de layout */
+.g2rd-layout-type-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	width: 100%;
+}
+
+.g2rd-layout-type-group .components-button {
+	flex: 1;
+	justify-content: center;
+}
+
+/* Grille de spacing */
+.g2rd-spacing-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+/* Indicateur visuel dans l'éditeur quand le conteneur est vide */
+.g2rd-container .block-editor-inner-blocks .block-list-appender {
+	min-height: 60px;
+}
