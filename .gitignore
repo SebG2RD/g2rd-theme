@@ -1,6 +1,10 @@
-# Dépendances (regénérables avec npm install / composer install)
+# Dépendances JS (regénérables avec npm install)
 node_modules/
-vendor/
+
+# vendor/ est intentionnellement versionné : les dépendances PHP Composer
+# font partie du livrable — requises lors de l'installation via GitHub Updater
+# (le zipball GitHub n'exécute pas composer install)
+
 
 # Variables d’environnement et secrets (ne jamais versionner)
 .env
@@ -35,6 +39,9 @@ pnpm-debug.log*
 .phpunit.result.cache
 .php-cs-fixer.cache
 .eslintcache
+
+# Scripts d'export local (non pertinents pour les contributeurs)
+export-theme.ps1
 
 # Fichiers système
 .DS_Store

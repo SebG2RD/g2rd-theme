@@ -29,7 +29,14 @@
       "Bash(powershell -ExecutionPolicy Bypass -Command \"cmd /c 'for %I in \\(\\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\D?veloppement Web\\\\G2RD-theme\\\\\"\\) do @echo %~sI'\")",
       "Bash(cmd /c \"for %I in \\(\\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\D?veloppement Web\\\\G2RD-theme\\\\\"\\) do echo %~sI\")",
       "Bash(cmd /c \"dir /x \\\\\"c:\\\\Users\\\\gerar\\\\Downloads\\\\\" | findstr /i veloppement\")",
-      "Bash(powershell -ExecutionPolicy Bypass -Command 'Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads'\\\\'' | Get-ChildItem | Where-Object { $_.Name -like '\\\\''*veloppement*'\\\\'' } | Select-Object FullName')"
+      "Bash(powershell -ExecutionPolicy Bypass -Command 'Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads'\\\\'' | Get-ChildItem | Where-Object { $_.Name -like '\\\\''*veloppement*'\\\\'' } | Select-Object FullName')",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Temp\\\\build-theme.ps1\")",
+      "Bash(cmd /c \"powershell -ExecutionPolicy Bypass -Command \\\\\"Set-Content -Path 'C:\\\\\\\\Temp\\\\\\\\test.txt' -Value 'ok' -Encoding UTF8; Write-Host done\\\\\"\")",
+      "Bash(powershell -ExecutionPolicy Bypass -Command 'Get-Process | Where-Object { $_.Name -like '\\\\''*powershell*'\\\\'' }')",
+      "Bash(powershell -ExecutionPolicy Bypass -Command 'if \\(Test-Path '\\\\''C:\\\\Temp\\\\G2RD-export'\\\\''\\) { $s = \\(Get-ChildItem '\\\\''C:\\\\Temp\\\\G2RD-export'\\\\'' -Recurse | Measure-Object -Property Length -Sum\\).Sum / 1MB; Write-Host \\('\\\\''Temp en cours: '\\\\'' + \\('\\\\''{0:N1}'\\\\'' -f $s\\) + '\\\\'' MB'\\\\''\\) } else { Write-Host '\\\\''Temp supprime'\\\\'' }; if \\(Test-Path '\\\\''C:\\\\Users\\\\gerar\\\\Downloads\\\\D*veloppement Web\\\\G2RD-theme.zip'\\\\''\\) { $z = \\(Get-Item '\\\\''C:\\\\Users\\\\gerar\\\\Downloads\\\\D*veloppement Web\\\\G2RD-theme.zip'\\\\''\\).Length / 1MB; Write-Host \\('\\\\''ZIP: '\\\\'' + \\('\\\\''{0:N2}'\\\\'' -f $z\\) + '\\\\'' MB'\\\\''\\) } else { Write-Host '\\\\''ZIP pas encore cree'\\\\'' }')",
+      "Bash(gh api:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh auth:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"

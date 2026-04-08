@@ -1,0 +1,298 @@
+name: Smart CI
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main", "develop"]
+
+concurrency:
+  group: smart-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect project type
+    runs-on: ubuntu-latest
+    outputs:
+      wordpress: ${{ steps.detect.outputs.wordpress }}
+      react: ${{ steps.detect.outputs.react }}
+      angular: ${{ steps.detect.outputs.angular }}
+      symfony: ${{ steps.detect.outputs.symfony }}
+      nodejs: ${{ steps.detect.outputs.nodejs }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect stack
+        id: detect
+        shell: bash
+        run: |
+          WORDPRESS=false
+          REACT=false
+          ANGULAR=false
+          SYMFONY=false
+          NODEJS=false
+
+          # Installation WP complète
+          if [ -f "wp-config.php" ] || [ -d "wp-content" ]; then
+            WORDPRESS=true
+          fi
+          # Thème ou plugin WP : style.css avec "Theme Name:", phpcs.xml, theme.json, ou block.json présent
+          if [ -f "phpcs.xml" ] || [ -f "phpcs.xml.dist" ]; then
+            WORDPRESS=true
+          fi
+          if [ -f "style.css" ] && grep -q "Theme Name:" style.css; then
+            WORDPRESS=true
+          fi
+          if [ -f "theme.json" ] || [ -f "functions.php" ]; then
+            WORDPRESS=true
+          fi
+          if find . -maxdepth 3 -name "block.json" | grep -q .; then
+            WORDPRESS=true
+          fi
+
+          if [ -f "composer.json" ] && grep -qi '"symfony/' composer.json; then
+            SYMFONY=true
+          fi
+
+          if [ -f "angular.json" ]; then
+            ANGULAR=true
+            NODEJS=true
+          fi
+
+          if [ -f "package.json" ] && grep -qi '"react"' package.json; then
+            REACT=true
+            NODEJS=true
+          fi
+
+          if [ -f "package.json" ] && [ "$REACT" = false ] && [ "$ANGULAR" = false ]; then
+            NODEJS=true
+          fi
+
+          echo "wordpress=$WORDPRESS" >> $GITHUB_OUTPUT
+          echo "react=$REACT" >> $GITHUB_OUTPUT
+          echo "angular=$ANGULAR" >> $GITHUB_OUTPUT
+          echo "symfony=$SYMFONY" >> $GITHUB_OUTPUT
+          echo "nodejs=$NODEJS" >> $GITHUB_OUTPUT
+
+  wordpress:
+    name: WordPress checks
+    needs: detect
+    if: ${{ needs.detect.outputs.wordpress == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+          coverage: none
+
+      - name: Validate composer.json
+        run: |
+          if [ -f "composer.json" ]; then
+            composer validate --no-check-publish
+          else
+            echo "No composer.json found"
+          fi
+
+      - name: Install PHP dependencies
+        run: |
+          if [ -f "composer.json" ]; then
+            composer install --no-interaction --prefer-dist
+          else
+            echo "No composer.json found"
+          fi
+
+      - name: Run PHPCS
+        run: |
+          if [ -f "vendor/bin/phpcs" ]; then
+            vendor/bin/phpcs
+          else
+            echo "PHPCS not installed"
+          fi
+
+      - name: Run PHPStan
+        run: |
+          if [ -f "vendor/bin/phpstan" ]; then
+            vendor/bin/phpstan analyse
+          else
+            echo "PHPStan not installed"
+          fi
+
+      - name: Run PHPUnit
+        run: |
+          if [ -f "vendor/bin/phpunit" ]; then
+            vendor/bin/phpunit
+          else
+            echo "PHPUnit not installed"
+          fi
+
+      # Build des blocs Gutenberg (npm workspaces)
+      - name: Setup Node.js
+        if: ${{ hashFiles('package.json') != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install JS dependencies
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm ci
+
+      - name: Build Gutenberg blocks
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm run build
+
+  symfony:
+    name: Symfony checks
+    needs: detect
+    if: ${{ needs.detect.outputs.symfony == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --no-check-publish
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Lint container
+        run: |
+          if [ -f "bin/console" ]; then
+            php bin/console lint:container
+          else
+            echo "Symfony console not found"
+          fi
+
+      - name: Lint YAML
+        run: |
+          if [ -f "bin/console" ]; then
+            php bin/console lint:yaml config
+          else
+            echo "Symfony console not found"
+          fi
+
+      - name: Run PHP CS Fixer
+        run: |
+          if [ -f "vendor/bin/php-cs-fixer" ]; then
+            vendor/bin/php-cs-fixer fix --dry-run --diff
+          else
+            echo "PHP CS Fixer not installed"
+          fi
+
+      - name: Run PHPStan
+        run: |
+          if [ -f "vendor/bin/phpstan" ]; then
+            vendor/bin/phpstan analyse
+          else
+            echo "PHPStan not installed"
+          fi
+
+      - name: Run PHPUnit
+        run: |
+          if [ -f "vendor/bin/phpunit" ]; then
+            vendor/bin/phpunit
+          else
+            echo "PHPUnit not installed"
+          fi
+
+  react:
+    name: React checks
+    needs: detect
+    if: ${{ needs.detect.outputs.react == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present
+
+      - name: Run tests
+        run: npm test --if-present -- --watch=false
+
+      - name: Build project
+        run: npm run build --if-present
+
+  angular:
+    name: Angular checks
+    needs: detect
+    if: ${{ needs.detect.outputs.angular == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present
+
+      - name: Run tests
+        run: npm test --if-present -- --watch=false --browsers=ChromeHeadless
+
+      - name: Build project
+        run: npm run build --if-present
+
+  nodejs:
+    name: Node.js checks
+    needs: detect
+    if: ${{ needs.detect.outputs.nodejs == 'true' && needs.detect.outputs.react != 'true' && needs.detect.outputs.angular != 'true' && needs.detect.outputs.wordpress != 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Build project
+        run: npm run build --if-present
