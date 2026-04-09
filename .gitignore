@@ -43,6 +43,9 @@ pnpm-debug.log*
 # Scripts d'export local (non pertinents pour les contributeurs)
 export-theme.ps1
 
+# Lock files des workspaces npm (le lock file racine fait autorité)
+blocks/*/package-lock.json
+
 # Fichiers système
 .DS_Store
 Thumbs.db
