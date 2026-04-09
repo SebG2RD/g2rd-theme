@@ -71,7 +71,15 @@
       "Bash(node -e \"console.log\\(require\\('./node_modules/markdownlint-cli/package.json'\\).version\\)\")",
       "Bash(node -e \"console.log\\(require\\('./node_modules/smol-toml/package.json'\\).version\\)\")",
       "Bash(node -e \"console.log\\(require\\('./node_modules/markdown-it/package.json'\\).version\\)\")",
-      "Bash(npm ci:*)"
+      "Bash(npm ci:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"New-Item -ItemType Directory -Path 'C:\\\\Temp' -Force | Out-Null; Write-Host 'OK'\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File export-theme.ps1)",
+      "Bash(powershell.exe -Command 'Move-Item -Path '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip'\\\\'' -Destination '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme-v1.2.2.zip'\\\\'' -Force; $size=\\(Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme-v1.2.2.zip'\\\\''\\).Length/1MB; Write-Host \\('\\\\''ZIP v1.2.2 : '\\\\'' + \\('\\\\''{0:N2}'\\\\'' -f $size\\) + '\\\\'' MB'\\\\''\\)')",
+      "Bash(powershell.exe -Command \"Get-Item 'c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip' | Select-Object Name, Length, LastWriteTime\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -NonInteractive -File export-theme.ps1)",
+      "Bash(powershell.exe -Command '$f=Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip'\\\\''; Write-Host \\($f.Name + '\\\\'' — '\\\\'' + [math]::Round\\($f.Length/1MB,2\\) + '\\\\'' MB'\\\\''\\)')",
+      "Bash(powershell.exe -Command '$f=Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip'\\\\'' -ErrorAction SilentlyContinue; if\\($f\\){$f.Length}else{'\\\\''absent'\\\\''}')",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command ':*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"
