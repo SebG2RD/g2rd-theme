@@ -70,7 +70,8 @@
       "Bash(node -e \"const lock=require\\('./package-lock.json'\\); const root=\\(lock.packages||{}\\)['']||{}; console.log\\('overrides in lock:', JSON.stringify\\(root.overrides\\)\\)\")",
       "Bash(node -e \"console.log\\(require\\('./node_modules/markdownlint-cli/package.json'\\).version\\)\")",
       "Bash(node -e \"console.log\\(require\\('./node_modules/smol-toml/package.json'\\).version\\)\")",
-      "Bash(node -e \"console.log\\(require\\('./node_modules/markdown-it/package.json'\\).version\\)\")"
+      "Bash(node -e \"console.log\\(require\\('./node_modules/markdown-it/package.json'\\).version\\)\")",
+      "Bash(npm ci:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"
