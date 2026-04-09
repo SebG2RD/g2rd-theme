@@ -6,6 +6,6 @@
     "start": "webpack --config webpack.config.js --mode development --watch"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^30.7.0"
+    "@wordpress/scripts": "^31.8.0"
   }
 }

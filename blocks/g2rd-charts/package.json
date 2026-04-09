@@ -9,6 +9,6 @@
     "chart.js": "^4.4.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^30.7.0"
+    "@wordpress/scripts": "^31.8.0"
   }
 }

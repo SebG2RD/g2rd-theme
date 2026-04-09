@@ -1,0 +1,19 @@
+version: 2
+
+updates:
+  # Mises à jour des dépendances npm (racine + workspaces)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Regrouper les mises à jour @wordpress/* dans une seule PR
+    groups:
+      wordpress-packages:
+        patterns:
+          - "@wordpress/*"
+
+  # Mises à jour des dépendances Composer (PHP)
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
