@@ -29,9 +29,9 @@ class CPT_Portfolio
     public function registerHooks(): void
     {
         add_action('init', [$this, 'registerPostType']);
+        add_action('init', [$this, 'registerPostMeta']);
         add_action('add_meta_boxes', [$this, 'addMetaBox']);
         add_action('save_post_portfolio', [$this, 'saveMeta']);
-        add_filter('use_block_editor_for_post_type', [$this, 'disableGutenberg'], 10, 2);
         add_filter('rest_prepare_portfolio', [$this, 'hideSensitiveFieldsFromAPI'], 10, 3);
         add_filter('manage_portfolio_posts_columns', [$this, 'addColumns']);
         add_action('manage_portfolio_posts_custom_column', [$this, 'renderColumns'], 10, 2);
@@ -91,6 +91,54 @@ class CPT_Portfolio
         }
 
         \wp_send_json_success(['password' => (string) \get_post_meta($post_id, '_portfolio_password', true)]);
+    }
+
+    /**
+     * Enregistre les métadonnées via register_post_meta() pour l'accès REST et l'éditeur de blocs.
+     * Les champs sensibles (identifiants, mot de passe) sont exclus de l'API REST.
+     *
+     * @since 1.2.3
+     * @return void
+     */
+    public function registerPostMeta(): void
+    {
+        // Champs publics (visibles dans l'éditeur de blocs)
+        register_post_meta('portfolio', '_portfolio_link', [
+            'show_in_rest'  => true,
+            'single'        => true,
+            'type'          => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'auth_callback' => fn() => \current_user_can('edit_posts'),
+        ]);
+
+        foreach (['_portfolio_perf', '_portfolio_a11y', '_portfolio_bp', '_portfolio_seo'] as $key) {
+            register_post_meta('portfolio', $key, [
+                'show_in_rest'  => true,
+                'single'        => true,
+                'type'          => 'integer',
+                'sanitize_callback' => 'absint',
+                'auth_callback' => fn() => \current_user_can('edit_posts'),
+            ]);
+        }
+
+        // Champs sensibles — enregistrés pour l'éditeur mais exclus de l'API REST publique
+        foreach (['_portfolio_login', '_portfolio_password', '_portfolio_hebergement', '_portfolio_contrat', '_portfolio_date_anniv'] as $key) {
+            register_post_meta('portfolio', $key, [
+                'show_in_rest'  => false,
+                'single'        => true,
+                'type'          => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback' => fn() => \current_user_can('manage_options'),
+            ]);
+        }
+
+        register_post_meta('portfolio', '_portfolio_maintenance', [
+            'show_in_rest'  => false,
+            'single'        => true,
+            'type'          => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback' => fn() => \current_user_can('manage_options'),
+        ]);
     }
 
     /**
@@ -161,22 +209,6 @@ class CPT_Portfolio
             'rewrite'          => ['slug' => 'qui'],
             'show_admin_column' => true,
         ]);
-    }
-
-    /**
-     * Désactive l'éditeur Gutenberg pour le type de contenu Portfolio
-     *
-     * @since 1.0.2
-     * @param bool $use_block_editor
-     * @param string $post_type
-     * @return bool
-     */
-    public function disableGutenberg($use_block_editor, $post_type): bool
-    {
-        if ($post_type === 'portfolio') {
-            return false;
-        }
-        return $use_block_editor;
     }
 
     /**

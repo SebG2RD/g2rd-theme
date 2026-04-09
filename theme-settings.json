@@ -371,7 +371,7 @@
         {
           "name": "Imposante",
           "slug": "huge",
-          "shadow": "10px 5px 5px rgba(0, 0, 0, 0.1);"
+          "shadow": "10px 5px 5px rgba(0, 0, 0, 0.1)"
         }
       ]
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Gestion des feuilles de style des blocs
- * 
+ *
  * Cette classe gère l'enregistrement et le chargement des feuilles de style
  * personnalisées pour les blocs du thème.
  *
@@ -16,9 +16,10 @@ namespace G2RD;
 
 /**
  * Gestion des feuilles de style des blocs
- * 
- * Cette classe gère l'enregistrement automatique des feuilles de style,
- * leur optimisation et leur mise en cache.
+ *
+ * Utilise wp_enqueue_block_style() (WP 6.3+) pour charger les styles de blocs
+ * aussi bien sur le frontend que dans le canvas iframé de l'éditeur de blocs
+ * (compatible WP 7.0+).
  *
  * @package G2RD
  * @since 1.0.0
@@ -55,8 +56,6 @@ class BlockStylesheets
     {
         \add_action('init', [$this, 'registerBlockStylesheets']);
         \add_action('switch_theme', [$this, 'clearStylesheetsCache']);
-        \add_action('wp_enqueue_scripts', [$this, 'enqueueBlockStylesheets']);
-        \add_action('admin_enqueue_scripts', [$this, 'enqueueBlockStylesheets']);
     }
 
     /**
@@ -68,43 +67,33 @@ class BlockStylesheets
     }
 
     /**
-     * Enregistre les feuilles de style des blocs
+     * Enregistre et enfile les feuilles de style des blocs via wp_enqueue_block_style().
+     * Ce mécanisme charge les styles sur le frontend ET dans le canvas iframé de l'éditeur
+     * (contrairement à admin_enqueue_scripts qui ne fonctionne pas dans l'iframe WP 7.0+).
      */
     public function registerBlockStylesheets(): void
     {
         $stylesheets = $this->getBlockStylesheets();
 
         foreach ($stylesheets as $block_name => $stylesheet) {
-            if ($this->isValidStylesheet($stylesheet)) {
-                \wp_register_style(
-                    "g2rd-{$block_name}",
-                    $stylesheet['src'],
-                    $stylesheet['deps'] ?? [],
-                    $this->getStylesheetVersion($stylesheet['src']),
-                    $stylesheet['media'] ?? 'all'
-                );
+            if (!$this->isValidStylesheet($stylesheet)) {
+                continue;
             }
-        }
-    }
 
-    /**
-     * Charge les feuilles de style des blocs
-     */
-    public function enqueueBlockStylesheets(): void
-    {
-        $stylesheets = $this->getBlockStylesheets();
+            $handle  = 'g2rd-' . \sanitize_title($block_name);
+            $version = $this->getStylesheetVersion($stylesheet['src']);
 
-        foreach ($stylesheets as $block_name => $stylesheet) {
-            if ($this->isValidStylesheet($stylesheet)) {
-                \wp_enqueue_style("g2rd-{$block_name}");
+            \wp_enqueue_block_style($block_name, [
+                'handle' => $handle,
+                'src'    => $stylesheet['src'],
+                'deps'   => $stylesheet['deps'] ?? [],
+                'ver'    => $version,
+                'media'  => $stylesheet['media'] ?? 'all',
+            ]);
 
-                // Ajouter les styles inline si nécessaire
-                if (isset($stylesheet['inline'])) {
-                    \wp_add_inline_style(
-                        "g2rd-{$block_name}",
-                        $this->optimizeCSS($stylesheet['inline'])
-                    );
-                }
+            // Styles inline additionnels rattachés au même handle
+            if (!empty($stylesheet['inline'])) {
+                \wp_add_inline_style($handle, $this->optimizeCSS($stylesheet['inline']));
             }
         }
     }
@@ -140,14 +129,14 @@ class BlockStylesheets
 
         foreach ($stylesheet_files as $file) {
             $stylesheet_data = json_decode(file_get_contents($file), true);
-            
+
             if (is_array($stylesheet_data) && isset($stylesheet_data['blockName'])) {
                 $block_name = $stylesheet_data['blockName'];
                 $stylesheets[$block_name] = [
-                    'src' => $stylesheet_data['src'],
-                    'deps' => $stylesheet_data['deps'] ?? [],
-                    'media' => $stylesheet_data['media'] ?? 'all',
-                    'inline' => $stylesheet_data['inline'] ?? null
+                    'src'    => $stylesheet_data['src'],
+                    'deps'   => $stylesheet_data['deps'] ?? [],
+                    'media'  => $stylesheet_data['media'] ?? 'all',
+                    'inline' => $stylesheet_data['inline'] ?? null,
                 ];
             }
         }
@@ -174,7 +163,7 @@ class BlockStylesheets
             $src
         );
 
-        return file_exists($file_path) ? filemtime($file_path) : $this->theme_version;
+        return file_exists($file_path) ? (string) filemtime($file_path) : $this->theme_version;
     }
 
     /**
@@ -184,14 +173,14 @@ class BlockStylesheets
     {
         // Supprimer les commentaires
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-        
+
         // Supprimer les espaces inutiles
         $css = preg_replace('/\s+/', ' ', $css);
         $css = preg_replace('/\s*([{}|:;,])\s*/', '$1', $css);
-        
+
         // Supprimer les points-virgules inutiles
         $css = str_replace(';}', '}', $css);
-        
+
         return trim($css);
     }
-} 
+}

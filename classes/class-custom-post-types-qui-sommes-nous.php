@@ -29,10 +29,45 @@ class CPT_QuiSommesNous
     public function registerHooks(): void
     {
         add_action('init', [$this, 'registerPostType']);
+        add_action('init', [$this, 'registerPostMeta']);
         add_action('add_meta_boxes', [$this, 'addMetaBox']);
         add_action('save_post_qui-sommes-nous', [$this, 'saveMeta']);
-        add_filter('use_block_editor_for_post_type', [$this, 'disableGutenberg'], 10, 2);
-        // Ajouter ici les hooks/metaboxes/colonnes spécifiques à qui-sommes-nous
+    }
+
+    /**
+     * Enregistre les métadonnées via register_post_meta() pour l'accès REST et l'éditeur de blocs.
+     *
+     * @since 1.2.3
+     * @return void
+     */
+    public function registerPostMeta(): void
+    {
+        foreach (['_experience_dev', '_soft_skills', '_methodologie', '_objectif'] as $key) {
+            register_post_meta('qui-sommes-nous', $key, [
+                'show_in_rest'  => true,
+                'single'        => true,
+                'type'          => 'string',
+                'sanitize_callback' => 'sanitize_textarea_field',
+                'auth_callback' => fn() => \current_user_can('edit_posts'),
+            ]);
+        }
+
+        register_post_meta('qui-sommes-nous', '_icones_images', [
+            'show_in_rest'  => [
+                'schema' => [
+                    'type'  => 'array',
+                    'items' => ['type' => 'string', 'format' => 'uri'],
+                ],
+            ],
+            'single'            => true,
+            'type'              => 'array',
+            'sanitize_callback' => fn( $urls ) => array_values(
+                array_filter(
+                    array_map( 'esc_url_raw', (array) $urls )
+                )
+            ),
+            'auth_callback' => fn() => \current_user_can('edit_posts'),
+        ]);
     }
 
     /**
@@ -214,26 +249,15 @@ jQuery(document).ready(function($){
             }
         }
         if (isset($_POST['icones_images'])) {
-            $images = array_map('absint', array_filter((array) \wp_unslash($_POST['icones_images'])));
+            $images = array_values(
+                array_filter(
+                    array_map( 'esc_url_raw', (array) \wp_unslash( $_POST['icones_images'] ) )
+                )
+            );
             update_post_meta($post_id, '_icones_images', $images);
         } else {
             update_post_meta($post_id, '_icones_images', []);
         }
     }
 
-    /**
-     * Désactive l'éditeur Gutenberg pour le type de contenu Qui sommes-nous
-     *
-     * @since 1.0.2
-     * @param bool $use_block_editor
-     * @param string $post_type
-     * @return bool
-     */
-    public function disableGutenberg($use_block_editor, $post_type): bool
-    {
-        if ($post_type === 'qui-sommes-nous') {
-            return false;
-        }
-        return $use_block_editor;
-    }
-} 
+}

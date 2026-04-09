@@ -2,7 +2,7 @@
 Contributors: g2rd
 Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, portfolio, blog, translation-ready, rtl-language-support, threaded-comments, accessibility-ready
 Requires at least: 6.5
-Tested up to: 6.5
+Tested up to: 7.0
 Requires PHP: 8.0
 Stable tag: 1.2.2
 License: EUPL-1.2
