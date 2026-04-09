@@ -63,7 +63,7 @@ class BlockPatterns
      */
     public function clearPatternsCache(): void
     {
-        \delete_transient(self::CACHE_KEY);
+        \delete_transient(self::CACHE_KEY . '_' . md5($this->theme_version));
     }
 
     /**
@@ -96,12 +96,13 @@ class BlockPatterns
      */
     public function registerBlockPatterns(): void
     {
-        // Essayer de récupérer les motifs depuis le cache
-        $patterns = \get_transient(self::CACHE_KEY);
+        // Clé versionnée pour invalider le cache automatiquement après une mise à jour
+        $cache_key = self::CACHE_KEY . '_' . md5($this->theme_version);
+        $patterns  = \get_transient($cache_key);
 
         if (false === $patterns) {
             $patterns = $this->loadPatternsFromDirectory();
-            \set_transient(self::CACHE_KEY, $patterns, self::CACHE_DURATION);
+            \set_transient($cache_key, $patterns, self::CACHE_DURATION);
         }
 
         foreach ($patterns as $pattern) {
@@ -116,6 +117,9 @@ class BlockPatterns
 
     /**
      * Charge les motifs depuis le répertoire patterns/
+     *
+     * Utilise ob_start()/ob_get_clean() pour capturer le contenu HTML sans
+     * l'envoyer directement au navigateur, et get_file_data() pour les métadonnées.
      */
     private function loadPatternsFromDirectory(): array
     {
@@ -128,15 +132,67 @@ class BlockPatterns
 
         $pattern_files = \glob($pattern_dir . '*.php');
 
+        if (false === $pattern_files || empty($pattern_files)) {
+            return $patterns;
+        }
+
         foreach ($pattern_files as $file) {
-            $pattern_data = include $file;
-            
-            if (is_array($pattern_data) && isset($pattern_data['name'])) {
-                $patterns[] = [
-                    'name' => $pattern_data['name'],
-                    'properties' => $pattern_data
-                ];
+            // Lire les métadonnées depuis le header du fichier (sans l'exécuter)
+            $headers = \get_file_data($file, [
+                'title'       => 'Title',
+                'slug'        => 'Slug',
+                'description' => 'Description',
+                'categories'  => 'Categories',
+                'keywords'    => 'Keywords',
+                'inserter'    => 'Inserter',
+                'block_types' => 'Block Types',
+            ]);
+
+            if (empty($headers['title']) || empty($headers['slug'])) {
+                continue;
             }
+
+            // Capturer le HTML sans l'envoyer au navigateur
+            \ob_start();
+            include $file;
+            $content = \ob_get_clean();
+
+            if (empty($content)) {
+                continue;
+            }
+
+            $properties = [
+                'title'       => $headers['title'],
+                'content'     => $content,
+                'description' => $headers['description'] ?? '',
+                'inserter'    => 'false' !== strtolower($headers['inserter'] ?? 'true'),
+            ];
+
+            if (!empty($headers['categories'])) {
+                $properties['categories'] = array_map(
+                    'trim',
+                    explode(',', $headers['categories'])
+                );
+            }
+
+            if (!empty($headers['keywords'])) {
+                $properties['keywords'] = array_map(
+                    'trim',
+                    explode(',', $headers['keywords'])
+                );
+            }
+
+            if (!empty($headers['block_types'])) {
+                $properties['blockTypes'] = array_map(
+                    'trim',
+                    explode(',', $headers['block_types'])
+                );
+            }
+
+            $patterns[] = [
+                'name'       => $headers['slug'],
+                'properties' => $properties,
+            ];
         }
 
         return $patterns;
@@ -147,10 +203,12 @@ class BlockPatterns
      */
     private function isValidPattern(array $pattern): bool
     {
-        $required_fields = ['name', 'title', 'content'];
+        if (empty($pattern['name'])) {
+            return false;
+        }
 
-        foreach ($required_fields as $field) {
-            if (!isset($pattern['properties'][$field])) {
+        foreach (['title', 'content'] as $field) {
+            if (empty($pattern['properties'][$field])) {
                 return false;
             }
         }
@@ -158,27 +216,4 @@ class BlockPatterns
         return true;
     }
 
-    /**
-     * Ajoute des attributs de performance aux motifs
-     */
-    private function addPerformanceAttributes(array $pattern): array
-    {
-        if (isset($pattern['properties']['content'])) {
-            // Ajouter des attributs de chargement différé aux images
-            $pattern['properties']['content'] = preg_replace(
-                '/<img(.*?)>/',
-                '<img$1 loading="lazy" decoding="async">',
-                $pattern['properties']['content']
-            );
-
-            // Optimiser les classes CSS
-            $pattern['properties']['content'] = preg_replace(
-                '/class="([^"]*)\s{2,}([^"]*)"/',
-                'class="$1 $2"',
-                $pattern['properties']['content']
-            );
-        }
-
-        return $pattern;
-    }
-} 
+}
