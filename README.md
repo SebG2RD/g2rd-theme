@@ -220,6 +220,14 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.2
+
+- **Sécurité** : 0 vulnérabilité npm — `@wordpress/scripts` v30 → v31, overrides pour `@typescript-eslint`, `copy-webpack-plugin`, `webpack-dev-server`, `serialize-javascript` et `markdownlint`.
+- **Bugfix** : erreur *"headers already sent"* dans `class-block-patterns.php` — chargement via `ob_start()`/`ob_get_clean()` + `get_file_data()`.
+- **Bugfix** : `clearPatternsCache()` n'effaçait jamais le bon transient (clé sans version).
+- **Bugfix** : `glob()` retournant `false` sur erreur FS provoquait un `foreach` fatal.
+- **CI** : détection WordPress étendue aux thèmes (style.css, theme.json, block.json), build Gutenberg intégré, Dependabot configuré.
+
 ### 1.0.8
 
 - **Performances** : l’effet particules est désactivé pendant les analyses PageSpeed Insights / Lighthouse, pour un meilleur score sans impact sur les visiteurs réels.
