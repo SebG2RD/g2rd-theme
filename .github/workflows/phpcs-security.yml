@@ -1,0 +1,125 @@
+name: PHPCS WordPress + Security Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+    name: PHPCS WordPress Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          ini-values: "memory_limit=1G"
+          coverage: none
+          tools: cs2pr
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: Install PHPCS + WordPress Standards + Security Audit
+        run: |
+          composer global require --dev \
+            squizlabs/php_codesniffer \
+            wp-coding-standards/wpcs \
+            phpcompatibility/phpcompatibility-wp \
+            phpcsstandards/phpcsextra \
+            pheromone/phpcs-security-audit \
+            dealerdirect/phpcodesniffer-composer-installer
+
+      - name: Verify installed standards
+        run: composer global exec -- phpcs -i
+
+      # WordPress Coding Standards
+      - name: Run PHPCS WordPress
+        id: phpcs-wp
+        continue-on-error: true
+        run: |
+          composer global exec -- phpcs \
+            --standard=WordPress \
+            --extensions=php \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/*,blocks/*/src/* \
+            --report-full \
+            --report-checkstyle=./phpcs-wp-report.xml \
+            --colors \
+            -p \
+            classes/ functions.php includes/
+
+      - name: Annotations PHPCS WordPress
+        if: ${{ always() && steps.phpcs-wp.outcome == 'failure' }}
+        run: cs2pr ./phpcs-wp-report.xml
+
+      # Security Audit (OWASP SAST)
+      - name: Run PHPCS Security Audit
+        id: phpcs-sec
+        continue-on-error: true
+        run: |
+          composer global exec -- phpcs \
+            --standard=Security \
+            --extensions=php \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/* \
+            --report-full \
+            --report-checkstyle=./phpcs-security-report.xml \
+            --colors \
+            -p \
+            -d ParanoiaMode=0 \
+            classes/ functions.php includes/ blocks/
+
+      - name: Annotations Security Audit
+        if: ${{ always() && steps.phpcs-sec.outcome == 'failure' }}
+        run: cs2pr ./phpcs-security-report.xml
+
+      # PHPCompatibility (PHP 8.0 - 8.5)
+      - name: Run PHPCompatibility
+        id: phpcompat
+        continue-on-error: true
+        run: |
+          composer global exec -- phpcs \
+            --standard=PHPCompatibilityWP \
+            --extensions=php \
+            --ignore=vendor/*,node_modules/* \
+            --runtime-set testVersion 8.0- \
+            --report-full \
+            --report-checkstyle=./phpcompat-report.xml \
+            --colors \
+            -p \
+            classes/ functions.php includes/
+
+      - name: Annotations PHPCompatibility
+        if: ${{ always() && steps.phpcompat.outcome == 'failure' }}
+        run: cs2pr ./phpcompat-report.xml
+
+      # Resume
+      - name: Resume des resultats
+        if: always()
+        run: |
+          echo "## Resultats PHPCS" >> $GITHUB_STEP_SUMMARY
+          echo "- WordPress Standards: ${{ steps.phpcs-wp.outcome }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Security Audit: ${{ steps.phpcs-sec.outcome }}" >> $GITHUB_STEP_SUMMARY
+          echo "- PHPCompatibility: ${{ steps.phpcompat.outcome }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phpcs-reports
+          path: |
+            phpcs-wp-report.xml
+            phpcs-security-report.xml
+            phpcompat-report.xml
+          retention-days: 30

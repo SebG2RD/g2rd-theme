@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ruleset name="G2RD Theme">
+    <description>Regles PHPCS pour le theme G2RD (WordPress + Security)</description>
+
+    <!-- Chemins a scanner -->
+    <file>./classes</file>
+    <file>./functions.php</file>
+    <file>./includes</file>
+    <file>./index.php</file>
+
+    <!-- Chemins a ignorer -->
+    <exclude-pattern>./vendor/*</exclude-pattern>
+    <exclude-pattern>./node_modules/*</exclude-pattern>
+    <exclude-pattern>./blocks/*/build/*</exclude-pattern>
+    <exclude-pattern>./blocks/*/src/*</exclude-pattern>
+    <exclude-pattern>./assets/js/vendor/*</exclude-pattern>
+
+    <!-- Extensions PHP -->
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="ps"/>
+
+    <!-- WordPress Coding Standards -->
+    <rule ref="WordPress">
+        <!-- Autorise les noms de fichiers en PascalCase pour les classes -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    </rule>
+
+    <!-- Configuration WordPress specifique -->
+    <config name="minimum_wp_version" value="6.8"/>
+
+    <!-- Text domain du theme -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="g2rd"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Prefixes des fonctions et hooks -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="g2rd"/>
+                <element value="G2RD"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- PHPCompatibility pour PHP 8.0+ -->
+    <config name="testVersion" value="8.0-"/>
+    <rule ref="PHPCompatibilityWP">
+        <include-pattern>*\.php$</include-pattern>
+    </rule>
+</ruleset>
