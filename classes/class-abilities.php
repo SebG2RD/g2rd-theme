@@ -808,7 +808,7 @@ class Abilities {
 	// ─────────────────────────────────────────────────────────────────────────
 
 	/** @param array $_input Paramètres d'entrée (non utilisés — thème sans input). */
-	public function executeThemeSettings( array $_input ): array {
+	public function executeThemeSettings( array $_input ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		return [
 			'version' => \wp_get_theme()->get( 'Version' ),
 			'cpts'    => [

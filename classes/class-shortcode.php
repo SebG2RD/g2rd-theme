@@ -181,7 +181,7 @@ class Shortcode
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
-        $post_id = get_the_ID();
+        $post_id     = get_the_ID();
         $soft_skills = get_post_meta($post_id, '_soft_skills', true);
         if (empty($soft_skills)) {
             return 'Aucun soft skill spécifié';
@@ -200,7 +200,7 @@ class Shortcode
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
-        $post_id = get_the_ID();
+        $post_id      = get_the_ID();
         $methodologie = get_post_meta($post_id, '_methodologie', true);
         if (empty($methodologie)) {
             return 'Aucune méthodologie spécifiée';
@@ -219,7 +219,7 @@ class Shortcode
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
-        $post_id = get_the_ID();
+        $post_id  = get_the_ID();
         $objectif = get_post_meta($post_id, '_objectif', true);
         if (empty($objectif)) {
             return 'Aucun objectif spécifié';
@@ -239,7 +239,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $images = get_post_meta($post_id, '_icones_images', true);
+        $images  = get_post_meta($post_id, '_icones_images', true);
         if (empty($images) || !is_array($images)) {
             return 'Aucune icône spécifiée';
         }

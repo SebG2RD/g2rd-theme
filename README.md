@@ -214,11 +214,18 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 | **readme.txt**    | Utilisateurs / WP  | Description courte, conforme WordPress.org |
 | **docs/**         | Tous               | Guides détaillés (ex. accessibilité)       |
 | **LICENSE**       | Juridique          | Licence EUPL (dépôt Git)                   |
-| **license.txt**   | WordPress.org      | Même licence, format WordPress.org             |
+| **license.txt**   | WordPress.org      | Même licence, format WordPress.org         |
 
 ---
 
 ## Changelog
+
+### 1.2.7
+
+- **PHPCS** : `class-block-patterns.php` — `@var string` sur `$theme_version`, accolades ouvrantes sur la même ligne, espaces dans `get()`, `[]` → `array()` dans `add_action`.
+- **PHPCS** : `class-shortcode.php` — alignement des `=` dans quatre méthodes de shortcode.
+- **PHPCS** : `class-filterable-grid.php` — alignement des `=` (WooCommerce, thumbnail, SureCart), commentaire inline réécrit.
+- **PHPCS** : `class-abilities.php` — `phpcs:ignore` sur `executeThemeSettings` (paramètre de callback requis non utilisé).
 
 ### 1.2.6
 

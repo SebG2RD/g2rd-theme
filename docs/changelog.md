@@ -1,5 +1,12 @@
 # Changelog du thème G2RD
 
+## 1.2.7
+
+- **PHPCS** : `class-block-patterns.php` — `@var string` ajouté sur `$theme_version`, accolades ouvrantes sur la même ligne (`__construct`, `register_hooks`), espaces dans les appels `get()`, conversion `[]` → `array()` et espaces dans `add_action`.
+- **PHPCS** : `class-shortcode.php` — alignement des `=` dans quatre méthodes (`softSkillsShortcode`, `methodologieShortcode`, `objectifShortcode`, `iconesImagesShortcode`).
+- **PHPCS** : `class-filterable-grid.php` — alignement des `=` (WooCommerce orderby/meta_key, img_data/thumbnail, SureCart price/currency), commentaire inline `// 'instock' | ...` réécrit pour ne plus être détecté comme code.
+- **PHPCS** : `class-abilities.php` — suppression `phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found` sur `executeThemeSettings` (paramètre requis par l'interface de callback).
+
 ## 1.2.6
 
 - **PHPCS** : `class-block-patterns.php` — trailing whitespace, accolade ouvrante sur la même ligne, conversion complète espaces → tabs.

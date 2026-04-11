@@ -256,8 +256,8 @@ class FilterableGrid
 
         // WooCommerce : méta-tri par prix
         if ($orderby === 'price' && \class_exists('WooCommerce')) {
-            $query_args['orderby']    = 'meta_value_num';
-            $query_args['meta_key']   = '_price'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+            $query_args['orderby']  = 'meta_value_num';
+            $query_args['meta_key'] = '_price'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
         }
 
         $query = new \WP_Query($query_args);
@@ -297,7 +297,7 @@ class FilterableGrid
 
         $thumbnail = '';
         if (\has_post_thumbnail($post->ID)) {
-            $img_data = \wp_get_attachment_image_src(\get_post_thumbnail_id($post->ID), 'medium_large');
+            $img_data  = \wp_get_attachment_image_src(\get_post_thumbnail_id($post->ID), 'medium_large');
             $thumbnail = $img_data ? $img_data[0] : '';
         }
 
@@ -355,7 +355,7 @@ class FilterableGrid
                 'regular_price'   => (float) $product->get_regular_price(),
                 'sale_price'      => (float) $product->get_sale_price(),
                 'on_sale'         => $product->is_on_sale(),
-                'stock_status'    => $product->get_stock_status(), // 'instock' | 'outofstock' | 'onbackorder'
+                'stock_status'    => $product->get_stock_status(), // valeurs : instock, outofstock, onbackorder
                 'sku'             => $product->get_sku(),
                 'average_rating'  => (float) $product->get_average_rating(),
                 'rating_count'    => (int)   $product->get_rating_count(),
@@ -368,7 +368,7 @@ class FilterableGrid
     private function normalizeSureCartProduct(int $post_id): array
     {
         // SureCart stocke les prix en custom fields
-        $price = \get_post_meta($post_id, 'sc_price_amount', true);
+        $price    = \get_post_meta($post_id, 'sc_price_amount', true);
         $currency = \get_post_meta($post_id, 'sc_currency', true) ?: 'USD';
 
         return [

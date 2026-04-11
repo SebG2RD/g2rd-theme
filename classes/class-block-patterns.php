@@ -36,25 +36,25 @@ class BlockPatterns {
 
 	/**
 	 * Version du thème pour le cache-busting
+	 *
+	 * @var string
 	 */
 	private string $theme_version;
 
 	/**
 	 * Constructeur
 	 */
-	public function __construct()
-	{
-		$this->theme_version = wp_get_theme()->get('Version');
+	public function __construct() {
+		$this->theme_version = wp_get_theme()->get( 'Version' );
 	}
 
 	/**
 	 * Enregistre les hooks nécessaires
 	 */
-	public function register_hooks(): void
-	{
-		\add_action('init', [$this, 'registerBlockPatterns']);
-		\add_action('init', [$this, 'registerBlockPatternCategories']);
-		\add_action('switch_theme', [$this, 'clearPatternsCache']);
+	public function register_hooks(): void {
+		\add_action( 'init', array( $this, 'registerBlockPatterns' ) );
+		\add_action( 'init', array( $this, 'registerBlockPatternCategories' ) );
+		\add_action( 'switch_theme', array( $this, 'clearPatternsCache' ) );
 	}
 
 	/**
