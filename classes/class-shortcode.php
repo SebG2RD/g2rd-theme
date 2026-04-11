@@ -67,7 +67,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $link = get_post_meta($post_id, '_portfolio_link', true);
+        $link    = get_post_meta($post_id, '_portfolio_link', true);
         if (empty($link)) {
             return '#';
         }
@@ -86,7 +86,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $value = get_post_meta($post_id, '_portfolio_perf', true);
+        $value   = get_post_meta($post_id, '_portfolio_perf', true);
         if ($value === '' || $value === false) {
             return '—';
         }
@@ -105,7 +105,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $value = get_post_meta($post_id, '_portfolio_a11y', true);
+        $value   = get_post_meta($post_id, '_portfolio_a11y', true);
         if ($value === '' || $value === false) {
             return '—';
         }
@@ -124,7 +124,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $value = get_post_meta($post_id, '_portfolio_bp', true);
+        $value   = get_post_meta($post_id, '_portfolio_bp', true);
         if ($value === '' || $value === false) {
             return '—';
         }
@@ -143,7 +143,7 @@ class Shortcode
             return '';
         }
         $post_id = get_the_ID();
-        $value = get_post_meta($post_id, '_portfolio_seo', true);
+        $value   = get_post_meta($post_id, '_portfolio_seo', true);
         if ($value === '' || $value === false) {
             return '—';
         }
@@ -162,7 +162,7 @@ class Shortcode
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
-        $post_id = get_the_ID();
+        $post_id    = get_the_ID();
         $experience = get_post_meta($post_id, '_experience_dev', true);
         if (empty($experience)) {
             return 'Aucune expérience en développement spécifiée';

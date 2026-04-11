@@ -1,5 +1,13 @@
 # Changelog du thème G2RD
 
+## 1.2.6
+
+- **PHPCS** : `class-block-patterns.php` — trailing whitespace, accolade ouvrante sur la même ligne, conversion complète espaces → tabs.
+- **PHPCS** : `class-shortcode.php` — alignement des signes `=` dans les blocs d'assignations consécutives.
+- **PHPCS** : `class-particules-effect.php` — alignement des `=` pour `$color` et `$speed`.
+- **PHPCS** : `class-custom-post-types-prestations.php` — alignement de `$args`.
+- **PHPCS** : `class-abilities.php` — paramètre `$input` inutilisé renommé `$_input`.
+
 ## 1.2.5
 
 - **PHPCS** : réécriture complète de `class-conditional-menu.php` — indentation tabs, syntaxe `array()` pour les constantes de classe, méthodes renommées en snake_case (`register_hooks`, `filter_conditional_block`, `current_user_has_role`).

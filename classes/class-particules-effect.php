@@ -142,8 +142,8 @@ class ParticlesEffect
 
         if ($has_particles) {
             // Récupérer les attributs de personnalisation
-            $color = isset($block['attrs']['particlesColor']) ? $block['attrs']['particlesColor'] : '#cccccc';
-            $speed = isset($block['attrs']['particlesSpeed']) ? $block['attrs']['particlesSpeed'] : 4.5;
+            $color   = isset($block['attrs']['particlesColor']) ? $block['attrs']['particlesColor'] : '#cccccc';
+            $speed   = isset($block['attrs']['particlesSpeed']) ? $block['attrs']['particlesSpeed'] : 4.5;
             $opacity = isset($block['attrs']['particlesOpacity']) ? $block['attrs']['particlesOpacity'] : 0.6;
 
             // Ajouter les attributs data-* pour la personnalisation

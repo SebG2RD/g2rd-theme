@@ -48,7 +48,7 @@ class CPT_Prestations
             'edit_item'     => \sprintf(\__('Modifier la %s', 'g2rd'), \mb_strtolower($s['singular'])),
             'menu_name'     => $s['plural'],
         ];
-        $args = [
+        $args   = [
             'labels'                => $labels,
             'public'                => true,
             'show_in_rest'          => (bool) $s['show_in_rest'],

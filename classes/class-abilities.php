@@ -807,8 +807,8 @@ class Abilities {
 	// Callbacks d'exécution — Thème
 	// ─────────────────────────────────────────────────────────────────────────
 
-	/** @param array $input Paramètres d'entrée validés (non utilisés ici). */
-	public function executeThemeSettings( array $input ): array {
+	/** @param array $_input Paramètres d'entrée (non utilisés — thème sans input). */
+	public function executeThemeSettings( array $_input ): array {
 		return [
 			'version' => \wp_get_theme()->get( 'Version' ),
 			'cpts'    => [

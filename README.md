@@ -77,7 +77,7 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 
 ## Configuration
 
-### Licence
+### Clé de licence
 
 1. **Apparence → G2RD Settings** : renseignez votre **clé API SureCart**.
 2. **Apparence → G2RD License** : saisissez votre **clé de licence**.
@@ -134,10 +134,10 @@ npm install
 
 ### Scripts npm
 
-| Commande           | Rôle                                      |
-| ---------------- | ----------------------------------------- |
-| `npm run build`  | Compile tous les blocs (workspaces).      |
-| `npm run start`  | Mode watch sur les blocs (développement). |
+| Commande          | Rôle                                      |
+| ----------------- | ----------------------------------------- |
+| `npm run build`   | Compile tous les blocs (workspaces).      |
+| `npm run start`   | Mode watch sur les blocs (développement). |
 
 Exemple pour un seul bloc (voir `package.json` pour la liste complète) :
 
@@ -157,7 +157,7 @@ composer install
 
 ## Structure du projet
 
-```
+```text
 g2rd-theme/
 ├── assets/                 # CSS/JS compilés, images, polices
 ├── blocks/                 # Blocs Gutenberg (un dossier par bloc)
@@ -214,11 +214,19 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 | **readme.txt**    | Utilisateurs / WP  | Description courte, conforme WordPress.org |
 | **docs/**         | Tous               | Guides détaillés (ex. accessibilité)       |
 | **LICENSE**       | Juridique          | Licence EUPL (dépôt Git)                   |
-| **license.txt**   | WordPress.org      | Même licence, format attendu par le répertoire |
+| **license.txt**   | WordPress.org      | Même licence, format WordPress.org             |
 
 ---
 
 ## Changelog
+
+### 1.2.6
+
+- **PHPCS** : `class-block-patterns.php` — trailing whitespace (L4, L19), accolade ouvrante sur la même ligne, conversion complète espaces → tabs.
+- **PHPCS** : `class-shortcode.php` — alignement des `=` pour `$link` (+4 esp.), `$value` (+3 esp. ×4), `$post_id` (+4 esp. dans bloc `$experience`).
+- **PHPCS** : `class-particules-effect.php` — alignement des `=` pour `$color` et `$speed` (+3 esp.).
+- **PHPCS** : `class-custom-post-types-prestations.php` — alignement de `$args` (+3 esp.).
+- **PHPCS** : `class-abilities.php` — paramètre `$input` inutilisé renommé en `$_input` (convention underscore WordPress).
 
 ### 1.2.5
 
