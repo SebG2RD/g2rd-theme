@@ -6,7 +6,7 @@
  * permettant aux outils IA compatibles MCP d'interagir avec les données du thème.
  *
  * Activation : page d'options G2RD → "Intégration IA / MCP", ou via filtre :
- *   add_filter( 'g2rd/settings/enable_ai', '__return_true' );
+ *   add_filter( 'g2rd_settings_enable_ai', '__return_true' );
  *
  * @package G2RD
  * @since   1.1.0
@@ -35,7 +35,7 @@ class Abilities {
 
 		// Opt-in explicite requis — désactivé par défaut pour ne pas exposer
 		// accidentellement des données à des outils IA non autorisés.
-		if ( ! \apply_filters( 'g2rd/settings/enable_ai', ThemeOptions::isFeatureEnabled( 'enable_ai' ) ) ) {
+		if ( ! \apply_filters( 'g2rd_settings_enable_ai', ThemeOptions::isFeatureEnabled( 'enable_ai' ) ) ) {
 			return;
 		}
 
@@ -108,9 +108,9 @@ class Abilities {
 		\wp_register_ability(
 			'g2rd/portfolios',
 			[
-				'label'       => \__( 'Lister les projets portfolio', 'g2rd' ),
-				'description' => \__( 'Retourne la liste paginée des projets portfolio publiés avec leurs scores et URL. Les champs sensibles (login, mot de passe) ne sont jamais exposés.', 'g2rd' ),
-				'category'    => 'g2rd-content-management',
+				'label'               => \__( 'Lister les projets portfolio', 'g2rd' ),
+				'description'         => \__( 'Retourne la liste paginée des projets portfolio publiés avec leurs scores et URL. Les champs sensibles (login, mot de passe) ne sont jamais exposés.', 'g2rd' ),
+				'category'            => 'g2rd-content-management',
 				'input_schema' => [
 					'type'       => 'object',
 					'properties' => [

@@ -51,6 +51,7 @@
     "@typescript-eslint/type-utils": "^8.0.0",
     "@typescript-eslint/typescript-estree": "^8.0.0",
     "@typescript-eslint/utils": "^8.0.0",
+    "basic-ftp": ">=5.2.2",
     "copy-webpack-plugin": "^14.0.0",
     "markdownlint-cli": "^0.48.0",
     "markdownlint": "^0.38.0",

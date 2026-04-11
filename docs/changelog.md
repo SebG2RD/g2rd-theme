@@ -1,5 +1,65 @@
 # Changelog du thème G2RD
 
+## 1.2.4
+
+- **Sécurité** : correction vulnérabilité `basic-ftp` ≤ 5.2.1 (CRLF injection — GHSA) via override npm `>=5.2.2`.
+- **PHPCS** : correction de toutes les violations WordPress Coding Standards dans `class-conditional-menu.php`, `class-abilities.php` et `class-block-patterns.php` — indentation tabs, accolade ouvrante, alignement double-flèches et signe égal.
+- **PHPCS** : renommage `ConditionalMenu` → `Conditional_Menu` pour conformité `WordPress.Files.FileName`.
+- **WPCS** : hook `g2rd/settings/enable_ai` renommé en `g2rd_settings_enable_ai` (séparateurs underscore).
+- **CI** : configuration PHPCS (`phpcs.xml`) et GitHub Actions pour vérification automatique des standards WP et audits de sécurité à chaque push/PR.
+
+## 1.2.3
+
+- **Compatibilité WP 7.0** : migration vers `register_post_meta()`, suppression de `disableGutenberg`.
+- **Canvas iframé** : migration vers `wp_enqueue_block_style()` pour la compatibilité avec l'éditeur de blocs.
+- **Bugfix** : preset shadow *Imposante* — point-virgule JSON invalide corrigé.
+- **Bugfix** : `_icones_images` — `absint` remplacé par `esc_url_raw` pour les URLs.
+- **Licence** : normalisation EUPL-1.2, *Tested up to* mis à jour à 7.0.
+
+## 1.2.2
+
+- **Sécurité** : 0 vulnérabilité npm — `@wordpress/scripts` v30 → v31, overrides pour `@typescript-eslint`, `copy-webpack-plugin`, `webpack-dev-server`, `serialize-javascript` et `markdownlint`.
+- **Bugfix** : erreur *"headers already sent"* dans `class-block-patterns.php` — chargement via `ob_start()`/`ob_get_clean()` + `get_file_data()`.
+- **Bugfix** : `clearPatternsCache()` n'effaçait jamais le bon transient (clé sans version).
+- **Bugfix** : `glob()` retournant `false` sur erreur FS provoquait un `foreach` fatal.
+- **CI** : détection WordPress étendue aux thèmes (`style.css`, `theme.json`, `block.json`), build Gutenberg intégré, Dependabot configuré.
+
+## 1.2.1
+
+- **GitHub Updater** : renommage du dossier lors de la mise à jour via `WP_Filesystem->move()` (compatibilité hébergeurs restrictifs).
+- **GitHub Updater** : validation stricte du tag (`version_compare`) et des tags malformés.
+- **CI** : workflow Smart CI multi-stack (WordPress, React, Angular, Symfony, Node.js).
+- **Dépendances PHP** : `vendor/` versionné dans Git pour assurer l'installation via `zipball_url` GitHub sans Composer.
+
+## 1.2.0
+
+- **Bloc** `g2rd/container` — layout flex / grille / contraint / flux avec `render.php`.
+- **WordPress Abilities API** — `class-abilities.php` opt-in via option d'administration (`enable_ai`).
+- **Block API** : remplacement du `Divider` par un `<hr>` dans l'éditeur.
+- **Coloration syntaxique** : intégration de `highlight.php` (Composer, distribué avec le thème).
+- **Assets** : GSAP et ScrollTrigger intégrés sous `assets/js/vendor/`.
+- **Export** : script `export-theme.ps1` pour générer le ZIP de production.
+
+## 1.1.0
+
+- **Bloc** `g2rd-carousel` : affichage mobile 2×2 fixe, désactivation autoplay/loop/swipe, effet `slide` forcé.
+- **Bloc** `g2rd-countdown` : titre éditable, `useBlockProps.save()` retiré.
+- **Bloc** `g2rd-counter` : fix duplication préfixe/suffixe en front.
+- **Bloc** `g2rd-typed` : animation de frappe configurable (strings, vitesse, boucle).
+- **Bloc** `g2rd-info` : refonte — icônes Dashicons + images, layouts, accessibilité.
+- **Workspaces npm** : monorepo avec un `package.json` par bloc compilé.
+
+## 1.0.8
+
+- **Performances** : l'effet particules est désactivé pendant les analyses PageSpeed Insights / Lighthouse, pour un meilleur score sans impact sur les visiteurs réels.
+- **Technique** : nettoyage JS pour compatibilité WordPress.
+
+## 1.0.7
+
+- **Counter** : préfixe et suffixe non dupliqués en front.
+- **Counter** : taille d'icône / image personnalisable dans l'éditeur.
+- **Glass** : fusion correcte des styles inline (padding, etc.).
+
 ## 1.0.6
 
 - **Nouveautés** :

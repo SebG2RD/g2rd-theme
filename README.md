@@ -220,6 +220,22 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.4
+
+- **Sécurité** : correction vulnérabilité `basic-ftp` ≤ 5.2.1 (CRLF injection — GHSA) via override npm `>=5.2.2`.
+- **PHPCS** : correction de toutes les violations WordPress Coding Standards dans `class-conditional-menu.php`, `class-abilities.php` et `class-block-patterns.php` (indentation tabs, accolade ouvrante, alignement double-flèches/égal).
+- **PHPCS** : renommage `ConditionalMenu` → `Conditional_Menu` pour conformité WPCS `WordPress.Files.FileName`.
+- **WPCS** : hook `g2rd/settings/enable_ai` renommé en `g2rd_settings_enable_ai` (séparateurs underscore obligatoires).
+- **CI** : configuration PHPCS (`phpcs.xml`) et GitHub Actions pour vérification automatique des standards WP et audits de sécurité à chaque push.
+
+### 1.2.3
+
+- **Compatibilité WP 7.0** : migration vers `register_post_meta()`, suppression de `disableGutenberg`.
+- **Canvas iframé** : migration vers `wp_enqueue_block_style()` pour la compatibilité avec l'éditeur de blocs.
+- **Bugfix** : preset shadow *Imposante* — point-virgule JSON invalide corrigé.
+- **Bugfix** : `_icones_images` — `absint` remplacé par `esc_url_raw` pour les URLs.
+- **Licence** : normalisation EUPL-1.2, *Tested up to* mis à jour à 7.0.
+
 ### 1.2.2
 
 - **Sécurité** : 0 vulnérabilité npm — `@wordpress/scripts` v30 → v31, overrides pour `@typescript-eslint`, `copy-webpack-plugin`, `webpack-dev-server`, `serialize-javascript` et `markdownlint`.

@@ -20,26 +20,26 @@ namespace G2RD;
 /**
  * Gestion de l'affichage conditionnel des éléments de navigation FSE.
  */
-class ConditionalMenu
-{
-    /**
-     * Préfixe des classes de rôle.
-     *
-     * @since 1.2.2
-     * @var string
-     */
-    private const ROLE_PREFIX = 'menu-if-role-';
+class Conditional_Menu {
 
-    /**
-     * Blocs de navigation pris en charge.
-     *
-     * @since 1.2.2
-     * @var string[]
-     */
-    private const SUPPORTED_BLOCKS = [
-        'core/navigation-link',
-        'core/navigation-submenu',
-    ];
+	/**
+	 * Préfixe des classes de rôle.
+	 *
+	 * @since 1.2.2
+	 * @var string
+	 */
+	private const ROLE_PREFIX = 'menu-if-role-';
+
+	/**
+	 * Blocs de navigation pris en charge.
+	 *
+	 * @since 1.2.2
+	 * @var string[]
+	 */
+	private const SUPPORTED_BLOCKS = [
+		'core/navigation-link',
+		'core/navigation-submenu',
+	];
 
     /**
      * Enregistre les hooks WordPress.

@@ -72,18 +72,18 @@ class BlockPatterns
     public function registerBlockPatternCategories(): void
     {
         $categories = [
-            'g2rd-layout' => [
-                'label' => __('G2RD Layouts', 'g2rd'),
-                'description' => __('Layouts de mise en page G2RD', 'g2rd')
+            'g2rd-layout'     => [
+                'label'       => __('G2RD Layouts', 'g2rd'),
+                'description' => __('Layouts de mise en page G2RD', 'g2rd'),
             ],
-            'g2rd-sections' => [
-                'label' => __('G2RD Sections', 'g2rd'),
-                'description' => __('Sections de contenu G2RD', 'g2rd')
+            'g2rd-sections'   => [
+                'label'       => __('G2RD Sections', 'g2rd'),
+                'description' => __('Sections de contenu G2RD', 'g2rd'),
             ],
             'g2rd-components' => [
-                'label' => __('G2RD Components', 'g2rd'),
-                'description' => __('Composants réutilisables G2RD', 'g2rd')
-            ]
+                'label'       => __('G2RD Components', 'g2rd'),
+                'description' => __('Composants réutilisables G2RD', 'g2rd'),
+            ],
         ];
 
         foreach ($categories as $slug => $category) {
@@ -123,7 +123,7 @@ class BlockPatterns
      */
     private function loadPatternsFromDirectory(): array
     {
-        $patterns = [];
+        $patterns    = [];
         $pattern_dir = \get_template_directory() . '/patterns/';
 
         if (!is_dir($pattern_dir)) {

@@ -79,7 +79,9 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -NonInteractive -File export-theme.ps1)",
       "Bash(powershell.exe -Command '$f=Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip'\\\\''; Write-Host \\($f.Name + '\\\\'' — '\\\\'' + [math]::Round\\($f.Length/1MB,2\\) + '\\\\'' MB'\\\\''\\)')",
       "Bash(powershell.exe -Command '$f=Get-Item '\\\\''c:\\\\Users\\\\gerar\\\\Downloads\\\\Développement Web\\\\G2RD-theme.zip'\\\\'' -ErrorAction SilentlyContinue; if\\($f\\){$f.Length}else{'\\\\''absent'\\\\''}')",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -Command ':*)"
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command ':*)",
+      "Bash(ls \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/\"*.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"c:/Users/gerar/Downloads/Développement Web/G2RD-theme/export-theme.ps1\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\gerar\\Downloads\\Développement Web\\G2RD-theme\\.claude\\skills\\wordpress-pro\\references"

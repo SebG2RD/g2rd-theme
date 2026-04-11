@@ -82,7 +82,7 @@ function bootstrap_theme(): void
         BlockEditorEnhancements::class,
         ComingSoon::class,
         FluentCartSupport::class,
-        ConditionalMenu::class,
+        Conditional_Menu::class,
         ApiConnector::class,
         Abilities::class,
     ];
