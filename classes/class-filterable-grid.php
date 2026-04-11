@@ -359,7 +359,6 @@ class FilterableGrid {
 
     /** Enrichit avec les données SureCart. */
     private function normalizeSureCartProduct(int $post_id): array {
-        // SureCart stocke les prix en custom fields
         $price    = \get_post_meta($post_id, 'sc_price_amount', true);
         $currency = \get_post_meta($post_id, 'sc_currency', true) ?: 'USD';
 
@@ -367,7 +366,7 @@ class FilterableGrid {
             'is_product' => true,
             'product'    => [
                 'source'       => 'surecart',
-                'price'        => $price ? (float) $price / 100 : null, // SureCart stocke en centimes
+                'price'        => $price ? (float) $price / 100 : null,
                 'price_html'   => $price ? \number_format((float) $price / 100, 2) . ' ' . \strtoupper($currency) : '',
                 'stock_status' => \get_post_meta($post_id, 'sc_stock_enabled', true) ? 'instock' : 'outofstock',
                 'on_sale'      => false,
