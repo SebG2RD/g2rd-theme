@@ -35,7 +35,7 @@ class LicenseManager
      *
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('admin_post_g2rd_save_license_key', [$this, 'saveApiKey']);
         \add_action('g2rd_options_before_form',         [$this, 'renderSection']);

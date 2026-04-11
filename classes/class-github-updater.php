@@ -73,7 +73,7 @@ class GitHubUpdater
     public function __construct( LicenseManager $license_manager )
     {
         $this->license_manager = $license_manager;
-        $this->registerHooks();
+        $this->register_hooks();
     }
 
     /**
@@ -85,7 +85,7 @@ class GitHubUpdater
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks()
+    public function register_hooks()
     {
         \add_filter('pre_set_site_transient_update_themes', [$this, 'checkForUpdates']);
         \add_filter('themes_api', [$this, 'getThemeInfo'], 10, 3);

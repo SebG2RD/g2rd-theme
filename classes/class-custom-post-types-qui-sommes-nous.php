@@ -26,7 +26,7 @@ class CPT_QuiSommesNous
      * @since 1.0.2
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         add_action('init', [$this, 'registerPostType']);
         add_action('init', [$this, 'registerPostMeta']);

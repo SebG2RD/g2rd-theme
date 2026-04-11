@@ -28,7 +28,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         // Dashicons dans l'iframe canvas
         \add_filter('block_editor_settings_all', [$this, 'injectDashiconsInCanvas']);

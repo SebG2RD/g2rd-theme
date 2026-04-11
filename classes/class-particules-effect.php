@@ -42,7 +42,7 @@ class ParticlesEffect
     /**
      * Enregistre les hooks nécessaires pour l'effet de particules
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);
         \add_action('enqueue_block_editor_assets', [$this, 'registerEditorControls'], 5);

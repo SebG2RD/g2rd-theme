@@ -22,9 +22,22 @@
 
     <!-- WordPress Coding Standards -->
     <rule ref="WordPress">
-        <!-- Autorise les noms de fichiers en PascalCase pour les classes -->
+        <!-- Noms de fichiers : les classes utilisent PascalCase/underscores -->
         <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+
+        <!--
+            Noms de méthodes : le projet utilise camelCase (héritage PSR-2).
+            À migrer progressivement vers snake_case via refactoring dédié.
+        -->
+        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+
+        <!--
+            Alignement des double-flèches dans les tableaux multi-lignes.
+            Désactivé car les tableaux complexes (Abilities API) utilisent
+            une indentation fonctionnelle plutôt que cosmétique.
+        -->
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
     </rule>
 
     <!-- Configuration WordPress specifique -->

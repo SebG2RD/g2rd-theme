@@ -220,6 +220,13 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.5
+
+- **PHPCS** : réécriture complète de `class-conditional-menu.php` — indentation tabs, syntaxe `array()` pour les constantes, méthodes renommées en snake_case (`register_hooks`, `filter_conditional_block`, `current_user_has_role`).
+- **Refactoring** : renommage global `registerHooks()` → `register_hooks()` dans les 31 classes et `functions.php` (conformité WPCS snake_case).
+- **CI** : le job PHPCS WordPress Standards utilise désormais `phpcs.xml.dist` (scope ciblé sur `./classes`, `./functions.php`, `./includes`) au lieu d'un scan brut `--standard=WordPress` sur tout le dépôt.
+- **phpcs.xml.dist** : exclusion documentée de `WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid` (migration camelCase → snake_case en cours) et `WordPress.Arrays.MultipleStatementAlignment`.
+
 ### 1.2.4
 
 - **Sécurité** : correction vulnérabilité `basic-ftp` ≤ 5.2.1 (CRLF injection — GHSA) via override npm `>=5.2.2`.

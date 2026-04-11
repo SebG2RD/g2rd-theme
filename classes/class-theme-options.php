@@ -255,7 +255,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('admin_init', [$this, 'maybeSyncPricingTableBlock'], 1);
         \add_action('admin_menu', [$this, 'registerAdminPage']);

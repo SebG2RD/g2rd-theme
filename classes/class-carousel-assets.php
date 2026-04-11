@@ -12,7 +12,7 @@ class CarouselAssets {
     /**
      * Enregistre les hooks WordPress
      */
-    public function registerHooks() {
+    public function register_hooks() {
         \add_action('wp_enqueue_scripts', [ $this, 'enqueueCarouselAssets' ]);
         \add_action('enqueue_block_assets', [ $this, 'enqueueCarouselEditorAssets' ]);
     }

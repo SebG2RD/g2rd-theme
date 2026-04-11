@@ -44,7 +44,7 @@ class ClickableArticles
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         // Charger les scripts sur le frontend
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);

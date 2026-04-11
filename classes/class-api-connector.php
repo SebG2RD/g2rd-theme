@@ -19,7 +19,7 @@ class ApiConnector {
 	/**
 	 * Enregistre les hooks WordPress.
 	 */
-	public function registerHooks(): void {
+	public function register_hooks(): void {
 		\add_action( 'rest_api_init',   [ $this, 'registerRestRoute' ] );
 		\add_action( 'wp_enqueue_scripts', [ $this, 'localizeViewScript' ], 20 );
 	}

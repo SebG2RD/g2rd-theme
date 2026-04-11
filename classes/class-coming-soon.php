@@ -25,7 +25,7 @@ class ComingSoon
      *
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('template_redirect', [$this, 'maybeRedirect']);
     }

@@ -27,7 +27,7 @@ class Shortcode
      * @since 1.0.2
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         add_action('init', [$this, 'registerBindingSources']);
     }

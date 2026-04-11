@@ -55,7 +55,7 @@ class SureCartLicenseManager {
      */
     public function __construct($api_key) {
         $this->api_key = $api_key;
-        $this->registerHooks();
+        $this->register_hooks();
     }
 
     /**
@@ -64,7 +64,7 @@ class SureCartLicenseManager {
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks() {
+    public function register_hooks() {
         // Un seul menu : G2RD License
         \add_action('admin_menu', [$this, 'addLicenseMenu']);
         \add_action('admin_init', [$this, 'registerLicenseSettings']);

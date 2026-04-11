@@ -45,7 +45,7 @@ class GSAPAnimations
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         // Charger les scripts GSAP sur le frontend
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);

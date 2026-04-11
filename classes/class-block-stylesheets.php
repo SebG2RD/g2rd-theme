@@ -52,7 +52,7 @@ class BlockStylesheets
     /**
      * Enregistre les hooks nécessaires
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('init', [$this, 'registerBlockStylesheets']);
         \add_action('switch_theme', [$this, 'clearStylesheetsCache']);

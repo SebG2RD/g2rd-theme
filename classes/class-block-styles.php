@@ -51,7 +51,7 @@ class BlockStyles
     /**
      * Enregistre les hooks nécessaires
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('init', [$this, 'registerBlockStyles']);
         \add_action('switch_theme', [$this, 'clearStylesCache']);

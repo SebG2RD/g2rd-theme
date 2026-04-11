@@ -28,7 +28,7 @@ class FilterableGrid
 
     // ─── Hooks ───────────────────────────────────────────────────────────────
 
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('rest_api_init', [$this, 'registerRoutes']);
     }

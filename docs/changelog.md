@@ -1,5 +1,12 @@
 # Changelog du thème G2RD
 
+## 1.2.5
+
+- **PHPCS** : réécriture complète de `class-conditional-menu.php` — indentation tabs, syntaxe `array()` pour les constantes de classe, méthodes renommées en snake_case (`register_hooks`, `filter_conditional_block`, `current_user_has_role`).
+- **Refactoring** : renommage global `registerHooks()` → `register_hooks()` dans les 31 classes PHP et `functions.php` (conformité WordPress Coding Standards snake_case).
+- **CI** : le job PHPCS WordPress Standards utilise désormais `phpcs.xml.dist` (scope ciblé sur `./classes`, `./functions.php`, `./includes`) au lieu d'un scan brut `--standard=WordPress` sur tout le dépôt.
+- **phpcs.xml.dist** : exclusions documentées de `WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid` (migration camelCase → snake_case en cours) et `WordPress.Arrays.MultipleStatementAlignment`.
+
 ## 1.2.4
 
 - **Sécurité** : correction vulnérabilité `basic-ftp` ≤ 5.2.1 (CRLF injection — GHSA) via override npm `>=5.2.2`.

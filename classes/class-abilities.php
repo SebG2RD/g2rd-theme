@@ -27,7 +27,7 @@ class Abilities {
 	 *
 	 * @return void
 	 */
-	public function registerHooks(): void {
+	public function register_hooks(): void {
 		// L'API Abilities n'existe que depuis WP 6.9
 		if ( ! \function_exists( 'wp_register_ability_category' ) ) {
 			return;

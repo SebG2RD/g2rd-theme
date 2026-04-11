@@ -106,14 +106,14 @@ function bootstrap_theme(): void
 
     // Initialiser le gestionnaire de licences
     $license_manager = new LicenseManager();
-    $license_manager->registerHooks();
+    $license_manager->register_hooks();
 
     // Initialiser le gestionnaire de mises à jour GitHub
     new GitHubUpdater( $license_manager );
 
     // Initialiser les autres classes
     foreach ( $classes as $class ) {
-        ( new $class() )->registerHooks();
+        ( new $class() )->register_hooks();
     }
 }
 

@@ -54,7 +54,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('init', [$this, 'registerCustomBlocks']);
         \add_action('init', [$this, 'registerBlocksAssets']);

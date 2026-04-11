@@ -46,7 +46,7 @@ class ThemeSetup
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('after_setup_theme', [$this, 'loadThemeTextdomain']);
         \add_action('wp_enqueue_scripts', [$this, 'registerAssets']);

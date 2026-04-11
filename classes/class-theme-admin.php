@@ -55,7 +55,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         // Hooks pour les styles (CSS/JS inline injectés via wp_add_inline_style/script dans les callbacks)
         \add_action('admin_enqueue_scripts', [$this, 'registerAdminAssets']);

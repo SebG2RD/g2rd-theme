@@ -25,7 +25,7 @@ class FluentCartSupport
      *
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_filter('fluent_cart/global_customer_menu_items', [$this, 'addSupportMenuItem'], 10, 2);
         \add_filter('fluent_cart/customer_portal/custom_endpoints', [$this, 'addSupportEndpoint']);

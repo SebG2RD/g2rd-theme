@@ -51,7 +51,7 @@ class BlockCategories
     /**
      * Enregistre les hooks nécessaires
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_filter('block_categories_all', [$this, 'registerBlockCategories'], 10, 2);
         \add_action('switch_theme', [$this, 'clearCategoriesCache']);

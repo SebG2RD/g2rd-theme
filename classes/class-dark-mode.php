@@ -55,7 +55,7 @@ class DarkMode
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('wp_enqueue_scripts', [$this, 'enqueueDarkModeAssets']);
         \add_filter('body_class', [$this, 'addDarkModeBodyClass']);

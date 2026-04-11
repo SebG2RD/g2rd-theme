@@ -29,7 +29,7 @@ class PortfolioQuery
      * @since 1.0.0
      * @return void
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_filter('query_loop_block_query_vars', [$this, 'filterPortfolioQuery'], 10, 2);
         \add_action('save_post_portfolio', [$this, 'clearPortfolioCache']);

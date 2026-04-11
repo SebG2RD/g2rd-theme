@@ -45,20 +45,18 @@ jobs:
       - name: Verifier les standards installes
         run: composer global exec -- phpcs -i
 
-      # WordPress Coding Standards (scan tout le repo via phpcs.xml.dist)
+      # WordPress Coding Standards — utilise phpcs.xml.dist du projet
+      # (standard WordPress + exclusions documentées dans phpcs.xml.dist)
       - name: PHPCS WordPress
         id: phpcs-wp
         continue-on-error: true
         run: |
           composer global exec -- phpcs \
-            --standard=WordPress \
-            --extensions=php \
-            --ignore=vendor/*,node_modules/*,blocks/*/build/*,blocks/*/src/*,assets/js/vendor/* \
+            --standard=phpcs.xml.dist \
             --report-full \
             --report-checkstyle=./phpcs-wp-report.xml \
             --colors \
-            -p \
-            .
+            -p
 
       - name: Annotations WordPress
         if: ${{ always() && steps.phpcs-wp.outcome == 'failure' }}

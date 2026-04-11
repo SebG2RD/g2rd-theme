@@ -41,7 +41,7 @@ class GlassEffect
     /**
      * Enregistre les hooks nécessaires pour l'effet de verre
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         \add_action('enqueue_block_editor_assets', [$this, 'registerEditorControls'], 5);
         \add_filter('render_block', [$this, 'addGlassAttribute'], 10, 2);

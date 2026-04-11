@@ -44,7 +44,7 @@ class JsonConfig
     /**
      * Enregistre les hooks nécessaires et charge la configuration
      */
-    public function registerHooks(): void
+    public function register_hooks(): void
     {
         // Charger le fichier de configuration et stocker les données
         $this->configurationData = $this->loadJsonConfig();
