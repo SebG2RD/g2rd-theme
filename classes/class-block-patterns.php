@@ -149,9 +149,13 @@ class BlockPatterns {
 
 			// Capturer le HTML sans l'envoyer au navigateur
 			\ob_start();
+<<<<<<< HEAD
 			// phpcs:disable -- Inclusion dynamique contrôlée : chemin issu de glob() sur patterns/*.php uniquement.
 			include $file;
 			// phpcs:enable
+=======
+			include $file; // phpcs:ignore -- Inclusion dynamique contrôlée : chemin issu de glob() sur patterns/*.php uniquement.
+>>>>>>> 7ed8a65b45f46e13fb0ae1778b3bb9ea7b284db0
 			$content = \ob_get_clean();
 
 			if (empty($content)) {
