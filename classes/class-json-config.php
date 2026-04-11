@@ -24,8 +24,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class JsonConfig
-{
+class JsonConfig {
     /**
      * Données de configuration chargées depuis le fichier JSON
      */
@@ -44,8 +43,7 @@ class JsonConfig
     /**
      * Enregistre les hooks nécessaires et charge la configuration
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         // Charger le fichier de configuration et stocker les données
         $this->configurationData = $this->loadJsonConfig();
 
@@ -79,16 +77,14 @@ class JsonConfig
     /**
      * Nettoie le cache de configuration
      */
-    public function clearConfigCache(): void
-    {
+    public function clearConfigCache(): void {
         \delete_transient(self::CACHE_KEY);
     }
 
     /**
      * Enregistre de nouvelles catégories pour les blocs personnalisés
      */
-    public function registerBlocksCategories($categories): array
-    {
+    public function registerBlocksCategories($categories): array {
         $block_categories_to_register = $this->getConfigDataByKey('registerBlocksCategories');
 
         // New categories will appear at the top
@@ -108,8 +104,7 @@ class JsonConfig
     /**
      * Enregistre de nouvelles catégories de patterns
      */
-    public function registerPatternsCategories(): void
-    {
+    public function registerPatternsCategories(): void {
         $patterns = $this->getConfigDataByKey('registerPatternsCategories');
 
         foreach ($patterns as $name => $label) {
@@ -121,8 +116,7 @@ class JsonConfig
     /**
      * Désactive certains blocs par défaut dans l'éditeur
      */
-    public function deregisterBlocks(): array
-    {
+    public function deregisterBlocks(): array {
         $blocks_to_disable = $this->getConfigDataByKey('deregisterBlocks');
         $blocks = array_keys(\WP_Block_Type_Registry::get_instance()->get_all_registered());
         return array_values(array_diff($blocks, $blocks_to_disable));
@@ -131,8 +125,7 @@ class JsonConfig
     /**
      * Désactive les feuilles de styles natives de certains blocs
      */
-    public function deregisterBlocksStylesheets(): void
-    {
+    public function deregisterBlocksStylesheets(): void {
         $blocks_stylesheets_to_disable = $this->getConfigDataByKey('deregisterBlocksStylesheets');
 
         foreach ($blocks_stylesheets_to_disable as $block) {
@@ -144,8 +137,7 @@ class JsonConfig
     /**
      * Désactive certains styles de blocs par défaut
      */
-    public function deregisterBlocksStyles(): void
-    {
+    public function deregisterBlocksStyles(): void {
         $blocks_styles_to_disable = $this->getConfigDataByKey('deregisterBlocksStyles');
         $script_path = \get_template_directory() . '/assets/js/unregister-blocks-styles.js';
         $version = file_exists($script_path) ? filemtime($script_path) : '1.0.0';
@@ -169,8 +161,7 @@ class JsonConfig
     /**
      * Charge et parse le fichier de configuration JSON
      */
-    protected function loadJsonConfig(): array
-    {
+    protected function loadJsonConfig(): array {
         // Essayer de récupérer depuis le cache
         $cached_config = \get_transient(self::CACHE_KEY);
         if ($cached_config !== false) {
@@ -203,8 +194,7 @@ class JsonConfig
     /**
      * Récupère les données de configuration pour une clé donnée
      */
-    protected function getConfigDataByKey($key): array
-    {
+    protected function getConfigDataByKey($key): array {
         return $this->configurationData[$key] ?? [];
     }
 }

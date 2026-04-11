@@ -25,8 +25,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class ThemeSetup
-{
+class ThemeSetup {
     /**
      * Version du thème pour le cache-busting
      */
@@ -35,8 +34,7 @@ class ThemeSetup
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
@@ -46,8 +44,7 @@ class ThemeSetup
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('after_setup_theme', [$this, 'loadThemeTextdomain']);
         \add_action('wp_enqueue_scripts', [$this, 'registerAssets']);
         \add_filter('upload_mimes', [$this, 'allowMimeTypes']);
@@ -66,8 +63,7 @@ class ThemeSetup
      *
      * Hooké sur send_headers (avant tout output HTML) pour que header() soit effectif.
      */
-    public function addSecurityHeaders(): void
-    {
+    public function addSecurityHeaders(): void {
         if (\is_admin()) {
             return;
         }
@@ -82,8 +78,7 @@ class ThemeSetup
     /**
      * Ajoute les liens de préchargement pour les ressources critiques
      */
-    public function addPreloadLinks(): void
-    {
+    public function addPreloadLinks(): void {
         if (\is_admin()) {
             return;
         }
@@ -109,8 +104,7 @@ class ThemeSetup
      * @since 1.0.0
      * @return void
      */
-    public function registerAssets(): void
-    {
+    public function registerAssets(): void {
         // Styles principaux avec version du thème
         \wp_enqueue_style('main', \get_stylesheet_uri(), [], $this->theme_version);
 
@@ -146,8 +140,7 @@ class ThemeSetup
      * @param array $mimes Liste des types MIME autorisés
      * @return array Liste mise à jour des types MIME
      */
-    public function allowMimeTypes($mimes): array
-    {
+    public function allowMimeTypes($mimes): array {
         $mimes['svg'] = 'image/svg+xml';
         $mimes['webp'] = 'image/webp';
         $mimes['avif'] = 'image/avif';
@@ -165,8 +158,7 @@ class ThemeSetup
      * @param array $mimes Types MIME
      * @return array Types de fichiers mis à jour
      */
-    public function allowFileTypes($types, $file, $filename, $mimes): array
-    {
+    public function allowFileTypes($types, $file, $filename, $mimes): array {
         if (\str_ends_with($filename, '.webp')) {
             $types['ext']  = 'webp';
             $types['type'] = 'image/webp';
@@ -184,8 +176,7 @@ class ThemeSetup
      * @since 1.0.0
      * @return void
      */
-    public function setupFeatures(): void
-    {
+    public function setupFeatures(): void {
         # Retirer la suggestion de blocs
         \remove_theme_support('core-block-patterns');
 
@@ -224,8 +215,7 @@ class ThemeSetup
      * @since 1.0.0
      * @return void
      */
-    public function g2rd_register_block_patterns(): void
-    {
+    public function g2rd_register_block_patterns(): void {
         // Enregistrer les catégories
         $categories = [
             'design' => \__('Design', 'g2rd'),
@@ -249,8 +239,7 @@ class ThemeSetup
      * @since 1.0.2
      * @return void
      */
-    public function loadThemeTextdomain(): void
-    {
+    public function loadThemeTextdomain(): void {
         load_theme_textdomain('g2rd', get_template_directory() . '/languages');
     }
 }

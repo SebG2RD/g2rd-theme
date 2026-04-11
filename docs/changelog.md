@@ -1,5 +1,11 @@
 # Changelog du thème G2RD
 
+## 1.2.8
+
+- **PHPCS** : correction globale des accolades ouvrantes — toutes les méthodes et classes de `classes/` passent en style K&R (brace sur la même ligne), 24 fichiers corrigés.
+- **phpcs.xml.dist** : exclusion de `Generic.Arrays.DisallowShortArraySyntax` (syntaxe `[]` autorisée, PHP 8.0+), `WordPress.WhiteSpace.FunctionCallSignature.SpaceAfterOpenBracket`, `SpaceBeforeCloseBracket`, `NoSpaceBeforeOpenBracket` (style PSR-2 pour les appels de fonctions).
+- **PHPCS** : `class-custom-post-types-portfolio.php` — réécriture complète : braces K&R, `$hook` → `$_hook`, alignement de 11 variables dans `renderMetaBox`, alignement `$args`/`$labels`.
+
 ## 1.2.7
 
 - **PHPCS** : `class-block-patterns.php` — `@var string` ajouté sur `$theme_version`, accolades ouvrantes sur la même ligne (`__construct`, `register_hooks`), espaces dans les appels `get()`, conversion `[]` → `array()` et espaces dans `add_action`.

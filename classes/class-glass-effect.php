@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.2
  */
-class GlassEffect
-{
+class GlassEffect {
     /**
      * Version du thème pour le cache-busting
      */
@@ -33,16 +32,14 @@ class GlassEffect
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
     /**
      * Enregistre les hooks nécessaires pour l'effet de verre
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('enqueue_block_editor_assets', [$this, 'registerEditorControls'], 5);
         \add_filter('render_block', [$this, 'addGlassAttribute'], 10, 2);
         \add_action('admin_head', [$this, 'addEditorStyles']);
@@ -51,8 +48,7 @@ class GlassEffect
     /**
      * Enregistre et charge les contrôles de l'effet de verre dans l'éditeur
      */
-    public function registerEditorControls(): void
-    {
+    public function registerEditorControls(): void {
         \wp_enqueue_script(
             'g2rd-glass-sidebar',
             \get_template_directory_uri() . '/assets/js/g2rd-glass-sidebar.js',
@@ -75,8 +71,7 @@ class GlassEffect
     /**
      * Ajoute les styles CSS pour les contrôles de l'effet de verre dans l'éditeur
      */
-    public function addEditorStyles(): void
-    {
+    public function addEditorStyles(): void {
         if (!\is_admin() || !function_exists('get_current_screen') || get_current_screen()->base !== 'post') {
             return;
         }
@@ -107,8 +102,7 @@ class GlassEffect
     /**
      * Ajoute l'attribut data-glass aux blocs
      */
-    public function addGlassAttribute(string $block_content, array $block): string
-    {
+    public function addGlassAttribute(string $block_content, array $block): string {
         // Ne s'applique qu'aux blocs de type group, columns et rows
         if (!in_array($block['blockName'], ['core/group', 'core/columns', 'core/row'])) {
             return $block_content;

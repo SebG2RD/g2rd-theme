@@ -21,15 +21,13 @@ namespace G2RD;
 /**
  * Classe BlockEditorEnhancements
  */
-class BlockEditorEnhancements
-{
+class BlockEditorEnhancements {
     /**
      * Enregistre les hooks
      *
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         // Dashicons dans l'iframe canvas
         \add_filter('block_editor_settings_all', [$this, 'injectDashiconsInCanvas']);
 
@@ -55,8 +53,7 @@ class BlockEditorEnhancements
      * @param array $settings
      * @return array
      */
-    public function injectDashiconsInCanvas( array $settings ): array
-    {
+    public function injectDashiconsInCanvas( array $settings ): array {
         $settings['styles'][] = [
             'css' => '@import url("' . \esc_url( \includes_url('css/dashicons.min.css') ) . '");',
         ];
@@ -68,8 +65,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function enqueueTooltipEditorAssets(): void
-    {
+    public function enqueueTooltipEditorAssets(): void {
         $dir     = \get_template_directory();
         $dir_uri = \get_template_directory_uri();
         \wp_enqueue_script(
@@ -86,8 +82,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function enqueueTooltipFrontendAssets(): void
-    {
+    public function enqueueTooltipFrontendAssets(): void {
         // Charger uniquement si au moins un bloc utilise l'infobulle sur cette page
         if ( ! $this->pageHasTooltip() ) {
             return;
@@ -108,8 +103,7 @@ class BlockEditorEnhancements
      *
      * @return bool
      */
-    private function pageHasTooltip(): bool
-    {
+    private function pageHasTooltip(): bool {
         if ( ! \is_singular() ) {
             return false;
         }
@@ -126,8 +120,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function enqueueResponsiveEditorAssets(): void
-    {
+    public function enqueueResponsiveEditorAssets(): void {
         $dir     = \get_template_directory();
         $dir_uri = \get_template_directory_uri();
         \wp_enqueue_script(
@@ -150,8 +143,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function enqueueResponsiveFrontendAssets(): void
-    {
+    public function enqueueResponsiveFrontendAssets(): void {
         // Charger uniquement si des classes de visibilité responsive sont utilisées
         if ( ! $this->pageHasResponsiveVisibility() ) {
             return;
@@ -172,8 +164,7 @@ class BlockEditorEnhancements
      *
      * @return bool
      */
-    private function pageHasResponsiveVisibility(): bool
-    {
+    private function pageHasResponsiveVisibility(): bool {
         if ( ! \is_singular() ) {
             // Sur les archives, on charge par sécurité (blocs dans le template FSE)
             return true;
@@ -195,8 +186,7 @@ class BlockEditorEnhancements
      * @param array  $block
      * @return string
      */
-    public function renderBlock( string $block_content, array $block ): string
-    {
+    public function renderBlock( string $block_content, array $block ): string {
         $attrs = $block['attrs'] ?? [];
 
         // ── Infobulle ─────────────────────────────────────────────────────────
@@ -249,8 +239,7 @@ class BlockEditorEnhancements
      *
      * @return void
      */
-    public function maybeFlushRewrites(): void
-    {
+    public function maybeFlushRewrites(): void {
         if ( \get_option('g2rd_needs_rewrite_flush') ) {
             \update_option('g2rd_needs_rewrite_flush', 0);
             \flush_rewrite_rules(false);

@@ -19,16 +19,14 @@ namespace G2RD;
  * 
  * Gère les shortcodes personnalisés pour l'affichage des métadonnées dans les templates.
  */
-class Shortcode
-{
+class Shortcode {
     /**
      * Enregistre les hooks globaux nécessaires (pour les shortcodes)
      *
      * @since 1.0.2
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         add_action('init', [$this, 'registerBindingSources']);
     }
 
@@ -38,8 +36,7 @@ class Shortcode
      * @since 1.0.2
      * @return void
      */
-    public function registerBindingSources(): void
-    {
+    public function registerBindingSources(): void {
         // Portfolio
         add_shortcode('portfolio_link', [$this, 'portfolioLinkShortcode']);
         add_shortcode('portfolio_perf', [$this, 'portfolioPerfShortcode']);
@@ -61,8 +58,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function portfolioLinkShortcode(): string
-    {
+    public function portfolioLinkShortcode(): string {
         if (!is_singular('portfolio')) {
             return '';
         }
@@ -80,8 +76,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function portfolioPerfShortcode(): string
-    {
+    public function portfolioPerfShortcode(): string {
         if (!is_singular('portfolio')) {
             return '';
         }
@@ -99,8 +94,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function portfolioA11yShortcode(): string
-    {
+    public function portfolioA11yShortcode(): string {
         if (!is_singular('portfolio')) {
             return '';
         }
@@ -118,8 +112,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function portfolioBpShortcode(): string
-    {
+    public function portfolioBpShortcode(): string {
         if (!is_singular('portfolio')) {
             return '';
         }
@@ -137,8 +130,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function portfolioSeoShortcode(): string
-    {
+    public function portfolioSeoShortcode(): string {
         if (!is_singular('portfolio')) {
             return '';
         }
@@ -157,8 +149,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function experienceDevShortcode(): string
-    {
+    public function experienceDevShortcode(): string {
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
@@ -176,8 +167,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function softSkillsShortcode(): string
-    {
+    public function softSkillsShortcode(): string {
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
@@ -195,8 +185,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function methodologieShortcode(): string
-    {
+    public function methodologieShortcode(): string {
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
@@ -214,8 +203,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function objectifShortcode(): string
-    {
+    public function objectifShortcode(): string {
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }
@@ -233,8 +221,7 @@ class Shortcode
      * @since 1.0.2
      * @return string
      */
-    public function iconesImagesShortcode(): string
-    {
+    public function iconesImagesShortcode(): string {
         if (!is_singular('qui-sommes-nous')) {
             return '';
         }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Gestion du type de contenu personnalisé Portfolio
- * 
+ *
  * Cette classe gère l'enregistrement et la configuration du type de contenu Portfolio.
  *
  * @package G2RD
@@ -15,19 +15,17 @@ namespace G2RD;
 
 /**
  * Classe CPT_Portfolio
- * 
+ *
  * Gère le type de contenu personnalisé Portfolio et ses métadonnées.
  */
-class CPT_Portfolio
-{
+class CPT_Portfolio {
     /**
      * Enregistre les hooks nécessaires
      *
      * @since 1.0.2
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         add_action('init', [$this, 'registerPostType']);
         add_action('init', [$this, 'registerPostMeta']);
         add_action('add_meta_boxes', [$this, 'addMetaBox']);
@@ -43,11 +41,10 @@ class CPT_Portfolio
      * Charge le script d'administration du portfolio sur la liste des projets.
      *
      * @since 1.0.2
-     * @param string $hook Identifiant de la page admin courante.
+     * @param string $_hook Identifiant de la page admin courante (non utilisé).
      * @return void
      */
-    public function enqueueAdminAssets(string $hook): void
-    {
+    public function enqueueAdminAssets( string $_hook ): void {
         $screen = \get_current_screen();
         if (!$screen || 'portfolio' !== $screen->post_type || 'edit' !== $screen->base) {
             return;
@@ -72,8 +69,7 @@ class CPT_Portfolio
      * @since 1.0.2
      * @return void
      */
-    public function ajaxGetPortfolioPassword(): void
-    {
+    public function ajaxGetPortfolioPassword(): void {
         \check_ajax_referer('g2rd_get_portfolio_password', 'nonce');
 
         if (!\current_user_can('manage_options')) {
@@ -100,44 +96,43 @@ class CPT_Portfolio
      * @since 1.2.3
      * @return void
      */
-    public function registerPostMeta(): void
-    {
+    public function registerPostMeta(): void {
         // Champs publics (visibles dans l'éditeur de blocs)
         register_post_meta('portfolio', '_portfolio_link', [
-            'show_in_rest'  => true,
-            'single'        => true,
-            'type'          => 'string',
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'string',
             'sanitize_callback' => 'esc_url_raw',
-            'auth_callback' => fn() => \current_user_can('edit_posts'),
+            'auth_callback'     => fn() => \current_user_can('edit_posts'),
         ]);
 
         foreach (['_portfolio_perf', '_portfolio_a11y', '_portfolio_bp', '_portfolio_seo'] as $key) {
             register_post_meta('portfolio', $key, [
-                'show_in_rest'  => true,
-                'single'        => true,
-                'type'          => 'integer',
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'integer',
                 'sanitize_callback' => 'absint',
-                'auth_callback' => fn() => \current_user_can('edit_posts'),
+                'auth_callback'     => fn() => \current_user_can('edit_posts'),
             ]);
         }
 
         // Champs sensibles — enregistrés pour l'éditeur mais exclus de l'API REST publique
         foreach (['_portfolio_login', '_portfolio_password', '_portfolio_hebergement', '_portfolio_contrat', '_portfolio_date_anniv'] as $key) {
             register_post_meta('portfolio', $key, [
-                'show_in_rest'  => false,
-                'single'        => true,
-                'type'          => 'string',
+                'show_in_rest'      => false,
+                'single'            => true,
+                'type'              => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
-                'auth_callback' => fn() => \current_user_can('manage_options'),
+                'auth_callback'     => fn() => \current_user_can('manage_options'),
             ]);
         }
 
         register_post_meta('portfolio', '_portfolio_maintenance', [
-            'show_in_rest'  => false,
-            'single'        => true,
-            'type'          => 'string',
+            'show_in_rest'      => false,
+            'single'            => true,
+            'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
-            'auth_callback' => fn() => \current_user_can('manage_options'),
+            'auth_callback'     => fn() => \current_user_can('manage_options'),
         ]);
     }
 
@@ -147,8 +142,7 @@ class CPT_Portfolio
      * @since 1.0.2
      * @return void
      */
-    public function registerPostType(): void
-    {
+    public function registerPostType(): void {
         $s = \G2RD\ThemeOptions::getCPTSettings('portfolio');
 
         $labels = [
@@ -159,19 +153,19 @@ class CPT_Portfolio
             'edit_item'     => \sprintf(\__('Modifier le %s', 'g2rd'), \mb_strtolower($s['singular'])),
             'menu_name'     => $s['plural'],
         ];
-        $args = [
-            'labels'         => $labels,
-            'public'         => true,
-            'show_in_rest'   => (bool) $s['show_in_rest'],
-            'has_archive'    => (bool) $s['has_archive'],
-            'supports'       => ['title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt', 'tags'],
-            'menu_position'  => (int) $s['menu_position'],
-            'menu_icon'      => \sanitize_text_field($s['menu_icon']),
-            'capability_type' => 'post',
-            'map_meta_cap'   => true,
-            'hierarchical'   => false,
-            'rewrite'        => ['slug' => \sanitize_title($s['slug'])],
-            'query_var'      => true,
+        $args   = [
+            'labels'            => $labels,
+            'public'            => true,
+            'show_in_rest'      => (bool) $s['show_in_rest'],
+            'has_archive'       => (bool) $s['has_archive'],
+            'supports'          => ['title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt', 'tags'],
+            'menu_position'     => (int) $s['menu_position'],
+            'menu_icon'         => \sanitize_text_field($s['menu_icon']),
+            'capability_type'   => 'post',
+            'map_meta_cap'      => true,
+            'hierarchical'      => false,
+            'rewrite'           => ['slug' => \sanitize_title($s['slug'])],
+            'query_var'         => true,
             'show_in_nav_menus' => true,
             'show_in_admin_bar' => true,
         ];
@@ -187,26 +181,26 @@ class CPT_Portfolio
                 'parent_item'   => \sprintf(\__('%s parent', 'g2rd'), $s['tax_singular']),
             ];
             register_taxonomy(\sanitize_title($s['tax_slug']), 'portfolio', [
-                'labels'           => $tax_labels,
-                'public'           => true,
-                'show_in_rest'     => true,
-                'hierarchical'     => true,
-                'rewrite'          => ['slug' => \sanitize_title($s['tax_slug'])],
+                'labels'            => $tax_labels,
+                'public'            => true,
+                'show_in_rest'      => true,
+                'hierarchical'      => true,
+                'rewrite'           => ['slug' => \sanitize_title($s['tax_slug'])],
                 'show_admin_column' => true,
             ]);
         }
 
         // Taxonomie secondaire (fixe)
         register_taxonomy('qui', 'portfolio', [
-            'labels'           => [
+            'labels'            => [
                 'name'          => 'Qui',
                 'singular_name' => 'Qui',
                 'add_new_item'  => \__('Ajouter un membre', 'g2rd'),
             ],
-            'public'           => true,
-            'show_in_rest'     => true,
-            'hierarchical'     => true,
-            'rewrite'          => ['slug' => 'qui'],
+            'public'            => true,
+            'show_in_rest'      => true,
+            'hierarchical'      => true,
+            'rewrite'           => ['slug' => 'qui'],
             'show_admin_column' => true,
         ]);
     }
@@ -217,8 +211,7 @@ class CPT_Portfolio
      * @since 1.0.2
      * @return void
      */
-    public function addMetaBox(): void
-    {
+    public function addMetaBox(): void {
         add_meta_box(
             'portfolio_link',
             'Lien du projet & Scores',
@@ -236,20 +229,19 @@ class CPT_Portfolio
      * @param \WP_Post $post
      * @return void
      */
-    public function renderMetaBox($post): void
-    {
+    public function renderMetaBox( $post ): void {
         // Récupérer la valeur existante du lien
-        $link = get_post_meta($post->ID, '_portfolio_link', true);
-        $perf = get_post_meta($post->ID, '_portfolio_perf', true);
-        $a11y = get_post_meta($post->ID, '_portfolio_a11y', true);
-        $bp = get_post_meta($post->ID, '_portfolio_bp', true);
-        $seo = get_post_meta($post->ID, '_portfolio_seo', true);
-        $password = get_post_meta($post->ID, '_portfolio_password', true);
-        $login = get_post_meta($post->ID, '_portfolio_login', true);
-        $hebergement = get_post_meta($post->ID, '_portfolio_hebergement', true);
-        $maintenance = get_post_meta($post->ID, '_portfolio_maintenance', true);
-        $contrat = get_post_meta($post->ID, '_portfolio_contrat', true);
-        $date_anniv = get_post_meta($post->ID, '_portfolio_date_anniv', true);
+        $link         = get_post_meta($post->ID, '_portfolio_link', true);
+        $perf         = get_post_meta($post->ID, '_portfolio_perf', true);
+        $a11y         = get_post_meta($post->ID, '_portfolio_a11y', true);
+        $bp           = get_post_meta($post->ID, '_portfolio_bp', true);
+        $seo          = get_post_meta($post->ID, '_portfolio_seo', true);
+        $password     = get_post_meta($post->ID, '_portfolio_password', true);
+        $login        = get_post_meta($post->ID, '_portfolio_login', true);
+        $hebergement  = get_post_meta($post->ID, '_portfolio_hebergement', true);
+        $maintenance  = get_post_meta($post->ID, '_portfolio_maintenance', true);
+        $contrat      = get_post_meta($post->ID, '_portfolio_contrat', true);
+        $date_anniv   = get_post_meta($post->ID, '_portfolio_date_anniv', true);
 
         wp_nonce_field('portfolio_link_nonce', 'portfolio_link_nonce');
 
@@ -269,10 +261,10 @@ class CPT_Portfolio
         echo '<p><label for="portfolio_hebergement">Hébergement :</label> ';
         echo '<select id="portfolio_hebergement" name="portfolio_hebergement">';
         $hebergements = [
-            '' => '-- Sélectionner --',
+            ''          => '-- Sélectionner --',
             'Hostinger' => 'Hostinger',
-            'Ionos' => 'Ionos',
-            'Autres' => 'Autres'
+            'Ionos'     => 'Ionos',
+            'Autres'    => 'Autres',
         ];
         foreach ($hebergements as $val => $label) {
             echo '<option value="' . esc_attr($val) . '"' . selected($hebergement, $val, false) . '>' . esc_html($label) . '</option>';
@@ -280,11 +272,11 @@ class CPT_Portfolio
         echo '</select></p>';
         echo '<p><label><input type="checkbox" id="portfolio_maintenance" name="portfolio_maintenance" value="1"' . checked($maintenance, '1', false) . '> Maintenance</label></p>';
         $contrats = [
-            '' => '-- Sélectionner --',
+            ''            => '-- Sélectionner --',
             'Hébergement' => 'Hébergement',
-            'Base' => 'Base',
-            'Standard' => 'Standard',
-            'Business' => 'Business'
+            'Base'        => 'Base',
+            'Standard'    => 'Standard',
+            'Business'    => 'Business',
         ];
         $contrat_style = ($maintenance === '1') ? '' : 'style="display:none;"';
         echo '<div id="contrat_maintenance_fields" ' . $contrat_style . '>';
@@ -320,8 +312,7 @@ class CPT_Portfolio
      * @param int $post_id
      * @return void
      */
-    public function saveMeta($post_id): void
-    {
+    public function saveMeta( $post_id ): void {
         if (!isset($_POST['portfolio_link_nonce']) || !wp_verify_nonce(\sanitize_text_field(\wp_unslash($_POST['portfolio_link_nonce'])), 'portfolio_link_nonce')) {
             return;
         }
@@ -368,13 +359,12 @@ class CPT_Portfolio
      *
      * @since 1.0.2
      * @param \WP_REST_Response $response
-     * @param \WP_Post $post
-     * @param \WP_REST_Request $request
+     * @param \WP_Post          $post
+     * @param \WP_REST_Request  $request
      * @return \WP_REST_Response
      */
-    public function hideSensitiveFieldsFromAPI($response, $post, $request): \WP_REST_Response
-    {
-        $data = $response->get_data();
+    public function hideSensitiveFieldsFromAPI( $response, $post, $request ): \WP_REST_Response { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+        $data           = $response->get_data();
         $fields_to_hide = [
             '_portfolio_password',
             '_portfolio_login',
@@ -399,13 +389,12 @@ class CPT_Portfolio
      * @param array $columns
      * @return array
      */
-    public function addColumns($columns)
-    {
-        $columns['portfolio_login'] = __('Login', 'g2rd');
-        $columns['portfolio_password'] = __('Mot de passe', 'g2rd');
+    public function addColumns( $columns ) {
+        $columns['portfolio_login']      = __('Login', 'g2rd');
+        $columns['portfolio_password']   = __('Mot de passe', 'g2rd');
         $columns['portfolio_hebergement'] = __('Hébergement', 'g2rd');
         $columns['portfolio_maintenance'] = __('Maintenance', 'g2rd');
-        $columns['portfolio_contrat'] = __('Contrat', 'g2rd');
+        $columns['portfolio_contrat']    = __('Contrat', 'g2rd');
         $columns['portfolio_date_anniv'] = __('Date anniversaire', 'g2rd');
         return $columns;
     }
@@ -415,11 +404,10 @@ class CPT_Portfolio
      *
      * @since 1.0.2
      * @param string $column
-     * @param int $post_id
+     * @param int    $post_id
      * @return void
      */
-    public function renderColumns($column, $post_id)
-    {
+    public function renderColumns( $column, $post_id ) {
         if ($column === 'portfolio_login') {
             $login = get_post_meta($post_id, '_portfolio_login', true);
             echo esc_html($login);
@@ -447,4 +435,4 @@ class CPT_Portfolio
             echo esc_html($date_anniv);
         }
     }
-} 
+}

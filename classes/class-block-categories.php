@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class BlockCategories
-{
+class BlockCategories {
     /**
      * Clé de cache pour les catégories de blocs
      */
@@ -43,16 +42,14 @@ class BlockCategories
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
     /**
      * Enregistre les hooks nécessaires
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_filter('block_categories_all', [$this, 'registerBlockCategories'], 10, 2);
         \add_action('switch_theme', [$this, 'clearCategoriesCache']);
         \add_action('init', [$this, 'registerCustomBlockCategories']);
@@ -61,16 +58,14 @@ class BlockCategories
     /**
      * Nettoie le cache des catégories lors du changement de thème
      */
-    public function clearCategoriesCache(): void
-    {
+    public function clearCategoriesCache(): void {
         \delete_transient(self::CACHE_KEY);
     }
 
     /**
      * Enregistre les catégories de blocs personnalisées
      */
-    public function registerCustomBlockCategories(): void
-    {
+    public function registerCustomBlockCategories(): void {
         $categories = $this->getBlockCategories();
 
         foreach ($categories as $category) {
@@ -90,8 +85,7 @@ class BlockCategories
      * Enregistre les catégories de blocs dans l'éditeur
      * Les catégories personnalisées sont placées en premier
      */
-    public function registerBlockCategories(array $categories, \WP_Block_Editor_Context $context): array
-    {
+    public function registerBlockCategories(array $categories, \WP_Block_Editor_Context $context): array {
         $custom_categories = $this->getBlockCategories();
         $custom_categories_formatted = [];
 
@@ -113,8 +107,7 @@ class BlockCategories
     /**
      * Récupère les catégories de blocs depuis le cache ou les fichiers
      */
-    private function getBlockCategories(): array
-    {
+    private function getBlockCategories(): array {
         $categories = \get_transient(self::CACHE_KEY);
 
         if (false === $categories) {
@@ -128,8 +121,7 @@ class BlockCategories
     /**
      * Charge les catégories depuis le répertoire categories/
      */
-    private function loadCategoriesFromDirectory(): array
-    {
+    private function loadCategoriesFromDirectory(): array {
         $categories = [];
         $categories_dir = \get_template_directory() . '/categories/';
 
@@ -165,8 +157,7 @@ class BlockCategories
     /**
      * Vérifie si une catégorie est valide
      */
-    private function isValidCategory(array $category): bool
-    {
+    private function isValidCategory(array $category): bool {
         $required_fields = ['slug', 'label'];
 
         foreach ($required_fields as $field) {
@@ -181,8 +172,7 @@ class BlockCategories
     /**
      * Ajoute des attributs de performance aux catégories
      */
-    private function addPerformanceAttributes(array $category): array
-    {
+    private function addPerformanceAttributes(array $category): array {
         // Ajouter des attributs de performance si nécessaire
         if (isset($category['icon'])) {
             $category['icon'] = $this->optimizeIcon($category['icon']);
@@ -194,8 +184,7 @@ class BlockCategories
     /**
      * Optimise l'icône de la catégorie
      */
-    private function optimizeIcon(string $icon): string
-    {
+    private function optimizeIcon(string $icon): string {
         // Optimiser le SVG si c'est une icône SVG
         if (strpos($icon, '<svg') !== false) {
             // Supprimer les commentaires

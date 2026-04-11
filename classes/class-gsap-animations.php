@@ -24,8 +24,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class GSAPAnimations
-{
+class GSAPAnimations {
     /**
      * Version du thème pour le cache-busting
      */
@@ -34,8 +33,7 @@ class GSAPAnimations
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
@@ -45,8 +43,7 @@ class GSAPAnimations
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         // Charger les scripts GSAP sur le frontend
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);
 
@@ -58,8 +55,7 @@ class GSAPAnimations
     /**
      * Ajoute les liens de préchargement pour GSAP
      */
-    public function addPreloadLinks(): void
-    {
+    public function addPreloadLinks(): void {
         if (!\is_admin()) {
             echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/js/vendor/gsap.min.js" as="script">';
             echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
@@ -75,8 +71,7 @@ class GSAPAnimations
      * @since 1.0.0
      * @return void
      */
-    public function registerFrontendScripts(): void
-    {
+    public function registerFrontendScripts(): void {
         // Charger GSAP uniquement sur le frontend
         if (!\is_admin()) {
             // Charger GSAP depuis un CDN pour de meilleures performances
@@ -117,8 +112,7 @@ class GSAPAnimations
     /**
      * Vérifie si l'utilisateur préfère les mouvements réduits
      */
-    private function shouldReduceMotion(): bool
-    {
+    private function shouldReduceMotion(): bool {
         if (isset($_COOKIE['prefers-reduced-motion'])) {
             return \sanitize_text_field(\wp_unslash($_COOKIE['prefers-reduced-motion'])) === 'true';
         }
@@ -134,8 +128,7 @@ class GSAPAnimations
      * @since 1.0.0
      * @return void
      */
-    public function registerEditorScripts(): void
-    {
+    public function registerEditorScripts(): void {
         // Enregistrer le script de contrôle des blocs avec version du thème
         \wp_enqueue_script(
             'gsap-block-controls',
@@ -154,8 +147,7 @@ class GSAPAnimations
     /**
      * Retourne la liste des animations disponibles
      */
-    private function getAvailableAnimations(): array
-    {
+    private function getAvailableAnimations(): array {
         return [
             'fadeIn' => 'Apparition en fondu',
             'slideUp' => 'Glissement vers le haut',

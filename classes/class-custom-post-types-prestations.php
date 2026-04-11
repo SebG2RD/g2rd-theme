@@ -17,16 +17,14 @@ namespace G2RD;
  *
  * Gère le type de contenu personnalisé Prestations et ses taxonomies.
  */
-class CPT_Prestations
-{
+class CPT_Prestations {
     /**
      * Enregistre les hooks nécessaires
      *
      * @since 1.0.2
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('init', [$this, 'registerPostType']);
     }
 
@@ -36,8 +34,7 @@ class CPT_Prestations
      * @since 1.0.2
      * @return void
      */
-    public function registerPostType(): void
-    {
+    public function registerPostType(): void {
         $s = \G2RD\ThemeOptions::getCPTSettings('prestations');
 
         $labels = [

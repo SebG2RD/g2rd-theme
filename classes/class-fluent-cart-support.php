@@ -18,15 +18,13 @@ namespace G2RD;
 /**
  * Classe FluentCartSupport
  */
-class FluentCartSupport
-{
+class FluentCartSupport {
     /**
      * Enregistre les hooks
      *
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_filter('fluent_cart/global_customer_menu_items', [$this, 'addSupportMenuItem'], 10, 2);
         \add_filter('fluent_cart/customer_portal/custom_endpoints', [$this, 'addSupportEndpoint']);
     }
@@ -39,8 +37,7 @@ class FluentCartSupport
      * @param array $context Contexte Fluent Cart (ex. base_url).
      * @return array
      */
-    public function addSupportMenuItem(array $items, array $context): array
-    {
+    public function addSupportMenuItem(array $items, array $context): array {
         $support_item = [
             'label'     => \__('Support', 'g2rd'),
             'css_class' => 'fct_route fct-menu-item-support',
@@ -76,8 +73,7 @@ class FluentCartSupport
      * @param array $endpoints Endpoints existants.
      * @return array
      */
-    public function addSupportEndpoint(array $endpoints): array
-    {
+    public function addSupportEndpoint(array $endpoints): array {
         $endpoints['support'] = [
             'render_callback' => [$this, 'renderSupportTab'],
         ];
@@ -94,8 +90,7 @@ class FluentCartSupport
      *
      * @return void
      */
-    public function renderSupportTab(): void
-    {
+    public function renderSupportTab(): void {
         ?>
         <div class="g2rd-fluentcart-support-tab">
             <h2><?php \esc_html_e('Support', 'g2rd'); ?></h2>
@@ -119,8 +114,7 @@ class FluentCartSupport
      *
      * @return void
      */
-    public function renderBoutiqueTab(): void
-    {
+    public function renderBoutiqueTab(): void {
         ?>
         <div class="g2rd-fluentcart-boutique-tab">
             <h2><?php \esc_html_e('Boutique', 'g2rd'); ?></h2>

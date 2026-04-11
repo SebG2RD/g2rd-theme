@@ -29,8 +29,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class DarkMode
-{
+class DarkMode {
     /**
      * Clé pour stocker la préférence utilisateur
      */
@@ -44,8 +43,7 @@ class DarkMode
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
@@ -55,8 +53,7 @@ class DarkMode
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('wp_enqueue_scripts', [$this, 'enqueueDarkModeAssets']);
         \add_filter('body_class', [$this, 'addDarkModeBodyClass']);
         \add_action('wp_ajax_g2rd_toggle_dark_mode', [$this, 'toggleDarkMode']);
@@ -69,8 +66,7 @@ class DarkMode
      * @since 1.0.0
      * @return void
      */
-    public function enqueueDarkModeAssets(): void
-    {
+    public function enqueueDarkModeAssets(): void {
         $dir_path = \get_template_directory();
         $dir_uri  = \get_template_directory_uri();
 
@@ -115,8 +111,7 @@ class DarkMode
      * @param array $classes Les classes existantes du body
      * @return array Les classes mises à jour
      */
-    public function addDarkModeBodyClass(array $classes): array
-    {
+    public function addDarkModeBodyClass(array $classes): array {
         $cookie_val = isset($_COOKIE[self::PREFERENCE_KEY])
             ? \sanitize_text_field(\wp_unslash($_COOKIE[self::PREFERENCE_KEY]))
             : '';
@@ -135,8 +130,7 @@ class DarkMode
      * @since 1.0.0
      * @return void
      */
-    public function toggleDarkMode(): void
-    {
+    public function toggleDarkMode(): void {
         \check_ajax_referer('g2rd_dark_mode_nonce', 'nonce');
 
         $current_state = isset($_POST['enabled'])

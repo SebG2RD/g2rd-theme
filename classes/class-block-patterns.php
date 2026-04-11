@@ -60,16 +60,14 @@ class BlockPatterns {
 	/**
 	 * Nettoie le cache des motifs lors du changement de thème
 	 */
-	public function clearPatternsCache(): void
-	{
+	public function clearPatternsCache(): void {
 		\delete_transient(self::CACHE_KEY . '_' . md5($this->theme_version));
 	}
 
 	/**
 	 * Enregistre les catégories de motifs de blocs
 	 */
-	public function registerBlockPatternCategories(): void
-	{
+	public function registerBlockPatternCategories(): void {
 		$categories = [
 			'g2rd-layout'     => [
 				'label'       => __('G2RD Layouts', 'g2rd'),
@@ -93,8 +91,7 @@ class BlockPatterns {
 	/**
 	 * Enregistre les motifs de blocs
 	 */
-	public function registerBlockPatterns(): void
-	{
+	public function registerBlockPatterns(): void {
 		// Clé versionnée pour invalider le cache automatiquement après une mise à jour
 		$cache_key = self::CACHE_KEY . '_' . md5($this->theme_version);
 		$patterns  = \get_transient($cache_key);
@@ -120,8 +117,7 @@ class BlockPatterns {
 	 * Utilise ob_start()/ob_get_clean() pour capturer le contenu HTML sans
 	 * l'envoyer directement au navigateur, et get_file_data() pour les métadonnées.
 	 */
-	private function loadPatternsFromDirectory(): array
-	{
+	private function loadPatternsFromDirectory(): array {
 		$patterns    = [];
 		$pattern_dir = \get_template_directory() . '/patterns/';
 
@@ -200,8 +196,7 @@ class BlockPatterns {
 	/**
 	 * Vérifie si un motif est valide
 	 */
-	private function isValidPattern(array $pattern): bool
-	{
+	private function isValidPattern(array $pattern): bool {
 		if (empty($pattern['name'])) {
 			return false;
 		}

@@ -18,16 +18,14 @@ namespace G2RD;
  * 
  * Gère le type de contenu personnalisé Qui sommes-nous et ses métadonnées.
  */
-class CPT_QuiSommesNous
-{
+class CPT_QuiSommesNous {
     /**
      * Enregistre les hooks nécessaires
      *
      * @since 1.0.2
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         add_action('init', [$this, 'registerPostType']);
         add_action('init', [$this, 'registerPostMeta']);
         add_action('add_meta_boxes', [$this, 'addMetaBox']);
@@ -40,8 +38,7 @@ class CPT_QuiSommesNous
      * @since 1.2.3
      * @return void
      */
-    public function registerPostMeta(): void
-    {
+    public function registerPostMeta(): void {
         foreach (['_experience_dev', '_soft_skills', '_methodologie', '_objectif'] as $key) {
             register_post_meta('qui-sommes-nous', $key, [
                 'show_in_rest'  => true,
@@ -76,8 +73,7 @@ class CPT_QuiSommesNous
      * @since 1.0.2
      * @return void
      */
-    public function registerPostType(): void
-    {
+    public function registerPostType(): void {
         $s = \G2RD\ThemeOptions::getCPTSettings('qui-sommes-nous');
 
         $labels = [
@@ -131,8 +127,7 @@ class CPT_QuiSommesNous
      * @since 1.0.2
      * @return void
      */
-    public function addMetaBox(): void
-    {
+    public function addMetaBox(): void {
         add_meta_box(
             'qui_sommes_nous_info',
             'Informations du membre',
@@ -150,8 +145,7 @@ class CPT_QuiSommesNous
      * @param \WP_Post $post
      * @return void
      */
-    public function renderMetaBox($post): void
-    {
+    public function renderMetaBox($post): void {
         $experience = get_post_meta($post->ID, '_experience_dev', true);
         $soft_skills = get_post_meta($post->ID, '_soft_skills', true);
         $methodologie = get_post_meta($post->ID, '_methodologie', true);
@@ -226,8 +220,7 @@ jQuery(document).ready(function($){
      * @param int $post_id
      * @return void
      */
-    public function saveMeta($post_id): void
-    {
+    public function saveMeta($post_id): void {
         if (!isset($_POST['qui_sommes_nous_nonce']) || !wp_verify_nonce(\sanitize_text_field(\wp_unslash($_POST['qui_sommes_nous_nonce'])), 'qui_sommes_nous_nonce')) {
             return;
         }

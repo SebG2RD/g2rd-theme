@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class ClickableArticles
-{
+class ClickableArticles {
     /**
      * Version du thème pour le cache-busting
      */
@@ -33,8 +32,7 @@ class ClickableArticles
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
@@ -44,8 +42,7 @@ class ClickableArticles
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         // Charger les scripts sur le frontend
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);
 
@@ -62,8 +59,7 @@ class ClickableArticles
     /**
      * Ajoute les liens de préchargement pour les ressources critiques
      */
-    public function addPreloadLinks(): void
-    {
+    public function addPreloadLinks(): void {
         if (!\is_admin()) {
             echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/js/clickable-articles.js" as="script">';
         }
@@ -75,8 +71,7 @@ class ClickableArticles
      * @since 1.0.0
      * @return void
      */
-    public function registerFrontendScripts(): void
-    {
+    public function registerFrontendScripts(): void {
         // Charger le script uniquement sur le frontend
         if (!\is_admin()) {
             $script_path = \get_template_directory() . '/assets/js/clickable-articles.js';
@@ -102,8 +97,7 @@ class ClickableArticles
     /**
      * Vérifie si l'utilisateur préfère les mouvements réduits
      */
-    private function shouldReduceMotion(): bool
-    {
+    private function shouldReduceMotion(): bool {
         if (isset($_COOKIE['prefers-reduced-motion'])) {
             return \sanitize_text_field(\wp_unslash($_COOKIE['prefers-reduced-motion'])) === 'true';
         }
@@ -116,8 +110,7 @@ class ClickableArticles
      * @since 1.0.0
      * @return void
      */
-    public function registerEditorScripts(): void
-    {
+    public function registerEditorScripts(): void {
         $script_path = \get_template_directory() . '/assets/js/g2rd-clickable-articles-sidebar.js';
         $version = file_exists($script_path) ? filemtime($script_path) : $this->theme_version;
 
@@ -148,8 +141,7 @@ class ClickableArticles
      * @param array  $block        Les informations du bloc
      * @return string Le contenu HTML modifié
      */
-    public function addClickableAttribute(string $block_content, array $block): string
-    {
+    public function addClickableAttribute(string $block_content, array $block): string {
         // Vérifier si c'est un bloc de type group ou columns
         if ($block['blockName'] !== 'core/group' && $block['blockName'] !== 'core/columns') {
             return $block_content;

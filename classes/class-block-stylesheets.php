@@ -24,8 +24,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class BlockStylesheets
-{
+class BlockStylesheets {
     /**
      * Clé de cache pour les feuilles de style
      */
@@ -44,16 +43,14 @@ class BlockStylesheets
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
     /**
      * Enregistre les hooks nécessaires
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('init', [$this, 'registerBlockStylesheets']);
         \add_action('switch_theme', [$this, 'clearStylesheetsCache']);
     }
@@ -61,8 +58,7 @@ class BlockStylesheets
     /**
      * Nettoie le cache des feuilles de style lors du changement de thème
      */
-    public function clearStylesheetsCache(): void
-    {
+    public function clearStylesheetsCache(): void {
         \delete_transient(self::CACHE_KEY);
     }
 
@@ -71,8 +67,7 @@ class BlockStylesheets
      * Ce mécanisme charge les styles sur le frontend ET dans le canvas iframé de l'éditeur
      * (contrairement à admin_enqueue_scripts qui ne fonctionne pas dans l'iframe WP 7.0+).
      */
-    public function registerBlockStylesheets(): void
-    {
+    public function registerBlockStylesheets(): void {
         $stylesheets = $this->getBlockStylesheets();
 
         foreach ($stylesheets as $block_name => $stylesheet) {
@@ -101,8 +96,7 @@ class BlockStylesheets
     /**
      * Récupère les feuilles de style depuis le cache ou les fichiers
      */
-    private function getBlockStylesheets(): array
-    {
+    private function getBlockStylesheets(): array {
         $stylesheets = \get_transient(self::CACHE_KEY);
 
         if (false === $stylesheets) {
@@ -116,8 +110,7 @@ class BlockStylesheets
     /**
      * Charge les feuilles de style depuis le répertoire stylesheets/
      */
-    private function loadStylesheetsFromDirectory(): array
-    {
+    private function loadStylesheetsFromDirectory(): array {
         $stylesheets = [];
         $stylesheets_dir = \get_template_directory() . '/stylesheets/';
 
@@ -147,16 +140,14 @@ class BlockStylesheets
     /**
      * Vérifie si une feuille de style est valide
      */
-    private function isValidStylesheet(array $stylesheet): bool
-    {
+    private function isValidStylesheet(array $stylesheet): bool {
         return isset($stylesheet['src']) && !empty($stylesheet['src']);
     }
 
     /**
      * Obtient la version d'une feuille de style
      */
-    private function getStylesheetVersion(string $src): string
-    {
+    private function getStylesheetVersion(string $src): string {
         $file_path = \get_template_directory() . str_replace(
             \get_template_directory_uri(),
             '',
@@ -169,8 +160,7 @@ class BlockStylesheets
     /**
      * Optimise le CSS
      */
-    private function optimizeCSS(string $css): string
-    {
+    private function optimizeCSS(string $css): string {
         // Supprimer les commentaires
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
 

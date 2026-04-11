@@ -11,8 +11,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class PortfolioQuery
-{
+class PortfolioQuery {
     /**
      * Clé de cache pour les requêtes du portfolio
      */
@@ -29,8 +28,7 @@ class PortfolioQuery
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_filter('query_loop_block_query_vars', [$this, 'filterPortfolioQuery'], 10, 2);
         \add_action('save_post_portfolio', [$this, 'clearPortfolioCache']);
         \add_action('edited_qui', [$this, 'clearPortfolioCache']);
@@ -39,8 +37,7 @@ class PortfolioQuery
     /**
      * Nettoie le cache des requêtes portfolio
      */
-    public function clearPortfolioCache(): void
-    {
+    public function clearPortfolioCache(): void {
         global $wpdb;
         $wpdb->query(
             $wpdb->prepare(
@@ -53,8 +50,7 @@ class PortfolioQuery
     /**
      * Génère une clé de cache unique pour la requête
      */
-    private function generateCacheKey(string $member_name): string
-    {
+    private function generateCacheKey(string $member_name): string {
         return self::CACHE_KEY_PREFIX . md5($member_name);
     }
 
@@ -66,8 +62,7 @@ class PortfolioQuery
      * @param \WP_Block $block Instance du bloc
      * @return array Arguments de la requête modifiés
      */
-    public function filterPortfolioQuery($query_args, $block): array
-    {
+    public function filterPortfolioQuery($query_args, $block): array {
         // Vérifier si nous sommes sur une page single-qui-sommes-nous
         if (!\is_singular('qui-sommes-nous')) {
             return $query_args;

@@ -21,20 +21,17 @@ namespace G2RD;
 /**
  * Fournit un endpoint REST normalisé pour la Grille filtrable.
  */
-class FilterableGrid
-{
+class FilterableGrid {
     /** Namespace REST */
     private const REST_NAMESPACE = 'g2rd/v1';
 
     // ─── Hooks ───────────────────────────────────────────────────────────────
 
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('rest_api_init', [$this, 'registerRoutes']);
     }
 
-    public function registerRoutes(): void
-    {
+    public function registerRoutes(): void {
         // Endpoint public : expose uniquement les CPT publics (post_status=publish garanti côté getPosts)
         \register_rest_route(self::REST_NAMESPACE, '/content-types', [
             'methods'             => 'GET',
@@ -100,8 +97,7 @@ class FilterableGrid
      * @param  string $value
      * @return bool
      */
-    public function validatePostType( string $value ): bool
-    {
+    public function validatePostType( string $value ): bool {
         $public_types = \get_post_types(['public' => true]);
         return isset($public_types[$value]);
     }
@@ -112,8 +108,7 @@ class FilterableGrid
      * @param  string $value
      * @return bool
      */
-    public function validateTaxonomy( string $value ): bool
-    {
+    public function validateTaxonomy( string $value ): bool {
         if ('' === $value) {
             return true;
         }
@@ -286,8 +281,7 @@ class FilterableGrid
      * @param  string   $post_type
      * @return array<string, mixed>
      */
-    private function normalizePost(\WP_Post $post, string $post_type): array
-    {
+    private function normalizePost(\WP_Post $post, string $post_type): array {
         $excerpt = '';
         if (!empty($post->post_excerpt)) {
             $excerpt = \wp_strip_all_tags($post->post_excerpt);
@@ -337,8 +331,7 @@ class FilterableGrid
     }
 
     /** Enrichit avec les données WooCommerce. */
-    private function normalizeWooProduct(int $post_id): array
-    {
+    private function normalizeWooProduct(int $post_id): array {
         $product = \wc_get_product($post_id);
         if (!$product) {
             return ['is_product' => true, 'product' => null];
@@ -365,8 +358,7 @@ class FilterableGrid
     }
 
     /** Enrichit avec les données SureCart. */
-    private function normalizeSureCartProduct(int $post_id): array
-    {
+    private function normalizeSureCartProduct(int $post_id): array {
         // SureCart stocke les prix en custom fields
         $price    = \get_post_meta($post_id, 'sc_price_amount', true);
         $currency = \get_post_meta($post_id, 'sc_currency', true) ?: 'USD';
@@ -384,8 +376,7 @@ class FilterableGrid
     }
 
     /** Enrichit avec les données FluentCart. */
-    private function normalizeFluentCartProduct(int $post_id): array
-    {
+    private function normalizeFluentCartProduct(int $post_id): array {
         $price = \get_post_meta($post_id, '_price', true)
             ?: \get_post_meta($post_id, 'price', true)
             ?: \get_post_meta($post_id, '_regular_price', true);

@@ -18,15 +18,13 @@ namespace G2RD;
 /**
  * Classe ComingSoon
  */
-class ComingSoon
-{
+class ComingSoon {
     /**
      * Enregistre les hooks
      *
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('template_redirect', [$this, 'maybeRedirect']);
     }
 
@@ -36,8 +34,7 @@ class ComingSoon
      *
      * @return void
      */
-    public function maybeRedirect(): void
-    {
+    public function maybeRedirect(): void {
         if ( \is_user_logged_in() ) {
             return;
         }

@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class BlockStyles
-{
+class BlockStyles {
     /**
      * Clé de cache pour les styles de blocs
      */
@@ -43,16 +42,14 @@ class BlockStyles
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
     /**
      * Enregistre les hooks nécessaires
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('init', [$this, 'registerBlockStyles']);
         \add_action('switch_theme', [$this, 'clearStylesCache']);
         \add_action('wp_enqueue_scripts', [$this, 'enqueueBlockStyles']);
@@ -61,16 +58,14 @@ class BlockStyles
     /**
      * Nettoie le cache des styles lors du changement de thème
      */
-    public function clearStylesCache(): void
-    {
+    public function clearStylesCache(): void {
         \delete_transient(self::CACHE_KEY);
     }
 
     /**
      * Enregistre les styles de blocs
      */
-    public function registerBlockStyles(): void
-    {
+    public function registerBlockStyles(): void {
         $styles = $this->getBlockStyles();
 
         foreach ($styles as $block_name => $block_styles) {
@@ -88,8 +83,7 @@ class BlockStyles
     /**
      * Charge les styles de blocs
      */
-    public function enqueueBlockStyles(): void
-    {
+    public function enqueueBlockStyles(): void {
         if (\is_admin()) {
             return;
         }
@@ -111,8 +105,7 @@ class BlockStyles
     /**
      * Récupère les styles de blocs depuis le cache ou les fichiers
      */
-    private function getBlockStyles(): array
-    {
+    private function getBlockStyles(): array {
         $styles = \get_transient(self::CACHE_KEY);
 
         if (false === $styles) {
@@ -126,8 +119,7 @@ class BlockStyles
     /**
      * Charge les styles depuis le répertoire styles/
      */
-    private function loadStylesFromDirectory(): array
-    {
+    private function loadStylesFromDirectory(): array {
         $styles = [];
         $styles_dir = \get_template_directory() . '/styles/';
 
@@ -158,8 +150,7 @@ class BlockStyles
     /**
      * Optimise le CSS
      */
-    private function optimizeCSS(string $css): string
-    {
+    private function optimizeCSS(string $css): string {
         // Supprimer les commentaires
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
         

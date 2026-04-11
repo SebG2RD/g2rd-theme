@@ -24,8 +24,7 @@ use function is_wp_error;
 use function wp_remote_retrieve_body;
 use function rename;
 
-class GitHubUpdater
-{
+class GitHubUpdater {
     /**
      * URL du dépôt GitHub (page publique)
      *
@@ -70,8 +69,7 @@ class GitHubUpdater
      * @since 1.0.0
      * @param LicenseManager $license_manager Instance du gestionnaire de licences
      */
-    public function __construct( LicenseManager $license_manager )
-    {
+    public function __construct( LicenseManager $license_manager ) {
         $this->license_manager = $license_manager;
         $this->register_hooks();
     }
@@ -85,8 +83,7 @@ class GitHubUpdater
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks()
-    {
+    public function register_hooks() {
         \add_filter('pre_set_site_transient_update_themes', [$this, 'checkForUpdates']);
         \add_filter('themes_api', [$this, 'getThemeInfo'], 10, 3);
         \add_filter('upgrader_source_selection', [$this, 'preventThemeRename'], 10, 4);
@@ -103,8 +100,7 @@ class GitHubUpdater
      * @param object $transient Données de mise à jour WordPress
      * @return object Données de mise à jour modifiées
      */
-    public function checkForUpdates($transient)
-    {
+    public function checkForUpdates($transient) {
         // La vérification de licence sera activée quand FluentCart sera intégré.
         // En attendant, les mises à jour fonctionnent sans licence (thème en développement).
         // TODO : décommenter quand l'API FluentCart est opérationnelle.
@@ -178,8 +174,7 @@ class GitHubUpdater
      * @param object $args Arguments de la requête
      * @return array|bool Informations du thème ou false
      */
-    public function getThemeInfo($false, $action, $args)
-    {
+    public function getThemeInfo($false, $action, $args) {
         // TODO : activer quand FluentCart est intégré.
         // if (!$this->license_manager->isLicenseValid()) {
         //     return $false;

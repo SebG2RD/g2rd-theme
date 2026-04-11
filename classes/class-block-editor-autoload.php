@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class BlockEditorAutoload
-{
+class BlockEditorAutoload {
     /**
      * Clé de cache pour les variations de style
      */
@@ -43,8 +42,7 @@ class BlockEditorAutoload
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version') ?: '1.0.0';
     }
 
@@ -54,8 +52,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('init', [$this, 'registerCustomBlocks']);
         \add_action('init', [$this, 'registerBlocksAssets']);
         \add_filter('wp_theme_json_data_theme', [$this, 'composeThemeJson']);
@@ -72,8 +69,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return void
      */
-    public function registerCustomBlocks(): void
-    {
+    public function registerCustomBlocks(): void {
         $folders = \glob(\get_template_directory() . '/blocks/*/');
 
         foreach ($folders as $folder) {
@@ -124,8 +120,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return void
      */
-    public function registerBlocksAssets(): void
-    {
+    public function registerBlocksAssets(): void {
         $dir   = \get_template_directory();
         $cache_key = 'g2rd_block_css_' . md5( (string) @filemtime( $dir . '/assets/css' ) );
 
@@ -160,8 +155,7 @@ class BlockEditorAutoload
      * @param string $path Chemin absolu vers le fichier JSON.
      * @return array<string, mixed>|null  Tableau décodé, ou null si fichier absent/invalide.
      */
-    private function loadJsonFile(string $path): ?array
-    {
+    private function loadJsonFile(string $path): ?array {
         if (!file_exists($path) || !is_readable($path)) {
             if (defined('WP_DEBUG') && WP_DEBUG) {
                 error_log("G2RD: Fichier JSON introuvable ou illisible : $path");
@@ -195,8 +189,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return string
      */
-    private function getThemeJsonCacheKey(): string
-    {
+    private function getThemeJsonCacheKey(): string {
         $dir  = \get_template_directory();
         $mtimes = [
             @filemtime($dir . '/theme-styles.json'),
@@ -221,8 +214,7 @@ class BlockEditorAutoload
      * @param \WP_Theme_JSON_Data $theme_json Données du theme.json actuel
      * @return \WP_Theme_JSON_Data Données mises à jour du theme.json
      */
-    public function composeThemeJson($theme_json): mixed
-    {
+    public function composeThemeJson($theme_json): mixed {
         $cache_key = $this->getThemeJsonCacheKey();
 
         // En production, tenter de lire depuis le cache transient
@@ -281,8 +273,7 @@ class BlockEditorAutoload
      * @since 1.0.0
      * @return void
      */
-    public function clearBlockCache(): void
-    {
+    public function clearBlockCache(): void {
         // Supprimer les transients du theme.json via l'API WordPress
         // (compatible Redis / Memcached / tout object cache)
         global $wpdb;

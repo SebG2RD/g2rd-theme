@@ -23,8 +23,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class ThemeAdmin
-{
+class ThemeAdmin {
     /**
      * Chemin du logo G2RD
      *
@@ -55,8 +54,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         // Hooks pour les styles (CSS/JS inline injectés via wp_add_inline_style/script dans les callbacks)
         \add_action('admin_enqueue_scripts', [$this, 'registerAdminAssets']);
         \add_action('login_enqueue_scripts', [$this, 'registerLoginAssets']);
@@ -83,8 +81,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return string URL du logo
      */
-    private function getLogoUrl(): string
-    {
+    private function getLogoUrl(): string {
         return \get_template_directory_uri() . self::LOGO_PATH;
     }
     
@@ -94,8 +91,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return string URL de l'image de fond
      */
-    private function getBackgroundImageUrl(): string
-    {
+    private function getBackgroundImageUrl(): string {
         return \get_template_directory_uri() . self::BACKGROUND_IMAGE_PATH;
     }
     
@@ -106,8 +102,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function registerAdminAssets(): void
-    {
+    public function registerAdminAssets(): void {
         \wp_enqueue_style(
             'g2rd-admin',
             \get_template_directory_uri() . '/assets/css/admin.css',
@@ -144,8 +139,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function registerLoginAssets(): void
-    {
+    public function registerLoginAssets(): void {
         \wp_enqueue_style(
             'g2rd-login',
             \get_template_directory_uri() . '/assets/css/login.css',
@@ -216,8 +210,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return string URL de la page d'accueil
      */
-    public function customLoginLogoUrl(): string
-    {
+    public function customLoginLogoUrl(): string {
         return \home_url('/');
     }
 
@@ -227,8 +220,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return string Nom du site
      */
-    public function customLoginLogoText(): string
-    {
+    public function customLoginLogoText(): string {
         return \get_bloginfo('name');
     }
 
@@ -238,8 +230,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function customLoginStructure(): void
-    {
+    public function customLoginStructure(): void {
         echo '<div class="login-container">';
         echo '<div class="login-image"></div>';
     }
@@ -250,8 +241,7 @@ class ThemeAdmin
      * @since 1.0.0
      * @return void
      */
-    public function customLoginFooter(): void
-    {
+    public function customLoginFooter(): void {
         echo '</div>'; // Fermeture de login-container
     }
     
@@ -262,8 +252,7 @@ class ThemeAdmin
      * @param  int    $amount Valeur à soustraire (0–255).
      * @return string Couleur hex assombrie.
      */
-    private function darkenHex(string $hex, int $amount = 25): string
-    {
+    private function darkenHex(string $hex, int $amount = 25): string {
         $hex = \ltrim($hex, '#');
         if (\strlen($hex) === 3) {
             $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
@@ -283,8 +272,7 @@ class ThemeAdmin
      *
      * @return void
      */
-    public function outputAdminColorVars(): void
-    {
+    public function outputAdminColorVars(): void {
         // Palette active (thème + variation de style)
         $palette_raw = \wp_get_global_settings(['color', 'palette', 'theme']);
         $palette_map = [];
@@ -356,8 +344,7 @@ class ThemeAdmin
      * @param array $columns Les colonnes existantes
      * @return array Les colonnes modifiées
      */
-    public function addFeaturedImageColumn(array $columns): array
-    {
+    public function addFeaturedImageColumn(array $columns): array {
         $new_columns = [];
         foreach ($columns as $key => $value) {
             if ($key === 'title') {
@@ -376,8 +363,7 @@ class ThemeAdmin
      * @param int $post_id L'ID de l'article
      * @return void
      */
-    public function displayFeaturedImageColumn(string $column_name, int $post_id): void
-    {
+    public function displayFeaturedImageColumn(string $column_name, int $post_id): void {
         if ($column_name === 'featured_image') {
             if (has_post_thumbnail($post_id)) {
                 $thumbnail = get_the_post_thumbnail_url($post_id, 'thumbnail');

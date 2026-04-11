@@ -38,6 +38,20 @@
             une indentation fonctionnelle plutôt que cosmétique.
         -->
         <exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
+
+        <!--
+            Syntaxe courte des tableaux [] : autorisée car le projet cible PHP 8.0+
+            et la syntaxe courte est plus lisible et moderne.
+        -->
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+
+        <!--
+            Espaces à l'intérieur des parenthèses d'appels de fonctions.
+            Le projet utilise le style PSR-2 sans espace interne : func('arg').
+        -->
+        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.SpaceAfterOpenBracket"/>
+        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.NoSpaceBeforeOpenBracket"/>
     </rule>
 
     <!-- Configuration WordPress specifique -->

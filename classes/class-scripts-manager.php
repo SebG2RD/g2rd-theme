@@ -25,8 +25,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class ScriptsManager
-{
+class ScriptsManager {
     /**
      * Version du thème pour le cache-busting
      */
@@ -50,8 +49,7 @@ class ScriptsManager
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
@@ -61,8 +59,7 @@ class ScriptsManager
      * @since 1.0.0
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         \add_action('wp_enqueue_scripts', [$this, 'applyDeferStrategy'], 999);
         \add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
@@ -72,8 +69,7 @@ class ScriptsManager
      * Applique la stratégie defer native WP 6.4+ aux scripts non critiques.
      * Priorité 999 pour s'exécuter après que toutes les classes aient enregistré leurs scripts.
      */
-    public function applyDeferStrategy(): void
-    {
+    public function applyDeferStrategy(): void {
         foreach ($this->defer_scripts as $handle) {
             if (\wp_script_is($handle, 'enqueued') || \wp_script_is($handle, 'registered')) {
                 \wp_script_add_data($handle, 'strategy', 'defer');
@@ -90,8 +86,7 @@ class ScriptsManager
      * @since 1.0.0
      * @return void
      */
-    public function enqueueScripts(): void
-    {
+    public function enqueueScripts(): void {
         // Rien à charger ici : chaque fonctionnalité gère son propre chargement.
     }
 
@@ -101,8 +96,7 @@ class ScriptsManager
      * @since 1.0.0
      * @return void
      */
-    public function enqueueAdminScripts(): void
-    {
+    public function enqueueAdminScripts(): void {
         // Script pour la gestion des mots de passe (uniquement sur la page d'options G2RD)
         $screen = \get_current_screen();
         if ( $screen && false !== strpos( $screen->id, 'g2rd' ) ) {

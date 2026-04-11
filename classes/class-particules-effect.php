@@ -24,8 +24,7 @@ namespace G2RD;
  * @package G2RD
  * @since 1.0.0
  */
-class ParticlesEffect
-{
+class ParticlesEffect {
     /**
      * Version du thème pour le cache-busting
      */
@@ -34,16 +33,14 @@ class ParticlesEffect
     /**
      * Constructeur
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->theme_version = wp_get_theme()->get('Version');
     }
 
     /**
      * Enregistre les hooks nécessaires pour l'effet de particules
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);
         \add_action('enqueue_block_editor_assets', [$this, 'registerEditorControls'], 5);
         \add_filter('render_block', [$this, 'addParticlesAttribute'], 10, 2);
@@ -56,8 +53,7 @@ class ParticlesEffect
      * @since 1.0.0
      * @return void
      */
-    public function registerFrontendScripts(): void
-    {
+    public function registerFrontendScripts(): void {
         if (\is_admin()) {
             return;
         }
@@ -77,8 +73,7 @@ class ParticlesEffect
     /**
      * Enregistre et charge les contrôles de l'effet de particules dans l'éditeur
      */
-    public function registerEditorControls(): void
-    {
+    public function registerEditorControls(): void {
         // Enregistrer le script de contrôle avec les dépendances correctes
         \wp_enqueue_script(
             'g2rd-particles-sidebar',
@@ -102,8 +97,7 @@ class ParticlesEffect
     /**
      * Ajoute les styles CSS pour les contrôles de l'effet de particules dans l'éditeur
      */
-    public function addEditorStyles(): void
-    {
+    public function addEditorStyles(): void {
         if (!\is_admin() || !function_exists('get_current_screen') || get_current_screen()->base !== 'post') {
             return;
         }
@@ -130,8 +124,7 @@ class ParticlesEffect
     /**
      * Ajoute l'attribut data-particles aux blocs de type group
      */
-    public function addParticlesAttribute(string $block_content, array $block): string
-    {
+    public function addParticlesAttribute(string $block_content, array $block): string {
         // Ne s'applique qu'aux blocs de type group
         if ($block['blockName'] !== 'core/group') {
             return $block_content;

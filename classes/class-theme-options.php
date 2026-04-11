@@ -20,8 +20,7 @@ namespace G2RD;
  * @package G2RD
  * @since   1.1.0
  */
-class ThemeOptions
-{
+class ThemeOptions {
     /** @var string Clé wp_options pour les fonctionnalités du thème */
     private const OPTION_FEATURES = 'g2rd_theme_features';
 
@@ -198,8 +197,7 @@ class ThemeOptions
      * @param  string $key Identifiant de la fonctionnalité.
      * @return bool
      */
-    public static function isFeatureEnabled(string $key): bool
-    {
+    public static function isFeatureEnabled(string $key): bool {
         $features = (array) \get_option(self::OPTION_FEATURES, []);
         if ( isset( $features[$key] ) ) {
             return (bool) $features[$key];
@@ -215,8 +213,7 @@ class ThemeOptions
      * @param  string $block_name Nom complet du bloc (ex : "g2rd/carousel").
      * @return bool
      */
-    public static function isBlockDisabled(string $block_name): bool
-    {
+    public static function isBlockDisabled(string $block_name): bool {
         $disabled = (array) \get_option(self::OPTION_BLOCKS, []);
         return \in_array($block_name, $disabled, true);
     }
@@ -227,8 +224,7 @@ class ThemeOptions
      * @param  string $cpt_key Identifiant du post type (ex : "portfolio").
      * @return array<string, mixed>
      */
-    public static function getCPTSettings(string $cpt_key): array
-    {
+    public static function getCPTSettings(string $cpt_key): array {
         $defaults  = self::CPT_DEFAULTS[$cpt_key] ?? [];
         $saved_all = (array) \get_option(self::OPTION_CPTS, []);
         $saved_cpt = \is_array($saved_all[$cpt_key] ?? null) ? $saved_all[$cpt_key] : [];
@@ -241,8 +237,7 @@ class ThemeOptions
      * @param  string $cpt_key Identifiant du post type.
      * @return bool
      */
-    public static function isCPTEnabled(string $cpt_key): bool
-    {
+    public static function isCPTEnabled(string $cpt_key): bool {
         return (bool) (self::getCPTSettings($cpt_key)['enabled'] ?? true);
     }
 
@@ -255,8 +250,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('admin_init', [$this, 'maybeSyncPricingTableBlock'], 1);
         \add_action('admin_menu', [$this, 'registerAdminPage']);
         \add_action('admin_post_g2rd_save_options', [$this, 'saveOptions']);
@@ -269,8 +263,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function maybeSyncPricingTableBlock(): void
-    {
+    public function maybeSyncPricingTableBlock(): void {
         if (\get_option(self::OPTION_PRICING_BLOCK_SYNC, '')) {
             return;
         }
@@ -308,8 +301,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function registerAdminPage(): void
-    {
+    public function registerAdminPage(): void {
         \add_theme_page(
             \__('Options du thème G2RD', 'g2rd'),
             \__('Options G2RD', 'g2rd'),
@@ -325,8 +317,7 @@ class ThemeOptions
      * @param  string $hook Identifiant de la page admin courante.
      * @return void
      */
-    public function enqueueAssets(string $hook): void
-    {
+    public function enqueueAssets(string $hook): void {
         if ('appearance_page_' . self::PAGE_SLUG !== $hook) {
             return;
         }
@@ -359,8 +350,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function saveOptions(): void
-    {
+    public function saveOptions(): void {
         if (!\current_user_can('manage_options')) {
             \wp_die(\esc_html__('Accès refusé.', 'g2rd'), 403);
         }
@@ -450,8 +440,7 @@ class ThemeOptions
      *
      * @return void
      */
-    public function renderPage(): void
-    {
+    public function renderPage(): void {
         if (!\current_user_can('manage_options')) {
             return;
         }
@@ -491,8 +480,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderNotice(): void
-    {
+    private function renderNotice(): void {
         if (!isset($_GET['saved'])) {
             return;
         }
@@ -508,8 +496,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderComingSoonSection(): void
-    {
+    private function renderComingSoonSection(): void {
         $saved   = (array) \get_option(self::OPTION_COMING_SOON, []);
         $enabled = !empty($saved['enabled']);
         $page_id = \absint($saved['page_id'] ?? 0);
@@ -591,8 +578,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderColorsSection(): void
-    {
+    private function renderColorsSection(): void {
         // Palette active (thème + variation de style éventuelle)
         $palette_raw = \wp_get_global_settings(['color', 'palette', 'theme']);
         if (!\is_array($palette_raw) || empty($palette_raw)) {
@@ -719,8 +705,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderCPTsSection(): void
-    {
+    private function renderCPTsSection(): void {
         $saved_all = (array) \get_option(self::OPTION_CPTS, []);
         ?>
         <div class="g2rd-section">
@@ -859,8 +844,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderFeaturesSection(): void
-    {
+    private function renderFeaturesSection(): void {
         $features = (array) \get_option(self::OPTION_FEATURES, []);
         ?>
         <div class="g2rd-section">
@@ -903,8 +887,7 @@ class ThemeOptions
      *
      * @return void
      */
-    private function renderBlocksSection(): void
-    {
+    private function renderBlocksSection(): void {
         $disabled    = (array) \get_option(self::OPTION_BLOCKS, []);
         $total       = \count(self::BLOCKS);
         $active_count = $total - \count($disabled);

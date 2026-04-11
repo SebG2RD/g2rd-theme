@@ -19,8 +19,7 @@ namespace G2RD;
 /**
  * Classe LicenseManager
  */
-class LicenseManager
-{
+class LicenseManager {
     /** @var string Clé wp_options pour la clé API FluentCart */
     private const OPTION_API_KEY = 'g2rd_fluent_cart_api_key';
 
@@ -35,8 +34,7 @@ class LicenseManager
      *
      * @return void
      */
-    public function register_hooks(): void
-    {
+    public function register_hooks(): void {
         \add_action('admin_post_g2rd_save_license_key', [$this, 'saveApiKey']);
         \add_action('g2rd_options_before_form',         [$this, 'renderSection']);
     }
@@ -46,8 +44,7 @@ class LicenseManager
      *
      * @return bool
      */
-    public function isConfigured(): bool
-    {
+    public function isConfigured(): bool {
         return ! empty(\get_option(self::OPTION_API_KEY, ''));
     }
 
@@ -56,8 +53,7 @@ class LicenseManager
      *
      * @return string
      */
-    public function getApiKey(): string
-    {
+    public function getApiKey(): string {
         return (string) \get_option(self::OPTION_API_KEY, '');
     }
 
@@ -67,8 +63,7 @@ class LicenseManager
      *
      * @return bool
      */
-    public function isLicenseValid(): bool
-    {
+    public function isLicenseValid(): bool {
         return $this->isConfigured();
     }
 
@@ -77,8 +72,7 @@ class LicenseManager
      *
      * @return void
      */
-    public function saveApiKey(): void
-    {
+    public function saveApiKey(): void {
         if (! \current_user_can('manage_options')) {
             \wp_die(\esc_html__('Accès refusé.', 'g2rd'), 403);
         }
@@ -103,8 +97,7 @@ class LicenseManager
      *
      * @return void
      */
-    public function renderSection(): void
-    {
+    public function renderSection(): void {
         $is_configured = $this->isConfigured();
         $api_key       = $this->getApiKey();
         $masked        = $is_configured

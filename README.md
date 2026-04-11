@@ -220,6 +220,12 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.8
+
+- **PHPCS** : accolades K&R sur toutes les méthodes/classes — 24 fichiers corrigés en une passe.
+- **phpcs.xml.dist** : exclusions pour syntaxe `[]` et espacement des appels de fonctions (style PSR-2, PHP 8.0+).
+- **PHPCS** : `class-custom-post-types-portfolio.php` — braces, `$_hook`, alignement des assignations.
+
 ### 1.2.7
 
 - **PHPCS** : `class-block-patterns.php` — `@var string` sur `$theme_version`, accolades ouvrantes sur la même ligne, espaces dans `get()`, `[]` → `array()` dans `add_action`.
