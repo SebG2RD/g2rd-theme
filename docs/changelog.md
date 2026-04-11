@@ -1,5 +1,10 @@
 # Changelog du thème G2RD
 
+## 1.2.9
+
+- **PHPCS** : `phpcs.xml.dist` — règles `Generic.Arrays.DisallowShortArraySyntax` et `WordPress.WhiteSpace.FunctionCallSignature` aussi désactivées au niveau global (severity 0), ceinture et bretelles pour garantir la suppression quelle que soit la version WPCS installée par CI.
+- **PHPCS** : `class-custom-post-types-portfolio.php` — alignement des `=` dans `renderMetaBox` corrigé (1 espace en trop sur chaque variable), `phpcs:ignore` sur `enqueueAdminAssets` pour le paramètre `$_hook` requis par l'interface du hook WordPress.
+
 ## 1.2.8
 
 - **PHPCS** : correction globale des accolades ouvrantes — toutes les méthodes et classes de `classes/` passent en style K&R (brace sur la même ligne), 24 fichiers corrigés.

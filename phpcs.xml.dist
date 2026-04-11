@@ -54,6 +54,22 @@
         <exclude name="WordPress.WhiteSpace.FunctionCallSignature.NoSpaceBeforeOpenBracket"/>
     </rule>
 
+    <!--
+        Ceinture et bretelles : ces règles sont aussi exclues dans le bloc WordPress
+        ci-dessus, mais on les désactive aussi ici au niveau global pour garantir
+        la suppression quelle que soit la version de WPCS ou le comportement d'héritage PHPCS.
+    -->
+
+    <!-- PHP 8.0+ : syntaxe courte [] autorisée -->
+    <rule ref="Generic.Arrays.DisallowShortArraySyntax">
+        <severity>0</severity>
+    </rule>
+
+    <!-- PSR-2 : pas d'espaces à l'intérieur des parenthèses d'appels de fonctions -->
+    <rule ref="WordPress.WhiteSpace.FunctionCallSignature">
+        <severity>0</severity>
+    </rule>
+
     <!-- Configuration WordPress specifique -->
     <config name="minimum_wp_version" value="6.8"/>
 

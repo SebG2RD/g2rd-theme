@@ -220,6 +220,11 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.9
+
+- **PHPCS** : `phpcs.xml.dist` — `Generic.Arrays.DisallowShortArraySyntax` et `WordPress.WhiteSpace.FunctionCallSignature` désactivés globalement (severity 0) en plus des exclusions déjà présentes dans le bloc WordPress, pour couvrir toutes les versions de WPCS.
+- **PHPCS** : `class-custom-post-types-portfolio.php` — alignement des `=` dans `renderMetaBox` corrigé, `phpcs:ignore` sur `enqueueAdminAssets` pour `$_hook` requis par le hook WordPress.
+
 ### 1.2.8
 
 - **PHPCS** : accolades K&R sur toutes les méthodes/classes — 24 fichiers corrigés en une passe.

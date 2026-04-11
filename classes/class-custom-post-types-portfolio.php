@@ -44,7 +44,7 @@ class CPT_Portfolio {
      * @param string $_hook Identifiant de la page admin courante (non utilisé).
      * @return void
      */
-    public function enqueueAdminAssets( string $_hook ): void {
+    public function enqueueAdminAssets( string $_hook ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Requis par la signature du hook WordPress.
         $screen = \get_current_screen();
         if (!$screen || 'portfolio' !== $screen->post_type || 'edit' !== $screen->base) {
             return;
@@ -231,17 +231,17 @@ class CPT_Portfolio {
      */
     public function renderMetaBox( $post ): void {
         // Récupérer la valeur existante du lien
-        $link         = get_post_meta($post->ID, '_portfolio_link', true);
-        $perf         = get_post_meta($post->ID, '_portfolio_perf', true);
-        $a11y         = get_post_meta($post->ID, '_portfolio_a11y', true);
-        $bp           = get_post_meta($post->ID, '_portfolio_bp', true);
-        $seo          = get_post_meta($post->ID, '_portfolio_seo', true);
-        $password     = get_post_meta($post->ID, '_portfolio_password', true);
-        $login        = get_post_meta($post->ID, '_portfolio_login', true);
-        $hebergement  = get_post_meta($post->ID, '_portfolio_hebergement', true);
-        $maintenance  = get_post_meta($post->ID, '_portfolio_maintenance', true);
-        $contrat      = get_post_meta($post->ID, '_portfolio_contrat', true);
-        $date_anniv   = get_post_meta($post->ID, '_portfolio_date_anniv', true);
+        $link        = get_post_meta($post->ID, '_portfolio_link', true);
+        $perf        = get_post_meta($post->ID, '_portfolio_perf', true);
+        $a11y        = get_post_meta($post->ID, '_portfolio_a11y', true);
+        $bp          = get_post_meta($post->ID, '_portfolio_bp', true);
+        $seo         = get_post_meta($post->ID, '_portfolio_seo', true);
+        $password    = get_post_meta($post->ID, '_portfolio_password', true);
+        $login       = get_post_meta($post->ID, '_portfolio_login', true);
+        $hebergement = get_post_meta($post->ID, '_portfolio_hebergement', true);
+        $maintenance = get_post_meta($post->ID, '_portfolio_maintenance', true);
+        $contrat     = get_post_meta($post->ID, '_portfolio_contrat', true);
+        $date_anniv  = get_post_meta($post->ID, '_portfolio_date_anniv', true);
 
         wp_nonce_field('portfolio_link_nonce', 'portfolio_link_nonce');
 
