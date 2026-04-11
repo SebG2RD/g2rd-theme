@@ -220,6 +220,12 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.10
+
+- **PHPCS** : `phpcs.xml.dist` — exclusion de `./blocks/*/*.php` pour sortir les helpers PHP de blocs du périmètre de scan WordPress Standards.
+- **PHPCS** : `class-block-patterns.php` — `phpcs:ignore` sur l'`include` dynamique contrôlé par `glob()`.
+- **CI** : Security Audit — exclusion des sniffs `FileSystems` et `CallbackFunctions` (faux positifs sur des usages WordPress légitimes).
+
 ### 1.2.9
 
 - **PHPCS** : `phpcs.xml.dist` — `Generic.Arrays.DisallowShortArraySyntax` et `WordPress.WhiteSpace.FunctionCallSignature` désactivés globalement (severity 0) en plus des exclusions déjà présentes dans le bloc WordPress, pour couvrir toutes les versions de WPCS.

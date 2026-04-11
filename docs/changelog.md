@@ -1,5 +1,11 @@
 # Changelog du thème G2RD
 
+## 1.2.10
+
+- **PHPCS** : `phpcs.xml.dist` — exclusion de `./blocks/*/*.php` (fichiers PHP des blocs Gutenberg : conventions de build différentes des classes PHP du thème).
+- **PHPCS** : `class-block-patterns.php` — `phpcs:ignore` sur l'`include $file` dynamique (chemin garanti par `glob(patterns/*.php)`).
+- **CI** : Security Audit — exclusion de `Security.BadFunctions.FileSystems` et `Security.BadFunctions.CallbackFunctions` (faux positifs pour `file_exists`, `filemtime`, `glob`, `is_dir`, `array_map('trim', ...)` légitimes dans un thème WordPress).
+
 ## 1.2.9
 
 - **PHPCS** : `phpcs.xml.dist` — règles `Generic.Arrays.DisallowShortArraySyntax` et `WordPress.WhiteSpace.FunctionCallSignature` aussi désactivées au niveau global (severity 0), ceinture et bretelles pour garantir la suppression quelle que soit la version WPCS installée par CI.

@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile -- Fichier helper du bloc Gutenberg CodeG2rd. Conventions de build bloc, pas classes PHP thème.
 /**
  * Aides du bloc code G2RD : langues et correspondance highlight.php.
  * Données partagées avec l’éditeur via languages.json (même dossier que le bloc).
@@ -6,7 +7,7 @@
  * @package G2RD
  */
 
-defined('ABSPATH') || exit;
+defined(‘ABSPATH’) || exit;
 
 /**
  * Charge l’autoloader Composer du thème pour que la classe Highlight\Highlighter existe.

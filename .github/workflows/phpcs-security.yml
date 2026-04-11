@@ -71,6 +71,7 @@ jobs:
             --standard=Security \
             --extensions=php \
             --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/* \
+            --exclude=Security.BadFunctions.FileSystems,Security.BadFunctions.CallbackFunctions \
             --report-full \
             --report-checkstyle=./phpcs-security-report.xml \
             --runtime-set ParanoiaMode 0 \

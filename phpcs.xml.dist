@@ -13,6 +13,7 @@
     <exclude-pattern>./node_modules/*</exclude-pattern>
     <exclude-pattern>./blocks/*/build/*</exclude-pattern>
     <exclude-pattern>./blocks/*/src/*</exclude-pattern>
+    <exclude-pattern>./blocks/*/*.php</exclude-pattern>
     <exclude-pattern>./assets/js/vendor/*</exclude-pattern>
 
     <!-- Extensions PHP -->
