@@ -62,16 +62,15 @@ jobs:
         if: ${{ always() && steps.phpcs-wp.outcome == 'failure' }}
         run: cs2pr ./phpcs-wp-report.xml
 
-      # Security Audit OWASP (SAST)
+      # Security Audit OWASP (SAST) — exclusions dans phpcs-security.xml
       - name: PHPCS Security Audit
         id: phpcs-sec
         continue-on-error: true
         run: |
           composer global exec -- phpcs \
-            --standard=Security \
+            --standard=phpcs-security.xml \
             --extensions=php \
             --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/* \
-            --exclude=Security.BadFunctions.FileSystems,Security.BadFunctions.CallbackFunctions \
             --report-full \
             --report-checkstyle=./phpcs-security-report.xml \
             --runtime-set ParanoiaMode 0 \

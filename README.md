@@ -220,6 +220,11 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.11
+
+- **CI** : Security Audit — remplacement de l'option `--exclude` CLI par `--standard=phpcs-security.xml` pour une exclusion fiable des sniffs `FileSystems` et `CallbackFunctions`.
+- **PHPCS** : `phpcs-security.xml` créé à la racine — configuration centralisée des exclusions de faux positifs sécurité.
+
 ### 1.2.10
 
 - **PHPCS** : `phpcs.xml.dist` — exclusion de `./blocks/*/*.php` pour sortir les helpers PHP de blocs du périmètre de scan WordPress Standards.

@@ -1,5 +1,10 @@
 # Changelog du thème G2RD
 
+## 1.2.11
+
+- **CI** : Security Audit — remplacement de l'option `--exclude` CLI (inefficace) par un fichier de configuration dédié `phpcs-security.xml` référençant `<rule ref="Security">` avec exclusions `FileSystems` et `CallbackFunctions`.
+- **PHPCS** : `phpcs-security.xml` ajouté à la racine du projet — centralise les exclusions des faux positifs de sécurité (fonctions filesystem WordPress légitimes et callbacks PHP natifs).
+
 ## 1.2.10
 
 - **PHPCS** : `phpcs.xml.dist` — exclusion de `./blocks/*/*.php` (fichiers PHP des blocs Gutenberg : conventions de build différentes des classes PHP du thème).

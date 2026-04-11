@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="G2RD Security Audit">
+    <description>Audit de sécurité OWASP pour le thème G2RD.
+    Les sniffs FileSystems et CallbackFunctions sont exclus : toutes les fonctions
+    filesystem (filemtime, file_exists, glob, is_dir) utilisent des chemins WordPress
+    internes contrôlés (get_template_directory()), et les callbacks array_map()
+    utilisent des fonctions PHP natives ou des méthodes internes — pas d'entrée utilisateur.
+    </description>
+
+    <rule ref="Security">
+        <!-- Faux positifs : chemins filesystem tous issus de get_template_directory() -->
+        <exclude name="Security.BadFunctions.FileSystems"/>
+
+        <!-- Faux positifs : callbacks array_map() avec trim, esc_url_raw ou méthodes internes -->
+        <exclude name="Security.BadFunctions.CallbackFunctions"/>
+    </rule>
+</ruleset>
