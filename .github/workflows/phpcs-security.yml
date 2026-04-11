@@ -25,14 +25,14 @@ jobs:
           php-version: "8.2"
           ini-values: "memory_limit=1G"
           coverage: none
-          tools: cs2pr
+          tools: cs2pr, composer
 
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@v3
-        with:
-          custom-cache-suffix: $(date -u "+%Y-%m")
+      # Fix erreur allow-plugins : autoriser AVANT l'install
+      - name: Autoriser le plugin Composer PHPCS
+        run: |
+          composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 
-      - name: Install PHPCS + WordPress Standards + Security Audit
+      - name: Installer PHPCS + WordPress Standards + Security Audit
         run: |
           composer global require --dev \
             squizlabs/php_codesniffer \
@@ -42,50 +42,50 @@ jobs:
             pheromone/phpcs-security-audit \
             dealerdirect/phpcodesniffer-composer-installer
 
-      - name: Verify installed standards
+      - name: Verifier les standards installes
         run: composer global exec -- phpcs -i
 
-      # WordPress Coding Standards
-      - name: Run PHPCS WordPress
+      # WordPress Coding Standards (scan tout le repo via phpcs.xml.dist)
+      - name: PHPCS WordPress
         id: phpcs-wp
         continue-on-error: true
         run: |
           composer global exec -- phpcs \
             --standard=WordPress \
             --extensions=php \
-            --ignore=vendor/*,node_modules/*,blocks/*/build/*,blocks/*/src/* \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/*,blocks/*/src/*,assets/js/vendor/* \
             --report-full \
             --report-checkstyle=./phpcs-wp-report.xml \
             --colors \
             -p \
-            classes/ functions.php includes/
+            .
 
-      - name: Annotations PHPCS WordPress
+      - name: Annotations WordPress
         if: ${{ always() && steps.phpcs-wp.outcome == 'failure' }}
         run: cs2pr ./phpcs-wp-report.xml
 
-      # Security Audit (OWASP SAST)
-      - name: Run PHPCS Security Audit
+      # Security Audit OWASP (SAST)
+      - name: PHPCS Security Audit
         id: phpcs-sec
         continue-on-error: true
         run: |
           composer global exec -- phpcs \
             --standard=Security \
             --extensions=php \
-            --ignore=vendor/*,node_modules/*,blocks/*/build/* \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/* \
             --report-full \
             --report-checkstyle=./phpcs-security-report.xml \
+            --runtime-set ParanoiaMode 0 \
             --colors \
             -p \
-            -d ParanoiaMode=0 \
-            classes/ functions.php includes/ blocks/
+            .
 
-      - name: Annotations Security Audit
+      - name: Annotations Security
         if: ${{ always() && steps.phpcs-sec.outcome == 'failure' }}
         run: cs2pr ./phpcs-security-report.xml
 
-      # PHPCompatibility (PHP 8.0 - 8.5)
-      - name: Run PHPCompatibility
+      # PHPCompatibility (PHP 8.0+)
+      - name: PHPCompatibility
         id: phpcompat
         continue-on-error: true
         run: |
@@ -98,13 +98,13 @@ jobs:
             --report-checkstyle=./phpcompat-report.xml \
             --colors \
             -p \
-            classes/ functions.php includes/
+            .
 
       - name: Annotations PHPCompatibility
         if: ${{ always() && steps.phpcompat.outcome == 'failure' }}
         run: cs2pr ./phpcompat-report.xml
 
-      # Resume
+      # Resume dans le summary GitHub
       - name: Resume des resultats
         if: always()
         run: |
