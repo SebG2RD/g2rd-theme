@@ -220,6 +220,12 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.12
+
+- **Sécurité** : suppression de `class-surecart-license-manager.php` — système de licence SureCart retiré (FluentCart à venir).
+- **CI** : `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` — suppression des warnings Node.js 20 dans GitHub Actions.
+- **FilterableGrid** : support SureCart conservé pour les sites utilisant SureCart.
+
 ### 1.2.11
 
 - **CI** : Security Audit — remplacement de l'option `--exclude` CLI par `--standard=phpcs-security.xml` pour une exclusion fiable des sniffs `FileSystems` et `CallbackFunctions`.

@@ -1,5 +1,11 @@
 # Changelog du thème G2RD
 
+## 1.2.12
+
+- **Sécurité** : suppression de `class-surecart-license-manager.php` — système de licence SureCart retiré (remplacement par FluentCart prévu ultérieurement).
+- **CI** : `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` — élimination des warnings de dépréciation Node.js 20 dans les GitHub Actions.
+- **FilterableGrid** : support SureCart (`sc-product`) conservé pour les utilisateurs ayant SureCart installé.
+
 ## 1.2.11
 
 - **CI** : Security Audit — remplacement de l'option `--exclude` CLI (inefficace) par un fichier de configuration dédié `phpcs-security.xml` référençant `<rule ref="Security">` avec exclusions `FileSystems` et `CallbackFunctions`.
