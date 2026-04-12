@@ -151,8 +151,8 @@ class BlockStyles {
      * Optimise le CSS
      */
     private function optimizeCSS(string $css): string {
-        // Supprimer les commentaires
-        $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+        // Supprimer les commentaires — délimiteur ! volontaire, pas de modificateur /e
+        $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird -- délimiteur ! sans modificateur /e, CSS interne
         
         // Supprimer les espaces inutiles
         $css = preg_replace('/\s+/', ' ', $css);

@@ -157,7 +157,7 @@ class ClickableArticles {
         $pattern = '/class="' . preg_quote($class_name, '/') . '([^"]*)"/';
         $replacement = 'class="' . $class_name . '$1" data-clickable-articles="true" role="button" tabindex="0"';
 
-        $block_content = preg_replace($pattern, $replacement, $block_content);
+        $block_content = preg_replace($pattern, $replacement, $block_content); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceDyn -- pattern construit via preg_quote(), pas d'entrée utilisateur
 
         // Ajouter la classe g2rd-clickable-article aux articles dans le bloc
         if (strpos($block_content, '<article') !== false || strpos($block_content, 'wp-block-post') !== false) {

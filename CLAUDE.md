@@ -245,8 +245,9 @@ env:
 
 **`phpcs-security.xml`** — exclusions validées (ne pas supprimer) :
 
-- `Security.BadFunctions.FileSystems` — faux positif sur `file_exists`, `filemtime`, `glob`, `is_dir` avec chemins WordPress internes contrôlés
+- `Security.BadFunctions.FilesystemFunctions` — faux positif sur `file_exists`, `filemtime`, `glob`, `is_dir` avec chemins WordPress internes contrôlés
 - `Security.BadFunctions.CallbackFunctions` — faux positif sur `array_map('trim', ...)` avec fonctions PHP natives
+- `PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird` / `PregReplaceDyn` — `phpcs:ignore` ciblés dans 3 fichiers (`class-block-styles.php`, `class-block-stylesheets.php`, `class-clickable-articles.php`) — CSS minification interne et pattern via `preg_quote()`, pas de modificateur `/e`
 
 ## Performance
 
