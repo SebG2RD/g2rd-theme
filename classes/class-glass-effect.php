@@ -104,7 +104,7 @@ class GlassEffect {
      */
     public function addGlassAttribute(string $block_content, array $block): string {
         // Ne s'applique qu'aux blocs de type group, columns et rows
-        if (!in_array($block['blockName'], ['core/group', 'core/columns', 'core/row'])) {
+        if (!in_array($block['blockName'], ['core/group', 'core/columns', 'core/row'], true)) {
             return $block_content;
         }
 

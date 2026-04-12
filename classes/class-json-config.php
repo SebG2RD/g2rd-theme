@@ -28,7 +28,7 @@ class JsonConfig {
     /**
      * Données de configuration chargées depuis le fichier JSON
      */
-    private array $configurationData = [];
+    private array $configuration_data = [];
 
     /**
      * Clé de cache pour les configurations
@@ -45,10 +45,10 @@ class JsonConfig {
      */
     public function register_hooks(): void {
         // Charger le fichier de configuration et stocker les données
-        $this->configurationData = $this->loadJsonConfig();
+        $this->configuration_data = $this->loadJsonConfig();
 
         // Assigner les hooks pour appliquer les différentes configurations
-        foreach ($this->configurationData as $key => $data) {
+        foreach ($this->configuration_data as $key => $data) {
             switch ($key) {
                 case 'registerBlocksCategories':
                     \add_filter('block_categories_all', [$this, 'registerBlocksCategories']);
@@ -152,7 +152,7 @@ class JsonConfig {
         );
 
         // Créer un objet JS pour les styles à désactiver
-        $inline_js = "var disableBlocksStyles = " . json_encode($blocks_styles_to_disable) . ";\n";
+        $inline_js = 'var disableBlocksStyles = ' . wp_json_encode($blocks_styles_to_disable) . ";\n";
 
         // Ajouter la variable dans la page HTML avant le script
         \wp_add_inline_script('unregister-styles', $inline_js, 'before');
@@ -160,6 +160,8 @@ class JsonConfig {
 
     /**
      * Charge et parse le fichier de configuration JSON
+     *
+     * @throws \Exception Si le fichier de configuration JSON est invalide.
      */
     protected function loadJsonConfig(): array {
         // Essayer de récupérer depuis le cache
@@ -195,6 +197,6 @@ class JsonConfig {
      * Récupère les données de configuration pour une clé donnée
      */
     protected function getConfigDataByKey($key): array {
-        return $this->configurationData[$key] ?? [];
+        return $this->configuration_data[$key] ?? [];
     }
 }

@@ -27,10 +27,16 @@ class FilterableGrid {
 
     // ─── Hooks ───────────────────────────────────────────────────────────────
 
+    /**
+     * Enregistre les hooks WordPress pour la grille filtrable.
+     */
     public function register_hooks(): void {
         \add_action('rest_api_init', [$this, 'registerRoutes']);
     }
 
+    /**
+     * Enregistre les routes REST API pour la grille filtrable.
+     */
     public function registerRoutes(): void {
         // Endpoint public : expose uniquement les CPT publics (post_status=publish garanti côté getPosts)
         \register_rest_route(self::REST_NAMESPACE, '/content-types', [
@@ -241,11 +247,13 @@ class FilterableGrid {
             // Vérifier que la taxonomie appartient bien au post_type demandé (cross-validation REST)
             $post_type_taxonomies = \get_object_taxonomies($post_type);
             if (\in_array($taxonomy, $post_type_taxonomies, true)) {
-                $query_args['tax_query'] = [[ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-                    'taxonomy' => $taxonomy,
-                    'field'    => 'term_id',
-                    'terms'    => [$term],
-                ]];
+                $query_args['tax_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+                    [
+                        'taxonomy' => $taxonomy,
+                        'field'    => 'term_id',
+                        'terms'    => [$term],
+                    ],
+                ];
             }
         }
 

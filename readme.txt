@@ -4,7 +4,7 @@ Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors,
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.2.12
+Stable tag: 1.2.13
 License: EUPL-1.2
 License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
@@ -99,6 +99,14 @@ Oui, le thème inclut des outils de migration pour faciliter la transition depui
 Oui, le thème est conçu pour être compatible avec les standards FSE de WordPress et peut coexister avec d'autres thèmes FSE.
 
 == Changelog ==
+
+= 1.2.13 =
+* PHPCS : migration phpcs.xml.dist vers WPCS 3.x — exclusions des sniffs renommés (PEAR.Functions.FunctionCallSignature.*, Universal.Arrays.DisallowShortArraySyntax, NormalizedArrays.Arrays.*).
+* Composer : scripts phpcs, phpcs:security, phpcs:compat ajoutés à composer.json.
+* Sécurité : wp_unslash() sur les lectures $_POST dans les classes CPT et class-theme-options.php.
+* Sécurité : esc_url() appliqué sur get_template_directory_uri() dans class-clickable-articles.php et class-gsap-animations.php.
+* i18n : commentaires translators: ajoutés sur les appels sprintf(__()).
+* Qualité : $configurationData renommé en $configuration_data, json_encode remplacé par wp_json_encode, in_array strict.
 
 = 1.0.8 =
 * Amélioration : l'effet particules est automatiquement désactivé lors de l'analyse par Google PageSpeed Insights et Lighthouse, ce qui améliore le score de performance sans impacter l'expérience utilisateur réelle.

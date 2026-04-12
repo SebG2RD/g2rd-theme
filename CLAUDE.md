@@ -13,20 +13,23 @@ Thème WordPress Full Site Editing développé par G2RD Agence Web.
 
 ## Structure du projet
 
-```
+```text
 g2rd-theme/
 ├── assets/
 │   ├── css/          # Styles compilés du thème
-│   ├── js/           # Scripts compilés du thème
+│   ├── js/           # Scripts compilés du thème (+ vendor/ pour GSAP, ScrollTrigger)
 │   ├── images/       # Images du thème
 │   └── fonts/        # Polices custom
 ├── blocks/           # Blocs Gutenberg custom (un dossier par bloc)
 │   ├── blocks-manifest.php          # Auto-généré par build-blocks-manifest
-│   ├── AdvancedList/                # Blocs "compilés" : pas de src/, assets directs
+│   ├── shared/
+│   │   └── PostSelector.js          # Composant partagé entre blocs
+│   │
+│   ├── — Blocs pré-compilés (pas de src/, assets directs) —
+│   ├── AdvancedList/
 │   ├── Breadcrumb/
-│   ├── CardG2rd/
 │   ├── DeviceMockup/
-│   ├── FilterableGrid/
+│   ├── g2rd/                        # Bloc générique (index.js + block.json)
 │   ├── IconBox/
 │   ├── Map/
 │   ├── Marquee/
@@ -38,95 +41,115 @@ g2rd-theme/
 │   ├── TableOfContents/
 │   ├── ToggleContent/
 │   ├── Toolbars/
-│   ├── g2rd/
-│   ├── CodeG2rd/                    # Blocs avec npm workspace (src/ + build/)
-│   │   ├── src/
-│   │   │   ├── edit.js
-│   │   │   ├── save.js
-│   │   │   ├── index.js
-│   │   │   └── languages.json
-│   │   ├── block.json
-│   │   ├── package.json
-│   │   └── webpack.config.js
+│   │
+│   ├── — Blocs avec npm workspace (src/ + build/) —
+│   ├── CardG2rd/
+│   ├── CodeG2rd/
+│   ├── FilterableGrid/
+│   ├── PricingTable/
+│   ├── g2rd-advanced-heading/
+│   ├── g2rd-block-api/
 │   ├── g2rd-carousel/
-│   │   ├── src/
-│   │   │   ├── edit.js
-│   │   │   ├── save.js
-│   │   │   ├── index.js
-│   │   │   └── carousel-frontend.js
-│   │   ├── block.json
-│   │   ├── package.json
-│   │   └── webpack.config.js
+│   ├── g2rd-charts/
+│   ├── g2rd-container/              # Layout flex/grille/contraint/flux — bloc dynamique
 │   ├── g2rd-countdown/
-│   │   └── src/
-│   │       ├── edit.js
-│   │       ├── save.js
-│   │       ├── index.js
-│   │       └── countdown-frontend.js
 │   ├── g2rd-counter/
-│   │   └── src/
-│   │       ├── edit.js
-│   │       ├── save.js
-│   │       ├── index.js
-│   │       └── view.js
+│   ├── g2rd-dynamic-content/
+│   ├── g2rd-faq/
 │   ├── g2rd-info/
-│   │   └── src/
-│   │       ├── edit.js
-│   │       ├── save.js
-│   │       ├── index.js
-│   │       └── info-frontend.js
-│   ├── g2rd-typed/
-│   │   └── src/
-│   │       ├── edit.js
-│   │       ├── save.js
-│   │       ├── index.js
-│   │       └── view.js
-│   └── shared/
-│       └── PostSelector.js          # Composant partagé entre blocs
+│   └── g2rd-typed/
+│
 ├── classes/
-│   ├── class-block-editor-autoload.php  # Enregistrement blocs + theme.json dynamique
-│   ├── class-carousel-assets.php        # Chargement conditionnel Swiper
+│   ├── class-abilities.php                      # WordPress Abilities API (opt-in admin)
+│   ├── class-api-connector.php
+│   ├── class-block-categories.php               # Catégorie de blocs g2rd-blocks
+│   ├── class-block-editor-autoload.php          # Enregistrement blocs + theme.json dynamique
+│   ├── class-block-editor-enhancements.php
+│   ├── class-block-patterns.php
+│   ├── class-block-styles.php
+│   ├── class-block-stylesheets.php
+│   ├── class-carousel-assets.php                # Chargement conditionnel Swiper
+│   ├── class-clickable-articles.php
+│   ├── class-coming-soon.php
+│   ├── class-conditional-menu.php
 │   ├── class-custom-post-types-portfolio.php
 │   ├── class-custom-post-types-prestations.php
-│   └── class-custom-post-types-qui-sommes-nous.php
-├── includes/         # Autres fichiers PHP inclus
-├── parts/            # Template parts FSE
+│   ├── class-custom-post-types-qui-sommes-nous.php
+│   ├── class-dark-mode.php
+│   ├── class-filterable-grid.php                # Grille filtrée (WooCommerce, SureCart, CPT)
+│   ├── class-fluent-cart-support.php            # Intégration FluentCart (remplace SureCart licence)
+│   ├── class-github-updater.php                 # Mise à jour automatique depuis GitHub
+│   ├── class-glass-effect.php
+│   ├── class-gsap-animations.php
+│   ├── class-json-config.php
+│   ├── class-license-manager.php                # Gestionnaire de licences (GitHub Updater)
+│   ├── class-particules-effect.php
+│   ├── class-portfolio-query.php
+│   ├── class-scripts-manager.php
+│   ├── class-shortcode.php
+│   ├── class-theme-admin.php
+│   ├── class-theme-options.php
+│   └── class-theme-setup.php
+├── includes/
+│   └── license-init.php             # Initialisation du gestionnaire de licences
+├── parts/                           # Template parts FSE
 │   ├── header.html
 │   └── footer.html
-├── patterns/         # Block patterns PHP
-├── styles/           # Variations de styles JSON
-├── templates/        # Templates FSE
+├── patterns/                        # Block patterns PHP
+├── styles/                          # Variations de styles JSON
+├── templates/                       # Templates FSE
 │   ├── index.html
 │   ├── single.html
 │   ├── page.html
 │   ├── archive.html
 │   ├── 404.html
 │   └── search.html
-├── categories/       # Catégories de blocs
+├── categories/                      # Catégories de blocs
+├── .github/workflows/
+│   ├── phpcs-security.yml           # CI : PHPCS WordPress + Security + PHPCompatibility
+│   └── smart-ci.yml                 # CI : multi-stack (React, Gutenberg, Node.js…)
+├── phpcs.xml.dist                   # Config PHPCS WordPress Standards (scope ciblé)
+├── phpcs-security.xml               # Config PHPCS Security Audit (exclusions faux positifs)
 ├── configuration.json
-├── theme-settings.json
-├── theme-styles.json
+├── theme-settings.json              # Tokens de design (couleurs, typo, espacements)
+├── theme-styles.json                # Styles déclaratifs FSE
+├── export-theme.ps1                 # Script PowerShell export ZIP production
 ├── functions.php
-├── style.css         # Métadonnées du thème uniquement (Text Domain: g2rd)
-└── theme.json        # Configuration globale FSE (base)
+├── style.css                        # Métadonnées du thème (Text Domain: g2rd)
+└── theme.json                       # Configuration FSE de base (composé dynamiquement)
 ```
 
 ## Commandes
 
 ```bash
 # Depuis la racine du projet (npm workspaces)
-npm install                  # installer toutes les dépendances
-npm run build                # compiler tous les blocs
-npm run start                # mode watch tous les blocs
-npm run build:carousel       # compiler uniquement g2rd-carousel
-npm run build:countdown      # compiler uniquement g2rd-countdown
-npm run build:counter        # compiler uniquement g2rd-counter
-npm run build:info           # compiler uniquement g2rd-info
-npm run build:typed          # compiler uniquement g2rd-typed
-npm run build:code           # compiler uniquement CodeG2rd
+npm install                        # installer toutes les dépendances
+npm run build                      # compiler tous les blocs
+npm run start                      # mode watch tous les blocs
 
-# Qualité PHP
-composer run phpcs           # vérifier les standards PHP WordPress
+# Compiler un seul bloc
+npm run build:carousel             # g2rd-carousel
+npm run build:container            # g2rd-container
+npm run build:countdown            # g2rd-countdown
+npm run build:counter              # g2rd-counter
+npm run build:info                 # g2rd-info
+npm run build:typed                # g2rd-typed
+npm run build:code                 # CodeG2rd
+npm run build:advanced-heading     # g2rd-advanced-heading
+npm run build:charts               # g2rd-charts
+npm run build:dynamic-content      # g2rd-dynamic-content
+npm run build:faq                  # g2rd-faq
+npm run build:card                 # CardG2rd
+npm run build:filterable-grid      # FilterableGrid
+npm run build:pricing-table        # PricingTable
+npm run build:block-api            # g2rd-block-api
+
+# Qualité PHP — nécessite PHPCS installé globalement (une seule fois)
+# composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs phpcompatibility/phpcompatibility-wp phpcsstandards/phpcsextra pheromone/phpcs-security-audit dealerdirect/phpcodesniffer-composer-installer
+# Puis ajouter au PATH : C:\Users\<user>\AppData\Roaming\Composer\vendor\bin
+composer run phpcs                 # WordPress Standards (phpcs.xml.dist)
+composer run phpcs:security        # Security Audit OWASP (phpcs-security.xml)
+composer run phpcs:compat          # PHPCompatibility 8.0+
 ```
 
 ## Conventions de code
@@ -181,6 +204,7 @@ composer run phpcs           # vérifier les standards PHP WordPress
 - Scripts interactifs : `"script"` dans `block.json` (frontend + canvas éditeur) — `"viewScript"` uniquement si le bloc n'a pas besoin de WYSIWYG dans l'éditeur
 - Parité éditeur/frontend : `blockProps` doit avoir les mêmes classes et styles dans `edit.js` et `save.js`
 - Dashicons utilisés en frontend → déclarer dans `"style": ["dashicons", "file:./…"]` dans `block.json` (pas d'enqueue global)
+- Icône de bloc : toujours utiliser le format objet `{ "src": "dashicon-slug", "foreground": "#FAFAFA", "background": "#2F425D" }` — jamais une chaîne simple
 
 ## Enregistrement des blocs
 
@@ -198,6 +222,32 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 - Ne pas modifier `theme.json` directement pour les couleurs/typos — éditer `theme-settings.json`
 - Vérifier la compatibilité du JSON après chaque modification des fichiers sources
 
+## Système de licences
+
+- **`class-surecart-license-manager.php` supprimé** — le système de licence SureCart a été retiré en v1.2.12
+- **`class-fluent-cart-support.php`** — intégration FluentCart (remplaçant de SureCart pour les licences) — en cours de développement
+- **`class-license-manager.php`** — gestionnaire de licences actuel (GitHub Updater)
+- **SureCart produits** : le support des produits SureCart (`sc-product`) est **conservé** dans `class-filterable-grid.php` pour les utilisateurs du thème qui utilisent SureCart — ne pas le retirer
+
+## CI / Qualité PHP
+
+Le workflow `.github/workflows/phpcs-security.yml` exécute 3 jobs à chaque push/PR sur `main` :
+
+1. **PHPCS WordPress Standards** — utilise `phpcs.xml.dist` (scope : `./classes`, `./functions.php`, `./includes`)
+2. **PHPCS Security Audit** — utilise `phpcs-security.xml` (standard `Security` avec exclusions faux positifs)
+3. **PHPCompatibility** — standard `PHPCompatibilityWP`, testVersion `8.0-`
+
+```yaml
+# Suppression des warnings Node.js 20 dans GitHub Actions
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+```
+
+**`phpcs-security.xml`** — exclusions validées (ne pas supprimer) :
+
+- `Security.BadFunctions.FileSystems` — faux positif sur `file_exists`, `filemtime`, `glob`, `is_dir` avec chemins WordPress internes contrôlés
+- `Security.BadFunctions.CallbackFunctions` — faux positif sur `array_map('trim', ...)` avec fonctions PHP natives
+
 ## Performance
 
 - Scripts non critiques : stratégie `defer` native WP 6.4+ (`wp_script_add_data($handle, 'strategy', 'defer')`) — pas de `str_replace` sur les balises script
@@ -207,6 +257,15 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 - Preconnect : `<link rel="preconnect">` pour les CDN tiers (cdn.jsdelivr.net, etc.)
 - `wp_head` : supprimer les balises inutiles (wp_generator, wlwmanifest, rsd_link, liens REST)
 - Fusionner les callbacks `render_block` quand plusieurs filtres s'appliquent au même hook
+- Effet particules : désactivé automatiquement pour Google PageSpeed Insights et Lighthouse (v1.0.8+)
+
+## Export production
+
+```powershell
+# Depuis la racine du projet (PowerShell)
+.\export-theme.ps1
+# Génère : C:\Users\gerar\Downloads\Développement Web\G2RD-theme.zip
+```
 
 ## Workflow
 
@@ -218,7 +277,9 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
   - `fix:` correction de bug
   - `style:` modification visuelle
   - `refactor:` restructuration du code
+  - `release:` montée de version
   - `docs:` documentation
+- **Ne jamais monter de version sans confirmation explicite de l'utilisateur**
 - Ne jamais modifier les fichiers dans `/node_modules` ou `/vendor`
 
 ## Compatibilité

@@ -187,7 +187,7 @@ function g2rd_sync_fse_once(): void {
 /**
  * Recrée en DB les template parts et templates FSE manquants depuis le filesystem.
  *
- * get_block_templates() ne persiste pas en DB — cette fonction insère directement
+ * Get_block_templates() ne persiste pas en DB — cette fonction insère directement
  * les wp_template_part et wp_template manquants via wp_insert_post, ce qui permet
  * au REST API (/wp/v2/template-parts/) de les trouver.
  *

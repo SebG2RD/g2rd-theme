@@ -115,7 +115,7 @@ class LicenseManager {
                 <?php \esc_html_e('Renseignez votre clé API FluentCart pour activer les mises à jour automatiques du thème.', 'g2rd'); ?>
             </p>
 
-            <?php if (isset($_GET['license_saved'])) : ?>
+            <?php if (isset($_GET['license_saved'])) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- indicateur de redirection POST→GET, pas de traitement de données ?>
                 <div class="notice notice-success is-dismissible inline" style="margin:0 0 16px;">
                     <p><?php \esc_html_e('Clé API enregistrée.', 'g2rd'); ?></p>
                 </div>

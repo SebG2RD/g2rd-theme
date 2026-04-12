@@ -149,7 +149,9 @@ class CPT_Portfolio {
             'name'          => $s['plural'],
             'singular_name' => $s['singular'],
             'all_items'     => $s['all_items'],
+            // translators: %s : nom singulier du CPT portfolio (ex. "Projet").
             'add_new_item'  => \sprintf(\__('Ajouter un %s', 'g2rd'), \mb_strtolower($s['singular'])),
+            // translators: %s : nom singulier du CPT portfolio (ex. "Projet").
             'edit_item'     => \sprintf(\__('Modifier le %s', 'g2rd'), \mb_strtolower($s['singular'])),
             'menu_name'     => $s['plural'],
         ];
@@ -176,8 +178,11 @@ class CPT_Portfolio {
             $tax_labels = [
                 'name'          => $s['tax_plural'],
                 'singular_name' => $s['tax_singular'],
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'add_new_item'  => \sprintf(\__('Ajouter %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'new_item_name' => \sprintf(\__('Nouveau %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'parent_item'   => \sprintf(\__('%s parent', 'g2rd'), $s['tax_singular']),
             ];
             register_taxonomy(\sanitize_title($s['tax_slug']), 'portfolio', [
@@ -278,8 +283,8 @@ class CPT_Portfolio {
             'Standard'    => 'Standard',
             'Business'    => 'Business',
         ];
-        $contrat_style = ($maintenance === '1') ? '' : 'style="display:none;"';
-        echo '<div id="contrat_maintenance_fields" ' . $contrat_style . '>';
+        $contrat_hidden = ($maintenance !== '1');
+        echo '<div id="contrat_maintenance_fields"' . ($contrat_hidden ? ' style="display:none;"' : '') . '>';
         echo '<p><label for="portfolio_contrat">Contrat de maintenance :</label> ';
         echo '<select id="portfolio_contrat" name="portfolio_contrat">';
         foreach ($contrats as $val => $label) {
@@ -323,13 +328,13 @@ class CPT_Portfolio {
             return;
         }
         if (isset($_POST['portfolio_link'])) {
-            update_post_meta($post_id, '_portfolio_link', esc_url_raw($_POST['portfolio_link']));
+            update_post_meta($post_id, '_portfolio_link', esc_url_raw(wp_unslash($_POST['portfolio_link'])));
         }
         if (isset($_POST['portfolio_login'])) {
-            update_post_meta($post_id, '_portfolio_login', sanitize_text_field($_POST['portfolio_login']));
+            update_post_meta($post_id, '_portfolio_login', sanitize_text_field(wp_unslash($_POST['portfolio_login'])));
         }
         if (isset($_POST['portfolio_password'])) {
-            update_post_meta($post_id, '_portfolio_password', sanitize_text_field($_POST['portfolio_password']));
+            update_post_meta($post_id, '_portfolio_password', sanitize_text_field(wp_unslash($_POST['portfolio_password'])));
         }
         $fields = [
             'portfolio_perf' => '_portfolio_perf',
@@ -343,14 +348,14 @@ class CPT_Portfolio {
             }
         }
         if (isset($_POST['portfolio_hebergement'])) {
-            update_post_meta($post_id, '_portfolio_hebergement', sanitize_text_field($_POST['portfolio_hebergement']));
+            update_post_meta($post_id, '_portfolio_hebergement', sanitize_text_field(wp_unslash($_POST['portfolio_hebergement'])));
         }
         update_post_meta($post_id, '_portfolio_maintenance', isset($_POST['portfolio_maintenance']) ? '1' : '0');
         if (isset($_POST['portfolio_contrat'])) {
-            update_post_meta($post_id, '_portfolio_contrat', sanitize_text_field($_POST['portfolio_contrat']));
+            update_post_meta($post_id, '_portfolio_contrat', sanitize_text_field(wp_unslash($_POST['portfolio_contrat'])));
         }
         if (isset($_POST['portfolio_date_anniv'])) {
-            update_post_meta($post_id, '_portfolio_date_anniv', sanitize_text_field($_POST['portfolio_date_anniv']));
+            update_post_meta($post_id, '_portfolio_date_anniv', sanitize_text_field(wp_unslash($_POST['portfolio_date_anniv'])));
         }
     }
 

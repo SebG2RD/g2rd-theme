@@ -57,8 +57,8 @@ class GSAPAnimations {
      */
     public function addPreloadLinks(): void {
         if (!\is_admin()) {
-            echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/js/vendor/gsap.min.js" as="script">';
-            echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
+            echo '<link rel="preload" href="' . esc_url(get_template_directory_uri()) . '/assets/js/vendor/gsap.min.js" as="script">';
+            echo '<link rel="preload" href="' . esc_url(get_template_directory_uri()) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
         }
     }
 

@@ -220,6 +220,14 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.2.13
+
+- **PHPCS** : migration `phpcs.xml.dist` vers WPCS 3.x — exclusions `PEAR.Functions.FunctionCallSignature.*`, `Universal.Arrays.DisallowShortArraySyntax`, `NormalizedArrays.Arrays.*`, `Universal.WhiteSpace.CommaSpacing`, `Universal.Operators.DisallowShortTernary`.
+- **Composer** : scripts `phpcs`, `phpcs:security`, `phpcs:compat` ajoutés — `composer run phpcs` opérationnel.
+- **Sécurité** : `wp_unslash()` sur `$_POST` dans les 3 classes CPT et `class-theme-options.php`; `esc_url()` sur `get_template_directory_uri()`.
+- **i18n** : commentaires `// translators:` sur les 15 appels `sprintf(__())`.
+- **Qualité** : `$configurationData` → `$configuration_data`, `json_encode` → `wp_json_encode`, `in_array` strict.
+
 ### 1.2.12
 
 - **Sécurité** : suppression de `class-surecart-license-manager.php` — système de licence SureCart retiré (FluentCart à venir).

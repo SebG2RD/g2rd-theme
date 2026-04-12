@@ -1,5 +1,17 @@
 # Changelog du thème G2RD
 
+## 1.2.13
+
+- **PHPCS** : migration `phpcs.xml.dist` vers WPCS 3.x — exclusions ajoutées pour les sniffs renommés (`PEAR.Functions.FunctionCallSignature.*`, `Universal.Arrays.DisallowShortArraySyntax`, `NormalizedArrays.Arrays.*`, `Universal.WhiteSpace.CommaSpacing`, `Universal.Operators.DisallowShortTernary`) et nouveaux sniffs PHPCSExtra introduits par WPCS 3.x.
+- **PHPCS** : 8 règles globales `severity 0` documentées dans `phpcs.xml.dist` pour les comportements intentionnels (`DevelopmentFunctions`, `file_get_contents`, `NoSilencedErrors`, `UnusedFunctionParameter`, `DirectDatabaseQuery`, `SlowDBQuery`, `rename`, `NoReservedKeywordParameterNames`).
+- **Composer** : scripts `phpcs`, `phpcs:security`, `phpcs:compat` ajoutés à `composer.json` — `composer run phpcs` opérationnel localement.
+- **Sécurité** : `wp_unslash()` ajouté sur toutes les lectures `$_POST` dans `class-custom-post-types-portfolio.php`, `class-custom-post-types-prestations.php`, `class-custom-post-types-qui-sommes-nous.php` et `class-theme-options.php`.
+- **Sécurité** : `esc_url()` appliqué sur `get_template_directory_uri()` dans `class-clickable-articles.php` et `class-gsap-animations.php`.
+- **i18n** : commentaires `// translators:` ajoutés sur les 15 appels `sprintf(__())` dans les 3 classes CPT.
+- **Qualité** : `$configurationData` → `$configuration_data` dans `class-json-config.php` (convention snake_case WordPress).
+- **Qualité** : `json_encode()` → `wp_json_encode()` dans `class-json-config.php`.
+- **Qualité** : `in_array()` strict (`true` en 3e paramètre) dans `class-glass-effect.php`.
+
 ## 1.2.12
 
 - **Sécurité** : suppression de `class-surecart-license-manager.php` — système de licence SureCart retiré (remplacement par FluentCart prévu ultérieurement).

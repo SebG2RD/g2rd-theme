@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Le template principal
  *
@@ -8,4 +7,4 @@
  * @copyright (c) 2024 Sebastien GERARD
  */
 
-// Silence is golden. 
+// Silence is golden.

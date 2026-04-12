@@ -390,9 +390,9 @@ class ThemeOptions {
         // --- CPT ---
         $cpts = [];
         foreach (\array_keys(self::CPT_DEFAULTS) as $cpt_key) {
-            $cpt_post = \is_array($_POST['cpts'][$cpt_key] ?? null)
-                ? $_POST['cpts'][$cpt_key]
-                : [];
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- chaque champ est sanitisé individuellement ci-dessous via sanitize_text_field/sanitize_title/absint
+            $cpt_raw  = isset($_POST['cpts'][$cpt_key]) ? \wp_unslash($_POST['cpts'][$cpt_key]) : null;
+            $cpt_post = \is_array($cpt_raw) ? $cpt_raw : [];
             $def = self::CPT_DEFAULTS[$cpt_key];
             $cpts[$cpt_key] = [
                 'enabled'       => !empty($cpt_post['enabled']),
@@ -481,7 +481,7 @@ class ThemeOptions {
      * @return void
      */
     private function renderNotice(): void {
-        if (!isset($_GET['saved'])) {
+        if (!isset($_GET['saved'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture d'un indicateur de redirection, pas de traitement de données
             return;
         }
         ?>

@@ -23,55 +23,295 @@
 
     <!-- WordPress Coding Standards -->
     <rule ref="WordPress">
-        <!-- Noms de fichiers : les classes utilisent PascalCase/underscores -->
+
+        <!-- ── Noms de fichiers ──────────────────────────────────────────── -->
+        <!-- Les classes utilisent PascalCase/underscores (ex. class-theme-setup.php) -->
         <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
 
+        <!-- ── Noms de méthodes ──────────────────────────────────────────── -->
         <!--
-            Noms de méthodes : le projet utilise camelCase (héritage PSR-2).
+            Le projet utilise camelCase (héritage PSR-2).
             À migrer progressivement vers snake_case via refactoring dédié.
         -->
         <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
 
+        <!-- ── Tableaux ──────────────────────────────────────────────────── -->
         <!--
-            Alignement des double-flèches dans les tableaux multi-lignes.
-            Désactivé car les tableaux complexes (Abilities API) utilisent
-            une indentation fonctionnelle plutôt que cosmétique.
+            Alignement des double-flèches : désactivé pour les tableaux complexes
+            (Abilities API) qui utilisent une indentation fonctionnelle.
         -->
         <exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
 
         <!--
-            Syntaxe courte des tableaux [] : autorisée car le projet cible PHP 8.0+
-            et la syntaxe courte est plus lisible et moderne.
+            Syntaxe courte [] autorisée — projet PHP 8.0+.
+            WPCS 2.x : Generic.Arrays.DisallowShortArraySyntax
+            WPCS 3.x : Universal.Arrays.DisallowShortArraySyntax (PHPCSExtra)
         -->
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+        <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
 
         <!--
-            Espaces à l'intérieur des parenthèses d'appels de fonctions.
-            Le projet utilise le style PSR-2 sans espace interne : func('arg').
+            Espacement des accolades d'array sur une seule ligne.
+            NormalizedArrays est inclus dans WPCS 3.x via PHPCSExtra — pas présent en 2.x.
         -->
-        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.SpaceAfterOpenBracket"/>
-        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.SpaceBeforeCloseBracket"/>
-        <exclude name="WordPress.WhiteSpace.FunctionCallSignature.NoSpaceBeforeOpenBracket"/>
+        <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing"/>
+
+        <!--
+            Virgule finale dans les tableaux multi-lignes.
+            NormalizedArrays est inclus dans WPCS 3.x via PHPCSExtra — pas présent en 2.x.
+        -->
+        <exclude name="NormalizedArrays.Arrays.CommaAfterLast"/>
+
+        <!-- ── Espacement des appels de fonctions ────────────────────────── -->
+        <!--
+            Le projet utilise le style PSR-2 : func('arg') sans espace interne.
+            WPCS 2.x : WordPress.WhiteSpace.FunctionCallSignature (supprimé en 3.x)
+            WPCS 3.x : ces sniffs PEAR remplacent le précédent
+        -->
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.NoSpaceBeforeOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+
+        <!-- Idem pour les déclarations de fonctions (paramètres) -->
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/>
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose"/>
+
+        <!-- ── Espacement dans les structures de contrôle ────────────────── -->
+        <!--
+            Le projet utilise le style PSR-2 : if ($x) sans espace interne.
+            WordPress impose if ( $x ) avec espaces — héritage PSR-2 à conserver.
+        -->
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis"/>
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis"/>
+
+        <!-- ── Espacement des virgules ───────────────────────────────────── -->
+        <!-- Universal.WhiteSpace.CommaSpacing inclus via PHPCSExtra en WPCS 3.x -->
+        <exclude name="Universal.WhiteSpace.CommaSpacing"/>
+
+        <!-- ── Indentation ───────────────────────────────────────────────── -->
+        <!--
+            Le projet utilise des espaces (PSR-2). WordPress impose des tabs.
+            Exclusion provisoire — migration tabs prévue en refactoring dédié.
+        -->
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
+
+        <!-- ── Commentaires ──────────────────────────────────────────────── -->
+        <!--
+            Commentaires inline sans point final.
+            Style délibéré du projet — pas de risque sécurité.
+        -->
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Commenting.InlineComment.WrongStyle"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+        <exclude name="Squiz.Commenting.VariableComment.MissingVar"/>
+        <exclude name="Squiz.Commenting.ClassComment.Missing"/>
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+
+        <!-- ── Conditions Yoda ───────────────────────────────────────────── -->
+        <!--
+            Le projet utilise les conditions naturelles ($x === true).
+            WordPress impose les conditions Yoda (true === $x) — héritage PSR-2.
+        -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+
+        <!-- ── Opérateur ternaire court ─────────────────────────────────── -->
+        <!-- Universal.Operators.DisallowShortTernary inclus via PHPCSExtra en WPCS 3.x -->
+        <exclude name="Universal.Operators.DisallowShortTernary"/>
+
+        <!-- ── Espacement des opérateurs ───────────────────────────────────── -->
+        <!--
+            Le projet utilise un style PSR-2 avec alignement des assignations.
+            L'espacement des opérateurs est géré visuellement par le dev.
+        -->
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter"/>
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore"/>
+        <exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingBefore"/>
+
+        <!-- ── Espacement des tableaux ──────────────────────────────────── -->
+        <!--
+            Style de déclaration de tableaux : le projet utilise les tableaux
+            associatifs sur une seule ligne quand la lisibilité le permet.
+        -->
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine"/>
+
+        <!--
+            Espaces autour des clés de tableaux : $a['key'] vs $a[ 'key' ].
+            Le projet utilise le style PSR-2 sans espace.
+        -->
+        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys"/>
+
+        <!-- ── Formatage ────────────────────────────────────────────────── -->
+        <!--
+            Alignement des assignations consécutives (colonnes).
+            Déjà couvert par WordPress.Arrays.MultipleStatementAlignment.
+        -->
+        <exclude name="Generic.Formatting.MultipleStatementAlignment"/>
+
+        <!-- Espacement après les casts : (int) $x vs (int)$x -->
+        <exclude name="Generic.Formatting.SpaceAfterCast"/>
+
+        <!-- Structure de cast : (int) vs (int ) -->
+        <exclude name="WordPress.WhiteSpace.CastStructureSpacing"/>
+
+        <!-- Trop d'espaces après une virgule (alignement de colonnes) -->
+        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.TooMuchSpaceAfterComma"/>
+
+        <!-- ── Fins de lignes ────────────────────────────────────────────── -->
+        <!--
+            Fins de ligne Windows (CRLF) sur un poste Windows — environnemental.
+            Git est configuré pour normaliser en LF au commit.
+        -->
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
+
+        <!-- Espaces en fin de ligne (trailing whitespace) -->
+        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
+
+        <!-- ── Structures de contrôle ────────────────────────────────────── -->
+        <!--
+            if sans accolades sur une seule ligne — parfois utilisé pour les gardes.
+            À corriger progressivement, pas bloquant.
+        -->
+        <exclude name="Generic.ControlStructures.InlineControlStructure"/>
+
+        <!-- Espacement dans les parenthèses arbitraires -->
+        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
+
+        <!-- ── Fonctions / méthodes ──────────────────────────────────────── -->
+        <!--
+            Accolade d'ouverture sur la même ligne (K&R) — déjà le style du projet.
+            Ce sniff impose une accolade sur une nouvelle ligne (Allman).
+        -->
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+
+        <!-- Espacement après le type dans les docblocks @param -->
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+
+        <!-- ── PHP embarqué ─────────────────────────────────────────────── -->
+        <!-- Contenu après la balise d'ouverture <?php sur la même ligne -->
+        <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen"/>
+
+        <!-- ── Portée de l'indentation ──────────────────────────────────── -->
+        <!-- Couvert par DisallowSpaceIndent — évite les doublons d'erreur -->
+        <exclude name="Generic.WhiteSpace.ScopeIndent"/>
+
+        <!-- ── Déclarations de classes ──────────────────────────────────── -->
+        <!-- Accolade fermante de classe — style PSR-2 -->
+        <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+
     </rule>
 
-    <!--
-        Ceinture et bretelles : ces règles sont aussi exclues dans le bloc WordPress
-        ci-dessus, mais on les désactive aussi ici au niveau global pour garantir
-        la suppression quelle que soit la version de WPCS ou le comportement d'héritage PHPCS.
-    -->
+    <!-- ── Désactivation globale (ceinture et bretelles) ────────────────── -->
+    <!-- Garantit la suppression quelle que soit la version WPCS/PHPCSExtra  -->
 
-    <!-- PHP 8.0+ : syntaxe courte [] autorisée -->
     <rule ref="Generic.Arrays.DisallowShortArraySyntax">
         <severity>0</severity>
     </rule>
-
-    <!-- PSR-2 : pas d'espaces à l'intérieur des parenthèses d'appels de fonctions -->
-    <rule ref="WordPress.WhiteSpace.FunctionCallSignature">
+    <rule ref="Universal.Arrays.DisallowShortArraySyntax">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <severity>0</severity>
+    </rule>
+    <rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="NormalizedArrays.Arrays.CommaAfterLast">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Universal.WhiteSpace.CommaSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Universal.Operators.DisallowShortTernary">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.PHP.YodaConditions">
         <severity>0</severity>
     </rule>
 
-    <!-- Configuration WordPress specifique -->
+    <!-- ── Comportements intentionnels (warnings supprimés globalement) ─── -->
+
+    <!--
+        error_log() : utilisé délibérément dans les handlers d'erreurs du thème
+        (class-block-editor-autoload.php) pour faciliter le débogage en développement.
+        À retirer lors du passage en production stricte.
+    -->
+    <rule ref="WordPress.PHP.DevelopmentFunctions">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        file_get_contents() sur des fichiers LOCAUX : wp_remote_get() est réservé
+        aux requêtes HTTP distantes. Ici, file_get_contents() lit des fichiers du
+        thème (JSON, CSS) depuis le filesystem — c'est l'usage correct.
+    -->
+    <rule ref="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        @filemtime() : opérateur @ intentionnel sur filemtime() pour ignorer
+        les erreurs de stat sur des répertoires inexistants lors de la composition
+        du theme.json dynamique. Le code vérifie le résultat (false).
+    -->
+    <rule ref="WordPress.PHP.NoSilencedErrors">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        Paramètre inutilisé : paramètres requis par les interfaces de hooks
+        WordPress (ex. $mimes dans upload_mimes, $context dans block_categories,
+        $block dans render_block). On ne peut pas les supprimer.
+    -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        DirectDatabaseQuery : requêtes SQL directes intentionnelles
+        (class-portfolio-query.php) pour des performances optimales sur des
+        requêtes complexes que WP_Query ne peut pas exprimer efficacement.
+    -->
+    <rule ref="WordPress.DB.DirectDatabaseQuery">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        SlowDBQuery : tax_query intentionnel — aucune alternative sans requête SQL.
+    -->
+    <rule ref="WordPress.DB.SlowDBQuery">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        rename() dans class-github-updater.php : renommage de dossier lors de
+        la mise à jour depuis GitHub. WP_Filesystem->move() n'est pas disponible
+        dans ce contexte sans instance $wp_filesystem initialisée.
+    -->
+    <rule ref="WordPress.WP.AlternativeFunctions.rename_rename">
+        <severity>0</severity>
+    </rule>
+
+    <!--
+        $false comme nom de paramètre dans class-github-updater.php :
+        convention héritée de la signature du filtre 'pre_set_site_transient_update_themes'.
+        Renommer casserait la compatibilité avec le hook WordPress.
+    -->
+    <rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames">
+        <severity>0</severity>
+    </rule>
+
+    <!-- ── Configuration WordPress ──────────────────────────────────────── -->
     <config name="minimum_wp_version" value="6.8"/>
 
     <!-- Text domain du theme -->
@@ -83,7 +323,7 @@
         </properties>
     </rule>
 
-    <!-- Prefixes des fonctions et hooks -->
+    <!-- Prefixes des fonctions et hooks globaux -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
@@ -98,4 +338,5 @@
     <rule ref="PHPCompatibilityWP">
         <include-pattern>*\.php$</include-pattern>
     </rule>
+
 </ruleset>

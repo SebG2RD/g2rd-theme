@@ -147,7 +147,7 @@ class BlockCategories {
         }
 
         // Trier les catégories par priorité (plus faible = plus haut)
-        usort($categories, function($a, $b) {
+        usort($categories, function ($a, $b) {
             return ($a['priority'] ?? 999) <=> ($b['priority'] ?? 999);
         });
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Requêtes personnalisées pour le portfolio
+ *
+ * @package G2RD
+ */
 
 namespace G2RD;
 

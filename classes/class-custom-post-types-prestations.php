@@ -41,7 +41,9 @@ class CPT_Prestations {
             'name'          => $s['plural'],
             'singular_name' => $s['singular'],
             'all_items'     => $s['all_items'],
+            // translators: %s : nom singulier du CPT prestations (ex. "Prestation").
             'add_new_item'  => \sprintf(\__('Ajouter une %s', 'g2rd'), \mb_strtolower($s['singular'])),
+            // translators: %s : nom singulier du CPT prestations (ex. "Prestation").
             'edit_item'     => \sprintf(\__('Modifier la %s', 'g2rd'), \mb_strtolower($s['singular'])),
             'menu_name'     => $s['plural'],
         ];
@@ -69,8 +71,11 @@ class CPT_Prestations {
             $tax_labels = [
                 'name'          => $s['tax_plural'],
                 'singular_name' => $s['tax_singular'],
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'add_new_item'  => \sprintf(\__('Ajouter %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'new_item_name' => \sprintf(\__('Nouvelle %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'parent_item'   => \sprintf(\__('%s parente', 'g2rd'), $s['tax_singular']),
             ];
             \register_taxonomy(\sanitize_title($s['tax_slug']), 'prestations', [

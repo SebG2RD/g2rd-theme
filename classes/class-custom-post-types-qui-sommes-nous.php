@@ -80,7 +80,9 @@ class CPT_QuiSommesNous {
             'name'          => $s['plural'],
             'singular_name' => $s['singular'],
             'all_items'     => $s['all_items'],
+            // translators: %s : nom singulier du CPT (ex. "Membre").
             'add_new_item'  => \sprintf(\__('Ajouter un %s', 'g2rd'), \mb_strtolower($s['singular'])),
+            // translators: %s : nom singulier du CPT (ex. "Membre").
             'edit_item'     => \sprintf(\__('Modifier le %s', 'g2rd'), \mb_strtolower($s['singular'])),
             'menu_name'     => $s['plural'],
         ];
@@ -106,8 +108,11 @@ class CPT_QuiSommesNous {
             $tax_labels = [
                 'name'          => $s['tax_plural'],
                 'singular_name' => $s['tax_singular'],
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'add_new_item'  => \sprintf(\__('Ajouter un %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'new_item_name' => \sprintf(\__('Nouveau %s', 'g2rd'), \mb_strtolower($s['tax_singular'])),
+                // translators: %s : nom singulier de la taxonomie (ex. "Catégorie").
                 'parent_item'   => \sprintf(\__('%s parent', 'g2rd'), $s['tax_singular']),
             ];
             register_taxonomy('categories-qui-sommes-nous', 'qui-sommes-nous', [
@@ -238,7 +243,7 @@ jQuery(document).ready(function($){
         ];
         foreach ($fields as $field => $meta_key) {
             if (isset($_POST[$field])) {
-                update_post_meta($post_id, $meta_key, sanitize_textarea_field($_POST[$field]));
+                update_post_meta($post_id, $meta_key, sanitize_textarea_field(wp_unslash($_POST[$field])));
             }
         }
         if (isset($_POST['icones_images'])) {
