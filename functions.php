@@ -31,6 +31,7 @@ require_once __DIR__ . '/classes/class-scripts-manager.php';
 require_once __DIR__ . '/classes/class-particules-effect.php';
 require_once __DIR__ . '/classes/class-clickable-articles.php';
 require_once __DIR__ . '/classes/class-license-manager.php';
+require_once __DIR__ . '/classes/class-license-server.php';
 require_once __DIR__ . '/classes/class-github-updater.php';
 require_once __DIR__ . '/classes/class-portfolio-query.php';
 require_once __DIR__ . '/classes/class-custom-post-types-portfolio.php';
@@ -104,11 +105,14 @@ function bootstrap_theme(): void
         $classes[] = DarkMode::class;
     }
 
-    // Initialiser le gestionnaire de licences
+    // Gestionnaire de licences (côté client : activation, validation, UI admin)
     $license_manager = new LicenseManager();
     $license_manager->register_hooks();
 
-    // Initialiser le gestionnaire de mises à jour GitHub
+    // Serveur de licences (côté g2rd.fr uniquement : endpoints REST FluentCart)
+    ( new LicenseServer() )->register_hooks();
+
+    // Gestionnaire de mises à jour GitHub (nécessite une licence active)
     new GitHubUpdater( $license_manager );
 
     // Initialiser les autres classes

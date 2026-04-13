@@ -43,6 +43,18 @@ pnpm-debug.log*
 # Scripts d'export local (non pertinents pour les contributeurs)
 export-theme.ps1
 
+# Outils IA / assistants de développement (configurations locales, non pertinentes pour le dépôt)
+.claude/
+.agents/
+.cursor/
+.aider*
+.copilot/
+.codeium/
+.continue/
+.windsurf/
+.qodo/
+skills-lock.json
+
 # Lock files des workspaces npm (le lock file racine fait autorité)
 blocks/*/package-lock.json
 

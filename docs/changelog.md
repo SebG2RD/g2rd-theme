@@ -1,5 +1,16 @@
 # Changelog du thème G2RD
 
+## 1.3.0
+
+- **Licence** : système complet — `class-license-manager.php` refonte totale : activation, désactivation, validation périodique (cron 24h), cache transient, détection de changement de domain.
+- **Licence** : `class-license-server.php` (nouveau) — endpoints REST sur g2rd.fr : `activate`, `deactivate`, `check`, `release-webhook`. Rate limiting 10 req/5min par IP. Liaison domain pour bloquer le partage.
+- **Blocs** : `class-block-editor-autoload.php` — les blocs Gutenberg G2RD custom nécessitent une licence active (`LicenseManager::is_active()`).
+- **Mises à jour** : `class-github-updater.php` — check licence réactivé. Sans licence : pas de notification de mise à jour.
+- **Portail client** : `class-fluent-cart-support.php` — onglet « Licences » dans le portail FluentCart : liste des domaines activés, bouton « Libérer ce domaine » (changement de nom de domaine sans perdre l'activation).
+- **CI/CD** : `.github/workflows/release.yml` (nouveau) — build blocs + ZIP production + release GitHub + webhook g2rd.fr sur tag `v*`.
+- **Security** : `phpcs-security.xml` — noms de sniffs corrigés (`Security.BadFunctions.FilesystemFunctions`, `PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird/PregReplaceDyn`). Security Audit passe à 0 erreur.
+- **Nettoyage** : suppression des artefacts build orphelins à la racine de `blocks/` (`index.js`, `index.asset.php`, `style-index*.css`).
+
 ## 1.2.13
 
 - **PHPCS** : migration `phpcs.xml.dist` vers WPCS 3.x — exclusions ajoutées pour les sniffs renommés (`PEAR.Functions.FunctionCallSignature.*`, `Universal.Arrays.DisallowShortArraySyntax`, `NormalizedArrays.Arrays.*`, `Universal.WhiteSpace.CommaSpacing`, `Universal.Operators.DisallowShortTernary`) et nouveaux sniffs PHPCSExtra introduits par WPCS 3.x.

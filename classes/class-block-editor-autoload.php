@@ -98,6 +98,15 @@ class BlockEditorAutoload {
                 continue;
             }
 
+            // Licence requise pour tous les blocs G2RD custom
+            // Sans licence valide, le thème FSE de base fonctionne mais les blocs ne sont pas enregistrés.
+            if (!\G2RD\LicenseManager::is_active()) {
+                if (defined('WP_DEBUG') && WP_DEBUG) {
+                    error_log("G2RD: bloc « $block » non chargé — licence inactive.");
+                }
+                continue;
+            }
+
             if (defined('WP_DEBUG') && WP_DEBUG) {
                 error_log("Tentative d'enregistrement du bloc: $block_path");
             }

@@ -101,12 +101,10 @@ class GitHubUpdater {
      * @return object Données de mise à jour modifiées
      */
     public function checkForUpdates($transient) {
-        // La vérification de licence sera activée quand FluentCart sera intégré.
-        // En attendant, les mises à jour fonctionnent sans licence (thème en développement).
-        // TODO : décommenter quand l'API FluentCart est opérationnelle.
-        // if (!$this->license_manager->isLicenseValid()) {
-        // return $transient;
-        // }
+        // Mises à jour réservées aux licences actives
+        if (!$this->license_manager->isLicenseValid()) {
+            return $transient;
+        }
 
         // Si les données de mise à jour ne sont pas initialisées, on retourne le transient tel quel
         if (empty($transient->checked)) {
@@ -175,10 +173,9 @@ class GitHubUpdater {
      * @return array|bool Informations du thème ou false
      */
     public function getThemeInfo($false, $action, $args) {
-        // TODO : activer quand FluentCart est intégré.
-        // if (!$this->license_manager->isLicenseValid()) {
-        // return $false;
-        // }
+        if (!$this->license_manager->isLicenseValid()) {
+            return $false;
+        }
 
         if ($action !== 'theme_information') {
             return $false;

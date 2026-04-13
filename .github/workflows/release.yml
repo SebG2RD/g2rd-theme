@@ -1,0 +1,131 @@
+name: Release du thème G2RD FSE
+
+# Déclenchement : tag de version (ex. v1.3.0) ou manuel
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (ex. 1.3.0)'
+        required: true
+        type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ─────────────────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Node.js & Build des blocs ─────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Installer les dépendances npm
+        run: npm ci --ignore-scripts
+
+      - name: Compiler tous les blocs
+        run: npm run build
+
+      # ── Déterminer la version ─────────────────────────────────────────────
+      - name: Déterminer la version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            # Extraire depuis le tag (supprime le 'v' préfixe)
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+
+      # ── Créer le ZIP de production ────────────────────────────────────────
+      - name: Créer le ZIP de production
+        run: |
+          mkdir -p dist
+
+          # Liste des fichiers/dossiers à exclure du ZIP
+          zip -r dist/G2RD-theme.zip . \
+            --exclude=".git/*" \
+            --exclude=".github/*" \
+            --exclude="node_modules/*" \
+            --exclude="vendor/*" \
+            --exclude="dist/*" \
+            --exclude="blocks/*/src/*" \
+            --exclude="blocks/*/node_modules/*" \
+            --exclude="blocks/*/package.json" \
+            --exclude="blocks/*/package-lock.json" \
+            --exclude="*.sh" \
+            --exclude="*.ps1" \
+            --exclude="phpcs*.xml*" \
+            --exclude="composer.json" \
+            --exclude="composer.lock" \
+            --exclude="package.json" \
+            --exclude="package-lock.json" \
+            --exclude="*.log" \
+            --exclude=".claude/*" \
+            --exclude="docs/*"
+
+          echo "Taille ZIP : $(du -sh dist/G2RD-theme.zip | cut -f1)"
+
+      # ── Créer la release GitHub ───────────────────────────────────────────
+      - name: Créer la release GitHub
+        id: github_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "G2RD Theme FSE v${{ steps.version.outputs.version }}"
+          files: dist/G2RD-theme.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Notifier g2rd.fr (mise à jour boutique FluentCart) ────────────────
+      - name: Notifier g2rd.fr de la nouvelle release
+        if: success()
+        run: |
+          # Récupérer l'URL de téléchargement du ZIP depuis la release GitHub
+          DOWNLOAD_URL="${{ steps.github_release.outputs.assets[0].browser_download_url }}"
+
+          # Fallback si l'URL n'est pas disponible : utiliser zipball_url de l'API GitHub
+          if [ -z "$DOWNLOAD_URL" ]; then
+            DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/G2RD-theme.zip"
+          fi
+
+          VERSION="${{ steps.version.outputs.version }}"
+
+          # Calculer la signature HMAC-SHA256
+          PAYLOAD="{\"version\":\"${VERSION}\",\"download_url\":\"${DOWNLOAD_URL}\"}"
+          SIGNATURE="sha256=$(echo -n "${PAYLOAD}" | openssl dgst -sha256 -hmac "${{ secrets.G2RD_WEBHOOK_SECRET }}" | awk '{print $2}')"
+
+          # Appeler l'endpoint LicenseServer sur g2rd.fr
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -H "X-G2RD-Signature: ${SIGNATURE}" \
+            -d "${PAYLOAD}" \
+            "https://g2rd.fr/wp-json/g2rd-license/v1/release-webhook")
+
+          echo "HTTP Status: ${HTTP_STATUS}"
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "⚠️ Webhook g2rd.fr a retourné HTTP ${HTTP_STATUS} — vérifier manuellement."
+            # Ne pas faire échouer le job pour autant
+            exit 0
+          fi
+
+          echo "✅ g2rd.fr notifié de la release v${VERSION}"

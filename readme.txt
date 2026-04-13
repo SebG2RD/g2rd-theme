@@ -4,7 +4,7 @@ Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors,
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.2.13
+Stable tag: 1.3.0
 License: EUPL-1.2
 License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
@@ -99,6 +99,18 @@ Oui, le thème inclut des outils de migration pour faciliter la transition depui
 Oui, le thème est conçu pour être compatible avec les standards FSE de WordPress et peut coexister avec d'autres thèmes FSE.
 
 == Changelog ==
+
+= 1.3.0 =
+* Nouveau : système de licences complet — activation, désactivation et validation périodique via l'API REST de g2rd.fr (FluentCart).
+* Nouveau : les blocs Gutenberg G2RD custom nécessitent désormais une licence active pour être enregistrés.
+* Nouveau : les mises à jour automatiques (GitHubUpdater) sont conditionnées à une licence valide.
+* Nouveau : onglet "Licences" dans le portail client FluentCart — gestion des domaines activés, libération d'un domaine (changement de nom de domaine).
+* Nouveau : endpoints REST LicenseServer sur g2rd.fr (activate, deactivate, check, release-webhook).
+* Nouveau : GitHub Action release.yml — build + release automatique sur tag GitHub + notification g2rd.fr.
+* Sécurité : rate limiting sur les endpoints de validation de licence (10 req/5min par IP).
+* Sécurité : liaison domain — une activation est liée à un domaine, détection automatique de changement.
+* Correction : phpcs-security.xml — noms de sniffs corrigés (Security.BadFunctions.FilesystemFunctions, PHPCS_SecurityAudit.BadFunctions.PregReplace.*).
+* Nettoyage : suppression des artefacts build orphelins à la racine de blocks/ (index.js, index.asset.php, style-index*.css).
 
 = 1.2.13 =
 * PHPCS : migration phpcs.xml.dist vers WPCS 3.x — exclusions des sniffs renommés (PEAR.Functions.FunctionCallSignature.*, Universal.Arrays.DisallowShortArraySyntax, NormalizedArrays.Arrays.*).

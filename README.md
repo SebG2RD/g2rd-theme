@@ -220,6 +220,15 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.3.0
+
+- **Licence** : système complet FluentCart — activation, désactivation, validation périodique (cron 24h), liaison domain anti-partage.
+- **Blocs** : tous les blocs Gutenberg G2RD nécessitent une licence active.
+- **Mises à jour** : conditionnées à une licence valide (GitHubUpdater).
+- **Portail client** : onglet « Licences » dans FluentCart — gestion des domaines, libération pour changement de domaine.
+- **CI/CD** : GitHub Action release automatique sur tag `v*` → build + ZIP + notification g2rd.fr.
+- **Security** : PHPCS Security Audit — 0 erreur, sniffs corrigés.
+
 ### 1.2.13
 
 - **PHPCS** : migration `phpcs.xml.dist` vers WPCS 3.x — exclusions `PEAR.Functions.FunctionCallSignature.*`, `Universal.Arrays.DisallowShortArraySyntax`, `NormalizedArrays.Arrays.*`, `Universal.WhiteSpace.CommaSpacing`, `Universal.Operators.DisallowShortTernary`.
