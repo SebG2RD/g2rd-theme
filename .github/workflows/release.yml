@@ -19,6 +19,8 @@ jobs:
   release:
     name: Build & Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       # ── Checkout ─────────────────────────────────────────────────────────
