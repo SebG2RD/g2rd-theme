@@ -81,6 +81,12 @@
     opacity: 0.6;
 }
 
+.g2rd-card.is-locked {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.4);
+}
+
 .g2rd-card-body {
     display: flex;
     align-items: center;

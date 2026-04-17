@@ -365,13 +365,16 @@ class ThemeOptions {
         \update_option(self::OPTION_FEATURES, $features);
 
         // --- Blocs désactivés (case décochée = bloc désactivé) ---
-        $disabled_blocks = [];
-        foreach (\array_keys(self::BLOCKS) as $block_name) {
-            if (!isset($_POST['blocks'][$block_name])) {
-                $disabled_blocks[] = \sanitize_text_field($block_name);
+        // Modification refusée si la licence n'est pas active.
+        if (License_Manager::is_active()) {
+            $disabled_blocks = [];
+            foreach (\array_keys(self::BLOCKS) as $block_name) {
+                if (!isset($_POST['blocks'][$block_name])) {
+                    $disabled_blocks[] = \sanitize_text_field($block_name);
+                }
             }
+            \update_option(self::OPTION_BLOCKS, $disabled_blocks);
         }
-        \update_option(self::OPTION_BLOCKS, $disabled_blocks);
 
         // --- Couleurs admin ---
         $palette_raw = \wp_get_global_settings(['color', 'palette', 'theme']);
@@ -994,24 +997,39 @@ class ThemeOptions {
      * @return void
      */
     private function renderBlocksSection(): void {
-        $disabled    = (array) \get_option(self::OPTION_BLOCKS, []);
-        $total       = \count(self::BLOCKS);
+        $disabled     = (array) \get_option(self::OPTION_BLOCKS, []);
+        $total        = \count(self::BLOCKS);
         $active_count = $total - \count($disabled);
+        $licensed     = License_Manager::is_active();
         ?>
         <div class="g2rd-section">
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-block-default"></span>
                 <?php \esc_html_e('Blocs Gutenberg', 'g2rd'); ?>
             </h2>
+
+            <?php if (!$licensed) : ?>
+            <div class="notice notice-warning inline" style="margin:0 0 16px;padding:10px 14px;">
+                <span class="dashicons dashicons-lock" style="vertical-align:middle;margin-right:6px;"></span>
+                <?php
+                printf(
+                    /* translators: %s: lien vers la section licence. */
+                    \esc_html__('Une licence active est requise pour modifier les blocs. %s', 'g2rd'),
+                    '<a href="#g2rd-license">' . \esc_html__('Activer la licence →', 'g2rd') . '</a>'
+                );
+                ?>
+            </div>
+            <?php else : ?>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e('Les blocs désactivés disparaissent de l\'éditeur. Les pages existantes utilisant un bloc désactivé afficheront une alerte de récupération dans Gutenberg.', 'g2rd'); ?>
             </p>
+            <?php endif; ?>
 
             <div class="g2rd-blocks-toolbar">
-                <button type="button" class="button g2rd-toggle-all" data-state="on">
+                <button type="button" class="button g2rd-toggle-all" data-state="on" <?php \disabled(!$licensed); ?>>
                     <?php \esc_html_e('Tout activer', 'g2rd'); ?>
                 </button>
-                <button type="button" class="button g2rd-toggle-all" data-state="off">
+                <button type="button" class="button g2rd-toggle-all" data-state="off" <?php \disabled(!$licensed); ?>>
                     <?php \esc_html_e('Tout désactiver', 'g2rd'); ?>
                 </button>
                 <span class="g2rd-blocks-count">
@@ -1025,7 +1043,7 @@ class ThemeOptions {
                 <?php foreach (self::BLOCKS as $block_name => $block) :
                     $active = !\in_array($block_name, $disabled, true);
                 ?>
-                <div class="g2rd-card <?php echo $active ? 'is-active' : 'is-inactive'; ?>">
+                <div class="g2rd-card <?php echo $active ? 'is-active' : 'is-inactive'; ?> <?php echo !$licensed ? 'is-locked' : ''; ?>">
                     <div class="g2rd-card-body">
                         <div class="g2rd-card-info g2rd-card-info--block">
                             <span class="dashicons dashicons-<?php echo \esc_attr($block['icon']); ?> g2rd-block-icon"></span>
@@ -1041,6 +1059,7 @@ class ThemeOptions {
                                 name="blocks[<?php echo \esc_attr($block_name); ?>]"
                                 value="1"
                                 <?php \checked($active); ?>
+                                <?php \disabled(!$licensed); ?>
                             >
                             <span class="g2rd-toggle-slider"></span>
                         </label>
