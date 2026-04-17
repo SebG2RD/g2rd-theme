@@ -48,7 +48,7 @@ class Onboarding {
 	 */
 	public function add_page(): void {
 		\add_submenu_page(
-			null,
+			'',
 			\esc_html__( 'Assistant de démarrage G2RD', 'g2rd' ),
 			\esc_html__( 'Démarrage', 'g2rd' ),
 			'manage_options',
