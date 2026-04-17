@@ -468,10 +468,16 @@ class ThemeOptions {
         ?>
         <div class="wrap g2rd-options-wrap">
 
-            <h1 class="g2rd-options-title">
-                <span class="dashicons dashicons-admin-customizer"></span>
-                <?php \esc_html_e('Options du thème G2RD', 'g2rd'); ?>
-            </h1>
+            <div class="g2rd-options-header">
+                <h1 class="g2rd-options-title">
+                    <span class="dashicons dashicons-admin-customizer"></span>
+                    <?php \esc_html_e('Options du thème G2RD', 'g2rd'); ?>
+                </h1>
+                <a href="<?php echo \esc_url(\admin_url('admin.php?page=g2rd-onboarding')); ?>" class="button button-secondary">
+                    <span class="dashicons dashicons-welcome-learn-more" style="vertical-align:middle;margin-right:4px;"></span>
+                    <?php \esc_html_e('Assistant de démarrage', 'g2rd'); ?>
+                </a>
+            </div>
 
             <?php $this->renderNotice(); ?>
 
