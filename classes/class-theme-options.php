@@ -191,6 +191,9 @@ class ThemeOptions {
         'g2rd/bases'             => ['title' => 'Blocs de base G2RD',    'icon' => 'layout'],
     ];
 
+    /** @var string|false|null Hook suffix stocké après add_theme_page(). */
+    private $hook_suffix = null;
+
     // -------------------------------------------------------------------------
     // Helpers statiques
     // -------------------------------------------------------------------------
@@ -307,7 +310,7 @@ class ThemeOptions {
      * @return void
      */
     public function registerAdminPage(): void {
-        \add_theme_page(
+        $this->hook_suffix = \add_theme_page(
             \__('Options du thème G2RD', 'g2rd'),
             \__('Options G2RD', 'g2rd'),
             'manage_options',
@@ -319,11 +322,13 @@ class ThemeOptions {
     /**
      * Charge le CSS et le JS uniquement sur la page d'options.
      *
+     * Utilise le hook suffix retourné par add_theme_page() pour une comparaison fiable.
+     *
      * @param  string $hook Identifiant de la page admin courante.
      * @return void
      */
     public function enqueueAssets(string $hook): void {
-        if ('appearance_page_' . self::PAGE_SLUG !== $hook) {
+        if ( ! $this->hook_suffix || $hook !== $this->hook_suffix ) {
             return;
         }
 
@@ -333,15 +338,15 @@ class ThemeOptions {
         \wp_enqueue_style(
             'g2rd-admin-options',
             $dir_uri . '/assets/css/admin-options.css',
-            [],
-            \filemtime($dir_path . '/assets/css/admin-options.css')
+            [ 'dashicons' ],
+            \filemtime( $dir_path . '/assets/css/admin-options.css' )
         );
 
         \wp_enqueue_script(
             'g2rd-admin-options',
             $dir_uri . '/assets/js/admin-options.js',
             [],
-            \filemtime($dir_path . '/assets/js/admin-options.js'),
+            \filemtime( $dir_path . '/assets/js/admin-options.js' ),
             true
         );
     }
@@ -371,7 +376,7 @@ class ThemeOptions {
 
         // --- Blocs désactivés (case décochée = bloc désactivé) ---
         // Modification refusée si la licence n'est pas active.
-        if (License_Manager::is_active()) {
+        if (LicenseManager::is_active()) {
             $disabled_blocks = [];
             foreach (\array_keys(self::BLOCKS) as $block_name) {
                 if (!isset($_POST['blocks'][$block_name])) {
@@ -443,10 +448,14 @@ class ThemeOptions {
         // Planifier le vidage des règles de réécriture (slugs CPT potentiellement modifiés)
         \update_option('g2rd_needs_rewrite_flush', 1);
 
+        $allowed_tabs = [ 'configuration', 'contenu', 'editeur', 'clients', 'maintenance' ];
+        $tab          = isset( $_POST['_tab'] ) ? \sanitize_key( \wp_unslash( $_POST['_tab'] ) ) : 'configuration';
+        $tab          = \in_array( $tab, $allowed_tabs, true ) ? $tab : 'configuration';
+
         \wp_safe_redirect(
             \add_query_arg(
-                ['page' => self::PAGE_SLUG, 'saved' => '1'],
-                \admin_url('themes.php')
+                [ 'page' => self::PAGE_SLUG, 'tab' => $tab, 'saved' => '1' ],
+                \admin_url( 'themes.php' )
             )
         );
         exit;
@@ -462,43 +471,88 @@ class ThemeOptions {
      * @return void
      */
     public function renderPage(): void {
-        if (!\current_user_can('manage_options')) {
+        if ( ! \current_user_can( 'manage_options' ) ) {
             return;
         }
+
+        $tabs = [
+            'configuration' => [ 'label' => \__( 'Configuration', 'g2rd' ),    'icon' => 'admin-settings' ],
+            'contenu'       => [ 'label' => \__( 'Contenu', 'g2rd' ),           'icon' => 'database' ],
+            'editeur'       => [ 'label' => \__( 'Éditeur', 'g2rd' ),           'icon' => 'edit' ],
+            'clients'       => [ 'label' => \__( 'Clients & Admin', 'g2rd' ),   'icon' => 'admin-users' ],
+            'maintenance'   => [ 'label' => \__( 'Maintenance', 'g2rd' ),       'icon' => 'wrench' ],
+        ];
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $current = isset( $_GET['tab'] ) ? \sanitize_key( \wp_unslash( $_GET['tab'] ) ) : 'configuration';
+        if ( ! \array_key_exists( $current, $tabs ) ) {
+            $current = 'configuration';
+        }
+
+        $base_url = \admin_url( 'themes.php?page=' . self::PAGE_SLUG );
         ?>
         <div class="wrap g2rd-options-wrap">
 
             <div class="g2rd-options-header">
                 <h1 class="g2rd-options-title">
-                    <span class="dashicons dashicons-admin-customizer"></span>
-                    <?php \esc_html_e('Options du thème G2RD', 'g2rd'); ?>
+                    <span class="dashicons dashicons-admin-customizer" aria-hidden="true"></span>
+                    <?php \esc_html_e( 'Options du thème G2RD', 'g2rd' ); ?>
                 </h1>
-                <a href="<?php echo \esc_url(\admin_url('admin.php?page=g2rd-onboarding')); ?>" class="button button-secondary">
-                    <span class="dashicons dashicons-welcome-learn-more" style="vertical-align:middle;margin-right:4px;"></span>
-                    <?php \esc_html_e('Assistant de démarrage', 'g2rd'); ?>
+                <a href="<?php echo \esc_url( \admin_url( 'admin.php?page=g2rd-onboarding' ) ); ?>" class="button button-secondary">
+                    <span class="dashicons dashicons-welcome-learn-more" aria-hidden="true" style="vertical-align:middle;margin-right:4px;"></span>
+                    <?php \esc_html_e( 'Assistant de démarrage', 'g2rd' ); ?>
                 </a>
             </div>
 
             <?php $this->renderNotice(); ?>
+            <?php \do_action( 'g2rd_options_before_form' ); ?>
 
-            <?php \do_action('g2rd_options_before_form'); ?>
+            <nav class="nav-tab-wrapper g2rd-tabs-nav" aria-label="<?php \esc_attr_e( 'Sections des options G2RD', 'g2rd' ); ?>">
+                <?php foreach ( $tabs as $id => $tab ) : ?>
+                <a
+                    href="<?php echo \esc_url( $base_url . '&tab=' . $id ); ?>"
+                    class="nav-tab<?php echo $current === $id ? ' nav-tab-active' : ''; ?>"
+                >
+                    <span class="dashicons dashicons-<?php echo \esc_attr( $tab['icon'] ); ?>" aria-hidden="true"></span>
+                    <?php echo \esc_html( $tab['label'] ); ?>
+                </a>
+                <?php endforeach; ?>
+            </nav>
 
-            <form method="post" action="<?php echo \esc_url(\admin_url('admin-post.php')); ?>">
-                <?php \wp_nonce_field('g2rd_save_options', 'g2rd_nonce'); ?>
+            <form method="post" action="<?php echo \esc_url( \admin_url( 'admin-post.php' ) ); ?>" class="g2rd-tab-form">
+                <?php \wp_nonce_field( 'g2rd_save_options', 'g2rd_nonce' ); ?>
                 <input type="hidden" name="action" value="g2rd_save_options">
+                <input type="hidden" name="_tab"   value="<?php echo \esc_attr( $current ); ?>">
 
-                <?php $this->renderComingSoonSection(); ?>
-                <?php $this->renderColorsSection(); ?>
-                <?php $this->renderCPTsSection(); ?>
-                <?php $this->renderBusinessModeSection(); ?>
-                <?php $this->renderClientModeSection(); ?>
-                <?php $this->renderFeaturesSection(); ?>
-                <?php $this->renderBlocksSection(); ?>
+                <?php
+                switch ( $current ) {
+                    case 'configuration':
+                        $this->renderBusinessModeSection();
+                        $this->renderColorsSection();
+                        break;
+                    case 'contenu':
+                        $this->renderCPTsSection();
+                        break;
+                    case 'editeur':
+                        $this->renderFeaturesSection();
+                        $this->renderBlocksSection();
+                        break;
+                    case 'clients':
+                        $this->renderClientModeSection();
+                        break;
+                    case 'maintenance':
+                        $this->renderComingSoonSection();
+                        break;
+                }
+                ?>
 
                 <div class="g2rd-submit-bar">
-                    <?php \submit_button(\__('Enregistrer les options', 'g2rd'), 'primary large', 'submit', false); ?>
+                    <?php \submit_button( \__( 'Enregistrer les options', 'g2rd' ), 'primary large', 'submit', false ); ?>
                 </div>
             </form>
+
+            <?php $this->renderModals(); ?>
+            <?php $this->renderFooter(); ?>
 
         </div>
         <?php
@@ -520,6 +574,210 @@ class ThemeOptions {
         <?php
     }
 
+    // -------------------------------------------------------------------------
+    // Aide & modaux tutoriels
+    // -------------------------------------------------------------------------
+
+    /**
+     * Affiche le bouton « ? » qui ouvre le modal tutoriel de la section.
+     *
+     * @param string $modal_id Identifiant du modal (sans le préfixe "g2rd-modal-").
+     * @return void
+     */
+    private function renderHelpButton( string $modal_id ): void {
+        $full_id = 'g2rd-modal-' . $modal_id;
+        printf(
+            '<button type="button" class="g2rd-help-btn" onclick="var m=document.getElementById(\'%s\');if(m&&m.showModal)m.showModal();" aria-label="%s"><span aria-hidden="true">?</span></button>',
+            \esc_attr( $full_id ),
+            \esc_attr__( 'Aide et tutoriel', 'g2rd' )
+        );
+    }
+
+    /**
+     * Retourne les données de contenu pour tous les modaux tutoriels.
+     *
+     * @return array<string, array{icon: string, title: string, intro: string, steps: list<array{label: string, desc: string}>, tip: string}>
+     */
+    private function getModalsData(): array {
+        return [
+            'coming-soon' => [
+                'icon'  => 'clock',
+                'title' => \__( 'Mode « Bientôt disponible »', 'g2rd' ),
+                'intro' => \__( 'Redirige automatiquement les visiteurs non connectés vers une page dédiée pendant la construction ou la maintenance du site.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Activation', 'g2rd' ),         'desc' => \__( 'Cochez le toggle — la redirection est immédiate pour tous les visiteurs non connectés.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Page de destination', 'g2rd' ), 'desc' => \__( 'Sélectionnez la page à afficher (ex. « Bientôt disponible »). Créez-la dans Pages → Ajouter.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Accès admin', 'g2rd' ),         'desc' => \__( 'Les utilisateurs connectés (admin, éditeurs…) continuent de voir le site normalement.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Pensez à désactiver ce mode avant le lancement officiel — sans cela, vos visiteurs resteraient redirigés indéfiniment.', 'g2rd' ),
+            ],
+            'colors' => [
+                'icon'  => 'admin-appearance',
+                'title' => \__( 'Couleurs de l\'interface admin', 'g2rd' ),
+                'intro' => \__( 'Personnalisez la barre d\'administration et les boutons en accord avec la charte graphique de votre thème.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Fond menu & barre', 'g2rd' ),  'desc' => \__( 'Choisissez la couleur de fond du menu latéral et de la barre d\'administration WordPress.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Couleur du texte', 'g2rd' ),    'desc' => \__( 'Assurez un contraste suffisant entre le texte et le fond pour une bonne lisibilité.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Bouton principal', 'g2rd' ),    'desc' => \__( 'Définissez le fond et le texte du bouton. L\'aperçu se met à jour en temps réel.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Les swatches affichés correspondent à la palette theme.json active — ils se mettent à jour automatiquement si vous changez de variation de style.', 'g2rd' ),
+            ],
+            'cpts' => [
+                'icon'  => 'database',
+                'title' => \__( 'Types de contenu personnalisés', 'g2rd' ),
+                'intro' => \__( 'Activez des types de contenus (CPT) adaptés à votre activité. Chaque CPT ajoute une section dédiée dans le menu WordPress.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Portfolio', 'g2rd' ),       'desc' => \__( 'Vos réalisations clients avec scores Lighthouse (performance, accessibilité, SEO, bonnes pratiques).', 'g2rd' ) ],
+                    [ 'label' => \__( 'Prestations', 'g2rd' ),     'desc' => \__( 'Vos services avec descriptions, tarifs et visuels — intégrables dans des grilles filtrables.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Qui sommes-nous', 'g2rd' ), 'desc' => \__( 'Profils membres de l\'équipe : compétences, expérience, méthodologie et objectifs.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Taxonomies', 'g2rd' ),      'desc' => \__( 'Chaque CPT peut avoir ses propres catégories et étiquettes configurables sur cette page.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Activez uniquement les CPTs dont vous avez besoin pour garder l\'interface WordPress épurée.', 'g2rd' ),
+            ],
+            'business' => [
+                'icon'  => 'chart-line',
+                'title' => \__( 'Mode Business', 'g2rd' ),
+                'intro' => \__( 'Adapte les conseils, compositions et CTAs proposés dans l\'éditeur Gutenberg selon le modèle économique de votre site.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Site vitrine', 'g2rd' ),          'desc' => \__( 'Mise en avant des services, témoignages clients et formulaire de contact accessible.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Génération de leads', 'g2rd' ),   'desc' => \__( 'CTA répété 3× minimum, formulaire court et éléments de réassurance visibles.', 'g2rd' ) ],
+                    [ 'label' => \__( 'E-commerce', 'g2rd' ),            'desc' => \__( 'Avis clients, garanties (livraison, retours) et offres limitées pour maximiser les conversions.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Un widget apparaît sur le tableau de bord WordPress avec des conseils personnalisés selon votre type de site.', 'g2rd' ),
+            ],
+            'client-mode' => [
+                'icon'  => 'admin-users',
+                'title' => \__( 'Mode Client & Outils admin', 'g2rd' ),
+                'intro' => \__( 'Simplifie l\'interface WordPress pour vos clients non techniques et ajoute des outils d\'aide à la rédaction.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Mode Client', 'g2rd' ),          'desc' => \__( 'Masque les menus Plugins, Outils et Réglages pour les utilisateurs non-administrateurs.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Message d\'accueil', 'g2rd' ),   'desc' => \__( 'Affichez un message personnalisé sur le tableau de bord — idéal pour guider votre client.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Aide SEO', 'g2rd' ),             'desc' => \__( 'Panneau Gutenberg avec score /100 et checklist 8 points (titre, extrait, H2, images alt, contenu, image à la une, liens internes).', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'L\'aide SEO est utile même sans le mode client — activez-la pour tous vos rédacteurs.', 'g2rd' ),
+            ],
+            'features' => [
+                'icon'  => 'admin-plugins',
+                'title' => \__( 'Fonctionnalités du thème', 'g2rd' ),
+                'intro' => \__( 'Activez ou désactivez les fonctionnalités avancées du thème selon les besoins de votre projet.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Animations GSAP', 'g2rd' ),                      'desc' => \__( 'Effets de scroll professionnels avec ScrollTrigger. Désactivé automatiquement pour Google PageSpeed.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Particules & Glassmorphism', 'g2rd' ),            'desc' => \__( 'Fond animé sur les blocs groupe et effet verre dépoli dans l\'éditeur. À utiliser avec modération.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Dark Mode', 'g2rd' ),                             'desc' => \__( 'Bouton flottant pour basculer en mode sombre. Respecte automatiquement les préférences système.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Intégration IA / MCP', 'g2rd' ),                 'desc' => \__( 'Expose les CPTs et la configuration à des outils IA (Claude, Cursor). Requiert WordPress 6.9+. Activez uniquement avec un outil de confiance.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Compositions G2RD ← licence', 'g2rd' ),          'desc' => \__( 'Masque les compositions utilisant des blocs G2RD personnalisés quand la licence est inactive.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Activez uniquement ce dont vous avez besoin — chaque fonctionnalité peut impacter les performances ou l\'interface.', 'g2rd' ),
+            ],
+            'blocks' => [
+                'icon'  => 'block-default',
+                'title' => \__( 'Blocs Gutenberg G2RD', 'g2rd' ),
+                'intro' => \__( 'Gérez la visibilité des blocs G2RD dans l\'éditeur Gutenberg. Une licence active est requise pour modifier ces réglages.', 'g2rd' ),
+                'steps' => [
+                    [ 'label' => \__( 'Désactiver les blocs inutiles', 'g2rd' ), 'desc' => \__( 'Les blocs désactivés n\'apparaissent plus dans l\'inserteur — l\'éditeur reste épuré.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Pages existantes', 'g2rd' ),              'desc' => \__( 'Un bloc désactivé reste présent là où il est utilisé — il affiche une alerte de récupération, sans perte de contenu.', 'g2rd' ) ],
+                    [ 'label' => \__( 'Licence requise', 'g2rd' ),               'desc' => \__( 'Activez votre licence dans la section Licence G2RD FSE pour débloquer ces réglages.', 'g2rd' ) ],
+                ],
+                'tip' => \__( 'Pour réactiver un bloc, revenez sur cette page — le contenu existant est immédiatement restauré.', 'g2rd' ),
+            ],
+        ];
+    }
+
+    /**
+     * Affiche un seul modal tutoriel.
+     *
+     * @param string                                                            $id    Identifiant du modal.
+     * @param array{icon: string, title: string, intro: string, steps: list<array{label: string, desc: string}>, tip: string} $modal Données du modal.
+     * @return void
+     */
+    private function renderSingleModal( string $id, array $modal ): void {
+        $modal_id = 'g2rd-modal-' . $id;
+        $title_id = $modal_id . '-title';
+        ?>
+        <dialog class="g2rd-modal" id="<?php echo \esc_attr( $modal_id ); ?>" aria-labelledby="<?php echo \esc_attr( $title_id ); ?>">
+            <div class="g2rd-modal__box">
+                <div class="g2rd-modal__header">
+                    <span class="dashicons dashicons-<?php echo \esc_attr( $modal['icon'] ); ?> g2rd-modal__icon" aria-hidden="true"></span>
+                    <h2 class="g2rd-modal__title" id="<?php echo \esc_attr( $title_id ); ?>"><?php echo \esc_html( $modal['title'] ); ?></h2>
+                    <button type="button" class="g2rd-modal__close" onclick="this.closest('dialog').close()" aria-label="<?php \esc_attr_e( 'Fermer', 'g2rd' ); ?>">
+                        <span class="dashicons dashicons-no-alt" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="g2rd-modal__body">
+                    <p class="g2rd-modal__intro"><?php echo \esc_html( $modal['intro'] ); ?></p>
+                    <ul class="g2rd-modal__steps" role="list">
+                        <?php foreach ( $modal['steps'] as $i => $step ) : ?>
+                        <li class="g2rd-modal__step">
+                            <span class="g2rd-modal__step-num" aria-hidden="true"><?php echo \esc_html( (string) ( $i + 1 ) ); ?></span>
+                            <div class="g2rd-modal__step-body">
+                                <span class="g2rd-modal__step-label"><?php echo \esc_html( $step['label'] ); ?></span>
+                                <p class="g2rd-modal__step-desc"><?php echo \esc_html( $step['desc'] ); ?></p>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php if ( ! empty( $modal['tip'] ) ) : ?>
+                    <div class="g2rd-modal__tip">
+                        <strong><?php \esc_html_e( '💡 Conseil', 'g2rd' ); ?></strong>
+                        <?php echo \esc_html( $modal['tip'] ); ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </dialog>
+        <?php
+    }
+
+    /**
+     * Affiche tous les modaux tutoriels de la page d'options.
+     *
+     * @return void
+     */
+    private function renderModals(): void {
+        foreach ( $this->getModalsData() as $id => $modal ) {
+            $this->renderSingleModal( $id, $modal );
+        }
+    }
+
+    /**
+     * Affiche le footer de la page d'options.
+     *
+     * @return void
+     */
+    private function renderFooter(): void {
+        ?>
+        <footer class="g2rd-options-footer">
+            <div class="g2rd-options-footer__inner">
+                <div class="g2rd-options-footer__brand">
+                    <span class="g2rd-options-footer__logo">G2RD</span>
+                    <span class="g2rd-options-footer__tagline"><?php \esc_html_e( 'Agence Web', 'g2rd' ); ?></span>
+                </div>
+                <nav class="g2rd-options-footer__links" aria-label="<?php \esc_attr_e( 'Liens G2RD', 'g2rd' ); ?>">
+                    <a href="<?php echo \esc_url( 'https://g2rd.fr' ); ?>" target="_blank" rel="noopener noreferrer">
+                        <?php \esc_html_e( 'g2rd.fr', 'g2rd' ); ?>
+                        <span class="dashicons dashicons-external" aria-hidden="true"></span>
+                    </a>
+                    <a href="<?php echo \esc_url( 'https://g2rd.fr/support' ); ?>" target="_blank" rel="noopener noreferrer">
+                        <?php \esc_html_e( 'Support', 'g2rd' ); ?>
+                    </a>
+                    <a href="<?php echo \esc_url( 'https://g2rd.fr/documentation' ); ?>" target="_blank" rel="noopener noreferrer">
+                        <?php \esc_html_e( 'Documentation', 'g2rd' ); ?>
+                    </a>
+                </nav>
+                <p class="g2rd-options-footer__copy">
+                    <?php
+                    printf(
+                        /* translators: %s: version du thème. */
+                        \esc_html__( 'G2RD Theme v%s — Développé avec ♥ par G2RD Agence Web', 'g2rd' ),
+                        \esc_html( \wp_get_theme()->get( 'Version' ) )
+                    );
+                    ?>
+                </p>
+            </div>
+        </footer>
+        <?php
+    }
+
     /**
      * Affiche la section « Mode Bientôt disponible ».
      *
@@ -537,6 +795,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-clock"></span>
                 <?php \esc_html_e('Mode « Bientôt disponible »', 'g2rd'); ?>
+                <?php $this->renderHelpButton('coming-soon'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e('Quand ce mode est actif, les visiteurs non connectés sont redirigés automatiquement vers la page sélectionnée. Les utilisateurs connectés voient le site normalement.', 'g2rd'); ?>
@@ -560,7 +819,7 @@ class ThemeOptions {
                         <span class="g2rd-toggle-slider"></span>
                     </label>
                 </div>
-                <div style="padding:0 16px 16px;" id="g2rd-coming-soon-page" <?php echo $enabled ? '' : 'hidden'; ?>>
+                <div style="padding:0 16px 16px;" id="g2rd-coming-soon-page">
                     <label for="g2rd-coming-soon-page-id" style="display:block;margin-bottom:4px;font-weight:600;font-size:13px;">
                         <?php \esc_html_e('Page à afficher aux visiteurs', 'g2rd'); ?>
                     </label>
@@ -586,16 +845,6 @@ class ThemeOptions {
                 </div>
             </div>
         </div>
-        <script>
-        (function(){
-            var toggle = document.getElementById('g2rd-coming-soon-toggle');
-            var panel  = document.getElementById('g2rd-coming-soon-page');
-            if (!toggle || !panel) return;
-            toggle.addEventListener('change', function(){
-                panel.hidden = !this.checked;
-            });
-        })();
-        </script>
         <?php
     }
 
@@ -654,6 +903,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-admin-appearance"></span>
                 <?php \esc_html_e('Couleurs de l\'interface admin', 'g2rd'); ?>
+                <?php $this->renderHelpButton('colors'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e('Choisissez les couleurs de l\'administration parmi la palette de votre thème. Si vous changez de thème ou de variation de style, les couleurs disponibles seront automatiquement mises à jour.', 'g2rd'); ?>
@@ -741,6 +991,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-database"></span>
                 <?php \esc_html_e('Types de contenu personnalisés (CPT)', 'g2rd'); ?>
+                <?php $this->renderHelpButton('cpts'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e('Activez, désactivez et personnalisez les types de contenu. Les changements de slug sont appliqués automatiquement à l\'enregistrement.', 'g2rd'); ?>
@@ -886,6 +1137,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-chart-line"></span>
                 <?php \esc_html_e( 'Mode Business', 'g2rd' ); ?>
+                <?php $this->renderHelpButton('business'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e( 'Définissez le type de votre site pour obtenir des conseils personnalisés dans l\'éditeur Gutenberg et sur le tableau de bord.', 'g2rd' ); ?>
@@ -918,6 +1170,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-admin-users"></span>
                 <?php \esc_html_e( 'Mode Client & Outils admin', 'g2rd' ); ?>
+                <?php $this->renderHelpButton('client-mode'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e( 'Simplifiez l\'interface WordPress pour vos clients non techniques et activez les outils d\'aide à la rédaction.', 'g2rd' ); ?>
@@ -971,6 +1224,7 @@ class ThemeOptions {
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-admin-plugins"></span>
                 <?php \esc_html_e('Fonctionnalités du thème', 'g2rd'); ?>
+                <?php $this->renderHelpButton('features'); ?>
             </h2>
             <p class="g2rd-section-desc">
                 <?php \esc_html_e('Activez ou désactivez les fonctionnalités optionnelles. Les changements sont pris en compte dès l\'enregistrement.', 'g2rd'); ?>
@@ -1011,24 +1265,25 @@ class ThemeOptions {
         $disabled     = (array) \get_option(self::OPTION_BLOCKS, []);
         $total        = \count(self::BLOCKS);
         $active_count = $total - \count($disabled);
-        $licensed     = License_Manager::is_active();
+        $licensed     = LicenseManager::is_active();
         ?>
         <div class="g2rd-section">
             <h2 class="g2rd-section-title">
                 <span class="dashicons dashicons-block-default"></span>
                 <?php \esc_html_e('Blocs Gutenberg', 'g2rd'); ?>
+                <?php $this->renderHelpButton('blocks'); ?>
             </h2>
 
             <?php if (!$licensed) : ?>
-            <div class="notice notice-warning inline" style="margin:0 0 16px;padding:10px 14px;">
-                <span class="dashicons dashicons-lock" style="vertical-align:middle;margin-right:6px;"></span>
-                <?php
-                printf(
-                    /* translators: %s: lien vers la section licence. */
-                    \esc_html__('Une licence active est requise pour modifier les blocs. %s', 'g2rd'),
-                    '<a href="#g2rd-license">' . \esc_html__('Activer la licence →', 'g2rd') . '</a>'
-                );
-                ?>
+            <div class="g2rd-blocks-upsell">
+                <div class="g2rd-blocks-upsell__icon"><span class="dashicons dashicons-superhero-alt" aria-hidden="true"></span></div>
+                <div class="g2rd-blocks-upsell__content">
+                    <strong><?php \esc_html_e('Débloquez le contrôle des blocs avec une licence G2RD', 'g2rd'); ?></strong>
+                    <p><?php \esc_html_e('Activez ou désactivez chaque bloc Gutenberg G2RD pour personnaliser précisément l\'éditeur de vos clients.', 'g2rd'); ?></p>
+                </div>
+                <a href="<?php echo \esc_url('https://g2rd.fr'); ?>" target="_blank" rel="noopener noreferrer" class="button button-primary g2rd-blocks-upsell__cta">
+                    <?php \esc_html_e('Obtenir une licence →', 'g2rd'); ?>
+                </a>
             </div>
             <?php else : ?>
             <p class="g2rd-section-desc">
@@ -1054,7 +1309,7 @@ class ThemeOptions {
                 <?php foreach (self::BLOCKS as $block_name => $block) :
                     $active = !\in_array($block_name, $disabled, true);
                 ?>
-                <div class="g2rd-card <?php echo $active ? 'is-active' : 'is-inactive'; ?> <?php echo !$licensed ? 'is-locked' : ''; ?>">
+                <div class="g2rd-card <?php echo $active ? 'is-active' : 'is-inactive'; ?><?php echo !$licensed ? ' is-locked' : ''; ?>">
                     <div class="g2rd-card-body">
                         <div class="g2rd-card-info g2rd-card-info--block">
                             <span class="dashicons dashicons-<?php echo \esc_attr($block['icon']); ?> g2rd-block-icon"></span>
@@ -1063,6 +1318,11 @@ class ThemeOptions {
                                 <span class="g2rd-block-name"><?php echo \esc_html($block_name); ?></span>
                             </div>
                         </div>
+                        <?php if (!$licensed) : ?>
+                        <span class="g2rd-block-lock" title="<?php \esc_attr_e('Licence requise', 'g2rd'); ?>" aria-label="<?php \esc_attr_e('Licence requise', 'g2rd'); ?>">
+                            <span class="dashicons dashicons-lock" aria-hidden="true"></span>
+                        </span>
+                        <?php else : ?>
                         <label class="g2rd-toggle" title="<?php echo \esc_attr($block['title']); ?>">
                             <input
                                 type="checkbox"
@@ -1070,10 +1330,10 @@ class ThemeOptions {
                                 name="blocks[<?php echo \esc_attr($block_name); ?>]"
                                 value="1"
                                 <?php \checked($active); ?>
-                                <?php \disabled(!$licensed); ?>
                             >
                             <span class="g2rd-toggle-slider"></span>
                         </label>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <?php endforeach; ?>

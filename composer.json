@@ -12,7 +12,7 @@
   },
   "scripts": {
     "phpcs": "phpcs --standard=phpcs.xml.dist",
-    "phpcs:security": "phpcs --standard=phpcs-security.xml --extensions=php --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/* .",
-    "phpcs:compat": "phpcs --standard=PHPCompatibilityWP --extensions=php --ignore=vendor/*,node_modules/* --runtime-set testVersion 8.0- ."
+    "phpcs:security": "phpcs --standard=phpcs-security.xml --extensions=php --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/*,.claude/* .",
+    "phpcs:compat": "phpcs --standard=PHPCompatibilityWP --extensions=php --ignore=vendor/*,node_modules/*,.claude/* --runtime-set testVersion 8.0- ."
   }
 }

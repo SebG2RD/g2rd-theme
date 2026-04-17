@@ -73,7 +73,7 @@ jobs:
           composer global exec -- phpcs \
             --standard=phpcs-security.xml \
             --extensions=php \
-            --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/* \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/*,.claude/* \
             --report-full \
             --report-checkstyle=./phpcs-security-report.xml \
             --runtime-set ParanoiaMode 0 \
@@ -93,7 +93,7 @@ jobs:
           composer global exec -- phpcs \
             --standard=PHPCompatibilityWP \
             --extensions=php \
-            --ignore=vendor/*,node_modules/* \
+            --ignore=vendor/*,node_modules/*,.claude/* \
             --runtime-set testVersion 8.0- \
             --report-full \
             --report-checkstyle=./phpcompat-report.xml \

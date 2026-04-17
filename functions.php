@@ -20,6 +20,7 @@ if ( ! \defined( 'G2RD_BLOCK_CATEGORY' ) ) {
 }
 
 // Inclure les fichiers des classes principales
+require_once __DIR__ . '/classes/class-license-manager.php';
 require_once __DIR__ . '/classes/class-theme-options.php';
 require_once __DIR__ . '/classes/class-theme-setup.php';
 require_once __DIR__ . '/classes/class-shortcode.php';
@@ -30,7 +31,6 @@ require_once __DIR__ . '/classes/class-json-config.php';
 require_once __DIR__ . '/classes/class-scripts-manager.php';
 require_once __DIR__ . '/classes/class-particules-effect.php';
 require_once __DIR__ . '/classes/class-clickable-articles.php';
-require_once __DIR__ . '/classes/class-license-manager.php';
 require_once __DIR__ . '/classes/class-license-server.php';
 require_once __DIR__ . '/classes/class-github-updater.php';
 require_once __DIR__ . '/classes/class-portfolio-query.php';
@@ -156,12 +156,12 @@ function g2rd_sync_fse_templates(): void {
     // Nettoyer sous les deux casses possibles (G2RD-theme et g2rd-theme)
     $slugs = [ \get_stylesheet(), 'G2RD-theme', 'g2rd-theme' ];
 
-    // Supprimer uniquement les entrées orphelines (trash / auto-draft).
-    // Les posts publish sont gérés séparément via g2rd_recreate_fse_templates().
+    // Supprimer toutes les entrées DB du thème (publish inclus) pour forcer
+    // le rechargement propre depuis le filesystem via g2rd_recreate_fse_templates().
     $stale_posts = \get_posts( [
         'post_type'      => [ 'wp_template_part', 'wp_template' ],
         'posts_per_page' => -1,
-        'post_status'    => [ 'trash', 'auto-draft' ],
+        'post_status'    => [ 'trash', 'auto-draft', 'publish' ],
         'tax_query'      => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
             [
                 'taxonomy' => 'wp_theme',
@@ -193,12 +193,13 @@ function g2rd_sync_fse_templates(): void {
  * @return void
  */
 function g2rd_sync_fse_once(): void {
-    $sync_version = 'g2rd_sync_v3';
+    $sync_version = 'g2rd_sync_v4';
     if ( \get_transient( $sync_version ) ) {
         return;
     }
     \delete_transient( 'g2rd_sync_done' );
     \delete_transient( 'g2rd_sync_v2' );
+    \delete_transient( 'g2rd_sync_v3' );
     g2rd_sync_fse_templates();
     \set_transient( $sync_version, true, DAY_IN_SECONDS * 30 );
 }
@@ -214,11 +215,12 @@ function g2rd_sync_fse_once(): void {
  * @return void
  */
 function g2rd_recreate_fse_templates(): void {
-    if ( \get_transient( 'g2rd_tpl_recreated_v2' ) ) {
+    if ( \get_transient( 'g2rd_tpl_recreated_v3' ) ) {
         return;
     }
 
     \delete_transient( 'g2rd_tpl_recreated_v1' );
+    \delete_transient( 'g2rd_tpl_recreated_v2' );
 
     $theme_slug = \get_stylesheet();
     $theme_dir  = \get_template_directory();
@@ -229,7 +231,6 @@ function g2rd_recreate_fse_templates(): void {
         'header-color' => [ 'title' => 'Header Couleur',                  'area' => 'header' ],
         'footer'       => [ 'title' => 'Footer',                          'area' => 'footer' ],
         'sidebar'      => [ 'title' => 'Sidebar',                         'area' => 'uncategorized' ],
-        'newsletter'   => [ 'title' => 'Inscription à la newsletter',     'area' => '' ],
     ];
 
     foreach ( $parts_config as $slug => $meta ) {
@@ -319,7 +320,7 @@ function g2rd_recreate_fse_templates(): void {
         \WP_Theme_JSON_Resolver::clean_cached_data();
     }
 
-    \set_transient( 'g2rd_tpl_recreated_v2', true, DAY_IN_SECONDS * 30 );
+    \set_transient( 'g2rd_tpl_recreated_v3', true, DAY_IN_SECONDS * 30 );
 }
 \add_action( 'admin_init', __NAMESPACE__ . '\g2rd_recreate_fse_templates', 20 );
 

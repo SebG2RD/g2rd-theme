@@ -39,6 +39,21 @@ class Onboarding {
 		\add_action( 'admin_init', [ $this, 'handle_actions' ] );
 		\add_action( 'admin_notices', [ $this, 'show_banner' ] );
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		\add_action( 'current_screen', [ $this, 'set_screen_title' ] );
+	}
+
+	/**
+	 * Définit le titre de la page admin pour éviter le Deprecated strip_tags(null)
+	 * sur les pages cachées enregistrées avec add_submenu_page('', ...).
+	 *
+	 * @param \WP_Screen $screen Écran courant WordPress.
+	 * @return void
+	 */
+	public function set_screen_title( \WP_Screen $screen ): void {
+		global $title;
+		if ( 'admin_page_' . self::PAGE_SLUG === $screen->id && null === $title ) {
+			$title = \__( 'Assistant de démarrage G2RD', 'g2rd' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
 	}
 
 	/**
