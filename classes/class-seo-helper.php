@@ -137,21 +137,21 @@ class SEO_Helper {
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'ok',
 				// translators: %d = nombre de caractères du titre.
-			'message' => sprintf( \__( 'Titre de %d caractères (idéal : 30–60)', 'g2rd' ), $title_len ),
+				'message' => sprintf( \__( 'Titre de %d caractères (idéal : 30–60)', 'g2rd' ), $title_len ),
 			];
 		} elseif ( $title_len < 30 ) {
 			$checks['title'] = [
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'warning',
 				// translators: %d = nombre de caractères du titre.
-			'message' => sprintf( \__( 'Titre trop court (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
+				'message' => sprintf( \__( 'Titre trop court (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
 			];
 		} else {
 			$checks['title'] = [
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'warning',
 				// translators: %d = nombre de caractères du titre.
-			'message' => sprintf( \__( 'Titre trop long (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
+				'message' => sprintf( \__( 'Titre trop long (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
 			];
 		}
 
