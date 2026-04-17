@@ -1,0 +1,5 @@
+.g2rd-testimonial [contenteditable]:focus {
+  outline: 2px dashed #D4A373;
+  outline-offset: 2px;
+  border-radius: 2px;
+}

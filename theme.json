@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
   "version": 3,
   "settings": {
     "blocks": {
@@ -73,6 +73,46 @@
       "name": "page-mes-projets",
       "title": "Page Mes Projets",
       "postTypes": ["page"]
+    },
+    {
+      "name": "page-accueil",
+      "title": "Page Accueil",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-services",
+      "title": "Page Services",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-contact",
+      "title": "Page Contact",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-landing",
+      "title": "Landing Page",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-vtc",
+      "title": "Métier : VTC / Taxi",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-artisan",
+      "title": "Métier : Artisan",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-agence",
+      "title": "Métier : Agence / Studio",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-ecommerce",
+      "title": "Métier : E-commerce",
+      "postTypes": ["page"]
     }
   ],
   "templateParts": [
@@ -97,7 +137,7 @@
       "area": "uncategorized"
     },
     {
-      "area": "",
+      "area": "uncategorized",
       "name": "newsletter",
       "title": "Inscription à la newsletter"
     }

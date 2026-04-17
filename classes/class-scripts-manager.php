@@ -87,7 +87,25 @@ class ScriptsManager {
      * @return void
      */
     public function enqueueScripts(): void {
-        // Rien à charger ici : chaque fonctionnalité gère son propre chargement.
+        $ver = \wp_get_theme()->get( 'Version' );
+        $uri = \get_template_directory_uri();
+
+        // Micro-interactions : CSS + JS d'animation au scroll
+        \wp_enqueue_style(
+            'g2rd-micro-interactions',
+            $uri . '/assets/css/micro-interactions.css',
+            [],
+            $ver
+        );
+
+        \wp_enqueue_script(
+            'g2rd-micro-interactions',
+            $uri . '/assets/js/micro-interactions.js',
+            [],
+            $ver,
+            true
+        );
+        \wp_script_add_data( 'g2rd-micro-interactions', 'strategy', 'defer' );
     }
 
     /**

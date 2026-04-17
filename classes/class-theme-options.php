@@ -419,6 +419,19 @@ class ThemeOptions {
         ];
         \update_option(self::OPTION_COMING_SOON, $coming_soon);
 
+        // --- Mode Business ---
+        $business_type = \sanitize_text_field(\wp_unslash($_POST['g2rd_business_type'] ?? ''));
+        $allowed_types = [ 'vitrine', 'leads', 'ecommerce', '' ];
+        \update_option( 'g2rd_business_type', \in_array( $business_type, $allowed_types, true ) ? $business_type : '' );
+
+        // --- Mode Client ---
+        \update_option( 'g2rd_client_mode', !empty( $_POST['g2rd_client_mode'] ) ? 1 : 0 );
+        $client_msg = \sanitize_textarea_field( \wp_unslash( $_POST['g2rd_client_mode_message'] ?? '' ) );
+        \update_option( 'g2rd_client_mode_message', $client_msg );
+
+        // --- SEO Helper ---
+        \update_option( 'g2rd_seo_helper', !empty( $_POST['g2rd_seo_helper'] ) ? 1 : 0 );
+
         // Planifier le vidage des règles de réécriture (slugs CPT potentiellement modifiés)
         \update_option('g2rd_needs_rewrite_flush', 1);
 
@@ -463,6 +476,8 @@ class ThemeOptions {
                 <?php $this->renderComingSoonSection(); ?>
                 <?php $this->renderColorsSection(); ?>
                 <?php $this->renderCPTsSection(); ?>
+                <?php $this->renderBusinessModeSection(); ?>
+                <?php $this->renderClientModeSection(); ?>
                 <?php $this->renderFeaturesSection(); ?>
                 <?php $this->renderBlocksSection(); ?>
 
@@ -840,10 +855,91 @@ class ThemeOptions {
     }
 
     /**
-     * Affiche la section "Fonctionnalités du thème".
+     * Affiche la section "Mode Business" (type de site).
      *
      * @return void
      */
+    private function renderBusinessModeSection(): void {
+        $current = \get_option( 'g2rd_business_type', '' );
+        $types   = [
+            ''           => \__( '— Choisissez un type —', 'g2rd' ),
+            'vitrine'    => \__( '🏠 Site vitrine', 'g2rd' ),
+            'leads'      => \__( '🎯 Génération de leads', 'g2rd' ),
+            'ecommerce'  => \__( '🛒 E-commerce', 'g2rd' ),
+        ];
+        ?>
+        <div class="g2rd-section">
+            <h2 class="g2rd-section-title">
+                <span class="dashicons dashicons-chart-line"></span>
+                <?php \esc_html_e( 'Mode Business', 'g2rd' ); ?>
+            </h2>
+            <p class="g2rd-section-desc">
+                <?php \esc_html_e( 'Définissez le type de votre site pour obtenir des conseils personnalisés dans l\'éditeur Gutenberg et sur le tableau de bord.', 'g2rd' ); ?>
+            </p>
+            <div class="g2rd-field-group">
+                <label for="g2rd_business_type"><strong><?php \esc_html_e( 'Type de site', 'g2rd' ); ?></strong></label>
+                <select name="g2rd_business_type" id="g2rd_business_type" class="regular-text">
+                    <?php foreach ( $types as $val => $label ) : ?>
+                    <option value="<?php echo \esc_attr( $val ); ?>" <?php \selected( $current, $val ); ?>>
+                        <?php echo \esc_html( $label ); ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <?php
+    }
+
+    private function renderClientModeSection(): void {
+        $enabled = (bool) \get_option( 'g2rd_client_mode', false );
+        $message = (string) \get_option( 'g2rd_client_mode_message', '' );
+        $seo_on  = (bool) \get_option( 'g2rd_seo_helper', true );
+        ?>
+        <div class="g2rd-section">
+            <h2 class="g2rd-section-title">
+                <span class="dashicons dashicons-admin-users"></span>
+                <?php \esc_html_e( 'Mode Client & Outils admin', 'g2rd' ); ?>
+            </h2>
+            <p class="g2rd-section-desc">
+                <?php \esc_html_e( 'Simplifiez l\'interface WordPress pour vos clients non techniques et activez les outils d\'aide à la rédaction.', 'g2rd' ); ?>
+            </p>
+
+            <div class="g2rd-card <?php echo $enabled ? 'is-active' : 'is-inactive'; ?>" style="margin-bottom:12px;">
+                <div class="g2rd-card-body">
+                    <div class="g2rd-card-info">
+                        <strong><?php \esc_html_e( 'Mode Client', 'g2rd' ); ?></strong>
+                        <span class="g2rd-card-desc"><?php \esc_html_e( 'Masque les menus sensibles (plugins, outils, réglages) pour les utilisateurs non-administrateurs.', 'g2rd' ); ?></span>
+                    </div>
+                    <label class="g2rd-toggle" title="Mode Client">
+                        <input type="checkbox" name="g2rd_client_mode" value="1" <?php \checked( $enabled ); ?>>
+                        <span class="g2rd-toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="g2rd-field-group" style="margin-bottom:16px;">
+                <label for="g2rd_client_mode_message"><strong><?php \esc_html_e( 'Message d\'accueil client', 'g2rd' ); ?></strong></label>
+                <textarea name="g2rd_client_mode_message" id="g2rd_client_mode_message" class="large-text" rows="2"
+                    placeholder="<?php \esc_attr_e( 'Bienvenue dans votre espace. Contactez-nous en cas de question.', 'g2rd' ); ?>"
+                ><?php echo \esc_textarea( $message ); ?></textarea>
+            </div>
+
+            <div class="g2rd-card <?php echo $seo_on ? 'is-active' : 'is-inactive'; ?>">
+                <div class="g2rd-card-body">
+                    <div class="g2rd-card-info">
+                        <strong><?php \esc_html_e( 'Aide SEO dans l\'éditeur', 'g2rd' ); ?></strong>
+                        <span class="g2rd-card-desc"><?php \esc_html_e( 'Affiche un panneau de score SEO et une checklist dans la sidebar Gutenberg.', 'g2rd' ); ?></span>
+                    </div>
+                    <label class="g2rd-toggle" title="SEO Helper">
+                        <input type="checkbox" name="g2rd_seo_helper" value="1" <?php \checked( $seo_on ); ?>>
+                        <span class="g2rd-toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
     private function renderFeaturesSection(): void {
         $features = (array) \get_option(self::OPTION_FEATURES, []);
         ?>

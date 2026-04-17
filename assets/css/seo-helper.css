@@ -1,0 +1,102 @@
+/* G2RD SEO Helper — styles sidebar Gutenberg */
+
+.g2rd-seo-panel {
+  padding: 12px;
+  font-size: 13px;
+}
+
+.g2rd-seo-panel__loading {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.g2rd-seo-panel__error {
+  color: #f44336;
+  padding: 8px;
+  background: #fdecea;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.g2rd-seo-panel__refresh {
+  width: 100%;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+/* Score gauge */
+.g2rd-seo-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.g2rd-seo-score__ring {
+  width: 80px;
+  height: 80px;
+}
+
+.g2rd-seo-score__svg {
+  transform: rotate(-90deg);
+}
+
+.g2rd-seo-score__text {
+  fill: #2F425D;
+  font-size: 10px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg) translateX(18px);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.g2rd-seo-score__label {
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* Checklist */
+.g2rd-seo-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.g2rd-seo-check {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.g2rd-seo-check--ok      { background: #f0faf1; }
+.g2rd-seo-check--warning { background: #fff8e6; }
+.g2rd-seo-check--error   { background: #fdecea; }
+.g2rd-seo-check--info    { background: #f0f4ff; }
+
+.g2rd-seo-check__icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+}
+
+.g2rd-seo-check--ok      .g2rd-seo-check__icon { color: #4caf50; }
+.g2rd-seo-check--warning .g2rd-seo-check__icon { color: #ff9800; }
+.g2rd-seo-check--error   .g2rd-seo-check__icon { color: #f44336; }
+.g2rd-seo-check--info    .g2rd-seo-check__icon { color: #5c6bc0; }
+
+.g2rd-seo-check__body {
+  font-size: 12px;
+  color: #333;
+}

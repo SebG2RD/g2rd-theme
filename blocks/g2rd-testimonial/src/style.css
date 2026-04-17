@@ -1,0 +1,87 @@
+.g2rd-testimonial {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.g2rd-testimonial:hover {
+  transform: translateY(-2px);
+}
+
+.g2rd-testimonial__stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0.25rem;
+}
+
+.g2rd-testimonial__stars .dashicons {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.g2rd-testimonial__accent {
+  user-select: none;
+}
+
+.g2rd-testimonial__quote {
+  margin: 0.5rem 0 0;
+}
+
+.g2rd-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.g2rd-testimonial__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.g2rd-testimonial__avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.g2rd-testimonial__author-info {
+  min-width: 0;
+}
+
+.g2rd-testimonial__name {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.g2rd-testimonial__role {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: 2px;
+}
+
+/* Variant minimal */
+.g2rd-testimonial--minimal {
+  border-left: 4px solid currentColor;
+  padding-left: 1.5rem !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.g2rd-testimonial--minimal .g2rd-testimonial__accent {
+  display: none;
+}

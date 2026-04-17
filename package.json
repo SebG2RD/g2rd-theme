@@ -17,7 +17,10 @@
     "blocks/g2rd-faq",
     "blocks/g2rd-info",
     "blocks/g2rd-typed",
-    "blocks/g2rd-block-api"
+    "blocks/g2rd-block-api",
+    "blocks/g2rd-hero",
+    "blocks/g2rd-testimonial",
+    "blocks/g2rd-cta-band"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
@@ -36,7 +39,10 @@
     "build:info": "npm run build --workspace=blocks/g2rd-info",
     "build:typed": "npm run build --workspace=blocks/g2rd-typed",
     "build:pricing-table": "npm run build --workspace=blocks/PricingTable",
-    "build:block-api": "npm run build --workspace=blocks/g2rd-block-api"
+    "build:block-api": "npm run build --workspace=blocks/g2rd-block-api",
+    "build:hero": "npm run build --workspace=blocks/g2rd-hero",
+    "build:testimonial": "npm run build --workspace=blocks/g2rd-testimonial",
+    "build:cta-band": "npm run build --workspace=blocks/g2rd-cta-band"
   },
   "engines": {
     "node": ">=18.0.0",

@@ -1,0 +1,125 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/hero",
+  "version": "1.0.0",
+  "title": "G2RD Hero",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "admin-home",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Bloc hero conversion premium — background image/couleur, titre accrocheur, double CTA et social proof intégré.",
+  "keywords": ["hero", "banner", "conversion", "landing", "cta", "accueil"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "attributes": {
+    "kicker": {
+      "type": "string",
+      "default": "Agence web WordPress"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Votre site web, <mark>conçu pour convertir</mark>"
+    },
+    "subheading": {
+      "type": "string",
+      "default": "De la conception à la mise en ligne, nous créons des sites WordPress performants qui génèrent de vrais résultats."
+    },
+    "ctaPrimaryText": {
+      "type": "string",
+      "default": "Démarrer mon projet"
+    },
+    "ctaPrimaryUrl": {
+      "type": "string",
+      "default": "#contact"
+    },
+    "ctaSecondaryText": {
+      "type": "string",
+      "default": "Voir nos réalisations"
+    },
+    "ctaSecondaryUrl": {
+      "type": "string",
+      "default": "#portfolio"
+    },
+    "showSecondary": {
+      "type": "boolean",
+      "default": true
+    },
+    "socialProof": {
+      "type": "string",
+      "default": "⭐ 150+ sites livrés · 5 ans d'expérience · 98% de satisfaction"
+    },
+    "showSocialProof": {
+      "type": "boolean",
+      "default": true
+    },
+    "backgroundType": {
+      "type": "string",
+      "default": "color"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "overlayColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 75
+    },
+    "headingColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "ctaPrimaryBg": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "ctaPrimaryColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "left"
+    },
+    "minHeight": {
+      "type": "number",
+      "default": 600
+    },
+    "paddingVertical": {
+      "type": "number",
+      "default": 80
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full"]
+  }
+}

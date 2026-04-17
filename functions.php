@@ -50,6 +50,10 @@ require_once __DIR__ . '/classes/class-fluent-cart-support.php';
 require_once __DIR__ . '/classes/class-conditional-menu.php';
 require_once __DIR__ . '/classes/class-api-connector.php';
 require_once __DIR__ . '/classes/class-abilities.php';
+require_once __DIR__ . '/classes/class-client-mode.php';
+require_once __DIR__ . '/classes/class-onboarding.php';
+require_once __DIR__ . '/classes/class-seo-helper.php';
+require_once __DIR__ . '/classes/class-business-mode.php';
 
 /**
  * Initialise toutes les composantes du thème
@@ -114,6 +118,18 @@ function bootstrap_theme(): void
 
     // Gestionnaire de mises à jour GitHub (nécessite une licence active)
     new GitHubUpdater( $license_manager );
+
+    // Mode client (simplifie l'admin WP pour les utilisateurs non techniques)
+    ( new Client_Mode() )->register_hooks();
+
+    // Assistant d'intégration (onboarding au premier démarrage)
+    ( new Onboarding() )->register_hooks();
+
+    // Aide SEO légère dans l'éditeur Gutenberg
+    ( new SEO_Helper() )->register_hooks();
+
+    // Mode Business — conseils adaptés au type de site
+    ( new Business_Mode() )->register_hooks();
 
     // Initialiser les autres classes
     foreach ( $classes as $class ) {

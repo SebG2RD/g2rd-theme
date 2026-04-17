@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/testimonial",
+  "version": "1.0.0",
+  "title": "G2RD Testimonial",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "format-quote",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Bloc témoignage client avec notation étoiles, citation, auteur et avatar.",
+  "keywords": ["témoignage", "avis", "client", "review", "testimonial", "étoiles"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "attributes": {
+    "quote": {
+      "type": "string",
+      "default": "Ajoutez ici le témoignage de votre client. Une phrase percutante qui reflète la valeur de votre service."
+    },
+    "authorName": {
+      "type": "string",
+      "default": "Prénom Nom"
+    },
+    "authorRole": {
+      "type": "string",
+      "default": "Directeur — Entreprise"
+    },
+    "rating": {
+      "type": "number",
+      "default": 5
+    },
+    "avatarUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "avatarId": {
+      "type": "number",
+      "default": 0
+    },
+    "avatarAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "quoteColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "authorColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "roleColor": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "starColor": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#FFFFFF"
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 8
+    },
+    "hasShadow": {
+      "type": "boolean",
+      "default": true
+    },
+    "layout": {
+      "type": "string",
+      "default": "card"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

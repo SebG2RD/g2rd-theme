@@ -1,0 +1,11 @@
+{
+  "name": "g2rd-cta-band",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack --config webpack.config.js --mode development --watch"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^31.8.0"
+  }
+}

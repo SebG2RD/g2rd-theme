@@ -1,0 +1,89 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/cta-band",
+  "version": "1.0.0",
+  "title": "G2RD CTA Band",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "megaphone",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Bandeau Call-to-Action pleine largeur — titre fort, description, un ou deux boutons et note de réassurance.",
+  "keywords": ["cta", "call to action", "bouton", "conversion", "bandeau"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Prêt à lancer votre projet ?"
+    },
+    "description": {
+      "type": "string",
+      "default": "Discutons de votre projet lors d'un appel de 30 minutes sans engagement."
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Demander un devis gratuit"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": "#contact"
+    },
+    "ctaSecondaryText": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaSecondaryUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "reassurance": {
+      "type": "string",
+      "default": "Réponse sous 24h · Sans engagement · Devis offert"
+    },
+    "showReassurance": {
+      "type": "boolean",
+      "default": true
+    },
+    "backgroundStyle": {
+      "type": "string",
+      "default": "primary"
+    },
+    "customBg": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#FAFAFA"
+    },
+    "ctaBg": {
+      "type": "string",
+      "default": "#D4A373"
+    },
+    "ctaColor": {
+      "type": "string",
+      "default": "#2F425D"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "center"
+    },
+    "paddingVertical": {
+      "type": "number",
+      "default": 80
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full"]
+  }
+}

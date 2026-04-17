@@ -1,0 +1,285 @@
+/* Assistant de démarrage G2RD */
+.g2rd-onboarding {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.g2rd-onboarding__header {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.g2rd-onboarding__header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2F425D;
+  margin-bottom: 0.5rem;
+}
+
+.g2rd-onboarding__subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Barre de progression */
+.g2rd-onboarding__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 0 0 2.5rem;
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.g2rd-onboarding__step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  flex: 1;
+}
+
+.g2rd-onboarding__step:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: #e0e0e0;
+  margin: 0 0.75rem;
+}
+
+.g2rd-onboarding__step.done::after {
+  background: #D4A373;
+}
+
+.g2rd-onboarding__step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #666;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.g2rd-onboarding__step.active .g2rd-onboarding__step-num {
+  background: #2F425D;
+  color: #fff;
+}
+
+.g2rd-onboarding__step.done .g2rd-onboarding__step-num {
+  background: #D4A373;
+  color: #fff;
+}
+
+.g2rd-onboarding__step-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #999;
+}
+
+.g2rd-onboarding__step.active .g2rd-onboarding__step-label {
+  color: #2F425D;
+}
+
+.g2rd-onboarding__step.done .g2rd-onboarding__step-label {
+  color: #D4A373;
+}
+
+/* Contenu */
+.g2rd-onboarding__content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+}
+
+.g2rd-onboarding__content h2 {
+  color: #2F425D;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.g2rd-onboarding__content p {
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Cartes secteur */
+.g2rd-onboarding__sectors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.g2rd-sector-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.25rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.g2rd-sector-card:hover {
+  border-color: #2F425D;
+}
+
+.g2rd-sector-card input[type="radio"] {
+  display: none;
+}
+
+.g2rd-sector-card:has(input:checked) {
+  border-color: #2F425D;
+  background: rgba(47, 66, 93, 0.05);
+}
+
+.g2rd-sector-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.g2rd-sector-card__label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #2F425D;
+}
+
+.g2rd-sector-card__desc {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Couleurs */
+.g2rd-onboarding__colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.g2rd-color-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.g2rd-color-swatch input {
+  display: none;
+}
+
+.g2rd-color-swatch__preview {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: block;
+  border: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.g2rd-color-swatch:has(input:checked) .g2rd-color-swatch__preview {
+  border-color: #D4A373;
+  transform: scale(1.15);
+}
+
+.g2rd-color-swatch__name {
+  font-size: 0.72rem;
+  color: #666;
+  text-align: center;
+  max-width: 70px;
+}
+
+/* Preview pages */
+.g2rd-onboarding__pages-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.g2rd-page-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1.5rem;
+}
+
+.g2rd-page-preview div {
+  flex: 1;
+}
+
+.g2rd-page-preview strong {
+  display: block;
+  font-weight: 700;
+  color: #2F425D;
+}
+
+.g2rd-page-preview small {
+  color: #888;
+}
+
+/* Succès */
+.g2rd-onboarding__success {
+  text-align: center;
+  padding: 1rem 0 2rem;
+}
+
+.g2rd-onboarding__success-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.g2rd-onboarding__success h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.g2rd-onboarding__success-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+/* Bouton skip */
+.g2rd-onboarding__skip {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Bouton hero override */
+.g2rd-onboarding .button-primary.button-hero {
+  background: #2F425D;
+  border-color: #2F425D;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  height: auto;
+  line-height: 1.5;
+}
+
+.g2rd-onboarding .button-primary.button-hero:hover {
+  background: #3d5478;
+  border-color: #3d5478;
+}
