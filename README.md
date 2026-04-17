@@ -220,6 +220,15 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.3.1
+
+- **Sécurité** : consolidation `@wordpress/scripts` en dépendance root unique — suppression des 18 copies workspace qui contournaient les overrides npm (CVE `minimatch` ReDoS, `basic-ftp` DoS, `follow-redirects` header leak, `serialize-javascript` RCE, `webpack-dev-server` source exposure) — `npm audit` : 0 vulnérabilité.
+- **Phase 4** : SEO Helper — panneau sidebar Gutenberg avec score /100 et checklist 8 points (titre, extrait, H1/H2, images alt, longueur contenu, image à la une, maillage interne) — endpoint REST `g2rd/v1/seo-analyze`.
+- **Phase 4** : Business Mode — type de site (vitrine / leads / e-commerce) avec conseils personnalisés dans l'éditeur, widget tableau de bord adapté et notice de configuration.
+- **Phase 4** : Micro-interactions CSS/JS — animations au scroll via Intersection Observer, hover cards, focus rings accessibles, `prefers-reduced-motion` respecté.
+- **CI** : Node.js 20 → 22 dans `smart-ci.yml` ; override `minimatch >=3.1.4` ; `@typescript-eslint/*` ^8.0.0.
+- **PHPCS** : 0 erreur — docblocks complets, commentaires `translators:`, indentation conforme WPCS.
+
 ### 1.3.0
 
 - **Licence** : système complet FluentCart — activation, désactivation, validation périodique (cron 24h), liaison domain anti-partage.
