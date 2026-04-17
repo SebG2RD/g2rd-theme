@@ -139,6 +139,10 @@ class ThemeOptions {
             'label'       => 'Intégration IA / MCP (WordPress Abilities API)',
             'description' => 'Expose les CPTs et la configuration du thème à des outils IA compatibles MCP (Claude Desktop, Cursor…). Requiert WordPress 6.9+. <strong>Désactivé par défaut</strong> — activez uniquement si vous utilisez un client MCP de confiance.',
         ],
+        'patterns_require_license' => [
+            'label'       => 'Compositions G2RD nécessitent une licence',
+            'description' => 'Masque les compositions utilisant des blocs G2RD personnalisés lorsque la licence n\'est pas active.',
+        ],
     ];
 
     /**
@@ -146,7 +150,8 @@ class ThemeOptions {
      * Toutes les clés non listées ici sont activées par défaut.
      */
     private const FEATURE_DEFAULTS = [
-        'enable_ai' => false,
+        'enable_ai'                => false,
+        'patterns_require_license' => false,
     ];
 
     /**

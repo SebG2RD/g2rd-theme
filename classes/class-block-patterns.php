@@ -101,13 +101,20 @@ class BlockPatterns {
 			\set_transient($cache_key, $patterns, self::CACHE_DURATION);
 		}
 
+		$restrict = ThemeOptions::isFeatureEnabled('patterns_require_license')
+			&& ! License_Manager::is_active();
+
 		foreach ($patterns as $pattern) {
-			if ($this->isValidPattern($pattern)) {
-				\register_block_pattern(
-					$pattern['name'],
-					$pattern['properties']
-				);
+			if (!$this->isValidPattern($pattern)) {
+				continue;
 			}
+			if ($restrict && !empty($pattern['has_g2rd_blocks'])) {
+				continue;
+			}
+			\register_block_pattern(
+				$pattern['name'],
+				$pattern['properties']
+			);
 		}
 	}
 
@@ -187,8 +194,9 @@ class BlockPatterns {
 			}
 
 			$patterns[] = [
-				'name'       => $headers['slug'],
-				'properties' => $properties,
+				'name'           => $headers['slug'],
+				'properties'     => $properties,
+				'has_g2rd_blocks' => str_contains($content, '<!-- wp:g2rd/'),
 			];
 		}
 
