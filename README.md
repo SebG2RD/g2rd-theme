@@ -220,6 +220,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.3.2
+
+- **Fix** : `class-onboarding.php` — `add_submenu_page(null, ...)` remplacé par `add_submenu_page('', ...)` — corrige la dépreciation PHP 8.1 `strpos(): Passing null to parameter #1` qui bloquait les headers admin.
+
 ### 1.3.1
 
 - **Sécurité** : consolidation `@wordpress/scripts` en dépendance root unique — suppression des 18 copies workspace qui contournaient les overrides npm (CVE `minimatch` ReDoS, `basic-ftp` DoS, `follow-redirects` header leak, `serialize-javascript` RCE, `webpack-dev-server` source exposure) — `npm audit` : 0 vulnérabilité.
