@@ -49,6 +49,11 @@ class Business_Mode {
 		],
 	];
 
+	/**
+	 * Enregistre les hooks WordPress du mode business.
+	 *
+	 * @return void
+	 */
 	public function register_hooks(): void {
 		\add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_data' ] );
 		\add_action( 'wp_dashboard_setup', [ $this, 'register_dashboard_widget' ] );
@@ -99,6 +104,11 @@ class Business_Mode {
 		);
 	}
 
+	/**
+	 * Affiche le contenu du widget tableau de bord avec les conseils adaptés.
+	 *
+	 * @return void
+	 */
 	public function render_dashboard_widget(): void {
 		$type = \get_option( 'g2rd_business_type', '' );
 
@@ -135,6 +145,11 @@ class Business_Mode {
 		echo '</div>';
 	}
 
+	/**
+	 * Injecte les styles du widget tableau de bord sur la page dashboard uniquement.
+	 *
+	 * @return void
+	 */
 	public function enqueue_widget_styles(): void {
 		$screen = \get_current_screen();
 		if ( ! $screen || 'dashboard' !== $screen->id ) {

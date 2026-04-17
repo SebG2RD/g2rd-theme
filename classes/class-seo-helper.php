@@ -19,11 +19,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class SEO_Helper {
 
+	/**
+	 * Enregistre les hooks WordPress du SEO Helper.
+	 *
+	 * @return void
+	 */
 	public function register_hooks(): void {
 		\add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_assets' ] );
 		\add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 	}
 
+	/**
+	 * Charge le script et le style du panneau SEO dans l'éditeur Gutenberg.
+	 *
+	 * @return void
+	 */
 	public function enqueue_assets(): void {
 		if ( ! (bool) \get_option( 'g2rd_seo_helper', true ) ) {
 			return;
@@ -126,19 +136,22 @@ class SEO_Helper {
 			$checks['title'] = [
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'ok',
-				'message' => sprintf( \__( 'Titre de %d caractères (idéal : 30–60)', 'g2rd' ), $title_len ),
+				// translators: %d = nombre de caractères du titre.
+			'message' => sprintf( \__( 'Titre de %d caractères (idéal : 30–60)', 'g2rd' ), $title_len ),
 			];
 		} elseif ( $title_len < 30 ) {
 			$checks['title'] = [
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'warning',
-				'message' => sprintf( \__( 'Titre trop court (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
+				// translators: %d = nombre de caractères du titre.
+			'message' => sprintf( \__( 'Titre trop court (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
 			];
 		} else {
 			$checks['title'] = [
 				'label'   => \esc_html__( 'Titre de la page', 'g2rd' ),
 				'status'  => 'warning',
-				'message' => sprintf( \__( 'Titre trop long (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
+				// translators: %d = nombre de caractères du titre.
+			'message' => sprintf( \__( 'Titre trop long (%d car.) — visez 30–60 caractères', 'g2rd' ), $title_len ),
 			];
 		}
 
@@ -154,12 +167,14 @@ class SEO_Helper {
 			$checks['excerpt'] = [
 				'label'   => \esc_html__( 'Extrait (meta description)', 'g2rd' ),
 				'status'  => 'ok',
+				// translators: %d = nombre de caractères de l'extrait.
 				'message' => sprintf( \__( 'Extrait de %d caractères (idéal : 120–160)', 'g2rd' ), $excerpt_len ),
 			];
 		} else {
 			$checks['excerpt'] = [
 				'label'   => \esc_html__( 'Extrait (meta description)', 'g2rd' ),
 				'status'  => 'warning',
+				// translators: %d = nombre de caractères de l'extrait.
 				'message' => sprintf( \__( 'Extrait de %d car. — idéal : 120–160 caractères', 'g2rd' ), $excerpt_len ),
 			];
 		}
@@ -177,6 +192,7 @@ class SEO_Helper {
 			$checks['headings'] = [
 				'label'   => \esc_html__( 'Sous-titres H2', 'g2rd' ),
 				'status'  => 'ok',
+				// translators: %d = nombre de sous-titres H2 détectés.
 				'message' => sprintf( \__( '%d sous-titres H2 trouvés', 'g2rd' ), $h2_count ),
 			];
 		} elseif ( 1 === $h2_count ) {
@@ -214,12 +230,14 @@ class SEO_Helper {
 			$checks['images'] = [
 				'label'   => \esc_html__( 'Images & attributs alt', 'g2rd' ),
 				'status'  => 'ok',
+				// translators: %d = nombre d'images avec attribut alt renseigné.
 				'message' => sprintf( \__( '%d image(s) avec alt renseigné', 'g2rd' ), $images_total ),
 			];
 		} else {
 			$checks['images'] = [
 				'label'   => \esc_html__( 'Images & attributs alt', 'g2rd' ),
 				'status'  => 'error',
+				// translators: %d = nombre d'images sans attribut alt.
 				'message' => sprintf( \__( '%d image(s) sans attribut alt — à corriger', 'g2rd' ), $images_no_alt ),
 			];
 		}
@@ -229,18 +247,21 @@ class SEO_Helper {
 			$checks['content_length'] = [
 				'label'   => \esc_html__( 'Longueur du contenu', 'g2rd' ),
 				'status'  => 'ok',
+				// translators: %d = nombre de mots dans le contenu.
 				'message' => sprintf( \__( '%d mots (minimum recommandé : 300)', 'g2rd' ), $word_count ),
 			];
 		} elseif ( $word_count >= 150 ) {
 			$checks['content_length'] = [
 				'label'   => \esc_html__( 'Longueur du contenu', 'g2rd' ),
 				'status'  => 'warning',
+				// translators: %d = nombre de mots dans le contenu.
 				'message' => sprintf( \__( '%d mots — contenu court, visez 300 mots minimum', 'g2rd' ), $word_count ),
 			];
 		} else {
 			$checks['content_length'] = [
 				'label'   => \esc_html__( 'Longueur du contenu', 'g2rd' ),
 				'status'  => 'error',
+				// translators: %d = nombre de mots dans le contenu.
 				'message' => sprintf( \__( 'Seulement %d mots — contenu insuffisant pour le SEO', 'g2rd' ), $word_count ),
 			];
 		}
@@ -270,6 +291,7 @@ class SEO_Helper {
 			$checks['internal_links'] = [
 				'label'   => \esc_html__( 'Maillage interne', 'g2rd' ),
 				'status'  => 'ok',
+				// translators: %d = nombre de liens internes détectés.
 				'message' => sprintf( \__( '%d lien(s) interne(s)', 'g2rd' ), $internal_links ),
 			];
 		} elseif ( 1 === $internal_links ) {

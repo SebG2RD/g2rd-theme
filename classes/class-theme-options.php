@@ -890,6 +890,11 @@ class ThemeOptions {
         <?php
     }
 
+    /**
+     * Affiche la section "Mode Client & Outils admin" (mode client + SEO helper).
+     *
+     * @return void
+     */
     private function renderClientModeSection(): void {
         $enabled = (bool) \get_option( 'g2rd_client_mode', false );
         $message = (string) \get_option( 'g2rd_client_mode_message', '' );
@@ -940,6 +945,11 @@ class ThemeOptions {
         <?php
     }
 
+    /**
+     * Affiche la section "Fonctionnalités du thème" (toggles optionnels).
+     *
+     * @return void
+     */
     private function renderFeaturesSection(): void {
         $features = (array) \get_option(self::OPTION_FEATURES, []);
         ?>
