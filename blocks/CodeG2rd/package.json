@@ -5,7 +5,5 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start"
   },
-  "devDependencies": {
-    "@wordpress/scripts": "^31.8.0"
-  }
+  "devDependencies": {}
 }
