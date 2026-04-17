@@ -18,12 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Client_Mode {
 
+	/**
+	 * Indique si le mode client est actif.
+	 *
+	 * @var bool
+	 */
 	private bool $enabled;
 
+	/**
+	 * Initialise l'état du mode client depuis les options.
+	 */
 	public function __construct() {
 		$this->enabled = (bool) \get_option( 'g2rd_client_mode', false );
 	}
 
+	/**
+	 * Enregistre les hooks WordPress du mode client.
+	 *
+	 * @return void
+	 */
 	public function register_hooks(): void {
 		// Paramètre dans les options du thème.
 		\add_action( 'admin_init', [ $this, 'register_setting' ] );
@@ -45,6 +58,11 @@ class Client_Mode {
 		\add_action( 'admin_init', [ $this, 'block_restricted_pages' ] );
 	}
 
+	/**
+	 * Enregistre les options du mode client dans le groupe g2rd_options_group.
+	 *
+	 * @return void
+	 */
 	public function register_setting(): void {
 		\register_setting( 'g2rd_options_group', 'g2rd_client_mode', [
 			'type'              => 'boolean',

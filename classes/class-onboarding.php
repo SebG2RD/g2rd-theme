@@ -25,6 +25,11 @@ class Onboarding {
 	private const PAGE_SLUG     = 'g2rd-onboarding';
 	private const NONCE_ACTION  = 'g2rd_onboarding_action';
 
+	/**
+	 * Enregistre les hooks WordPress de l'assistant de démarrage.
+	 *
+	 * @return void
+	 */
 	public function register_hooks(): void {
 		if ( \get_option( self::OPTION_DONE ) ) {
 			return;
@@ -36,6 +41,11 @@ class Onboarding {
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 	}
 
+	/**
+	 * Ajoute la page d'onboarding dans le menu admin (hidden).
+	 *
+	 * @return void
+	 */
 	public function add_page(): void {
 		\add_submenu_page(
 			null,
@@ -47,6 +57,12 @@ class Onboarding {
 		);
 	}
 
+	/**
+	 * Charge les assets CSS de l'onboarding sur la page du wizard.
+	 *
+	 * @param string $hook Suffixe de la page admin courante.
+	 * @return void
+	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( false === strpos( $hook, self::PAGE_SLUG ) ) {
 			return;
@@ -55,6 +71,11 @@ class Onboarding {
 		\wp_enqueue_style( 'g2rd-onboarding', \get_template_directory_uri() . '/assets/css/onboarding.css', [], \wp_get_theme()->get( 'Version' ) );
 	}
 
+	/**
+	 * Affiche une bannière admin invitant à compléter l'onboarding.
+	 *
+	 * @return void
+	 */
 	public function show_banner(): void {
 		$screen = \get_current_screen();
 		if ( ! $screen || strpos( $screen->id, self::PAGE_SLUG ) !== false ) {
@@ -81,6 +102,11 @@ class Onboarding {
 		);
 	}
 
+	/**
+	 * Traite les soumissions de formulaire de l'onboarding (POST).
+	 *
+	 * @return void
+	 */
 	public function handle_actions(): void {
 		if ( ! isset( $_POST['g2rd_onboarding_nonce'] ) ) {
 			return;
@@ -192,6 +218,11 @@ class Onboarding {
 		}
 	}
 
+	/**
+	 * Affiche la page HTML du wizard d'onboarding.
+	 *
+	 * @return void
+	 */
 	public function render_page(): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
 			\wp_die( \esc_html__( 'Accès refusé.', 'g2rd' ) );

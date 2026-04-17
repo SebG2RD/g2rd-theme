@@ -199,7 +199,7 @@ class SEO_Helper {
 		if ( $images_total > 0 ) {
 			foreach ( $all_imgs[0] as $img ) {
 				if ( ! preg_match( '/alt=["\'][^"\']+["\']/', $img ) ) {
-					$images_no_alt++;
+					++$images_no_alt;
 				}
 			}
 		}
