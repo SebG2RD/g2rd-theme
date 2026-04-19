@@ -40,6 +40,7 @@ class ThemeAdmin {
         \add_action( 'admin_head', [ $this, 'outputAdminColorVars' ], 20 );
         \add_filter( 'manage_posts_columns', [ $this, 'addFeaturedImageColumn' ] );
         \add_action( 'manage_posts_custom_column', [ $this, 'displayFeaturedImageColumn' ], 10, 2 );
+        \add_action( 'wp_dashboard_setup', [ $this, 'register_geo_dashboard_widget' ] );
     }
     
     /**
@@ -229,5 +230,105 @@ class ThemeAdmin {
                 echo '—';
             }
         }
+    }
+
+    /**
+     * Enregistre le widget tableau de bord "Scores GEO G2RD".
+     *
+     * @return void
+     */
+    public function register_geo_dashboard_widget(): void {
+        if ( ! \current_user_can( 'edit_posts' ) ) {
+            return;
+        }
+        \wp_add_dashboard_widget(
+            'g2rd_geo_scores',
+            \esc_html__( 'Scores GEO — G2RD', 'g2rd' ),
+            [ $this, 'render_geo_dashboard_widget' ]
+        );
+    }
+
+    /**
+     * Affiche le contenu du widget tableau de bord GEO.
+     *
+     * @return void
+     */
+    public function render_geo_dashboard_widget(): void {
+        $posts = \get_posts(
+            [
+                'post_type'      => [ 'post', 'page' ],
+                'post_status'    => 'publish',
+                'posts_per_page' => 8,
+                'meta_key'       => '_g2rd_geo_score', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+                'orderby'        => 'meta_value_num',
+                'order'          => 'DESC',
+            ]
+        );
+
+        if ( empty( $posts ) ) {
+            echo '<p>' . \esc_html__( 'Aucun score GEO enregistré. Ouvrez une page dans Gutenberg pour lancer l\'analyse.', 'g2rd' ) . '</p>';
+            $this->render_geo_widget_footer();
+            return;
+        }
+
+        // Statistiques globales
+        $all_scored = \get_posts(
+            [
+                'post_type'      => [ 'post', 'page' ],
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'fields'         => 'ids',
+                'meta_key'       => '_g2rd_geo_score', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+            ]
+        );
+
+        $good_count = 0;
+        foreach ( $all_scored as $pid ) {
+            if ( (int) \get_post_meta( $pid, '_g2rd_geo_score', true ) >= 75 ) {
+                ++$good_count;
+            }
+        }
+
+        echo '<p class="g2rd-dash-geo__stats">';
+        printf(
+            /* translators: 1: nombre de bonnes pages, 2: total analysées */
+            \esc_html__( '%1$d page(s) avec un bon score GEO (≥ 75) sur %2$d analysées.', 'g2rd' ),
+            (int) $good_count,
+            count( $all_scored )
+        );
+        echo '</p>';
+
+        echo '<ul class="g2rd-dash-geo__list">';
+        foreach ( $posts as $post ) {
+            $score     = (int) \get_post_meta( $post->ID, '_g2rd_geo_score', true );
+            $color     = $score >= 75 ? '#22c55e' : ( $score >= 50 ? '#f59e0b' : '#ef4444' );
+            $edit_link = \get_edit_post_link( $post->ID );
+            $label     = \get_the_title( $post->ID );
+            echo '<li class="g2rd-dash-geo__item">';
+            echo '<span class="g2rd-dash-geo__score" style="background:' . \esc_attr( $color ) . '">' . \esc_html( (string) $score ) . '</span>';
+            echo '<a href="' . \esc_url( (string) $edit_link ) . '">' . \esc_html( $label ) . '</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+
+        $this->render_geo_widget_footer();
+    }
+
+    /**
+     * Affiche le pied de page du widget GEO (liens utiles).
+     *
+     * @return void
+     */
+    private function render_geo_widget_footer(): void {
+        $options_url    = \admin_url( 'admin.php?page=g2rd-options' );
+        $onboarding_url = \wp_nonce_url(
+            \admin_url( 'admin.php?action=g2rd_reset_onboarding' ),
+            'g2rd_reset_onboarding'
+        );
+        echo '<p class="g2rd-dash-geo__footer">';
+        echo '<a href="' . \esc_url( $options_url ) . '">' . \esc_html__( 'Paramètres GEO →', 'g2rd' ) . '</a>';
+        echo ' &nbsp;|&nbsp; ';
+        echo '<a href="' . \esc_url( $onboarding_url ) . '">' . \esc_html__( 'Relancer l\'assistant →', 'g2rd' ) . '</a>';
+        echo '</p>';
     }
 }

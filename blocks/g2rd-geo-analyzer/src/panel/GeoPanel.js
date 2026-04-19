@@ -5,12 +5,12 @@
  * Analyse le contenu Gutenberg en temps réel et affiche le score GEO.
  */
 
-import { useMemo, useCallback, useState } from '@wordpress/element';
-import { useSelect, useDispatch }         from '@wordpress/data';
-import { PanelBody, Button }              from '@wordpress/components';
-import { store as blockEditorStore }      from '@wordpress/block-editor';
-import { store as editorStore }           from '@wordpress/editor';
-import { createBlock }                    from '@wordpress/blocks';
+import { useMemo, useCallback, useState, useEffect } from '@wordpress/element';
+import { useSelect, useDispatch }                    from '@wordpress/data';
+import { PanelBody, Button }                         from '@wordpress/components';
+import { store as blockEditorStore }                 from '@wordpress/block-editor';
+import { store as editorStore }                      from '@wordpress/editor';
+import { createBlock }                               from '@wordpress/blocks';
 
 import ScoreGauge                         from './ScoreGauge';
 import CriterionCard                      from './CriterionCard';
@@ -24,11 +24,12 @@ export default function GeoPanel() {
 
 	const { insertBlocks } = useDispatch( blockEditorStore );
 
-	// Récupère les blocs, le titre et le type de post depuis le store WP
-	const { blocks, title, postType } = useSelect( ( select ) => ( {
+	// Récupère les blocs, le titre, le type de post et l'ID du post
+	const { blocks, title, postType, postId } = useSelect( ( select ) => ( {
 		blocks:   select( blockEditorStore ).getBlocks(),
 		title:    select( editorStore ).getEditedPostAttribute( 'title' ) ?? '',
 		postType: select( editorStore ).getCurrentPostType() ?? 'page',
+		postId:   select( editorStore ).getCurrentPostId() ?? 0,
 	} ), [ manualRefresh ] );
 
 	// Analyse mémoïsée (recalcul uniquement si blocks/title changent)
@@ -46,6 +47,26 @@ export default function GeoPanel() {
 	const handleRefresh = useCallback( () => {
 		setManualRefresh( ( n ) => n + 1 );
 	}, [] );
+
+	// Sauvegarde le score en post meta via REST (debounce 3s)
+	useEffect( () => {
+		if ( ! analysis || ! postId ) return;
+		const timer = setTimeout( () => {
+			window.fetch( `${ window.wpApiSettings?.root ?? '/wp-json/' }g2rd/v1/geo-score`, {
+				method:  'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce':   window.wpApiSettings?.nonce ?? '',
+				},
+				body: JSON.stringify( {
+					post_id:   postId,
+					score:     analysis.score,
+					page_type: analysis.pageType ?? '',
+				} ),
+			} ).catch( () => {} );
+		}, 3000 );
+		return () => clearTimeout( timer );
+	}, [ analysis?.score, postId ] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleInsertBlock = useCallback( ( blockDef ) => {
 		const block = createBlock( blockDef.name, blockDef.attributes ?? {} );

@@ -100,6 +100,36 @@ class GeoAnalyzer {
     public function register_rest_routes(): void {
         \register_rest_route(
             self::REST_NAMESPACE,
+            '/geo-score',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [ $this, 'rest_save_score' ],
+                'permission_callback' => static function (): bool {
+                    return \current_user_can( 'edit_posts' );
+                },
+                'args'                => [
+                    'post_id'   => [
+                        'required'          => true,
+                        'type'              => 'integer',
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'score'     => [
+                        'required'          => true,
+                        'type'              => 'integer',
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'page_type' => [
+                        'required'          => false,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_key',
+                        'default'           => '',
+                    ],
+                ],
+            ]
+        );
+
+        \register_rest_route(
+            self::REST_NAMESPACE,
             '/geo-analyze',
             [
                 'methods'             => \WP_REST_Server::CREATABLE,
@@ -121,6 +151,28 @@ class GeoAnalyzer {
                 ],
             ]
         );
+    }
+
+    /**
+     * Callback REST — sauvegarde du score GEO en post meta.
+     *
+     * @param \WP_REST_Request $request Requête REST.
+     * @return \WP_REST_Response
+     */
+    public function rest_save_score( \WP_REST_Request $request ): \WP_REST_Response {
+        $post_id   = (int) $request->get_param( 'post_id' );
+        $score     = min( 100, max( 0, (int) $request->get_param( 'score' ) ) );
+        $page_type = (string) $request->get_param( 'page_type' );
+
+        if ( ! \get_post( $post_id ) || ! \current_user_can( 'edit_post', $post_id ) ) {
+            return new \WP_REST_Response( [ 'error' => 'Forbidden' ], 403 );
+        }
+
+        \update_post_meta( $post_id, '_g2rd_geo_score',     $score );
+        \update_post_meta( $post_id, '_g2rd_geo_page_type', \sanitize_key( $page_type ) );
+        \update_post_meta( $post_id, '_g2rd_geo_score_date', \current_time( 'mysql' ) );
+
+        return new \WP_REST_Response( [ 'success' => true, 'score' => $score ], 200 );
     }
 
     /**

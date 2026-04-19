@@ -31,6 +31,9 @@ class Onboarding {
 	 * @return void
 	 */
 	public function register_hooks(): void {
+		// Le handler de relance est enregistré inconditionnellement
+		\add_action( 'admin_init', [ $this, 'handle_reset_action' ] );
+
 		if ( \get_option( self::OPTION_DONE ) ) {
 			return;
 		}
@@ -392,5 +395,31 @@ class Onboarding {
 	public static function reset(): void {
 		\delete_option( self::OPTION_DONE );
 		\delete_option( self::OPTION_STEP );
+	}
+
+	/**
+	 * Gère l'action admin de relance de l'assistant depuis n'importe quelle page.
+	 *
+	 * URL : admin.php?action=g2rd_reset_onboarding&_wpnonce=...
+	 *
+	 * @return void
+	 */
+	public function handle_reset_action(): void {
+		if ( ! isset( $_GET['action'] ) || 'g2rd_reset_onboarding' !== $_GET['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		$nonce = isset( $_GET['_wpnonce'] ) ? \sanitize_text_field( \wp_unslash( $_GET['_wpnonce'] ) ) : '';
+		if ( ! \wp_verify_nonce( $nonce, 'g2rd_reset_onboarding' ) ) {
+			\wp_die( \esc_html__( 'Vérification de sécurité échouée.', 'g2rd' ), 403 );
+		}
+
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			\wp_die( \esc_html__( 'Vous n\'avez pas la permission d\'effectuer cette action.', 'g2rd' ), 403 );
+		}
+
+		self::reset();
+		\wp_safe_redirect( \admin_url( 'admin.php?page=g2rd-onboarding' ) );
+		exit;
 	}
 }
