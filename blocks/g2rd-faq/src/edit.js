@@ -9,7 +9,19 @@ import {
   TextareaControl,
   Button,
 } from "@wordpress/components";
-import { useState } from "@wordpress/element";
+import { useState, useCallback } from "@wordpress/element";
+
+const ICON_MAP = {
+  "plus-minus": { open: "−", closed: "+" },
+  chevron: { open: "▲", closed: "▼" },
+  arrow: { open: "▲", closed: "▶" },
+};
+
+const ICON_OPTIONS = [
+  { label: "Plus / Moins", value: "plus-minus" },
+  { label: "Chevron",      value: "chevron" },
+  { label: "Flèche",       value: "arrow" },
+];
 
 export default function Edit({ attributes, setAttributes }) {
   const {
@@ -31,52 +43,42 @@ export default function Edit({ attributes, setAttributes }) {
 
   const blockProps = useBlockProps({ className: "g2rd-faq" });
 
-  // Ajouter un item FAQ
-  const addItem = () => {
+  const addItem = useCallback(() => {
     setAttributes({
       items: [...items, { question: __("Nouvelle question ?", "g2rd"), answer: __("Votre réponse ici.", "g2rd") }],
     });
     setOpenIndex(items.length);
-  };
+  }, [items, setAttributes]);
 
-  // Supprimer un item
-  const removeItem = (idx) => {
+  const removeItem = useCallback((idx) => {
     setAttributes({ items: items.filter((_, i) => i !== idx) });
     setOpenIndex(-1);
-  };
+  }, [items, setAttributes]);
 
-  // Mettre à jour un champ d'un item
-  const updateItem = (idx, field, value) => {
+  const updateItem = useCallback((idx, field, value) => {
     const updated = items.map((item, i) =>
       i === idx ? { ...item, [field]: value } : item
     );
     setAttributes({ items: updated });
-  };
+  }, [items, setAttributes]);
 
-  // Déplacer un item vers le haut
-  const moveUp = (idx) => {
+  const moveUp = useCallback((idx) => {
     if (idx === 0) return;
     const updated = [...items];
     [updated[idx - 1], updated[idx]] = [updated[idx], updated[idx - 1]];
     setAttributes({ items: updated });
     setOpenIndex(idx - 1);
-  };
+  }, [items, setAttributes]);
 
-  // Déplacer un item vers le bas
-  const moveDown = (idx) => {
+  const moveDown = useCallback((idx) => {
     if (idx === items.length - 1) return;
     const updated = [...items];
     [updated[idx], updated[idx + 1]] = [updated[idx + 1], updated[idx]];
     setAttributes({ items: updated });
     setOpenIndex(idx + 1);
-  };
+  }, [items, setAttributes]);
 
-  const iconMap = {
-    "plus-minus": { open: "−", closed: "+" },
-    chevron: { open: "▲", closed: "▼" },
-    arrow: { open: "▲", closed: "▶" },
-  };
-  const icons = iconMap[iconType] || iconMap["plus-minus"];
+  const icons = ICON_MAP[iconType] || ICON_MAP["plus-minus"];
 
   return (
     <>
@@ -116,11 +118,7 @@ export default function Edit({ attributes, setAttributes }) {
           <SelectControl
             label={__("Type d'icône", "g2rd")}
             value={iconType}
-            options={[
-              { label: __("Plus / Moins", "g2rd"), value: "plus-minus" },
-              { label: __("Chevron", "g2rd"), value: "chevron" },
-              { label: __("Flèche", "g2rd"), value: "arrow" },
-            ]}
+            options={ICON_OPTIONS}
             onChange={(v) => setAttributes({ iconType: v })}
           />
           <RangeControl

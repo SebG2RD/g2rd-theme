@@ -85,7 +85,7 @@ if ( $optimize_geo ) :
 			itemprop="mainEntity"
 			itemtype="https://schema.org/Question"
 		>
-			<details class="g2rd-faq__details"<?php echo 0 === $i ? ' open' : ''; ?>>
+			<details class="g2rd-faq__details"<?php echo ( $open_first && 0 === $i ) ? ' open' : ''; ?>>
 				<summary class="g2rd-faq__question" itemprop="name">
 					<span class="g2rd-faq__question-text"><?php echo esc_html( $question ); ?></span>
 					<span class="g2rd-faq__icon" aria-hidden="true">▾</span>
@@ -152,6 +152,7 @@ if ( $optimize_geo ) :
 			<button
 				class="g2rd-faq__question"
 				type="button"
+				id="<?php echo esc_attr( 'g2rd-faq-btn-' . $i ); ?>"
 				aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>"
 				aria-controls="<?php echo esc_attr( 'g2rd-faq-answer-' . $i ); ?>"
 			>
@@ -162,6 +163,7 @@ if ( $optimize_geo ) :
 				class="g2rd-faq__answer"
 				id="<?php echo esc_attr( 'g2rd-faq-answer-' . $i ); ?>"
 				role="region"
+				aria-labelledby="<?php echo esc_attr( 'g2rd-faq-btn-' . $i ); ?>"
 			>
 				<div class="g2rd-faq__answer-inner">
 					<p><?php echo wp_kses_post( $answer ); ?></p>
