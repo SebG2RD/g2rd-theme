@@ -5,7 +5,7 @@
  */
 ( function () {
 	const { registerPlugin }     = wp.plugins;
-	const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editPost;
+	const { PluginSidebar, PluginSidebarMoreMenuItem } = wp.editor;
 	const { createElement: el, useState, useEffect, Fragment } = wp.element;
 	const { Button, Spinner, Icon }  = wp.components;
 	const { useSelect }              = wp.data;
