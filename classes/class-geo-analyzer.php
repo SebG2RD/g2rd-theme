@@ -178,9 +178,10 @@ class GeoAnalyzer {
     /**
      * Callback REST — analyse complémentaire côté serveur.
      *
-     * Retourne des informations que le JS ne peut pas détecter facilement :
-     *  - Présence de données structurées JSON-LD dans la page
-     *  - Meta description renseignée
+     * Retourne des informations que le JS ne peut pas détecter :
+     *  - Types de schemas JSON-LD présents et leur complétude (@graph supporté)
+     *  - Meta description renseignée (Yoast / RankMath / SEOPress)
+     *  - Lisibilité : longueur moyenne des phrases
      *  - Nombre de mots (texte seul, sans balises)
      *
      * @param \WP_REST_Request $request Requête REST.
@@ -189,21 +190,100 @@ class GeoAnalyzer {
     public function rest_analyze( \WP_REST_Request $request ): \WP_REST_Response {
         $post_id = $request->get_param( 'post_id' );
         $content = $request->get_param( 'content' ) ?? '';
+        $plain   = \wp_strip_all_tags( $content );
 
         $result = [
-            'wordCount'       => \str_word_count( \wp_strip_all_tags( $content ) ),
-            'hasMetaDesc'     => false,
-            'hasJsonLd'       => \str_contains( $content, 'application/ld+json' ),
-            'hasGeoSummary'   => \str_contains( $content, 'wp-block-g2rd-geo-summary' ),
-            'hasGeoFaq'       => \str_contains( $content, 'wp-block-g2rd-geo-faq' )
-                                || \str_contains( $content, 'g2rd-faq--geo' ),
+            'wordCount'     => \str_word_count( $plain ),
+            'hasMetaDesc'   => false,
+            'hasGeoSummary' => \str_contains( $content, 'wp-block-g2rd-geo-summary' ),
+            'hasGeoFaq'     => \str_contains( $content, 'wp-block-g2rd-geo-faq' ) || \str_contains( $content, 'g2rd-faq--geo' ),
+            'jsonLd'        => [
+                'detected'   => false,
+                'types'      => [],
+                'isComplete' => false,
+            ],
+            'readability'   => [
+                'avgWordsPerSentence' => 0,
+                'sentenceCount'       => 0,
+            ],
         ];
 
+        // ── Détection JSON-LD dans le contenu du post ──────────────────────
+        $source = $post_id ? (string) \get_post_field( 'post_content', \absint( $post_id ) ) : $content;
+
+        if ( \preg_match_all(
+            '/<script[^>]+type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/si',
+            $source,
+            $matches
+        ) ) {
+            $json_ld_types    = [];
+            $json_ld_complete = false;
+
+            foreach ( $matches[1] as $json_raw ) {
+                $data = \json_decode( \wp_strip_all_tags( $json_raw ), true );
+                if ( ! \is_array( $data ) ) {
+                    continue;
+                }
+
+                $items = isset( $data['@graph'] ) ? $data['@graph'] : [ $data ];
+                foreach ( $items as $item ) {
+                    if ( ! \is_array( $item ) ) {
+                        continue;
+                    }
+                    $type = $item['@type'] ?? null;
+                    if ( $type ) {
+                        $json_ld_types[] = \sanitize_text_field( (string) $type );
+                        if ( ! empty( $item['name'] ) && ( ! empty( $item['description'] ) || ! empty( $item['url'] ) ) ) {
+                            $json_ld_complete = true;
+                        }
+                    }
+                }
+            }
+
+            $result['jsonLd'] = [
+                'detected'   => ! empty( $json_ld_types ),
+                'types'      => \array_values( \array_unique( $json_ld_types ) ),
+                'isComplete' => $json_ld_complete,
+            ];
+        }
+
+        // ── Meta description (Yoast / RankMath / SEOPress) ─────────────────
         if ( $post_id ) {
-            $meta_desc            = \get_post_meta( $post_id, '_yoast_wpseo_metadesc', true )
-                ?? \get_post_meta( $post_id, 'rank_math_description', true )
-                ?? '';
+            $pid       = \absint( $post_id );
+            $meta_desc = \get_post_meta( $pid, '_yoast_wpseo_metadesc', true )
+                ?: \get_post_meta( $pid, 'rank_math_description', true )
+                ?: \get_post_meta( $pid, '_seopress_titles_desc', true )
+                ?: '';
             $result['hasMetaDesc'] = ! empty( $meta_desc );
+        }
+
+        // ── Lisibilité serveur : longueur moyenne des phrases ───────────────
+        if ( $plain ) {
+            $raw_sentences = \preg_split( '/[.!?]+/u', $plain, -1, PREG_SPLIT_NO_EMPTY ) ?: [];
+            $sentences     = \array_values(
+                \array_filter(
+                    $raw_sentences,
+                    static function ( string $s ): bool {
+                        return \str_word_count( \trim( $s ) ) > 3;
+                    }
+                )
+            );
+
+            $sentence_count = \count( $sentences );
+            if ( $sentence_count > 0 ) {
+                $total_words = (int) \array_sum(
+                    \array_map(
+                        static function ( string $s ): int {
+                            return (int) \str_word_count( \trim( $s ) );
+                        },
+                        $sentences
+                    )
+                );
+                $result['readability'] = [
+                    'avgWordsPerSentence' => \round( $total_words / $sentence_count, 1 ),
+                    'sentenceCount'       => $sentence_count,
+                ];
+            }
         }
 
         return new \WP_REST_Response( $result, 200 );

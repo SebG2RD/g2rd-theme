@@ -50,6 +50,12 @@ function statusIcon( score, max ) {
 	return <IconError />;
 }
 
+const PRIORITY_ICONS = {
+	high:   '🔴',
+	medium: '🟡',
+	low:    '⚪',
+};
+
 /**
  * @param {{
  *   criterionKey: string,
@@ -113,7 +119,18 @@ export default function CriterionCard( { label, data } ) {
 							<span className="g2rd-geo__detail-icon" aria-hidden="true">
 								{ DETAIL_ICONS[ d.status ] }
 							</span>
-							<span className="g2rd-geo__detail-text">{ d.text }</span>
+							<span className="g2rd-geo__detail-text">
+								{ d.priority && d.status !== 'ok' && (
+									<span
+										className={ `g2rd-geo__detail-priority` }
+										title={ d.priority }
+										aria-hidden="true"
+									>
+										{ PRIORITY_ICONS[ d.priority ] }{ ' ' }
+									</span>
+								) }
+								{ d.text }
+							</span>
 						</li>
 					) ) }
 				</ul>

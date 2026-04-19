@@ -325,12 +325,22 @@
 	text-decoration: underline;
 }
 
+/* ── Ligne méta (type de page + domaine) ────────────────────────── */
+
+.g2rd-geo__meta-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 5px;
+	padding: 10px 12px 4px;
+}
+
 /* ── Badge type de page ──────────────────────────────────────────── */
 
 .g2rd-geo__page-type {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
-	gap: 5px;
+	gap: 4px;
 	font-size: 11px;
 	font-weight: 500;
 	color: #64748b;
@@ -338,12 +348,99 @@
 	border: 1px solid #e2e8f0;
 	border-radius: 20px;
 	padding: 3px 10px;
-	margin: 0 0 8px;
-	width: -moz-fit-content;
-	width: fit-content;
 }
 
 .g2rd-geo__page-type-icon {
 	font-size: 10px;
+}
+
+/* ── Badge domaine métier ────────────────────────────────────────── */
+
+.g2rd-geo__domain-badge {
+	display: inline-flex;
+	align-items: center;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #6366f1;
+	background: #eef2ff;
+	border: 1px solid #c7d2fe;
+	border-radius: 20px;
+	padding: 3px 9px;
+}
+
+/* ── Badges priorité dans les recommandations ────────────────────── */
+
+.g2rd-geo__rec-priority {
+	display: block;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-bottom: 2px;
+}
+
+.g2rd-geo__rec-priority--high   { color: #dc2626; }
+
+.g2rd-geo__rec-priority--medium { color: #d97706; }
+
+.g2rd-geo__rec-priority--low    { color: #6b7280; }
+
+/* ── Indicateur priorité dans les détails (CriterionCard) ───────── */
+
+.g2rd-geo__detail-priority {
+	font-size: 10px;
+	margin-left: 2px;
+}
+
+/* ── Panel suggestions IA ────────────────────────────────────────── */
+
+.g2rd-geo__suggestion {
+	margin-bottom: 14px;
+}
+
+.g2rd-geo__suggestion:last-child {
+	margin-bottom: 0;
+}
+
+.g2rd-geo__suggestion-label {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #64748b;
+	margin: 0 0 6px;
+}
+
+.g2rd-geo__suggestion-text {
+	font-size: 12px;
+	line-height: 1.55;
+	color: #334155;
+	background: #f8fafc;
+	border: 1px dashed #cbd5e1;
+	border-radius: 4px;
+	padding: 8px 10px;
+	margin: 0;
+	font-style: italic;
+}
+
+.g2rd-geo__suggestion-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.g2rd-geo__suggestion-list li {
+	font-size: 12px;
+	color: #334155;
+	background: #f8fafc;
+	border-right: 2px solid #6366f1;
+	padding: 5px 8px;
+	border-radius: 4px 0 0 4px;
+	line-height: 1.4;
 }
 

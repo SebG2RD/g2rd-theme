@@ -12,19 +12,29 @@ import { store as blockEditorStore }                 from '@wordpress/block-edit
 import { store as editorStore }                      from '@wordpress/editor';
 import { createBlock }                               from '@wordpress/blocks';
 
-import ScoreGauge                         from './ScoreGauge';
-import CriterionCard                      from './CriterionCard';
-import { analyzeContent, getGlobalColor, CRITERIA_LABELS, PAGE_TYPE_LABELS } from '../utils/analyzer';
+import ScoreGauge    from './ScoreGauge';
+import CriterionCard from './CriterionCard';
+import {
+	analyzeContent,
+	getGlobalColor,
+	CRITERIA_LABELS,
+	PAGE_TYPE_LABELS,
+	DOMAIN_LABELS,
+} from '../utils/analyzer';
 
-/** Nombre minimum de mots pour déclencher l'analyse (évite le bruit) */
-const MIN_WORDS = 20;
+const PRIORITY_LABELS = {
+	high:   'Haute priorité',
+	medium: 'Priorité moyenne',
+	low:    'Faible priorité',
+};
+
+const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
 
 export default function GeoPanel() {
 	const [ manualRefresh, setManualRefresh ] = useState( 0 );
 
 	const { insertBlocks } = useDispatch( blockEditorStore );
 
-	// Récupère les blocs, le titre, le type de post et l'ID du post
 	const { blocks, title, postType, postId } = useSelect( ( select ) => ( {
 		blocks:   select( blockEditorStore ).getBlocks(),
 		title:    select( editorStore ).getEditedPostAttribute( 'title' ) ?? '',
@@ -32,17 +42,13 @@ export default function GeoPanel() {
 		postId:   select( editorStore ).getCurrentPostId() ?? 0,
 	} ), [ manualRefresh ] );
 
-	// Analyse mémoïsée (recalcul uniquement si blocks/title changent)
 	const analysis = useMemo( () => {
-		// Heuristique rapide : si peu de blocs, retourner un état vide
 		const textBlocks = blocks.filter( ( b ) =>
 			[ 'core/paragraph', 'core/heading', 'core/list' ].includes( b.name )
 		);
-		if ( textBlocks.length === 0 ) {
-			return null;
-		}
+		if ( textBlocks.length === 0 ) return null;
 		return analyzeContent( blocks, title, postType );
-	}, [ blocks, title ] );
+	}, [ blocks, title, postType ] );
 
 	const handleRefresh = useCallback( () => {
 		setManualRefresh( ( n ) => n + 1 );
@@ -73,7 +79,6 @@ export default function GeoPanel() {
 		insertBlocks( block );
 	}, [ insertBlocks ] );
 
-	// État vide (contenu insuffisant)
 	if ( ! analysis ) {
 		return (
 			<div className="g2rd-geo g2rd-geo--empty">
@@ -85,30 +90,37 @@ export default function GeoPanel() {
 		);
 	}
 
-	const { score, criteria, pageType } = analysis;
-	const color                         = getGlobalColor( score );
+	const { score, criteria, pageType, domain, aiSuggestions } = analysis;
+	const color = getGlobalColor( score );
 
-	// Collecte toutes les recommandations (détails warning/error)
+	// Recommandations triées : haute → moyenne → faible priorité
 	const recommendations = Object.values( criteria )
 		.flatMap( ( c ) => c.details )
-		.filter( ( d ) => d.status !== 'ok' );
+		.filter( ( d ) => d.status !== 'ok' )
+		.sort( ( a, b ) => ( PRIORITY_ORDER[ a.priority ] ?? 3 ) - ( PRIORITY_ORDER[ b.priority ] ?? 3 ) );
 
 	return (
 		<div className="g2rd-geo">
 
-			{/* ── Type de page détecté ─────────────────────────── */}
-			{ pageType && (
-				<div className="g2rd-geo__page-type">
-					<span className="g2rd-geo__page-type-icon" aria-hidden="true">📄</span>
-					{ PAGE_TYPE_LABELS[ pageType ] ?? pageType }
-				</div>
-			) }
+			{/* ── Type de page + domaine détecté ───────────────────── */}
+			<div className="g2rd-geo__meta-row">
+				{ pageType && (
+					<span className="g2rd-geo__page-type">
+						<span className="g2rd-geo__page-type-icon" aria-hidden="true">📄</span>
+						{ PAGE_TYPE_LABELS[ pageType ] ?? pageType }
+					</span>
+				) }
+				{ domain && (
+					<span className="g2rd-geo__domain-badge">
+						{ DOMAIN_LABELS[ domain ] }
+					</span>
+				) }
+			</div>
 
-			{/* ── Score global ──────────────────────────────────── */}
+			{/* ── Score global ──────────────────────────────────────── */}
 			<div className="g2rd-geo__header">
 				<ScoreGauge score={ score } />
 
-				{/* Barre globale */}
 				<div className="g2rd-geo__global-bar-track">
 					<div
 						className="g2rd-geo__global-bar-fill"
@@ -119,7 +131,6 @@ export default function GeoPanel() {
 					/>
 				</div>
 
-				{/* Bouton rafraîchir */}
 				<Button
 					className="g2rd-geo__refresh-btn"
 					variant="tertiary"
@@ -130,9 +141,9 @@ export default function GeoPanel() {
 				</Button>
 			</div>
 
-			{/* ── Critères ──────────────────────────────────────── */}
+			{/* ── Critères ──────────────────────────────────────────── */}
 			<PanelBody
-				title={ `Critères (${ Object.values( criteria ).filter( c => c.score / c.max >= 0.8 ).length }/${ Object.keys( criteria ).length } validés)` }
+				title={ `Critères (${ Object.values( criteria ).filter( ( c ) => c.score / c.max >= 0.8 ).length }/${ Object.keys( criteria ).length } validés)` }
 				initialOpen={ true }
 				className="g2rd-geo__panel-criteria"
 			>
@@ -146,7 +157,7 @@ export default function GeoPanel() {
 				) ) }
 			</PanelBody>
 
-			{/* ── Recommandations ───────────────────────────────── */}
+			{/* ── Recommandations triées par priorité ───────────────── */}
 			{ recommendations.length > 0 && (
 				<PanelBody
 					title={ `Recommandations (${ recommendations.length })` }
@@ -161,6 +172,11 @@ export default function GeoPanel() {
 							>
 								<span className="g2rd-geo__rec-dot" aria-hidden="true" />
 								<span className="g2rd-geo__rec-body">
+									{ rec.priority && (
+										<span className={ `g2rd-geo__rec-priority g2rd-geo__rec-priority--${ rec.priority }` }>
+											{ PRIORITY_LABELS[ rec.priority ] }
+										</span>
+									) }
 									{ rec.text }
 									{ rec.block && (
 										<Button
@@ -178,20 +194,29 @@ export default function GeoPanel() {
 				</PanelBody>
 			) }
 
-			{/* ── Blocs suggérés ────────────────────────────────── */}
-			{ ( ! Object.values( criteria ).some( c => c.score > 0 && c.max >= 10 && c.score / c.max >= 0.8 ) ) && (
-				<PanelBody title="Blocs GEO recommandés" initialOpen={ false }>
-					<p className="g2rd-geo__blocks-hint">
-						Ces blocs améliorent automatiquement votre score GEO :
-					</p>
-					<ul className="g2rd-geo__blocks-list">
-						<li>
-							<strong>Résumé GEO</strong> — TL;DR pour les IA
-						</li>
-						<li>
-							<strong>FAQ G2RD (mode GEO)</strong> — Questions/réponses avec schema.org
-						</li>
-					</ul>
+			{/* ── Suggestions IA ────────────────────────────────────── */}
+			{ aiSuggestions && ( aiSuggestions.summary || aiSuggestions.faqQuestions.length > 0 ) && (
+				<PanelBody
+					title="✨ Suggestions pour l'IA"
+					initialOpen={ false }
+					className="g2rd-geo__panel-suggestions"
+				>
+					{ aiSuggestions.summary && (
+						<div className="g2rd-geo__suggestion">
+							<p className="g2rd-geo__suggestion-label">Résumé suggéré</p>
+							<p className="g2rd-geo__suggestion-text">{ aiSuggestions.summary }</p>
+						</div>
+					) }
+					{ aiSuggestions.faqQuestions.length > 0 && (
+						<div className="g2rd-geo__suggestion">
+							<p className="g2rd-geo__suggestion-label">Questions FAQ adaptées</p>
+							<ul className="g2rd-geo__suggestion-list">
+								{ aiSuggestions.faqQuestions.map( ( q, i ) => (
+									<li key={ i }>{ q }</li>
+								) ) }
+							</ul>
+						</div>
+					) }
 				</PanelBody>
 			) }
 
