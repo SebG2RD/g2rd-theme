@@ -200,7 +200,13 @@ composer run phpcs:compat          # PHPCompatibility 8.0+
 ### CSS / SCSS
 
 - Convention BEM : `.block__element--modifier`
-- Utiliser les custom properties CSS définies dans `theme.json`
+- **Toujours utiliser les variables CSS du thème** — jamais de valeurs hex, rgb ou nommées en dur
+  - Couleurs front : `var(--wp--preset--color--{slug})` (ex. `var(--wp--preset--color--primary)`)
+  - Couleurs admin : `var(--primary-color)`, `var(--secondary-color)` injectées par `ThemeAdmin::outputAdminColorVars()`
+  - Espacements : `var(--wp--preset--spacing--{slug})`
+  - Typographie : `var(--wp--preset--font-size--{slug})`
+  - Ombres : `var(--wp--preset--shadow--{slug})`
+- Ces variables sont résolues depuis `theme.json` **et** la variation de style active → le CSS s'adapte automatiquement quand l'utilisateur change de style
 - Pas de `!important` sauf cas exceptionnel documenté
 - Mobile-first pour le responsive
 - Design tokens définis dans `theme-settings.json` — ne jamais coder de valeurs brutes (couleurs, tailles) en dur
@@ -332,3 +338,4 @@ Invoquer avec `/nom-du-skill` pour charger un contexte expert spécialisé.
 | `/code-reviewer` | Revue de code : qualité, sécurité, bonnes pratiques, checklist PR |
 | `/webapp-testing` | Tests frontend avec Playwright, debug UI, vérification comportement visuel |
 | `/skill-creator` | Créer ou améliorer un skill `.claude/skills/` |
+| `/production` | **Release** : bump version, changelog README, PHPCS, build, ZIP, commit `release:` |
