@@ -24,6 +24,7 @@ export default function Edit({ attributes, setAttributes }) {
     separatorColor,
     openFirst,
     allowMultiple,
+    optimizeForGEO,
   } = attributes;
 
   const [openIndex, setOpenIndex] = useState(openFirst ? 0 : -1);
@@ -80,6 +81,25 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
+        <PanelBody title={__("Optimisation SEO / GEO", "g2rd")} initialOpen={false}>
+          <ToggleControl
+            label={__("Activer le mode GEO", "g2rd")}
+            help={
+              optimizeForGEO
+                ? __("Schema FAQPage JSON-LD actif — questions indexables par les IA.", "g2rd")
+                : __("Génère un schema.org FAQPage + JSON-LD pour les moteurs et les IA.", "g2rd")
+            }
+            checked={!!optimizeForGEO}
+            onChange={(v) => setAttributes({ optimizeForGEO: v })}
+            __nextHasNoMarginBottom
+          />
+          {optimizeForGEO && (
+            <p style={{ marginTop: "8px", fontSize: "12px", color: "#3c434a" }}>
+              {"✓ Microdata schema.org + JSON-LD FAQPage générés côté serveur."}
+            </p>
+          )}
+        </PanelBody>
+
         <PanelBody title={__("Comportement", "g2rd")} initialOpen={true}>
           <ToggleControl
             label={__("Ouvrir le premier item par défaut", "g2rd")}

@@ -174,14 +174,25 @@ function analyzeFAQ( blocks, fullText ) {
 	let score = 0;
 	const details = [];
 
-	const faqBlocks = [ 'yoast/faq-block', 'g2rd/faq', 'g2rd/geo-faq', 'core/faq' ];
-	const hasFaq    = blocks.some( ( b ) => faqBlocks.includes( b.name ) );
+	// Bloc FAQ avec mode GEO actif (schema FAQPage + JSON-LD)
+	const hasGeoFaq = blocks.some(
+		( b ) => b.name === 'g2rd/geo-faq' ||
+		         ( b.name === 'g2rd/faq' && b.attributes?.optimizeForGEO )
+	);
 
-	if ( hasFaq ) {
+	// Bloc FAQ quelconque (standard, sans GEO)
+	const hasAnyFaq = hasGeoFaq || blocks.some(
+		( b ) => [ 'yoast/faq-block', 'g2rd/faq', 'core/faq' ].includes( b.name )
+	);
+
+	if ( hasGeoFaq ) {
 		score += 6;
-		details.push( { status: 'ok', text: 'Bloc FAQ structuré présent — idéal pour les IA' } );
+		details.push( { status: 'ok', text: 'Bloc FAQ en mode GEO — schema FAQPage actif' } );
+	} else if ( hasAnyFaq ) {
+		score += 4;
+		details.push( { status: 'warning', text: 'Bloc FAQ présent — activez le mode GEO pour le schema FAQPage' } );
 	} else {
-		details.push( { status: 'error', text: 'Ajoutez un bloc FAQ GEO (≥ 3 questions)' } );
+		details.push( { status: 'error', text: 'Ajoutez un bloc FAQ et activez le mode GEO (≥ 3 questions)' } );
 	}
 
 	// Phrases interrogatives dans le texte
@@ -320,12 +331,17 @@ function analyzeSchema( blocks, fullText ) {
 	let score = 0;
 	const details = [];
 
-	// FAQ schema (via bloc GEO ou Yoast)
-	if ( blocks.some( ( b ) => [ 'g2rd/geo-faq', 'yoast/faq-block' ].includes( b.name ) ) ) {
+	// FAQ schema (bloc FAQ GEO, FAQ G2RD en mode GEO, ou Yoast)
+	const hasFaqSchema = blocks.some(
+		( b ) => b.name === 'g2rd/geo-faq' ||
+		         b.name === 'yoast/faq-block' ||
+		         ( b.name === 'g2rd/faq' && b.attributes?.optimizeForGEO )
+	);
+	if ( hasFaqSchema ) {
 		score += 4;
 		details.push( { status: 'ok', text: 'Schema FAQPage prêt à être indexé' } );
 	} else {
-		details.push( { status: 'warning', text: 'Utilisez le bloc FAQ GEO pour activer le schema FAQPage' } );
+		details.push( { status: 'warning', text: 'Utilisez le bloc FAQ (mode GEO activé) pour le schema FAQPage' } );
 	}
 
 	// LocalBusiness (heuristique : présence d'adresse ou horaires)

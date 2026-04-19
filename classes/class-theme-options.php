@@ -130,7 +130,7 @@ class ThemeOptions {
         'g2rd/advanced-list'     => [ 'title' => 'Liste avancée',          'icon' => 'editor-ul' ],
         'g2rd/charts'            => [ 'title' => 'Graphiques',             'icon' => 'chart-bar' ],
         'g2rd/dynamic-content'   => [ 'title' => 'Contenu dynamique',      'icon' => 'database' ],
-        'g2rd/faq'               => [ 'title' => 'FAQ Accordéon',          'icon' => 'editor-help' ],
+        'g2rd/faq'               => [ 'title' => 'FAQ (accordéon + GEO)',   'icon' => 'editor-help' ],
         'g2rd/breadcrumb'        => [ 'title' => 'Fil d\'Ariane',          'icon' => 'arrow-right-alt' ],
         'g2rd/card'              => [ 'title' => 'Carte',                  'icon' => 'id-alt' ],
         'g2rd/carousel'          => [ 'title' => 'Carrousel',              'icon' => 'slides' ],

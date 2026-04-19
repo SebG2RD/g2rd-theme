@@ -2,7 +2,7 @@
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
     "name": "g2rd/faq",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "title": "FAQ G2RD",
     "category": "g2rd-blocks",
     "icon": {
@@ -10,13 +10,14 @@
         "foreground": "#FAFAFA",
         "background": "#2F425D"
     },
-    "description": "Bloc FAQ accordéon avec animation d'ouverture et personnalisation complète des couleurs du thème.",
-    "keywords": ["faq", "accordéon", "accordion", "questions", "réponses"],
+    "description": "Bloc FAQ accordéon — mode standard ou optimisé SEO/GEO (schema.org FAQPage + JSON-LD).",
+    "keywords": ["faq", "accordéon", "accordion", "questions", "réponses", "schema", "geo", "seo"],
     "textdomain": "g2rd",
     "editorScript": "file:./build/index.js",
     "editorStyle": "file:./src/style.css",
     "style": "file:./src/style.css",
     "script": "file:./build/view.js",
+    "render": "file:./render.php",
     "attributes": {
         "items": {
             "type": "array",
@@ -34,7 +35,8 @@
         "borderRadius": { "type": "number", "default": 8 },
         "separatorColor": { "type": "string", "default": "" },
         "openFirst": { "type": "boolean", "default": false },
-        "allowMultiple": { "type": "boolean", "default": false }
+        "allowMultiple": { "type": "boolean", "default": false },
+        "optimizeForGEO": { "type": "boolean", "default": false }
     },
     "supports": {
         "html": false,

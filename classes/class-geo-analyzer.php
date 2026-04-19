@@ -143,7 +143,8 @@ class GeoAnalyzer {
             'hasMetaDesc'     => false,
             'hasJsonLd'       => \str_contains( $content, 'application/ld+json' ),
             'hasGeoSummary'   => \str_contains( $content, 'wp-block-g2rd-geo-summary' ),
-            'hasGeoFaq'       => \str_contains( $content, 'wp-block-g2rd-geo-faq' ),
+            'hasGeoFaq'       => \str_contains( $content, 'wp-block-g2rd-geo-faq' )
+                                || \str_contains( $content, 'g2rd-faq--geo' ),
         ];
 
         if ( $post_id ) {

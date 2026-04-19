@@ -74,6 +74,46 @@
   padding: 14px 20px 18px;
 }
 
+/* ─── Mode GEO : <details>/<summary> ─── */
+.g2rd-faq--geo .g2rd-faq__details {
+  background: var(--g2rd-faq-bg, transparent);
+}
+
+.g2rd-faq--geo .g2rd-faq__question {
+  list-style: none;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.g2rd-faq--geo .g2rd-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.g2rd-faq--geo .g2rd-faq__details[open] > .g2rd-faq__question {
+  border-bottom: 1px solid var(--g2rd-faq-separator, #e5e7eb);
+}
+
+.g2rd-faq--geo .g2rd-faq__icon {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.g2rd-faq--geo .g2rd-faq__details[open] .g2rd-faq__icon {
+  transform: rotate(180deg);
+}
+
+/* Annule l'animation grid pour le mode natif details */
+.g2rd-faq--geo .g2rd-faq__answer {
+  display: block;
+  grid-template-rows: unset;
+  transition: none;
+}
+
+.g2rd-faq--geo .g2rd-faq__answer-inner {
+  overflow: visible;
+}
+
 /* ─── Éditeur : champ de saisie ─── */
 .g2rd-faq__question-input input,
 .g2rd-faq__question-input input:focus {

@@ -140,7 +140,7 @@ export default function GeoPanel() {
 							<strong>Résumé GEO</strong> — TL;DR pour les IA
 						</li>
 						<li>
-							<strong>FAQ GEO</strong> — Questions/réponses avec schema.org
+							<strong>FAQ G2RD (mode GEO)</strong> — Questions/réponses avec schema.org
 						</li>
 					</ul>
 				</PanelBody>
