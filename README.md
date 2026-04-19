@@ -33,7 +33,7 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 - **Full Site Editing (FSE)** — édition globale du site (templates, parties, styles).
 - **Design** moderne et responsive.
 - **Blocs Gutenberg** personnalisés et patterns (30+ blocs sur mesure).
-- **GEO Analyzer** — score Generative Engine Optimization /100 en temps réel dans l’éditeur (8 critères, recommandations, blocs dédiés `g2rd/geo-summary` et `g2rd/geo-faq` avec JSON-LD FAQPage).
+- **GEO Analyzer v2** — score Generative Engine Optimization /100 en temps réel dans l’éditeur (9 critères dont *Lisibilité IA*, détection de domaine métier, priorités haute/moyenne/faible, suggestions de résumé et de FAQ adaptées, schémas JSON-LD précis : FAQPage / LocalBusiness / Organization / Service / Product).
 - **SEO Helper** — panneau sidebar Gutenberg avec checklist SEO /100 (titre, méta, H1/H2, images alt, maillage interne).
 - **Business Mode** — conseils personnalisés selon le type de site (vitrine, leads, e-commerce) dans l’éditeur et le tableau de bord.
 - **Page d’options React** — administration G2RD entièrement en React (5 onglets, sauvegarde sans rechargement, REST API).
@@ -45,7 +45,9 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 - **Médias** : sélecteur WordPress natif où pertinent.
 - **Types de contenu** personnalisés (portfolio, prestations, etc.).
 - **Portfolio** professionnel.
-- **Particules** : désactivation automatique pour les audits **PageSpeed Insights** et **Lighthouse** (v1.0.8+) afin d’améliorer le score sans dégrader l’expérience réelle des visiteurs.
+- **Particules** : désactivation automatique pour les audits **PageSpeed Insights**, **Lighthouse** et **GTmetrix** (`is_speed_test()`) afin d’améliorer le score sans dégrader l’expérience réelle des visiteurs.
+- **Widget GEO Dashboard** — top 8 pages par score GEO dans le tableau de bord WordPress, avec historique de la dernière analyse.
+- **Design System** : tokens CSS pour les ombres, radius, boutons et polices unifiés via `theme-settings.json`.
 
 ---
 
@@ -220,6 +222,21 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 ---
 
 ## Changelog
+
+### 1.5.0
+
+- **GEO Analyzer v2** : 9ème critère "Lisibilité IA" (longueur des phrases, des paragraphes, densité de titres), détection automatique du domaine métier (VTC, avocat, artisan, santé, immo, e-commerce, coaching…), schémas JSON-LD précis (FAQPage, LocalBusiness, Organization, Service, Product), scoring crédibilité élargi à 5 signaux.
+- **GEO Analyzer — Priorités** : chaque recommandation porte un niveau haute/moyenne/faible ; les recommandations sont triées par urgence dans le panneau.
+- **GEO Analyzer — Suggestions IA** : nouveau panel "✨ Suggestions pour l'IA" avec résumé généré (titre + premier paragraphe + mots-clés) et 3 questions FAQ adaptées au type de page.
+- **GEO Analyzer PHP** : endpoint `/geo-analyze` renforcé — détection des types JSON-LD réels (`@graph` supporté), vérification de complétude, analyse lisibilité serveur, support Yoast/RankMath/SEOPress.
+- **Dashboard** : widget GEO "Top pages par score" dans le tableau de bord, score persisté en post meta avec date d'analyse.
+- **Onboarding** : bouton de réinitialisation sécurisé (nonce + `manage_options`) accessible depuis le widget dashboard.
+- **Perf** : helper `is_speed_test()` — désactivation GSAP/particules pour Lighthouse, PageSpeed Insights, GTmetrix, Pingdom.
+- **Gutenberg** : variations de blocs pour `g2rd/info` (standard, succès, avertissement, danger, astuce) et `g2rd/faq` (standard, GEO).
+- **Pattern** : "FAQ + Résumé GEO" prêt à insérer.
+- **Design System** : tokens shadows (8 niveaux), radius (xs→pill), boutons et polices rationalisées dans `theme-settings.json`.
+- **Architecture** : synchronisation FSE extraite en `class-fse-sync.php` (hook `after_switch_theme` + versionnement transient v4).
+- **UI Admin** : sélecteur de couleur unifié avec swatches palette sur tous les onglets de la page d'options.
 
 ### 1.4.1
 
