@@ -221,6 +221,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.4.1
+
+- **Fix** : `seo-helper.js` — `wp.editPost.PluginSidebar` et `wp.editPost.PluginSidebarMoreMenuItem` migrés vers `wp.editor` (dépréciés depuis WordPress 6.6).
+
 ### 1.4.0
 
 - **Bloc FAQ unifié** : `g2rd/faq` absorbe `g2rd/geo-faq` — nouveau mode GEO (toggle inspecteur) qui active `<details>/<summary>` + microdata schema.org FAQPage + JSON-LD côté serveur. Backward-compatible via `deprecated[]` + transform automatique depuis `g2rd/geo-faq`. GEO Analyzer adapté (scoring différencié FAQ standard vs GEO).
