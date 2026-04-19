@@ -127,16 +127,20 @@ class ThemeAdmin {
 
         // Valeurs par défaut si la palette est vide ou le slug introuvable
         $fallbacks = [
-            'admin_bg'   => '#2f425d',
-            'admin_text' => '#f0f0f0',
-            'btn_bg'     => '#d4a373',
-            'btn_text'   => '#f0f0f0',
+            'admin_bg'       => '#2f425d',
+            'admin_text'     => '#f0f0f0',
+            'btn_bg'         => '#d4a373',
+            'btn_text'       => '#f0f0f0',
+            'btn_bg_hover'   => '#c4935c',
+            'btn_text_hover' => '#f0f0f0',
         ];
         $default_slugs = [
-            'admin_bg'   => 'primary',
-            'admin_text' => 'white',
-            'btn_bg'     => 'secondary',
-            'btn_text'   => 'white',
+            'admin_bg'       => 'primary',
+            'admin_text'     => 'white',
+            'btn_bg'         => 'secondary',
+            'btn_text'       => 'white',
+            'btn_bg_hover'   => 'secondary',
+            'btn_text_hover' => 'white',
         ];
 
         $saved = (array) \get_option('g2rd_admin_colors', []);
@@ -146,11 +150,13 @@ class ThemeAdmin {
             return $palette_map[$slug] ?? $fallbacks[$key];
         };
 
-        $bg         = $resolve('admin_bg');
-        $text       = $resolve('admin_text');
-        $btn_bg     = $resolve('btn_bg');
-        $btn_text   = $resolve('btn_text');
-        $submenu_bg = $this->darkenHex($bg, 25);
+        $bg              = $resolve('admin_bg');
+        $text            = $resolve('admin_text');
+        $btn_bg          = $resolve('btn_bg');
+        $btn_text        = $resolve('btn_text');
+        $btn_bg_hover    = $resolve('btn_bg_hover');
+        $btn_text_hover  = $resolve('btn_text_hover');
+        $submenu_bg      = $this->darkenHex($bg, 25);
 
         \printf(
             '<style id="g2rd-admin-colors">
@@ -161,13 +167,19 @@ class ThemeAdmin {
     --menu-submenu-bg: %4$s;
     --menu-highlight-color: %2$s;
 }
-.wp-core-ui .button-primary,
-.wp-core-ui .button-primary:hover,
-.wp-core-ui .button-primary:focus,
-.wp-core-ui .button-primary:active {
+.wp-core-ui .button-primary {
     background: %2$s !important;
     border-color: %2$s !important;
     color: %5$s !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus,
+.wp-core-ui .button-primary:active {
+    background: %6$s !important;
+    border-color: %6$s !important;
+    color: %7$s !important;
     box-shadow: none !important;
     text-shadow: none !important;
 }
@@ -176,7 +188,9 @@ class ThemeAdmin {
             \esc_attr($btn_bg),
             \esc_attr($text),
             \esc_attr($submenu_bg),
-            \esc_attr($btn_text)
+            \esc_attr($btn_text),
+            \esc_attr($btn_bg_hover),
+            \esc_attr($btn_text_hover)
         );
     }
 

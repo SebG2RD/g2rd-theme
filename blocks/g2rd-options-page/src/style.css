@@ -536,6 +536,16 @@
 	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
 }
 
+/* ── Color Group Label ─────────────────────────────────────────── */
+.g2rd-color-group-label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #8c8f94;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin: 16px 0 8px;
+}
+
 /* ── Color Grid ────────────────────────────────────────────────── */
 .g2rd-color-grid {
 	display: grid;

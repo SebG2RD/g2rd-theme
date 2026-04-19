@@ -8,10 +8,12 @@ const BUSINESS_TYPES = [
 ];
 
 const COLOR_SLOTS = [
-	{ key: 'admin_bg',   label: 'Fond barre admin' },
-	{ key: 'admin_text', label: 'Texte barre admin' },
-	{ key: 'btn_bg',     label: 'Fond bouton CTA' },
-	{ key: 'btn_text',   label: 'Texte bouton CTA' },
+	{ key: 'admin_bg',       label: 'Fond barre admin' },
+	{ key: 'admin_text',     label: 'Texte barre admin' },
+	{ key: 'btn_bg',         label: 'Fond bouton (normal)' },
+	{ key: 'btn_text',       label: 'Texte bouton (normal)' },
+	{ key: 'btn_bg_hover',   label: 'Fond bouton (hover)' },
+	{ key: 'btn_text_hover', label: 'Texte bouton (hover)' },
 ];
 
 export function TabConfiguration( { settings, update } ) {

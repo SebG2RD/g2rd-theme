@@ -30,23 +30,27 @@ class LoginCustomizer {
 
     /** Paramètres par défaut. */
     private const DEFAULTS = [
-        'enabled'         => true,
-        'layout'          => 'two-columns',
-        'logoUrl'         => '',
-        'logoLink'        => '',
-        'panelColor'      => '#2f425d',
-        'buttonColor'     => '#d4a373',
-        'buttonTextColor' => '#ffffff',
-        'linksColor'      => '#cccccc',
-        'bgType'          => 'image',
-        'bgColor'         => '#1a2a3a',
-        'bgImageUrl'      => '',
-        'ctaShow'         => true,
-        'ctaText'         => 'Visiter notre site',
-        'ctaUrl'          => 'https://g2rd.fr',
-        'ctaColor'        => '#d4a373',
-        'welcomeText'     => '',
-        'borderRadius'    => 8,
+        'enabled'              => true,
+        'layout'               => 'two-columns',
+        'logoUrl'              => '',
+        'logoLink'             => '',
+        'panelColor'           => '#2f425d',
+        'buttonColor'          => '#d4a373',
+        'buttonTextColor'      => '#ffffff',
+        'buttonHoverColor'     => '#c4935c',
+        'buttonHoverTextColor' => '#ffffff',
+        'linksColor'           => '#cccccc',
+        'bgType'               => 'image',
+        'bgColor'              => '#1a2a3a',
+        'bgImageUrl'           => '',
+        'ctaShow'              => true,
+        'ctaText'              => 'Visiter notre site',
+        'ctaUrl'               => 'https://g2rd.fr',
+        'ctaColor'             => '#d4a373',
+        'ctaHoverColor'        => '#c4935c',
+        'ctaHoverTextColor'    => '#ffffff',
+        'welcomeText'          => '',
+        'borderRadius'         => 8,
     ];
 
     // ── API statique (utilisée par ThemeOptions) ───────────────────────────
@@ -81,9 +85,11 @@ class LoginCustomizer {
                 'logoUrl'         => \esc_url_raw( (string) ( $raw['logoUrl']  ?? '' ) ),
                 'logoLink'        => \esc_url_raw( (string) ( $raw['logoLink'] ?? '' ) ),
                 'panelColor'      => self::sanitize_color( (string) ( $raw['panelColor']      ?? '' ), '#2f425d' ),
-                'buttonColor'     => self::sanitize_color( (string) ( $raw['buttonColor']     ?? '' ), '#d4a373' ),
-                'buttonTextColor' => self::sanitize_color( (string) ( $raw['buttonTextColor'] ?? '' ), '#ffffff' ),
-                'linksColor'      => self::sanitize_color( (string) ( $raw['linksColor']      ?? '' ), '#cccccc' ),
+                'buttonColor'          => self::sanitize_color( (string) ( $raw['buttonColor']          ?? '' ), '#d4a373' ),
+                'buttonTextColor'      => self::sanitize_color( (string) ( $raw['buttonTextColor']      ?? '' ), '#ffffff' ),
+                'buttonHoverColor'     => self::sanitize_color( (string) ( $raw['buttonHoverColor']     ?? '' ), '#c4935c' ),
+                'buttonHoverTextColor' => self::sanitize_color( (string) ( $raw['buttonHoverTextColor'] ?? '' ), '#ffffff' ),
+                'linksColor'           => self::sanitize_color( (string) ( $raw['linksColor']           ?? '' ), '#cccccc' ),
                 'bgType'          => \in_array( $raw['bgType'] ?? '', $allowed_bg, true )
                     ? $raw['bgType']
                     : 'image',
@@ -92,7 +98,9 @@ class LoginCustomizer {
                 'ctaShow'         => ! empty( $raw['ctaShow'] ),
                 'ctaText'         => \sanitize_text_field( (string) ( $raw['ctaText']  ?? '' ) ),
                 'ctaUrl'          => \esc_url_raw( (string) ( $raw['ctaUrl']   ?? '' ) ),
-                'ctaColor'        => self::sanitize_color( (string) ( $raw['ctaColor'] ?? '' ), '#d4a373' ),
+                'ctaColor'             => self::sanitize_color( (string) ( $raw['ctaColor']          ?? '' ), '#d4a373' ),
+                'ctaHoverColor'        => self::sanitize_color( (string) ( $raw['ctaHoverColor']      ?? '' ), '#c4935c' ),
+                'ctaHoverTextColor'    => self::sanitize_color( (string) ( $raw['ctaHoverTextColor']  ?? '' ), '#ffffff' ),
                 'welcomeText'     => \sanitize_text_field( (string) ( $raw['welcomeText'] ?? '' ) ),
                 'borderRadius'    => \min( 32, \max( 0, (int) ( $raw['borderRadius'] ?? 8 ) ) ),
             ]
@@ -159,20 +167,28 @@ class LoginCustomizer {
             ? ( $s['bgImageUrl'] ? \esc_url( $s['bgImageUrl'] ) : \esc_url( $dir_uri . self::DEFAULT_BG_PATH ) )
             : '';
 
-        $panel_color  = \esc_attr( $s['panelColor'] );
-        $btn_color    = \esc_attr( $s['buttonColor'] );
-        $btn_txt      = \esc_attr( $s['buttonTextColor'] );
-        $links_color  = \esc_attr( $s['linksColor'] );
-        $bg_color     = \esc_attr( $s['bgColor'] );
-        $radius       = (int) $s['borderRadius'];
-        $is_one_col   = $s['layout'] === 'one-column';
-        $login_width  = $is_one_col ? '100%' : '50%';
+        $panel_color       = \esc_attr( $s['panelColor'] );
+        $btn_color         = \esc_attr( $s['buttonColor'] );
+        $btn_txt           = \esc_attr( $s['buttonTextColor'] );
+        $btn_hover_color   = \esc_attr( $s['buttonHoverColor'] );
+        $btn_hover_txt     = \esc_attr( $s['buttonHoverTextColor'] );
+        $cta_hover_color   = \esc_attr( $s['ctaHoverColor'] );
+        $cta_hover_txt     = \esc_attr( $s['ctaHoverTextColor'] );
+        $links_color       = \esc_attr( $s['linksColor'] );
+        $bg_color          = \esc_attr( $s['bgColor'] );
+        $radius            = (int) $s['borderRadius'];
+        $is_one_col        = $s['layout'] === 'one-column';
+        $login_width       = $is_one_col ? '100%' : '50%';
 
         $inline_css = "
 body.login {
     --g2rd-panel-color: {$panel_color};
     --g2rd-btn-color: {$btn_color};
     --g2rd-btn-text: {$btn_txt};
+    --g2rd-btn-hover-color: {$btn_hover_color};
+    --g2rd-btn-hover-text: {$btn_hover_txt};
+    --g2rd-cta-hover-color: {$cta_hover_color};
+    --g2rd-cta-hover-text: {$cta_hover_txt};
     --g2rd-links-color: {$links_color};
     --g2rd-radius: {$radius}px;
 }
@@ -195,11 +211,20 @@ body.login {
     text-shadow: none !important;
     box-shadow: none !important;
 }
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus,
+.wp-core-ui .button-primary:active {
+    background-color: var(--g2rd-btn-hover-color) !important;
+    border-color: var(--g2rd-btn-hover-color) !important;
+    color: var(--g2rd-btn-hover-text) !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
 .login #nav a, .login #backtoblog a {
     color: var(--g2rd-links-color) !important;
 }
 .login #nav a:hover, .login #backtoblog a:hover {
-    color: var(--g2rd-btn-color) !important;
+    color: var(--g2rd-btn-hover-color) !important;
 }
 .login form .input {
     border-radius: var(--g2rd-radius) !important;
@@ -208,6 +233,10 @@ body.login {
     background: var(--g2rd-btn-color) !important;
     color: var(--g2rd-btn-text) !important;
     border-radius: var(--g2rd-radius) !important;
+}
+.g2rd-button:hover {
+    background: var(--g2rd-cta-hover-color) !important;
+    color: var(--g2rd-cta-hover-text) !important;
 }";
 
         if ( $is_one_col ) {

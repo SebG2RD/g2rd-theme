@@ -83,19 +83,32 @@ export function TabConnexion( { settings, update } ) {
 										onChange={ ( v ) => set( 'panelColor', v ) }
 									/>
 									<ColorInput
-										label="Bouton connexion"
+										label="Liens (mot de passe…)"
+										value={ s.linksColor || '#cccccc' }
+										onChange={ ( v ) => set( 'linksColor', v ) }
+									/>
+								</div>
+								<p className="g2rd-color-group-label">Bouton de connexion</p>
+								<div className="g2rd-color-grid">
+									<ColorInput
+										label="Fond (normal)"
 										value={ s.buttonColor || '#d4a373' }
 										onChange={ ( v ) => set( 'buttonColor', v ) }
 									/>
 									<ColorInput
-										label="Texte du bouton"
+										label="Texte (normal)"
 										value={ s.buttonTextColor || '#ffffff' }
 										onChange={ ( v ) => set( 'buttonTextColor', v ) }
 									/>
 									<ColorInput
-										label="Liens (mot de passe…)"
-										value={ s.linksColor || '#cccccc' }
-										onChange={ ( v ) => set( 'linksColor', v ) }
+										label="Fond (hover)"
+										value={ s.buttonHoverColor || '#c4935c' }
+										onChange={ ( v ) => set( 'buttonHoverColor', v ) }
+									/>
+									<ColorInput
+										label="Texte (hover)"
+										value={ s.buttonHoverTextColor || '#ffffff' }
+										onChange={ ( v ) => set( 'buttonHoverTextColor', v ) }
 									/>
 								</div>
 							</div>
@@ -154,11 +167,28 @@ export function TabConnexion( { settings, update } ) {
 											onChange={ ( v ) => set( 'ctaUrl', v ) }
 											type="url"
 										/>
-										<ColorInput
-											label="Couleur du bouton CTA"
-											value={ s.ctaColor || '#d4a373' }
-											onChange={ ( v ) => set( 'ctaColor', v ) }
-										/>
+										<div className="g2rd-color-grid">
+											<ColorInput
+												label="Fond (normal)"
+												value={ s.ctaColor || '#d4a373' }
+												onChange={ ( v ) => set( 'ctaColor', v ) }
+											/>
+											<ColorInput
+												label="Texte (normal)"
+												value={ s.buttonTextColor || '#ffffff' }
+												onChange={ ( v ) => set( 'buttonTextColor', v ) }
+											/>
+											<ColorInput
+												label="Fond (hover)"
+												value={ s.ctaHoverColor || '#c4935c' }
+												onChange={ ( v ) => set( 'ctaHoverColor', v ) }
+											/>
+											<ColorInput
+												label="Texte (hover)"
+												value={ s.ctaHoverTextColor || '#ffffff' }
+												onChange={ ( v ) => set( 'ctaHoverTextColor', v ) }
+											/>
+										</div>
 									</>
 								) }
 							</div>

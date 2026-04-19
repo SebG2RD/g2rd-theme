@@ -81,10 +81,12 @@ class ThemeOptions {
     ];
 
     private const DEFAULT_COLOR_SLUGS = [
-        'admin_bg'   => 'primary',
-        'admin_text' => 'white',
-        'btn_bg'     => 'secondary',
-        'btn_text'   => 'white',
+        'admin_bg'       => 'primary',
+        'admin_text'     => 'white',
+        'btn_bg'         => 'secondary',
+        'btn_text'       => 'white',
+        'btn_bg_hover'   => 'secondary',
+        'btn_text_hover' => 'white',
     ];
 
     private const FEATURES = [
