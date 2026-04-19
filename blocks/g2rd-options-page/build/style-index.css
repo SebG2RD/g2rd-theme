@@ -460,6 +460,11 @@
 	border-color: var(--primary-color);
 	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
 }
+.g2rd-color-input__swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
 /* ── Color Group Label ─────────────────────────────────────────── */
 .g2rd-color-group-label {
 	font-size: 12px;
