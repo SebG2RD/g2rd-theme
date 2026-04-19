@@ -303,7 +303,11 @@ function analyzeFAQ( blocks, fullText ) {
 		score += 2;
 		details.push( { status: 'warning', text: 'Bloc FAQ présent — activez le mode GEO pour le schema FAQPage' } );
 	} else {
-		details.push( { status: 'error', text: 'Ajoutez un bloc FAQ et activez le mode GEO (≥ 3 questions)' } );
+		details.push( {
+			status: 'error',
+			text:   'Ajoutez un bloc FAQ et activez le mode GEO (≥ 3 questions)',
+			block:  { name: 'g2rd/faq', attributes: { optimizeForGEO: true } },
+		} );
 	}
 
 	// Phrases interrogatives dans le texte (4 pts)
@@ -421,7 +425,11 @@ function analyzeSummary( blocks ) {
 		score += 6;
 		details.push( { status: 'ok', text: 'Bloc Résumé GEO présent — parfait pour les IA' } );
 	} else {
-		details.push( { status: 'error', text: 'Ajoutez un bloc "Résumé GEO" en haut de page' } );
+		details.push( {
+			status: 'error',
+			text:   'Ajoutez un bloc "Résumé GEO" en haut de page',
+			block:  { name: 'g2rd/geo-summary', attributes: {} },
+		} );
 	}
 
 	// Listes à puces (facilite la scannabilité)

@@ -6,10 +6,11 @@
  */
 
 import { useMemo, useCallback, useState } from '@wordpress/element';
-import { useSelect }                      from '@wordpress/data';
-import { PanelBody, Button, Spinner }     from '@wordpress/components';
+import { useSelect, useDispatch }         from '@wordpress/data';
+import { PanelBody, Button }              from '@wordpress/components';
 import { store as blockEditorStore }      from '@wordpress/block-editor';
 import { store as editorStore }           from '@wordpress/editor';
+import { createBlock }                    from '@wordpress/blocks';
 
 import ScoreGauge                         from './ScoreGauge';
 import CriterionCard                      from './CriterionCard';
@@ -20,6 +21,8 @@ const MIN_WORDS = 20;
 
 export default function GeoPanel() {
 	const [ manualRefresh, setManualRefresh ] = useState( 0 );
+
+	const { insertBlocks } = useDispatch( blockEditorStore );
 
 	// Récupère les blocs, le titre et le type de post depuis le store WP
 	const { blocks, title, postType } = useSelect( ( select ) => ( {
@@ -43,6 +46,11 @@ export default function GeoPanel() {
 	const handleRefresh = useCallback( () => {
 		setManualRefresh( ( n ) => n + 1 );
 	}, [] );
+
+	const handleInsertBlock = useCallback( ( blockDef ) => {
+		const block = createBlock( blockDef.name, blockDef.attributes ?? {} );
+		insertBlocks( block );
+	}, [ insertBlocks ] );
 
 	// État vide (contenu insuffisant)
 	if ( ! analysis ) {
@@ -131,7 +139,18 @@ export default function GeoPanel() {
 								className={ `g2rd-geo__rec g2rd-geo__rec--${ rec.status }` }
 							>
 								<span className="g2rd-geo__rec-dot" aria-hidden="true" />
-								{ rec.text }
+								<span className="g2rd-geo__rec-body">
+									{ rec.text }
+									{ rec.block && (
+										<Button
+											className="g2rd-geo__rec-insert"
+											variant="link"
+											onClick={ () => handleInsertBlock( rec.block ) }
+										>
+											+ Insérer le bloc
+										</Button>
+									) }
+								</span>
 							</li>
 						) ) }
 					</ul>

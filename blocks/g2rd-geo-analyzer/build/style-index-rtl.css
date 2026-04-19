@@ -301,6 +301,30 @@
 	margin-bottom: 1px;
 }
 
+/* ── Recommandations avec bouton d'insertion ─────────────────────── */
+
+.g2rd-geo__rec-body {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+}
+
+.g2rd-geo__rec-insert.components-button {
+	font-size: 11px;
+	font-weight: 600;
+	padding: 0;
+	height: auto;
+	color: var(--wp--preset--color--primary, #2f425d);
+	text-decoration: none;
+	align-self: flex-start;
+}
+
+.g2rd-geo__rec-insert.components-button:hover {
+	color: var(--wp--preset--color--secondary, #d4a373);
+	text-decoration: underline;
+}
+
 /* ── Badge type de page ──────────────────────────────────────────── */
 
 .g2rd-geo__page-type {
