@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/geo-faq",
+    "version": "1.0.0",
+    "title": "FAQ GEO",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "editor-help",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "FAQ optimisée pour les IA (GEO). Génère automatiquement le schema.org FAQPage pour améliorer la reprise du contenu par les moteurs IA.",
+    "keywords": ["faq", "geo", "questions", "réponses", "schema", "ia"],
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./src/style.css",
+    "style": "file:./src/style.css",
+    "render": "file:./render.php",
+    "attributes": {
+        "items": {
+            "type": "array",
+            "default": [
+                { "question": "Quelle est votre principale expertise ?", "answer": "Décrivez ici votre expertise en 1 à 3 phrases courtes." },
+                { "question": "Où intervenez-vous ?", "answer": "Précisez votre zone géographique d'intervention." },
+                { "question": "Comment vous contacter ?", "answer": "Indiquez vos coordonnées ou renvoyez vers votre formulaire de contact." }
+            ]
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide"],
+        "spacing": { "margin": true, "padding": true }
+    }
+}

@@ -54,6 +54,7 @@ require_once __DIR__ . '/classes/class-client-mode.php';
 require_once __DIR__ . '/classes/class-onboarding.php';
 require_once __DIR__ . '/classes/class-seo-helper.php';
 require_once __DIR__ . '/classes/class-business-mode.php';
+require_once __DIR__ . '/classes/class-geo-analyzer.php';
 
 /**
  * Initialise toutes les composantes du thème
@@ -130,6 +131,9 @@ function bootstrap_theme(): void
 
     // Mode Business — conseils adaptés au type de site
     ( new Business_Mode() )->register_hooks();
+
+    // Module GEO Analyzer — scoring Generative Engine Optimization dans l'éditeur
+    ( new GeoAnalyzer() )->register_hooks();
 
     // Initialiser les autres classes
     foreach ( $classes as $class ) {

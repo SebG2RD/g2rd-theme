@@ -1,0 +1,132 @@
+/* ── Bloc Résumé GEO ──────────────────────────────────────────────────── */
+
+.wp-block-g2rd-geo-summary {
+	border-left: 4px solid #2F425D;
+	background: linear-gradient(135deg, #f8faff 0%, #eef2ff 100%);
+	border-radius: 0 8px 8px 0;
+	padding: 18px 20px;
+	margin: 1.5em 0;
+	position: relative;
+}
+
+/* En-tête */
+.geo-summary__header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.geo-summary__icon {
+	font-size: 18px;
+	line-height: 1;
+}
+
+.geo-summary__tagline {
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #2F425D;
+	flex: 1;
+}
+
+.geo-summary__badge {
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	padding: 2px 6px;
+	border-radius: 4px;
+	background: #2F425D;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+/* Texte du résumé */
+.geo-summary__text {
+	font-size: 15px;
+	line-height: 1.6;
+	color: #1e293b;
+	margin: 0 0 12px;
+}
+
+.geo-summary__text:last-child {
+	margin-bottom: 0;
+}
+
+/* Points clés */
+.geo-summary__points {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.geo-summary__point {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 14px;
+	color: #334155;
+	line-height: 1.4;
+}
+
+.geo-summary__bullet {
+	color: #2F425D;
+	flex-shrink: 0;
+	font-size: 10px;
+	margin-top: 3px;
+}
+
+/* ── Éditeur uniquement ──────────────────────────────────────────────── */
+
+.geo-summary__tagline-input.components-text-control__input {
+	border: none;
+	background: transparent;
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #2F425D;
+	padding: 0;
+	height: auto;
+	flex: 1;
+	box-shadow: none;
+}
+
+.geo-summary__points-editor {
+	margin-top: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.geo-summary__points-label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #64748b;
+	margin: 0 0 4px;
+}
+
+.geo-summary__point-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.geo-summary__point-row .components-text-control__input {
+	font-size: 14px;
+	flex: 1;
+}
+
+.geo-summary__point-remove.components-button {
+	padding: 0 4px;
+	min-width: auto;
+	color: #94a3b8;
+}
+
+.geo-summary__add-points.components-button {
+	margin-top: 8px;
+}

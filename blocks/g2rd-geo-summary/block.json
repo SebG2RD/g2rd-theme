@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "g2rd/geo-summary",
+    "version": "1.0.0",
+    "title": "Résumé GEO",
+    "category": "g2rd-blocks",
+    "icon": {
+        "src": "text-page",
+        "foreground": "#FAFAFA",
+        "background": "#2F425D"
+    },
+    "description": "Bloc résumé optimisé pour les IA (GEO). Présente un TL;DR et des points clés que les moteurs IA peuvent facilement extraire.",
+    "keywords": ["résumé", "geo", "ia", "summary", "tldr", "points clés"],
+    "textdomain": "g2rd",
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./src/style.css",
+    "style": "file:./src/style.css",
+    "attributes": {
+        "summary": {
+            "type": "string",
+            "source": "html",
+            "selector": ".geo-summary__text",
+            "default": ""
+        },
+        "keyPoints": {
+            "type": "array",
+            "default": ["", "", ""]
+        },
+        "tagline": {
+            "type": "string",
+            "default": "En résumé"
+        }
+    },
+    "supports": {
+        "html": false,
+        "align": ["wide"],
+        "spacing": { "margin": true, "padding": true },
+        "color": {
+            "background": true,
+            "text": false
+        }
+    }
+}

@@ -1,0 +1,295 @@
+/**
+ * GEO Analyzer — Styles du panneau sidebar
+ */
+
+/* ── Conteneur principal ──────────────────────────────────────────────── */
+
+.g2rd-geo {
+	padding: 0 0 16px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── En-tête : jauge + barre globale ─────────────────────────────────── */
+
+.g2rd-geo__header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px 16px 12px;
+	border-bottom: 1px solid #f1f5f9;
+	gap: 10px;
+}
+
+/* Jauge SVG */
+.g2rd-geo__gauge {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+}
+
+.g2rd-geo__gauge-label {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+/* Barre de progression globale */
+.g2rd-geo__global-bar-track {
+	width: 100%;
+	height: 6px;
+	background: #f1f5f9;
+	border-radius: 99px;
+	overflow: hidden;
+}
+
+.g2rd-geo__global-bar-fill {
+	height: 100%;
+	border-radius: 99px;
+	transition: width 0.6s ease;
+}
+
+/* Bouton rafraîchir */
+.g2rd-geo__refresh-btn.components-button {
+	font-size: 11px;
+	color: #94a3b8;
+	padding: 0 6px;
+	height: 24px;
+}
+
+.g2rd-geo__refresh-btn.components-button:hover {
+	color: #475569;
+}
+
+/* ── État vide ────────────────────────────────────────────────────────── */
+
+.g2rd-geo--empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 32px 16px;
+	text-align: center;
+	gap: 12px;
+}
+
+.g2rd-geo__empty-icon {
+	font-size: 32px;
+	line-height: 1;
+}
+
+.g2rd-geo__empty-text {
+	font-size: 13px;
+	color: #64748b;
+	line-height: 1.5;
+	margin: 0;
+}
+
+/* ── Panel critères ───────────────────────────────────────────────────── */
+
+.g2rd-geo__panel-criteria .components-panel__body-title,
+.g2rd-geo__panel-recs .components-panel__body-title {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #64748b;
+}
+
+/* ── Critère individuel ───────────────────────────────────────────────── */
+
+.g2rd-geo__criterion {
+	margin-bottom: 4px;
+	border-radius: 6px;
+	overflow: hidden;
+	border: 1px solid #f1f5f9;
+	background: #fff;
+}
+
+.g2rd-geo__criterion:last-child {
+	margin-bottom: 0;
+}
+
+/* Bouton en-tête du critère */
+.g2rd-geo__criterion-header.components-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 100%;
+	padding: 8px 10px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+	min-height: 36px;
+	height: auto;
+	font-size: 12px;
+	color: #1e293b;
+	justify-content: flex-start;
+}
+
+.g2rd-geo__criterion-header.components-button:hover {
+	background: #f8fafc;
+}
+
+.g2rd-geo__criterion-status {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+}
+
+.g2rd-geo__criterion-label {
+	flex: 1;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 1.3;
+}
+
+.g2rd-geo__criterion-score {
+	font-weight: 700;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+.g2rd-geo__criterion-max {
+	font-weight: 400;
+	font-size: 10px;
+	color: #94a3b8;
+	margin-left: 1px;
+}
+
+.g2rd-geo__criterion-chevron {
+	font-size: 10px;
+	color: #94a3b8;
+	transition: transform 0.2s ease;
+	flex-shrink: 0;
+}
+
+.g2rd-geo__criterion-chevron.is-open {
+	transform: rotate(180deg);
+}
+
+/* Mini barre de progression */
+.g2rd-geo__criterion-bar-track {
+	height: 3px;
+	background: #f1f5f9;
+	margin: 0 10px 8px;
+	border-radius: 99px;
+	overflow: hidden;
+}
+
+.g2rd-geo__criterion-bar-fill {
+	height: 100%;
+	border-radius: 99px;
+}
+
+/* ── Détails dépliables ───────────────────────────────────────────────── */
+
+.g2rd-geo__criterion-details {
+	list-style: none;
+	margin: 0;
+	padding: 0 8px 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.g2rd-geo__detail {
+	display: flex;
+	align-items: flex-start;
+	gap: 6px;
+	font-size: 11.5px;
+	line-height: 1.4;
+	padding: 5px 8px;
+	border-radius: 4px;
+}
+
+.g2rd-geo__detail--ok      { background: #f0fdf4; color: #166534; }
+.g2rd-geo__detail--warning { background: #fffbeb; color: #92400e; }
+.g2rd-geo__detail--error   { background: #fef2f2; color: #991b1b; }
+
+.g2rd-geo__detail-icon {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	margin-top: 1px;
+}
+
+.g2rd-geo__detail-text {
+	flex: 1;
+}
+
+/* ── Recommandations ──────────────────────────────────────────────────── */
+
+.g2rd-geo__recs {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.g2rd-geo__rec {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 12px;
+	line-height: 1.4;
+	padding: 7px 10px;
+	border-radius: 6px;
+	border-left: 3px solid;
+}
+
+.g2rd-geo__rec--error {
+	background: #fef2f2;
+	color: #991b1b;
+	border-color: #ef4444;
+}
+
+.g2rd-geo__rec--warning {
+	background: #fffbeb;
+	color: #92400e;
+	border-color: #f59e0b;
+}
+
+.g2rd-geo__rec-dot {
+	flex-shrink: 0;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+	margin-top: 5px;
+}
+
+/* ── Blocs suggérés ───────────────────────────────────────────────────── */
+
+.g2rd-geo__blocks-hint {
+	font-size: 12px;
+	color: #64748b;
+	margin: 0 0 8px;
+}
+
+.g2rd-geo__blocks-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-size: 12px;
+	color: #475569;
+}
+
+.g2rd-geo__blocks-list li {
+	padding: 6px 8px;
+	background: #f8fafc;
+	border-radius: 4px;
+	border-left: 3px solid #2F425D;
+}
+
+.g2rd-geo__blocks-list strong {
+	display: block;
+	color: #1e293b;
+	margin-bottom: 1px;
+}

@@ -32,14 +32,17 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 
 - **Full Site Editing (FSE)** — édition globale du site (templates, parties, styles).
 - **Design** moderne et responsive.
-- **Blocs Gutenberg** personnalisés et patterns.
+- **Blocs Gutenberg** personnalisés et patterns (30+ blocs sur mesure).
+- **GEO Analyzer** — score Generative Engine Optimization /100 en temps réel dans l’éditeur (8 critères, recommandations, blocs dédiés `g2rd/geo-summary` et `g2rd/geo-faq` avec JSON-LD FAQPage).
+- **SEO Helper** — panneau sidebar Gutenberg avec checklist SEO /100 (titre, méta, H1/H2, images alt, maillage interne).
+- **Business Mode** — conseils personnalisés selon le type de site (vitrine, leads, e-commerce) dans l’éditeur et le tableau de bord.
+- **Page d’options React** — administration G2RD entièrement en React (5 onglets, sauvegarde sans rechargement, REST API).
 - **Personnalisation** avancée via l’interface WordPress.
 - **Performances** : optimisations et bonnes pratiques.
 - **Multilingue** (fichiers de traduction dans `languages/`).
-- **Licences et mises à jour** intégrées (SureCart + GitHub).
+- **Licences et mises à jour** intégrées (FluentCart + GitHub).
 - **Équipe** : gestion des membres (section « Qui sommes-nous »).
 - **Médias** : sélecteur WordPress natif où pertinent.
-- **Administration** alignée sur l’interface WordPress.
 - **Types de contenu** personnalisés (portfolio, prestations, etc.).
 - **Portfolio** professionnel.
 - **Particules** : désactivation automatique pour les audits **PageSpeed Insights** et **Lighthouse** (v1.0.8+) afin d’améliorer le score sans dégrader l’expérience réelle des visiteurs.
@@ -67,7 +70,7 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 
 ## Installation
 
-1. Téléchargez le thème depuis votre **espace client SureCart**.
+1. Téléchargez le thème depuis votre **espace client G2RD** (licence active requise).
 2. Dans WordPress : **Apparence → Thèmes**.
 3. Cliquez sur **Ajouter**, puis **Téléverser un thème**.
 4. Choisissez le fichier **ZIP** du thème, puis **Installer maintenant**.
@@ -79,9 +82,8 @@ Ce thème offre une expérience d’édition complète avec des blocs personnali
 
 ### Clé de licence
 
-1. **Apparence → G2RD Settings** : renseignez votre **clé API SureCart**.
-2. **Apparence → G2RD License** : saisissez votre **clé de licence**.
-3. Enregistrez les modifications.
+1. **Apparence → Options G2RD** : saisissez votre **clé de licence** dans l'onglet Licences.
+2. Enregistrez les modifications.
 
 ### Mises à jour
 
@@ -98,17 +100,16 @@ Les mises à jour apparaissent alors dans l’administration WordPress comme pou
 
 Le thème s’appuie sur **SureCart** pour les abonnements et le contrôle d’accès aux mises à jour :
 
-- Licences annuelles.
-- Vérification de validité.
-- Mises à jour pour les licences actives.
-- Plusieurs licences possibles par contexte (selon votre offre).
-- Écran dédié dans l’administration.
+- Licences annuelles via **FluentCart**.
+- Vérification de validité + liaison de domaine.
+- Mises à jour automatiques GitHub pour les licences actives.
+- Gestion des domaines depuis l’espace client.
 
 ### Fonctionnement (résumé)
 
-1. Achat d’une licence via SureCart.
-2. Liaison au site / au compte selon votre processus.
-3. Vérification périodique de la validité.
+1. Achat d’une licence via l’espace client G2RD (FluentCart).
+2. Activation de la clé depuis **Apparence → Options G2RD**.
+3. Vérification périodique automatique (cron 24h).
 4. Mises à jour réservées aux licences valides.
 
 ---
@@ -202,7 +203,7 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 - Développement : **Sebastien GERARD**
 - Bâti sur **WordPress**
 - Mises à jour via l’**API GitHub**
-- Licences et vente : **SureCart**
+- Licences et vente : **FluentCart**
 
 ---
 
@@ -219,6 +220,19 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 ---
 
 ## Changelog
+
+### 1.3.4
+
+- **Module GEO Analyzer** : plugin sidebar Gutenberg — score GEO /100 calculé en temps réel sur 8 critères (clarté, structure H2/H3, Q&R, entités locales, crédibilité, résumabilité, données structurées, cohérence). Recommandations contextuelles et suggestions de blocs. Endpoint REST complémentaire `POST /g2rd/v1/geo-analyze` (détection JSON-LD, méta description, word count côté serveur).
+- **Bloc** `g2rd/geo-summary` : résumé optimisé IA avec points clés éditables. Microdata schema.org `Article` (`itemprop="abstract"`) en sortie.
+- **Bloc** `g2rd/geo-faq` : FAQ dynamique avec accordéon CSS natif `<details>/<summary>`. Sortie `render.php` : microdata FAQPage + `<script type="application/ld+json">` (JSON-LD complet).
+- **Page d'options React** : migration complète de l'administration G2RD en React — `TabPanel` 5 onglets (Configuration, Contenu, Éditeur, Clients, Maintenance), `SaveBar` sticky, persistence via REST `GET/POST /g2rd/v1/settings`, zéro rechargement de page. Build `@wordpress/scripts` sous `blocks/g2rd-options-page/`.
+- **PHPCS** : 0 erreur sur les 3 standards (WordPress, Security, PHPCompatibility 8.0+).
+
+### 1.3.3
+
+- **Architecture options** : `class-theme-options.php` allégé de 1 344 → ~280 lignes — suppression de tout le rendu PHP inline au profit d'un point de montage React (`<div id="g2rd-options-root">`) + endpoint REST `GET/POST /g2rd/v1/settings`.
+- **CI** : exclusion de `.claude/*` dans les scans PHPCS Security et PHPCompatibility — corrige le crash `fopen(): Failed to open stream: Permission denied` sur les fichiers non-PHP du répertoire skills.
 
 ### 1.3.2
 

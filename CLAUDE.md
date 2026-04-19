@@ -57,7 +57,14 @@ g2rd-theme/
 │   ├── g2rd-dynamic-content/
 │   ├── g2rd-faq/
 │   ├── g2rd-info/
-│   └── g2rd-typed/
+│   ├── g2rd-typed/
+│   │
+│   ├── — Modules GEO (npm workspace, src/ + build/) —
+│   ├── g2rd-geo-analyzer/             # Plugin sidebar GEO score /100 (éditeur uniquement)
+│   ├── g2rd-geo-summary/              # Bloc résumé IA — microdata schema.org Article
+│   ├── g2rd-geo-faq/                  # Bloc FAQ GEO — accordéon CSS + JSON-LD FAQPage
+│   │
+│   └── g2rd-options-page/             # App React page d'options admin (src/ + build/)
 │
 ├── classes/
 │   ├── class-abilities.php                      # WordPress Abilities API (opt-in admin)
@@ -88,7 +95,8 @@ g2rd-theme/
 │   ├── class-scripts-manager.php
 │   ├── class-shortcode.php
 │   ├── class-theme-admin.php
-│   ├── class-theme-options.php
+│   ├── class-geo-analyzer.php                      # Module GEO Analyzer — enqueue éditeur + REST
+│   ├── class-theme-options.php                     # Options React — REST GET/POST /g2rd/v1/settings
 │   └── class-theme-setup.php
 ├── includes/
 │   └── license-init.php             # Initialisation du gestionnaire de licences
@@ -143,6 +151,11 @@ npm run build:card                 # CardG2rd
 npm run build:filterable-grid      # FilterableGrid
 npm run build:pricing-table        # PricingTable
 npm run build:block-api            # g2rd-block-api
+npm run build:geo-analyzer         # GEO Analyzer (plugin sidebar éditeur)
+npm run build:geo-summary          # Bloc GEO Résumé
+npm run build:geo-faq              # Bloc FAQ GEO
+npm run build:geo                  # Les 3 blocs GEO en une commande
+npm run build:options              # Page d'options React (admin)
 
 # Qualité PHP — nécessite PHPCS installé globalement (une seule fois)
 # composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs phpcompatibility/phpcompatibility-wp phpcsstandards/phpcsextra pheromone/phpcs-security-audit dealerdirect/phpcodesniffer-composer-installer

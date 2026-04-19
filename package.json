@@ -20,7 +20,11 @@
     "blocks/g2rd-block-api",
     "blocks/g2rd-hero",
     "blocks/g2rd-testimonial",
-    "blocks/g2rd-cta-band"
+    "blocks/g2rd-cta-band",
+    "blocks/g2rd-geo-analyzer",
+    "blocks/g2rd-geo-summary",
+    "blocks/g2rd-geo-faq",
+    "blocks/g2rd-options-page"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
@@ -42,7 +46,12 @@
     "build:block-api": "npm run build --workspace=blocks/g2rd-block-api",
     "build:hero": "npm run build --workspace=blocks/g2rd-hero",
     "build:testimonial": "npm run build --workspace=blocks/g2rd-testimonial",
-    "build:cta-band": "npm run build --workspace=blocks/g2rd-cta-band"
+    "build:cta-band": "npm run build --workspace=blocks/g2rd-cta-band",
+    "build:geo-analyzer": "npm run build --workspace=blocks/g2rd-geo-analyzer",
+    "build:geo-summary": "npm run build --workspace=blocks/g2rd-geo-summary",
+    "build:geo-faq": "npm run build --workspace=blocks/g2rd-geo-faq",
+    "build:geo": "npm run build:geo-analyzer && npm run build:geo-summary && npm run build:geo-faq",
+    "build:options": "npm run build --workspace=blocks/g2rd-options-page"
   },
   "engines": {
     "node": ">=18.0.0",
