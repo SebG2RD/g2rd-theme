@@ -4,12 +4,13 @@ Thème WordPress Full Site Editing développé par G2RD Agence Web.
 
 ## Stack technique
 
-- WordPress 6.4+ avec Full Site Editing
+- WordPress 6.5+ avec Full Site Editing
 - PHP 8.0+ (WordPress Coding Standards)
 - JavaScript ES modules (ESNext) + React/JSX pour les blocs Gutenberg
 - `@wordpress/scripts` pour le build (webpack)
 - npm workspaces (monorepo) : un package par bloc compilé
 - Git + GitHub (mises à jour via GitHub Updater)
+- Node.js >= 18.0.0, npm >= 8.0.0
 
 ## Structure du projet
 
@@ -20,6 +21,8 @@ g2rd-theme/
 │   ├── js/           # Scripts compilés du thème (+ vendor/ pour GSAP, ScrollTrigger)
 │   ├── images/       # Images du thème
 │   └── fonts/        # Polices custom
+├── docs/             # Documentation du thème
+├── languages/        # Fichiers de traduction (.po, .pot, .mo)
 ├── blocks/           # Blocs Gutenberg custom (un dossier par bloc)
 │   ├── blocks-manifest.php          # Auto-généré par build-blocks-manifest
 │   ├── shared/
@@ -56,7 +59,10 @@ g2rd-theme/
 │   ├── g2rd-counter/
 │   ├── g2rd-dynamic-content/
 │   ├── g2rd-faq/
+│   ├── g2rd-hero/                     # Bloc hero — section d'en-tête avec image et CTA
 │   ├── g2rd-info/
+│   ├── g2rd-testimonial/              # Bloc témoignages clients
+│   ├── g2rd-cta-band/                 # Bloc bande CTA — bandeau d'appel à l'action
 │   ├── g2rd-typed/
 │   │
 │   ├── — Modules GEO (npm workspace, src/ + build/) —
@@ -75,8 +81,10 @@ g2rd-theme/
 │   ├── class-block-patterns.php
 │   ├── class-block-styles.php
 │   ├── class-block-stylesheets.php
+│   ├── class-business-mode.php                  # Mode agence — fonctionnalités spécifiques business
 │   ├── class-carousel-assets.php                # Chargement conditionnel Swiper
 │   ├── class-clickable-articles.php
+│   ├── class-client-mode.php                    # Mode client — interface simplifiée pour les clients
 │   ├── class-coming-soon.php
 │   ├── class-conditional-menu.php
 │   ├── class-custom-post-types-portfolio.php
@@ -85,14 +93,19 @@ g2rd-theme/
 │   ├── class-dark-mode.php
 │   ├── class-filterable-grid.php                # Grille filtrée (WooCommerce, SureCart, CPT)
 │   ├── class-fluent-cart-support.php            # Intégration FluentCart (remplace SureCart licence)
+│   ├── class-fse-sync.php                       # Synchronisation FSE (extrait de block-editor-autoload)
 │   ├── class-github-updater.php                 # Mise à jour automatique depuis GitHub
 │   ├── class-glass-effect.php
 │   ├── class-gsap-animations.php
 │   ├── class-json-config.php
 │   ├── class-license-manager.php                # Gestionnaire de licences (GitHub Updater)
+│   ├── class-license-server.php                 # Serveur de licences (validation/distribution)
+│   ├── class-login-customizer.php               # Personnalisation de la page de connexion WP
+│   ├── class-onboarding.php                     # Onboarding — assistant de configuration initiale
 │   ├── class-particules-effect.php
 │   ├── class-portfolio-query.php
 │   ├── class-scripts-manager.php
+│   ├── class-seo-helper.php                     # Helpers SEO — meta, schema.org, balises canoniques
 │   ├── class-shortcode.php
 │   ├── class-theme-admin.php
 │   ├── class-geo-analyzer.php                      # Module GEO Analyzer — enqueue éditeur + REST
@@ -102,19 +115,30 @@ g2rd-theme/
 │   └── license-init.php             # Initialisation du gestionnaire de licences
 ├── parts/                           # Template parts FSE
 │   ├── header.html
-│   └── footer.html
+│   ├── header-color.html            # Variante header avec fond coloré
+│   ├── footer.html
+│   └── sidebar.html                 # Sidebar latérale
 ├── patterns/                        # Block patterns PHP
 ├── styles/                          # Variations de styles JSON
-├── templates/                       # Templates FSE
+├── templates/                       # Templates FSE (21 templates)
 │   ├── index.html
 │   ├── single.html
 │   ├── page.html
 │   ├── archive.html
 │   ├── 404.html
-│   └── search.html
+│   ├── home.html
+│   ├── search.html
+│   ├── archive-portfolio.html       # Archive CPT portfolio
+│   ├── archive-prestations.html     # Archive CPT prestations
+│   ├── archive-qui-sommes-nous.html # Archive CPT qui-sommes-nous
+│   ├── single-portfolio.html        # Single CPT portfolio
+│   ├── single-prestations.html      # Single CPT prestations
+│   ├── single-qui-sommes-nous.html  # Single CPT qui-sommes-nous
+│   └── page-*.html                  # Pages spécialisées (accueil, agence, artisan, contact, ecommerce, landing, etc.)
 ├── categories/                      # Catégories de blocs
 ├── .github/workflows/
 │   ├── phpcs-security.yml           # CI : PHPCS WordPress + Security + PHPCompatibility
+│   ├── release.yml                  # Release automatique sur tag v* — build + ZIP + GitHub Release
 │   └── smart-ci.yml                 # CI : multi-stack (React, Gutenberg, Node.js…)
 ├── phpcs.xml.dist                   # Config PHPCS WordPress Standards (scope ciblé)
 ├── phpcs-security.xml               # Config PHPCS Security Audit (exclusions faux positifs)
@@ -151,6 +175,9 @@ npm run build:card                 # CardG2rd
 npm run build:filterable-grid      # FilterableGrid
 npm run build:pricing-table        # PricingTable
 npm run build:block-api            # g2rd-block-api
+npm run build:hero                 # g2rd-hero
+npm run build:testimonial          # g2rd-testimonial
+npm run build:cta-band             # g2rd-cta-band
 npm run build:geo-analyzer         # GEO Analyzer (plugin sidebar éditeur)
 npm run build:geo-summary          # Bloc GEO Résumé
 npm run build:geo-faq              # Bloc FAQ GEO
@@ -250,6 +277,12 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 
 ## CI / Qualité PHP
 
+### release.yml
+
+Déclenché sur tag `v*` ou manuellement. Exécute : checkout → Node 20 → `npm ci` → `npm run build` → génère un ZIP de production (exclut `src/`, `node_modules/`, `.git/`, `docs/`, `.claude/`) → crée une GitHub Release → notifie g2rd.fr via webhook HMAC-SHA256.
+
+### phpcs-security.yml
+
 Le workflow `.github/workflows/phpcs-security.yml` exécute 3 jobs à chaque push/PR sur `main` :
 
 1. **PHPCS WordPress Standards** — utilise `phpcs.xml.dist` (scope : `./classes`, `./functions.php`, `./includes`)
@@ -304,8 +337,9 @@ env:
 
 ## Compatibilité
 
-- WordPress 6.4+ minimum
+- WordPress 6.5+ minimum (testé jusqu'à 7.0)
 - PHP 8.0+
+- Node.js >= 18.0.0
 - Navigateurs : 2 dernières versions majeures (Chrome, Firefox, Safari, Edge)
 
 ## SEO

@@ -78,7 +78,8 @@ jobs:
             --exclude="package-lock.json" \
             --exclude="*.log" \
             --exclude=".claude/*" \
-            --exclude="docs/*"
+            --exclude="docs/*" \
+            --exclude="CLAUDE.md"
 
           echo "Taille ZIP : $(du -sh dist/G2RD-theme.zip | cut -f1)"
 
