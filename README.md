@@ -221,6 +221,17 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.4.0
+
+- **Bloc FAQ unifié** : `g2rd/faq` absorbe `g2rd/geo-faq` — nouveau mode GEO (toggle inspecteur) qui active `<details>/<summary>` + microdata schema.org FAQPage + JSON-LD côté serveur. Backward-compatible via `deprecated[]` + transform automatique depuis `g2rd/geo-faq`. GEO Analyzer adapté (scoring différencié FAQ standard vs GEO).
+- **Options admin — Aide GEO** : toggle "Activer l'aide GEO dans l'éditeur" ajouté dans l'onglet Clients (symétrique avec Aide SEO). Option `g2rd_geo_helper` persistée via REST.
+- **Nouveaux blocs** : `g2rd/cta-band` (bande d'appel à l'action) et `g2rd/hero` (section hero).
+- **Page de connexion** : personnalisation complète du formulaire WordPress (logo, couleurs, fond) depuis les options admin.
+- **Couleurs hover** : effets hover sur les boutons admin et page de connexion.
+- **CSS thème** : remplacement systématique des valeurs hex en dur par `var(--wp--preset--color--primary/secondary)` dans tous les blocs — cohérence automatique avec les variations de style FSE.
+- **Fix** : mode GEO du bloc FAQ respecte désormais `openFirst`; `role="region"` enrichi de `aria-labelledby` (WCAG 2.1).
+- **Fix** : restauration `getLogoUrl()` dans `ThemeAdmin`.
+
 ### 1.3.4
 
 - **Module GEO Analyzer** : plugin sidebar Gutenberg — score GEO /100 calculé en temps réel sur 8 critères (clarté, structure H2/H3, Q&R, entités locales, crédibilité, résumabilité, données structurées, cohérence). Recommandations contextuelles et suggestions de blocs. Endpoint REST complémentaire `POST /g2rd/v1/geo-analyze` (détection JSON-LD, méta description, word count côté serveur).
