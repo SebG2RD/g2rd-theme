@@ -453,6 +453,9 @@ class ThemeOptions {
         // --- SEO Helper ---
         \update_option( 'g2rd_seo_helper', ! empty( $data['seoHelper'] ) ? 1 : 0 );
 
+        // --- GEO Helper ---
+        \update_option( 'g2rd_geo_helper', ! empty( $data['geoHelper'] ) ? 1 : 0 );
+
         // --- Page de connexion ---
         if ( \is_array( $data['loginSettings'] ?? null ) ) {
             LoginCustomizer::save_settings( $data['loginSettings'] );
@@ -481,6 +484,7 @@ class ThemeOptions {
             'clientMode'     => (bool) \get_option( 'g2rd_client_mode', 0 ),
             'clientMessage'  => (string) \get_option( 'g2rd_client_mode_message', '' ),
             'seoHelper'      => (bool) \get_option( 'g2rd_seo_helper', 1 ),
+            'geoHelper'      => (bool) \get_option( 'g2rd_geo_helper', 1 ),
             'loginSettings'  => LoginCustomizer::get_settings(),
         ];
     }

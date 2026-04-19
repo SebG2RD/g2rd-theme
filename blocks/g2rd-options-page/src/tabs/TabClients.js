@@ -4,6 +4,7 @@ export function TabClients( { settings, update } ) {
 	const clientMode    = !! settings.clientMode;
 	const clientMessage = settings.clientMessage || '';
 	const seoHelper     = settings.seoHelper !== false;
+	const geoHelper     = settings.geoHelper !== false;
 
 	return (
 		<div className="g2rd-tab-content">
@@ -54,6 +55,26 @@ export function TabClients( { settings, update } ) {
 						help="Analyse le titre, la méta-description et la structure des titres en temps réel."
 						checked={ seoHelper }
 						onChange={ ( val ) => update( [ 'seoHelper' ], val ) }
+						__nextHasNoMarginBottom
+					/>
+				</div>
+			</section>
+
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-admin-site-alt3"></span>
+					Aide GEO
+				</h2>
+				<p className="g2rd-section__desc">
+					Affiche un score GEO (Generative Engine Optimization) dans la barre latérale de l'éditeur.
+					Analyse la capacité du contenu à être compris, résumé et cité par une IA générative.
+				</p>
+				<div className="g2rd-card">
+					<ToggleControl
+						label="Activer l'aide GEO dans l'éditeur"
+						help="Calcule un score /100 basé sur la structure, la clarté, les schémas JSON-LD et les blocs GEO présents."
+						checked={ geoHelper }
+						onChange={ ( val ) => update( [ 'geoHelper' ], val ) }
 						__nextHasNoMarginBottom
 					/>
 				</div>

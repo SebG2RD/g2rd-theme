@@ -46,6 +46,10 @@ class GeoAnalyzer {
      * @return void
      */
     public function enqueue_editor_assets(): void {
+        if ( ! (bool) \get_option( 'g2rd_geo_helper', true ) ) {
+            return;
+        }
+
         $dir_path = \get_template_directory();
         $dir_uri  = \get_template_directory_uri();
 
