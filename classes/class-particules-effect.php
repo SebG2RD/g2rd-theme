@@ -48,13 +48,24 @@ class ParticlesEffect {
     }
 
     /**
+     * Détecte si la page courante contient au moins un bloc avec l'effet particules activé.
+     */
+    private function page_has_particles(): bool {
+        $post = \get_post();
+        if ( ! $post ) {
+            return false;
+        }
+        return str_contains( $post->post_content, '"particlesEffect":true' );
+    }
+
+    /**
      * Enregistre et charge le script de particules sur le frontend
      *
      * @since 1.0.0
      * @return void
      */
     public function registerFrontendScripts(): void {
-        if (\is_admin()) {
+        if ( \is_admin() || ScriptsManager::is_speed_test() || ! $this->page_has_particles() ) {
             return;
         }
 

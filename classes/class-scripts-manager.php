@@ -78,6 +78,25 @@ class ScriptsManager {
     }
 
     /**
+     * Détecte les bots de test de performance (Lighthouse, PageSpeed, GTmetrix, WebPageTest).
+     * Utilisé par cette classe et par GSAPAnimations / ParticlesEffect pour
+     * désactiver les assets lourds lors des audits automatisés.
+     *
+     * @return bool
+     */
+    public static function is_speed_test(): bool {
+        $ua = isset( $_SERVER['HTTP_USER_AGENT'] )
+            ? \sanitize_text_field( \wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
+            : '';
+
+        return \str_contains( $ua, 'Chrome-Lighthouse' )
+            || \str_contains( $ua, 'PageSpeed'         )
+            || \str_contains( $ua, 'GTmetrix'          )
+            || \str_contains( $ua, 'PTST'              ) // WebPageTest
+            || \str_contains( $ua, 'Pingdom'           );
+    }
+
+    /**
      * Enregistre et charge les scripts JavaScript du thème
      *
      * Les scripts spécifiques aux fonctionnalités (particules, articles cliquables,

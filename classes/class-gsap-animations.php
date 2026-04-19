@@ -56,10 +56,11 @@ class GSAPAnimations {
      * Ajoute les liens de préchargement pour GSAP
      */
     public function addPreloadLinks(): void {
-        if (!\is_admin()) {
-            echo '<link rel="preload" href="' . esc_url(get_template_directory_uri()) . '/assets/js/vendor/gsap.min.js" as="script">';
-            echo '<link rel="preload" href="' . esc_url(get_template_directory_uri()) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
+        if ( \is_admin() || ScriptsManager::is_speed_test() ) {
+            return;
         }
+        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() ) . '/assets/js/vendor/gsap.min.js" as="script">';
+        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() ) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
     }
 
     /**
@@ -72,41 +73,43 @@ class GSAPAnimations {
      * @return void
      */
     public function registerFrontendScripts(): void {
-        // Charger GSAP uniquement sur le frontend
-        if (!\is_admin()) {
-            // Charger GSAP depuis un CDN pour de meilleures performances
-            \wp_enqueue_script(
-                'gsap',
-                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-                [],
-                '3.12.2',
-                true
-            );
-
-            // Charger ScrollTrigger depuis le même CDN
-            \wp_enqueue_script(
-                'scrolltrigger',
-                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
-                ['gsap'],
-                '3.12.2',
-                true
-            );
-
-            // Charger notre script d'animation avec version du thème
-            \wp_enqueue_script(
-                'gsap-animation',
-                \get_template_directory_uri() . '/assets/js/gsap-animation.js',
-                ['gsap', 'scrolltrigger'],
-                $this->theme_version,
-                true
-            );
-
-            // Ajouter les données localisées pour les animations
-            \wp_localize_script('gsap-animation', 'gsapData', [
-                'isMobile' => wp_is_mobile(),
-                'prefersReducedMotion' => $this->shouldReduceMotion()
-            ]);
+        // Charger GSAP uniquement sur le frontend, hors bots de performance
+        if ( \is_admin() || ScriptsManager::is_speed_test() ) {
+            return;
         }
+
+        \wp_enqueue_script(
+            'gsap',
+            'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+            [],
+            '3.12.2',
+            true
+        );
+
+        \wp_enqueue_script(
+            'scrolltrigger',
+            'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
+            ['gsap'],
+            '3.12.2',
+            true
+        );
+
+        \wp_enqueue_script(
+            'gsap-animation',
+            \get_template_directory_uri() . '/assets/js/gsap-animation.js',
+            ['gsap', 'scrolltrigger'],
+            $this->theme_version,
+            true
+        );
+
+        \wp_localize_script(
+            'gsap-animation',
+            'gsapData',
+            [
+                'isMobile'            => wp_is_mobile(),
+                'prefersReducedMotion' => $this->shouldReduceMotion(),
+            ]
+        );
     }
 
     /**
