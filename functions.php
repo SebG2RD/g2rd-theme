@@ -54,6 +54,7 @@ require_once __DIR__ . '/classes/class-client-mode.php';
 require_once __DIR__ . '/classes/class-onboarding.php';
 require_once __DIR__ . '/classes/class-seo-helper.php';
 require_once __DIR__ . '/classes/class-business-mode.php';
+require_once __DIR__ . '/classes/class-login-customizer.php';
 require_once __DIR__ . '/classes/class-geo-analyzer.php';
 
 /**
@@ -134,6 +135,9 @@ function bootstrap_theme(): void
 
     // Module GEO Analyzer — scoring Generative Engine Optimization dans l'éditeur
     ( new GeoAnalyzer() )->register_hooks();
+
+    // Personnalisation de la page de connexion WordPress
+    ( new LoginCustomizer() )->register_hooks();
 
     // Initialiser les autres classes
     foreach ( $classes as $class ) {

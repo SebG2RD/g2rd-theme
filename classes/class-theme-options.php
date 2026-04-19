@@ -300,6 +300,8 @@ class ThemeOptions {
             );
         }
 
+        \wp_enqueue_media();
+
         \wp_enqueue_script(
             'g2rd-options-page',
             $dir_uri . '/blocks/g2rd-options-page/build/index.js',
@@ -449,6 +451,11 @@ class ThemeOptions {
         // --- SEO Helper ---
         \update_option( 'g2rd_seo_helper', ! empty( $data['seoHelper'] ) ? 1 : 0 );
 
+        // --- Page de connexion ---
+        if ( \is_array( $data['loginSettings'] ?? null ) ) {
+            LoginCustomizer::save_settings( $data['loginSettings'] );
+        }
+
         // Réécriture des règles de routage (slugs CPT)
         \update_option( 'g2rd_needs_rewrite_flush', 1 );
 
@@ -463,15 +470,16 @@ class ThemeOptions {
     /** Retourne toutes les options actuelles sous forme normalisée. */
     private function get_current_settings(): array {
         return [
-            'features'      => (array) \get_option( self::OPTION_FEATURES, [] ),
+            'features'       => (array) \get_option( self::OPTION_FEATURES, [] ),
             'disabledBlocks' => (array) \get_option( self::OPTION_BLOCKS, [] ),
-            'colors'        => (array) \get_option( self::OPTION_COLORS, self::DEFAULT_COLOR_SLUGS ),
-            'cpts'          => (array) \get_option( self::OPTION_CPTS, [] ),
-            'comingSoon'    => (array) \get_option( self::OPTION_COMING_SOON, [ 'enabled' => false, 'page_id' => 0 ] ),
-            'businessType'  => (string) \get_option( 'g2rd_business_type', '' ),
-            'clientMode'    => (bool) \get_option( 'g2rd_client_mode', 0 ),
-            'clientMessage' => (string) \get_option( 'g2rd_client_mode_message', '' ),
-            'seoHelper'     => (bool) \get_option( 'g2rd_seo_helper', 1 ),
+            'colors'         => (array) \get_option( self::OPTION_COLORS, self::DEFAULT_COLOR_SLUGS ),
+            'cpts'           => (array) \get_option( self::OPTION_CPTS, [] ),
+            'comingSoon'     => (array) \get_option( self::OPTION_COMING_SOON, [ 'enabled' => false, 'page_id' => 0 ] ),
+            'businessType'   => (string) \get_option( 'g2rd_business_type', '' ),
+            'clientMode'     => (bool) \get_option( 'g2rd_client_mode', 0 ),
+            'clientMessage'  => (string) \get_option( 'g2rd_client_mode_message', '' ),
+            'seoHelper'      => (bool) \get_option( 'g2rd_seo_helper', 1 ),
+            'loginSettings'  => LoginCustomizer::get_settings(),
         ];
     }
 
@@ -507,18 +515,19 @@ class ThemeOptions {
         );
 
         return [
-            'restUrl'     => \rest_url( self::REST_NAMESPACE . '/settings' ),
-            'nonce'       => \wp_create_nonce( 'wp_rest' ),
-            'version'     => (string) \wp_get_theme()->get( 'Version' ),
-            'onboardingUrl' => \admin_url( 'admin.php?page=g2rd-onboarding' ),
-            'settings'    => $this->get_current_settings(),
-            'features'    => self::FEATURES,
+            'restUrl'         => \rest_url( self::REST_NAMESPACE . '/settings' ),
+            'nonce'           => \wp_create_nonce( 'wp_rest' ),
+            'version'         => (string) \wp_get_theme()->get( 'Version' ),
+            'themeUri'        => \get_template_directory_uri(),
+            'onboardingUrl'   => \admin_url( 'admin.php?page=g2rd-onboarding' ),
+            'settings'        => $this->get_current_settings(),
+            'features'        => self::FEATURES,
             'featureDefaults' => self::FEATURE_DEFAULTS,
-            'blocks'      => self::BLOCKS,
-            'cptDefaults' => self::CPT_DEFAULTS,
-            'palette'     => $palette,
-            'pages'       => $pages_list,
-            'licensed'    => LicenseManager::is_active(),
+            'blocks'          => self::BLOCKS,
+            'cptDefaults'     => self::CPT_DEFAULTS,
+            'palette'         => $palette,
+            'pages'           => $pages_list,
+            'licensed'        => LicenseManager::is_active(),
         ];
     }
 }

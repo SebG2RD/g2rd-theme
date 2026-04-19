@@ -25,74 +25,21 @@ namespace G2RD;
  */
 class ThemeAdmin {
     /**
-     * Chemin du logo G2RD
-     *
-     * @since 1.0.0
-     * @var string
-     */
-    private const LOGO_PATH = '/assets/img/Nouveau-logo-G2RD-Agence-Web-blanc-Horizontale@3x.png';
-    
-    /**
-     * Chemin de l'image de fond de la page de connexion
-     *
-     * @since 1.0.0
-     * @var string
-     */
-    private const BACKGROUND_IMAGE_PATH = '/assets/img/g2rd_image_admin.jpg';
-    
-    /**
-     * URL du site G2RD
-     *
-     * @since 1.0.0
-     * @var string
-     */
-    private const G2RD_WEBSITE = 'https://g2rd.fr';
-    
-    /**
      * Enregistre tous les hooks nécessaires pour la personnalisation de l'admin
      *
      * @since 1.0.0
      * @return void
      */
+    /**
+     * Enregistre les hooks WordPress de l'administration (hors page de connexion).
+     *
+     * @return void
+     */
     public function register_hooks(): void {
-        // Hooks pour les styles (CSS/JS inline injectés via wp_add_inline_style/script dans les callbacks)
-        \add_action('admin_enqueue_scripts', [$this, 'registerAdminAssets']);
-        \add_action('login_enqueue_scripts', [$this, 'registerLoginAssets']);
-
-        // Hooks pour personnaliser le logo de connexion
-        \add_filter('login_headerurl', [$this, 'customLoginLogoUrl']);
-        \add_filter('login_headertext', [$this, 'customLoginLogoText']);
-
-        // Hooks pour personnaliser la structure de la page de connexion
-        \add_action('login_header', [$this, 'customLoginStructure'], 0);
-        \add_action('login_footer', [$this, 'customLoginFooter']);
-
-        // Hook pour injecter les variables CSS de couleurs admin personnalisées
-        \add_action('admin_head', [$this, 'outputAdminColorVars'], 20);
-
-        // Hooks pour la colonne d'image mise en avant
-        \add_filter('manage_posts_columns', [$this, 'addFeaturedImageColumn']);
-        \add_action('manage_posts_custom_column', [$this, 'displayFeaturedImageColumn'], 10, 2);
-    }
-    
-    /**
-     * Obtient l'URL complète du logo G2RD
-     *
-     * @since 1.0.0
-     * @return string URL du logo
-     */
-    private function getLogoUrl(): string {
-        return \get_template_directory_uri() . self::LOGO_PATH;
-    }
-    
-    /**
-     * Obtient l'URL complète de l'image de fond
-     *
-     * @since 1.0.0
-     * @return string URL de l'image de fond
-     */
-    private function getBackgroundImageUrl(): string {
-        return \get_template_directory_uri() . self::BACKGROUND_IMAGE_PATH;
+        \add_action( 'admin_enqueue_scripts', [ $this, 'registerAdminAssets' ] );
+        \add_action( 'admin_head', [ $this, 'outputAdminColorVars' ], 20 );
+        \add_filter( 'manage_posts_columns', [ $this, 'addFeaturedImageColumn' ] );
+        \add_action( 'manage_posts_custom_column', [ $this, 'displayFeaturedImageColumn' ], 10, 2 );
     }
     
     /**
@@ -132,119 +79,6 @@ class ThemeAdmin {
         );
     }
 
-    /**
-     * Enregistre et charge les styles CSS pour la page de connexion
-     * + injecte le logo, le fond et le bouton G2RD via wp_add_inline_style/script.
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function registerLoginAssets(): void {
-        \wp_enqueue_style(
-            'g2rd-login',
-            \get_template_directory_uri() . '/assets/css/login.css',
-            [],
-            \filemtime(\get_template_directory() . '/assets/css/login.css')
-        );
-
-        $logo_url = \esc_url( $this->getLogoUrl() );
-        $bg_url   = \esc_url( $this->getBackgroundImageUrl() );
-        \wp_add_inline_style(
-            'g2rd-login',
-            ".login h1 a {
-    background-image: url({$logo_url}) !important;
-    background-size: contain !important;
-    width: 250px !important;
-    height: 70px !important;
-    margin-bottom: 30px !important;
-}
-.login-image {
-    background-image: url({$bg_url}) !important;
-}
-.g2rd-button {
-    display: block;
-    width: 100%;
-    margin: 15px 0 5px;
-    padding: 12px;
-    background: var(--secondary-color);
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.g2rd-button:hover {
-    background: var(--secondary-color-darker);
-    transform: translateY(-2px);
-    color: white;
-}"
-        );
-
-        // Bouton de redirection G2RD — injecté via wp_add_inline_script (pas d'echo direct)
-        \wp_register_script( 'g2rd-login-js', false, [], false, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters
-        \wp_enqueue_script( 'g2rd-login-js' );
-        $g2rd_url     = \esc_js( self::G2RD_WEBSITE );
-        $button_label = \esc_js( \__( 'Visiter G2RD Agence Web', 'g2rd' ) );
-        \wp_add_inline_script(
-            'g2rd-login-js',
-            "document.addEventListener('DOMContentLoaded', function() {
-    var loginForm = document.getElementById('loginform');
-    if (loginForm) {
-        var button = document.createElement('a');
-        button.href = '{$g2rd_url}';
-        button.target = '_blank';
-        button.className = 'g2rd-button';
-        button.textContent = '{$button_label}';
-        loginForm.insertAdjacentElement('afterend', button);
-    }
-});"
-        );
-    }
-    
-    /**
-     * Définit l'URL du logo sur la page de connexion
-     *
-     * @since 1.0.0
-     * @return string URL de la page d'accueil
-     */
-    public function customLoginLogoUrl(): string {
-        return \home_url('/');
-    }
-
-    /**
-     * Définit le texte alternatif du logo sur la page de connexion
-     *
-     * @since 1.0.0
-     * @return string Nom du site
-     */
-    public function customLoginLogoText(): string {
-        return \get_bloginfo('name');
-    }
-
-    /**
-     * Ajoute la structure HTML personnalisée pour la page de connexion
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function customLoginStructure(): void {
-        echo '<div class="login-container">';
-        echo '<div class="login-image"></div>';
-    }
-
-    /**
-     * Ajoute le pied de page personnalisé pour la page de connexion
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function customLoginFooter(): void {
-        echo '</div>'; // Fermeture de login-container
-    }
-    
     /**
      * Assombrit une couleur hexadécimale d'un montant donné par canal RGB.
      *

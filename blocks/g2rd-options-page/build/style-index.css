@@ -393,7 +393,124 @@
 .g2rd-save-bar .components-spinner {
 	margin: 0;
 }
+/* ── Login Tab Layout ──────────────────────────────────────────── */
+.g2rd-login-layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+	align-items: start;
+}
+.g2rd-login-options {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.g2rd-login-preview-col .g2rd-section--sticky {
+	position: sticky;
+	top: 32px;
+}
+/* ── Login Preview ─────────────────────────────────────────────── */
+.g2rd-login-preview {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.g2rd-login-preview__hint {
+	font-size: 11px;
+	color: #8c8f94;
+	margin: 0;
+	text-align: center;
+}
+/* ── Color Input ───────────────────────────────────────────────── */
+.g2rd-color-input {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.g2rd-color-input__label {
+	font-size: 13px;
+	font-weight: 500;
+	color: #1d2327;
+}
+.g2rd-color-input__row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.g2rd-color-input__picker {
+	width: 36px;
+	height: 36px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	padding: 2px;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+.g2rd-color-input__text {
+	flex: 1;
+	height: 36px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	padding: 0 10px;
+	font-size: 13px;
+	font-family: monospace;
+}
+.g2rd-color-input__text:focus {
+	outline: none;
+	border-color: #1e3a5f;
+	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
+}
+/* ── Color Grid ────────────────────────────────────────────────── */
+.g2rd-color-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+/* ── Media Picker ──────────────────────────────────────────────── */
+.g2rd-media-picker {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.g2rd-media-picker__label {
+	font-size: 13px;
+	font-weight: 500;
+	color: #1d2327;
+}
+.g2rd-media-picker__preview {
+	width: 100%;
+	max-height: 120px;
+	overflow: hidden;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+.g2rd-media-picker__preview img {
+	width: 100%;
+	height: 120px;
+	-o-object-fit: cover;
+	   object-fit: cover;
+	display: block;
+}
+.g2rd-media-picker__actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+.g2rd-media-picker__hint {
+	font-size: 11px;
+	color: #8c8f94;
+	margin: 0;
+}
 /* ── Responsive ────────────────────────────────────────────────── */
+@media ( max-width: 960px ) {
+	.g2rd-login-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.g2rd-color-grid {
+		grid-template-columns: 1fr;
+	}
+}
 @media ( max-width: 782px ) {
 	.g2rd-save-bar {
 		left: 0;

@@ -7,6 +7,7 @@ import { TabContenu } from './tabs/TabContenu';
 import { TabEditeur } from './tabs/TabEditeur';
 import { TabClients } from './tabs/TabClients';
 import { TabMaintenance } from './tabs/TabMaintenance';
+import { TabConnexion } from './tabs/TabConnexion';
 
 const { version, licensed } = window.G2RDOptionsData || {};
 
@@ -16,6 +17,7 @@ const TAB_CONFIG = [
 	{ name: 'editeur',       title: 'Éditeur',        icon: 'block-default' },
 	{ name: 'clients',       title: 'Clients',        icon: 'admin-users' },
 	{ name: 'maintenance',   title: 'Maintenance',    icon: 'clock' },
+	{ name: 'connexion',     title: 'Connexion',      icon: 'lock' },
 ];
 
 const TABS = TAB_CONFIG.map( ( { name, title, icon } ) => ( {
@@ -78,6 +80,7 @@ export function App() {
 						case 'editeur':       return <TabEditeur       { ...props } />;
 						case 'clients':       return <TabClients       { ...props } />;
 						case 'maintenance':   return <TabMaintenance   { ...props } />;
+						case 'connexion':     return <TabConnexion     { ...props } />;
 						default:              return null;
 					}
 				} }
