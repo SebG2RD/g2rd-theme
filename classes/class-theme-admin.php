@@ -80,6 +80,15 @@ class ThemeAdmin {
     }
 
     /**
+     * Retourne l'URL du logo G2RD utilisé dans la barre d'administration.
+     *
+     * @return string
+     */
+    private function getLogoUrl(): string {
+        return \get_template_directory_uri() . '/assets/img/Nouveau-logo-G2RD-Agence-Web-blanc-Horizontale@3x.png';
+    }
+
+    /**
      * Assombrit une couleur hexadécimale d'un montant donné par canal RGB.
      *
      * @param  string $hex    Couleur hex (avec ou sans #).
