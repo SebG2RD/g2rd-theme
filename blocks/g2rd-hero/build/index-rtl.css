@@ -1,0 +1,8 @@
+.g2rd-hero-editor-wrap {
+  display: block;
+}
+
+.g2rd-hero-editor-wrap .g2rd-hero {
+  pointer-events: none;
+}
+

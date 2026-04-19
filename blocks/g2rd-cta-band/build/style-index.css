@@ -1,0 +1,65 @@
+.g2rd-cta-band {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.g2rd-cta-band__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.g2rd-cta-band__title {
+  margin: 0 0 1rem;
+}
+
+.g2rd-cta-band__desc {
+  margin: 0 auto 2rem;
+}
+
+.g2rd-cta-band__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: inherit;
+}
+
+.g2rd-cta-band__btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.g2rd-cta-band__btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.g2rd-cta-band__btn--secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+
+.g2rd-cta-band__reassurance {
+  margin: 1.25rem 0 0;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .g2rd-cta-band__btns {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .g2rd-cta-band__btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/*# sourceMappingURL=style-index.css.map*/

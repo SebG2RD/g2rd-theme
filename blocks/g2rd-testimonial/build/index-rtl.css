@@ -1,0 +1,6 @@
+.g2rd-testimonial [contenteditable]:focus {
+  outline: 2px dashed var(--wp--preset--color--secondary, #d4a373);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+

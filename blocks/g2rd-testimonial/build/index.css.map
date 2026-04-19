@@ -1,0 +1,1 @@
+{"version":3,"file":"index.css","mappings":"AAAA;EACE,gEAAgE;EAChE,mBAAmB;EACnB,kBAAkB;AACpB","sources":["webpack://g2rd-testimonial/./src/editor.css"],"sourcesContent":[".g2rd-testimonial [contenteditable]:focus {\n  outline: 2px dashed var(--wp--preset--color--secondary, #d4a373);\n  outline-offset: 2px;\n  border-radius: 2px;\n}\n"],"names":[],"sourceRoot":""}
