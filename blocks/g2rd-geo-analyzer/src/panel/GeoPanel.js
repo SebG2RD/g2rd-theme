@@ -13,7 +13,7 @@ import { store as editorStore }           from '@wordpress/editor';
 
 import ScoreGauge                         from './ScoreGauge';
 import CriterionCard                      from './CriterionCard';
-import { analyzeContent, getGlobalColor, CRITERIA_LABELS } from '../utils/analyzer';
+import { analyzeContent, getGlobalColor, CRITERIA_LABELS, PAGE_TYPE_LABELS } from '../utils/analyzer';
 
 /** Nombre minimum de mots pour déclencher l'analyse (évite le bruit) */
 const MIN_WORDS = 20;
@@ -21,10 +21,11 @@ const MIN_WORDS = 20;
 export default function GeoPanel() {
 	const [ manualRefresh, setManualRefresh ] = useState( 0 );
 
-	// Récupère les blocs et le titre depuis le store WP
-	const { blocks, title } = useSelect( ( select ) => ( {
-		blocks: select( blockEditorStore ).getBlocks(),
-		title:  select( editorStore ).getEditedPostAttribute( 'title' ) ?? '',
+	// Récupère les blocs, le titre et le type de post depuis le store WP
+	const { blocks, title, postType } = useSelect( ( select ) => ( {
+		blocks:   select( blockEditorStore ).getBlocks(),
+		title:    select( editorStore ).getEditedPostAttribute( 'title' ) ?? '',
+		postType: select( editorStore ).getCurrentPostType() ?? 'page',
 	} ), [ manualRefresh ] );
 
 	// Analyse mémoïsée (recalcul uniquement si blocks/title changent)
@@ -36,7 +37,7 @@ export default function GeoPanel() {
 		if ( textBlocks.length === 0 ) {
 			return null;
 		}
-		return analyzeContent( blocks, title );
+		return analyzeContent( blocks, title, postType );
 	}, [ blocks, title ] );
 
 	const handleRefresh = useCallback( () => {
@@ -55,8 +56,8 @@ export default function GeoPanel() {
 		);
 	}
 
-	const { score, criteria } = analysis;
-	const color               = getGlobalColor( score );
+	const { score, criteria, pageType } = analysis;
+	const color                         = getGlobalColor( score );
 
 	// Collecte toutes les recommandations (détails warning/error)
 	const recommendations = Object.values( criteria )
@@ -65,6 +66,14 @@ export default function GeoPanel() {
 
 	return (
 		<div className="g2rd-geo">
+
+			{/* ── Type de page détecté ─────────────────────────── */}
+			{ pageType && (
+				<div className="g2rd-geo__page-type">
+					<span className="g2rd-geo__page-type-icon" aria-hidden="true">📄</span>
+					{ PAGE_TYPE_LABELS[ pageType ] ?? pageType }
+				</div>
+			) }
 
 			{/* ── Score global ──────────────────────────────────── */}
 			<div className="g2rd-geo__header">

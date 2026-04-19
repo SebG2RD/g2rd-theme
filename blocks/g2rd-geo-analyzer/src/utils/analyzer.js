@@ -4,29 +4,60 @@
  * Analyse les blocs Gutenberg et retourne un score GEO sur 100 avec
  * des détails par critère et des recommandations actionnables.
  *
- * Critères et poids :
- *  Clarté         → 15 pts
- *  Structure      → 15 pts
- *  FAQ / Q&R      → 10 pts
- *  Entités        → 15 pts
- *  Crédibilité    → 15 pts
- *  Résumabilité   → 10 pts
- *  Données struct → 10 pts
- *  Cohérence      → 10 pts
+ * Critères de base (poids adaptatifs selon le type de page) :
+ *  Clarté         → 15 pts (défaut)
+ *  Structure      → 15 pts (défaut)
+ *  FAQ / Q&R      → 10 pts (défaut)
+ *  Entités        → 15 pts (défaut)
+ *  Crédibilité    → 15 pts (défaut)
+ *  Résumabilité   → 10 pts (défaut)
+ *  Données struct → 10 pts (défaut)
+ *  Cohérence      → 10 pts (défaut)
  *               = 100 pts
  */
 
-/** Poids de chaque critère (total = 100) */
-export const CRITERIA_WEIGHTS = {
-	clarity:     15,
-	structure:   15,
-	faq:         10,
-	entities:    15,
-	credibility: 15,
-	summary:     10,
-	schema:      10,
-	consistency: 10,
+/** Types de pages supportés */
+export const PAGE_TYPES = {
+	SERVICE:   'service',
+	HOME:      'home',
+	BLOG_POST: 'blog_post',
+	CONTACT:   'contact',
+	PORTFOLIO: 'portfolio',
+	GENERIC:   'generic',
 };
+
+/** Labels d'affichage des types de pages */
+export const PAGE_TYPE_LABELS = {
+	[ PAGE_TYPES.SERVICE   ]: 'Page service / prestation',
+	[ PAGE_TYPES.HOME      ]: 'Page d\'accueil',
+	[ PAGE_TYPES.BLOG_POST ]: 'Article de blog',
+	[ PAGE_TYPES.CONTACT   ]: 'Page contact',
+	[ PAGE_TYPES.PORTFOLIO ]: 'Portfolio',
+	[ PAGE_TYPES.GENERIC   ]: 'Page générique',
+};
+
+/**
+ * Poids adaptatifs par type de page (somme = 100 pour chaque profil).
+ *
+ * Logique :
+ *  - Service   : clarté + crédibilité + FAQ prioritaires (conversion)
+ *  - Home      : entités + crédibilité + cohérence (branding)
+ *  - Blog post : structure + clarté + résumabilité (contenu)
+ *  - Contact   : crédibilité maximale (informations de contact)
+ *  - Portfolio : entités + schéma + cohérence (preuve)
+ *  - Generic   : répartition équilibrée par défaut
+ */
+export const ADAPTIVE_WEIGHTS = {
+	[ PAGE_TYPES.SERVICE   ]: { clarity: 18, structure: 11, faq: 14, entities: 13, credibility: 18, summary:  8, schema: 11, consistency:  7 },
+	[ PAGE_TYPES.HOME      ]: { clarity: 11, structure: 11, faq:  6, entities: 18, credibility: 21, summary: 13, schema:  8, consistency: 12 },
+	[ PAGE_TYPES.BLOG_POST ]: { clarity: 18, structure: 19, faq:  8, entities: 11, credibility:  9, summary: 15, schema:  8, consistency: 12 },
+	[ PAGE_TYPES.CONTACT   ]: { clarity: 10, structure:  9, faq:  8, entities: 14, credibility: 31, summary:  8, schema: 12, consistency:  8 },
+	[ PAGE_TYPES.PORTFOLIO ]: { clarity: 13, structure: 13, faq:  6, entities: 16, credibility: 16, summary: 10, schema: 14, consistency: 12 },
+	[ PAGE_TYPES.GENERIC   ]: { clarity: 15, structure: 15, faq: 10, entities: 15, credibility: 15, summary: 10, schema: 10, consistency: 10 },
+};
+
+/** Poids par défaut (alias vers GENERIC pour l'export) */
+export const CRITERIA_WEIGHTS = ADAPTIVE_WEIGHTS[ PAGE_TYPES.GENERIC ];
 
 /** Labels affichés dans le panneau */
 export const CRITERIA_LABELS = {
@@ -70,7 +101,51 @@ function wordCount( text ) {
 	return text.split( /\s+/ ).filter( Boolean ).length;
 }
 
-// ── Critère 1 : Clarté de réponse (15 pts) ────────────────────────────────
+// ── Détection du type de page ─────────────────────────────────────────────
+
+/**
+ * Détecte le type de page à partir du postType WP et du contenu.
+ *
+ * @param {string} postType  - Type de post WordPress ('post', 'page', 'portfolio', …)
+ * @param {string} title     - Titre de la page
+ * @param {string} fullText  - Texte extrait du contenu
+ * @returns {string} Une valeur de PAGE_TYPES
+ */
+export function detectPageType( postType = 'page', title = '', fullText = '' ) {
+	const t = title.toLowerCase();
+	const c = fullText.toLowerCase();
+
+	// Articles de blog WordPress
+	if ( postType === 'post' ) {
+		return PAGE_TYPES.BLOG_POST;
+	}
+
+	// Portfolio (CPT g2rd ou courant)
+	if ( [ 'portfolio', 'g2rd_portfolio' ].includes( postType ) ) {
+		return PAGE_TYPES.PORTFOLIO;
+	}
+
+	// Page contact (titre ou contenu révélateur)
+	if ( /\b(contact|nous contacter|contactez[- ]nous|joindre|prise de contact)\b/.test( t + ' ' + c.slice( 0, 200 ) ) ) {
+		return PAGE_TYPES.CONTACT;
+	}
+
+	// Page d'accueil
+	if ( /\b(accueil|bienvenue|homepage|home page)\b/.test( t ) ) {
+		return PAGE_TYPES.HOME;
+	}
+
+	// Page service / prestation (titre ou densité de mots-clés)
+	const serviceKeywords = /\b(service|prestation|offre|forfait|tarif|prix|devis|création|développement|conception|audit|conseil|formation|agence|studio)\b/gi;
+	const serviceHits = ( ( t + ' ' + c.slice( 0, 400 ) ).match( serviceKeywords ) ?? [] ).length;
+	if ( serviceHits >= 2 ) {
+		return PAGE_TYPES.SERVICE;
+	}
+
+	return PAGE_TYPES.GENERIC;
+}
+
+// ── Critère 1 : Clarté de réponse (15 pts défaut) ─────────────────────────
 
 function analyzeClarity( blocks ) {
 	let score = 0;
@@ -121,7 +196,7 @@ function analyzeClarity( blocks ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.clarity ), max: CRITERIA_WEIGHTS.clarity, details };
 }
 
-// ── Critère 2 : Structure (15 pts) ────────────────────────────────────────
+// ── Critère 2 : Structure (15 pts défaut) ─────────────────────────────────
 
 function analyzeStructure( blocks ) {
 	let score = 0;
@@ -168,41 +243,77 @@ function analyzeStructure( blocks ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.structure ), max: CRITERIA_WEIGHTS.structure, details };
 }
 
-// ── Critère 3 : FAQ / Q&R (10 pts) ────────────────────────────────────────
+// ── Critère 3 : FAQ / Q&R (10 pts défaut) ─────────────────────────────────
 
 function analyzeFAQ( blocks, fullText ) {
 	let score = 0;
 	const details = [];
 
-	// Bloc FAQ avec mode GEO actif (schema FAQPage + JSON-LD)
-	const hasGeoFaq = blocks.some(
-		( b ) => b.name === 'g2rd/geo-faq' ||
-		         ( b.name === 'g2rd/faq' && b.attributes?.optimizeForGEO )
+	// Trouve le bloc FAQ (G2RD unifié ou legacy geo-faq)
+	const faqBlock = blocks.find(
+		( b ) => b.name === 'g2rd/faq' || b.name === 'g2rd/geo-faq'
 	);
 
-	// Bloc FAQ quelconque (standard, sans GEO)
+	const hasGeoFaq = !! faqBlock && (
+		faqBlock.name === 'g2rd/geo-faq' ||
+		faqBlock.attributes?.optimizeForGEO
+	);
+
 	const hasAnyFaq = hasGeoFaq || blocks.some(
 		( b ) => [ 'yoast/faq-block', 'g2rd/faq', 'core/faq' ].includes( b.name )
 	);
 
 	if ( hasGeoFaq ) {
-		score += 6;
+		// Présence du bloc GEO FAQ (3 pts sur 10)
+		score += 3;
 		details.push( { status: 'ok', text: 'Bloc FAQ en mode GEO — schema FAQPage actif' } );
+
+		// Qualité — nombre d'items
+		const items = ( faqBlock?.attributes?.items ?? [] ).filter(
+			( i ) => i.question && i.answer
+		);
+
+		if ( items.length >= 5 ) {
+			score += 2;
+			details.push( { status: 'ok', text: `${ items.length } questions — excellent` } );
+		} else if ( items.length >= 3 ) {
+			score += 1;
+			details.push( { status: 'warning', text: `${ items.length } questions présentes — visez 5 pour maximiser la couverture` } );
+		} else if ( items.length > 0 ) {
+			details.push( { status: 'error', text: `Seulement ${ items.length } question(s) — ajoutez-en au moins 3` } );
+		} else {
+			details.push( { status: 'error', text: 'Le bloc FAQ est vide — ajoutez au moins 3 questions/réponses' } );
+		}
+
+		// Qualité — longueur moyenne des réponses (≥ 30 mots)
+		if ( items.length > 0 ) {
+			const avgAnswerLen = items.reduce(
+				( sum, i ) => sum + wordCount( i.answer.replace( /<[^>]+>/g, '' ) ),
+				0
+			) / items.length;
+
+			if ( avgAnswerLen >= 30 ) {
+				score += 1;
+				details.push( { status: 'ok', text: 'Réponses détaillées (moy. ' + Math.round( avgAnswerLen ) + ' mots)' } );
+			} else {
+				details.push( { status: 'warning', text: 'Étoffez vos réponses (moy. ' + Math.round( avgAnswerLen ) + ' mots, visez 30+)' } );
+			}
+		}
 	} else if ( hasAnyFaq ) {
-		score += 4;
+		score += 2;
 		details.push( { status: 'warning', text: 'Bloc FAQ présent — activez le mode GEO pour le schema FAQPage' } );
 	} else {
 		details.push( { status: 'error', text: 'Ajoutez un bloc FAQ et activez le mode GEO (≥ 3 questions)' } );
 	}
 
-	// Phrases interrogatives dans le texte
+	// Phrases interrogatives dans le texte (4 pts)
 	const qCount = ( fullText.match( /\?/g ) ?? [] ).length;
 	if ( qCount >= 3 ) {
 		score += 4;
-		details.push( { status: 'ok', text: `${ qCount } questions détectées` } );
+		details.push( { status: 'ok', text: `${ qCount } questions dans le contenu` } );
 	} else if ( qCount >= 1 ) {
 		score += 2;
-		details.push( { status: 'warning', text: `${ qCount } question(s) — visez au moins 3` } );
+		details.push( { status: 'warning', text: `${ qCount } question(s) détectée(s) — visez au moins 3` } );
 	} else {
 		details.push( { status: 'warning', text: 'Aucune question — adoptez un format Q&R' } );
 	}
@@ -210,7 +321,7 @@ function analyzeFAQ( blocks, fullText ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.faq ), max: CRITERIA_WEIGHTS.faq, details };
 }
 
-// ── Critère 4 : Entités (15 pts) ──────────────────────────────────────────
+// ── Critère 4 : Entités (15 pts défaut) ───────────────────────────────────
 
 function analyzeEntities( fullText, title ) {
 	let score = 0;
@@ -257,7 +368,7 @@ function analyzeEntities( fullText, title ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.entities ), max: CRITERIA_WEIGHTS.entities, details };
 }
 
-// ── Critère 5 : Crédibilité (15 pts) ──────────────────────────────────────
+// ── Critère 5 : Crédibilité (15 pts défaut) ───────────────────────────────
 
 function analyzeCredibility( fullText ) {
 	let score = 0;
@@ -299,7 +410,7 @@ function analyzeCredibility( fullText ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.credibility ), max: CRITERIA_WEIGHTS.credibility, details };
 }
 
-// ── Critère 6 : Résumabilité (10 pts) ─────────────────────────────────────
+// ── Critère 6 : Résumabilité (10 pts défaut) ──────────────────────────────
 
 function analyzeSummary( blocks ) {
 	let score = 0;
@@ -325,7 +436,7 @@ function analyzeSummary( blocks ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.summary ), max: CRITERIA_WEIGHTS.summary, details };
 }
 
-// ── Critère 7 : Données structurées (10 pts) ──────────────────────────────
+// ── Critère 7 : Données structurées (10 pts défaut) ───────────────────────
 
 function analyzeSchema( blocks, fullText ) {
 	let score = 0;
@@ -363,7 +474,7 @@ function analyzeSchema( blocks, fullText ) {
 	return { score: Math.min( score, CRITERIA_WEIGHTS.schema ), max: CRITERIA_WEIGHTS.schema, details };
 }
 
-// ── Critère 8 : Cohérence titre / contenu (10 pts) ───────────────────────
+// ── Critère 8 : Cohérence titre / contenu (10 pts défaut) ─────────────────
 
 function analyzeConsistency( blocks, title, fullText ) {
 	let score = 0;
@@ -419,15 +530,23 @@ function analyzeConsistency( blocks, title, fullText ) {
 /**
  * Analyse le contenu Gutenberg et retourne le score GEO complet.
  *
- * @param {Array}  blocks - Blocs Gutenberg (depuis wp.data select core/block-editor)
- * @param {string} title  - Titre de la page / article
- * @returns {{ score: number, criteria: Object }}
+ * Les scores bruts de chaque critère sont calculés sur leurs poids par défaut,
+ * puis normalisés vers les poids adaptatifs du type de page détecté.
+ *
+ * @param {Array}  blocks    - Blocs Gutenberg (depuis wp.data select core/block-editor)
+ * @param {string} title     - Titre de la page / article
+ * @param {string} postType  - Type de post WordPress ('post', 'page', …)
+ * @returns {{ score: number, criteria: Object, pageType: string }}
  */
-export function analyzeContent( blocks, title = '' ) {
+export function analyzeContent( blocks, title = '', postType = 'page' ) {
 	const flat     = flattenBlocks( blocks );
 	const fullText = extractText( flat );
 
-	const criteria = {
+	const pageType        = detectPageType( postType, title, fullText );
+	const adaptiveWeights = ADAPTIVE_WEIGHTS[ pageType ];
+
+	// Calcul brut sur les poids par défaut (GENERIC)
+	const rawCriteria = {
 		clarity:     analyzeClarity( flat ),
 		structure:   analyzeStructure( flat ),
 		faq:         analyzeFAQ( flat, fullText ),
@@ -438,9 +557,21 @@ export function analyzeContent( blocks, title = '' ) {
 		consistency: analyzeConsistency( flat, title, fullText ),
 	};
 
+	// Normalisation vers les poids adaptatifs
+	const criteria = {};
+	for ( const [ key, raw ] of Object.entries( rawCriteria ) ) {
+		const newMax      = adaptiveWeights[ key ];
+		const scaledScore = raw.max > 0 ? Math.round( ( raw.score / raw.max ) * newMax ) : 0;
+		criteria[ key ] = {
+			...raw,
+			score: Math.min( scaledScore, newMax ),
+			max:   newMax,
+		};
+	}
+
 	const score = Object.values( criteria ).reduce( ( sum, c ) => sum + c.score, 0 );
 
-	return { score: Math.min( score, 100 ), criteria };
+	return { score: Math.min( score, 100 ), criteria, pageType };
 }
 
 /**
