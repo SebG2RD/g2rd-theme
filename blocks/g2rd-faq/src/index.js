@@ -90,6 +90,22 @@ registerBlockType( "g2rd/faq", {
   edit: Edit,
   save: Save,
   deprecated,
+  variations: [
+    {
+      name:        "faq-standard",
+      title:       "FAQ Standard",
+      description: "Accordéon classique avec boutons ARIA — idéal pour les pages de contenu",
+      isDefault:   true,
+      attributes:  { optimizeForGEO: false, openFirst: true, iconType: "plus-minus" },
+    },
+    {
+      name:        "faq-geo",
+      title:       "FAQ GEO (schema.org)",
+      description: "FAQ optimisée pour les moteurs IA — schema FAQPage + JSON-LD automatiques",
+      attributes:  { optimizeForGEO: true, openFirst: true, iconType: "chevron" },
+      icon:        { src: "search", foreground: "#FAFAFA", background: "#22c55e" },
+    },
+  ],
   transforms: {
     from: [
       {
