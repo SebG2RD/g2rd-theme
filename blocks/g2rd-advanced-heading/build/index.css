@@ -5,7 +5,7 @@
 /* Indicateur visuel : contour pointillé sur l'enveloppe animée */
 
 .g2rd-adv-heading__animated-outer {
-	outline:        1px dashed rgba( 0, 100, 255, 0.3 );
+	outline:        1px dashed color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 30%, transparent);
 	outline-offset: 2px;
 }
 

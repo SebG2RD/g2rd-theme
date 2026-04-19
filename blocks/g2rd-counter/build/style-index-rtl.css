@@ -264,7 +264,7 @@
 /* Accessibility */
 
 .g2rd-counter:focus-within {
-  outline: 2px solid var(--wp--preset--color--primary, #007cba);
+  outline: 2px solid var(--wp--preset--color--primary, #2f425d);
   outline-offset: 2px;
 }
 

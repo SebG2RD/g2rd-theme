@@ -292,7 +292,7 @@
 	padding: 6px 8px;
 	background: #f8fafc;
 	border-radius: 4px;
-	border-left: 3px solid #2F425D;
+	border-left: 3px solid var(--wp--preset--color--primary, #2f425d);
 }
 
 .g2rd-geo__blocks-list strong {

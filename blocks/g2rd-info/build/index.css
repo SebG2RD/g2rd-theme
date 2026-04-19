@@ -117,12 +117,14 @@
 }
 
 .g2rd-info-block.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow:
+    0 12px 40px color-mix(in srgb, var(--wp--preset--color--secondary, #d4a373) 25%, rgba(0, 0, 0, 0.1)),
+    0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .g2rd-info-block.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--wp--preset--color--secondary, #d4a373) 40%, rgba(0, 0, 0, 0.08));
 }
 
 /* Responsive Design */
@@ -182,7 +184,7 @@
 /* Accessibility */
 
 .g2rd-info-block:focus-within {
-  outline: 2px solid #007cba;
+  outline: 2px solid var(--wp--preset--color--primary, #2f425d);
   outline-offset: 2px;
 }
 

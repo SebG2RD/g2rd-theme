@@ -4,7 +4,7 @@
  */
 
 .wp-block-g2rd-counter.is-selected {
-  border: 2px dashed var(--wp--preset--color--primary, #007cba);
+  border: 2px dashed var(--wp--preset--color--primary, #2f425d);
 }
 
 .wp-block-g2rd-counter .block-editor-rich-text__editable {

@@ -50,11 +50,13 @@ ul {
 @keyframes reveal {
   from {
     opacity: 0;
-    translate: 0 100px;
+    translate: 0 32px;
+    scale: 0.98;
   }
   to {
     opacity: 1;
     translate: 0 0;
+    scale: 1;
   }
 }
 
@@ -95,19 +97,45 @@ ul {
 .portfolio {
   height: 100%;
   box-shadow: var(--wp--preset--shadow--huge);
-  transition: transform var(--transition-standard);
-
+  transition: transform var(--transition-standard), box-shadow var(--transition-standard);
   position: relative;
   cursor: pointer;
   overflow: hidden;
   z-index: var(--z-index-base);
 }
 
+/* Shimmer doré sur survol */
+.h-article::before,
+.portfolio::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in srgb, var(--wp--preset--color--secondary, #d4a373) 22%, transparent) 50%,
+    transparent 100%
+  );
+  z-index: var(--z-index-overlay);
+  pointer-events: none;
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Effets de survol communs */
 .h-article:hover,
 .portfolio:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--wp--preset--shadow--huge);
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px color-mix(in srgb, var(--wp--preset--color--secondary, #d4a373) 20%, rgba(0, 0, 0, 0.12)),
+    0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.h-article:hover::before,
+.portfolio:hover::before {
+  left: 130%;
 }
 
 .g2rd-clickable-article {
@@ -287,18 +315,20 @@ ul {
 
 /* Effet de verre */
 [data-glass="true"] {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Support pour les navigateurs qui ne supportent pas backdrop-filter */
 @supports not (backdrop-filter: blur(5px)) {
   [data-glass="true"] {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.88);
   }
 }
 
