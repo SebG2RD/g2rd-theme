@@ -216,14 +216,34 @@
           ]
         },
         {
-          "name": "Source Sans Pro",
-          "slug": "source-sans-pro",
-          "fontFamily": "Source Sans Pro, sans-serif"
+          "fontFamily": "Acme, sans-serif",
+          "name": "Acme",
+          "slug": "acme",
+          "fontFace": [
+            {
+              "fontFamily": "Acme",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Acme-Regular.woff2"]
+            }
+          ]
         },
         {
-          "name": "Lora",
-          "slug": "lora",
-          "fontFamily": "Lora, serif"
+          "fontFamily": "Borel, cursive",
+          "name": "Borel",
+          "slug": "borel",
+          "fontFace": [
+            {
+              "fontFamily": "Borel",
+              "fontDisplay": "block",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./assets/fonts/Borel-Regular.woff2"]
+            }
+          ]
         }
       ],
       "fontSizes": [
@@ -286,15 +306,32 @@
         "large": 1.8
       },
       "radius": {
+        "xs": "2px",
         "s": "4px",
         "m": "10px",
         "l": "20px",
+        "xl": "32px",
         "full": "999px"
+      },
+      "button": {
+        "radius": "10px",
+        "radius-pill": "999px",
+        "radius-square": "4px",
+        "padding-h": "1.5rem",
+        "padding-v": "0.75rem",
+        "font-weight": 600,
+        "transition": "0.2s ease"
       },
       "color": {
         "primaryhover": "#4B6A95",
         "secondaryhover": "#8C5C2B",
-        "whitehover": "#CCCCCC"
+        "whitehover": "#CCCCCC",
+        "neutral-50": "#F8FAFC",
+        "neutral-100": "#F1F5F9",
+        "neutral-200": "#E2E8F0",
+        "neutral-500": "#64748B",
+        "neutral-700": "#334155",
+        "neutral-900": "#0F172A"
       }
     },
     "blocks": {
@@ -356,22 +393,47 @@
       "sticky": true
     },
     "shadow": {
-      "defaultPresets": true,
+      "defaultPresets": false,
       "presets": [
+        {
+          "name": "Très légère",
+          "slug": "xs",
+          "shadow": "0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)"
+        },
         {
           "name": "Douce",
           "slug": "light",
-          "shadow": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+          "shadow": "0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)"
+        },
+        {
+          "name": "Moyenne",
+          "slug": "md",
+          "shadow": "0 8px 24px rgba(0, 0, 0, 0.10), 0 3px 8px rgba(0, 0, 0, 0.06)"
         },
         {
           "name": "Fine",
           "slug": "neat",
-          "shadow": "12px 12px 2px 1px rgba(99, 99, 99, 0.4)"
+          "shadow": "0 2px 0 rgba(99, 99, 99, 0.25), 0 4px 12px rgba(99, 99, 99, 0.15)"
         },
         {
           "name": "Imposante",
           "slug": "huge",
-          "shadow": "10px 5px 5px rgba(0, 0, 0, 0.1)"
+          "shadow": "0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06)"
+        },
+        {
+          "name": "Élevée",
+          "slug": "xl",
+          "shadow": "0 24px 64px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.08)"
+        },
+        {
+          "name": "Lueur principale",
+          "slug": "primary-glow",
+          "shadow": "0 4px 24px rgba(47, 66, 93, 0.28), 0 2px 8px rgba(47, 66, 93, 0.14)"
+        },
+        {
+          "name": "Lueur secondaire",
+          "slug": "secondary-glow",
+          "shadow": "0 4px 24px rgba(212, 163, 115, 0.32), 0 2px 8px rgba(212, 163, 115, 0.18)"
         }
       ]
     }

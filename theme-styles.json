@@ -88,25 +88,25 @@
       },
       "h3": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--source-sans-pro)",
+          "fontFamily": "var(--wp--preset--font-family--inter)",
           "fontSize": "var:preset|font-size|m"
         }
       },
       "h4": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--source-sans-pro)",
+          "fontFamily": "var(--wp--preset--font-family--inter)",
           "fontSize": "var:preset|font-size|s"
         }
       },
       "h5": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--source-sans-pro)",
+          "fontFamily": "var(--wp--preset--font-family--inter)",
           "fontSize": "var:preset|font-size|xs"
         }
       },
       "h6": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--source-sans-pro)",
+          "fontFamily": "var(--wp--preset--font-family--inter)",
           "fontSize": "var:preset|font-size|xs"
         }
       },
