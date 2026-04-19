@@ -30,7 +30,7 @@
 	justify-content: center;
 	width: 44px;
 	height: 44px;
-	background: #1e3a5f;
+	background: var(--primary-color);
 	color: #fff;
 	font-weight: 800;
 	font-size: 13px;
@@ -105,7 +105,7 @@
 }
 
 .g2rd-section__title .dashicons {
-	color: #1e3a5f;
+	color: var(--primary-color);
 }
 
 .g2rd-section__desc {
@@ -182,12 +182,12 @@
 }
 
 .g2rd-business-card:hover {
-	border-color: #1e3a5f;
+	border-color: var(--primary-color);
 	background: #f0f4f8;
 }
 
 .g2rd-business-card--active {
-	border-color: #1e3a5f;
+	border-color: var(--primary-color);
 	background: #eef2f8;
 }
 
@@ -195,7 +195,7 @@
 	font-size: 20px;
 	width: 20px;
 	height: 20px;
-	color: #1e3a5f;
+	color: var(--primary-color);
 }
 
 .g2rd-business-card strong {
@@ -245,10 +245,10 @@
 }
 
 .g2rd-swatch--active {
-	border-color: #1e3a5f;
+	border-color: var(--primary-color);
 	outline: 2px solid #fff;
 	outline-offset: 1px;
-	box-shadow: 0 0 0 2px #1e3a5f;
+	box-shadow: 0 0 0 2px var(--primary-color);
 }
 
 /* ── Features Grid ─────────────────────────────────────────────── */
@@ -284,7 +284,7 @@
 	font-size: 22px;
 	width: 22px;
 	height: 22px;
-	color: #1e3a5f;
+	color: var(--primary-color);
 }
 
 .g2rd-feature-card__body {
@@ -352,7 +352,7 @@
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
-	color: #1e3a5f;
+	color: var(--primary-color);
 }
 
 .g2rd-block-item__title {
@@ -389,7 +389,7 @@
 }
 
 .g2rd-cpt-panel__header .dashicons {
-	color: #1e3a5f;
+	color: var(--primary-color);
 	font-size: 18px;
 	width: 18px;
 	height: 18px;
@@ -438,7 +438,7 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 12px 24px;
-	background: #1e3a5f;
+	background: var(--primary-color);
 	color: #fff;
 	box-shadow: 0 -2px 12px rgba( 0, 0, 0, 0.15 );
 }
@@ -532,7 +532,7 @@
 
 .g2rd-color-input__text:focus {
 	outline: none;
-	border-color: #1e3a5f;
+	border-color: var(--primary-color);
 	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
 }
 

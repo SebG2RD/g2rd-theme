@@ -1,12 +1,12 @@
 /* Style pour le tableau de bord des plugins */
 .website-link {
-  color: #2271b1;
+  color: var(--secondary-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .website-link:hover {
-  color: #135e96;
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
@@ -40,24 +40,24 @@
 }
 
 .password-mask:hover {
-  color: #135e96;
+  color: var(--primary-color);
 }
 
 .password-mask.copied {
-  background-color: #edfaff;
-  color: #0078a0;
+  background-color: color-mix(in srgb, var(--primary-color) 15%, transparent);
+  color: var(--secondary-color);
   padding: 2px 5px;
   border-radius: 3px;
 }
 
 .toggle-password {
   cursor: pointer;
-  color: #2271b1;
+  color: var(--secondary-color);
   transition: color 0.2s ease;
 }
 
 .toggle-password:hover {
-  color: #135e96;
+  color: var(--primary-color);
 }
 
 /* Style pour les jours restants */
@@ -92,20 +92,16 @@
   border: 1px solid #ddd;
 }
 
-/* Admin Styles */
-
-/* Utilisation des variables définies (potentiellement dans login.css ou un fichier global) */
+/* Admin Styles — les variables ci-dessous sont des fallbacks.
+   Les valeurs réelles sont injectées dynamiquement par ThemeAdmin::outputAdminColorVars()
+   via wp_add_inline_style sur admin_head (priorité 20), qui écrase ces définitions. */
 :root {
-  /* Assurez-vous que ces variables sont définies globalement si admin.css
-       est chargé sur des pages où login.css n'est pas chargé.
-       Si login.css est toujours chargé avant, cette redéfinition n'est pas strictement nécessaire,
-       mais elle sert de fallback. */
   --primary-color: #2f425d;
   --secondary-color: #d4a373;
-  --text-light: #f0f0f0; /* Un blanc cassé pour le texte sur fond sombre */
-  --text-dark: #1d2327; /* Couleur texte standard de WP Admin */
+  --text-light: #f0f0f0;
+  --text-dark: #1d2327;
   --menu-highlight-color: var(--secondary-color);
-  --menu-submenu-bg: #25354a; /* Un bleu légèrement plus foncé pour les sous-menus */
+  --menu-submenu-bg: #25354a;
 }
 
 /* Admin Bar */

@@ -186,7 +186,7 @@ ul {
 /* Style pour les noeuds (points) du réseau */
 [data-particles="true"] .node {
   position: absolute;
-  background: #cccccc;
+  background: var(--wp--preset--color--secondary, #cccccc);
   border-radius: 50%;
   width: 2.5px;
   height: 2.5px;
@@ -201,7 +201,7 @@ ul {
 /* Style pour les lignes connectant les noeuds */
 [data-particles="true"] .line {
   position: absolute;
-  background: #cccccc;
+  background: var(--wp--preset--color--secondary, #cccccc);
   height: 0.5px;
   transform-origin: 0 0;
   opacity: 0.3;
