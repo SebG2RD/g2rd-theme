@@ -25,6 +25,9 @@ class FluentCartSupport {
     /** @var string Nonce AJAX pour la désactivation depuis le portail */
     private const NONCE_ACTION = 'g2rd_portal_deactivate';
 
+    /** @var string Option WordPress stockant l'ID du produit FluentCart */
+    private const OPT_PRODUCT_ID = 'g2rd_fluentcart_product_id';
+
     /**
      * Enregistre les hooks.
      *
@@ -34,6 +37,49 @@ class FluentCartSupport {
         \add_filter('fluent_cart/global_customer_menu_items', [$this, 'addMenuItems'], 10, 2);
         \add_filter('fluent_cart/customer_portal/custom_endpoints', [$this, 'addEndpoints']);
         \add_action('wp_ajax_g2rd_portal_deactivate_domain', [$this, 'ajaxDeactivateDomain']);
+        \add_action('g2rd_release_webhook_received', [$this, 'syncProductVersion'], 10, 3);
+    }
+
+    /**
+     * Met à jour la version du produit FluentCart lors d'une nouvelle release.
+     * Appelé automatiquement par le webhook GitHub → LicenseServer.
+     *
+     * @param string $version      Nouvelle version (ex. "1.6.0")
+     * @param string $download_url URL du ZIP de production
+     * @param string $changelog    Notes de version
+     * @return void
+     */
+    public function syncProductVersion( string $version, string $download_url, string $changelog ): void {
+        // Valider la version (semver strict)
+        if (!preg_match('/^\d+\.\d+\.\d+$/', $version)) {
+            return;
+        }
+
+        // Valider que l'URL vient bien de github.com ou g2rd.fr
+        $host = \wp_parse_url($download_url, PHP_URL_HOST);
+        $allowed_hosts = ['github.com', 'objects.githubusercontent.com', 'g2rd.fr'];
+        if (!in_array($host, $allowed_hosts, true)) {
+            return;
+        }
+
+        $product_id = (int) \get_option(self::OPT_PRODUCT_ID, 0);
+
+        if ($product_id <= 0) {
+            return;
+        }
+
+        // Vérifier que le produit existe bien dans WordPress (tout post type FluentCart)
+        $post_type = \get_post_type($product_id);
+        if (!$post_type || !in_array($post_type, ['product', 'fc_product', 'fc-product', 'fluentcart-product'], true)) {
+            return;
+        }
+
+        \update_post_meta($product_id, '_fc_license_version', sanitize_text_field($version));
+        \update_post_meta($product_id, '_fc_license_download_url', \esc_url_raw($download_url));
+
+        if (!empty($changelog)) {
+            \update_post_meta($product_id, '_fc_license_changelog', \wp_kses_post($changelog));
+        }
     }
 
     // ── Menu du portail ───────────────────────────────────────────────────

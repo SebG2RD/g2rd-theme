@@ -223,6 +223,14 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.1
+
+- **Workflow** : auto-tagging GitHub Actions — release déclenchée automatiquement au merge `release:` sur main.
+- **LicenseServer** : webhook `/release-webhook` découplé de FluentCart, toujours disponible indépendamment.
+- **FluentCart** : synchronisation automatique version + changelog à chaque release GitHub via webhook sécurisé HMAC.
+- **Fix** : ZIP de production renommé en `g2rd-theme.zip` (minuscules) pour compatibilité Linux/WordPress.
+- **Fix** : standardisation du nommage du thème et correction des URLs d'images.
+
 ### 1.5.0
 
 - **GEO Analyzer v2** : 9ème critère "Lisibilité IA" (longueur des phrases, des paragraphes, densité de titres), détection automatique du domaine métier (VTC, avocat, artisan, santé, immo, e-commerce, coaching…), schémas JSON-LD précis (FAQPage, LocalBusiness, Organization, Service, Product), scoring crédibilité élargi à 5 signaux.

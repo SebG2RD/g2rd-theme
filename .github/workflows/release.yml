@@ -101,18 +101,29 @@ jobs:
       - name: Notifier g2rd.fr de la nouvelle release
         if: success()
         run: |
-          # Récupérer l'URL de téléchargement du ZIP depuis la release GitHub
           DOWNLOAD_URL="${{ steps.github_release.outputs.assets[0].browser_download_url }}"
 
-          # Fallback si l'URL n'est pas disponible : utiliser zipball_url de l'API GitHub
           if [ -z "$DOWNLOAD_URL" ]; then
             DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/g2rd-theme.zip"
           fi
 
           VERSION="${{ steps.version.outputs.version }}"
 
+          # Récupérer les notes de release depuis l'API GitHub
+          RELEASE_BODY=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }}" \
+            | jq -r '.body // ""')
+
+          # Construire le payload JSON avec le changelog
+          PAYLOAD=$(jq -n \
+            --arg version "$VERSION" \
+            --arg download_url "$DOWNLOAD_URL" \
+            --arg changelog "$RELEASE_BODY" \
+            '{version: $version, download_url: $download_url, changelog: $changelog}')
+
           # Calculer la signature HMAC-SHA256
-          PAYLOAD="{\"version\":\"${VERSION}\",\"download_url\":\"${DOWNLOAD_URL}\"}"
           SIGNATURE="sha256=$(echo -n "${PAYLOAD}" | openssl dgst -sha256 -hmac "${{ secrets.G2RD_WEBHOOK_SECRET }}" | awk '{print $2}')"
 
           # Appeler l'endpoint LicenseServer sur g2rd.fr
@@ -127,8 +138,7 @@ jobs:
 
           if [ "$HTTP_STATUS" != "200" ]; then
             echo "⚠️ Webhook g2rd.fr a retourné HTTP ${HTTP_STATUS} — vérifier manuellement."
-            # Ne pas faire échouer le job pour autant
             exit 0
           fi
 
-          echo "✅ g2rd.fr notifié de la release v${VERSION}"
+          echo "✅ g2rd.fr notifié de la release v${VERSION} avec changelog"
