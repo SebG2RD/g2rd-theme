@@ -223,6 +223,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.2
+
+- **Fix** : utilisation du PAT `GH_PAT` dans `auto-tag.yml` pour déclencher `release.yml` en cascade lors du push de tag.
+
 ### 1.6.1
 
 - **Workflow** : auto-tagging GitHub Actions — release déclenchée automatiquement au merge `release:` sur main.
