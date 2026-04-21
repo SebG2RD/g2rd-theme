@@ -47,11 +47,14 @@ class LicenseServer {
      * @return void
      */
     public function register_hooks(): void {
+        // Le webhook de release ne dépend pas de FluentCart — toujours enregistré.
+        \add_action('rest_api_init', [$this, 'register_webhook_route']);
+
         if (!$this->is_fluent_cart_active()) {
             return;
         }
 
-        \add_action('rest_api_init', [$this, 'register_routes']);
+        \add_action('rest_api_init', [$this, 'register_license_routes']);
     }
 
     /**
@@ -64,45 +67,11 @@ class LicenseServer {
     }
 
     /**
-     * Enregistre les routes REST.
+     * Enregistre la route webhook de release (indépendante de FluentCart).
      *
      * @return void
      */
-    public function register_routes(): void {
-        \register_rest_route(
-            self::REST_NAMESPACE,
-            '/activate',
-            [
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => [$this, 'handle_activate'],
-                'permission_callback' => '__return_true', // Authentification via clé de licence
-                'args'                => $this->license_args(),
-            ]
-        );
-
-        \register_rest_route(
-            self::REST_NAMESPACE,
-            '/deactivate',
-            [
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => [$this, 'handle_deactivate'],
-                'permission_callback' => '__return_true',
-                'args'                => $this->license_args(),
-            ]
-        );
-
-        \register_rest_route(
-            self::REST_NAMESPACE,
-            '/check',
-            [
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => [$this, 'handle_check'],
-                'permission_callback' => '__return_true',
-                'args'                => $this->license_args(),
-            ]
-        );
-
-        // Webhook GitHub Action → mise à jour du produit FluentCart
+    public function register_webhook_route(): void {
         \register_rest_route(
             self::REST_NAMESPACE,
             '/release-webhook',
@@ -129,6 +98,46 @@ class LicenseServer {
                         'sanitize_callback' => 'wp_kses_post',
                     ],
                 ],
+            ]
+        );
+    }
+
+    /**
+     * Enregistre les routes REST de licences (nécessite FluentCart).
+     *
+     * @return void
+     */
+    public function register_license_routes(): void {
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/activate',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [$this, 'handle_activate'],
+                'permission_callback' => '__return_true',
+                'args'                => $this->license_args(),
+            ]
+        );
+
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/deactivate',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [$this, 'handle_deactivate'],
+                'permission_callback' => '__return_true',
+                'args'                => $this->license_args(),
+            ]
+        );
+
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/check',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [$this, 'handle_check'],
+                'permission_callback' => '__return_true',
+                'args'                => $this->license_args(),
             ]
         );
     }
