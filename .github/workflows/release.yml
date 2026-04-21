@@ -59,7 +59,7 @@ jobs:
           mkdir -p dist
 
           # Liste des fichiers/dossiers à exclure du ZIP
-          zip -r dist/G2RD-theme.zip . \
+          zip -r dist/g2rd-theme.zip . \
             --exclude=".git/*" \
             --exclude=".github/*" \
             --exclude="node_modules/*" \
@@ -81,7 +81,7 @@ jobs:
             --exclude="docs/*" \
             --exclude="CLAUDE.md"
 
-          echo "Taille ZIP : $(du -sh dist/G2RD-theme.zip | cut -f1)"
+          echo "Taille ZIP : $(du -sh dist/g2rd-theme.zip | cut -f1)"
 
       # ── Créer la release GitHub ───────────────────────────────────────────
       - name: Créer la release GitHub
@@ -90,7 +90,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           name: "G2RD Theme FSE v${{ steps.version.outputs.version }}"
-          files: dist/G2RD-theme.zip
+          files: dist/g2rd-theme.zip
           generate_release_notes: true
           draft: false
           prerelease: false
@@ -106,7 +106,7 @@ jobs:
 
           # Fallback si l'URL n'est pas disponible : utiliser zipball_url de l'API GitHub
           if [ -z "$DOWNLOAD_URL" ]; then
-            DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/G2RD-theme.zip"
+            DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/g2rd-theme.zip"
           fi
 
           VERSION="${{ steps.version.outputs.version }}"

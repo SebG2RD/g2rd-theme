@@ -21,7 +21,7 @@
             <!-- /wp:paragraph -->
 
             <!-- wp:heading -->
-            <h2 class="wp-block-heading">G2RD <img class="wp-image-22" style="width: 50px;" src="http://projetg2rd.local/wp-content/themes/G2RD-theme/assets/img/g2rd-wordpress.png" alt="G2RD WordPress"><br>L'agence <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-secondary-color">WordPress</mark></h2>
+            <h2 class="wp-block-heading">G2RD <img class="wp-image-22" style="width: 50px;" src="http://g2rd.fr/wp-content/themes/G2RD-theme/assets/img/g2rd-wordpress.png" alt="G2RD WordPress"><br>L'agence <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-secondary-color">WordPress</mark></h2>
             <!-- /wp:heading -->
 
             <!-- wp:paragraph -->

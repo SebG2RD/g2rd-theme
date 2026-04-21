@@ -3,8 +3,8 @@ $ErrorActionPreference = 'Stop'
 # PSScriptRoot = dossier du thème — pas besoin d'écrire le chemin accentué en dur
 $source  = $PSScriptRoot
 $tempDir = 'C:\Temp\G2RD-export'
-$dest    = Join-Path $tempDir 'G2RD-theme'
-$zipPath = Join-Path (Split-Path $source -Parent) 'G2RD-theme.zip'
+$dest    = Join-Path $tempDir 'g2rd-theme'
+$zipPath = Join-Path (Split-Path $source -Parent) 'g2rd-theme.zip'
 
 Remove-Item -Path $tempDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Path $dest -Force | Out-Null
