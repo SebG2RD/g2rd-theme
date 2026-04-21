@@ -1,0 +1,56 @@
+name: Auto Tag on Release Commit
+
+# Déclenché sur chaque push sur main.
+# Ne crée un tag que si le message de commit commence par "release:".
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  auto-tag:
+    name: Créer le tag de version
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, 'release:')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extraire la version depuis style.css
+        id: version
+        run: |
+          VERSION=$(grep -oP '(?<=Version: )[\d.]+' style.css | head -1)
+
+          if [ -z "$VERSION" ]; then
+            echo "❌ Version introuvable dans style.css"
+            exit 1
+          fi
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+          echo "✅ Version détectée : ${VERSION}"
+
+      - name: Vérifier que le tag n'existe pas déjà
+        id: check_tag
+        run: |
+          if git ls-remote --tags origin | grep -q "refs/tags/${{ steps.version.outputs.tag }}$"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Tag ${{ steps.version.outputs.tag }} existe déjà — release ignorée."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Créer et pousser le tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.tag }}
+          git push origin ${{ steps.version.outputs.tag }}
+          echo "🏷️ Tag ${{ steps.version.outputs.tag }} créé et poussé"
