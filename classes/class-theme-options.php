@@ -522,6 +522,7 @@ class ThemeOptions {
 
         return [
             'restUrl'         => \rest_url( self::REST_NAMESPACE . '/settings' ),
+            'licenseRestUrl'  => \rest_url( self::REST_NAMESPACE . '/license' ),
             'nonce'           => \wp_create_nonce( 'wp_rest' ),
             'version'         => (string) \wp_get_theme()->get( 'Version' ),
             'themeUri'        => \get_template_directory_uri(),
@@ -534,6 +535,7 @@ class ThemeOptions {
             'palette'         => $palette,
             'pages'           => $pages_list,
             'licensed'        => LicenseManager::is_active(),
+            'licenseData'     => LicenseManager::get_display_data(),
         ];
     }
 }

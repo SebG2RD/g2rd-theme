@@ -6,7 +6,7 @@
  * du thème G2RD FSE via les endpoints REST de g2rd.fr (LicenseServer).
  *
  * Flux :
- *  1. L'utilisateur colle sa clé de licence dans l'admin WP.
+ *  1. L'utilisateur colle sa clé de licence dans l'onglet Licence de la page d'options React.
  *  2. Le thème appelle g2rd.fr/wp-json/g2rd-license/v1/activate avec la clé + domain.
  *  3. g2rd.fr vérifie la clé dans FluentCart et enregistre l'activation.
  *  4. Statut stocké en option WP + transient 24h pour éviter les appels répétés.
@@ -55,11 +55,10 @@ class LicenseManager {
     /** @var int Timeout des appels REST en secondes */
     private const API_TIMEOUT = 15;
 
-    // ── Formulaires admin ─────────────────────────────────────────────────
+    // ── REST namespace ────────────────────────────────────────────────────
 
-    private const NONCE_ACTIVATE   = 'g2rd_license_activate';
-    private const NONCE_DEACTIVATE = 'g2rd_license_deactivate';
-    private const NONCE_FIELD      = 'g2rd_license_nonce';
+    /** @var string Namespace REST des routes de licence */
+    private const REST_NAMESPACE = 'g2rd/v1';
 
     // ── Hooks ─────────────────────────────────────────────────────────────
 
@@ -69,9 +68,7 @@ class LicenseManager {
      * @return void
      */
     public function register_hooks(): void {
-        \add_action('admin_post_g2rd_license_activate',   [$this, 'handle_activate']);
-        \add_action('admin_post_g2rd_license_deactivate', [$this, 'handle_deactivate']);
-        \add_action('g2rd_options_before_form',           [$this, 'render_section']);
+        \add_action('rest_api_init', [$this, 'register_rest_routes']);
 
         // Cron journalier pour revalider la licence (détecte expirations / révocations)
         \add_action('g2rd_license_daily_check', [$this, 'periodic_validate']);
@@ -103,9 +100,9 @@ class LicenseManager {
     }
 
     /**
-     * Retourne les données de la licence (pour l'affichage admin).
+     * Retourne les données de licence brutes (pour les helpers internes).
      *
-     * @return array{status: string, expires_at: string|null, max_activations: int, activations_left: int}
+     * @return array<string, mixed>
      */
     public function get_license_data(): array {
         $json = \get_option(self::OPT_LICENSE_DATA, '');
@@ -114,6 +111,31 @@ class LicenseManager {
         }
 
         return json_decode($json, true) ?: [];
+    }
+
+    /**
+     * Retourne les données de licence formatées pour l'affichage admin React.
+     * Utilisé par ThemeOptions::get_initial_data() et les callbacks REST.
+     *
+     * @return array{status: string, masked_key: string, data: array<string, mixed>, domain: string}
+     */
+    public static function get_display_data(): array {
+        $status      = (string) \get_option(self::OPT_LICENSE_STATUS, 'inactive');
+        $license_key = (string) \get_option(self::OPT_LICENSE_KEY, '');
+        $domain      = (string) \get_option(self::OPT_LICENSE_DOMAIN, '');
+        $json        = \get_option(self::OPT_LICENSE_DATA, '');
+        $data        = !empty($json) ? (json_decode($json, true) ?: []) : [];
+
+        $masked_key = !empty($license_key)
+            ? \substr($license_key, 0, 8) . str_repeat('•', 8)
+            : '';
+
+        return [
+            'status'     => $status,
+            'masked_key' => $masked_key,
+            'data'       => $data,
+            'domain'     => $domain,
+        ];
     }
 
     /**
@@ -130,7 +152,7 @@ class LicenseManager {
     /**
      * Active la licence sur ce domaine via l'API LicenseServer.
      *
-     * @param string $license_key Clé de licence saisie par l'utilisateur
+     * @param string $license_key Clé de licence saisie par l'utilisateur.
      * @return array{success: bool, message: string}
      */
     public function activate( string $license_key ): array {
@@ -171,7 +193,6 @@ class LicenseManager {
             return $this->make_error($body['message'] ?? __('Activation échouée. Vérifiez votre clé de licence.', 'g2rd'));
         }
 
-        // Persister la licence
         $this->store_license($license_key, 'active', $body);
 
         return [
@@ -239,7 +260,6 @@ class LicenseManager {
 
         if (\is_wp_error($response)) {
             // Erreur réseau : conserver le statut actuel, ne pas invalider
-            // (évite les faux positifs sur hébergements avec restrictions sortantes)
             \set_transient(self::TRANSIENT_VALID, self::is_active(), self::TRANSIENT_TTL);
             return;
         }
@@ -268,202 +288,101 @@ class LicenseManager {
         $current       = \home_url();
 
         if (!empty($stored_domain) && $stored_domain !== $current) {
-            // Domain changé — invalider le cache, le cron revalidera
             \delete_transient(self::TRANSIENT_VALID);
             \update_option(self::OPT_LICENSE_STATUS, 'inactive', false);
         }
     }
 
-    // ── Handlers de formulaires ───────────────────────────────────────────
+    // ── Routes REST ───────────────────────────────────────────────────────
 
     /**
-     * Traite la soumission du formulaire d'activation.
+     * Enregistre les routes REST pour la gestion de la licence depuis l'app React.
      *
      * @return void
      */
-    public function handle_activate(): void {
-        if (!\current_user_can('manage_options')) {
-            \wp_die(\esc_html__('Accès refusé.', 'g2rd'), 403);
-        }
+    public function register_rest_routes(): void {
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/license',
+            [
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => [$this, 'rest_get_license'],
+                'permission_callback' => static fn() => \current_user_can('manage_options'),
+            ]
+        );
 
-        \check_admin_referer(self::NONCE_ACTIVATE, self::NONCE_FIELD);
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/license/activate',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [$this, 'rest_activate'],
+                'permission_callback' => static fn() => \current_user_can('manage_options'),
+                'args'                => [
+                    'license_key' => [
+                        'required'          => true,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ],
+                ],
+            ]
+        );
 
-        $license_key = \sanitize_text_field(\wp_unslash($_POST['g2rd_license_key'] ?? ''));
+        \register_rest_route(
+            self::REST_NAMESPACE,
+            '/license/deactivate',
+            [
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => [$this, 'rest_deactivate'],
+                'permission_callback' => static fn() => \current_user_can('manage_options'),
+            ]
+        );
+    }
+
+    /**
+     * Retourne le statut et les données de la licence (REST GET /license).
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_get_license(): \WP_REST_Response {
+        return new \WP_REST_Response(self::get_display_data(), 200);
+    }
+
+    /**
+     * Active la licence via l'API (REST POST /license/activate).
+     *
+     * @param \WP_REST_Request $request Requête REST entrante.
+     * @return \WP_REST_Response
+     */
+    public function rest_activate( \WP_REST_Request $request ): \WP_REST_Response {
+        $license_key = (string) $request->get_param('license_key');
         $result      = $this->activate($license_key);
 
-        \wp_safe_redirect(
-            \add_query_arg(
-                [
-                    'page'    => 'g2rd-options',
-                    'license' => $result['success'] ? 'activated' : 'error',
-                ],
-                \admin_url('themes.php')
-            )
+        return new \WP_REST_Response(
+            [
+                'success' => $result['success'],
+                'message' => $result['message'],
+                'license' => $result['success'] ? self::get_display_data() : null,
+            ],
+            $result['success'] ? 200 : 400
         );
-        exit;
     }
 
     /**
-     * Traite la soumission du formulaire de désactivation.
+     * Désactive la licence (REST POST /license/deactivate).
      *
-     * @return void
+     * @return \WP_REST_Response
      */
-    public function handle_deactivate(): void {
-        if (!\current_user_can('manage_options')) {
-            \wp_die(\esc_html__('Accès refusé.', 'g2rd'), 403);
-        }
+    public function rest_deactivate(): \WP_REST_Response {
+        $result = $this->deactivate();
 
-        \check_admin_referer(self::NONCE_DEACTIVATE, self::NONCE_FIELD);
-
-        $this->deactivate();
-
-        \wp_safe_redirect(
-            \add_query_arg(
-                [
-                    'page'    => 'g2rd-options',
-                    'license' => 'deactivated',
-                ],
-                \admin_url('themes.php')
-            )
+        return new \WP_REST_Response(
+            [
+                'success' => $result['success'],
+                'message' => $result['message'],
+            ],
+            200
         );
-        exit;
-    }
-
-    // ── Interface admin ───────────────────────────────────────────────────
-
-    /**
-     * Affiche la section licence dans la page d'options du thème.
-     *
-     * @return void
-     */
-    public function render_section(): void {
-        $status       = \get_option(self::OPT_LICENSE_STATUS, 'inactive');
-        $license_key  = \get_option(self::OPT_LICENSE_KEY, '');
-        $license_data = $this->get_license_data();
-        $is_active    = $status === 'active';
-        $domain       = \get_option(self::OPT_LICENSE_DOMAIN, '');
-
-        $masked_key = $is_active && !empty($license_key)
-            ? \esc_html(\substr($license_key, 0, 8)) . str_repeat('•', 8)
-            : '';
-
-        $status_labels = [
-            'active'   => ['label' => __('Active', 'g2rd'),   'color' => '#00a32a', 'icon' => 'dashicons-yes-alt'],
-            'expired'  => ['label' => __('Expirée', 'g2rd'),  'color' => '#d63638', 'icon' => 'dashicons-clock'],
-            'invalid'  => ['label' => __('Invalide', 'g2rd'), 'color' => '#d63638', 'icon' => 'dashicons-dismiss'],
-            'inactive' => ['label' => __('Inactive', 'g2rd'), 'color' => '#787c82', 'icon' => 'dashicons-warning'],
-        ];
-        $badge = $status_labels[$status] ?? $status_labels['inactive'];
-?>
-        <div class="g2rd-section g2rd-section--license">
-
-            <h2 class="g2rd-section-title">
-                <span class="dashicons dashicons-admin-network"></span>
-                <?php \esc_html_e('Licence G2RD FSE', 'g2rd'); ?>
-            </h2>
-
-            <p class="g2rd-section-desc">
-                <?php \esc_html_e('Activez votre licence pour débloquer les blocs Gutenberg personnalisés G2RD.', 'g2rd'); ?>
-                <a href="https://g2rd.fr/boutique" target="_blank" rel="noopener noreferrer">
-                    <?php \esc_html_e('Obtenir une licence →', 'g2rd'); ?>
-                </a>
-            </p>
-
-            <?php $this->render_notice(); ?>
-
-            <div class="g2rd-card <?php echo $is_active ? 'is-active' : 'is-inactive'; ?>" style="width:95%;">
-                <div class="g2rd-card-body">
-
-                    <!-- Badge de statut -->
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
-                        <span class="dashicons <?php echo \esc_attr($badge['icon']); ?>"
-                                style="color:<?php echo \esc_attr($badge['color']); ?>;font-size:22px;width:22px;height:22px;"></span>
-                        <strong style="color:<?php echo \esc_attr($badge['color']); ?>;">
-                            <?php echo \esc_html($badge['label']); ?>
-                        </strong>
-
-                        <?php if ($is_active && !empty($masked_key)) : ?>
-                            <code style="background:#f0f0f0;padding:2px 8px;border-radius:3px;font-size:12px;">
-                                <?php echo \esc_html($masked_key); ?>
-                            </code>
-                        <?php endif; ?>
-                    </div>
-
-                    <?php if ($is_active) : ?>
-
-                        <!-- Détails de la licence active -->
-                        <table class="widefat" style="margin-bottom:16px;">
-                            <tbody>
-                                <?php if (!empty($license_data['expires_at'])) : ?>
-                                <tr>
-                                    <td style="font-weight:600;width:180px;"><?php \esc_html_e('Expiration', 'g2rd'); ?></td>
-                                    <td><?php echo \esc_html(date_i18n(\get_option('date_format'), strtotime($license_data['expires_at']))); ?></td>
-                                </tr>
-                                <?php endif; ?>
-                                <?php if (isset($license_data['activations_left'])) : ?>
-                                <tr>
-                                    <td style="font-weight:600;"><?php \esc_html_e('Activations restantes', 'g2rd'); ?></td>
-                                    <td><?php echo \esc_html((string) $license_data['activations_left']); ?></td>
-                                </tr>
-                                <?php endif; ?>
-                                <?php if (!empty($domain)) : ?>
-                                <tr>
-                                    <td style="font-weight:600;"><?php \esc_html_e('Domaine activé', 'g2rd'); ?></td>
-                                    <td><?php echo \esc_html($domain); ?></td>
-                                </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-
-                        <!-- Formulaire de désactivation -->
-                        <form method="post" action="<?php echo \esc_url(\admin_url('admin-post.php')); ?>">
-                            <?php \wp_nonce_field(self::NONCE_DEACTIVATE, self::NONCE_FIELD); ?>
-                            <input type="hidden" name="action" value="g2rd_license_deactivate">
-                            <button type="submit" class="button button-secondary"
-                                    onclick="return confirm('<?php \esc_attr_e('Désactiver la licence sur ce domaine ?', 'g2rd'); ?>');">
-                                <span class="dashicons dashicons-no" style="vertical-align:middle;margin-top:-2px;"></span>
-                                <?php \esc_html_e('Désactiver la licence', 'g2rd'); ?>
-                            </button>
-                            <span style="color:#787c82;font-size:12px;margin-left:8px;">
-                                <?php \esc_html_e('Cela libérera une activation que vous pourrez utiliser sur un autre site.', 'g2rd'); ?>
-                            </span>
-                        </form>
-
-                    <?php else : ?>
-
-                        <!-- Formulaire d'activation -->
-                        <form method="post" action="<?php echo \esc_url(\admin_url('admin-post.php')); ?>">
-                            <?php \wp_nonce_field(self::NONCE_ACTIVATE, self::NONCE_FIELD); ?>
-                            <input type="hidden" name="action" value="g2rd_license_activate">
-
-                            <label for="g2rd_license_key" style="display:block;margin-bottom:6px;font-weight:600;">
-                                <?php \esc_html_e('Clé de licence', 'g2rd'); ?>
-                            </label>
-
-                            <div style="display:flex;gap:8px;align-items:center;">
-                                <input
-                                    type="text"
-                                    id="g2rd_license_key"
-                                    name="g2rd_license_key"
-                                    class="regular-text"
-                                    placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"
-                                    autocomplete="off"
-                                    spellcheck="false">
-                                <?php \submit_button(\__('Activer la licence', 'g2rd'), 'primary', 'submit', false); ?>
-                            </div>
-
-                            <p style="color:#787c82;font-size:12px;margin-top:6px;">
-                                <?php \esc_html_e('Vous trouverez votre clé dans votre espace client sur g2rd.fr.', 'g2rd'); ?>
-                            </p>
-                        </form>
-
-                    <?php endif; ?>
-
-                </div>
-            </div>
-
-        </div>
-<?php
     }
 
     // ── Persistance ───────────────────────────────────────────────────────
@@ -471,14 +390,13 @@ class LicenseManager {
     /**
      * Stocke les données de la licence activée.
      *
-     * @param string $license_key
-     * @param string $status
-     * @param array  $response_body Corps de la réponse de l'API
+     * @param string               $license_key   Clé de licence.
+     * @param string               $status        Statut de la licence.
+     * @param array<string, mixed> $response_body Corps de la réponse de l'API.
      * @return void
      */
     private function store_license( string $license_key, string $status, array $response_body ): void {
         $license_data = $response_body['license'] ?? [];
-        // Compléter avec les champs activations_left de la réponse
         if (isset($response_body['activations_left'])) {
             $license_data['activations_left'] = (int) $response_body['activations_left'];
         }
@@ -506,44 +424,12 @@ class LicenseManager {
         \delete_transient(self::TRANSIENT_VALID);
     }
 
-    // ── Notices admin ─────────────────────────────────────────────────────
-
-    /**
-     * Affiche un message de feedback suite à une action sur la licence.
-     *
-     * @return void
-     */
-    private function render_notice(): void {
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- indicateur de redirection POST→GET
-        $action = isset($_GET['license']) ? \sanitize_key(\wp_unslash($_GET['license'])) : '';
-        if (empty($action)) {
-            return;
-        }
-
-        $notices = [
-            'activated'   => ['type' => 'success', 'msg' => __('Licence activée avec succès. Rechargez la page pour voir les blocs G2RD.', 'g2rd')],
-            'deactivated' => ['type' => 'info',    'msg' => __('Licence désactivée sur ce domaine.', 'g2rd')],
-            'error'       => ['type' => 'error',   'msg' => __('Échec de l\'activation. Vérifiez votre clé et réessayez.', 'g2rd')],
-        ];
-
-        if (!isset($notices[$action])) {
-            return;
-        }
-
-        $notice = $notices[$action];
-        ?>
-        <div class="notice notice-<?php echo \esc_attr($notice['type']); ?> is-dismissible inline" style="margin:0 0 16px;">
-            <p><?php echo \esc_html($notice['msg']); ?></p>
-        </div>
-        <?php
-    }
-
     // ── Helpers ───────────────────────────────────────────────────────────
 
     /**
      * Retourne un tableau d'erreur formaté.
      *
-     * @param string $message
+     * @param string $message Message d'erreur.
      * @return array{success: bool, message: string}
      */
     private function make_error( string $message ): array {
