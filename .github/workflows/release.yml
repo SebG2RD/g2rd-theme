@@ -56,17 +56,17 @@ jobs:
       # ── Créer le ZIP de production ────────────────────────────────────────
       - name: Créer le ZIP de production
         run: |
-          mkdir -p dist
+          mkdir -p dist/g2rd-theme
 
-          # Liste des fichiers/dossiers à exclure du ZIP
-          zip -r dist/g2rd-theme.zip . \
-            --exclude=".git/*" \
-            --exclude=".github/*" \
-            --exclude="node_modules/*" \
-            --exclude="vendor/*" \
-            --exclude="dist/*" \
-            --exclude="blocks/*/src/*" \
-            --exclude="blocks/*/node_modules/*" \
+          # Copier les fichiers dans le dossier g2rd-theme/ (requis par WordPress)
+          rsync -a \
+            --exclude=".git" \
+            --exclude=".github" \
+            --exclude="node_modules" \
+            --exclude="vendor" \
+            --exclude="dist" \
+            --exclude="blocks/*/src" \
+            --exclude="blocks/*/node_modules" \
             --exclude="blocks/*/package.json" \
             --exclude="blocks/*/package-lock.json" \
             --exclude="*.sh" \
@@ -77,9 +77,15 @@ jobs:
             --exclude="package.json" \
             --exclude="package-lock.json" \
             --exclude="*.log" \
-            --exclude=".claude/*" \
-            --exclude="docs/*" \
-            --exclude="CLAUDE.md"
+            --exclude=".claude" \
+            --exclude="docs" \
+            --exclude="CLAUDE.md" \
+            . dist/g2rd-theme/
+
+          # Zipper le dossier avec le wrapper — WordPress l'installera sous g2rd-theme/
+          cd dist
+          zip -r g2rd-theme.zip g2rd-theme/
+          cd ..
 
           echo "Taille ZIP : $(du -sh dist/g2rd-theme.zip | cut -f1)"
 
