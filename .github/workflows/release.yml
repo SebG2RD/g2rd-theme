@@ -132,13 +132,15 @@ jobs:
           # Calculer la signature HMAC-SHA256
           SIGNATURE="sha256=$(echo -n "${PAYLOAD}" | openssl dgst -sha256 -hmac "${{ secrets.G2RD_WEBHOOK_SECRET }}" | awk '{print $2}')"
 
-          # Appeler l'endpoint LicenseServer sur g2rd.fr
+          # Appeler l'endpoint LicenseServer sur g2rd.fr (timeout 30s, non-bloquant)
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 \
+            --connect-timeout 10 \
             -X POST \
             -H "Content-Type: application/json" \
             -H "X-G2RD-Signature: ${SIGNATURE}" \
             -d "${PAYLOAD}" \
-            "https://g2rd.fr/wp-json/g2rd-license/v1/release-webhook")
+            "https://g2rd.fr/wp-json/g2rd-license/v1/release-webhook") || HTTP_STATUS="000"
 
           echo "HTTP Status: ${HTTP_STATUS}"
 
