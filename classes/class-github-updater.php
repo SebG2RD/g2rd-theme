@@ -139,17 +139,17 @@ class GitHubUpdater {
         if (version_compare($current_version, $latest_version, '<')) {
             // Ajout des informations de mise à jour
             $transient->response[$theme_slug] = [
-                'theme' => $theme_slug,
-                'new_version' => $latest_version,
-                'url' => $this->github_url,
-                'package' => $release_data['zipball_url'],
-                'requires' => '5.0', // Version minimale de WordPress requise
-                'requires_php' => '8.0', // Version minimale de PHP requise
+                'theme'        => $theme_slug,
+                'new_version'  => $latest_version,
+                'url'          => $this->github_url,
+                'package'      => $this->get_download_url($release_data),
+                'requires'     => '6.5',
+                'requires_php' => '8.0',
                 'last_updated' => $release_data['published_at'],
-                'sections' => [
+                'sections'     => [
                     'description' => $release_data['body'],
-                    'changelog' => $release_data['body']
-                ]
+                    'changelog'   => $release_data['body'],
+                ],
             ];
         } else {
             // Si la version est identique ou plus récente, on s'assure qu'il n'y a pas de notification
@@ -211,7 +211,7 @@ class GitHubUpdater {
                 'description' => $release_data['body'],
                 'changelog' => $release_data['body'],
             ],
-            'download_link' => $release_data['zipball_url'],
+            'download_link' => $this->get_download_url($release_data),
         ];
     }
 
@@ -289,6 +289,31 @@ class GitHubUpdater {
         }
 
         return trailingslashit($new_source);
+    }
+
+    /**
+     * Extrait l'URL de téléchargement depuis les données de release GitHub.
+     *
+     * Préfère le fichier .zip uploadé comme asset de release (structure correcte
+     * avec dossier wrapper g2rd-theme/) au zipball auto-généré par GitHub
+     * (dont le dossier racine est nommé {owner}-{repo}-{sha}).
+     *
+     * @param array<string, mixed> $release_data Données de release de l'API GitHub.
+     * @return string URL de téléchargement.
+     */
+    private function get_download_url( array $release_data ): string {
+        if (!empty($release_data['assets'])) {
+            foreach ((array) $release_data['assets'] as $asset) {
+                if (!empty($asset['browser_download_url'])
+                    && !empty($asset['name'])
+                    && \str_ends_with((string) $asset['name'], '.zip')
+                ) {
+                    return (string) $asset['browser_download_url'];
+                }
+            }
+        }
+
+        return (string) ($release_data['zipball_url'] ?? '');
     }
 
     /**

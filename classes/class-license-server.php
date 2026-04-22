@@ -337,20 +337,37 @@ class LicenseServer {
     // ── FluentCart Bridge ─────────────────────────────────────────────────
 
     /**
-     * Récupère une licence FluentCart par sa clé.
-     * Utilise les hooks FluentCart ou une requête directe en dernier recours.
+     * Récupère une licence par sa clé.
      *
-     * @param string $license_key Clé de licence
-     * @return array|null
+     * Ordre de priorité :
+     *   1. Option wp `g2rd_license_keys` (stockage natif — source principale)
+     *   2. Hook FluentCart `fluent_cart/license/get_by_key` (intégration tierce)
+     *   3. Requête directe via FluentCart ORM (fallback DB)
+     *
+     * @param string $license_key Clé de licence.
+     * @return array<string, mixed>|null
      */
     private function get_license( string $license_key ): ?array {
-        // Tenter via le hook FluentCart (recommandé — compatible avec les futures versions)
+        // 1. Clés enregistrées nativement dans wp_options
+        $stored = (array) \get_option('g2rd_license_keys', []);
+        if (isset($stored[ $license_key ]) && \is_array($stored[ $license_key ])) {
+            return \array_merge(
+                [
+                    'status'          => 'active',
+                    'max_activations' => 1,
+                    'expires_at'      => null,
+                ],
+                $stored[ $license_key ]
+            );
+        }
+
+        // 2. Hook FluentCart (si intégration tierce enregistrée)
         $license = \apply_filters('fluent_cart/license/get_by_key', null, $license_key); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound,WordPress.NamingConventions.ValidHookName.UseUnderscores -- hook FluentCart tiers
-        if (is_array($license) && !empty($license)) {
+        if (\is_array($license) && !empty($license)) {
             return $license;
         }
 
-        // Fallback : requête directe via FluentCart ORM (si disponible)
+        // 3. Requête directe via FluentCart ORM (fallback DB)
         if (\class_exists('\FluentCart\App\Models\Order')) {
             return $this->get_license_from_db($license_key);
         }
