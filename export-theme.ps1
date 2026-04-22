@@ -43,8 +43,10 @@ foreach ($file in $files) {
     # Exclure les fichiers de dev par nom
     if ($excludedFileNames -contains $file.Name) { $skipped++; continue }
 
-    # Exclure les source maps
+    # Exclure les source maps, scripts shell et logs
     if ($file.Extension -eq '.map') { $skipped++; continue }
+    if ($file.Extension -eq '.sh')  { $skipped++; continue }
+    if ($file.Extension -eq '.log') { $skipped++; continue }
 
     # Copier le fichier en preservant l'arborescence
     $target    = Join-Path $dest $rel

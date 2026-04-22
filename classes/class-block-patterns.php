@@ -102,7 +102,7 @@ class BlockPatterns {
 		}
 
 		$restrict = ThemeOptions::isFeatureEnabled('patterns_require_license')
-			&& ! License_Manager::is_active();
+			&& ! LicenseManager::is_active();
 
 		foreach ($patterns as $pattern) {
 			if (!$this->isValidPattern($pattern)) {

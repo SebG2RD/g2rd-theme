@@ -62,23 +62,28 @@ jobs:
           rsync -a \
             --exclude=".git" \
             --exclude=".github" \
+            --exclude=".claude" \
+            --exclude=".agents" \
             --exclude="node_modules" \
             --exclude="vendor" \
             --exclude="dist" \
+            --exclude="docs" \
             --exclude="blocks/*/src" \
             --exclude="blocks/*/node_modules" \
             --exclude="blocks/*/package.json" \
             --exclude="blocks/*/package-lock.json" \
             --exclude="*.sh" \
             --exclude="*.ps1" \
+            --exclude="*.log" \
             --exclude="phpcs*.xml*" \
             --exclude="composer.json" \
             --exclude="composer.lock" \
             --exclude="package.json" \
             --exclude="package-lock.json" \
-            --exclude="*.log" \
-            --exclude=".claude" \
-            --exclude="docs" \
+            --exclude="webpack.config.js" \
+            --exclude="skills-lock.json" \
+            --exclude=".gitignore" \
+            --exclude=".gitattributes" \
             --exclude="CLAUDE.md" \
             . dist/g2rd-theme/
 
