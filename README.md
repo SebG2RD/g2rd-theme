@@ -223,6 +223,16 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.4
+
+- **Feat** : onglet Licence React dans la page d'options — activation/désactivation de clé via REST API.
+- **Feat** : interface admin "Gestion licences" sur g2rd.fr — création, copie et suppression de clés.
+- **Fix** : URL du repo GitHub Updater corrigée (`g2rd-theme` au lieu de `G2RD-Theme-FSE`).
+- **Fix** : ZIP de mise à jour utilise l'asset `browser_download_url` au lieu du `zipball_url` GitHub.
+- **Fix** : lookup de clé de licence vérifie `g2rd_license_keys` en priorité (correction "licence invalide").
+- **Fix** : `export-theme.ps1` utilise l'API .NET ZipFile pour garantir les forward slashes dans le ZIP.
+- **Fix** : webhook release — timeout 30s non-bloquant (exit code 28 corrigé).
+
 ### 1.6.3
 
 - **Fix** : ZIP de production restructuré avec dossier wrapper `g2rd-theme/` — corrige l'erreur "Le thème n'a pas de fichier style.css" à l'installation WordPress.
