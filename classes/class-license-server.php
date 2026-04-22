@@ -58,12 +58,22 @@ class LicenseServer {
     }
 
     /**
+     * Détecte si ce WordPress est le serveur de licences (g2rd.fr).
+     * Utilisé par ThemeOptions pour afficher l'onglet admin.
+     *
+     * @return bool
+     */
+    public static function is_server_mode(): bool {
+        return \function_exists('fluentCart') || \class_exists('\FluentCart\App\App');
+    }
+
+    /**
      * Détecte si FluentCart est actif sur ce WordPress.
      *
      * @return bool
      */
     private function is_fluent_cart_active(): bool {
-        return \function_exists('fluentCart') || \class_exists('\FluentCart\App\App');
+        return self::is_server_mode();
     }
 
     /**
@@ -140,6 +150,8 @@ class LicenseServer {
                 'args'                => $this->license_args(),
             ]
         );
+
+        $this->register_admin_routes();
     }
 
     // ── Handlers REST ─────────────────────────────────────────────────────
@@ -332,6 +344,183 @@ class LicenseServer {
                 $version
             ),
         ]);
+    }
+
+    // ── Admin — gestion des clés (g2rd.fr uniquement) ────────────────────
+
+    /**
+     * Enregistre les routes REST admin pour la gestion des clés de licence.
+     * Accessibles uniquement aux utilisateurs avec la capacité manage_options.
+     *
+     * @return void
+     */
+    private function register_admin_routes(): void {
+        \register_rest_route(
+            'g2rd/v1',
+            '/license-admin',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [$this, 'rest_admin_list'],
+                    'permission_callback' => static fn() => \current_user_can('manage_options'),
+                ],
+                [
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => [$this, 'rest_admin_create'],
+                    'permission_callback' => static fn() => \current_user_can('manage_options'),
+                    'args'                => [
+                        'license_key'     => [
+                            'required'          => false,
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'max_activations' => [
+                            'required'          => false,
+                            'type'              => 'integer',
+                            'default'           => 1,
+                            'minimum'           => 1,
+                            'sanitize_callback' => 'absint',
+                        ],
+                        'expires_at'      => [
+                            'required'          => false,
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        \register_rest_route(
+            'g2rd/v1',
+            '/license-admin/(?P<license_key>[a-zA-Z0-9_-]+)',
+            [
+                [
+                    'methods'             => \WP_REST_Server::DELETABLE,
+                    'callback'            => [$this, 'rest_admin_delete'],
+                    'permission_callback' => static fn() => \current_user_can('manage_options'),
+                    'args'                => [
+                        'license_key' => [
+                            'required'          => true,
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Liste toutes les clés de licence (REST GET /g2rd/v1/license-admin).
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_admin_list(): \WP_REST_Response {
+        $stored  = (array) \get_option('g2rd_license_keys', []);
+        $result  = [];
+
+        foreach ($stored as $key => $data) {
+            $activations = $this->get_activations((string) $key);
+            $result[]    = [
+                'key'               => $key,
+                'status'            => $data['status'] ?? 'active',
+                'max_activations'   => (int) ($data['max_activations'] ?? 1),
+                'expires_at'        => $data['expires_at'] ?? null,
+                'activations_used'  => count($activations),
+                'activated_domains' => \array_column($activations, 'site_url'),
+            ];
+        }
+
+        return new \WP_REST_Response(['success' => true, 'licenses' => $result], 200);
+    }
+
+    /**
+     * Crée une clé de licence (REST POST /g2rd/v1/license-admin).
+     * Si license_key est absent, une clé est générée automatiquement.
+     *
+     * @param \WP_REST_Request $request Requête REST entrante.
+     * @return \WP_REST_Response
+     */
+    public function rest_admin_create( \WP_REST_Request $request ): \WP_REST_Response {
+        $license_key     = \sanitize_text_field((string) ($request->get_param('license_key') ?? ''));
+        $max_activations = \absint($request->get_param('max_activations') ?? 1);
+        $expires_raw     = $request->get_param('expires_at');
+        $expires_at      = !empty($expires_raw) ? \sanitize_text_field((string) $expires_raw) : null;
+
+        if (empty($license_key)) {
+            $license_key = $this->generate_license_key();
+        }
+
+        $stored = (array) \get_option('g2rd_license_keys', []);
+
+        if (isset($stored[ $license_key ])) {
+            return new \WP_REST_Response(
+                ['success' => false, 'message' => __('Cette clé existe déjà.', 'g2rd')],
+                400
+            );
+        }
+
+        $stored[ $license_key ] = [
+            'status'          => 'active',
+            'max_activations' => max(1, $max_activations),
+            'expires_at'      => $expires_at,
+        ];
+
+        \update_option('g2rd_license_keys', $stored, false);
+
+        return new \WP_REST_Response(
+            [
+                'success'     => true,
+                'license_key' => $license_key,
+                'data'        => $stored[ $license_key ],
+            ],
+            201
+        );
+    }
+
+    /**
+     * Supprime une clé de licence (REST DELETE /g2rd/v1/license-admin/{key}).
+     *
+     * @param \WP_REST_Request $request Requête REST entrante.
+     * @return \WP_REST_Response
+     */
+    public function rest_admin_delete( \WP_REST_Request $request ): \WP_REST_Response {
+        $license_key = \sanitize_text_field((string) ($request->get_param('license_key') ?? ''));
+        $stored      = (array) \get_option('g2rd_license_keys', []);
+
+        if (!isset($stored[ $license_key ])) {
+            return new \WP_REST_Response(
+                ['success' => false, 'message' => __('Clé introuvable.', 'g2rd')],
+                404
+            );
+        }
+
+        unset($stored[ $license_key ]);
+        \update_option('g2rd_license_keys', $stored, false);
+
+        return new \WP_REST_Response(['success' => true], 200);
+    }
+
+    /**
+     * Génère une clé de licence unique au format G2RD-XXXXX-XXXXX-XXXXX-XXXXX.
+     *
+     * @return string
+     */
+    private function generate_license_key(): string {
+        $chars    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $len      = strlen($chars);
+        $segments = [];
+
+        for ($i = 0; $i < 4; $i++) {
+            $seg = '';
+            for ($j = 0; $j < 5; $j++) {
+                $seg .= $chars[ random_int(0, $len - 1) ];
+            }
+            $segments[] = $seg;
+        }
+
+        return 'G2RD-' . implode('-', $segments);
     }
 
     // ── FluentCart Bridge ─────────────────────────────────────────────────

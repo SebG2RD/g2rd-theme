@@ -9,17 +9,19 @@ import { TabClients } from './tabs/TabClients';
 import { TabMaintenance } from './tabs/TabMaintenance';
 import { TabConnexion } from './tabs/TabConnexion';
 import { TabLicence } from './tabs/TabLicence';
+import { TabLicenceAdmin } from './tabs/TabLicenceAdmin';
 
-const { version, licensed } = window.G2RDOptionsData || {};
+const { version, licensed, licenseServerMode } = window.G2RDOptionsData || {};
 
 const TAB_CONFIG = [
-	{ name: 'configuration', title: 'Configuration', icon: 'admin-settings' },
-	{ name: 'contenu',       title: 'Contenu',        icon: 'category' },
-	{ name: 'editeur',       title: 'Éditeur',        icon: 'block-default' },
-	{ name: 'clients',       title: 'Clients',        icon: 'admin-users' },
-	{ name: 'maintenance',   title: 'Maintenance',    icon: 'clock' },
-	{ name: 'connexion',     title: 'Connexion',      icon: 'lock' },
-	{ name: 'licence',       title: 'Licence',        icon: 'admin-network' },
+	{ name: 'configuration', title: 'Configuration',     icon: 'admin-settings' },
+	{ name: 'contenu',       title: 'Contenu',            icon: 'category' },
+	{ name: 'editeur',       title: 'Éditeur',            icon: 'block-default' },
+	{ name: 'clients',       title: 'Clients',            icon: 'admin-users' },
+	{ name: 'maintenance',   title: 'Maintenance',        icon: 'clock' },
+	{ name: 'connexion',     title: 'Connexion',          icon: 'lock' },
+	{ name: 'licence',       title: 'Licence',            icon: 'admin-network' },
+	...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'admin-network' } ] : [] ),
 ];
 
 const TABS = TAB_CONFIG.map( ( { name, title, icon } ) => ( {
@@ -84,6 +86,7 @@ export function App() {
 						case 'maintenance':   return <TabMaintenance   { ...props } />;
 						case 'connexion':     return <TabConnexion     { ...props } />;
 						case 'licence':       return <TabLicence />;
+						case 'licence-admin': return <TabLicenceAdmin />;
 						default:              return null;
 					}
 				} }

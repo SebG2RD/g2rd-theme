@@ -534,8 +534,10 @@ class ThemeOptions {
             'cptDefaults'     => self::CPT_DEFAULTS,
             'palette'         => $palette,
             'pages'           => $pages_list,
-            'licensed'        => LicenseManager::is_active(),
-            'licenseData'     => LicenseManager::get_display_data(),
+            'licensed'          => LicenseManager::is_active(),
+            'licenseData'       => LicenseManager::get_display_data(),
+            'licenseServerMode' => LicenseServer::is_server_mode(),
+            'licenseAdminUrl'   => LicenseServer::is_server_mode() ? \rest_url( 'g2rd/v1/license-admin' ) : null,
         ];
     }
 }
