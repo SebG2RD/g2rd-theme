@@ -31,7 +31,7 @@ class GitHubUpdater {
      * @since 1.0.0
      * @var string
      */
-    private string $github_url = 'https://github.com/SebG2RD/G2RD-Theme-FSE';
+    private string $github_url = 'https://github.com/SebG2RD/g2rd-theme';
 
     /**
      * Endpoint API GitHub pour les releases
@@ -39,7 +39,7 @@ class GitHubUpdater {
      * @since 1.2.1
      * @var string
      */
-    private const GITHUB_API_URL = 'https://api.github.com/repos/SebG2RD/G2RD-Theme-FSE/releases/latest';
+    private const GITHUB_API_URL = 'https://api.github.com/repos/SebG2RD/g2rd-theme/releases/latest';
 
     /**
      * Arguments communs pour wp_remote_get vers l'API GitHub
