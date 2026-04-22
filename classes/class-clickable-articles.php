@@ -60,9 +60,26 @@ class ClickableArticles {
      * Ajoute les liens de préchargement pour les ressources critiques
      */
     public function addPreloadLinks(): void {
-        if (!\is_admin()) {
-            echo '<link rel="preload" href="' . esc_url(get_template_directory_uri()) . '/assets/js/clickable-articles.js" as="script">';
+        // Précharger uniquement si la page contient des blocs avec articles cliquables
+        if ( \is_admin() || ! $this->pageHasClickableBlocks() ) {
+            return;
         }
+        echo '<link rel="preload" href="' . \esc_url( \get_template_directory_uri() ) . '/assets/js/clickable-articles.js" as="script">';
+    }
+
+    /**
+     * Vérifie si la page courante contient des blocs avec articles cliquables.
+     *
+     * @return bool
+     */
+    private function pageHasClickableBlocks(): bool {
+        $clickable_blocks = [ 'g2rd/card-g2rd', 'g2rd/filterable-grid', 'core/query' ];
+        foreach ( $clickable_blocks as $block ) {
+            if ( \has_block( $block ) ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

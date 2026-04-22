@@ -59,8 +59,21 @@ class GSAPAnimations {
         if ( \is_admin() || ScriptsManager::is_speed_test() ) {
             return;
         }
-        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() ) . '/assets/js/vendor/gsap.min.js" as="script">';
-        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() ) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
+        // Précharger GSAP uniquement si la page contient des blocs animés
+        $gsap_blocks = [ 'g2rd/hero', 'g2rd/container', 'g2rd/cta-band', 'g2rd/testimonial' ];
+        $has_gsap    = false;
+        foreach ( $gsap_blocks as $block ) {
+            if ( \has_block( $block ) ) {
+                $has_gsap = true;
+                break;
+            }
+        }
+        if ( ! $has_gsap ) {
+            return;
+        }
+        $uri = \get_template_directory_uri();
+        echo '<link rel="preload" href="' . \esc_url( $uri ) . '/assets/js/vendor/gsap.min.js" as="script">';
+        echo '<link rel="preload" href="' . \esc_url( $uri ) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
     }
 
     /**

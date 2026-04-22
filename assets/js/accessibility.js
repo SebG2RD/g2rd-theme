@@ -145,7 +145,6 @@
       if (href && href.includes("/wp-content/themes/")) {
         const match = href.match(/(.+\/wp-content\/themes\/[^\/]+)/);
         if (match) {
-          console.log("Chemin du thème détecté (CSS):", match[1]);
           return match[1];
         }
       }
@@ -158,7 +157,6 @@
       if (src && src.includes("/wp-content/themes/")) {
         const match = src.match(/(.+\/wp-content\/themes\/[^\/]+)/);
         if (match) {
-          console.log("Chemin du thème détecté (JS):", match[1]);
           return match[1];
         }
       }
@@ -166,9 +164,7 @@
 
     // Méthode 3: Utiliser l'URL actuelle + chemin standard
     const origin = window.location.origin;
-    const fallbackPath = `${origin}/wp-content/themes/g2rd-theme`;
-    console.log("Chemin du thème (fallback):", fallbackPath);
-    return fallbackPath;
+    return `${origin}/wp-content/themes/g2rd-theme`;
   }
 
   // Création du panneau d'accessibilité

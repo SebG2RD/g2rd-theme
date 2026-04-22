@@ -25,6 +25,9 @@ class FseSync {
 	/** Clé du transient de recréation (v3). */
 	private const RECREATE_TRANSIENT = 'g2rd_tpl_recreated_v3';
 
+	/** Clé de l'option stockant la version au dernier flush des permaliens. */
+	private const REWRITE_VERSION_OPTION = 'g2rd_rewrite_flushed_version';
+
 	/**
 	 * Enregistre les hooks WordPress liés à la synchronisation FSE.
 	 *
@@ -37,6 +40,7 @@ class FseSync {
 	public function register_hooks(): void {
 		\add_action( 'admin_init', [ $this, 'sync_fse_once' ] );
 		\add_action( 'admin_init', [ $this, 'recreate_fse_templates' ], 20 );
+		\add_action( 'admin_init', [ $this, 'maybe_flush_rewrite_rules' ], 30 );
 	}
 
 	/**
@@ -224,5 +228,23 @@ class FseSync {
 		}
 
 		\set_transient( self::RECREATE_TRANSIENT, true, DAY_IN_SECONDS * 30 );
+	}
+
+	/**
+	 * Flush les règles de réécriture automatiquement si la version du thème a changé.
+	 * Évite les 404 sur les archives CPT après un upload manuel (FileZilla, FTP).
+	 *
+	 * @return void
+	 */
+	public function maybe_flush_rewrite_rules(): void {
+		$current_version = \wp_get_theme()->get( 'Version' );
+		$flushed_version = \get_option( self::REWRITE_VERSION_OPTION, '' );
+
+		if ( $flushed_version === $current_version ) {
+			return;
+		}
+
+		\flush_rewrite_rules( false );
+		\update_option( self::REWRITE_VERSION_OPTION, $current_version, false );
 	}
 }

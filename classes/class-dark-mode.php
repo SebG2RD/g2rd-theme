@@ -70,9 +70,6 @@ class DarkMode {
         $dir_path = \get_template_directory();
         $dir_uri  = \get_template_directory_uri();
 
-        // Charger Dashicons côté front (icônes du bouton toggle)
-        \wp_enqueue_style('dashicons');
-
         // Styles du dark mode
         $css_path = $dir_path . '/assets/css/dark-mode.css';
         \wp_enqueue_style(

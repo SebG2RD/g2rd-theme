@@ -15,7 +15,7 @@
 
 .g2rd-dark-mode-toggle {
 	position: fixed;
-	bottom: 80px;
+	bottom: 100px;
 	right: 20px;
 	z-index: 9998;
 	display: flex;
@@ -41,10 +41,9 @@
 	outline-offset: 3px;
 }
 
-.g2rd-dark-mode-toggle .dashicons {
-	font-size: 22px;
-	width: 22px;
-	height: 22px;
+.g2rd-dark-mode-toggle svg {
+	display: block;
+	flex-shrink: 0;
 }
 
 /* =========================================================

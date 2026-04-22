@@ -223,6 +223,17 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.6
+
+- **Fix** : classe `LicenseManager` corrigée dans `class-block-patterns.php` (erreur critique PHP en production).
+- **Fix** : flush des permaliens automatique après mise à jour du thème (CPT portfolio/prestations/qui-sommes-nous en 404).
+- **Fix** : suppression des `console.log` exposant le chemin du thème dans `accessibility.js`.
+- **Fix** : preloads conditionnels pour GSAP et `clickable-articles.js` (warnings console supprimés).
+- **Fix** : preload `style.css` supprimé (mismatch `?ver=` causait un warning).
+- **Style** : bouton Dark Mode repositionné à `bottom: 100px`.
+- **Style** : icônes Lune/Soleil SVG pour le toggle Dark Mode (suppression dépendance Dashicons).
+- **Style** : bouton "Visiter notre site" aligné sur la page de connexion (`padding: 10px 20px`, `margin-top: 2rem`).
+
 ### 1.6.5
 
 - **Feat** : génération automatique de clé de licence à l'achat FluentCart — email envoyé au client avec sa clé.

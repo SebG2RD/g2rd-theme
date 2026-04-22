@@ -230,9 +230,16 @@ body.login {
     border-radius: var(--g2rd-radius) !important;
 }
 .g2rd-button {
+    display: inline-block !important;
     background: var(--g2rd-btn-color) !important;
     color: var(--g2rd-btn-text) !important;
     border-radius: var(--g2rd-radius) !important;
+    padding: 10px 20px !important;
+    margin-top: 2rem !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
 }
 .g2rd-button:hover {
     background: var(--g2rd-cta-hover-color) !important;

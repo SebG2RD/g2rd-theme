@@ -88,9 +88,6 @@ class ThemeSetup {
         // Précharger la police principale du thème (fetchpriority=high pour LCP)
         echo '<link rel="preload" href="' . \esc_url($uri) . '/assets/fonts/Inter_28pt-Regular.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">' . "\n";
 
-        // Précharger la feuille de style principale
-        echo '<link rel="preload" href="' . \esc_url(\get_stylesheet_uri()) . '" as="style">' . "\n";
-
         // Préconnexion au CDN Typed.js uniquement si le bloc est présent sur la page
         if (\has_block('g2rd/typed')) {
             echo '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>' . "\n";
