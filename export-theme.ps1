@@ -14,9 +14,10 @@ Write-Host ('ZIP    : ' + $zipPath)
 $excludedFileNames = @(
     'package.json', 'package-lock.json', 'webpack.config.js',
     'skills-lock.json', 'CLAUDE.md', '.gitignore', '.gitattributes',
-    'export-theme.ps1'
+    'export-theme.ps1', 'composer.json', 'composer.lock',
+    'phpcs.xml.dist', 'phpcs-security.xml'
 )
-$excludedFolders = @('node_modules', '.git', '.claude', '.agents')
+$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor')
 
 $files   = Get-ChildItem -Path $source -Recurse -File
 $total   = $files.Count
