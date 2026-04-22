@@ -38,6 +38,118 @@ class FluentCartSupport {
         \add_filter('fluent_cart/customer_portal/custom_endpoints', [$this, 'addEndpoints']);
         \add_action('wp_ajax_g2rd_portal_deactivate_domain', [$this, 'ajaxDeactivateDomain']);
         \add_action('g2rd_release_webhook_received', [$this, 'syncProductVersion'], 10, 3);
+
+        // Génération automatique de clé à l'achat FluentCart.
+        \add_action('fluent_cart/order_paid', [$this, 'onOrderPaid']);
+    }
+
+    /**
+     * Met à jour la version du produit FluentCart lors d'une nouvelle release.
+     * Appelé automatiquement par le webhook GitHub → LicenseServer.
+     *
+     * @param string $version      Nouvelle version (ex. "1.6.0")
+     * @param string $download_url URL du ZIP de production
+     * @param string $changelog    Notes de version
+     * @return void
+     */
+    /**
+     * Génère et envoie automatiquement une clé de licence lors d'un achat FluentCart.
+     *
+     * @param mixed $order Objet ou tableau de commande FluentCart.
+     * @return void
+     */
+    public function onOrderPaid( $order ): void {
+        $product_id = (int) \get_option(self::OPT_PRODUCT_ID, 0);
+        if ($product_id <= 0) {
+            return;
+        }
+
+        // Extraire les données de commande (objet ou tableau selon version FluentCart).
+        if (\is_object($order)) {
+            $user_id        = (int) ($order->user_id ?? $order->customer_id ?? 0);
+            $order_id       = (int) ($order->id ?? 0);
+            $customer_email = (string) ($order->billing_email ?? $order->customer_email ?? '');
+            $items          = (array) ($order->line_items ?? $order->items ?? []);
+        } elseif (\is_array($order)) {
+            $user_id        = (int) ($order['user_id'] ?? $order['customer_id'] ?? 0);
+            $order_id       = (int) ($order['id'] ?? 0);
+            $customer_email = (string) ($order['billing_email'] ?? $order['customer_email'] ?? '');
+            $items          = (array) ($order['line_items'] ?? $order['items'] ?? []);
+        } else {
+            return;
+        }
+
+        if ($user_id <= 0) {
+            return;
+        }
+
+        // Vérifier que la commande contient le produit G2RD.
+        $has_product = false;
+        foreach ($items as $item) {
+            $pid = \is_object($item)
+                ? (int) ($item->product_id ?? $item->id ?? 0)
+                : (int) ($item['product_id'] ?? $item['id'] ?? 0);
+            if ($pid === $product_id) {
+                $has_product = true;
+                break;
+            }
+        }
+
+        if (!$has_product) {
+            return;
+        }
+
+        // Générer et stocker la clé.
+        $license_key = LicenseServer::generate_license_key();
+        $stored      = (array) \get_option('g2rd_license_keys', []);
+
+        $stored[ $license_key ] = [
+            'status'          => 'active',
+            'max_activations' => 1,
+            'expires_at'      => null,
+            'user_id'         => $user_id,
+            'order_id'        => $order_id,
+            'created_at'      => \current_time('mysql'),
+        ];
+
+        \update_option('g2rd_license_keys', $stored, false);
+
+        // Envoyer la clé par email au client.
+        if (!empty($customer_email)) {
+            $this->send_license_email(\sanitize_email($customer_email), $license_key, $user_id);
+        }
+    }
+
+    /**
+     * Envoie la clé de licence par email au client après achat.
+     *
+     * @param string $email       Email du client.
+     * @param string $license_key Clé générée.
+     * @param int    $user_id     ID WordPress du client.
+     * @return void
+     */
+    private function send_license_email( string $email, string $license_key, int $user_id ): void {
+        $user    = \get_user_by('id', $user_id);
+        $name    = $user instanceof \WP_User ? $user->display_name : $email;
+        $subject = \__('Votre clé de licence G2RD FSE', 'g2rd');
+
+        $message = sprintf(
+            /* translators: 1: prénom client, 2: clé de licence, 3: URL portail client */
+            \__(
+                "Bonjour %1\$s,\n\nMerci pour votre achat ! Voici votre clé de licence G2RD FSE :\n\n    %2\$s\n\nPour l'activer :\n1. Connectez-vous à votre site WordPress\n2. Allez dans Apparence → Options G2RD → Licence\n3. Entrez votre clé et cliquez sur « Activer la licence »\n\nVotre portail client (domaines activés, support) : %3\$s\n\nÀ bientôt,\nL'équipe G2RD",
+                'g2rd'
+            ),
+            \esc_html($name),
+            $license_key,
+            \esc_url(\home_url('/portail-client'))
+        );
+
+        \wp_mail(
+            $email,
+            $subject,
+            $message,
+            ['From: G2RD Agence Web <contact@g2rd.fr>']
+        );
     }
 
     /**
@@ -445,6 +557,24 @@ class FluentCartSupport {
 
         if (!empty($licenses) && is_array($licenses)) {
             return $licenses;
+        }
+
+        // Clés natives stockées dans g2rd_license_keys filtrées par user_id.
+        $stored  = (array) \get_option('g2rd_license_keys', []);
+        $native  = [];
+        foreach ($stored as $key => $data) {
+            if (isset($data['user_id']) && (int) $data['user_id'] === $user_id) {
+                $native[] = [
+                    'license_key'     => (string) $key,
+                    'status'          => $data['status'] ?? 'active',
+                    'max_activations' => (int) ($data['max_activations'] ?? 1),
+                    'expires_at'      => $data['expires_at'] ?? null,
+                ];
+            }
+        }
+
+        if (!empty($native)) {
+            return $native;
         }
 
         // Fallback : requête directe si la table wp_fc_licenses existe

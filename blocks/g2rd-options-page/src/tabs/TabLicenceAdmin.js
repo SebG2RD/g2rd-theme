@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from '@wordpress/element';
-import { Button, Spinner, TextControl } from '@wordpress/components';
+import { Button, Spinner } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
 const { licenseAdminUrl, nonce } = window.G2RDOptionsData || {};
@@ -117,22 +117,34 @@ export function TabLicenceAdmin() {
 				) }
 
 				{ /* ── Formulaire de création ── */ }
-				<div style={ { background: '#f9f9f9', border: '1px solid #ddd', borderRadius: 6, padding: '16px 20px', marginBottom: 24 } }>
-					<h3 style={ { marginTop: 0, marginBottom: 16 } }>Créer une nouvelle licence</h3>
+				<div style={ { background: '#f9f9f9', border: '1px solid #ddd', borderRadius: 6, padding: '20px 24px', marginBottom: 24 } }>
+					<h3 style={ { marginTop: 0, marginBottom: 20, fontSize: 14, fontWeight: 600 } }>Créer une nouvelle licence</h3>
 
-					<div style={ { display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'flex-end' } }>
-						<div style={ { flex: '2 1 220px' } }>
-							<TextControl
-								label="Clé personnalisée"
-								help="Laisser vide pour générer automatiquement (G2RD-XXXXX-…)"
+					<div style={ {
+						display: 'grid',
+						gridTemplateColumns: 'minmax(200px, 2fr) 120px minmax(150px, 1fr) auto',
+						gap: 16,
+						alignItems: 'end',
+					} }>
+						<div>
+							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
+								Clé personnalisée
+							</label>
+							<input
+								type="text"
 								value={ customKey }
-								onChange={ setCustomKey }
+								onChange={ ( e ) => setCustomKey( e.target.value ) }
 								placeholder="G2RD-XXXXX-XXXXX-XXXXX-XXXXX"
+								className="regular-text"
+								style={ { width: '100%', boxSizing: 'border-box' } }
 							/>
+							<p style={ { margin: '4px 0 0', fontSize: 12, color: '#787c82' } }>
+								Laisser vide pour générer automatiquement
+							</p>
 						</div>
 
-						<div style={ { flex: '0 1 120px' } }>
-							<label style={ { display: 'block', fontWeight: 600, marginBottom: 4 } }>
+						<div>
+							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
 								Activations max
 							</label>
 							<input
@@ -142,28 +154,36 @@ export function TabLicenceAdmin() {
 								value={ maxActivations }
 								onChange={ ( e ) => setMaxActivations( Math.max( 1, parseInt( e.target.value, 10 ) || 1 ) ) }
 								className="regular-text"
-								style={ { width: '100%' } }
+								style={ { width: '100%', boxSizing: 'border-box' } }
 							/>
+							<p style={ { margin: '4px 0 0', fontSize: 12, color: 'transparent' } }>
+								&nbsp;
+							</p>
 						</div>
 
-						<div style={ { flex: '1 1 160px' } }>
-							<label style={ { display: 'block', fontWeight: 600, marginBottom: 4 } }>
-								Expiration (optionnel)
+						<div>
+							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
+								Expiration{ ' ' }
+								<span style={ { fontWeight: 400, color: '#787c82' } }>(optionnel)</span>
 							</label>
 							<input
 								type="date"
 								value={ expiresAt }
 								onChange={ ( e ) => setExpiresAt( e.target.value ) }
 								className="regular-text"
-								style={ { width: '100%' } }
+								style={ { width: '100%', boxSizing: 'border-box' } }
 							/>
+							<p style={ { margin: '4px 0 0', fontSize: 12, color: 'transparent' } }>
+								&nbsp;
+							</p>
 						</div>
 
-						<div style={ { flex: '0 0 auto', paddingBottom: 2 } }>
+						<div style={ { paddingBottom: 22 } }>
 							<Button
 								variant="primary"
 								onClick={ handleCreate }
 								disabled={ isCreating }
+								style={ { whiteSpace: 'nowrap' } }
 							>
 								{ isCreating ? (
 									<Spinner />

@@ -449,7 +449,7 @@ class LicenseServer {
         $expires_at      = !empty($expires_raw) ? \sanitize_text_field((string) $expires_raw) : null;
 
         if (empty($license_key)) {
-            $license_key = $this->generate_license_key();
+            $license_key = self::generate_license_key();
         }
 
         $stored = (array) \get_option('g2rd_license_keys', []);
@@ -507,7 +507,7 @@ class LicenseServer {
      *
      * @return string
      */
-    private function generate_license_key(): string {
+    public static function generate_license_key(): string {
         $chars    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $len      = strlen($chars);
         $segments = [];

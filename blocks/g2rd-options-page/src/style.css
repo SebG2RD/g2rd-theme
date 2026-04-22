@@ -50,6 +50,18 @@
 	color: #8c8f94;
 }
 
+.g2rd-options-header__right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.g2rd-header-save {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
 /* ── Notice ────────────────────────────────────────────────────── */
 .g2rd-notice {
 	margin-bottom: 16px !important;

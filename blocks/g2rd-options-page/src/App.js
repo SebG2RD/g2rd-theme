@@ -1,7 +1,5 @@
-import { useState } from '@wordpress/element';
-import { TabPanel, Notice } from '@wordpress/components';
+import { TabPanel, Notice, Button } from '@wordpress/components';
 import { useSettings } from './hooks/useSettings';
-import { SaveBar } from './components/SaveBar';
 import { TabConfiguration } from './tabs/TabConfiguration';
 import { TabContenu } from './tabs/TabContenu';
 import { TabEditeur } from './tabs/TabEditeur';
@@ -59,6 +57,19 @@ export function App() {
 							Sans licence
 						</span>
 					) }
+
+					{ ( isDirty || isSaving ) && (
+						<div className="g2rd-header-save">
+							{ ! isSaving && (
+								<Button variant="tertiary" onClick={ reset } disabled={ isSaving }>
+									Annuler
+								</Button>
+							) }
+							<Button variant="primary" onClick={ save } disabled={ isSaving } isBusy={ isSaving }>
+								{ isSaving ? 'Enregistrement…' : 'Enregistrer' }
+							</Button>
+						</div>
+					) }
 				</div>
 			</div>
 
@@ -91,13 +102,6 @@ export function App() {
 					}
 				} }
 			</TabPanel>
-
-			<SaveBar
-				isDirty={ isDirty }
-				isSaving={ isSaving }
-				onSave={ save }
-				onReset={ reset }
-			/>
 		</div>
 	);
 }

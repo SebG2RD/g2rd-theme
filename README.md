@@ -223,6 +223,13 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.5
+
+- **Feat** : génération automatique de clé de licence à l'achat FluentCart — email envoyé au client avec sa clé.
+- **Feat** : bouton Enregistrer déplacé dans l'en-tête de la page d'options — toujours visible sans scroller.
+- **Fix** : formulaire "Gestion licences" — alignement CSS grid, inputs cohérents sans `TextControl`.
+- **Fix** : `export-theme.ps1` exclut `.github`, `docs`, `vendor`, `composer.*` (alignement avec `release.yml`).
+
 ### 1.6.4
 
 - **Feat** : onglet Licence React dans la page d'options — activation/désactivation de clé via REST API.
