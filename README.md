@@ -223,6 +223,13 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9.1
+
+- **Feature** : Bloc Testimonial Google — 4 layouts (grille, liste, carrousel, maçonnerie), 4 styles de cartes (ombre, plat, bordure, verre), lien profil auteur, affichage 1er avis mis en avant, toggle avatar/date/badge global, troncature de texte.
+- **Fix** : FilterableGrid — `text-decoration` supprimé par défaut sur tous les liens de cartes.
+- **Fix** : Icône des blocs FAQ et GEO FAQ harmonisée (`editor-ul`).
+- **Fix** : `FluentCartSupport::syncProductVersion` — doublon supprimé, méthode opérationnelle ; `author_url` ajouté dans la réponse Google Reviews.
+
 ### 1.6.9
 
 - **Feature** : Bloc Testimonial — mode avis Google Business (Places API, clé API par client, cache 12h, squelettes de chargement, hydratation frontend).

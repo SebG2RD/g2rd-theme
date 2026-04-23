@@ -216,6 +216,7 @@ class GoogleReviews {
 		foreach ( $raw as $r ) {
 			$out[] = [
 				'author'        => \sanitize_text_field( $r['author_name'] ?? '' ),
+				'author_url'    => \esc_url_raw( $r['author_url'] ?? '' ),
 				'avatar'        => \esc_url_raw( $r['profile_photo_url'] ?? '' ),
 				'rating'        => \absint( $r['rating'] ?? 5 ),
 				'text'          => \wp_kses_post( $r['text'] ?? '' ),

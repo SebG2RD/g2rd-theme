@@ -20,15 +20,27 @@ export default function Save({ attributes }) {
     quoteColor, authorColor, roleColor, starColor, accentColor,
     backgroundColor, borderRadius, hasShadow, layout,
     googleMode, googlePlaceId, googleMinRating, googleMaxReviews,
+    googleLayout, googleColumns, googleCardStyle,
+    googleShowHeader, googleShowAvatar, googleShowDate,
+    googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
   } = attributes;
 
   /* ── Mode Google Reviews ─────────────────────────────────────────────── */
   if ( googleMode ) {
     const blockProps = useBlockProps.save({
       className: "g2rd-testimonial g2rd-testimonial--google",
-      "data-google-place-id":   googlePlaceId || "",
-      "data-google-min-rating": String( googleMinRating ),
-      "data-google-max-reviews": String( googleMaxReviews ),
+      "data-google-place-id":          googlePlaceId || "",
+      "data-google-min-rating":        String( googleMinRating ),
+      "data-google-max-reviews":       String( googleMaxReviews ),
+      "data-google-layout":            googleLayout            || "grid",
+      "data-google-columns":           String( googleColumns   || 3 ),
+      "data-google-card-style":        googleCardStyle         || "shadow",
+      "data-google-show-header":       String( googleShowHeader  !== false ),
+      "data-google-show-avatar":       String( googleShowAvatar  !== false ),
+      "data-google-show-date":         String( googleShowDate    !== false ),
+      "data-google-show-author-link":  String( !! googleShowAuthorLink ),
+      "data-google-max-text":          String( googleMaxTextLength || 0 ),
+      "data-google-highlight-first":   String( !! googleHighlightFirst ),
       "aria-busy": "true",
       style: {
         "--g2rd-t-bg":     backgroundColor,

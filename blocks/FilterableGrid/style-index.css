@@ -11,7 +11,8 @@
 .g2rd-fg__badge--back{background:#f59e0b;color:#fff}
 .g2rd-fg__add-to-cart{background:var(--wp--preset--color--primary,#2f425d);border-radius:4px;color:var(--wp--preset--color--white,#fff)!important;display:inline-block;font-size:.875rem;font-weight:600;margin-top:4px;padding:.45em 1.1em;text-decoration:none;transition:opacity .2s}
 .g2rd-fg__add-to-cart:hover{opacity:.88}
-.g2rd-fg__readmore{color:var(--wp--preset--color--primary,#2f425d);display:inline-block;font-weight:600;margin-top:4px;text-decoration:underline}
+.g2rd-fg__readmore{color:var(--wp--preset--color--primary,#2f425d);display:inline-block;font-weight:600;margin-top:4px;text-decoration:none}
+.g2rd-filter-grid__card a,.g2rd-fg__card a{text-decoration:none}
 .g2rd-fg__readmore:hover{text-decoration:none}
 .g2rd-fg__meta{align-items:center;color:#9ca3af;display:flex;font-size:.8rem;gap:8px;margin-top:auto}
 .g2rd-fg__title a{color:inherit;text-decoration:none}.g2rd-filter-grid.no-text-underline .g2rd-filter-grid__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card p{text-decoration:none}

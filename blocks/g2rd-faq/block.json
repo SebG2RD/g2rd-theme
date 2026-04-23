@@ -6,7 +6,7 @@
     "title": "FAQ G2RD",
     "category": "g2rd-blocks",
     "icon": {
-        "src": "editor-help",
+        "src": "editor-ul",
         "foreground": "#FAFAFA",
         "background": "#2F425D"
     },

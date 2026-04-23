@@ -44,15 +44,6 @@ class FluentCartSupport {
     }
 
     /**
-     * Met à jour la version du produit FluentCart lors d'une nouvelle release.
-     * Appelé automatiquement par le webhook GitHub → LicenseServer.
-     *
-     * @param string $version      Nouvelle version (ex. "1.6.0")
-     * @param string $download_url URL du ZIP de production
-     * @param string $changelog    Notes de version
-     * @return void
-     */
-    /**
      * Génère et envoie automatiquement une clé de licence lors d'un achat FluentCart.
      *
      * @param mixed $order Objet ou tableau de commande FluentCart.

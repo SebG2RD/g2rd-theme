@@ -97,7 +97,16 @@
     "googleMaxReviews": {
       "type": "number",
       "default": 5
-    }
+    },
+    "googleLayout":         { "type": "string",  "default": "grid" },
+    "googleColumns":        { "type": "number",  "default": 3 },
+    "googleCardStyle":      { "type": "string",  "default": "shadow" },
+    "googleShowHeader":     { "type": "boolean", "default": true },
+    "googleShowAvatar":     { "type": "boolean", "default": true },
+    "googleShowDate":       { "type": "boolean", "default": true },
+    "googleShowAuthorLink": { "type": "boolean", "default": false },
+    "googleMaxTextLength":  { "type": "number",  "default": 0 },
+    "googleHighlightFirst": { "type": "boolean", "default": false }
   },
   "supports": {
     "html": false,
