@@ -4,14 +4,21 @@ import apiFetch from '@wordpress/api-fetch';
 
 const { licenseAdminUrl, nonce } = window.G2RDOptionsData || {};
 
+function formatDate( iso ) {
+	if ( ! iso ) return '—';
+	return new Date( iso ).toLocaleDateString( 'fr-FR', {
+		day: '2-digit', month: '2-digit', year: 'numeric',
+	} );
+}
+
 export function TabLicenceAdmin() {
-	const [ licenses,      setLicenses      ] = useState( [] );
-	const [ isLoading,     setIsLoading     ] = useState( true );
-	const [ isCreating,    setIsCreating    ] = useState( false );
-	const [ notice,        setNotice        ] = useState( null );
+	const [ licenses,       setLicenses       ] = useState( [] );
+	const [ isLoading,      setIsLoading      ] = useState( true );
+	const [ isCreating,     setIsCreating     ] = useState( false );
+	const [ notice,         setNotice         ] = useState( null );
 	const [ maxActivations, setMaxActivations ] = useState( 1 );
-	const [ customKey,     setCustomKey     ] = useState( '' );
-	const [ expiresAt,     setExpiresAt     ] = useState( '' );
+	const [ customKey,      setCustomKey      ] = useState( '' );
+	const [ expiresAt,      setExpiresAt      ] = useState( '' );
 
 	const showNotice = useCallback( ( type, message ) => {
 		setNotice( { type, message } );
@@ -98,10 +105,32 @@ export function TabLicenceAdmin() {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
-					<span className="dashicons dashicons-admin-network"></span>
-					Gestion des licences
-				</h2>
+				<div style={ { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } }>
+					<h2 className="g2rd-section__title" style={ { margin: 0 } }>
+						<span className="dashicons dashicons-admin-network"></span>
+						Gestion des licences
+					</h2>
+					<Button
+						variant="secondary"
+						isSmall
+						onClick={ loadLicenses }
+						disabled={ isLoading }
+						title="Rafraîchir la liste"
+					>
+						<span
+							className="dashicons dashicons-update"
+							style={ {
+								fontSize: 16,
+								width: 16,
+								height: 16,
+								verticalAlign: 'middle',
+								marginRight: 4,
+								animation: isLoading ? 'g2rd-spin 1s linear infinite' : 'none',
+							} }
+						></span>
+						Rafraîchir
+					</Button>
+				</div>
 				<p className="g2rd-section__desc">
 					Créez et attribuez les clés de licence à vos clients. Chaque clé est vérifiée
 					lorsque le client l'active dans <strong>Options G2RD → Licence</strong> sur son site.
@@ -212,28 +241,46 @@ export function TabLicenceAdmin() {
 					<table className="widefat striped">
 						<thead>
 							<tr>
-								<th style={ { width: '35%' } }>Clé</th>
+								<th style={ { width: '30%' } }>Clé</th>
 								<th>Statut</th>
 								<th>Activations</th>
+								<th>Créée le</th>
 								<th>Expiration</th>
-								<th>Domaines actifs</th>
+								<th style={ { width: '22%' } }>Domaines actifs</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							{ licenses.map( ( { key, status, max_activations, activations_used, expires_at, activated_domains } ) => (
+							{ licenses.map( ( { key, status, max_activations, activations_used, expires_at, created_at, activated_domains, source } ) => (
 								<tr key={ key }>
 									<td>
-										<code style={ { fontSize: 12, wordBreak: 'break-all' } }>{ key }</code>
-										<button
-											type="button"
-											className="button-link"
-											onClick={ () => copyKey( key ) }
-											title="Copier la clé"
-											style={ { marginLeft: 6, cursor: 'pointer', verticalAlign: 'middle' } }
-										>
-											<span className="dashicons dashicons-clipboard" style={ { fontSize: 16, width: 16, height: 16 } }></span>
-										</button>
+										<div style={ { display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' } }>
+											<code style={ { fontSize: 12, wordBreak: 'break-all' } }>{ key }</code>
+											<button
+												type="button"
+												className="button-link"
+												onClick={ () => copyKey( key ) }
+												title="Copier la clé"
+												style={ { cursor: 'pointer', verticalAlign: 'middle', flexShrink: 0 } }
+											>
+												<span className="dashicons dashicons-clipboard" style={ { fontSize: 16, width: 16, height: 16 } }></span>
+											</button>
+										</div>
+										{ source === 'fluentcart' && (
+											<span style={ {
+												background: '#7f54b3',
+												borderRadius: 3,
+												color: '#fff',
+												fontSize: 10,
+												fontWeight: 700,
+												padding: '1px 6px',
+												display: 'inline-block',
+												marginTop: 4,
+												letterSpacing: '0.03em',
+											} }>
+												FluentCart
+											</span>
+										) }
 									</td>
 									<td>
 										<span style={ { color: status === 'active' ? '#00a32a' : '#d63638', fontWeight: 600 } }>
@@ -241,7 +288,16 @@ export function TabLicenceAdmin() {
 										</span>
 									</td>
 									<td>
-										{ activations_used } / { max_activations }
+										<span style={ {
+											fontWeight: 600,
+											color: activations_used >= max_activations ? '#d63638' : 'inherit',
+										} }>
+											{ activations_used }
+										</span>
+										{ ' / ' }{ max_activations }
+									</td>
+									<td style={ { fontSize: 12, color: '#787c82' } }>
+										{ formatDate( created_at ) }
 									</td>
 									<td>
 										{ expires_at
@@ -249,10 +305,24 @@ export function TabLicenceAdmin() {
 											: <span style={ { color: '#787c82' } }>—</span>
 										}
 									</td>
-									<td style={ { fontSize: 12 } }>
+									<td style={ { fontSize: 11 } }>
 										{ activated_domains.length > 0
 											? activated_domains.map( ( d ) => (
-												<span key={ d } style={ { display: 'block' } }>{ d }</span>
+												<div key={ d.url } style={ { marginBottom: 4 } }>
+													<a
+														href={ d.url }
+														target="_blank"
+														rel="noreferrer"
+														style={ { display: 'block', wordBreak: 'break-all' } }
+													>
+														{ d.url }
+													</a>
+													{ d.activated_at && (
+														<span style={ { color: '#9ca3af', display: 'block' } }>
+															{ formatDate( d.activated_at ) }
+														</span>
+													) }
+												</div>
 											) )
 											: <em style={ { color: '#787c82' } }>Aucun</em>
 										}
@@ -273,6 +343,13 @@ export function TabLicenceAdmin() {
 					</table>
 				) }
 			</section>
+
+			<style>{ `
+				@keyframes g2rd-spin {
+					from { transform: rotate(0deg); }
+					to   { transform: rotate(360deg); }
+				}
+			` }</style>
 
 		</div>
 	);

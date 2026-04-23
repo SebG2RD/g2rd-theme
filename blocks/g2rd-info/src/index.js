@@ -8,11 +8,12 @@ registerBlockType("g2rd/info", {
   save,
   variations: [
     {
-      name:        "info-standard",
-      title:       "Info standard",
+      name:      "info-standard",
+      title:     "Info standard",
       description: "Encart informatif avec icône et texte",
-      isDefault:   true,
-      attributes:  {
+      isDefault: true,
+      isActive:  ["backgroundColor"],
+      attributes: {
         icon:             "dashicons-info",
         backgroundColor: "#2F425D",
         titleColor:      "#FAFAFA",
@@ -22,10 +23,13 @@ registerBlockType("g2rd/info", {
       },
     },
     {
-      name:        "info-success",
-      title:       "Succès",
+      name:      "info-success",
+      title:     "Succès",
       description: "Encart de confirmation ou de résultat positif",
-      attributes:  {
+      scope:     ["transform"],
+      isActive:  ["backgroundColor"],
+      icon: { src: "yes-alt", foreground: "#4ade80", background: "#14532d" },
+      attributes: {
         icon:             "dashicons-yes-alt",
         backgroundColor: "#14532d",
         titleColor:      "#f0fdf4",
@@ -33,13 +37,15 @@ registerBlockType("g2rd/info", {
         iconColor:       "#4ade80",
         layout:          "icon-left",
       },
-      icon: { src: "yes-alt", foreground: "#4ade80", background: "#14532d" },
     },
     {
-      name:        "info-warning",
-      title:       "Avertissement",
+      name:      "info-warning",
+      title:     "Avertissement",
       description: "Encart d'alerte ou de mise en garde",
-      attributes:  {
+      scope:     ["transform"],
+      isActive:  ["backgroundColor"],
+      icon: { src: "warning", foreground: "#fbbf24", background: "#78350f" },
+      attributes: {
         icon:             "dashicons-warning",
         backgroundColor: "#78350f",
         titleColor:      "#fffbeb",
@@ -47,13 +53,15 @@ registerBlockType("g2rd/info", {
         iconColor:       "#fbbf24",
         layout:          "icon-left",
       },
-      icon: { src: "warning", foreground: "#fbbf24", background: "#78350f" },
     },
     {
-      name:        "info-danger",
-      title:       "Danger / Erreur",
+      name:      "info-danger",
+      title:     "Danger / Erreur",
       description: "Encart d'erreur ou d'action critique",
-      attributes:  {
+      scope:     ["transform"],
+      isActive:  ["backgroundColor"],
+      icon: { src: "dismiss", foreground: "#f87171", background: "#7f1d1d" },
+      attributes: {
         icon:             "dashicons-dismiss",
         backgroundColor: "#7f1d1d",
         titleColor:      "#fef2f2",
@@ -61,13 +69,15 @@ registerBlockType("g2rd/info", {
         iconColor:       "#f87171",
         layout:          "icon-left",
       },
-      icon: { src: "dismiss", foreground: "#f87171", background: "#7f1d1d" },
     },
     {
-      name:        "info-tip",
-      title:       "Conseil / Astuce",
+      name:      "info-tip",
+      title:     "Conseil / Astuce",
       description: "Encart de conseil ou de bonne pratique",
-      attributes:  {
+      scope:     ["transform"],
+      isActive:  ["backgroundColor"],
+      icon: { src: "lightbulb", foreground: "#60a5fa", background: "#1e3a5f" },
+      attributes: {
         icon:             "dashicons-lightbulb",
         backgroundColor: "#1e3a5f",
         titleColor:      "#eff6ff",
@@ -75,7 +85,6 @@ registerBlockType("g2rd/info", {
         iconColor:       "#60a5fa",
         layout:          "icon-left",
       },
-      icon: { src: "lightbulb", foreground: "#60a5fa", background: "#1e3a5f" },
     },
   ],
 });

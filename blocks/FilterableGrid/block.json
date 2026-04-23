@@ -75,7 +75,12 @@
         "showRating":   { "type": "boolean", "default": false },
         "showAddToCart":{ "type": "boolean", "default": false },
         "orderby":      { "type": "string",  "default": "date" },
-        "order":        { "type": "string",  "default": "DESC" }
+        "order":        { "type": "string",  "default": "DESC" },
+        "titleColor":       { "type": "string",  "default": "" },
+        "cardTextColor":    { "type": "string",  "default": "" },
+        "excerptColor":     { "type": "string",  "default": "" },
+        "imageAspectRatio": { "type": "string",  "default": "auto" },
+        "imageObjectFit":   { "type": "string",  "default": "cover" }
     },
     "example": {
         "attributes": {

@@ -61,19 +61,43 @@ class LicenseServer {
      * Détecte si ce WordPress est le serveur de licences (g2rd.fr).
      * Utilisé par ThemeOptions pour afficher l'onglet admin.
      *
+     * Deux conditions requises :
+     *   1. FluentCart est installé (condition technique)
+     *   2. Le domaine courant est autorisé comme serveur de licences
+     *      — défini via la constante G2RD_LICENSE_SERVER_HOSTS dans wp-config.php
+     *        (ex. define('G2RD_LICENSE_SERVER_HOSTS', 'g2rd.fr,www.g2rd.fr'))
+     *      — ou via le filtre g2rd_license_server_hosts
+     *      — ou par défaut : g2rd.fr / www.g2rd.fr uniquement
+     *
      * @return bool
      */
     public static function is_server_mode(): bool {
-        return \function_exists('fluentCart') || \class_exists('\FluentCart\App\App');
+        if (!\function_exists('fluentCart') && !\class_exists('\FluentCart\App\App')) {
+            return false;
+        }
+
+        $host = (string) \wp_parse_url(\home_url(), \PHP_URL_HOST);
+
+        if (\defined('G2RD_LICENSE_SERVER_HOSTS') && !empty(\G2RD_LICENSE_SERVER_HOSTS)) {
+            $allowed = array_map('trim', explode(',', \G2RD_LICENSE_SERVER_HOSTS));
+        } else {
+            $allowed = ['g2rd.fr', 'www.g2rd.fr'];
+        }
+
+        /** @var string[] $allowed */
+        $allowed = (array) \apply_filters('g2rd_license_server_hosts', $allowed);
+
+        return \in_array($host, $allowed, true);
     }
 
     /**
-     * Détecte si FluentCart est actif sur ce WordPress.
+     * Détecte si FluentCart est actif sur ce WordPress (indépendamment du mode serveur).
+     * Utilisé pour enregistrer les routes REST de validation de licences.
      *
      * @return bool
      */
     private function is_fluent_cart_active(): bool {
-        return self::is_server_mode();
+        return \function_exists('fluentCart') || \class_exists('\FluentCart\App\App');
     }
 
     /**
@@ -413,6 +437,8 @@ class LicenseServer {
 
     /**
      * Liste toutes les clés de licence (REST GET /g2rd/v1/license-admin).
+     * Fusionne les clés créées via l'interface admin (g2rd_license_keys)
+     * et celles créées via FluentCart (wp_fc_licenses).
      *
      * @return \WP_REST_Response
      */
@@ -420,6 +446,7 @@ class LicenseServer {
         $stored  = (array) \get_option('g2rd_license_keys', []);
         $result  = [];
 
+        // 1. Clés créées via l'interface admin
         foreach ($stored as $key => $data) {
             $activations = $this->get_activations((string) $key);
             $result[]    = [
@@ -427,12 +454,80 @@ class LicenseServer {
                 'status'            => $data['status'] ?? 'active',
                 'max_activations'   => (int) ($data['max_activations'] ?? 1),
                 'expires_at'        => $data['expires_at'] ?? null,
+                'created_at'        => $data['created_at'] ?? null,
+                'source'            => 'admin',
                 'activations_used'  => count($activations),
-                'activated_domains' => \array_column($activations, 'site_url'),
+                'activated_domains' => array_map(
+                    static fn( $a ) => [
+                        'url'          => $a['site_url'],
+                        'activated_at' => $a['activated_at'] ?? null,
+                    ],
+                    $activations
+                ),
+            ];
+        }
+
+        // 2. Clés FluentCart absentes de g2rd_license_keys
+        foreach ($this->get_fluent_cart_licenses() as $fc) {
+            $fc_key = (string) $fc['license_key'];
+            if (isset($stored[ $fc_key ])) {
+                continue; // déjà incluse ci-dessus
+            }
+            $activations = $this->get_activations($fc_key);
+            $result[]    = [
+                'key'               => $fc_key,
+                'status'            => $fc['status'],
+                'max_activations'   => $fc['max_activations'],
+                'expires_at'        => $fc['expires_at'],
+                'created_at'        => $fc['created_at'],
+                'source'            => 'fluentcart',
+                'activations_used'  => count($activations),
+                'activated_domains' => array_map(
+                    static fn( $a ) => [
+                        'url'          => $a['site_url'],
+                        'activated_at' => $a['activated_at'] ?? null,
+                    ],
+                    $activations
+                ),
             ];
         }
 
         return new \WP_REST_Response(['success' => true, 'licenses' => $result], 200);
+    }
+
+    /**
+     * Retourne toutes les licences FluentCart depuis wp_fc_licenses.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function get_fluent_cart_licenses(): array {
+        global $wpdb;
+
+        $table = $wpdb->prefix . 'fc_licenses';
+
+        if ($wpdb->get_var( $wpdb->prepare('SHOW TABLES LIKE %s', $table) ) !== $table) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+            return [];
+        }
+
+        $rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            "SELECT license_key, status, activations_limit, expires_at, created_at, product_id FROM {$wpdb->prefix}fc_licenses ORDER BY id DESC",
+            ARRAY_A
+        );
+
+        if (empty($rows)) {
+            return [];
+        }
+
+        return array_map(
+            static fn( $row ) => [
+                'license_key'     => (string) ($row['license_key'] ?? ''),
+                'status'          => $row['status'] ?? 'active',
+                'max_activations' => (int) ($row['activations_limit'] ?? 1),
+                'expires_at'      => $row['expires_at'] ?? null,
+                'created_at'      => $row['created_at'] ?? null,
+            ],
+            $rows
+        );
     }
 
     /**
@@ -465,6 +560,7 @@ class LicenseServer {
             'status'          => 'active',
             'max_activations' => max(1, $max_activations),
             'expires_at'      => $expires_at,
+            'created_at'      => \current_time('mysql'),
         ];
 
         \update_option('g2rd_license_keys', $stored, false);

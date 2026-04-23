@@ -223,6 +223,15 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.8
+
+- **FilterableGrid** : contrôles format et ajustement de l'image des cartes (ratio + object-fit).
+- **FilterableGrid** : aperçu éditeur en temps réel avec les vrais posts, couleurs titre/texte/extrait.
+- **g2rd-info** : variations masquées de l'inserteur, switcher de style dans la toolbar du bloc.
+- **Gestion licences** : licences FluentCart (`wp_fc_licenses`) désormais visibles dans l'onglet admin.
+- **Gestion licences** : bouton Rafraîchir, date de création, domaines actifs avec date d'activation.
+- **Fix** : `is_server_mode()` restreint au domaine `g2rd.fr` — onglet admin masqué sur les locaux.
+
 ### 1.6.7
 
 - **Fix** : `preventThemeRename` réécrit — gère les deux comportements WordPress (< 6.4 dossier temp externe, ≥ 6.4 dossier interne) pour corriger l'erreur "Le thème n'a pas de fichier style.css" lors des mises à jour automatiques.

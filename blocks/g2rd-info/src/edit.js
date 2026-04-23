@@ -1,6 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import {
   useBlockProps,
+  BlockControls,
   InspectorControls,
   PanelColorSettings,
   MediaUpload,
@@ -16,7 +17,63 @@ import {
   DropdownMenu,
   MenuGroup,
   MenuItem,
+  ToolbarGroup,
+  ToolbarDropdownMenu,
 } from "@wordpress/components";
+
+// Préréglages de style — miroir des variations de src/index.js
+const STYLE_PRESETS = [
+  {
+    title: __("Info standard", "g2rd"),
+    attrs: {
+      icon:             "dashicons-info",
+      backgroundColor: "#2F425D",
+      titleColor:      "#FAFAFA",
+      descriptionColor: "#D4A373",
+      iconColor:       "#FAFAFA",
+    },
+  },
+  {
+    title: __("Succès", "g2rd"),
+    attrs: {
+      icon:             "dashicons-yes-alt",
+      backgroundColor: "#14532d",
+      titleColor:      "#f0fdf4",
+      descriptionColor: "#bbf7d0",
+      iconColor:       "#4ade80",
+    },
+  },
+  {
+    title: __("Avertissement", "g2rd"),
+    attrs: {
+      icon:             "dashicons-warning",
+      backgroundColor: "#78350f",
+      titleColor:      "#fffbeb",
+      descriptionColor: "#fde68a",
+      iconColor:       "#fbbf24",
+    },
+  },
+  {
+    title: __("Danger / Erreur", "g2rd"),
+    attrs: {
+      icon:             "dashicons-dismiss",
+      backgroundColor: "#7f1d1d",
+      titleColor:      "#fef2f2",
+      descriptionColor: "#fca5a5",
+      iconColor:       "#f87171",
+    },
+  },
+  {
+    title: __("Conseil / Astuce", "g2rd"),
+    attrs: {
+      icon:             "dashicons-lightbulb",
+      backgroundColor: "#1e3a5f",
+      titleColor:      "#eff6ff",
+      descriptionColor: "#93c5fd",
+      iconColor:       "#60a5fa",
+    },
+  },
+];
 
 /**
  * Bloc Info G2RD - Composant principal d'édition
@@ -360,6 +417,42 @@ export default function Edit({ attributes, setAttributes }) {
   // --- Rendu principal du bloc ---
   return (
     <>
+      {/* Barre d'outils : sélecteur de style prédéfini */}
+      <BlockControls>
+        <ToolbarGroup>
+          <ToolbarDropdownMenu
+            icon={
+              <span style={{
+                display: "inline-block",
+                width: "16px",
+                height: "16px",
+                borderRadius: "3px",
+                background: backgroundColor || "#2F425D",
+                border: "2px solid rgba(255,255,255,.75)",
+                flexShrink: 0,
+              }} />
+            }
+            label={ __("Style de l'encart", "g2rd") }
+            controls={ STYLE_PRESETS.map((preset) => ({
+              title: preset.title,
+              icon: (
+                <span style={{
+                  display: "inline-block",
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "2px",
+                  background: preset.attrs.backgroundColor,
+                  border: "1px solid rgba(0,0,0,.2)",
+                  flexShrink: 0,
+                }} />
+              ),
+              isActive: backgroundColor === preset.attrs.backgroundColor,
+              onClick: () => setAttributes({ ...preset.attrs }),
+            })) }
+          />
+        </ToolbarGroup>
+      </BlockControls>
+
       {/* Panneau latéral de configuration */}
       <InspectorControls>
         <PanelBody title={__("Media Settings", "g2rd")} initialOpen={true}>

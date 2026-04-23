@@ -1,5 +1,15 @@
 import { useBlockProps } from "@wordpress/block-editor";
 
+const RATIO_MAP = {
+  "auto":     "58%",
+  "16-9":     "56.25%",
+  "4-3":      "75%",
+  "3-2":      "66.67%",
+  "1-1":      "100%",
+  "portrait": "133.33%",
+  "2-3":      "150%",
+};
+
 export default function Save({ attributes }) {
   const {
     selectedPostTypes,
@@ -21,6 +31,11 @@ export default function Save({ attributes }) {
     showAddToCart,
     orderby,
     order,
+    titleColor,
+    cardTextColor,
+    excerptColor,
+    imageAspectRatio,
+    imageObjectFit,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -46,12 +61,27 @@ export default function Save({ attributes }) {
     "data-order":        order || "DESC",
   });
 
+  const cssVars = {};
+  if (titleColor)    cssVars["--g2rd-fg-title-color"]   = titleColor;
+  if (cardTextColor) cssVars["--g2rd-fg-text-color"]    = cardTextColor;
+  if (excerptColor)  cssVars["--g2rd-fg-excerpt-color"] = excerptColor;
+  if (imageAspectRatio && imageAspectRatio !== "auto") {
+    cssVars["--g2rd-fg-img-ratio"] = RATIO_MAP[imageAspectRatio] || "58%";
+  }
+  if (imageObjectFit && imageObjectFit !== "cover") {
+    cssVars["--g2rd-fg-img-fit"] = imageObjectFit;
+  }
+
+  if (Object.keys(cssVars).length) {
+    blockProps.style = { ...(blockProps.style || {}), ...cssVars };
+  }
+
   // Squelettes de chargement initial (accessibilité : aria-hidden)
   const skeletons = Array.from({ length: Math.min(postsPerPage, 6) });
 
   return (
-    <div {...blockProps}>
-      {showSearch && (
+    <div { ...blockProps }>
+      { showSearch && (
         <div className="g2rd-filter-grid__controls" aria-label="Filtres">
           <div className="g2rd-filter-grid__search-form">
             <input
@@ -61,15 +91,15 @@ export default function Save({ attributes }) {
               disabled
             />
           </div>
-          {showTaxonomyFilter && (
+          { showTaxonomyFilter && (
             <div className="g2rd-filter-grid__taxonomy">
               <select disabled aria-label="Filtrer par catégorie">
                 <option>Toutes les catégories</option>
               </select>
             </div>
-          )}
+          ) }
         </div>
-      )}
+      ) }
 
       <div
         className="g2rd-filter-grid__grid"
@@ -77,8 +107,8 @@ export default function Save({ attributes }) {
         aria-live="polite"
         aria-busy="true"
       >
-        {skeletons.map((_, i) => (
-          <div key={i} className="g2rd-filter-grid__card is-skeleton" aria-hidden="true">
+        { skeletons.map((_, i) => (
+          <div key={ i } className="g2rd-filter-grid__card is-skeleton" aria-hidden="true">
             <div className="g2rd-filter-grid__media"></div>
             <div className="g2rd-filter-grid__content">
               <div className="g2rd-filter-grid__badge"></div>
@@ -86,16 +116,16 @@ export default function Save({ attributes }) {
               <div className="g2rd-filter-grid__excerpt"></div>
             </div>
           </div>
-        ))}
+        )) }
       </div>
 
-      {showPagination && (
+      { showPagination && (
         <div className="g2rd-filter-grid__pagination is-preview" aria-hidden="true">
           <button type="button" disabled>←</button>
           <button type="button" disabled>1</button>
           <button type="button" disabled>→</button>
         </div>
-      )}
+      ) }
     </div>
   );
 }
