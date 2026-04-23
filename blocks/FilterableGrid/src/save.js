@@ -36,10 +36,11 @@ export default function Save({ attributes }) {
     excerptColor,
     imageAspectRatio,
     imageObjectFit,
+    showUnderline,
   } = attributes;
 
   const blockProps = useBlockProps.save({
-    className: "g2rd-filter-grid",
+    className: `g2rd-filter-grid${showUnderline === false ? " no-text-underline" : ""}`,
     "data-post-types":   JSON.stringify(selectedPostTypes),
     "data-per-page":     String(postsPerPage),
     "data-show-search":  String(showSearch),

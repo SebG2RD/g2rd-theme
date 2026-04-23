@@ -223,6 +223,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.8.1
+
+- **Fix** : FilterableGrid — toggle soulignement des liens/textes dans les cartes.
+
 ### 1.6.8
 
 - **FilterableGrid** : contrôles format et ajustement de l'image des cartes (ratio + object-fit).

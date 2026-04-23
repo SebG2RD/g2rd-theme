@@ -80,7 +80,8 @@
         "cardTextColor":    { "type": "string",  "default": "" },
         "excerptColor":     { "type": "string",  "default": "" },
         "imageAspectRatio": { "type": "string",  "default": "auto" },
-        "imageObjectFit":   { "type": "string",  "default": "cover" }
+        "imageObjectFit":   { "type": "string",  "default": "cover" },
+        "showUnderline":    { "type": "boolean", "default": true }
     },
     "example": {
         "attributes": {

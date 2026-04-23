@@ -154,6 +154,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     excerptColor,
     imageAspectRatio,
     imageObjectFit,
+    showUnderline,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -176,7 +177,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   }
 
   const blockProps = useBlockProps({
-    className: "g2rd-filter-grid g2rd-filter-grid--editor",
+    className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
     style: Object.keys(customStyle).length ? customStyle : undefined,
   });
 
@@ -372,8 +373,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
         {/* ── Champs affichés ── */}
         <PanelBody title={ __("Champs affichés", "g2rd") } initialOpen={ false }>
-          <ToggleControl label={ __("Badge / catégorie", "g2rd") } checked={ showBadge }     onChange={ (v) => setAttributes({ showBadge: v }) }     __nextHasNoMarginBottom />
-          <ToggleControl label={ __("Date", "g2rd") }              checked={ showDate }      onChange={ (v) => setAttributes({ showDate: v }) }      __nextHasNoMarginBottom />
+          <ToggleControl label={ __("Badge / catégorie", "g2rd") } checked={ showBadge }      onChange={ (v) => setAttributes({ showBadge: v }) }      __nextHasNoMarginBottom />
+          <ToggleControl label={ __("Date", "g2rd") }              checked={ showDate }       onChange={ (v) => setAttributes({ showDate: v }) }       __nextHasNoMarginBottom />
+          <ToggleControl label={ __("Souligner les liens", "g2rd") } checked={ showUnderline } onChange={ (v) => setAttributes({ showUnderline: v }) } __nextHasNoMarginBottom />
           { hasProductType && (
             <>
               <ToggleControl label={ __("Prix", "g2rd") }                         checked={ showPrice }     onChange={ (v) => setAttributes({ showPrice: v }) }     __nextHasNoMarginBottom />
