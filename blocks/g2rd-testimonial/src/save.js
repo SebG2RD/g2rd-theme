@@ -19,13 +19,46 @@ export default function Save({ attributes }) {
     avatarUrl, avatarAlt,
     quoteColor, authorColor, roleColor, starColor, accentColor,
     backgroundColor, borderRadius, hasShadow, layout,
+    googleMode, googlePlaceId, googleMinRating, googleMaxReviews,
   } = attributes;
 
+  /* ── Mode Google Reviews ─────────────────────────────────────────────── */
+  if ( googleMode ) {
+    const blockProps = useBlockProps.save({
+      className: "g2rd-testimonial g2rd-testimonial--google",
+      "data-google-place-id":   googlePlaceId || "",
+      "data-google-min-rating": String( googleMinRating ),
+      "data-google-max-reviews": String( googleMaxReviews ),
+      "aria-busy": "true",
+      style: {
+        "--g2rd-t-bg":     backgroundColor,
+        "--g2rd-t-radius": `${ borderRadius }px`,
+        "--g2rd-t-shadow": hasShadow ? "0 4px 24px rgba(0,0,0,0.08)" : "none",
+        "--g2rd-t-star":   starColor,
+        "--g2rd-t-quote":  quoteColor,
+        "--g2rd-t-author": authorColor,
+        "--g2rd-t-role":   roleColor,
+        "--g2rd-t-accent": accentColor,
+      },
+    });
+
+    return (
+      <div { ...blockProps }>
+        { /* Squelettes de chargement — remplacés par view.js */ }
+        <div className="g2rd-testimonial__google-header is-skeleton" aria-hidden="true" />
+        { Array.from({ length: Math.min( googleMaxReviews, 5 ) }).map( ( _, i ) => (
+          <div key={ i } className="g2rd-testimonial__card is-skeleton" aria-hidden="true" />
+        ) ) }
+      </div>
+    );
+  }
+
+  /* ── Mode manuel (comportement original inchangé) ────────────────────── */
   const blockProps = useBlockProps.save({
-    className: `g2rd-testimonial g2rd-testimonial--${layout}`,
+    className: `g2rd-testimonial g2rd-testimonial--${ layout }`,
     style: {
       backgroundColor,
-      borderRadius: `${borderRadius}px`,
+      borderRadius: `${ borderRadius }px`,
       boxShadow: hasShadow ? "0 4px 24px rgba(0,0,0,0.08)" : "none",
       padding: "2rem",
     },

@@ -114,6 +114,46 @@
   overflow: visible;
 }
 
+/* ─── En-tête optionnel ─── */
+.g2rd-faq__header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.g2rd-faq__header-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.g2rd-faq__header-title {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.g2rd-faq__badge {
+  background: var(--wp--preset--color--primary, #2f425d);
+  border-radius: 4px;
+  color: var(--wp--preset--color--white, #fff);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  text-transform: uppercase;
+}
+
+/* ─── Hover subtil sur question (modes standard + GEO) ─── */
+.g2rd-faq__question:hover {
+  background: color-mix(in srgb, var(--g2rd-faq-border, var(--wp--preset--color--primary, #2f425d)) 5%, transparent);
+}
+
+/* ─── Accent border-left en mode GEO sur item ouvert ─── */
+.g2rd-faq--geo .g2rd-faq__item:has(.g2rd-faq__details[open]) {
+  border-left: 3px solid var(--g2rd-faq-border, var(--wp--preset--color--primary, #2f425d));
+}
+
 /* ─── Éditeur : champ de saisie ─── */
 .g2rd-faq__question-input input,
 .g2rd-faq__question-input input:focus {

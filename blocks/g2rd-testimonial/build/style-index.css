@@ -76,7 +76,122 @@
   margin-top: 2px;
 }
 
-/* Variant minimal */
+/* ── Mode Google Reviews ──────────────────────────────────────────────── */
+
+.g2rd-testimonial--google {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax( 260px, 1fr ) );
+  gap: 1.25rem;
+  overflow: visible;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-logo svg {
+  display: block;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-overall {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-overall-rating {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-stars {
+  color: #f59e0b;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-count {
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+/* Carte individuelle d'avis */
+
+.g2rd-testimonial--google .g2rd-testimonial__card {
+  background: var( --g2rd-t-bg, #fff );
+  border-radius: var( --g2rd-t-radius, 8px );
+  box-shadow: var( --g2rd-t-shadow, 0 4px 24px rgba(0,0,0,0.08) );
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card:hover {
+  transform: translateY( -2px );
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__quote {
+  color: var( --g2rd-t-quote, inherit );
+  font-style: italic;
+  line-height: 1.65;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__author {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__name {
+  color: var( --g2rd-t-author, inherit );
+  font-size: 0.875rem;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__role {
+  color: var( --g2rd-t-role, inherit );
+  font-size: 0.8rem;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__stars {
+  color: var( --g2rd-t-star, #D4A373 );
+}
+
+/* Squelettes de chargement */
+
+.g2rd-testimonial--google .g2rd-testimonial__google-header.is-skeleton,
+.g2rd-testimonial--google .g2rd-testimonial__card.is-skeleton {
+  background: linear-gradient( 90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75% );
+  background-size: 200% 100%;
+  animation: g2rd-t-shimmer 1.5s infinite;
+  border-radius: var( --g2rd-t-radius, 8px );
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-header.is-skeleton {
+  height: 2rem;
+  grid-column: 1 / -1;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__card.is-skeleton {
+  height: 180px;
+}
+
+@keyframes g2rd-t-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Variant minimal */
 
 .g2rd-testimonial--minimal {
   border-left: 4px solid currentColor;

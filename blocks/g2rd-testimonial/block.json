@@ -16,6 +16,7 @@
   "editorScript": "file:./build/index.js",
   "editorStyle": "file:./build/index.css",
   "style": "file:./build/style-index.css",
+  "viewScript": "file:./build/view.js",
   "attributes": {
     "quote": {
       "type": "string",
@@ -80,6 +81,22 @@
     "layout": {
       "type": "string",
       "default": "card"
+    },
+    "googleMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "googlePlaceId": {
+      "type": "string",
+      "default": ""
+    },
+    "googleMinRating": {
+      "type": "number",
+      "default": 4
+    },
+    "googleMaxReviews": {
+      "type": "number",
+      "default": 5
     }
   },
   "supports": {

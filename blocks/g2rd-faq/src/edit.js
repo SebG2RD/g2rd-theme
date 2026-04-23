@@ -37,6 +37,9 @@ export default function Edit({ attributes, setAttributes }) {
     openFirst,
     allowMultiple,
     optimizeForGEO,
+    showHeader,
+    headerText,
+    headerIcon,
   } = attributes;
 
   const [openIndex, setOpenIndex] = useState(openFirst ? 0 : -1);
@@ -102,6 +105,35 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
+        <PanelBody title={__("En-tête", "g2rd")} initialOpen={false}>
+          <ToggleControl
+            label={__("Afficher un en-tête", "g2rd")}
+            help={showHeader
+              ? __("Un titre est affiché au-dessus de la FAQ.", "g2rd")
+              : __("Optionnel : ajoute un titre avec icône au-dessus de la FAQ.", "g2rd")}
+            checked={!!showHeader}
+            onChange={(v) => setAttributes({ showHeader: v })}
+            __nextHasNoMarginBottom
+          />
+          {showHeader && (
+            <>
+              <TextControl
+                label={__("Icône", "g2rd")}
+                value={headerIcon}
+                onChange={(v) => setAttributes({ headerIcon: v })}
+                help={__("Emoji ou caractère (ex. ❓ 💬 🙋)", "g2rd")}
+                __nextHasNoMarginBottom
+              />
+              <TextControl
+                label={__("Texte de l'en-tête", "g2rd")}
+                value={headerText}
+                onChange={(v) => setAttributes({ headerText: v })}
+                __nextHasNoMarginBottom
+              />
+            </>
+          )}
+        </PanelBody>
+
         <PanelBody title={__("Comportement", "g2rd")} initialOpen={true}>
           <ToggleControl
             label={__("Ouvrir le premier item par défaut", "g2rd")}
@@ -144,6 +176,15 @@ export default function Edit({ attributes, setAttributes }) {
       </InspectorControls>
 
       <div {...blockProps}>
+        {showHeader && (
+          <div className="g2rd-faq__header">
+            {headerIcon && (
+              <span className="g2rd-faq__header-icon" aria-hidden="true">{headerIcon}</span>
+            )}
+            <span className="g2rd-faq__header-title">{headerText}</span>
+            {optimizeForGEO && <span className="g2rd-faq__badge">schema.org</span>}
+          </div>
+        )}
         <div
           className="g2rd-faq__list"
           style={{

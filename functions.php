@@ -57,6 +57,7 @@ require_once __DIR__ . '/classes/class-business-mode.php';
 require_once __DIR__ . '/classes/class-login-customizer.php';
 require_once __DIR__ . '/classes/class-geo-analyzer.php';
 require_once __DIR__ . '/classes/class-fse-sync.php';
+require_once __DIR__ . '/classes/class-google-reviews.php';
 
 // Enregistrer le hook after_switch_theme avant after_setup_theme
 ( new FseSync() )->register_switch_hook();
@@ -136,6 +137,9 @@ function bootstrap_theme(): void
 
     // Mode Business — conseils adaptés au type de site
     ( new Business_Mode() )->register_hooks();
+
+    // Avis Google — endpoint REST + cache transient
+    GoogleReviews::init();
 
     // Module GEO Analyzer — scoring Generative Engine Optimization dans l'éditeur
     ( new GeoAnalyzer() )->register_hooks();

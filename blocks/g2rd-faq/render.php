@@ -35,6 +35,9 @@ $open_first     = ! empty( $attributes['openFirst'] );
 $allow_multiple = ! empty( $attributes['allowMultiple'] );
 $icon_type      = sanitize_text_field( $attributes['iconType'] ?? 'plus-minus' );
 $border_radius  = absint( $attributes['borderRadius'] ?? 8 );
+$show_header    = ! empty( $attributes['showHeader'] );
+$header_text    = isset( $attributes['headerText'] ) ? sanitize_text_field( $attributes['headerText'] ) : __( 'Questions fréquentes', 'g2rd' );
+$header_icon    = isset( $attributes['headerIcon'] )  ? sanitize_text_field( $attributes['headerIcon'] )  : '❓';
 
 $question_color  = isset( $attributes['questionColor'] )  ? sanitize_hex_color( $attributes['questionColor'] )  : '';
 $answer_color    = isset( $attributes['answerColor'] )    ? sanitize_hex_color( $attributes['answerColor'] )    : '';
@@ -66,6 +69,16 @@ if ( $optimize_geo ) :
 ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
+	<?php if ( $show_header ) : ?>
+	<div class="g2rd-faq__header">
+		<?php if ( $header_icon ) : ?>
+		<span class="g2rd-faq__header-icon" aria-hidden="true"><?php echo esc_html( $header_icon ); ?></span>
+		<?php endif; ?>
+		<span class="g2rd-faq__header-title"><?php echo esc_html( $header_text ); ?></span>
+		<span class="g2rd-faq__badge">schema.org</span>
+	</div>
+	<?php endif; ?>
+
 	<div
 		class="g2rd-faq__list"
 		style="<?php echo $list_style; ?>"
@@ -74,8 +87,8 @@ if ( $optimize_geo ) :
 	>
 		<?php foreach ( $items as $i => $item ) :
 			$question = sanitize_text_field( $item['question'] ?? '' );
-			$answer   = wp_kses_post( $item['answer'] ?? '' );
-			if ( empty( $question ) || empty( $answer ) ) {
+			$answer   = nl2br( wp_kses_post( $item['answer'] ?? '' ) );
+			if ( empty( $question ) || empty( $item['answer'] ) ) {
 				continue;
 			}
 		?>
@@ -139,10 +152,19 @@ if ( $optimize_geo ) :
 <?php else : ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
+	<?php if ( $show_header ) : ?>
+	<div class="g2rd-faq__header">
+		<?php if ( $header_icon ) : ?>
+		<span class="g2rd-faq__header-icon" aria-hidden="true"><?php echo esc_html( $header_icon ); ?></span>
+		<?php endif; ?>
+		<span class="g2rd-faq__header-title"><?php echo esc_html( $header_text ); ?></span>
+	</div>
+	<?php endif; ?>
+
 	<div class="g2rd-faq__list" style="<?php echo $list_style; ?>">
 		<?php foreach ( $items as $i => $item ) :
 			$question = sanitize_text_field( $item['question'] ?? '' );
-			$answer   = wp_kses_post( $item['answer'] ?? '' );
+			$answer   = nl2br( wp_kses_post( $item['answer'] ?? '' ) );
 			if ( empty( $question ) || empty( $answer ) ) {
 				continue;
 			}

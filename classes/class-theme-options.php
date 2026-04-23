@@ -456,6 +456,14 @@ class ThemeOptions {
         // --- GEO Helper ---
         \update_option( 'g2rd_geo_helper', ! empty( $data['geoHelper'] ) ? 1 : 0 );
 
+        // --- Clé API Google Maps ---
+        if ( isset( $data['googleMapsApiKey'] ) ) {
+            $raw_key = \sanitize_text_field( (string) $data['googleMapsApiKey'] );
+            if ( '' !== $raw_key ) {
+                \update_option( 'g2rd_google_maps_api_key', $raw_key );
+            }
+        }
+
         // --- Page de connexion ---
         if ( \is_array( $data['loginSettings'] ?? null ) ) {
             LoginCustomizer::save_settings( $data['loginSettings'] );
@@ -485,7 +493,8 @@ class ThemeOptions {
             'clientMessage'  => (string) \get_option( 'g2rd_client_mode_message', '' ),
             'seoHelper'      => (bool) \get_option( 'g2rd_seo_helper', 1 ),
             'geoHelper'      => (bool) \get_option( 'g2rd_geo_helper', 1 ),
-            'loginSettings'  => LoginCustomizer::get_settings(),
+            'loginSettings'      => LoginCustomizer::get_settings(),
+            'googleMapsApiKeySet' => '' !== (string) \get_option( 'g2rd_google_maps_api_key', '' ),
         ];
     }
 
@@ -536,8 +545,9 @@ class ThemeOptions {
             'pages'           => $pages_list,
             'licensed'          => LicenseManager::is_active(),
             'licenseData'       => LicenseManager::get_display_data(),
-            'licenseServerMode' => LicenseServer::is_server_mode(),
-            'licenseAdminUrl'   => LicenseServer::is_server_mode() ? \rest_url( 'g2rd/v1/license-admin' ) : null,
+            'licenseServerMode'      => LicenseServer::is_server_mode(),
+            'licenseAdminUrl'        => LicenseServer::is_server_mode() ? \rest_url( 'g2rd/v1/license-admin' ) : null,
+            'googleReviewsClearUrl'  => \rest_url( 'g2rd/v1/google-reviews/cache' ),
         ];
     }
 }

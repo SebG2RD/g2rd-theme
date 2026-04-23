@@ -1,4 +1,6 @@
-const { palette } = window.G2RDOptionsData || {};
+import { useState } from '@wordpress/element';
+
+const { palette, googleReviewsClearUrl, nonce } = window.G2RDOptionsData || {};
 
 const BUSINESS_TYPES = [
 	{ label: 'Site vitrine',     value: 'vitrine',   icon: 'admin-home',    desc: 'Présentation de votre activité' },
@@ -17,8 +19,14 @@ const COLOR_SLOTS = [
 ];
 
 export function TabConfiguration( { settings, update } ) {
-	const businessType = settings.businessType || '';
-	const colors       = settings.colors || {};
+	const businessType    = settings.businessType || '';
+	const colors          = settings.colors || {};
+	const apiKeySet       = !! settings.googleMapsApiKeySet;
+
+	const [ apiKeyInput,    setApiKeyInput    ] = useState( '' );
+	const [ showKey,        setShowKey        ] = useState( false );
+	const [ clearingCache,  setClearingCache  ] = useState( false );
+	const [ clearMsg,       setClearMsg       ] = useState( '' );
 
 	return (
 		<div className="g2rd-tab-content">
@@ -73,6 +81,96 @@ export function TabConfiguration( { settings, update } ) {
 							</div>
 						</div>
 					) ) }
+				</div>
+			</section>
+
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-google"></span>
+					Intégrations — Google Maps
+				</h2>
+				<p className="g2rd-section__desc">
+					Clé API Places (Google Maps Platform) — utilisée par le bloc Testimonial pour afficher les avis Google Business.
+				</p>
+
+				<div style={ { display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' } }>
+					{ apiKeySet && ! apiKeyInput && (
+						<span style={ { background: '#dcfce7', color: '#166534', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 } }>
+							✓ Clé configurée
+						</span>
+					) }
+					{ ! apiKeySet && ! apiKeyInput && (
+						<span style={ { background: '#fef9c3', color: '#854d0e', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 } }>
+							Non configurée
+						</span>
+					) }
+				</div>
+
+				<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'stretch' } }>
+					<input
+						type={ showKey ? 'text' : 'password' }
+						value={ apiKeyInput }
+						onChange={ ( e ) => {
+							setApiKeyInput( e.target.value );
+							update( [ 'googleMapsApiKey' ], e.target.value );
+						} }
+						placeholder={ apiKeySet ? '••••••••••••••••••••••••••' : 'AIzaSy…' }
+						style={ { flex: 1, padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontFamily: 'monospace', fontSize: 13 } }
+					/>
+					<button
+						type="button"
+						onClick={ () => setShowKey( ( v ) => ! v ) }
+						style={ { padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, cursor: 'pointer', background: '#f9f9f9' } }
+						title={ showKey ? 'Masquer' : 'Afficher' }
+					>
+						<span className={ `dashicons dashicons-${ showKey ? 'hidden' : 'visibility' }` }></span>
+					</button>
+				</div>
+				<p style={ { fontSize: 12, color: '#757575', marginTop: 6 } }>
+					Créez votre clé sur{ ' ' }
+					<a href="https://console.cloud.google.com/apis/library/places-backend.googleapis.com" target="_blank" rel="noreferrer">Google Cloud Console</a>
+					{ ' ' }→ activez « Places API » → restreignez la clé à l'IP de votre serveur.
+				</p>
+
+				<div style={ { marginTop: '1rem', borderTop: '1px solid #eee', paddingTop: '1rem' } }>
+					<p style={ { fontWeight: 600, marginBottom: 6, fontSize: 13 } }>Vider le cache des avis</p>
+					<p style={ { fontSize: 12, color: '#757575', marginBottom: 8 } }>
+						Les avis sont mis en cache 12h. Entrez le Place ID pour forcer le rafraîchissement.
+					</p>
+					<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'center' } }>
+						<input
+							type="text"
+							id="g2rd-clear-cache-input"
+							placeholder="Place ID (ChIJ…)"
+							style={ { padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontSize: 13, flex: 1 } }
+						/>
+						<button
+							type="button"
+							disabled={ clearingCache }
+							onClick={ () => {
+								const el = document.getElementById( 'g2rd-clear-cache-input' );
+								const placeId = el ? el.value.trim() : '';
+								if ( ! placeId ) return;
+								setClearingCache( true );
+								setClearMsg( '' );
+								fetch( ( googleReviewsClearUrl || '' ) + '?place_id=' + encodeURIComponent( placeId ), {
+									method: 'DELETE',
+									headers: { 'X-WP-Nonce': nonce || '' },
+								} )
+									.then( () => setClearMsg( '✓ Cache vidé.' ) )
+									.catch( () => setClearMsg( '✗ Erreur réseau.' ) )
+									.finally( () => setClearingCache( false ) );
+							} }
+							style={ { padding: '6px 12px', background: '#2f425d', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 13, opacity: clearingCache ? 0.6 : 1 } }
+						>
+							{ clearingCache ? '…' : 'Vider le cache' }
+						</button>
+					</div>
+					{ clearMsg && (
+						<p style={ { fontSize: 12, marginTop: 6, color: clearMsg.startsWith( '✓' ) ? '#166534' : '#991b1b' } }>
+							{ clearMsg }
+						</p>
+					) }
 				</div>
 			</section>
 

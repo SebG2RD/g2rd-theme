@@ -223,6 +223,13 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9
+
+- **Feature** : Bloc Testimonial — mode avis Google Business (Places API, clé API par client, cache 12h, squelettes de chargement, hydratation frontend).
+- **Feature** : Bloc FAQ — en-tête configurable (icône + texte), badge schema.org en mode GEO, nl2br sur les réponses.
+- **Feature** : Page d'options — section intégrations Google Maps (saisie clé API, vider le cache avis par Place ID).
+- **Fix** : g2rd/geo-faq masqué de l'inséreur (fonctionnalités absorbées dans g2rd/faq).
+
 ### 1.6.8.1
 
 - **Fix** : FilterableGrid — toggle soulignement des liens/textes dans les cartes.
