@@ -223,6 +223,15 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9.2
+
+- **Testimonial - Marquee** : nouveau mode de défilement infini (duplication seamless, pause au survol).
+- **Testimonial - Carrousel** : correction de la largeur des cartes (calcul JS `offsetWidth` au lieu de `100%` CSS).
+- **Testimonial - Éditeur** : CSS variables injectées sur le wrapper Google pour corréler visuellement éditeur et frontend.
+- **Testimonial - Couleurs** : panneau Couleurs accessible en mode Google pour configurer les couleurs des cartes.
+- **Testimonial - Vitesse** : contrôle de vitesse du marquee (5–120 s, faible = rapide).
+- **Info** : notice explicative sur la limite de 5 avis de l'API Google Places.
+
 ### 1.6.9.1
 
 - **Feature** : Bloc Testimonial Google — 4 layouts (grille, liste, carrousel, maçonnerie), 4 styles de cartes (ombre, plat, bordure, verre), lien profil auteur, affichage 1er avis mis en avant, toggle avatar/date/badge global, troncature de texte.

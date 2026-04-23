@@ -106,7 +106,8 @@
     "googleShowDate":       { "type": "boolean", "default": true },
     "googleShowAuthorLink": { "type": "boolean", "default": false },
     "googleMaxTextLength":  { "type": "number",  "default": 0 },
-    "googleHighlightFirst": { "type": "boolean", "default": false }
+    "googleHighlightFirst": { "type": "boolean", "default": false },
+    "googleMarqueeSpeed":   { "type": "number",  "default": 40 }
   },
   "supports": {
     "html": false,

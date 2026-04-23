@@ -87,6 +87,15 @@ function renderGoogleBadge( data ) {
 	`;
 }
 
+/**
+ * Calcule la largeur d'une carte en pixels depuis la largeur visible du conteneur.
+ * Utilise offsetWidth pour éviter le bug CSS 100% sur flex overflow.
+ */
+function computeCardWidth( el, columns ) {
+	const gap = parseFloat( getComputedStyle( el ).getPropertyValue( 'gap' ) ) || 20;
+	return Math.floor( ( el.offsetWidth - gap * ( columns - 1 ) ) / columns );
+}
+
 function buildCarousel( cardsHTML ) {
 	const wrapper = document.createElement( 'div' );
 	wrapper.className = 'g2rd-testimonial__carousel';
@@ -107,10 +116,11 @@ function buildCarousel( cardsHTML ) {
 	next.setAttribute( 'aria-label', 'Suivant' );
 	next.textContent = '›';
 
+	/* La largeur de la carte est lue depuis la CSS var (définie dans initBlock) */
 	const scrollAmt = () => {
 		const card = track.querySelector( '.g2rd-testimonial__card' );
 		const gap  = parseFloat( getComputedStyle( track ).columnGap ) || 20;
-		return ( card ? card.offsetWidth : 300 ) + gap;
+		return ( card ? card.offsetWidth : 280 ) + gap;
 	};
 
 	prev.addEventListener( 'click', () => track.scrollBy( { left: -scrollAmt(), behavior: 'smooth' } ) );
@@ -120,6 +130,24 @@ function buildCarousel( cardsHTML ) {
 	wrapper.appendChild( track );
 	wrapper.appendChild( next );
 
+	return wrapper;
+}
+
+/**
+ * Crée un carrousel défilant en continu (marquee).
+ * Les cartes sont dupliquées pour assurer une boucle sans saut.
+ */
+function buildMarquee( cardsHTML, speed ) {
+	const wrapper = document.createElement( 'div' );
+	wrapper.className = 'g2rd-testimonial__marquee';
+
+	const track = document.createElement( 'div' );
+	track.className = 'g2rd-testimonial__marquee-track';
+	/* Duplication du contenu pour boucle seamless */
+	track.innerHTML = cardsHTML + cardsHTML;
+	track.style.animationDuration = ( speed || 40 ) + 's';
+
+	wrapper.appendChild( track );
 	return wrapper;
 }
 
@@ -141,6 +169,7 @@ function initBlock( el ) {
 	const cardStyle      = el.dataset.googleCardStyle || 'shadow';
 	const maxText        = parseInt( el.dataset.googleMaxText ) || 0;
 	const highlightFirst = el.dataset.googleHighlightFirst === 'true';
+	const marqueeSpeed   = parseInt( el.dataset.googleMarqueeSpeed ) || 40;
 
 	const opts = { showAuthorLink, showDate, showAvatar, cardStyle, maxText, highlightFirst };
 
@@ -148,6 +177,14 @@ function initBlock( el ) {
 
 	el.setAttribute( 'data-google-layout', layout );
 	el.style.setProperty( '--g2rd-t-cols', columns );
+
+	/* Largeur des cartes basée sur offsetWidth réel — évite le bug CSS 100% sur flex overflow */
+	if ( 'carousel' === layout || 'marquee' === layout ) {
+		const cardWidth = computeCardWidth( el, columns );
+		if ( cardWidth > 0 ) {
+			el.style.setProperty( '--g2rd-t-card-width', cardWidth + 'px' );
+		}
+	}
 
 	const url = endpoint
 		+ '?place_id='   + encodeURIComponent( placeId )
@@ -167,8 +204,10 @@ function initBlock( el ) {
 			el.innerHTML = header;
 			el.removeAttribute( 'aria-busy' );
 
-			if ( layout === 'carousel' ) {
+			if ( 'carousel' === layout ) {
 				el.appendChild( buildCarousel( cardsHTML ) );
+			} else if ( 'marquee' === layout ) {
+				el.appendChild( buildMarquee( cardsHTML, marqueeSpeed ) );
 			} else {
 				el.insertAdjacentHTML( 'beforeend', cardsHTML );
 			}

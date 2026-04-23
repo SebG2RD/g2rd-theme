@@ -54,6 +54,15 @@ function LayoutIcon( { type, active } ) {
         <rect x="13" y="8" width="9" height="8" rx="1.5" fill={c} />
       </svg>
     ),
+    marquee: (
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <rect x="0"  y="3" width="5" height="10" rx="1.5" fill={c} opacity="0.45" />
+        <rect x="6.5" y="3" width="5" height="10" rx="1.5" fill={c} />
+        <rect x="13" y="3" width="5" height="10" rx="1.5" fill={c} />
+        <rect x="19.5" y="3" width="5" height="10" rx="1.5" fill={c} opacity="0.45" />
+        <path d="M20.5 8 L22 6.5 L22 9.5 Z" fill={c} opacity="0.7" />
+      </svg>
+    ),
   };
   return icons[ type ] || null;
 }
@@ -206,6 +215,7 @@ export default function Edit( { attributes, setAttributes } ) {
     googleLayout, googleColumns, googleCardStyle,
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
+    googleMarqueeSpeed,
   } = attributes;
 
   const blockProps = useBlockProps( {
@@ -294,12 +304,15 @@ export default function Edit( { attributes, setAttributes } ) {
                 __nextHasNoMarginBottom
               />
               <RangeControl
-                label={ __( "Nombre d'avis", "g2rd" ) }
+                label={ __( "Nombre d'avis à afficher (max 5)", "g2rd" ) }
                 value={ googleMaxReviews }
                 onChange={ ( v ) => setAttributes( { googleMaxReviews: v } ) }
                 min={ 1 } max={ 5 }
                 __nextHasNoMarginBottom
               />
+              <Notice status="info" isDismissible={ false } style={ { marginTop: 8 } }>
+                { __( "L'API Google Places retourne au maximum 5 avis. Pour un mode marquee avec tous vos avis, utilisez des témoignages manuels.", "g2rd" ) }
+              </Notice>
 
               { /* ─ Disposition ─ */ }
               <div style={ divider }>
@@ -310,10 +323,16 @@ export default function Edit( { attributes, setAttributes } ) {
                     { value: "list",     label: "Liste" },
                     { value: "carousel", label: "Carrousel" },
                     { value: "masonry",  label: "Maçonnerie" },
-                  ].map( ( { value, label } ) => {
+                    { value: "marquee",  label: "Marquee", fullWidth: true },
+                  ].map( ( { value, label, fullWidth } ) => {
                     const active = ( googleLayout || "grid" ) === value;
                     return (
-                      <button key={ value } type="button" style={ pickerBtn( active ) } onClick={ () => setAttributes( { googleLayout: value } ) }>
+                      <button
+                        key={ value }
+                        type="button"
+                        style={ { ...pickerBtn( active ), ...( fullWidth ? { gridColumn: "1 / -1" } : {} ) } }
+                        onClick={ () => setAttributes( { googleLayout: value } ) }
+                      >
                         <LayoutIcon type={ value } active={ active } />
                         { label }
                       </button>
@@ -322,12 +341,23 @@ export default function Edit( { attributes, setAttributes } ) {
                 </div>
               </div>
 
-              { [ "grid", "carousel", "masonry" ].includes( googleLayout || "grid" ) && (
+              { [ "grid", "carousel", "masonry", "marquee" ].includes( googleLayout || "grid" ) && googleLayout !== "list" && (
                 <RangeControl
-                  label={ __( "Colonnes", "g2rd" ) }
+                  label={ __( "Colonnes visibles", "g2rd" ) }
                   value={ googleColumns || 3 }
                   onChange={ ( v ) => setAttributes( { googleColumns: v } ) }
                   min={ 1 } max={ 4 }
+                  __nextHasNoMarginBottom
+                />
+              ) }
+
+              { ( googleLayout === "marquee" ) && (
+                <RangeControl
+                  label={ __( "Vitesse du défilement (s)", "g2rd" ) }
+                  value={ googleMarqueeSpeed || 40 }
+                  onChange={ ( v ) => setAttributes( { googleMarqueeSpeed: v } ) }
+                  min={ 5 } max={ 120 } step={ 5 }
+                  help={ __( "Durée d'un cycle complet. Faible = rapide, élevé = lent.", "g2rd" ) }
                   __nextHasNoMarginBottom
                 />
               ) }
@@ -491,28 +521,40 @@ export default function Edit( { attributes, setAttributes } ) {
               </MediaUploadCheck>
             </PanelBody>
 
-            <PanelBody title={ __( "Couleurs", "g2rd" ) } initialOpen={ false }>
-              <p style={ { fontWeight: 600, marginBottom: 4 } }>{ __( "Fond", "g2rd" ) }</p>
-              <ColorPicker color={ backgroundColor } onChangeComplete={ ( val ) => setAttributes( { backgroundColor: val.hex } ) } disableAlpha />
-              <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Citation", "g2rd" ) }</p>
-              <ColorPicker color={ quoteColor } onChangeComplete={ ( val ) => setAttributes( { quoteColor: val.hex } ) } disableAlpha />
-              <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Accent (guillemets)", "g2rd" ) }</p>
-              <ColorPicker color={ accentColor } onChangeComplete={ ( val ) => setAttributes( { accentColor: val.hex } ) } disableAlpha />
-              <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Étoiles", "g2rd" ) }</p>
-              <ColorPicker color={ starColor } onChangeComplete={ ( val ) => setAttributes( { starColor: val.hex } ) } disableAlpha />
-              <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Auteur", "g2rd" ) }</p>
-              <ColorPicker color={ authorColor } onChangeComplete={ ( val ) => setAttributes( { authorColor: val.hex } ) } disableAlpha />
-              <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Rôle / Entreprise", "g2rd" ) }</p>
-              <ColorPicker color={ roleColor } onChangeComplete={ ( val ) => setAttributes( { roleColor: val.hex } ) } disableAlpha />
-            </PanelBody>
           </>
         ) }
+
+        { /* ── Couleurs (mode manuel ET Google) ── */ }
+        <PanelBody title={ __( "Couleurs", "g2rd" ) } initialOpen={ false }>
+          <p style={ { fontWeight: 600, marginBottom: 4 } }>{ __( "Fond", "g2rd" ) }</p>
+          <ColorPicker color={ backgroundColor } onChangeComplete={ ( val ) => setAttributes( { backgroundColor: val.hex } ) } disableAlpha />
+          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Citation", "g2rd" ) }</p>
+          <ColorPicker color={ quoteColor } onChangeComplete={ ( val ) => setAttributes( { quoteColor: val.hex } ) } disableAlpha />
+          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Accent", "g2rd" ) }</p>
+          <ColorPicker color={ accentColor } onChangeComplete={ ( val ) => setAttributes( { accentColor: val.hex } ) } disableAlpha />
+          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Étoiles", "g2rd" ) }</p>
+          <ColorPicker color={ starColor } onChangeComplete={ ( val ) => setAttributes( { starColor: val.hex } ) } disableAlpha />
+          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Auteur", "g2rd" ) }</p>
+          <ColorPicker color={ authorColor } onChangeComplete={ ( val ) => setAttributes( { authorColor: val.hex } ) } disableAlpha />
+          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Rôle / Date", "g2rd" ) }</p>
+          <ColorPicker color={ roleColor } onChangeComplete={ ( val ) => setAttributes( { roleColor: val.hex } ) } disableAlpha />
+        </PanelBody>
 
       </InspectorControls>
 
       { /* ── Canvas ── */ }
       { googleMode ? (
-        <div { ...blockProps } style={ { padding: "1.5rem" } }>
+        <div { ...blockProps } style={ {
+          padding: "1.5rem",
+          "--g2rd-t-bg":     backgroundColor,
+          "--g2rd-t-radius": `${ borderRadius }px`,
+          "--g2rd-t-shadow": hasShadow ? "0 4px 24px rgba(0,0,0,0.08)" : "none",
+          "--g2rd-t-star":   starColor,
+          "--g2rd-t-quote":  quoteColor,
+          "--g2rd-t-author": authorColor,
+          "--g2rd-t-role":   roleColor,
+          "--g2rd-t-accent": accentColor,
+        } }>
           <GooglePreview
             placeId={ googlePlaceId }
             minRating={ googleMinRating }

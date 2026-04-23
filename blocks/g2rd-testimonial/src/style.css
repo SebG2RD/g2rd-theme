@@ -253,9 +253,10 @@
 }
 
 .g2rd-testimonial__carousel-track .g2rd-testimonial__card {
-  flex: 0 0 auto;
-  min-width: 240px;
-  width: calc( ( 100% - 1.25rem * ( var( --g2rd-t-cols, 3 ) - 1 ) ) / var( --g2rd-t-cols, 3 ) );
+  /* Largeur calculée en JS (offsetWidth) pour éviter le bug 100% sur flex overflow */
+  flex: 0 0 var( --g2rd-t-card-width, 280px );
+  width: var( --g2rd-t-card-width, 280px );
+  min-width: unset;
   scroll-snap-align: start;
 }
 
@@ -307,6 +308,38 @@
   backdrop-filter: blur( 12px );
   border: 1px solid rgba( 255, 255, 255, 0.55 );
   box-shadow: 0 4px 24px rgba( 0, 0, 0, 0.06 ), inset 0 1px 0 rgba( 255, 255, 255, 0.8 );
+}
+
+/* ── Layout : Marquee (défilement infini) ───────────────────────────────── */
+
+.g2rd-testimonial--google[data-google-layout="marquee"] {
+  display: block;
+}
+
+.g2rd-testimonial__marquee {
+  overflow: hidden;
+}
+
+.g2rd-testimonial__marquee-track {
+  display: flex;
+  gap: 1.25rem;
+  animation: g2rd-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.g2rd-testimonial__marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes g2rd-marquee {
+  0%   { transform: translateX( 0 ); }
+  100% { transform: translateX( -50% ); }
+}
+
+.g2rd-testimonial__marquee-track .g2rd-testimonial__card {
+  flex: 0 0 var( --g2rd-t-card-width, 280px );
+  width: var( --g2rd-t-card-width, 280px );
+  min-width: unset;
 }
 
 /* ── Avis mis en avant ───────────────────────────────────────────────────── */

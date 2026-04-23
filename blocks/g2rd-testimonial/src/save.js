@@ -23,6 +23,7 @@ export default function Save({ attributes }) {
     googleLayout, googleColumns, googleCardStyle,
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
+    googleMarqueeSpeed,
   } = attributes;
 
   /* ── Mode Google Reviews ─────────────────────────────────────────────── */
@@ -41,6 +42,7 @@ export default function Save({ attributes }) {
       "data-google-show-author-link":  String( !! googleShowAuthorLink ),
       "data-google-max-text":          String( googleMaxTextLength || 0 ),
       "data-google-highlight-first":   String( !! googleHighlightFirst ),
+      "data-google-marquee-speed":     String( googleMarqueeSpeed || 40 ),
       "aria-busy": "true",
       style: {
         "--g2rd-t-bg":     backgroundColor,
