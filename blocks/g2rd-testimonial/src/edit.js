@@ -2,6 +2,7 @@ import { __ } from "@wordpress/i18n";
 import {
   useBlockProps,
   InspectorControls,
+  PanelColorSettings,
   RichText,
   MediaUpload,
   MediaUploadCheck,
@@ -11,7 +12,6 @@ import {
   RangeControl,
   ToggleControl,
   Button,
-  ColorPicker,
   TextControl,
   Spinner,
   Notice,
@@ -525,20 +525,18 @@ export default function Edit( { attributes, setAttributes } ) {
         ) }
 
         { /* ── Couleurs (mode manuel ET Google) ── */ }
-        <PanelBody title={ __( "Couleurs", "g2rd" ) } initialOpen={ false }>
-          <p style={ { fontWeight: 600, marginBottom: 4 } }>{ __( "Fond", "g2rd" ) }</p>
-          <ColorPicker color={ backgroundColor } onChangeComplete={ ( val ) => setAttributes( { backgroundColor: val.hex } ) } disableAlpha />
-          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Citation", "g2rd" ) }</p>
-          <ColorPicker color={ quoteColor } onChangeComplete={ ( val ) => setAttributes( { quoteColor: val.hex } ) } disableAlpha />
-          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Accent", "g2rd" ) }</p>
-          <ColorPicker color={ accentColor } onChangeComplete={ ( val ) => setAttributes( { accentColor: val.hex } ) } disableAlpha />
-          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Étoiles", "g2rd" ) }</p>
-          <ColorPicker color={ starColor } onChangeComplete={ ( val ) => setAttributes( { starColor: val.hex } ) } disableAlpha />
-          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Auteur", "g2rd" ) }</p>
-          <ColorPicker color={ authorColor } onChangeComplete={ ( val ) => setAttributes( { authorColor: val.hex } ) } disableAlpha />
-          <p style={ { fontWeight: 600, marginTop: 12, marginBottom: 4 } }>{ __( "Rôle / Date", "g2rd" ) }</p>
-          <ColorPicker color={ roleColor } onChangeComplete={ ( val ) => setAttributes( { roleColor: val.hex } ) } disableAlpha />
-        </PanelBody>
+        <PanelColorSettings
+          title={ __( "Couleurs", "g2rd" ) }
+          initialOpen={ false }
+          colorSettings={ [
+            { value: backgroundColor, onChange: ( v ) => setAttributes( { backgroundColor: v || "" } ), label: __( "Fond", "g2rd" ) },
+            { value: quoteColor,      onChange: ( v ) => setAttributes( { quoteColor:      v || "" } ), label: __( "Citation", "g2rd" ) },
+            { value: accentColor,     onChange: ( v ) => setAttributes( { accentColor:     v || "" } ), label: __( "Accent", "g2rd" ) },
+            { value: starColor,       onChange: ( v ) => setAttributes( { starColor:       v || "" } ), label: __( "Étoiles", "g2rd" ) },
+            { value: authorColor,     onChange: ( v ) => setAttributes( { authorColor:     v || "" } ), label: __( "Auteur", "g2rd" ) },
+            { value: roleColor,       onChange: ( v ) => setAttributes( { roleColor:       v || "" } ), label: __( "Rôle / Date", "g2rd" ) },
+          ] }
+        />
 
       </InspectorControls>
 
