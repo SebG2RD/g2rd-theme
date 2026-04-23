@@ -223,6 +223,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9.3
+
+- **Style** : bloc Testimonial — remplacement du sélecteur de couleur natif par `PanelColorSettings` pour utiliser la palette du thème.
+
 ### 1.6.9.2
 
 - **Testimonial - Marquee** : nouveau mode de défilement infini (duplication seamless, pause au survol).
