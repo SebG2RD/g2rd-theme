@@ -229,66 +229,98 @@ class GitHubUpdater {
      * @return string Chemin du dossier source modifié
      */
     /**
-     * Empêche le renommage du thème lors de la mise à jour.
+     * Normalise le dossier source extrait vers le slug du thème actif.
      *
-     * GitHub extrait le zip dans un dossier nommé `{repo}-{sha}` (ex. G2RD-Theme-FSE-abc1234).
-     * Cette méthode le renomme vers le slug réel du thème actif.
+     * WordPress peut passer soit le dossier temp externe (WP < 6.4) soit le
+     * dossier interne déjà détecté (WP ≥ 6.4). Cette méthode gère les deux cas
+     * en cherchant style.css à la racine puis un niveau plus bas.
      *
-     * @param string        $source        Chemin temporaire du dossier extrait
-     * @param string        $remote_source Chemin du zip téléchargé
-     * @param \WP_Upgrader  $upgrader      Instance de l'upgrader
+     * @param string        $source        Chemin temporaire (externe ou interne)
+     * @param string        $remote_source Chemin du zip téléchargé (non utilisé)
+     * @param \WP_Upgrader  $upgrader      Instance de l'upgrader (non utilisé)
      * @param array<string, mixed> $args   Arguments (contient 'theme' = slug)
-     * @return string|\WP_Error Chemin renommé ou WP_Error si échec
+     * @return string|\WP_Error Chemin normalisé ou WP_Error si échec
      */
-    public function preventThemeRename( string $source, string $remote_source, \WP_Upgrader $upgrader, array $args ): string|\WP_Error
+    public function preventThemeRename( string $source, string $remote_source, \WP_Upgrader $upgrader, array $args ): string|\WP_Error // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     {
-        if (!isset($args['theme'])) {
+        if ( ! isset( $args['theme'] ) ) {
             return $source;
         }
 
-        $theme_slug = basename(\get_template_directory());
+        $theme_slug = basename( \get_template_directory() );
 
-        if ($args['theme'] !== $theme_slug) {
+        if ( $args['theme'] !== $theme_slug ) {
             return $source;
         }
-
-        $source_dir = basename(untrailingslashit($source));
-
-        // Déjà au bon nom, rien à faire
-        if ($source_dir === $theme_slug) {
-            return $source;
-        }
-
-        $new_source = trailingslashit(dirname(untrailingslashit($source))) . $theme_slug;
 
         $wp_filesystem = $this->getFilesystem();
-
-        if (!$wp_filesystem) {
+        if ( ! $wp_filesystem ) {
             return new \WP_Error(
                 'g2rd_filesystem_unavailable',
-                \__('Le système de fichiers WordPress est indisponible pour le renommage du thème.', 'g2rd')
+                \__( 'Le système de fichiers WordPress est indisponible pour le renommage du thème.', 'g2rd' )
             );
         }
 
-        // Supprimer l'éventuel dossier résiduel avant renommage
-        if (is_dir($new_source)) {
-            $wp_filesystem->delete($new_source, true);
+        $source = \trailingslashit( $source );
+
+        // Cas 1 : $source contient directement style.css (WP ≥ 6.4, dossier interne)
+        if ( $wp_filesystem->is_file( $source . 'style.css' ) ) {
+            $source_dir = basename( \untrailingslashit( $source ) );
+            if ( $source_dir === $theme_slug ) {
+                return $source;
+            }
+            return $this->moveToSlug( $source, $theme_slug, $wp_filesystem );
         }
 
-        // Utiliser WP_Filesystem->move() pour la compatibilité hosting restrictif
-        if (!$wp_filesystem->move($source, $new_source)) {
+        // Cas 2 : $source est le dossier temp externe (WP < 6.4)
+        // Chercher un sous-dossier contenant style.css
+        $entries = $wp_filesystem->dirlist( $source );
+        if ( ! empty( $entries ) ) {
+            foreach ( $entries as $file => $filedata ) {
+                if ( 'd' !== $filedata['type'] ) {
+                    continue;
+                }
+                $inner = \trailingslashit( $source . $file );
+                if ( $wp_filesystem->is_file( $inner . 'style.css' ) ) {
+                    if ( $file === $theme_slug ) {
+                        return $inner;
+                    }
+                    return $this->moveToSlug( $inner, $theme_slug, $wp_filesystem );
+                }
+            }
+        }
+
+        return $source;
+    }
+
+    /**
+     * Renomme un dossier source vers le slug du thème.
+     *
+     * @param string               $source       Chemin source avec trailing slash.
+     * @param string               $theme_slug   Slug cible.
+     * @param \WP_Filesystem_Base  $filesystem   Instance filesystem WP.
+     * @return string|\WP_Error Nouveau chemin ou WP_Error.
+     */
+    private function moveToSlug( string $source, string $theme_slug, \WP_Filesystem_Base $filesystem ): string|\WP_Error {
+        $new_source = \trailingslashit( dirname( \untrailingslashit( $source ) ) ) . $theme_slug;
+
+        if ( $filesystem->is_dir( $new_source ) ) {
+            $filesystem->delete( $new_source, true );
+        }
+
+        if ( ! $filesystem->move( $source, $new_source ) ) {
             return new \WP_Error(
                 'g2rd_rename_failed',
                 \sprintf(
                     /* translators: 1: ancien chemin, 2: nouveau chemin */
-                    \__('Impossible de renommer le dossier du thème de %1$s vers %2$s.', 'g2rd'),
-                    \esc_html($source),
-                    \esc_html($new_source)
+                    \__( 'Impossible de renommer le dossier du thème de %1$s vers %2$s.', 'g2rd' ),
+                    \esc_html( $source ),
+                    \esc_html( $new_source )
                 )
             );
         }
 
-        return trailingslashit($new_source);
+        return \trailingslashit( $new_source );
     }
 
     /**

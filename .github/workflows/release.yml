@@ -94,6 +94,13 @@ jobs:
 
           echo "Taille ZIP : $(du -sh dist/g2rd-theme.zip | cut -f1)"
 
+          # Vérifier que style.css est bien dans le ZIP (requis par WordPress)
+          if ! unzip -l dist/g2rd-theme.zip | grep -q "g2rd-theme/style.css"; then
+            echo "ERREUR : style.css introuvable dans le ZIP !"
+            exit 1
+          fi
+          echo "Vérification ZIP : g2rd-theme/style.css présent"
+
       # ── Créer la release GitHub ───────────────────────────────────────────
       - name: Créer la release GitHub
         id: github_release

@@ -223,6 +223,11 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.7
+
+- **Fix** : `preventThemeRename` réécrit — gère les deux comportements WordPress (< 6.4 dossier temp externe, ≥ 6.4 dossier interne) pour corriger l'erreur "Le thème n'a pas de fichier style.css" lors des mises à jour automatiques.
+- **Fix** : `release.yml` — vérification que `style.css` est présent dans le ZIP avant la release.
+
 ### 1.6.6
 
 - **Fix** : classe `LicenseManager` corrigée dans `class-block-patterns.php` (erreur critique PHP en production).
