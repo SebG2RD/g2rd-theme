@@ -62,21 +62,21 @@ export default function Edit( { attributes, setAttributes } ) {
 								<Button
 									icon="arrow-up-alt2"
 									label={ __( 'Monter', 'g2rd' ) }
-									isSmall
+									size="small"
 									disabled={ i === 0 }
 									onClick={ () => moveItem( i, -1 ) }
 								/>
 								<Button
 									icon="arrow-down-alt2"
 									label={ __( 'Descendre', 'g2rd' ) }
-									isSmall
+									size="small"
 									disabled={ i === items.length - 1 }
 									onClick={ () => moveItem( i, 1 ) }
 								/>
 								<Button
 									icon="no-alt"
 									label={ __( 'Supprimer', 'g2rd' ) }
-									isSmall
+									size="small"
 									onClick={ () => removeItem( i ) }
 								/>
 							</div>
@@ -85,7 +85,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						<TextControl
 							label={ __( 'Question', 'g2rd' ) }
 							value={ item.question }
-							onChange={ ( val ) => updateItem( i, 'question', val ) }
+							onChange={ ( val ) =
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+onChange={ ( val ) => updateItem( i, 'question', val ) }
 							placeholder={ __( 'Posez une question claire…', 'g2rd' ) }
 							className="geo-faq__question-input"
 						/>
@@ -93,7 +96,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						<TextareaControl
 							label={ __( 'Réponse', 'g2rd' ) }
 							value={ item.answer }
-							onChange={ ( val ) => updateItem( i, 'answer', val ) }
+							onChange={ ( val ) =
+							__nextHasNoMarginBottom
+onChange={ ( val ) => updateItem( i, 'answer', val ) }
 							placeholder={ __( 'Répondez en 1 à 3 phrases courtes, directement actionnables…', 'g2rd' ) }
 							rows={ 3 }
 							className="geo-faq__answer-input"

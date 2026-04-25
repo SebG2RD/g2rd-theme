@@ -6,6 +6,7 @@ import { __ } from "@wordpress/i18n";
 import {
 	useBlockProps,
 	InspectorControls,
+	PanelColorSettings,
 	store as blockEditorStore,
 } from "@wordpress/block-editor";
 import {
@@ -254,7 +255,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Titre du graphique", "g2rd" ) }
 						value={ chartTitle }
-						onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<RangeControl
@@ -284,13 +288,16 @@ export default function Edit( { attributes, setAttributes } ) {
 							<div style={ { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" } }>
 								<strong style={ { fontSize: "12px" } }>{ ds.label || `Série ${ dsIdx + 1 }` }</strong>
 								{ datasets.length > 1 && (
-									<Button isDestructive isSmall onClick={ () => removeDataset( dsIdx ) } icon="trash" label={ __( "Supprimer", "g2rd" ) } />
+									<Button isDestructive size="small" onClick={ () => removeDataset( dsIdx ) } icon="trash" label={ __( "Supprimer", "g2rd" ) } />
 								) }
 							</div>
 							<TextControl
 								label={ __( "Nom de la série", "g2rd" ) }
 								value={ ds.label }
-								onChange={ ( v ) => updateDataset( dsIdx, "label", v ) }
+								onChange={ ( v ) =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ ( v ) => updateDataset( dsIdx, "label", v ) }
 								__nextHasNoMarginBottom
 							/>
 							<div style={ { marginTop: "8px", marginBottom: "4px" } }>
@@ -320,7 +327,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						</div>
 					) ) }
 					{ chartType !== "circle" && (
-						<Button isSecondary isSmall onClick={ addDataset } icon="plus">
+						<Button variant="secondary" size="small" onClick={ addDataset } icon="plus">
 							{ __( "Ajouter une série", "g2rd" ) }
 						</Button>
 					) }
@@ -344,11 +351,27 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				{ /* Couleurs */ }
-				<PanelBody title={ __( "Couleurs", "g2rd" ) } initialOpen={ false }>
-					<TextControl label={ __( "Couleur des étiquettes", "g2rd" ) } value={ labelColor } onChange={ ( v ) => setAttributes( { labelColor: v } ) } __nextHasNoMarginBottom />
-					<TextControl label={ __( "Couleur de la grille", "g2rd" ) }   value={ gridColor }  onChange={ ( v ) => setAttributes( { gridColor: v } ) }  __nextHasNoMarginBottom />
-					<TextControl label={ __( "Fond du bloc (hex/rgba)", "g2rd" ) } value={ backgroundColor } onChange={ ( v ) => setAttributes( { backgroundColor: v } ) } __nextHasNoMarginBottom />
-				</PanelBody>
+				<PanelColorSettings
+					title={ __( "Couleurs", "g2rd" ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: labelColor,
+							onChange: ( v ) => setAttributes( { labelColor: v } ),
+							label: __( "Étiquettes", "g2rd" ),
+						},
+						{
+							value: gridColor,
+							onChange: ( v ) => setAttributes( { gridColor: v } ),
+							label: __( "Grille", "g2rd" ),
+						},
+						{
+							value: backgroundColor,
+							onChange: ( v ) => setAttributes( { backgroundColor: v } ),
+							label: __( "Fond du bloc", "g2rd" ),
+						},
+					] }
+				/>
 
 			</InspectorControls>
 

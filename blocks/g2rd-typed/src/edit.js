@@ -5,6 +5,7 @@ import {
   RichText,
   BlockControls,
   AlignmentToolbar,
+  PanelColorSettings,
 } from "@wordpress/block-editor";
 import {
   PanelBody,
@@ -98,9 +99,10 @@ export default function Edit({ attributes, setAttributes }) {
             value={newString}
             onChange={setNewString}
             placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}
-          />
+            __nextHasNoMarginBottom
+placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
           <Button
-            isPrimary
+            variant="primary"
             onClick={addString}
             disabled={!newString.trim()}
             style={{ marginTop: "8px" }}
@@ -124,12 +126,15 @@ export default function Edit({ attributes, setAttributes }) {
               >
                 <TextControl
                   value={string}
-                  onChange={(value) => updateString(index, value)}
+                  onChange={(value) =
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
+onChange={(value) => updateString(index, value)}
                   style={{ flex: 1, marginRight: "8px" }}
                 />
                 <Button
                   isDestructive
-                  isSmall
+                  size="small"
                   onClick={() => removeString(index)}
                 >
                   {__("Supprimer", "g2rd")}
@@ -143,13 +148,19 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Texte avant l'animation", "g2rd")}
             value={textBefore}
-            onChange={(value) => setAttributes({ textBefore: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ textBefore: value })}
             placeholder={__("Texte qui apparaît avant l'animation...", "g2rd")}
           />
           <TextControl
             label={__("Texte après l'animation", "g2rd")}
             value={textAfter}
-            onChange={(value) => setAttributes({ textAfter: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ textAfter: value })}
             placeholder={__("Texte qui apparaît après l'animation...", "g2rd")}
           />
         </PanelBody>
@@ -211,7 +222,10 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Caractère du curseur", "g2rd")}
             value={cursorChar}
-            onChange={(value) => setAttributes({ cursorChar: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ cursorChar: value })}
             disabled={!showCursor}
           />
         </PanelBody>
@@ -230,7 +244,10 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Classe de fondu", "g2rd")}
             value={fadeOutClass}
-            onChange={(value) => setAttributes({ fadeOutClass: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ fadeOutClass: value })}
             disabled={!fadeOut}
           />
           <RangeControl
@@ -257,6 +274,23 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => setAttributes({ contentType: value })}
           />
         </PanelBody>
+
+        <PanelColorSettings
+          title={__("Couleurs", "g2rd")}
+          initialOpen={false}
+          colorSettings={[
+            {
+              value: textColor !== "inherit" ? textColor : undefined,
+              onChange: (value) => setAttributes({ textColor: value || "inherit" }),
+              label: __("Couleur du texte", "g2rd"),
+            },
+            {
+              value: backgroundColor !== "transparent" ? backgroundColor : undefined,
+              onChange: (value) => setAttributes({ backgroundColor: value || "transparent" }),
+              label: __("Couleur de fond", "g2rd"),
+            },
+          ]}
+        />
       </InspectorControls>
 
       <div {...blockProps}>

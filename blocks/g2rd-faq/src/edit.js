@@ -8,6 +8,7 @@ import {
   TextControl,
   TextareaControl,
   Button,
+  ButtonGroup,
 } from "@wordpress/components";
 import { useState, useCallback } from "@wordpress/element";
 
@@ -120,14 +121,20 @@ export default function Edit({ attributes, setAttributes }) {
               <TextControl
                 label={__("Icône", "g2rd")}
                 value={headerIcon}
-                onChange={(v) => setAttributes({ headerIcon: v })}
+                onChange={(v) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={(v) => setAttributes({ headerIcon: v })}
                 help={__("Emoji ou caractère (ex. ❓ 💬 🙋)", "g2rd")}
                 __nextHasNoMarginBottom
               />
               <TextControl
                 label={__("Texte de l'en-tête", "g2rd")}
                 value={headerText}
-                onChange={(v) => setAttributes({ headerText: v })}
+                onChange={(v) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={(v) => setAttributes({ headerText: v })}
                 __nextHasNoMarginBottom
               />
             </>
@@ -147,12 +154,21 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(v) => setAttributes({ allowMultiple: v })}
             __nextHasNoMarginBottom
           />
-          <SelectControl
-            label={__("Type d'icône", "g2rd")}
-            value={iconType}
-            options={ICON_OPTIONS}
-            onChange={(v) => setAttributes({ iconType: v })}
-          />
+          <p style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", marginBottom: "8px", color: "#1e1e1e" }}>
+            {__("Type d'icône", "g2rd")}
+          </p>
+          <ButtonGroup style={{ marginBottom: "16px", display: "flex" }}>
+            {ICON_OPTIONS.map(({ value, label }) => (
+              <Button
+                key={value}
+                variant={iconType === value ? "primary" : "secondary"}
+                onClick={() => setAttributes({ iconType: value })}
+                __next40pxDefaultSize
+              >
+                {label}
+              </Button>
+            ))}
+          </ButtonGroup>
           <RangeControl
             label={__("Rayon des coins (px)", "g2rd")}
             value={borderRadius}
@@ -212,7 +228,10 @@ export default function Edit({ attributes, setAttributes }) {
                 >
                   <TextControl
                     value={item.question}
-                    onChange={(v) => updateItem(idx, "question", v)}
+                    onChange={(v) =
+                    __next40pxDefaultSize
+                    __nextHasNoMarginBottom
+onChange={(v) => updateItem(idx, "question", v)}
                     onClick={(e) => e.stopPropagation()}
                     className="g2rd-faq__question-input"
                     __nextHasNoMarginBottom
@@ -228,7 +247,9 @@ export default function Edit({ attributes, setAttributes }) {
                     <TextareaControl
                       label={__("Réponse", "g2rd")}
                       value={item.answer}
-                      onChange={(v) => updateItem(idx, "answer", v)}
+                      onChange={(v) =
+                      __nextHasNoMarginBottom
+onChange={(v) => updateItem(idx, "answer", v)}
                       rows={4}
                       __nextHasNoMarginBottom
                     />
@@ -239,7 +260,7 @@ export default function Edit({ attributes, setAttributes }) {
                         disabled={idx === 0}
                         onClick={() => moveUp(idx)}
                         label={__("Monter", "g2rd")}
-                        isSmall
+                        size="small"
                       />
                       <Button
                         variant="tertiary"
@@ -247,7 +268,7 @@ export default function Edit({ attributes, setAttributes }) {
                         disabled={idx === items.length - 1}
                         onClick={() => moveDown(idx)}
                         label={__("Descendre", "g2rd")}
-                        isSmall
+                        size="small"
                       />
                       <Button
                         variant="tertiary"
@@ -255,7 +276,7 @@ export default function Edit({ attributes, setAttributes }) {
                         isDestructive
                         onClick={() => removeItem(idx)}
                         label={__("Supprimer", "g2rd")}
-                        isSmall
+                        size="small"
                       />
                     </div>
                   </div>

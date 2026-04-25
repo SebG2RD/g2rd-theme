@@ -23,79 +23,73 @@ import {
   __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 
-/**
- * Icons organized by categories for the DropdownMenu
- */
 const iconCategories = {
-  "Information & Status": [
+  "Informations": [
     { label: "Star Filled", value: "star-filled" },
     { label: "Star Empty", value: "star-empty" },
     { label: "Info", value: "info" },
     { label: "Warning", value: "warning" },
-    { label: "Success", value: "yes" },
-    { label: "Error", value: "no" },
-    { label: "Thumbs Up", value: "thumbs-up" },
-    { label: "Thumbs Down", value: "thumbs-down" },
+    { label: "Succès", value: "yes" },
+    { label: "Erreur", value: "no" },
+    { label: "Pouce haut", value: "thumbs-up" },
+    { label: "Pouce bas", value: "thumbs-down" },
   ],
-  "Numbers & Statistics": [
-    { label: "Chart Bar", value: "chart-bar" },
-    { label: "Chart Pie", value: "chart-pie" },
-    { label: "Chart Area", value: "chart-area" },
-    { label: "Chart Line", value: "chart-line" },
+  "Statistiques": [
+    { label: "Graphique barres", value: "chart-bar" },
+    { label: "Graphique camembert", value: "chart-pie" },
+    { label: "Graphique aire", value: "chart-area" },
+    { label: "Graphique ligne", value: "chart-line" },
     { label: "Analytics", value: "analytics" },
     { label: "Performance", value: "performance" },
-    { label: "Trending Up", value: "trending-up" },
-    { label: "Trending Down", value: "trending-down" },
+    { label: "Tendance hausse", value: "trending-up" },
+    { label: "Tendance baisse", value: "trending-down" },
   ],
-  "Business & Commerce": [
-    { label: "Money", value: "money" },
-    { label: "Money Alt", value: "money-alt" },
-    { label: "Cart", value: "cart" },
-    { label: "Products", value: "products" },
-    { label: "Businessman", value: "businessman" },
-    { label: "Building", value: "building" },
+  "Business": [
+    { label: "Argent", value: "money" },
+    { label: "Argent alt", value: "money-alt" },
+    { label: "Panier", value: "cart" },
+    { label: "Produits", value: "products" },
+    { label: "Homme d'affaires", value: "businessman" },
+    { label: "Bâtiment", value: "building" },
   ],
-  Communication: [
+  "Communication": [
     { label: "Email", value: "email" },
-    { label: "Phone", value: "phone" },
+    { label: "Téléphone", value: "phone" },
     { label: "Smartphone", value: "smartphone" },
-    { label: "Megaphone", value: "megaphone" },
+    { label: "Mégaphone", value: "megaphone" },
   ],
-  "Awards & Achievement": [
-    { label: "Awards", value: "awards" },
-    { label: "Trophy", value: "trophy" },
-    { label: "Medal", value: "medal" },
-    { label: "Ribbon", value: "ribbon" },
+  "Récompenses": [
+    { label: "Prix", value: "awards" },
+    { label: "Trophée", value: "trophy" },
+    { label: "Médaille", value: "medal" },
+    { label: "Ruban", value: "ribbon" },
   ],
-  Technology: [
-    { label: "Desktop", value: "desktop" },
+  "Technologie": [
+    { label: "Bureau", value: "desktop" },
     { label: "Laptop", value: "laptop" },
-    { label: "Tablet", value: "tablet" },
+    { label: "Tablette", value: "tablet" },
     { label: "Cloud", value: "cloud" },
-    { label: "Database", value: "database" },
+    { label: "Base de données", value: "database" },
   ],
-  Social: [
-    { label: "Groups", value: "groups" },
-    { label: "Users", value: "admin-users" },
-    { label: "Activity", value: "buddicons-activity" },
-    { label: "Heart", value: "heart" },
+  "Social": [
+    { label: "Groupes", value: "groups" },
+    { label: "Utilisateurs", value: "admin-users" },
+    { label: "Activité", value: "buddicons-activity" },
+    { label: "Cœur", value: "heart" },
   ],
-  "Time & Calendar": [
-    { label: "Clock", value: "clock" },
-    { label: "Calendar", value: "calendar-alt" },
-    { label: "Hourglass", value: "hourglass" },
+  "Temps & Calendrier": [
+    { label: "Horloge", value: "clock" },
+    { label: "Calendrier", value: "calendar-alt" },
+    { label: "Sablier", value: "hourglass" },
   ],
-  Location: [
-    { label: "Location", value: "location" },
-    { label: "Location Alt", value: "location-alt" },
-    { label: "Store", value: "store" },
-    { label: "Home", value: "admin-home" },
+  "Localisation": [
+    { label: "Localisation", value: "location" },
+    { label: "Localisation alt", value: "location-alt" },
+    { label: "Boutique", value: "store" },
+    { label: "Domicile", value: "admin-home" },
   ],
 };
 
-/**
- * Edit function for the G2RD Counter block
- */
 export default function Edit({ attributes, setAttributes }) {
   const {
     layout,
@@ -123,7 +117,6 @@ export default function Edit({ attributes, setAttributes }) {
     margin,
   } = attributes;
 
-  // Ajout des valeurs par défaut si non définies
   const iconSize = attributes.iconSize || 48;
   const imageSize = attributes.imageSize || 64;
 
@@ -136,9 +129,6 @@ export default function Edit({ attributes, setAttributes }) {
     className: `g2rd-counter layout-${layout} icon-${iconPosition}`,
   });
 
-  /**
-   * Render the icon based on media type
-   */
   const renderIcon = () => {
     if (!enableIcon) return null;
 
@@ -174,9 +164,6 @@ export default function Edit({ attributes, setAttributes }) {
     return null;
   };
 
-  /**
-   * Render the number with prefix and suffix
-   */
   const renderNumber = () => {
     let formattedNumber = endingNumber.toFixed(decimalPlaces);
 
@@ -217,9 +204,6 @@ export default function Edit({ attributes, setAttributes }) {
     );
   };
 
-  /**
-   * Render the content based on layout and icon position
-   */
   const renderContent = () => {
     const icon = renderIcon();
     const number = renderNumber();
@@ -228,14 +212,13 @@ export default function Edit({ attributes, setAttributes }) {
         tagName="h3"
         value={title}
         onChange={(value) => setAttributes({ title: value })}
-        placeholder={__("Add Your Title Here...", "g2rd")}
+        placeholder={__("Saisir un titre...", "g2rd")}
         className="counter-title"
         style={{ color: titleColor }}
       />
     );
 
     if (layout === "circle" || layout === "bar") {
-      // Pour les layouts circle et bar, on affiche différemment
       return (
         <div className="counter-content">
           {icon && iconPosition === "top" && (
@@ -290,7 +273,6 @@ export default function Edit({ attributes, setAttributes }) {
       );
     }
 
-    // Layout number (default)
     switch (iconPosition) {
       case "top":
         return (
@@ -342,32 +324,35 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        {/* Panel General */}
-        <PanelBody title={__("General", "g2rd")} initialOpen={true}>
+        <PanelBody title={__("Général", "g2rd")} initialOpen={true}>
           <SelectControl
-            label={__("Layout", "g2rd")}
+            label={__("Disposition", "g2rd")}
             value={layout}
             options={[
-              { label: __("Number", "g2rd"), value: "number" },
-              { label: __("Circle", "g2rd"), value: "circle" },
-              { label: __("Bar", "g2rd"), value: "bar" },
+              { label: __("Chiffre", "g2rd"), value: "number" },
+              { label: __("Cercle", "g2rd"),  value: "circle" },
+              { label: __("Barre", "g2rd"),   value: "bar" },
             ]}
             onChange={(value) => setAttributes({ layout: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <SelectControl
-            label={__("Alignment", "g2rd")}
+            label={__("Alignement", "g2rd")}
             value={alignment}
             options={[
-              { label: __("Left", "g2rd"), value: "left" },
-              { label: __("Center", "g2rd"), value: "center" },
-              { label: __("Right", "g2rd"), value: "right" },
+              { label: __("Gauche", "g2rd"),  value: "left" },
+              { label: __("Centre", "g2rd"),  value: "center" },
+              { label: __("Droite", "g2rd"),  value: "right" },
             ]}
             onChange={(value) => setAttributes({ alignment: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <NumberControl
-            label={__("Starting Number", "g2rd")}
+            label={__("Nombre de départ", "g2rd")}
             value={startingNumber}
             onChange={(value) =>
               setAttributes({ startingNumber: parseFloat(value) || 0 })
@@ -375,7 +360,7 @@ export default function Edit({ attributes, setAttributes }) {
           />
 
           <NumberControl
-            label={__("Ending Number", "g2rd")}
+            label={__("Nombre d'arrivée", "g2rd")}
             value={endingNumber}
             onChange={(value) =>
               setAttributes({ endingNumber: parseFloat(value) || 0 })
@@ -383,27 +368,39 @@ export default function Edit({ attributes, setAttributes }) {
           />
 
           <RangeControl
-            label={__("Decimal Places", "g2rd")}
+            label={__("Décimales", "g2rd")}
             value={decimalPlaces}
             onChange={(value) => setAttributes({ decimalPlaces: value })}
             min={0}
             max={5}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <TextControl
-            label={__("Number Prefix", "g2rd")}
+            label={__("Préfixe du nombre", "g2rd")}
             value={numberPrefix}
-            onChange={(value) => setAttributes({ numberPrefix: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ numberPrefix: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <TextControl
-            label={__("Number Suffix", "g2rd")}
+            label={__("Suffixe du nombre", "g2rd")}
             value={numberSuffix}
-            onChange={(value) => setAttributes({ numberSuffix: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ numberSuffix: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <NumberControl
-            label={__("Animation Duration (ms)", "g2rd")}
+            label={__("Durée de l'animation (ms)", "g2rd")}
             value={animationDuration}
             onChange={(value) =>
               setAttributes({ animationDuration: parseFloat(value) || 2000 })
@@ -414,113 +411,118 @@ export default function Edit({ attributes, setAttributes }) {
           />
 
           <SelectControl
-            label={__("Thousands Separator", "g2rd")}
+            label={__("Séparateur de milliers", "g2rd")}
             value={thousands}
             options={[
-              { label: __("Comma", "g2rd"), value: "comma" },
-              { label: __("Space", "g2rd"), value: "space" },
-              { label: __("None", "g2rd"), value: "none" },
+              { label: __("Virgule", "g2rd"), value: "comma" },
+              { label: __("Espace", "g2rd"),  value: "space" },
+              { label: __("Aucun", "g2rd"),   value: "none" },
             ]}
             onChange={(value) => setAttributes({ thousands: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
-        {/* Panel Image/Icon */}
-        <PanelBody title={__("Image/Icon", "g2rd")} initialOpen={false}>
+        <PanelBody title={__("Icône / Image", "g2rd")} initialOpen={false}>
           <ToggleControl
-            label={__("Enable Icon/Image", "g2rd")}
+            label={__("Activer icône/image", "g2rd")}
             checked={enableIcon}
             onChange={(value) => setAttributes({ enableIcon: value })}
+            __nextHasNoMarginBottom
           />
 
           {enableIcon && (
             <>
               <SelectControl
-                label={__("Select Position", "g2rd")}
+                label={__("Position", "g2rd")}
                 value={iconPosition}
                 options={[
-                  { label: __("Top", "g2rd"), value: "top" },
-                  { label: __("Bottom", "g2rd"), value: "bottom" },
-                  { label: __("Left", "g2rd"), value: "left" },
-                  { label: __("Right", "g2rd"), value: "right" },
+                  { label: __("Haut", "g2rd"),   value: "top" },
+                  { label: __("Bas", "g2rd"),    value: "bottom" },
+                  { label: __("Gauche", "g2rd"), value: "left" },
+                  { label: __("Droite", "g2rd"), value: "right" },
                 ]}
                 onChange={(value) => setAttributes({ iconPosition: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
 
               <SelectControl
-                label={__("Select Source", "g2rd")}
+                label={__("Type de média", "g2rd")}
                 value={mediaType}
                 options={[
-                  { label: __("Icon", "g2rd"), value: "icon" },
+                  { label: __("Icône", "g2rd"), value: "icon" },
                   { label: __("Image", "g2rd"), value: "image" },
                 ]}
                 onChange={(value) => setAttributes({ mediaType: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
 
               {mediaType === "icon" && (
                 <RangeControl
-                  label={__("Icon Size (px)", "g2rd")}
+                  label={__("Taille de l'icône (px)", "g2rd")}
                   value={iconSize}
                   onChange={(value) => setAttributes({ iconSize: value })}
                   min={16}
                   max={128}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               )}
               {mediaType === "image" && (
                 <RangeControl
-                  label={__("Image Size (px)", "g2rd")}
+                  label={__("Taille de l'image (px)", "g2rd")}
                   value={imageSize}
                   onChange={(value) => setAttributes({ imageSize: value })}
                   min={16}
                   max={256}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               )}
 
               {mediaType === "icon" && (
-                <>
-                  {/* Sélecteur d'icône custom avec visuel */}
-                  <DropdownMenu
-                    icon={
-                      iconName ? (
-                        <span
-                          className={`dashicons dashicons-${iconName}`}
-                        ></span>
-                      ) : (
-                        "admin-customizer"
-                      )
-                    }
-                    label={__("Icon", "g2rd")}
-                    toggleProps={{ variant: "secondary" }}
-                  >
-                    {({ onClose }) => (
-                      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-                        {Object.entries(iconCategories).map(
-                          ([category, icons]) => (
-                            <MenuGroup key={category} label={category}>
-                              {icons.map((iconData) => (
-                                <MenuItem
-                                  key={iconData.value}
-                                  icon={
-                                    <span
-                                      className={`dashicons dashicons-${iconData.value}`}
-                                    ></span>
-                                  }
-                                  isSelected={iconName === iconData.value}
-                                  onClick={() => {
-                                    setAttributes({ iconName: iconData.value });
-                                    onClose();
-                                  }}
-                                >
-                                  {iconData.label}
-                                </MenuItem>
-                              ))}
-                            </MenuGroup>
-                          )
-                        )}
-                      </div>
-                    )}
-                  </DropdownMenu>
-                </>
+                <DropdownMenu
+                  icon={
+                    iconName ? (
+                      <span className={`dashicons dashicons-${iconName}`}></span>
+                    ) : (
+                      "admin-customizer"
+                    )
+                  }
+                  label={__("Icône", "g2rd")}
+                  toggleProps={{ variant: "secondary" }}
+                >
+                  {({ onClose }) => (
+                    <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+                      {Object.entries(iconCategories).map(
+                        ([category, icons]) => (
+                          <MenuGroup key={category} label={category}>
+                            {icons.map((iconData) => (
+                              <MenuItem
+                                key={iconData.value}
+                                icon={
+                                  <span
+                                    className={`dashicons dashicons-${iconData.value}`}
+                                  ></span>
+                                }
+                                isSelected={iconName === iconData.value}
+                                onClick={() => {
+                                  setAttributes({ iconName: iconData.value });
+                                  onClose();
+                                }}
+                              >
+                                {iconData.label}
+                              </MenuItem>
+                            ))}
+                          </MenuGroup>
+                        )
+                      )}
+                    </div>
+                  )}
+                </DropdownMenu>
               )}
 
               {mediaType === "image" && (
@@ -537,8 +539,8 @@ export default function Edit({ attributes, setAttributes }) {
                     render={({ open }) => (
                       <Button onClick={open} variant="secondary">
                         {imageUrl
-                          ? __("Change Image", "g2rd")
-                          : __("Select Image", "g2rd")}
+                          ? __("Changer l'image", "g2rd")
+                          : __("Sélectionner une image", "g2rd")}
                       </Button>
                     )}
                   />
@@ -548,51 +550,54 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
-        {/* Panel Number */}
-        <PanelBody title={__("Number", "g2rd")} initialOpen={false}>
+        <PanelBody title={__("Nombre", "g2rd")} initialOpen={false}>
           <RangeControl
-            label={__("Prefix Right Margin", "g2rd")}
+            label={__("Marge droite du préfixe", "g2rd")}
             value={prefixRightMargin}
             onChange={(value) => setAttributes({ prefixRightMargin: value })}
             min={0}
             max={50}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
-            label={__("Suffix Left Margin", "g2rd")}
+            label={__("Marge gauche du suffixe", "g2rd")}
             value={suffixLeftMargin}
             onChange={(value) => setAttributes({ suffixLeftMargin: value })}
             min={0}
             max={50}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
         <PanelColorSettings
-          title={__("Colors", "g2rd")}
+          title={__("Couleurs", "g2rd")}
           colorSettings={[
             {
               value: numberColor,
               onChange: (value) => setAttributes({ numberColor: value }),
-              label: __("Number Color", "g2rd"),
+              label: __("Couleur du nombre", "g2rd"),
             },
             {
               value: titleColor,
               onChange: (value) => setAttributes({ titleColor: value }),
-              label: __("Title Color", "g2rd"),
+              label: __("Couleur du titre", "g2rd"),
             },
             ...(enableIcon && mediaType === "icon"
               ? [
                   {
                     value: iconColor,
                     onChange: (value) => setAttributes({ iconColor: value }),
-                    label: __("Icon Color", "g2rd"),
+                    label: __("Couleur de l'icône", "g2rd"),
                   },
                 ]
               : []),
             {
               value: backgroundColor,
               onChange: (value) => setAttributes({ backgroundColor: value }),
-              label: __("Background Color", "g2rd"),
+              label: __("Couleur de fond", "g2rd"),
             },
           ]}
         />

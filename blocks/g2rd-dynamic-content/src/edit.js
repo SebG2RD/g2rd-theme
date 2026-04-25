@@ -166,7 +166,10 @@ export default function Edit({ attributes, setAttributes }) {
             <TextControl
               label={__("Texte du bouton", "g2rd")}
               value={readMoreText}
-              onChange={(v) => setAttributes({ readMoreText: v })}
+              onChange={(v) =
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+onChange={(v) => setAttributes({ readMoreText: v })}
               __nextHasNoMarginBottom
             />
           )}

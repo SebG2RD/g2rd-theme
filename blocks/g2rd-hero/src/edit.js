@@ -4,6 +4,7 @@ import {
   InspectorControls,
   MediaUpload,
   MediaUploadCheck,
+  PanelColorSettings,
 } from "@wordpress/block-editor";
 import {
   PanelBody,
@@ -13,7 +14,6 @@ import {
   SelectControl,
   RangeControl,
   Button,
-  ColorPicker,
   __experimentalHStack as HStack,
 } from "@wordpress/components";
 
@@ -166,20 +166,29 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Accroche (kicker)", "g2rd")}
             value={attributes.kicker}
-            onChange={(val) => setAttributes({ kicker: val })}
+            onChange={(val) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ kicker: val })}
             help={__("Petit texte au-dessus du titre", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <TextareaControl
             label={__("Titre (HTML autorisé)", "g2rd")}
             value={attributes.heading}
-            onChange={(val) => setAttributes({ heading: val })}
+            onChange={(val) =
+            __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ heading: val })}
             help={__("Utilisez <mark> pour colorer un mot", "g2rd")}
             rows={3}
           />
           <TextareaControl
             label={__("Sous-titre", "g2rd")}
             value={attributes.subheading}
-            onChange={(val) => setAttributes({ subheading: val })}
+            onChange={(val) =
+            __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ subheading: val })}
             rows={3}
           />
         </PanelBody>
@@ -188,31 +197,52 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Texte bouton principal", "g2rd")}
             value={attributes.ctaPrimaryText}
-            onChange={(val) => setAttributes({ ctaPrimaryText: val })}
+            onChange={(val) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ ctaPrimaryText: val })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={attributes.ctaPrimaryUrl}
-            onChange={(val) => setAttributes({ ctaPrimaryUrl: val })}
+            onChange={(val) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ ctaPrimaryUrl: val })}
             type="url"
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <ToggleControl
             label={__("Afficher le bouton secondaire", "g2rd")}
             checked={attributes.showSecondary}
             onChange={(val) => setAttributes({ showSecondary: val })}
+            __nextHasNoMarginBottom
           />
           {attributes.showSecondary && (
             <>
               <TextControl
                 label={__("Texte bouton secondaire", "g2rd")}
                 value={attributes.ctaSecondaryText}
-                onChange={(val) => setAttributes({ ctaSecondaryText: val })}
+                onChange={(val) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ ctaSecondaryText: val })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
               <TextControl
                 label={__("URL bouton secondaire", "g2rd")}
                 value={attributes.ctaSecondaryUrl}
-                onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
+                onChange={(val) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
                 type="url"
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             </>
           )}
@@ -220,12 +250,18 @@ export default function Edit({ attributes, setAttributes }) {
             label={__("Afficher la preuve sociale", "g2rd")}
             checked={attributes.showSocialProof}
             onChange={(val) => setAttributes({ showSocialProof: val })}
+            __nextHasNoMarginBottom
           />
           {attributes.showSocialProof && (
             <TextControl
               label={__("Texte preuve sociale", "g2rd")}
               value={attributes.socialProof}
-              onChange={(val) => setAttributes({ socialProof: val })}
+              onChange={(val) =
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+onChange={(val) => setAttributes({ socialProof: val })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
           )}
         </PanelBody>
@@ -239,6 +275,8 @@ export default function Edit({ attributes, setAttributes }) {
               { label: __("Centré", "g2rd"), value: "center" },
             ]}
             onChange={(val) => setAttributes({ alignment: val })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
             label={__("Hauteur minimale (px)", "g2rd")}
@@ -247,6 +285,8 @@ export default function Edit({ attributes, setAttributes }) {
             min={300}
             max={1000}
             step={20}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
             label={__("Espacement vertical (px)", "g2rd")}
@@ -255,6 +295,8 @@ export default function Edit({ attributes, setAttributes }) {
             min={20}
             max={160}
             step={8}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
@@ -267,17 +309,9 @@ export default function Edit({ attributes, setAttributes }) {
               { label: __("Image", "g2rd"), value: "image" },
             ]}
             onChange={(val) => setAttributes({ backgroundType: val })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
-          {backgroundType === "color" && (
-            <>
-              <p style={{ fontWeight: 600, marginBottom: 4 }}>{__("Couleur de fond", "g2rd")}</p>
-              <ColorPicker
-                color={attributes.backgroundColor}
-                onChangeComplete={(val) => setAttributes({ backgroundColor: val.hex })}
-                disableAlpha
-              />
-            </>
-          )}
           {backgroundType === "image" && (
             <>
               <MediaUploadCheck>
@@ -288,50 +322,75 @@ export default function Edit({ attributes, setAttributes }) {
                   allowedTypes={["image"]}
                   value={imageId}
                   render={({ open }) => (
-                    <div style={{ marginBottom: "12px" }}>
+                    <div style={{ marginBottom: "12px", marginTop: "8px" }}>
                       {imageUrl ? (
                         <>
                           <img src={imageUrl} alt="" style={{ width: "100%", height: "80px", objectFit: "cover", borderRadius: "4px", marginBottom: "6px" }} />
-                          <Button isDestructive isSmall onClick={() => setAttributes({ imageUrl: "", imageId: 0 })}>
+                          <Button isDestructive size="small" onClick={() => setAttributes({ imageUrl: "", imageId: 0 })}>
                             {__("Supprimer", "g2rd")}
                           </Button>
                         </>
                       ) : (
-                        <Button isSecondary onClick={open}>{__("Choisir l'image", "g2rd")}</Button>
+                        <Button variant="secondary" onClick={open}>{__("Choisir l'image", "g2rd")}</Button>
                       )}
                     </div>
                   )}
                 />
               </MediaUploadCheck>
-              <p style={{ fontWeight: 600, marginBottom: 4 }}>{__("Couleur de l'overlay", "g2rd")}</p>
-              <ColorPicker
-                color={attributes.overlayColor}
-                onChangeComplete={(val) => setAttributes({ overlayColor: val.hex })}
-                disableAlpha
-              />
               <RangeControl
                 label={__("Opacité overlay (%)", "g2rd")}
                 value={attributes.overlayOpacity}
                 onChange={(val) => setAttributes({ overlayOpacity: val })}
                 min={0}
                 max={100}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             </>
           )}
         </PanelBody>
 
-        <PanelBody title={__("Couleurs du texte", "g2rd")} initialOpen={false}>
-          <p style={{ fontWeight: 600, marginBottom: 4 }}>{__("Titre", "g2rd")}</p>
-          <ColorPicker color={attributes.headingColor} onChangeComplete={(v) => setAttributes({ headingColor: v.hex })} disableAlpha />
-          <p style={{ fontWeight: 600, marginTop: 12, marginBottom: 4 }}>{__("Accent / <mark>", "g2rd")}</p>
-          <ColorPicker color={attributes.accentColor} onChangeComplete={(v) => setAttributes({ accentColor: v.hex })} disableAlpha />
-          <p style={{ fontWeight: 600, marginTop: 12, marginBottom: 4 }}>{__("Sous-titre / texte", "g2rd")}</p>
-          <ColorPicker color={attributes.textColor} onChangeComplete={(v) => setAttributes({ textColor: v.hex })} disableAlpha />
-          <p style={{ fontWeight: 600, marginTop: 12, marginBottom: 4 }}>{__("Bouton principal — fond", "g2rd")}</p>
-          <ColorPicker color={attributes.ctaPrimaryBg} onChangeComplete={(v) => setAttributes({ ctaPrimaryBg: v.hex })} disableAlpha />
-          <p style={{ fontWeight: 600, marginTop: 12, marginBottom: 4 }}>{__("Bouton principal — texte", "g2rd")}</p>
-          <ColorPicker color={attributes.ctaPrimaryColor} onChangeComplete={(v) => setAttributes({ ctaPrimaryColor: v.hex })} disableAlpha />
-        </PanelBody>
+        <PanelColorSettings
+          title={__("Couleurs", "g2rd")}
+          initialOpen={false}
+          colorSettings={[
+            ...(backgroundType === "color" ? [{
+              value: attributes.backgroundColor,
+              onChange: (v) => setAttributes({ backgroundColor: v }),
+              label: __("Fond", "g2rd"),
+            }] : []),
+            ...(backgroundType === "image" ? [{
+              value: attributes.overlayColor,
+              onChange: (v) => setAttributes({ overlayColor: v }),
+              label: __("Couleur de l'overlay", "g2rd"),
+            }] : []),
+            {
+              value: attributes.headingColor,
+              onChange: (v) => setAttributes({ headingColor: v }),
+              label: __("Titre", "g2rd"),
+            },
+            {
+              value: attributes.accentColor,
+              onChange: (v) => setAttributes({ accentColor: v }),
+              label: __("Accent / <mark>", "g2rd"),
+            },
+            {
+              value: attributes.textColor,
+              onChange: (v) => setAttributes({ textColor: v }),
+              label: __("Sous-titre / texte", "g2rd"),
+            },
+            {
+              value: attributes.ctaPrimaryBg,
+              onChange: (v) => setAttributes({ ctaPrimaryBg: v }),
+              label: __("Bouton principal — fond", "g2rd"),
+            },
+            {
+              value: attributes.ctaPrimaryColor,
+              onChange: (v) => setAttributes({ ctaPrimaryColor: v }),
+              label: __("Bouton principal — texte", "g2rd"),
+            },
+          ]}
+        />
       </InspectorControls>
 
       <div {...blockProps}>

@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from '@wordpress/element';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import {
 	PanelBody, PanelRow, RangeControl, ToggleControl, SelectControl,
-	TextControl, Button, ColorPicker, Spinner, Notice, TextareaControl,
+	TextControl, Button, ColorPalette, Spinner, Notice, TextareaControl,
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -254,7 +254,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			<InspectorControls>
 
 				{/* Paramètres globaux */}
-				<PanelBody title={ __( '⚙️ Paramètres globaux', 'g2rd' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Paramètres globaux', 'g2rd' ) } initialOpen={ true }>
 
 					<SelectControl
 						label={ __( 'Design', 'g2rd' ) }
@@ -301,36 +301,40 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( 'Icône fonctionnalité', 'g2rd' ) }
 						value={ featureIcon }
-						onChange={ val => setAttributes( { featureIcon: val } ) }
+						onChange={ val =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ val => setAttributes( { featureIcon: val } ) }
 						help={ __( 'Ex: ✓ ✔ → •', 'g2rd' ) }
 					/>
 
 				</PanelBody>
 
-				{/* Couleurs globales */}
-				<PanelBody title={ __( '🎨 Couleurs globales', 'g2rd' ) } initialOpen={ false }>
-					<p style={{fontSize:'12px',marginBottom:'8px'}}>{ __( 'Couleur principale (accent)', 'g2rd' ) }</p>
-					<ColorPicker
-						color={ globalAccentColor }
-						onChange={ val => setAttributes( { globalAccentColor: val } ) }
-						enableAlpha
-					/>
-					<p style={{fontSize:'12px',margin:'12px 0 8px'}}>{ __( 'Couleur texte', 'g2rd' ) }</p>
-					<ColorPicker
-						color={ globalTextColor }
-						onChange={ val => setAttributes( { globalTextColor: val } ) }
-						enableAlpha
-					/>
-					<p style={{fontSize:'12px',margin:'12px 0 8px'}}>{ __( 'Couleur fond', 'g2rd' ) }</p>
-					<ColorPicker
-						color={ globalBgColor }
-						onChange={ val => setAttributes( { globalBgColor: val } ) }
-						enableAlpha
-					/>
-				</PanelBody>
+				{/* Couleurs */}
+				<PanelColorSettings
+					title={ __( 'Couleurs', 'g2rd' ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: globalAccentColor,
+							onChange: val => setAttributes( { globalAccentColor: val } ),
+							label: __( 'Couleur principale (accent)', 'g2rd' ),
+						},
+						{
+							value: globalTextColor,
+							onChange: val => setAttributes( { globalTextColor: val } ),
+							label: __( 'Couleur du texte', 'g2rd' ),
+						},
+						{
+							value: globalBgColor,
+							onChange: val => setAttributes( { globalBgColor: val } ),
+							label: __( 'Couleur de fond', 'g2rd' ),
+						},
+					] }
+				/>
 
 				{/* Visibilité des éléments */}
-				<PanelBody title={ __( '👁️ Éléments visibles', 'g2rd' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Éléments visibles', 'g2rd' ) } initialOpen={ false }>
 					{ [
 						[ 'showBadge',       __( 'Badge', 'g2rd' ) ],
 						[ 'showTitle',       __( 'Titre', 'g2rd' ) ],
@@ -350,7 +354,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				{/* Édition par colonne */}
-				<PanelBody title={ __( '📋 Colonnes', 'g2rd' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Colonnes', 'g2rd' ) } initialOpen={ true }>
 
 					{/* Onglets colonnes */}
 					<div style={{ display:'flex', gap:'4px', marginBottom:'12px', flexWrap:'wrap' }}>
@@ -358,14 +362,14 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Button
 								key={ col.id }
 								variant={ activeColTab === i ? 'primary' : 'secondary' }
-								isSmall
+								size="small"
 								onClick={ () => setActiveColTab( i ) }
 							>
 								{ col.title ? col.title.substring( 0, 12 ) : `Col ${i+1}` }
 							</Button>
 						) ) }
 						{ columns.length < 5 && (
-							<Button variant="tertiary" isSmall onClick={ addColumn }>+ { __( 'Ajouter', 'g2rd' ) }</Button>
+							<Button variant="tertiary" size="small" onClick={ addColumn }>+ { __( 'Ajouter', 'g2rd' ) }</Button>
 						) }
 					</div>
 
@@ -374,9 +378,9 @@ export default function Edit( { attributes, setAttributes } ) {
 
 							{/* Déplacer / Supprimer */}
 							<div style={{ display:'flex', gap:'4px', marginBottom:'12px' }}>
-								<Button isSmall variant="secondary" onClick={ () => moveColumn( activeColTab, -1 ) } disabled={ activeColTab === 0 }>←</Button>
-								<Button isSmall variant="secondary" onClick={ () => moveColumn( activeColTab, 1 ) } disabled={ activeColTab === columns.length - 1 }>→</Button>
-								<Button isSmall variant="secondary" isDestructive onClick={ () => removeColumn( activeColTab ) } disabled={ columns.length <= 1 }>
+								<Button size="small" variant="secondary" onClick={ () => moveColumn( activeColTab, -1 ) } disabled={ activeColTab === 0 }>←</Button>
+								<Button size="small" variant="secondary" onClick={ () => moveColumn( activeColTab, 1 ) } disabled={ activeColTab === columns.length - 1 }>→</Button>
+								<Button size="small" variant="secondary" isDestructive onClick={ () => removeColumn( activeColTab ) } disabled={ columns.length <= 1 }>
 									{ __( 'Supprimer', 'g2rd' ) }
 								</Button>
 							</div>
@@ -389,16 +393,25 @@ export default function Edit( { attributes, setAttributes } ) {
 
 							<TextControl label={ __( 'Badge', 'g2rd' ) }
 								value={ col.badge }
-								onChange={ val => updateColumn( activeColTab, 'badge', val ) }
+								onChange={ val =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'badge', val ) }
 								placeholder={ __( 'Ex: Populaire', 'g2rd' ) }
 							/>
 							<TextControl label={ __( 'Titre', 'g2rd' ) }
 								value={ col.title }
-								onChange={ val => updateColumn( activeColTab, 'title', val ) }
+								onChange={ val =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'title', val ) }
 							/>
 							<TextControl label={ __( 'Sous-titre', 'g2rd' ) }
 								value={ col.subtitle }
-								onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
+								onChange={ val =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
 							/>
 
 							{/* Prix */}
@@ -406,21 +419,32 @@ export default function Edit( { attributes, setAttributes } ) {
 								<legend style={{fontSize:'12px',fontWeight:600}}>{ __( 'Prix', 'g2rd' ) }</legend>
 								<TextControl label={ __( 'Préfixe (ex: à partir de)', 'g2rd' ) }
 									value={ col.pricePrefix }
-									onChange={ val => updateColumn( activeColTab, 'pricePrefix', val ) }
+									onChange={ val =
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'pricePrefix', val ) }
 								/>
 								<TextControl label={ __( 'Montant (ex: 49 ou Sur devis)', 'g2rd' ) }
 									value={ col.price }
-									onChange={ val => updateColumn( activeColTab, 'price', val ) }
+									onChange={ val =
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'price', val ) }
 								/>
 								<TextControl label={ __( 'Période (ex: / mois)', 'g2rd' ) }
 									value={ col.pricePeriod }
-									onChange={ val => updateColumn( activeColTab, 'pricePeriod', val ) }
+									onChange={ val =
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'pricePeriod', val ) }
 								/>
 							</fieldset>
 
 							<TextareaControl label={ __( 'Description', 'g2rd' ) }
 								value={ col.description }
-								onChange={ val => updateColumn( activeColTab, 'description', val ) }
+								onChange={ val =
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'description', val ) }
 								rows={ 3 }
 							/>
 
@@ -431,14 +455,17 @@ export default function Edit( { attributes, setAttributes } ) {
 									<div key={fi} style={{ display:'flex', gap:'4px', marginBottom:'4px' }}>
 										<TextControl
 											value={ feat }
-											onChange={ val => {
+											onChange={ val =
+											__next40pxDefaultSize
+											__nextHasNoMarginBottom
+onChange={ val => {
 												const next = [ ...col.features ];
 												next[fi] = val;
 												updateColumn( activeColTab, 'features', next );
 											} }
 											style={{flex:1}}
 										/>
-										<Button isSmall isDestructive variant="tertiary"
+										<Button size="small" isDestructive variant="tertiary"
 											onClick={ () => {
 												const next = col.features.filter( (_, i) => i !== fi );
 												updateColumn( activeColTab, 'features', next );
@@ -446,7 +473,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										>✕</Button>
 									</div>
 								) ) }
-								<Button isSmall variant="secondary"
+								<Button size="small" variant="secondary"
 									onClick={ () => updateColumn( activeColTab, 'features', [ ...col.features, __( 'Nouvelle fonctionnalité', 'g2rd' ) ] ) }
 								>+ { __( 'Ajouter', 'g2rd' ) }</Button>
 							</fieldset>
@@ -454,11 +481,17 @@ export default function Edit( { attributes, setAttributes } ) {
 							{/* CTA */}
 							<TextControl label={ __( 'Texte du bouton', 'g2rd' ) }
 								value={ col.ctaText }
-								onChange={ val => updateColumn( activeColTab, 'ctaText', val ) }
+								onChange={ val =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'ctaText', val ) }
 							/>
 							<TextControl label={ __( 'URL du bouton', 'g2rd' ) }
 								value={ col.ctaUrl }
-								onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
+								onChange={ val =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
 							/>
 							<ToggleControl
 								label={ __( 'Ouvrir dans un nouvel onglet', 'g2rd' ) }
@@ -468,10 +501,10 @@ export default function Edit( { attributes, setAttributes } ) {
 
 							{/* Couleur accent */}
 							<p style={{fontSize:'12px',margin:'8px 0 4px',fontWeight:600}}>{ __( 'Couleur accent de cette colonne', 'g2rd' ) }</p>
-							<ColorPicker
-								color={ col.accentColor }
-								onChange={ val => updateColumn( activeColTab, 'accentColor', val ) }
-								enableAlpha
+							<ColorPalette
+								value={ col.accentColor }
+								onChange={ val => updateColumn( activeColTab, 'accentColor', val || '' ) }
+								clearable={ true }
 							/>
 
 							{/* Ordre des éléments */}
@@ -479,8 +512,8 @@ export default function Edit( { attributes, setAttributes } ) {
 								<legend style={{fontSize:'12px',fontWeight:600}}>{ __( '↕ Ordre des éléments', 'g2rd' ) }</legend>
 								{ ( col.elementsOrder || DEFAULT_ORDER ).map( ( key, pos ) => (
 									<div key={key} style={{ display:'flex', alignItems:'center', gap:'4px', marginBottom:'4px' }}>
-										<Button isSmall onClick={ () => moveElement( activeColTab, key, -1 ) } disabled={ pos === 0 }>↑</Button>
-										<Button isSmall onClick={ () => moveElement( activeColTab, key, 1 ) } disabled={ pos === col.elementsOrder.length - 1 }>↓</Button>
+										<Button size="small" onClick={ () => moveElement( activeColTab, key, -1 ) } disabled={ pos === 0 }>↑</Button>
+										<Button size="small" onClick={ () => moveElement( activeColTab, key, 1 ) } disabled={ pos === col.elementsOrder.length - 1 }>↓</Button>
 										<span style={{fontSize:'13px'}}>{ ELEMENT_LABELS[key] || key }</span>
 									</div>
 								) ) }
@@ -492,7 +525,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				{/* Import produit ecommerce */}
-				<PanelBody title={ __( '🛒 Import produit ecommerce', 'g2rd' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Import produit e-commerce', 'g2rd' ) } initialOpen={ false }>
 					{ col && (
 						<div>
 							<Notice status="info" isDismissible={false} style={{marginBottom:'12px'}}>
@@ -517,11 +550,14 @@ export default function Edit( { attributes, setAttributes } ) {
 									<div style={{ display:'flex', gap:'4px', marginBottom:'8px' }}>
 										<TextControl
 											value={ productSearch[activeColTab] || '' }
-											onChange={ val => setProductSearch( prev => ( { ...prev, [activeColTab]: val } ) ) }
+											onChange={ val =
+											__next40pxDefaultSize
+											__nextHasNoMarginBottom
+onChange={ val => setProductSearch( prev => ( { ...prev, [activeColTab]: val } ) ) }
 											placeholder={ __( 'Rechercher un produit…', 'g2rd' ) }
 											style={{flex:1}}
 										/>
-										<Button variant="secondary" isSmall
+										<Button variant="secondary" size="small"
 											onClick={ () => searchProducts( activeColTab, col.productSource, productSearch[activeColTab] || '' ) }
 										>{ __( 'Chercher', 'g2rd' ) }</Button>
 									</div>
@@ -529,7 +565,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									{ ( products[activeColTab] || [] ).map( product => (
 										<div key={product.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'6px 0', borderBottom:'1px solid #eee', fontSize:'13px' }}>
 											<span>{ product.title }</span>
-											<Button isSmall variant="primary" onClick={ () => applyProduct( activeColTab, product ) }>
+											<Button size="small" variant="primary" onClick={ () => applyProduct( activeColTab, product ) }>
 												{ __( 'Appliquer', 'g2rd' ) }
 											</Button>
 										</div>

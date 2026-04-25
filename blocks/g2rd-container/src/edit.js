@@ -5,6 +5,7 @@ import {
 	InnerBlocks,
 	MediaUpload,
 	MediaUploadCheck,
+	PanelColorSettings,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -389,18 +390,25 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					__nextHasNoMarginBottom={ true }
 				/>
 				{ bgType === 'color' && (
-					<input
-						type="color"
-						value={ bgColor || '#ffffff' }
-						onChange={ ( e ) => setAttributes( { bgColor: e.target.value } ) }
-						style={ { width: '100%', height: '40px', marginTop: '8px' } }
+					<PanelColorSettings
+						title={ __( 'Couleur de fond', 'g2rd' ) }
+						colorSettings={ [
+							{
+								value: bgColor,
+								onChange: ( v ) => setAttributes( { bgColor: v } ),
+								label: __( 'Fond', 'g2rd' ),
+							},
+						] }
 					/>
 				) }
 				{ bgType === 'gradient' && (
 					<TextControl
 						label={ __( 'Valeur CSS du dégradé', 'g2rd' ) }
 						value={ bgGradient }
-						onChange={ ( v ) => setAttributes( { bgGradient: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { bgGradient: v } ) }
 						placeholder="linear-gradient(135deg, #667eea, #764ba2)"
 						__next40pxDefaultSize={ true }
 						__nextHasNoMarginBottom={ true }
@@ -440,7 +448,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						<TextControl
 							label={ __( 'Position', 'g2rd' ) }
 							value={ bgImagePosition }
-							onChange={ ( v ) => setAttributes( { bgImagePosition: v } ) }
+							onChange={ ( v ) =
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { bgImagePosition: v } ) }
 							placeholder="center center"
 							__next40pxDefaultSize={ true }
 							__nextHasNoMarginBottom={ true }
@@ -456,11 +467,15 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							__nextHasNoMarginBottom={ true }
 						/>
 						{ bgOverlay && (
-							<input
-								type="color"
-								value={ bgOverlayColor || 'rgba(0,0,0,0.5)' }
-								onChange={ ( e ) => setAttributes( { bgOverlayColor: e.target.value } ) }
-								style={ { width: '100%', height: '36px', marginTop: '4px' } }
+							<PanelColorSettings
+								title={ __( "Couleur de l'overlay", 'g2rd' ) }
+								colorSettings={ [
+									{
+										value: bgOverlayColor,
+										onChange: ( v ) => setAttributes( { bgOverlayColor: v } ),
+										label: __( 'Overlay', 'g2rd' ),
+									},
+								] }
 							/>
 						) }
 					</>
@@ -495,11 +510,15 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					__nextHasNoMarginBottom={ true }
 				/>
 				{ borderWidth && (
-					<input
-						type="color"
-						value={ borderColor || '#000000' }
-						onChange={ ( e ) => setAttributes( { borderColor: e.target.value } ) }
-						style={ { width: '100%', height: '36px', marginTop: '4px' } }
+					<PanelColorSettings
+						title={ __( 'Couleur de la bordure', 'g2rd' ) }
+						colorSettings={ [
+							{
+								value: borderColor,
+								onChange: ( v ) => setAttributes( { borderColor: v } ),
+								label: __( 'Bordure', 'g2rd' ),
+							},
+						] }
 					/>
 				) }
 				<SelectControl
@@ -606,7 +625,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				<TextControl
 					label={ __( 'Classe CSS', 'g2rd' ) }
 					value={ customCSSClass }
-					onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
+					onChange={ ( v ) =
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
 					placeholder="ma-classe"
 					__next40pxDefaultSize={ true }
 					__nextHasNoMarginBottom={ true }

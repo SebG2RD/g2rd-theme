@@ -223,6 +223,14 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9.4
+
+- **Fix PHP** : guillemets Unicode (U+2018/2019) remplacés par apostrophes ASCII dans `prettycode-helpers.php` et `ShareButtons/render.php` — erreur `Undefined constant "'ABSPATH'"` sur PHP 8.
+- **Fix PHP** : `g2rd-container/render.php` restructuré — fonctions `g2rd_add_css_prop` et `g2rd_container_build_css` déclarées avant leur appel + guards `function_exists` pour éviter la redéclaration multi-bloc.
+- **Fix JS** : `g2rd-cta-band/save.js` — `customBg` désormais correctement appliqué (suppression du lookup `BG_PRESETS` résiduel).
+- **Fix React** : props dépréciées `isPrimary`, `isSecondary`, `isSmall` migrées vers `variant`/`size` sur tous les blocs.
+- **Fix React** : `__next40pxDefaultSize` + `__nextHasNoMarginBottom` ajoutés sur 83 composants `TextControl`/`TextareaControl` (20 fichiers edit.js).
+
 ### 1.6.9.3
 
 - **Style** : bloc Testimonial — remplacement du sélecteur de couleur natif par `PanelColorSettings` pour utiliser la palette du thème.

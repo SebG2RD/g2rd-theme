@@ -126,12 +126,17 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Title", "g2rd-carousel")}
             value={title}
-            onChange={(value) => setAttributes({ title: value })}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ title: value })}
           />
           <TextareaControl
             label={__("Description", "g2rd-carousel")}
             value={description}
-            onChange={(value) => setAttributes({ description: value })}
+            onChange={(value) =
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ description: value })}
           />
           <ToggleControl
             label={__("Show Badge", "g2rd-carousel")}
@@ -142,7 +147,10 @@ export default function Edit({ attributes, setAttributes }) {
             <TextControl
               label={__("Badge Text", "g2rd-carousel")}
               value={badgeText}
-              onChange={(value) => setAttributes({ badgeText: value })}
+              onChange={(value) =
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ badgeText: value })}
             />
           )}
           <ToggleControl

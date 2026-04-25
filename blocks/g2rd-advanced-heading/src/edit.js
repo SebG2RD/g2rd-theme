@@ -10,6 +10,7 @@ import {
 	RichText,
 	MediaUpload,
 	MediaUploadCheck,
+	PanelColorSettings,
 } from "@wordpress/block-editor";
 import {
 	PanelBody,
@@ -18,6 +19,7 @@ import {
 	RangeControl,
 	ToggleControl,
 	Button,
+	ColorPalette,
 } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
 
@@ -91,12 +93,15 @@ function ShadowRow( { index, attrs, set } ) {
 			/>
 			{ attrs[ eKey ] && (
 				<>
-					<TextControl
-						label={ __( "Couleur (hex / rgba)", "g2rd" ) }
-						value={ attrs[ cKey ] }
-						onChange={ ( v ) => set( { [ cKey ]: v } ) }
-						__nextHasNoMarginBottom
-					/>
+					<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>
+					{ __( "Couleur", "g2rd" ) }
+				</p>
+				<ColorPalette
+					value={ attrs[ cKey ] }
+					onChange={ ( v ) => set( { [ cKey ]: v || "" } ) }
+					clearable={ true }
+					__experimentalIsRenderedInSidebar
+				/>
 					<RangeControl label="X (px)" value={ attrs[ xKey ] } onChange={ ( v ) => set( { [ xKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
 					<RangeControl label="Y (px)" value={ attrs[ yKey ] } onChange={ ( v ) => set( { [ yKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
 					<RangeControl label={ __( "Flou (px)", "g2rd" ) } value={ attrs[ bKey ] } onChange={ ( v ) => set( { [ bKey ]: v } ) } min={ 0 } max={ 40 } __nextHasNoMarginBottom />
@@ -268,7 +273,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Texte avant les mots animés", "g2rd" ) }
 						value={ textBefore }
-						onChange={ ( v ) => setAttributes( { textBefore: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { textBefore: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<div style={ { margin: "12px 0 8px" } }>
@@ -285,7 +293,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								/>
 								<Button
 									isDestructive
-									isSmall
+									size="small"
 									onClick={ () => removeWord( i ) }
 									disabled={ animatedWords.length <= 1 }
 									icon="trash"
@@ -293,14 +301,17 @@ export default function Edit( { attributes, setAttributes } ) {
 								/>
 							</div>
 						) ) }
-						<Button isSecondary isSmall onClick={ addWord } icon="plus" style={ { marginTop: "4px" } }>
+						<Button variant="secondary" size="small" onClick={ addWord } icon="plus" style={ { marginTop: "4px" } }>
 							{ __( "Ajouter un mot", "g2rd" ) }
 						</Button>
 					</div>
 					<TextControl
 						label={ __( "Texte après les mots animés", "g2rd" ) }
 						value={ textAfter }
-						onChange={ ( v ) => setAttributes( { textAfter: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { textAfter: v } ) }
 						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
@@ -329,21 +340,23 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				{ /* Typographie & Couleurs */ }
-				<PanelBody title={ __( "Typographie & Couleurs", "g2rd" ) } initialOpen={ false }>
-					<TextControl
-						label={ __( "Couleur du texte statique", "g2rd" ) }
-						value={ textColor }
-						onChange={ ( v ) => setAttributes( { textColor: v } ) }
-						placeholder="var(--wp--preset--color--primary)"
-						__nextHasNoMarginBottom
-					/>
-					<TextControl
-						label={ __( "Couleur des mots animés", "g2rd" ) }
-						value={ animatedColor }
-						onChange={ ( v ) => setAttributes( { animatedColor: v } ) }
-						placeholder="var(--wp--preset--color--primary)"
-						__nextHasNoMarginBottom
-					/>
+				<PanelColorSettings
+					title={ __( "Couleurs", "g2rd" ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: textColor,
+							onChange: ( v ) => setAttributes( { textColor: v || "" } ),
+							label: __( "Texte statique", "g2rd" ),
+						},
+						{
+							value: animatedColor,
+							onChange: ( v ) => setAttributes( { animatedColor: v || "" } ),
+							label: __( "Mots animés", "g2rd" ),
+						},
+					] }
+				/>
+				<PanelBody title={ __( "Typographie", "g2rd" ) } initialOpen={ false }>
 					<SelectControl
 						label={ __( "Graisse — mots animés", "g2rd" ) }
 						value={ animatedFontWeight }
@@ -361,7 +374,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Taille de police (ex : 3rem, 48px)", "g2rd" ) }
 						value={ fontSizeValue }
-						onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<SelectControl
@@ -373,13 +389,19 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Hauteur de ligne (ex : 1.3)", "g2rd" ) }
 						value={ lineHeight }
-						onChange={ ( v ) => setAttributes( { lineHeight: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { lineHeight: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						label={ __( "Espacement lettres (ex : -0.02em)", "g2rd" ) }
 						value={ letterSpacing }
-						onChange={ ( v ) => setAttributes( { letterSpacing: v } ) }
+						onChange={ ( v ) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { letterSpacing: v } ) }
 						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
@@ -394,8 +416,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 					{ highlightEnabled && (
 						<>
-							<TextControl label={ __( "Couleur de fond", "g2rd" ) } value={ highlightBgColor }    onChange={ ( v ) => setAttributes( { highlightBgColor: v } ) }    __nextHasNoMarginBottom />
-							<TextControl label={ __( "Couleur du texte", "g2rd" ) } value={ highlightTextColor } onChange={ ( v ) => setAttributes( { highlightTextColor: v } ) } __nextHasNoMarginBottom />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond", "g2rd" ) }</p>
+							<ColorPalette value={ highlightBgColor } onChange={ ( v ) => setAttributes( { highlightBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Texte", "g2rd" ) }</p>
+							<ColorPalette value={ highlightTextColor } onChange={ ( v ) => setAttributes( { highlightTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
 							<RangeControl label={ __( "Padding horizontal (px)", "g2rd" ) } value={ highlightPadding }      onChange={ ( v ) => setAttributes( { highlightPadding: v } ) }      min={ 0 } max={ 40 } __nextHasNoMarginBottom />
 							<RangeControl label={ __( "Arrondi (px)", "g2rd" ) }            value={ highlightBorderRadius } onChange={ ( v ) => setAttributes( { highlightBorderRadius: v } ) } min={ 0 } max={ 50 } __nextHasNoMarginBottom />
 						</>
@@ -417,13 +441,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( v ) => setAttributes( { decoratorType: v } ) }
 					/>
 					{ decoratorType !== "none" && (
-						<TextControl
-							label={ __( "Couleur de la décoration", "g2rd" ) }
-							value={ decoratorColor }
-							onChange={ ( v ) => setAttributes( { decoratorColor: v } ) }
-							placeholder="var(--wp--preset--color--primary)"
-							__nextHasNoMarginBottom
-						/>
+						<>
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur de la décoration", "g2rd" ) }</p>
+							<ColorPalette value={ decoratorColor } onChange={ ( v ) => setAttributes( { decoratorColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+						</>
 					) }
 					{ ( decoratorType === "zigzag" || decoratorType === "border" || decoratorType === "circle" ) && (
 						<RangeControl label={ __( "Épaisseur (px)", "g2rd" ) } value={ decoratorSize } onChange={ ( v ) => setAttributes( { decoratorSize: v } ) } min={ 1 } max={ 10 } __nextHasNoMarginBottom />
@@ -432,8 +453,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						<>
 							<RangeControl label={ __( "Numéro affiché", "g2rd" ) } value={ numberValue } onChange={ ( v ) => setAttributes( { numberValue: v } ) } min={ 0 } max={ 99 } __nextHasNoMarginBottom />
 							<RangeControl label={ __( "Taille du badge (px)", "g2rd" ) } value={ numberSize } onChange={ ( v ) => setAttributes( { numberSize: v } ) } min={ 24 } max={ 120 } __nextHasNoMarginBottom />
-							<TextControl label={ __( "Fond du badge", "g2rd" ) }        value={ numberBgColor }   onChange={ ( v ) => setAttributes( { numberBgColor: v } ) }   placeholder="var(--wp--preset--color--primary)" __nextHasNoMarginBottom />
-							<TextControl label={ __( "Couleur du numéro", "g2rd" ) }    value={ numberTextColor } onChange={ ( v ) => setAttributes( { numberTextColor: v } ) } __nextHasNoMarginBottom />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond du badge", "g2rd" ) }</p>
+							<ColorPalette value={ numberBgColor } onChange={ ( v ) => setAttributes( { numberBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur du numéro", "g2rd" ) }</p>
+							<ColorPalette value={ numberTextColor } onChange={ ( v ) => setAttributes( { numberTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
 						</>
 					) }
 				</PanelBody>
@@ -464,11 +487,11 @@ export default function Edit( { attributes, setAttributes } ) {
 										{ clipMaskUrl && (
 											<img src={ clipMaskUrl } alt="" style={ { width: "100%", height: "56px", objectFit: "cover", borderRadius: "4px", marginBottom: "8px" } } />
 										) }
-										<Button isSecondary isSmall onClick={ open }>
+										<Button variant="secondary" size="small" onClick={ open }>
 											{ clipMaskUrl ? __( "Changer l'image", "g2rd" ) : __( "Choisir une image", "g2rd" ) }
 										</Button>
 										{ clipMaskUrl && (
-											<Button isDestructive isSmall style={ { marginLeft: "8px" } } onClick={ () => setAttributes( { clipMaskUrl: "", clipMaskId: 0 } ) }>
+											<Button isDestructive size="small" style={ { marginLeft: "8px" } } onClick={ () => setAttributes( { clipMaskUrl: "", clipMaskId: 0 } ) }>
 												{ __( "Supprimer", "g2rd" ) }
 											</Button>
 										) }

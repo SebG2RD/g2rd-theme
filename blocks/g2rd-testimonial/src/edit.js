@@ -284,7 +284,10 @@ export default function Edit( { attributes, setAttributes } ) {
               <TextControl
                 label={ __( "Place ID Google", "g2rd" ) }
                 value={ googlePlaceId }
-                onChange={ ( v ) => setAttributes( { googlePlaceId: v.trim() } ) }
+                onChange={ ( v ) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={ ( v ) => setAttributes( { googlePlaceId: v.trim() } ) }
                 placeholder="ChIJxxxxxxxxxxxxxxxxxx"
                 help={
                   <span>
@@ -506,12 +509,12 @@ export default function Edit( { attributes, setAttributes } ) {
                             alt={ avatarAlt }
                             style={ { width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", display: "block", marginBottom: "8px" } }
                           />
-                          <Button isDestructive isSmall onClick={ () => setAttributes( { avatarUrl: "", avatarId: 0, avatarAlt: "" } ) }>
+                          <Button isDestructive size="small" onClick={ () => setAttributes( { avatarUrl: "", avatarId: 0, avatarAlt: "" } ) }>
                             { __( "Supprimer", "g2rd" ) }
                           </Button>
                         </div>
                       ) : (
-                        <Button isSecondary isSmall onClick={ open }>
+                        <Button variant="secondary" size="small" onClick={ open }>
                           { __( "Choisir un avatar", "g2rd" ) }
                         </Button>
                       ) }

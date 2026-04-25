@@ -1,22 +1,15 @@
 import { useBlockProps } from "@wordpress/block-editor";
 
-const BG_PRESETS = {
-  primary: "#2F425D",
-  secondary: "#D4A373",
-  dark: "#1a1a2e",
-  light: "#F5F4F2",
-};
-
 export default function Save({ attributes }) {
   const {
     title, description, ctaText, ctaUrl,
     ctaSecondaryText, ctaSecondaryUrl,
     reassurance, showReassurance,
-    backgroundStyle, customBg, titleColor, textColor, ctaBg, ctaColor,
+    customBg, titleColor, textColor, ctaBg, ctaColor,
     alignment, paddingVertical,
   } = attributes;
 
-  const bg = backgroundStyle === "custom" ? customBg : BG_PRESETS[backgroundStyle] || BG_PRESETS.primary;
+  const bg = customBg || "#2F425D";
 
   const blockProps = useBlockProps.save({
     className: `g2rd-cta-band alignfull`,

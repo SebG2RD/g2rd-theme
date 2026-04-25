@@ -38,7 +38,10 @@ export default function Edit( { attributes, setAttributes } ) {
 				<TextControl
 					className="geo-summary__tagline-input"
 					value={ tagline }
-					onChange={ ( val ) => setAttributes( { tagline: val } ) }
+					onChange={ ( val ) =
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+onChange={ ( val ) => setAttributes( { tagline: val } ) }
 					placeholder={ __( 'En résumé', 'g2rd' ) }
 					hideLabelFromVision
 					label={ __( 'Titre du résumé', 'g2rd' ) }
@@ -67,7 +70,10 @@ export default function Edit( { attributes, setAttributes } ) {
 							<span className="geo-summary__bullet" aria-hidden="true">✦</span>
 							<TextControl
 								value={ point }
-								onChange={ ( val ) => updatePoint( i, val ) }
+								onChange={ ( val ) =
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+onChange={ ( val ) => updatePoint( i, val ) }
 								placeholder={ __( `Point clé ${ i + 1 }…`, 'g2rd' ) }
 								hideLabelFromVision
 								label={ __( `Point clé ${ i + 1 }`, 'g2rd' ) }
@@ -76,7 +82,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="geo-summary__point-remove"
 								icon="no-alt"
 								label={ __( 'Supprimer ce point', 'g2rd' ) }
-								isSmall
+								size="small"
 								onClick={ () => removePoint( i ) }
 							/>
 						</div>

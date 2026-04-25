@@ -2,15 +2,15 @@
 // phpcs:ignoreFile -- Fichier helper du bloc Gutenberg CodeG2rd. Conventions de build bloc, pas classes PHP thème.
 /**
  * Aides du bloc code G2RD : langues et correspondance highlight.php.
- * Données partagées avec l’éditeur via languages.json (même dossier que le bloc).
+ * Données partagées avec l'éditeur via languages.json (même dossier que le bloc).
  *
  * @package G2RD
  */
 
-defined(‘ABSPATH’) || exit;
+defined('ABSPATH') || exit;
 
 /**
- * Charge l’autoloader Composer du thème pour que la classe Highlight\Highlighter existe.
+ * Charge l'autoloader Composer du thème pour que la classe Highlight\Highlighter existe.
  * Le paquet scrivo/highlight.php est déclaré à la racine du thème (composer.json).
  */
 function g2rd_code_block_ensure_highlight_loaded(): bool
@@ -59,7 +59,7 @@ function g2rd_code_block_load_language_definitions(): array
 }
 
 /**
- * Liste pour l’affichage du libellé de langue côté PHP (render.php).
+ * Liste pour l'affichage du libellé de langue côté PHP (render.php).
  *
  * @return array<int, array{label: string, value: string}>
  */
@@ -82,7 +82,7 @@ function g2rd_prettycode_get_languages(): array
 }
 
 /**
- * Convertit la valeur d’attribut du bloc (ex. html) en identifiant highlight.php (ex. xml).
+ * Convertit la valeur d'attribut du bloc (ex. html) en identifiant highlight.php (ex. xml).
  */
 function g2rd_prettycode_lang_to_hljs(string $language): string
 {
@@ -101,7 +101,7 @@ function g2rd_prettycode_lang_to_hljs(string $language): string
         }
     }
 
-    // Alias courants si la valeur n’est pas dans le JSON (anciens contenus, collage, etc.)
+    // Alias courants si la valeur n'est pas dans le JSON (anciens contenus, collage, etc.)
     $aliases = [
         'js'       => 'javascript',
         'ts'       => 'typescript',

@@ -350,7 +350,10 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Texte du bouton", "g2rd")}
             value={ctaText}
-            onChange={(v) => setAttributes({ ctaText: v })}
+            onChange={(v) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(v) => setAttributes({ ctaText: v })}
             placeholder={__("Ex : En savoir plus", "g2rd")}
           />
           {ctaText && (
@@ -408,7 +411,10 @@ export default function Edit({ attributes, setAttributes }) {
                 key={key}
                 label={label}
                 value={attributes[key]}
-                onChange={(v) => setAttributes({ [key]: v })}
+                onChange={(v) =
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+onChange={(v) => setAttributes({ [key]: v })}
               />
             ))}
           </div>

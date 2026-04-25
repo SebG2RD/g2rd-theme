@@ -61,7 +61,6 @@ export default function Edit({ attributes, setAttributes }) {
         return;
       }
 
-      // Calcul précis des années et mois
       let years = end.getFullYear() - now.getFullYear();
       let months = end.getMonth() - now.getMonth();
       if (months < 0) {
@@ -69,7 +68,6 @@ export default function Edit({ attributes, setAttributes }) {
         months += 12;
       }
 
-      // Jours restants après soustraction des mois complets
       const dateAfterMonths = new Date(now);
       dateAfterMonths.setFullYear(dateAfterMonths.getFullYear() + years);
       dateAfterMonths.setMonth(dateAfterMonths.getMonth() + months);
@@ -118,58 +116,61 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Timer Settings", "g2rd")}>
+        <PanelBody title={__("Paramètres du minuteur", "g2rd")}>
           <DateTimePicker
             currentDate={endDate}
             onChange={(date) => setAttributes({ endDate: format("c", date) })}
             is12Hour={true}
           />
           <TextControl
-            label={__("Title", "g2rd")}
+            label={__("Titre", "g2rd")}
             value={title}
-            placeholder="Test modifiable"
-            onChange={(value) => setAttributes({ title: value })}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            placeholder={__("Titre du compte à rebours", "g2rd")}
+            onChange={(value) =
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+onChange={(value) => setAttributes({ title: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
-        <PanelBody title={__("Display Units", "g2rd")}>
+        <PanelBody title={__("Unités affichées", "g2rd")}>
           <ToggleControl
-            label={__("Show Years", "g2rd")}
+            label={__("Afficher les années", "g2rd")}
             checked={showYears}
             onChange={() => setAttributes({ showYears: !showYears })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
           <ToggleControl
-            label={__("Show Months", "g2rd")}
+            label={__("Afficher les mois", "g2rd")}
             checked={showMonths}
             onChange={() => setAttributes({ showMonths: !showMonths })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
           <ToggleControl
-            label={__("Show Days", "g2rd")}
+            label={__("Afficher les jours", "g2rd")}
             checked={showDays}
             onChange={() => setAttributes({ showDays: !showDays })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
           <ToggleControl
-            label={__("Show Hours", "g2rd")}
+            label={__("Afficher les heures", "g2rd")}
             checked={showHours}
             onChange={() => setAttributes({ showHours: !showHours })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
           <ToggleControl
-            label={__("Show Minutes", "g2rd")}
+            label={__("Afficher les minutes", "g2rd")}
             checked={showMinutes}
             onChange={() => setAttributes({ showMinutes: !showMinutes })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
           <ToggleControl
-            label={__("Show Seconds", "g2rd")}
+            label={__("Afficher les secondes", "g2rd")}
             checked={showSeconds}
             onChange={() => setAttributes({ showSeconds: !showSeconds })}
-            __nextHasNoMarginBottom={true}
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
@@ -184,109 +185,109 @@ export default function Edit({ attributes, setAttributes }) {
           ]}
         />
 
-        <PanelBody title={__("Style Settings", "g2rd")}>
+        <PanelBody title={__("Apparence", "g2rd")}>
           <SelectControl
-            label={__("Layout", "g2rd")}
+            label={__("Disposition", "g2rd")}
             value={layout}
             options={[
-              { label: __("Row (Horizontal)", "g2rd"), value: "row" },
-              { label: __("Column (Vertical)", "g2rd"), value: "column" },
+              { label: __("Ligne (horizontal)", "g2rd"), value: "row" },
+              { label: __("Colonne (vertical)", "g2rd"), value: "column" },
             ]}
             onChange={(value) => setAttributes({ layout: value })}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <SelectControl
-            label={__("Timer Style", "g2rd")}
+            label={__("Style du minuteur", "g2rd")}
             value={timerStyle}
             options={[
-              { label: __("Default", "g2rd"), value: "default" },
-              { label: __("Digital", "g2rd"), value: "digital" },
-              { label: __("Neon", "g2rd"), value: "neon" },
-              { label: __("Retro", "g2rd"), value: "retro" },
-              { label: __("Minimal", "g2rd"), value: "minimal" },
-              { label: __("Bold", "g2rd"), value: "bold" },
+              { label: __("Défaut", "g2rd"),      value: "default" },
+              { label: __("Numérique", "g2rd"),   value: "digital" },
+              { label: __("Néon", "g2rd"),         value: "neon" },
+              { label: __("Rétro", "g2rd"),        value: "retro" },
+              { label: __("Minimal", "g2rd"),      value: "minimal" },
+              { label: __("Gras", "g2rd"),         value: "bold" },
             ]}
             onChange={(value) => setAttributes({ timerStyle: value })}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <SelectControl
             label={__("Animation", "g2rd")}
             value={animation}
             options={[
-              { label: __("None", "g2rd"), value: "none" },
-              { label: __("Pulse", "g2rd"), value: "pulse" },
-              { label: __("Flip", "g2rd"), value: "flip" },
-              { label: __("Fade", "g2rd"), value: "fade" },
-              { label: __("Bounce", "g2rd"), value: "bounce" },
+              { label: __("Aucune", "g2rd"),        value: "none" },
+              { label: __("Pulsation", "g2rd"),     value: "pulse" },
+              { label: __("Retournement", "g2rd"),  value: "flip" },
+              { label: __("Fondu", "g2rd"),         value: "fade" },
+              { label: __("Rebond", "g2rd"),        value: "bounce" },
             ]}
             onChange={(value) => setAttributes({ animation: value })}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <SelectControl
-            label={__("Animation Speed", "g2rd")}
+            label={__("Vitesse d'animation", "g2rd")}
             value={animationSpeed}
             options={[
-              { label: __("Slow", "g2rd"), value: "slow" },
+              { label: __("Lent", "g2rd"),   value: "slow" },
               { label: __("Normal", "g2rd"), value: "normal" },
-              { label: __("Fast", "g2rd"), value: "fast" },
+              { label: __("Rapide", "g2rd"), value: "fast" },
             ]}
             onChange={(value) => setAttributes({ animationSpeed: value })}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
-            label={__("Value Size", "g2rd")}
+            label={__("Taille des valeurs", "g2rd")}
             value={parseInt(valueSize)}
             onChange={(value) => setAttributes({ valueSize: `${value}em` })}
             min={1}
             max={5}
             step={0.1}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
-            label={__("Label Size", "g2rd")}
+            label={__("Taille des étiquettes", "g2rd")}
             value={parseInt(labelSize)}
             onChange={(value) => setAttributes({ labelSize: `${value}em` })}
             min={0.5}
             max={2}
             step={0.1}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
-            label={__("Item Spacing", "g2rd")}
+            label={__("Espacement", "g2rd")}
             value={parseInt(itemSpacing)}
             onChange={(value) => setAttributes({ itemSpacing: `${value}px` })}
             min={0}
             max={50}
             step={1}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
-            label={__("Item Padding", "g2rd")}
+            label={__("Rembourrage", "g2rd")}
             value={parseInt(itemPadding)}
             onChange={(value) => setAttributes({ itemPadding: `${value}px` })}
             min={5}
             max={50}
             step={1}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           <RangeControl
-            label={__("Border Radius", "g2rd")}
+            label={__("Arrondi des coins", "g2rd")}
             value={parseInt(itemBorderRadius)}
             onChange={(value) =>
               setAttributes({ itemBorderRadius: `${value}px` })
             }
             min={0}
             max={20}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
       </InspectorControls>

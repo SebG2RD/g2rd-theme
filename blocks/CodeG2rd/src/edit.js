@@ -94,7 +94,10 @@ export default function Edit({ attributes, setAttributes }) {
 					<TextControl
 						label={__('Nom du fichier (optionnel)', 'g2rd')}
 						value={file}
-						onChange={(v) => setAttributes({ file: v })}
+						onChange={(v) =
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+onChange={(v) => setAttributes({ file: v })}
 						help={__(
 							'Affiché dans l’en-tête du bloc sur le site.',
 							'g2rd'
@@ -146,7 +149,9 @@ export default function Edit({ attributes, setAttributes }) {
 					<TextareaControl
 						label={__('Coller ou modifier ici', 'g2rd')}
 						value={source}
-						onChange={(v) => setAttributes({ source: v })}
+						onChange={(v) =
+						__nextHasNoMarginBottom
+onChange={(v) => setAttributes({ source: v })}
 						rows={12}
 					/>
 				</PanelBody>
