@@ -223,6 +223,10 @@ Ce thème est distribué sous licence **EUPL-1.2**. Voir le fichier `LICENSE` po
 
 ## Changelog
 
+### 1.6.9.5
+
+- **Fix** : corruption JSX corrigée sur 20 blocs — handlers `onChange` coupés avant `=>` par le script d'injection des props ; `TextControl` (67 occurrences) et `TextareaControl` (11 occurrences) restaurés, build CI vert.
+
 ### 1.6.9.4
 
 - **Fix PHP** : guillemets Unicode (U+2018/2019) remplacés par apostrophes ASCII dans `prettycode-helpers.php` et `ShareButtons/render.php` — erreur `Undefined constant "'ABSPATH'"` sur PHP 8.
