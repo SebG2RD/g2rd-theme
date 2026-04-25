@@ -273,10 +273,8 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Texte avant les mots animés", "g2rd" ) }
 						value={ textBefore }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { textBefore: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { textBefore: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<div style={ { margin: "12px 0 8px" } }>
@@ -308,10 +306,8 @@ onChange={ ( v ) => setAttributes( { textBefore: v } ) }
 					<TextControl
 						label={ __( "Texte après les mots animés", "g2rd" ) }
 						value={ textAfter }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { textAfter: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { textAfter: v } ) }
 						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
@@ -374,10 +370,8 @@ onChange={ ( v ) => setAttributes( { textAfter: v } ) }
 					<TextControl
 						label={ __( "Taille de police (ex : 3rem, 48px)", "g2rd" ) }
 						value={ fontSizeValue }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<SelectControl
@@ -389,19 +383,15 @@ onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
 					<TextControl
 						label={ __( "Hauteur de ligne (ex : 1.3)", "g2rd" ) }
 						value={ lineHeight }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { lineHeight: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { lineHeight: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<TextControl
 						label={ __( "Espacement lettres (ex : -0.02em)", "g2rd" ) }
 						value={ letterSpacing }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { letterSpacing: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { letterSpacing: v } ) }
 						__nextHasNoMarginBottom
 					/>
 				</PanelBody>

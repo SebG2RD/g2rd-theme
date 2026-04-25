@@ -121,20 +121,17 @@ export default function Edit({ attributes, setAttributes }) {
               <TextControl
                 label={__("Icône", "g2rd")}
                 value={headerIcon}
-                onChange={(v) =
+                onChange={(v) => setAttributes({ headerIcon: v })}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ headerIcon: v })}
                 help={__("Emoji ou caractère (ex. ❓ 💬 🙋)", "g2rd")}
                 __nextHasNoMarginBottom
               />
               <TextControl
                 label={__("Texte de l'en-tête", "g2rd")}
                 value={headerText}
-                onChange={(v) =
+                onChange={(v) => setAttributes({ headerText: v })}
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ headerText: v })}
                 __nextHasNoMarginBottom
               />
             </>
@@ -228,10 +225,9 @@ onChange={(v) => setAttributes({ headerText: v })}
                 >
                   <TextControl
                     value={item.question}
-                    onChange={(v) =
+                    onChange={(v) => updateItem(idx, "question", v)}
                     __next40pxDefaultSize
                     __nextHasNoMarginBottom
-onChange={(v) => updateItem(idx, "question", v)}
                     onClick={(e) => e.stopPropagation()}
                     className="g2rd-faq__question-input"
                     __nextHasNoMarginBottom
@@ -247,9 +243,8 @@ onChange={(v) => updateItem(idx, "question", v)}
                     <TextareaControl
                       label={__("Réponse", "g2rd")}
                       value={item.answer}
-                      onChange={(v) =
+                      onChange={(v) => updateItem(idx, "answer", v)}
                       __nextHasNoMarginBottom
-onChange={(v) => updateItem(idx, "answer", v)}
                       rows={4}
                       __nextHasNoMarginBottom
                     />

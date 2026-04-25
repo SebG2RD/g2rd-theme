@@ -85,10 +85,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						<TextControl
 							label={ __( 'Question', 'g2rd' ) }
 							value={ item.question }
-							onChange={ ( val ) =
+							onChange={ ( val ) => updateItem( i, 'question', val ) }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-onChange={ ( val ) => updateItem( i, 'question', val ) }
 							placeholder={ __( 'Posez une question claire…', 'g2rd' ) }
 							className="geo-faq__question-input"
 						/>
@@ -96,9 +95,8 @@ onChange={ ( val ) => updateItem( i, 'question', val ) }
 						<TextareaControl
 							label={ __( 'Réponse', 'g2rd' ) }
 							value={ item.answer }
-							onChange={ ( val ) =
+							onChange={ ( val ) => updateItem( i, 'answer', val ) }
 							__nextHasNoMarginBottom
-onChange={ ( val ) => updateItem( i, 'answer', val ) }
 							placeholder={ __( 'Répondez en 1 à 3 phrases courtes, directement actionnables…', 'g2rd' ) }
 							rows={ 3 }
 							className="geo-faq__answer-input"

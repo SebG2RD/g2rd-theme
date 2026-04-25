@@ -405,10 +405,9 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					<TextControl
 						label={ __( 'Valeur CSS du dégradé', 'g2rd' ) }
 						value={ bgGradient }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { bgGradient: v } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { bgGradient: v } ) }
 						placeholder="linear-gradient(135deg, #667eea, #764ba2)"
 						__next40pxDefaultSize={ true }
 						__nextHasNoMarginBottom={ true }
@@ -448,10 +447,9 @@ onChange={ ( v ) => setAttributes( { bgGradient: v } ) }
 						<TextControl
 							label={ __( 'Position', 'g2rd' ) }
 							value={ bgImagePosition }
-							onChange={ ( v ) =
+							onChange={ ( v ) => setAttributes( { bgImagePosition: v } ) }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { bgImagePosition: v } ) }
 							placeholder="center center"
 							__next40pxDefaultSize={ true }
 							__nextHasNoMarginBottom={ true }
@@ -625,10 +623,9 @@ onChange={ ( v ) => setAttributes( { bgImagePosition: v } ) }
 				<TextControl
 					label={ __( 'Classe CSS', 'g2rd' ) }
 					value={ customCSSClass }
-					onChange={ ( v ) =
+					onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
 					placeholder="ma-classe"
 					__next40pxDefaultSize={ true }
 					__nextHasNoMarginBottom={ true }

@@ -205,10 +205,9 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					<TextControl
 						label={ __( "URL de l'API", 'g2rd' ) }
 						value={ apiUrl }
-						onChange={ ( value ) =
+						onChange={ ( value ) => setAttributes( { apiUrl: value } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { apiUrl: value } ) }
 						placeholder="https://api.example.com/endpoint"
 						help={ __(
 							'Espaces réservés supportés : {{USER_META:field}}, {{FORM:field|default}}, {{INCREMENT:1}}, {{RANDOM:0-100}}',
@@ -219,9 +218,8 @@ onChange={ ( value ) => setAttributes( { apiUrl: value } ) }
 						<TextareaControl
 							label={ __( 'Corps de la requête (JSON)', 'g2rd' ) }
 							value={ apiBody }
-							onChange={ ( value ) =
+							onChange={ ( value ) => setAttributes( { apiBody: value } ) }
 							__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { apiBody: value } ) }
 							placeholder='{"key": "value"}'
 							rows={ 4 }
 						/>
@@ -268,10 +266,9 @@ placeholder="Bearer mon-token…"/>
 					<TextControl
 						label={ __( 'Champ de réponse', 'g2rd' ) }
 						value={ responseField }
-						onChange={ ( value ) =
+						onChange={ ( value ) => setAttributes( { responseField: value } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { responseField: value } ) }
 						placeholder="data[results]"
 						help={ __(
 							'Laissez vide pour utiliser toute la réponse. Exemple : field[subfield][0]',
@@ -308,10 +305,9 @@ onChange={ ( value ) => setAttributes( { responseField: value } ) }
 								<TextControl
 									label={ __( 'Sélecteur du formulaire', 'g2rd' ) }
 									value={ formSelector }
-									onChange={ ( value ) =
+									onChange={ ( value ) => setAttributes( { formSelector: value } ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { formSelector: value } ) }
 									placeholder=".mon-formulaire"
 								/>
 							) }
@@ -320,10 +316,9 @@ onChange={ ( value ) => setAttributes( { formSelector: value } ) }
 									<TextControl
 										label={ __( "ID d'interaction", 'g2rd' ) }
 										value={ customInteractionId }
-										onChange={ ( value ) =
+										onChange={ ( value ) => setAttributes( { customInteractionId: value } ) }
 										__next40pxDefaultSize
 										__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { customInteractionId: value } ) }
 										placeholder="mon-api-trigger"
 										help={ __(
 											"Utilisez cet ID dans la couche d'interaction avec l'action « Appel API dynamique ».",
@@ -367,10 +362,9 @@ onChange={ ( value ) => setAttributes( { customInteractionId: value } ) }
 						<TextControl
 							label={ __( 'Classe du conteneur de template', 'g2rd' ) }
 							value={ templateContainerClass }
-							onChange={ ( value ) =
+							onChange={ ( value ) => setAttributes( { templateContainerClass: value } ) }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { templateContainerClass: value } ) }
 							placeholder="api-template"
 							help={ __(
 								'Ce bloc sera masqué et cloné pour chaque résultat.',
@@ -380,10 +374,9 @@ onChange={ ( value ) => setAttributes( { templateContainerClass: value } ) }
 						<TextControl
 							label={ __( 'Classe du conteneur de résultats', 'g2rd' ) }
 							value={ resultsContainerClass }
-							onChange={ ( value ) =
+							onChange={ ( value ) => setAttributes( { resultsContainerClass: value } ) }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { resultsContainerClass: value } ) }
 							placeholder="api-results"
 							help={ __( 'Les résultats seront injectés ici.', 'g2rd' ) }
 						/>
@@ -431,20 +424,18 @@ placeholder="title ou urls[small]"/>
 					<TextControl
 						label={ __( 'Sélecteur du préchargeur', 'g2rd' ) }
 						value={ customLoaderSelector }
-						onChange={ ( value ) =
+						onChange={ ( value ) => setAttributes( { customLoaderSelector: value } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { customLoaderSelector: value } ) }
 						placeholder=".mon-loader"
 						help={ __( 'Reçoit la classe .active pendant le chargement.', 'g2rd' ) }
 					/>
 					<TextControl
 						label={ __( 'Sélecteur de pagination', 'g2rd' ) }
 						value={ paginationSelector }
-						onChange={ ( value ) =
+						onChange={ ( value ) => setAttributes( { paginationSelector: value } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { paginationSelector: value } ) }
 						placeholder=".ma-pagination"
 						help={ __( "Utilisez le paramètre ?page= dans l'URL API.", 'g2rd' ) }
 					/>
@@ -470,37 +461,33 @@ onChange={ ( value ) => setAttributes( { paginationSelector: value } ) }
 								<TextControl
 									label={ __( 'Champ des messages dans le corps', 'g2rd' ) }
 									value={ chatAddField }
-									onChange={ ( value ) =
+									onChange={ ( value ) => setAttributes( { chatAddField: value } ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { chatAddField: value } ) }
 									placeholder="messages"
 								/>
 								<TextareaControl
 									label={ __( 'Format message utilisateur (JSON)', 'g2rd' ) }
 									value={ chatUserFormat }
-									onChange={ ( value ) =
+									onChange={ ( value ) => setAttributes( { chatUserFormat: value } ) }
 									__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { chatUserFormat: value } ) }
 									placeholder={ '{"role":"user","content":"{{VALUE:.search-input}}"}' }
 									rows={ 3 }
 								/>
 								<TextareaControl
 									label={ __( 'Format réponse assistant (JSON)', 'g2rd' ) }
 									value={ chatAssistantFormat }
-									onChange={ ( value ) =
+									onChange={ ( value ) => setAttributes( { chatAssistantFormat: value } ) }
 									__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { chatAssistantFormat: value } ) }
 									placeholder={ '{"role":"assistant","content":"{{RESPONSE}}"}' }
 									rows={ 3 }
 								/>
 								<TextControl
 									label={ __( 'Champ du texte de réponse', 'g2rd' ) }
 									value={ chatResponseField }
-									onChange={ ( value ) =
+									onChange={ ( value ) => setAttributes( { chatResponseField: value } ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ ( value ) => setAttributes( { chatResponseField: value } ) }
 									placeholder="choices[0][message][content]"
 									help={ __( 'Chemin vers le texte dans la réponse JSON.', 'g2rd' ) }
 								/>

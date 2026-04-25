@@ -255,10 +255,8 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( "Titre du graphique", "g2rd" ) }
 						value={ chartTitle }
-						onChange={ ( v ) =
+						onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
 						__nextHasNoMarginBottom
 					/>
 					<RangeControl
@@ -294,10 +292,8 @@ onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
 							<TextControl
 								label={ __( "Nom de la série", "g2rd" ) }
 								value={ ds.label }
-								onChange={ ( v ) =
+								onChange={ ( v ) => updateDataset( dsIdx, "label", v ) }
 								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-onChange={ ( v ) => updateDataset( dsIdx, "label", v ) }
 								__nextHasNoMarginBottom
 							/>
 							<div style={ { marginTop: "8px", marginBottom: "4px" } }>

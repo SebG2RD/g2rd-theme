@@ -35,38 +35,34 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Titre", "g2rd")}
             value={title}
-            onChange={(v) =
+            onChange={(v) => setAttributes({ title: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ title: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
           <TextareaControl
             label={__("Description", "g2rd")}
             value={description}
-            onChange={(v) =
+            onChange={(v) => setAttributes({ description: v })}
             __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ description: v })}
             rows={3}
           />
           <TextControl
             label={__("Texte bouton principal", "g2rd")}
             value={ctaText}
-            onChange={(v) =
+            onChange={(v) => setAttributes({ ctaText: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ ctaText: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={ctaUrl}
-            onChange={(v) =
+            onChange={(v) => setAttributes({ ctaUrl: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ ctaUrl: v })}
             type="url"
             __next40pxDefaultSize
             __nextHasNoMarginBottom
@@ -74,10 +70,9 @@ onChange={(v) => setAttributes({ ctaUrl: v })}
           <TextControl
             label={__("Texte bouton secondaire (optionnel)", "g2rd")}
             value={ctaSecondaryText}
-            onChange={(v) =
+            onChange={(v) => setAttributes({ ctaSecondaryText: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ ctaSecondaryText: v })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
@@ -85,10 +80,9 @@ onChange={(v) => setAttributes({ ctaSecondaryText: v })}
             <TextControl
               label={__("URL bouton secondaire", "g2rd")}
               value={ctaSecondaryUrl}
-              onChange={(v) =
+              onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
               type="url"
               __next40pxDefaultSize
               __nextHasNoMarginBottom
@@ -104,10 +98,9 @@ onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
             <TextControl
               label={__("Texte de réassurance", "g2rd")}
               value={reassurance}
-              onChange={(v) =
+              onChange={(v) => setAttributes({ reassurance: v })}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
-onChange={(v) => setAttributes({ reassurance: v })}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
             />

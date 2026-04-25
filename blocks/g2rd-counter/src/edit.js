@@ -380,10 +380,9 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Préfixe du nombre", "g2rd")}
             value={numberPrefix}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ numberPrefix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ numberPrefix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
@@ -391,10 +390,9 @@ onChange={(value) => setAttributes({ numberPrefix: value })}
           <TextControl
             label={__("Suffixe du nombre", "g2rd")}
             value={numberSuffix}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ numberSuffix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ numberSuffix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />

@@ -126,10 +126,9 @@ export default function Edit({ attributes, setAttributes }) {
             label={__("Titre", "g2rd")}
             value={title}
             placeholder={__("Titre du compte à rebours", "g2rd")}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ title: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ title: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />

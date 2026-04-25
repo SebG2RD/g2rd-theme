@@ -166,10 +166,9 @@ export default function Edit({ attributes, setAttributes }) {
           <TextControl
             label={__("Accroche (kicker)", "g2rd")}
             value={attributes.kicker}
-            onChange={(val) =
+            onChange={(val) => setAttributes({ kicker: val })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ kicker: val })}
             help={__("Petit texte au-dessus du titre", "g2rd")}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
@@ -177,18 +176,16 @@ onChange={(val) => setAttributes({ kicker: val })}
           <TextareaControl
             label={__("Titre (HTML autorisé)", "g2rd")}
             value={attributes.heading}
-            onChange={(val) =
+            onChange={(val) => setAttributes({ heading: val })}
             __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ heading: val })}
             help={__("Utilisez <mark> pour colorer un mot", "g2rd")}
             rows={3}
           />
           <TextareaControl
             label={__("Sous-titre", "g2rd")}
             value={attributes.subheading}
-            onChange={(val) =
+            onChange={(val) => setAttributes({ subheading: val })}
             __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ subheading: val })}
             rows={3}
           />
         </PanelBody>
@@ -197,20 +194,18 @@ onChange={(val) => setAttributes({ subheading: val })}
           <TextControl
             label={__("Texte bouton principal", "g2rd")}
             value={attributes.ctaPrimaryText}
-            onChange={(val) =
+            onChange={(val) => setAttributes({ ctaPrimaryText: val })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ ctaPrimaryText: val })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={attributes.ctaPrimaryUrl}
-            onChange={(val) =
+            onChange={(val) => setAttributes({ ctaPrimaryUrl: val })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ ctaPrimaryUrl: val })}
             type="url"
             __next40pxDefaultSize
             __nextHasNoMarginBottom
@@ -226,20 +221,18 @@ onChange={(val) => setAttributes({ ctaPrimaryUrl: val })}
               <TextControl
                 label={__("Texte bouton secondaire", "g2rd")}
                 value={attributes.ctaSecondaryText}
-                onChange={(val) =
+                onChange={(val) => setAttributes({ ctaSecondaryText: val })}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ ctaSecondaryText: val })}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
               />
               <TextControl
                 label={__("URL bouton secondaire", "g2rd")}
                 value={attributes.ctaSecondaryUrl}
-                onChange={(val) =
+                onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
                 type="url"
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
@@ -256,10 +249,9 @@ onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
             <TextControl
               label={__("Texte preuve sociale", "g2rd")}
               value={attributes.socialProof}
-              onChange={(val) =
+              onChange={(val) => setAttributes({ socialProof: val })}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
-onChange={(val) => setAttributes({ socialProof: val })}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
             />

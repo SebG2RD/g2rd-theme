@@ -126,10 +126,9 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
               >
                 <TextControl
                   value={string}
-                  onChange={(value) =
+                  onChange={(value) => updateString(index, value)}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
-onChange={(value) => updateString(index, value)}
                   style={{ flex: 1, marginRight: "8px" }}
                 />
                 <Button
@@ -148,19 +147,17 @@ onChange={(value) => updateString(index, value)}
           <TextControl
             label={__("Texte avant l'animation", "g2rd")}
             value={textBefore}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ textBefore: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ textBefore: value })}
             placeholder={__("Texte qui apparaît avant l'animation...", "g2rd")}
           />
           <TextControl
             label={__("Texte après l'animation", "g2rd")}
             value={textAfter}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ textAfter: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ textAfter: value })}
             placeholder={__("Texte qui apparaît après l'animation...", "g2rd")}
           />
         </PanelBody>
@@ -222,10 +219,9 @@ onChange={(value) => setAttributes({ textAfter: value })}
           <TextControl
             label={__("Caractère du curseur", "g2rd")}
             value={cursorChar}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ cursorChar: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ cursorChar: value })}
             disabled={!showCursor}
           />
         </PanelBody>
@@ -244,10 +240,9 @@ onChange={(value) => setAttributes({ cursorChar: value })}
           <TextControl
             label={__("Classe de fondu", "g2rd")}
             value={fadeOutClass}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ fadeOutClass: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ fadeOutClass: value })}
             disabled={!fadeOut}
           />
           <RangeControl

@@ -284,10 +284,9 @@ export default function Edit( { attributes, setAttributes } ) {
               <TextControl
                 label={ __( "Place ID Google", "g2rd" ) }
                 value={ googlePlaceId }
-                onChange={ ( v ) =
+                onChange={ ( v ) => setAttributes( { googlePlaceId: v.trim() } ) }
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-onChange={ ( v ) => setAttributes( { googlePlaceId: v.trim() } ) }
                 placeholder="ChIJxxxxxxxxxxxxxxxxxx"
                 help={
                   <span>

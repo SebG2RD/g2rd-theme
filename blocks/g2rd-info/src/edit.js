@@ -422,10 +422,9 @@ export default function Edit({ attributes, setAttributes }) {
                 <TextControl
                   label={__("Texte alternatif", "g2rd")}
                   value={imageAlt}
-                  onChange={(value) =
+                  onChange={(value) => setAttributes({ imageAlt: value })}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ imageAlt: value })}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
                 />
@@ -466,10 +465,9 @@ onChange={(value) => setAttributes({ imageAlt: value })}
           <TextControl
             label={__("Espacement entre l'icône et le texte (gap)", "g2rd")}
             value={gap}
-            onChange={(value) =
+            onChange={(value) => setAttributes({ gap: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-onChange={(value) => setAttributes({ gap: value })}
             help={__("Exemple : 8px, 1rem, 2em...", "g2rd")}
             __next40pxDefaultSize
             __nextHasNoMarginBottom

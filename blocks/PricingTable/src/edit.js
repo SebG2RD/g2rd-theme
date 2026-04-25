@@ -301,10 +301,9 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl
 						label={ __( 'Icône fonctionnalité', 'g2rd' ) }
 						value={ featureIcon }
-						onChange={ val =
+						onChange={ val => setAttributes( { featureIcon: val } ) }
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-onChange={ val => setAttributes( { featureIcon: val } ) }
 						help={ __( 'Ex: ✓ ✔ → •', 'g2rd' ) }
 					/>
 
@@ -393,25 +392,22 @@ onChange={ val => setAttributes( { featureIcon: val } ) }
 
 							<TextControl label={ __( 'Badge', 'g2rd' ) }
 								value={ col.badge }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'badge', val ) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'badge', val ) }
 								placeholder={ __( 'Ex: Populaire', 'g2rd' ) }
 							/>
 							<TextControl label={ __( 'Titre', 'g2rd' ) }
 								value={ col.title }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'title', val ) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'title', val ) }
 							/>
 							<TextControl label={ __( 'Sous-titre', 'g2rd' ) }
 								value={ col.subtitle }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
 							/>
 
 							{/* Prix */}
@@ -419,32 +415,28 @@ onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
 								<legend style={{fontSize:'12px',fontWeight:600}}>{ __( 'Prix', 'g2rd' ) }</legend>
 								<TextControl label={ __( 'Préfixe (ex: à partir de)', 'g2rd' ) }
 									value={ col.pricePrefix }
-									onChange={ val =
+									onChange={ val => updateColumn( activeColTab, 'pricePrefix', val ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'pricePrefix', val ) }
 								/>
 								<TextControl label={ __( 'Montant (ex: 49 ou Sur devis)', 'g2rd' ) }
 									value={ col.price }
-									onChange={ val =
+									onChange={ val => updateColumn( activeColTab, 'price', val ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'price', val ) }
 								/>
 								<TextControl label={ __( 'Période (ex: / mois)', 'g2rd' ) }
 									value={ col.pricePeriod }
-									onChange={ val =
+									onChange={ val => updateColumn( activeColTab, 'pricePeriod', val ) }
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'pricePeriod', val ) }
 								/>
 							</fieldset>
 
 							<TextareaControl label={ __( 'Description', 'g2rd' ) }
 								value={ col.description }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'description', val ) }
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'description', val ) }
 								rows={ 3 }
 							/>
 
@@ -455,10 +447,9 @@ onChange={ val => updateColumn( activeColTab, 'description', val ) }
 									<div key={fi} style={{ display:'flex', gap:'4px', marginBottom:'4px' }}>
 										<TextControl
 											value={ feat }
-											onChange={ val =
+											onChange={ val => {
 											__next40pxDefaultSize
 											__nextHasNoMarginBottom
-onChange={ val => {
 												const next = [ ...col.features ];
 												next[fi] = val;
 												updateColumn( activeColTab, 'features', next );
@@ -481,17 +472,15 @@ onChange={ val => {
 							{/* CTA */}
 							<TextControl label={ __( 'Texte du bouton', 'g2rd' ) }
 								value={ col.ctaText }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'ctaText', val ) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'ctaText', val ) }
 							/>
 							<TextControl label={ __( 'URL du bouton', 'g2rd' ) }
 								value={ col.ctaUrl }
-								onChange={ val =
+								onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
 							/>
 							<ToggleControl
 								label={ __( 'Ouvrir dans un nouvel onglet', 'g2rd' ) }
@@ -550,10 +539,9 @@ onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
 									<div style={{ display:'flex', gap:'4px', marginBottom:'8px' }}>
 										<TextControl
 											value={ productSearch[activeColTab] || '' }
-											onChange={ val =
+											onChange={ val => setProductSearch( prev => ( { ...prev, [activeColTab]: val } ) ) }
 											__next40pxDefaultSize
 											__nextHasNoMarginBottom
-onChange={ val => setProductSearch( prev => ( { ...prev, [activeColTab]: val } ) ) }
 											placeholder={ __( 'Rechercher un produit…', 'g2rd' ) }
 											style={{flex:1}}
 										/>
