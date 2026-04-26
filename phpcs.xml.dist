@@ -242,12 +242,12 @@
     <!-- ── Comportements intentionnels (warnings supprimés globalement) ─── -->
 
     <!--
-        error_log() : utilisé délibérément dans les handlers d'erreurs du thème
-        (class-block-editor-autoload.php) pour faciliter le débogage en développement.
-        À retirer lors du passage en production stricte.
+        error_log() ne doit pas être ignoré globalement.
+        Exception temporaire limitée au fichier qui journalise la composition dynamique.
+        Objectif à terme : remplacer par logging conditionnel centralisé.
     -->
     <rule ref="WordPress.PHP.DevelopmentFunctions">
-        <severity>0</severity>
+        <exclude-pattern>./classes/class-block-editor-autoload.php</exclude-pattern>
     </rule>
 
     <!--
@@ -260,30 +260,24 @@
     </rule>
 
     <!--
-        @filemtime() : opérateur @ intentionnel sur filemtime() pour ignorer
-        les erreurs de stat sur des répertoires inexistants lors de la composition
-        du theme.json dynamique. Le code vérifie le résultat (false).
+        @filemtime() ne doit pas être ignoré globalement.
+        Exception temporaire limitée au fichier de composition theme.json.
     -->
     <rule ref="WordPress.PHP.NoSilencedErrors">
-        <severity>0</severity>
+        <exclude-pattern>./classes/class-block-editor-autoload.php</exclude-pattern>
     </rule>
 
     <!--
-        Paramètre inutilisé : paramètres requis par les interfaces de hooks
-        WordPress (ex. $mimes dans upload_mimes, $context dans block_categories,
-        $block dans render_block). On ne peut pas les supprimer.
+        Les paramètres inutilisés doivent être gérés au cas par cas
+        via phpcs:ignore local quand imposés par une signature WordPress.
     -->
-    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
-        <severity>0</severity>
-    </rule>
 
     <!--
-        DirectDatabaseQuery : requêtes SQL directes intentionnelles
-        (class-portfolio-query.php) pour des performances optimales sur des
-        requêtes complexes que WP_Query ne peut pas exprimer efficacement.
+        Requêtes SQL directes : exception limitée à la couche query dédiée.
+        Toute nouvelle requête directe hors ce fichier doit être revue.
     -->
     <rule ref="WordPress.DB.DirectDatabaseQuery">
-        <severity>0</severity>
+        <exclude-pattern>./classes/class-portfolio-query.php</exclude-pattern>
     </rule>
 
     <!--

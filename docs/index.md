@@ -1,8 +1,14 @@
 # Documentation du thème G2RD
 
-Bienvenue dans la documentation avancée du thème G2RD.
+Bienvenue dans la documentation du thème G2RD.
 
-## Sommaire
+## Documentation client (produit / fin d’utilisateur)
+
+Guides en français pour **installation**, **licence**, **mises à jour**, **blocs**, **GEO**, **SEO**, **mode business**, **avis Google**, **mode client**, **dépannage**, **migration** et **FAQ licence** :
+
+→ **[client/README.md](client/README.md)** (table des matières)
+
+## Sommaire (technique / contributeurs)
 
 - [accessibility.md](accessibility.md) : Guide d'accessibilité et bonnes pratiques WCAG 2.1
 - [blocks.md](blocks.md) : Documentation des blocs personnalisés FSE

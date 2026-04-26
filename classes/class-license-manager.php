@@ -177,20 +177,29 @@ class LicenseManager {
         );
 
         if (\is_wp_error($response)) {
-            return $this->make_error(
-                sprintf(
-                    /* translators: %s: message d'erreur réseau */
+            $detail = $response->get_error_message();
+            $public = __('Impossible de contacter le serveur de licences pour le moment. Réessayez plus tard.', 'g2rd');
+            if (defined('WP_DEBUG') && WP_DEBUG && $detail) {
+                $public = sprintf(
+                    /* translators: %s: message d'erreur réseau (visible uniquement si WP_DEBUG est activé) */
                     __('Impossible de contacter le serveur de licences : %s', 'g2rd'),
-                    $response->get_error_message()
-                )
-            );
+                    $detail
+                );
+            }
+            return $this->make_error($public);
         }
 
         $code = (int) \wp_remote_retrieve_response_code($response);
         $body = json_decode(\wp_remote_retrieve_body($response), true);
 
         if ($code !== 200 || empty($body['success'])) {
-            return $this->make_error($body['message'] ?? __('Activation échouée. Vérifiez votre clé de licence.', 'g2rd'));
+            $fallback = __('Activation échouée. Vérifiez votre clé de licence ou réessayez plus tard.', 'g2rd');
+            $server   = isset($body['message']) ? (string) $body['message'] : '';
+            $public   = $fallback;
+            if (defined('WP_DEBUG') && WP_DEBUG && $server !== '') {
+                $public = $server;
+            }
+            return $this->make_error($public);
         }
 
         $this->store_license($license_key, 'active', $body);
@@ -228,7 +237,7 @@ class LicenseManager {
 
         return [
             'success' => true,
-            'message' => __('Licence désactivée. Les blocs G2RD ne sont plus disponibles.', 'g2rd'),
+            'message' => __('Licence désactivée. Les blocs restent visibles sur le site ; l’insertion depuis l’éditeur peut être limitée tant que la licence n’est pas réactivée.', 'g2rd'),
         ];
     }
 

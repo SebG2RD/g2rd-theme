@@ -67,7 +67,7 @@ class PortfolioQuery {
      * @param \WP_Block $block Instance du bloc
      * @return array Arguments de la requête modifiés
      */
-    public function filterPortfolioQuery($query_args, $block): array {
+    public function filterPortfolioQuery($query_args, $block): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- $block imposé par query_loop_block_query_vars
         // Vérifier si nous sommes sur une page single-qui-sommes-nous
         if (!\is_singular('qui-sommes-nous')) {
             return $query_args;
@@ -107,14 +107,6 @@ class PortfolioQuery {
 
         // Mettre en cache les résultats
         \set_transient($cache_key, $query_args, self::CACHE_DURATION);
-
-        // Activer le débogage pour voir la requête SQL
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            \add_filter('posts_request', function ($sql) {
-                error_log('Portfolio Query SQL: ' . $sql);
-                return $sql;
-            });
-        }
 
         return $query_args;
     }

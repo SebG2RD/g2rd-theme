@@ -1,34 +1,32 @@
-# Guide de sécurité
+# Sécurité du dépôt et du thème G2RD
 
-## Bonnes pratiques
+Ce document complète [SECURITY.md](../SECURITY.md) à l’usage des contributeurs et des sites en production.
 
-- Gardez WordPress, le thème et les plugins à jour
-- Utilisez des mots de passe forts pour tous les comptes
-- Limitez les accès administrateur (rôles WordPress)
-- Désactivez l'édition de fichiers dans l'admin (`define('DISALLOW_FILE_EDIT', true);`)
-- Vérifiez les permissions des fichiers (644 pour les fichiers, 755 pour les dossiers)
-- Sauvegardez régulièrement votre site
+## Dépôt public : interdits
 
-## Sécurité du code
+Ne jamais committer :
 
-- Échappez toutes les sorties (`esc_html`, `esc_attr`, etc.)
-- Vérifiez les nonces pour les actions sensibles (`wp_nonce_field`, `check_admin_referer`)
-- Utilisez les capacités WordPress (`current_user_can`) pour restreindre l'accès aux actions sensibles
-- Ne stockez jamais de mots de passe en clair dans la base de données
+- clés API (Google Maps, services tiers, etc.) ;
+- tokens d’authentification, secrets HMAC, mots de passe ;
+- fichiers `.env`, dumps de base, certificats privés ;
+- URL de webhooks contenant des secrets en paramètre.
 
-## Exemples dans le thème
+Les **clés sensibles** se configurent dans l’administration WordPress (options du thème) ou via des mécanismes serveur (variables d’environnement, fichiers hors dépôt), pas dans le code versionné.
 
-- Utilisation de `wp_nonce_field()` dans les formulaires d'admin
-- Vérification des capacités avec `current_user_can('edit_posts')`
-- Échappement des champs avec `esc_html()` dans les templates
+## Messages d’erreur et journaux
 
-## Plugins recommandés
+- En production, les messages affichés aux administrateurs ou dans l’API REST doivent rester **génériques** (ex. « impossible de contacter le serveur ») lorsque `WP_DEBUG` est désactivé.
+- Les journaux PHP (`error_log`) ne doivent pas inclure des **chemins absolus** complets ni du **SQL brut** : cela facilite les attaques ciblées et la fuite d’informations sur l’hébergement.
 
-- Wordfence Security
-- Sucuri Security
-- iThemes Security
+## API REST et administration
 
-## Ressources
+- Les routes réservées aux administrateurs doivent vérifier les **capacités** WordPress et utiliser des **nonces** ou l’authentification appropriée.
+- Éviter de renvoyer des structures trop détaillées sur l’infrastructure (chemins internes, versions de tous les plugins, etc.) sans nécessité fonctionnelle.
 
-- [Sécurité WordPress](https://wordpress.org/support/article/hardening-wordpress/)
-- [Best Practices for WordPress Development](https://developer.wordpress.org/plugins/security/)
+## Blocs et éditeur
+
+- Les blocs « API », « options », avis Google, etc. ne doivent pas embarquer de secrets dans le HTML ou les attributs du bloc sauvegardés en base : préférer des options côté serveur ou des placeholders explicites dans l’UI.
+
+## Signalement
+
+Voir [SECURITY.md](../SECURITY.md) pour la procédure de signalement de vulnérabilité.

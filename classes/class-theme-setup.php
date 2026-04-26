@@ -155,7 +155,7 @@ class ThemeSetup {
      * @param array $mimes Types MIME
      * @return array Types de fichiers mis à jour
      */
-    public function allowFileTypes($types, $file, $filename, $mimes): array {
+    public function allowFileTypes($types, $file, $filename, $mimes): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- $mimes imposé par wp_check_filetype_and_ext
         if (\str_ends_with($filename, '.webp')) {
             $types['ext']  = 'webp';
             $types['type'] = 'image/webp';

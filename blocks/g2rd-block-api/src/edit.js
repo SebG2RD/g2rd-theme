@@ -252,10 +252,10 @@ placeholder="Authorization"/>
 						label={ __( 'Valeur', 'g2rd' ) }
 						value={ newHeaderValue }
 						onChange={ setNewHeaderValue }
-						placeholder="Bearer mon-token…"
+						placeholder="Authorization: valeur côté serveur uniquement…"
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-placeholder="Bearer mon-token…"/>
+placeholder="Authorization: valeur côté serveur uniquement…"/>
 					<Button variant="primary" size="small" onClick={ addHeader }>
 						{ __( "Ajouter l'en-tête", 'g2rd' ) }
 					</Button>

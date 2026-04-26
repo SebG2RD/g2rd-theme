@@ -100,6 +100,9 @@ export function TabLicence() {
 						Obtenir une licence →
 					</a>
 				</p>
+				<p style={ { color: '#646970', marginTop: -6, marginBottom: 16, fontSize: 12 } }>
+					Les nouvelles licences sont gérées via FluentCart. SureCart reste supporté uniquement pour la compatibilité historique.
+				</p>
 
 				{ notice && (
 					<div
@@ -190,7 +193,7 @@ export function TabLicence() {
 								{ isLoading ? <Spinner /> : 'Activer la licence' }
 							</Button>
 							<p style={ { color: '#787c82', fontSize: 12, marginTop: 8 } }>
-								Vous trouverez votre clé dans votre espace client sur g2rd.fr.
+								Vous trouverez votre clé dans votre espace client G2RD (FluentCart) sur g2rd.fr.
 							</p>
 						</div>
 					) }

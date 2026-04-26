@@ -1,6 +1,6 @@
 {
   "name": "g2rd-theme",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "private": true,
   "workspaces": [
     "blocks/CardG2rd",
@@ -29,6 +29,9 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start --workspaces --if-present",
+    "audit:blocks": "node tools/audit-blocks.mjs",
+    "audit:blocks:strict": "node tools/audit-blocks.mjs --strict",
+    "test:blocks": "wp-scripts test-unit-js --runInBand --ci --passWithNoTests",
     "build:advanced-heading": "npm run build --workspace=blocks/g2rd-advanced-heading",
     "build:card": "npm run build --workspace=blocks/CardG2rd",
     "build:charts": "npm run build --workspace=blocks/g2rd-charts",

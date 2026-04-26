@@ -38,6 +38,13 @@ class BlockEditorAutoload {
      * Version du thème pour le cache-busting
      */
     private string $theme_version;
+    
+    /**
+     * Liste des blocs premium enregistrés en mode restreint (licence inactive).
+     *
+     * @var array<int, string>
+     */
+    private array $restricted_blocks = [];
 
     /**
      * Constructeur
@@ -56,6 +63,7 @@ class BlockEditorAutoload {
         \add_action('init', [$this, 'registerCustomBlocks']);
         \add_action('init', [$this, 'registerBlocksAssets']);
         \add_filter('wp_theme_json_data_theme', [$this, 'composeThemeJson']);
+        \add_action('enqueue_block_editor_assets', [$this, 'enqueueLicenseEditorNotice']);
         
         // Forcer le rechargement des blocs en mode développement
         if (defined('WP_DEBUG') && WP_DEBUG) {
@@ -71,6 +79,7 @@ class BlockEditorAutoload {
      */
     public function registerCustomBlocks(): void {
         $folders = \glob(\get_template_directory() . '/blocks/*/');
+        $license_active = \G2RD\LicenseManager::is_active();
 
         foreach ($folders as $folder) {
             $block      = basename($folder);
@@ -98,20 +107,36 @@ class BlockEditorAutoload {
                 continue;
             }
 
-            // Licence requise pour tous les blocs G2RD custom
-            // Sans licence valide, le thème FSE de base fonctionne mais les blocs ne sont pas enregistrés.
-            if (!\G2RD\LicenseManager::is_active()) {
+            $register_args = [];
+
+            // Mode professionnel "graceful" :
+            // - Le bloc reste enregistré (édition/rendu des contenus existants préservés)
+            // - Les nouvelles insertions premium sont bloquées si licence inactive.
+            if (
+                !$license_active
+                && !empty($decoded['name'])
+                && str_starts_with((string) $decoded['name'], 'g2rd/')
+            ) {
+                $supports = isset($decoded['supports']) && \is_array($decoded['supports'])
+                    ? $decoded['supports']
+                    : [];
+                $supports['inserter'] = false;
+                $register_args['supports'] = $supports;
+                $this->restricted_blocks[] = (string) $decoded['name'];
+
                 if (defined('WP_DEBUG') && WP_DEBUG) {
-                    error_log("G2RD: bloc « $block » non chargé — licence inactive.");
+                    error_log("G2RD: bloc « $block » enregistré en mode restreint — licence inactive.");
                 }
-                continue;
             }
 
             if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log("Tentative d'enregistrement du bloc: $block_path");
+                // Ne pas journaliser le chemin absolu du serveur (fuite d’arborescence).
+                error_log('Tentative d\'enregistrement du bloc: ' . $block);
             }
 
-            $result = \register_block_type($block_path);
+            $result = empty($register_args)
+                ? \register_block_type($block_path)
+                : \register_block_type($block_path, $register_args);
 
             if (defined('WP_DEBUG') && WP_DEBUG) {
                 if ($result) {
@@ -121,6 +146,30 @@ class BlockEditorAutoload {
                 }
             }
         }
+    }
+
+    /**
+     * Affiche une notice claire dans l'éditeur quand la licence est inactive.
+     *
+     * @return void
+     */
+    public function enqueueLicenseEditorNotice(): void {
+        if (\G2RD\LicenseManager::is_active() || empty($this->restricted_blocks)) {
+            return;
+        }
+
+        \wp_enqueue_script('wp-dom-ready');
+
+        $message = \__(
+            'Licence G2RD inactive : vos blocs existants restent éditables et visibles en frontend, mais les nouvelles insertions de blocs premium sont temporairement désactivées.',
+            'g2rd'
+        );
+
+        $script = "wp.domReady(function(){if(window.wp&&wp.data&&wp.data.dispatch){wp.data.dispatch('core/notices').createNotice('warning','"
+            . \esc_js($message)
+            . "',{isDismissible:true,id:'g2rd-license-inactive-editor-notice'});}});";
+
+        \wp_add_inline_script('wp-dom-ready', $script);
     }
 
     /**
@@ -167,7 +216,7 @@ class BlockEditorAutoload {
     private function loadJsonFile(string $path): ?array {
         if (!file_exists($path) || !is_readable($path)) {
             if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log("G2RD: Fichier JSON introuvable ou illisible : $path");
+                error_log('G2RD: Fichier JSON introuvable ou illisible : ' . basename($path));
             }
             return null;
         }
@@ -175,7 +224,7 @@ class BlockEditorAutoload {
         $content = file_get_contents($path);
         if (false === $content) {
             if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log("G2RD: Impossible de lire le fichier JSON : $path");
+                error_log('G2RD: Impossible de lire le fichier JSON : ' . basename($path));
             }
             return null;
         }
@@ -183,7 +232,7 @@ class BlockEditorAutoload {
         $decoded = json_decode($content, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log("G2RD: JSON invalide dans $path — " . json_last_error_msg());
+                error_log('G2RD: JSON invalide dans ' . basename($path) . ' — ' . json_last_error_msg());
             }
             return null;
         }
@@ -287,6 +336,7 @@ class BlockEditorAutoload {
         // (compatible Redis / Memcached / tout object cache)
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Suppression de transients par préfixe : delete_transient() ne supporte pas les wildcards, requête directe inévitable.
         $transient_keys = $wpdb->get_col(
             $wpdb->prepare(
                 "SELECT REPLACE(option_name, '_transient_', '') FROM {$wpdb->options}

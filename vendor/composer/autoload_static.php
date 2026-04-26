@@ -10,6 +10,20 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'G' => 
+        array (
+            'G2RD\\' => 5,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'G2RD\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes',
+        ),
+    );
+
     public static $prefixesPsr0 = array (
         'H' => 
         array (
@@ -26,6 +40,45 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'G2RD\\Abilities' => __DIR__ . '/../..' . '/classes/class-abilities.php',
+        'G2RD\\ApiConnector' => __DIR__ . '/../..' . '/classes/class-api-connector.php',
+        'G2RD\\BlockCategories' => __DIR__ . '/../..' . '/classes/class-block-categories.php',
+        'G2RD\\BlockEditorAutoload' => __DIR__ . '/../..' . '/classes/class-block-editor-autoload.php',
+        'G2RD\\BlockEditorEnhancements' => __DIR__ . '/../..' . '/classes/class-block-editor-enhancements.php',
+        'G2RD\\BlockPatterns' => __DIR__ . '/../..' . '/classes/class-block-patterns.php',
+        'G2RD\\BlockStyles' => __DIR__ . '/../..' . '/classes/class-block-styles.php',
+        'G2RD\\BlockStylesheets' => __DIR__ . '/../..' . '/classes/class-block-stylesheets.php',
+        'G2RD\\Business_Mode' => __DIR__ . '/../..' . '/classes/class-business-mode.php',
+        'G2RD\\CPT_Portfolio' => __DIR__ . '/../..' . '/classes/class-custom-post-types-portfolio.php',
+        'G2RD\\CPT_Prestations' => __DIR__ . '/../..' . '/classes/class-custom-post-types-prestations.php',
+        'G2RD\\CPT_QuiSommesNous' => __DIR__ . '/../..' . '/classes/class-custom-post-types-qui-sommes-nous.php',
+        'G2RD\\CarouselAssets' => __DIR__ . '/../..' . '/classes/class-carousel-assets.php',
+        'G2RD\\ClickableArticles' => __DIR__ . '/../..' . '/classes/class-clickable-articles.php',
+        'G2RD\\Client_Mode' => __DIR__ . '/../..' . '/classes/class-client-mode.php',
+        'G2RD\\ComingSoon' => __DIR__ . '/../..' . '/classes/class-coming-soon.php',
+        'G2RD\\Conditional_Menu' => __DIR__ . '/../..' . '/classes/class-conditional-menu.php',
+        'G2RD\\DarkMode' => __DIR__ . '/../..' . '/classes/class-dark-mode.php',
+        'G2RD\\FilterableGrid' => __DIR__ . '/../..' . '/classes/class-filterable-grid.php',
+        'G2RD\\FluentCartSupport' => __DIR__ . '/../..' . '/classes/class-fluent-cart-support.php',
+        'G2RD\\FseSync' => __DIR__ . '/../..' . '/classes/class-fse-sync.php',
+        'G2RD\\GSAPAnimations' => __DIR__ . '/../..' . '/classes/class-gsap-animations.php',
+        'G2RD\\GeoAnalyzer' => __DIR__ . '/../..' . '/classes/class-geo-analyzer.php',
+        'G2RD\\GitHubUpdater' => __DIR__ . '/../..' . '/classes/class-github-updater.php',
+        'G2RD\\GlassEffect' => __DIR__ . '/../..' . '/classes/class-glass-effect.php',
+        'G2RD\\GoogleReviews' => __DIR__ . '/../..' . '/classes/class-google-reviews.php',
+        'G2RD\\JsonConfig' => __DIR__ . '/../..' . '/classes/class-json-config.php',
+        'G2RD\\LicenseManager' => __DIR__ . '/../..' . '/classes/class-license-manager.php',
+        'G2RD\\LicenseServer' => __DIR__ . '/../..' . '/classes/class-license-server.php',
+        'G2RD\\LoginCustomizer' => __DIR__ . '/../..' . '/classes/class-login-customizer.php',
+        'G2RD\\Onboarding' => __DIR__ . '/../..' . '/classes/class-onboarding.php',
+        'G2RD\\ParticlesEffect' => __DIR__ . '/../..' . '/classes/class-particules-effect.php',
+        'G2RD\\PortfolioQuery' => __DIR__ . '/../..' . '/classes/class-portfolio-query.php',
+        'G2RD\\SEO_Helper' => __DIR__ . '/../..' . '/classes/class-seo-helper.php',
+        'G2RD\\ScriptsManager' => __DIR__ . '/../..' . '/classes/class-scripts-manager.php',
+        'G2RD\\Shortcode' => __DIR__ . '/../..' . '/classes/class-shortcode.php',
+        'G2RD\\ThemeAdmin' => __DIR__ . '/../..' . '/classes/class-theme-admin.php',
+        'G2RD\\ThemeOptions' => __DIR__ . '/../..' . '/classes/class-theme-options.php',
+        'G2RD\\ThemeSetup' => __DIR__ . '/../..' . '/classes/class-theme-setup.php',
         'Highlight\\Autoloader' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/Autoloader.php',
         'Highlight\\HighlightResult' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/HighlightResult.php',
         'Highlight\\Highlighter' => __DIR__ . '/..' . '/scrivo/highlight.php/Highlight/Highlighter.php',
@@ -42,6 +95,8 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit28de9bce36293c473162ad03e9cc6112::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit28de9bce36293c473162ad03e9cc6112::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit28de9bce36293c473162ad03e9cc6112::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit28de9bce36293c473162ad03e9cc6112::$classMap;
 

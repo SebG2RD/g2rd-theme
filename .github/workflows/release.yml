@@ -1,6 +1,6 @@
 name: Release du thème G2RD FSE
 
-# Déclenchement : tag de version (ex. v1.3.0) ou manuel
+# Déclenchement : tag de version (ex. v1.6.9.5) ou manuel
 on:
   push:
     tags:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (ex. 1.3.0)'
+        description: 'Version (ex. 1.6.9.5)'
         required: true
         type: string
 
@@ -22,12 +22,62 @@ jobs:
     permissions:
       contents: write
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wp_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
     steps:
-      # ── Checkout ─────────────────────────────────────────────────────────
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ── Node.js & Build des blocs ─────────────────────────────────────────
+      - name: Déterminer la version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Vérifier l'alignement des versions (style.css, package.json, readme.txt, composer)
+        run: bash tools/verify-release-version.sh "${{ steps.version.outputs.version }}"
+
+      - name: Vérifier cohérence tag Git ↔ version (push tag uniquement)
+        if: github.event_name == 'push'
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          EXPECTED="v${{ steps.version.outputs.version }}"
+          if [ "$TAG" != "$EXPECTED" ]; then
+            echo "ERREUR: le tag poussé ($TAG) ne correspond pas à la version dérivée ($EXPECTED)"
+            exit 1
+          fi
+          echo "OK: tag $TAG aligné avec la version ${{ steps.version.outputs.version }}"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+          coverage: none
+
+      - name: Composer install (prod uniquement — aligné avec le ZIP sans vendor)
+        run: composer install --no-interaction --prefer-dist --no-dev
+
+      - name: Composer audit
+        run: composer audit --no-interaction
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,28 +87,16 @@ jobs:
       - name: Installer les dépendances npm
         run: npm ci --ignore-scripts
 
+      - name: npm audit (avant build)
+        run: npm audit --audit-level=high
+
       - name: Compiler tous les blocs
         run: npm run build
 
-      # ── Déterminer la version ─────────────────────────────────────────────
-      - name: Déterminer la version
-        id: version
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.version }}"
-          else
-            # Extraire depuis le tag (supprime le 'v' préfixe)
-            VERSION="${GITHUB_REF_NAME#v}"
-          fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
-
-      # ── Créer le ZIP de production ────────────────────────────────────────
       - name: Créer le ZIP de production
         run: |
           mkdir -p dist/g2rd-theme
 
-          # Copier les fichiers dans le dossier g2rd-theme/ (requis par WordPress)
           rsync -a \
             --exclude=".git" \
             --exclude=".github" \
@@ -68,6 +106,10 @@ jobs:
             --exclude="vendor" \
             --exclude="dist" \
             --exclude="docs" \
+            --exclude="tools" \
+            --exclude="tests" \
+            --exclude="phpunit.xml.dist" \
+            --exclude=".phpunit.cache" \
             --exclude="blocks/*/src" \
             --exclude="blocks/*/node_modules" \
             --exclude="blocks/*/package.json" \
@@ -87,21 +129,65 @@ jobs:
             --exclude="CLAUDE.md" \
             . dist/g2rd-theme/
 
-          # Zipper le dossier avec le wrapper — WordPress l'installera sous g2rd-theme/
           cd dist
           zip -r g2rd-theme.zip g2rd-theme/
           cd ..
 
           echo "Taille ZIP : $(du -sh dist/g2rd-theme.zip | cut -f1)"
 
-          # Vérifier que style.css est bien dans le ZIP (requis par WordPress)
-          if ! unzip -l dist/g2rd-theme.zip | grep -q "g2rd-theme/style.css"; then
-            echo "ERREUR : style.css introuvable dans le ZIP !"
-            exit 1
-          fi
-          echo "Vérification ZIP : g2rd-theme/style.css présent"
+      - name: Valider le ZIP (intégrité + fichiers requis + exclusions)
+        run: bash tools/verify-theme-zip.sh dist/g2rd-theme.zip
 
-      # ── Créer la release GitHub ───────────────────────────────────────────
+      - name: Test installation WordPress (activation du thème depuis le ZIP)
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y default-mysql-client unzip
+
+          ROOT="$(pwd)"
+          mkdir -p "$ROOT/_wp-e2e"
+          cd "$ROOT/_wp-e2e"
+
+          curl -sSLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+
+          for i in $(seq 1 60); do
+            if mysql -h mysql -uroot -proot -e "SELECT 1" >/dev/null 2>&1; then
+              echo "MySQL prêt."
+              break
+            fi
+            if [ "$i" -eq 60 ]; then
+              echo "ERREUR: MySQL indisponible après attente."
+              exit 1
+            fi
+            sleep 2
+          done
+
+          ./wp-cli.phar core download --force
+          ./wp-cli.phar config create \
+            --dbname=wp_test \
+            --dbuser=root \
+            --dbpass=root \
+            --dbhost=mysql \
+            --skip-check
+
+          ./wp-cli.phar core install \
+            --url=http://example.test \
+            --title="G2RD release test" \
+            --admin_user=admin \
+            --admin_password='AdminPass!2026' \
+            --admin_email=admin@example.test \
+            --skip-email
+
+          rm -rf wp-content/themes/g2rd-theme
+          unzip -q "$ROOT/dist/g2rd-theme.zip" -d wp-content/themes/
+
+          ./wp-cli.phar theme activate g2rd-theme
+          ACTIVE="$(./wp-cli.phar theme list --status=active --field=name)"
+          echo "Thèmes actifs: $ACTIVE"
+          echo "$ACTIVE" | grep -qx g2rd-theme
+          echo "OK: thème g2rd-theme activé dans WordPress"
+
       - name: Créer la release GitHub
         id: github_release
         uses: softprops/action-gh-release@v2
@@ -115,7 +201,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── Notifier g2rd.fr (mise à jour boutique FluentCart) ────────────────
       - name: Notifier g2rd.fr de la nouvelle release
         if: success()
         run: |
@@ -127,24 +212,20 @@ jobs:
 
           VERSION="${{ steps.version.outputs.version }}"
 
-          # Récupérer les notes de release depuis l'API GitHub
           RELEASE_BODY=$(curl -s \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }}" \
             | jq -r '.body // ""')
 
-          # Construire le payload JSON avec le changelog
           PAYLOAD=$(jq -n \
             --arg version "$VERSION" \
             --arg download_url "$DOWNLOAD_URL" \
             --arg changelog "$RELEASE_BODY" \
             '{version: $version, download_url: $download_url, changelog: $changelog}')
 
-          # Calculer la signature HMAC-SHA256
           SIGNATURE="sha256=$(echo -n "${PAYLOAD}" | openssl dgst -sha256 -hmac "${{ secrets.G2RD_WEBHOOK_SECRET }}" | awk '{print $2}')"
 
-          # Appeler l'endpoint LicenseServer sur g2rd.fr (timeout 30s, non-bloquant)
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 30 \
             --connect-timeout 10 \

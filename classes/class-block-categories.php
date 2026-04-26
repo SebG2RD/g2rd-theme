@@ -85,7 +85,7 @@ class BlockCategories {
      * Enregistre les catégories de blocs dans l'éditeur
      * Les catégories personnalisées sont placées en premier
      */
-    public function registerBlockCategories(array $categories, \WP_Block_Editor_Context $context): array {
+    public function registerBlockCategories(array $categories, \WP_Block_Editor_Context $context): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- $context imposé par block_categories_all
         $custom_categories = $this->getBlockCategories();
         $custom_categories_formatted = [];
 

@@ -1,10 +1,10 @@
 === Thème FSE G2RD Agence Web ===
 Contributors: g2rd
 Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, portfolio, blog, translation-ready, rtl-language-support, threaded-comments, accessibility-ready
-Requires at least: 6.5
+Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.3.0
+Stable tag: 1.7.0
 License: EUPL-1.2
 License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
@@ -64,11 +64,23 @@ Le thème utilise l'éditeur de site complet de WordPress, ce qui vous permet de
 
 Le thème intègre un système de mise à jour automatique via GitHub. Les mises à jour sont vérifiées automatiquement et peuvent être installées directement depuis le tableau de bord WordPress.
 
+= Système de licences =
+
+Le système de licences repose sur FluentCart :
+* Les nouvelles licences sont gérées via FluentCart.
+* SureCart reste supporté uniquement pour la compatibilité historique de certains contenus.
+* Les mises à jour automatiques sont réservées aux licences valides.
+
+= Documentation client =
+
+Guides pour installation, activation de licence, mises à jour, blocs, GEO Analyzer, SEO Helper, mode business, avis Google, mode client, dépannage, migration et FAQ licence (dépôt GitHub, dossier docs/client) :
+https://github.com/SebG2RD/g2rd-theme/tree/main/docs/client
+
 == Frequently Asked Questions ==
 
 = Le thème est-il compatible avec les anciennes versions de WordPress ? =
 
-Non, ce thème nécessite WordPress 6.5 ou supérieur car il utilise les fonctionnalités de Full Site Editing.
+Non, ce thème nécessite WordPress 6.6 ou supérieur car il utilise les fonctionnalités de Full Site Editing.
 
 = Puis-je utiliser ce thème sans connaître le Full Site Editing ? =
 

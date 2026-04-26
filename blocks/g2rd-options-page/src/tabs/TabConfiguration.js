@@ -114,7 +114,7 @@ export function TabConfiguration( { settings, update } ) {
 							setApiKeyInput( e.target.value );
 							update( [ 'googleMapsApiKey' ], e.target.value );
 						} }
-						placeholder={ apiKeySet ? '••••••••••••••••••••••••••' : 'AIzaSy…' }
+						placeholder={ apiKeySet ? '••••••••••••••••••••••••••' : 'Collez la clé fournie par Google Cloud…' }
 						style={ { flex: 1, padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontFamily: 'monospace', fontSize: 13 } }
 					/>
 					<button

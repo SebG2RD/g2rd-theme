@@ -123,18 +123,14 @@ jobs:
 
       - name: Run PHPStan
         run: |
-          if [ -f "vendor/bin/phpstan" ]; then
-            vendor/bin/phpstan analyse
-          else
-            echo "PHPStan not installed"
+          if [ -f "composer.json" ]; then
+            composer run phpstan
           fi
 
       - name: Run PHPUnit
         run: |
-          if [ -f "vendor/bin/phpunit" ]; then
-            vendor/bin/phpunit
-          else
-            echo "PHPUnit not installed"
+          if [ -f "composer.json" ]; then
+            composer run phpunit
           fi
 
       # Build des blocs Gutenberg (npm workspaces)
@@ -148,6 +144,14 @@ jobs:
       - name: Install JS dependencies
         if: ${{ hashFiles('package.json') != '' }}
         run: npm ci
+
+      - name: Audit Gutenberg block metadata and docs
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm run audit:blocks --if-present
+
+      - name: Run Gutenberg block tests
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm run test:blocks --if-present
 
       - name: Build Gutenberg blocks
         if: ${{ hashFiles('package.json') != '' }}
