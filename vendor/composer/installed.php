@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'g2rd/g2rd-theme',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '949ca546ac4a816bc6a20493cd0bd7bda6b71b62',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'g2rd/g2rd-theme' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '949ca546ac4a816bc6a20493cd0bd7bda6b71b62',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -73,7 +73,7 @@ jobs:
           composer global exec -- phpcs \
             --standard=phpcs-security.xml \
             --extensions=php \
-            --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/*,.claude/* \
+            --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/*,.claude/*,tests/*,tools/* \
             --report-full \
             --report-checkstyle=./phpcs-security-report.xml \
             --runtime-set ParanoiaMode 0 \

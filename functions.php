@@ -26,7 +26,7 @@ if ( \file_exists( $g2rd_autoload ) ) {
     require_once $g2rd_autoload;
 } else {
     foreach ( glob( __DIR__ . '/classes/class-*.php' ) as $g2rd_class_file ) {
-        require_once $g2rd_class_file;
+        require_once $g2rd_class_file; // phpcs:ignore WordPress.Files.IncludingFile.NoFileExtension -- Extension .php garantie par le pattern glob.
     }
 }
 
