@@ -1,0 +1,18 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 0
+    paths:
+        - classes
+        - functions.php
+        - includes
+    excludePaths:
+        - vendor
+        - node_modules
+        - blocks
+    parallel:
+        maximumNumberOfProcesses: 1
+    ignoreErrors:
+        # Fonctions WooCommerce — pas de stubs installés, usage conditionnel dans FilterableGrid
+        - '#Function wc_get_product not found\.#'

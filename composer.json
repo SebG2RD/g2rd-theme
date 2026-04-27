@@ -41,7 +41,7 @@
     "phpcs": "phpcs --standard=phpcs.xml.dist",
     "phpcs:security": "phpcs --standard=phpcs-security.xml --extensions=php --ignore=vendor/*,node_modules/*,blocks/*/build/*,assets/js/vendor/*,.claude/* .",
     "phpcs:compat": "phpcs --standard=PHPCompatibilityWP --extensions=php --ignore=vendor/*,node_modules/*,.claude/* --runtime-set testVersion 8.0- .",
-    "phpstan": "phpstan analyse classes functions.php includes --no-progress",
+    "phpstan": "phpstan analyse --memory-limit=-1 --no-progress",
     "phpunit": "phpunit --configuration phpunit.xml.dist",
     "test:php": "@phpunit"
   }
