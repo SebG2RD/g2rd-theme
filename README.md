@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.1.4
+
+- **Fix CI** : release.yml — hostname MySQL `127.0.0.1` au lieu de `mysql` (jobs sans container GitHub Actions).
+
 ### 1.7.1.3
 
 - **Fix CI** : verify-theme-zip.sh — herestring `<<<` au lieu de `echo | grep` pour éviter EPIPE avec `pipefail` (fausse erreur "index.php absent du ZIP").
