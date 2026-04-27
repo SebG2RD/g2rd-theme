@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.1.1
+
+- **Fix** : alignement des versions (package.json, readme.txt, composer.json) après release 1.7.1.
+- **Fix** : synchronisation composer.lock suite au bump de version.
+
 ### 1.7.1
 
 - **Fix CI** : PHPStan — config neon, mémoire illimitée, excludePaths optionnels.
