@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.2.2
+
+- **Style** : redesign frontend bloc FAQ — accordéon "Editorial Lines" avec numéros CSS counter (`01`, `02`…), séparateurs horizontaux, icône cercle animé (fill au survol/ouverture), barre accent gauche `scaleY`, fade-in + slide des réponses alignées sous le texte question.
+
 ### 1.7.2.1
 
 - **Fix** : classmap Composer régénérée — classe `AgentDiscovery` absente au démarrage du thème.
