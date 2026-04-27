@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.2.1
+
+- **Fix** : classmap Composer régénérée — classe `AgentDiscovery` absente au démarrage du thème.
+- **Fix CI** : permissions exécutables (`+x`) restaurées sur `vendor/bin/` (perte depuis Windows).
+- **Chore** : `vendor/` dev-dependencies ajoutées (phpunit, phpstan, WPCS, PHPCompatibility) + `composer.lock` synchronisé.
+
 ### 1.7.2
 
 - **Agent Discovery** : nouvelle classe `AgentDiscovery` — RFC 8288 Link headers (`service-desc`, `api-catalog`), endpoint `/.well-known/api-catalog` (RFC 9727, `application/linkset+json`), négociation Markdown (`Accept: text/markdown`), Content Signals dans `robots.txt`.
