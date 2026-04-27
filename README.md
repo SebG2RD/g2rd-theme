@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.1
+
+- **Fix CI** : PHPStan — config neon, mémoire illimitée, excludePaths optionnels.
+- **Fix CI** : PHPCS — fallback statique sans glob, sync composer.lock, scope security audit.
+- **Sécurité** : override postcss ^8.5.10 (GHSA-qx2v-qp2m-jg93 XSS).
+
 ### 1.7.0
 
 - **Autoloader** : chargement PSR-4 via Composer avec fallback require_once pour les ZIPs de production sans vendor/.
