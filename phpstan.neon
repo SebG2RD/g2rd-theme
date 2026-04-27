@@ -7,10 +7,6 @@ parameters:
         - classes
         - functions.php
         - includes
-    excludePaths:
-        - vendor
-        - node_modules
-        - blocks
     parallel:
         maximumNumberOfProcesses: 1
     ignoreErrors:
