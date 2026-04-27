@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.1.3
+
+- **Fix CI** : verify-theme-zip.sh — herestring `<<<` au lieu de `echo | grep` pour éviter EPIPE avec `pipefail` (fausse erreur "index.php absent du ZIP").
+
 ### 1.7.1.2
 
 - **Fix** : semver package.json — versions 4-parties tronquées à 3 pour compatibilité wp-scripts.
