@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.1.2
+
+- **Fix** : semver package.json — versions 4-parties tronquées à 3 pour compatibilité wp-scripts.
+- **Fix** : script verify-release-version.sh — comparaison package.json tolère les versions WordPress 4-parties.
+
 ### 1.7.1.1
 
 - **Fix** : alignement des versions (package.json, readme.txt, composer.json) après release 1.7.1.
