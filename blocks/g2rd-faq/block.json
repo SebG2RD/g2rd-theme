@@ -14,8 +14,8 @@
     "keywords": ["faq", "accordéon", "accordion", "questions", "réponses", "schema", "geo", "seo"],
     "textdomain": "g2rd",
     "editorScript": "file:./build/index.js",
-    "editorStyle": "file:./src/style.css",
-    "style": "file:./src/style.css",
+    "editorStyle": "file:./build/style-style.css",
+    "style": "file:./build/style-style.css",
     "script": "file:./build/view.js",
     "render": "file:./render.php",
     "attributes": {

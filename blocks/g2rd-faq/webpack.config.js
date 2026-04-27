@@ -4,6 +4,7 @@ module.exports = {
   ...defaultConfig,
   entry: {
     index: "./src/index.js",
-    view: "./src/view.js",
+    view:  "./src/view.js",
+    style: "./src/style.css",
   },
 };

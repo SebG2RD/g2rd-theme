@@ -1,0 +1,308 @@
+/* ── G2RD FAQ — Design "Editorial Accordion" ── */
+
+/* ─── Tokens internes ─── */
+
+.g2rd-faq {
+  --_accent:   var(--g2rd-faq-border, var(--wp--preset--color--primary, #2f425d));
+  --_sep:      var(--g2rd-faq-separator, color-mix(in srgb, var(--_accent) 16%, transparent));
+  --_hover-bg: color-mix(in srgb, var(--_accent) 4%, transparent);
+  --_open-bg:  color-mix(in srgb, var(--_accent) 6%, transparent);
+  counter-reset: g2rd-faq-n;
+}
+
+/* Fallback pour navigateurs sans color-mix */
+
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .g2rd-faq {
+    --_sep:      rgba(47, 66, 93, 0.16);
+    --_hover-bg: rgba(47, 66, 93, 0.04);
+    --_open-bg:  rgba(47, 66, 93, 0.06);
+  }
+}
+
+/* ─── Liste ─── */
+
+.g2rd-faq__list {
+  border-top: 1.5px solid var(--_sep);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ─── Item ─── */
+
+.g2rd-faq__item {
+  background: var(--g2rd-faq-bg, transparent);
+  border: none;
+  border-bottom: 1px solid var(--_sep);
+  border-radius: 0;
+  counter-increment: g2rd-faq-n;
+  overflow: hidden;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Barre accent gauche — scaleY animé à l'ouverture */
+
+.g2rd-faq__item::after {
+  background: var(--_accent);
+  bottom: 0;
+  content: '';
+  right: 0;
+  position: absolute;
+  top: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 3px;
+}
+
+.g2rd-faq__item.is-open,
+.g2rd-faq--geo .g2rd-faq__item:has(.g2rd-faq__details[open]) {
+  background: var(--_open-bg);
+}
+
+.g2rd-faq__item.is-open::after,
+.g2rd-faq--geo .g2rd-faq__item:has(.g2rd-faq__details[open])::after {
+  transform: scaleY(1);
+}
+
+/* ─── Bouton question (grid 3 colonnes : numéro | texte | icône) ─── */
+
+.g2rd-faq__question {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--g2rd-faq-question-color, var(--_accent));
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 0 18px;
+  grid-template-columns: 2.25rem 1fr auto;
+  list-style: none;
+  padding: 22px 20px 22px 24px;
+  text-align: right;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+
+/* Numéro counter — colonne gauche via ::before */
+
+.g2rd-faq__question::before {
+  color: var(--_accent);
+  content: counter(g2rd-faq-n, decimal-leading-zero);
+  font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  opacity: 0.3;
+  padding-top: 2px;
+  transition: opacity 0.25s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.g2rd-faq__item.is-open .g2rd-faq__question::before,
+.g2rd-faq--geo .g2rd-faq__details[open] .g2rd-faq__question::before {
+  opacity: 0.85;
+}
+
+.g2rd-faq__question:hover {
+  background: var(--_hover-bg);
+  opacity: 1;
+}
+
+/* ─── Texte de la question ─── */
+
+.g2rd-faq__question-text {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* ─── Icône — cercle avec fill animé ─── */
+
+.g2rd-faq__icon {
+  align-items: center;
+  background: transparent;
+  border: 1.5px solid var(--g2rd-faq-icon-color, var(--_accent));
+  border-radius: 50%;
+  color: var(--g2rd-faq-icon-color, var(--_accent));
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 700;
+  height: 1.75rem;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0.45;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  width: 1.75rem;
+}
+
+.g2rd-faq__item.is-open .g2rd-faq__icon,
+.g2rd-faq--geo .g2rd-faq__details[open] .g2rd-faq__icon {
+  background: var(--g2rd-faq-icon-color, var(--_accent));
+  border-color: var(--g2rd-faq-icon-color, var(--_accent));
+  color: #fff;
+  opacity: 1;
+}
+
+.g2rd-faq__question:hover .g2rd-faq__icon {
+  opacity: 0.75;
+}
+
+/* ─── Réponse — animation CSS grid-template-rows ─── */
+
+.g2rd-faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.g2rd-faq__item.is-open .g2rd-faq__answer {
+  grid-template-rows: 1fr;
+}
+
+.g2rd-faq__answer-inner {
+  overflow: hidden;
+}
+
+/* Alignement du texte réponse sous la colonne "texte question" */
+
+.g2rd-faq__answer-inner > * {
+  border-top: none;
+  color: var(--g2rd-faq-answer-color, inherit);
+  margin: 0;
+  opacity: 0;
+  padding: 2px calc(20px + 2.25rem + 18px) 22px 24px;
+  transform: translateY(-5px);
+  transition:
+    opacity 0.28s ease 0.08s,
+    transform 0.28s ease 0.08s;
+}
+
+.g2rd-faq__item.is-open .g2rd-faq__answer-inner > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Mode GEO : <details> / <summary> ─── */
+
+.g2rd-faq--geo .g2rd-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+/* Annule animation grid (mode natif details) */
+
+.g2rd-faq--geo .g2rd-faq__answer {
+  display: block;
+  grid-template-rows: unset;
+  transition: none;
+}
+
+.g2rd-faq--geo .g2rd-faq__answer-inner {
+  overflow: visible;
+}
+
+/* Fade-in réponse GEO à l'ouverture */
+
+.g2rd-faq--geo .g2rd-faq__answer-inner > * {
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.g2rd-faq--geo .g2rd-faq__details[open] .g2rd-faq__answer-inner > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── En-tête optionnel ─── */
+
+.g2rd-faq__header {
+  align-items: center;
+  border-bottom: 2px solid var(--_accent);
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0;
+  padding-bottom: 14px;
+}
+
+.g2rd-faq__header-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.g2rd-faq__header-title {
+  flex: 1;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.g2rd-faq__badge {
+  background: var(--_accent);
+  border-radius: 3px;
+  color: var(--wp--preset--color--white, #fff);
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
+  text-transform: uppercase;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 640px) {
+  .g2rd-faq__question {
+    gap: 0 13px;
+    grid-template-columns: 2rem 1fr auto;
+    padding: 18px 16px 18px 16px;
+  }
+
+  .g2rd-faq__question-text {
+    font-size: 0.9375rem;
+  }
+
+  .g2rd-faq__answer-inner > * {
+    padding: 2px calc(16px + 2rem + 13px) 18px 16px;
+  }
+}
+
+/* ─── Éditeur Gutenberg ─── */
+
+.g2rd-faq__question-input input,
+.g2rd-faq__question-input input:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--g2rd-faq-question-color, var(--_accent)) !important;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0 !important;
+}
+
+.g2rd-faq__answer-editor {
+  border-top: 1px solid var(--_sep);
+  padding: 12px calc(16px + 2.25rem + 18px) 12px 16px;
+}
+
+.g2rd-faq__item-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+

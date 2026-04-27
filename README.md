@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.2.3
+
+- **Fix** : styles du bloc FAQ absents en production — `src/style.css` exclu du ZIP ; compilation webpack vers `build/style-style.css` + `block.json` mis à jour.
+
 ### 1.7.2.2
 
 - **Style** : redesign frontend bloc FAQ — accordéon "Editorial Lines" avec numéros CSS counter (`01`, `02`…), séparateurs horizontaux, icône cercle animé (fill au survol/ouverture), barre accent gauche `scaleY`, fade-in + slide des réponses alignées sous le texte question.
