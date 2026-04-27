@@ -152,7 +152,7 @@ jobs:
           chmod +x wp-cli.phar
 
           for i in $(seq 1 60); do
-            if mysql -h mysql -uroot -proot -e "SELECT 1" >/dev/null 2>&1; then
+            if mysql -h 127.0.0.1 -uroot -proot -e "SELECT 1" >/dev/null 2>&1; then
               echo "MySQL prêt."
               break
             fi
@@ -168,7 +168,7 @@ jobs:
             --dbname=wp_test \
             --dbuser=root \
             --dbpass=root \
-            --dbhost=mysql \
+            --dbhost=127.0.0.1 \
             --skip-check
 
           ./wp-cli.phar core install \
