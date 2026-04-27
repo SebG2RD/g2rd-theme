@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.2
+
+- **Agent Discovery** : nouvelle classe `AgentDiscovery` — RFC 8288 Link headers (`service-desc`, `api-catalog`), endpoint `/.well-known/api-catalog` (RFC 9727, `application/linkset+json`), négociation Markdown (`Accept: text/markdown`), Content Signals dans `robots.txt`.
+- **Marquee** : support layout (`inherit: false`), CSS `alignfull`/`alignwide`, `box-sizing: border-box`.
+- **GEO Summary** : déprécié v1 enregistré (migration badge GEO → v2 sans badge), null-safety sur `keyPoints`.
+
 ### 1.7.1.4
 
 - **Fix CI** : release.yml — hostname MySQL `127.0.0.1` au lieu de `mysql` (jobs sans container GitHub Actions).

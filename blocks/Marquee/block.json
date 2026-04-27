@@ -37,6 +37,12 @@
             "wide",
             "full"
         ],
+        "layout": {
+            "default": {
+                "type": "default",
+                "inherit": false
+            }
+        },
         "spacing": {
             "margin": true,
             "padding": true

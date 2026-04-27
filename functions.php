@@ -64,6 +64,7 @@ if ( \file_exists( $g2rd_autoload ) ) {
     require_once __DIR__ . '/classes/class-theme-admin.php';
     require_once __DIR__ . '/classes/class-theme-options.php';
     require_once __DIR__ . '/classes/class-theme-setup.php';
+    require_once __DIR__ . '/classes/class-agent-discovery.php';
 }
 
 // Enregistrer le hook after_switch_theme avant after_setup_theme
@@ -82,6 +83,7 @@ function bootstrap_theme(): void
     // Liste des classes à initialiser (toujours actives)
     $classes = [
         ThemeSetup::class,
+        AgentDiscovery::class,
         BlockEditorAutoload::class,
         ScriptsManager::class,
         BlockPatterns::class,

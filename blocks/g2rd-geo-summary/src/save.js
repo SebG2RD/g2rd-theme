@@ -12,7 +12,7 @@ export default function Save( { attributes } ) {
 		className: 'wp-block-g2rd-geo-summary',
 	} );
 
-	const filledPoints = keyPoints.filter( ( p ) => p.trim() );
+	const filledPoints = ( keyPoints ?? [] ).filter( ( p ) => p.trim() );
 
 	return (
 		<div { ...blockProps } itemScope itemType="https://schema.org/Article">
@@ -20,8 +20,7 @@ export default function Save( { attributes } ) {
 			<div className="geo-summary__header" aria-hidden="true">
 				<span className="geo-summary__icon">📝</span>
 				<span className="geo-summary__tagline">{ tagline }</span>
-				<span className="geo-summary__badge">GEO</span>
-			</div>
+				</div>
 
 			{/* Texte de résumé — itemprop abstract pour schema.org */}
 			{ summary && (
