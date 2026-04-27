@@ -29,8 +29,11 @@ COMPOSER_VER="$(node -e "var d=require('./composer.json');process.stdout.write((
 if [ "$STYLE_VER" != "$EXPECTED" ]; then
   fail "style.css Version=$STYLE_VER (attendu $EXPECTED)"
 fi
-if [ "$PKG_VER" != "$EXPECTED" ]; then
-  fail "package.json version=$PKG_VER (attendu $EXPECTED)"
+# package.json doit être du semver valide (3 parties max) — les versions WordPress
+# 4-parties (ex. 1.7.1.1) sont tronquées à 3 parties pour la comparaison.
+PKG_EXPECTED="$(echo "$EXPECTED" | cut -d. -f1-3)"
+if [ "$PKG_VER" != "$PKG_EXPECTED" ]; then
+  fail "package.json version=$PKG_VER (attendu $PKG_EXPECTED — semver 3 parties)"
 fi
 if [ "$README_VER" != "$EXPECTED" ]; then
   fail "readme.txt Stable tag=$README_VER (attendu $EXPECTED)"
@@ -39,4 +42,4 @@ if [ "$COMPOSER_VER" != "$EXPECTED" ]; then
   fail "composer.json extra.g2rd_theme_version=$COMPOSER_VER (attendu $EXPECTED)"
 fi
 
-echo "OK: versions alignées sur $EXPECTED (style.css, package.json, readme.txt, composer.json)"
+echo "OK: versions alignées sur $EXPECTED (style.css=$STYLE_VER, package.json=$PKG_VER [semver], readme.txt=$README_VER, composer.json=$COMPOSER_VER)"
