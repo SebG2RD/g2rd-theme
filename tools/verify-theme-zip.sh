@@ -17,15 +17,15 @@ unzip -t "$ZIP" >/dev/null || fail "archive ZIP corrompue (unzip -t)"
 
 LIST="$(unzip -l "$ZIP")"
 
-echo "$LIST" | grep -q 'g2rd-theme/style.css' || fail "g2rd-theme/style.css absent du ZIP"
-echo "$LIST" | grep -q 'g2rd-theme/functions.php' || fail "g2rd-theme/functions.php absent du ZIP"
-echo "$LIST" | grep -q 'g2rd-theme/index.php' || fail "g2rd-theme/index.php absent du ZIP"
+grep -qF 'g2rd-theme/style.css'    <<< "$LIST" || fail "g2rd-theme/style.css absent du ZIP"
+grep -qF 'g2rd-theme/functions.php' <<< "$LIST" || fail "g2rd-theme/functions.php absent du ZIP"
+grep -qF 'g2rd-theme/index.php'    <<< "$LIST" || fail "g2rd-theme/index.php absent du ZIP"
 
 # Ces chemins ne doivent pas apparaître dans le paquet distribué.
-if echo "$LIST" | grep -E 'g2rd-theme/(vendor|node_modules)/' >/dev/null; then
+if grep -qE 'g2rd-theme/(vendor|node_modules)/' <<< "$LIST"; then
   fail "vendor ou node_modules présent dans le ZIP (exclusion attendue)"
 fi
-if echo "$LIST" | grep -E 'g2rd-theme/(composer\.json|composer\.lock|package\.json|package-lock\.json)$' >/dev/null; then
+if grep -qE 'g2rd-theme/(composer\.json|composer\.lock|package\.json|package-lock\.json)$' <<< "$LIST"; then
   fail "fichiers composer/package racine présents dans le ZIP (exclusion attendue)"
 fi
 
