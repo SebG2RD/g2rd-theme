@@ -61,7 +61,7 @@
     "npm": ">=8.0.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^32.0.0"
+    "@wordpress/scripts": "^32.1.0"
   },
   "overrides": {
     "postcss": "^8.5.10",
