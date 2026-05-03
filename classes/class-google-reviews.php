@@ -128,7 +128,7 @@ class GoogleReviews {
 		$api_url = \add_query_arg(
 			[
 				'place_id' => \rawurlencode( $place_id ),
-				'fields'   => 'name,reviews,rating,user_ratings_total',
+				'fields'   => 'name,reviews,rating,user_ratings_total,url',
 				'language' => $lang,
 				'key'      => $api_key,
 			],
@@ -156,6 +156,7 @@ class GoogleReviews {
 			'place_name'     => \sanitize_text_field( $result['name'] ?? '' ),
 			'overall_rating' => (float) ( $result['rating'] ?? 0 ),
 			'total_ratings'  => \absint( $result['user_ratings_total'] ?? 0 ),
+			'place_url'      => \esc_url_raw( $result['url'] ?? '' ),
 			'reviews'        => self::normalize_reviews( $result['reviews'] ?? [] ),
 		];
 

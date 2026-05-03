@@ -92,6 +92,24 @@
   margin-bottom: 0.25rem;
 }
 
+.g2rd-testimonial--google .g2rd-testimonial__google-header--link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem 0.35rem 0.35rem;
+  margin: -0.35rem -0.65rem -0.35rem -0.35rem;
+  transition: background 0.2s ease;
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-header--link:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.g2rd-testimonial--google .g2rd-testimonial__google-header--link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 .g2rd-testimonial--google .g2rd-testimonial__google-logo svg {
   display: block;
 }

@@ -110,7 +110,7 @@ const StarRating = ( { rating, color } ) => (
 
 /* ── Prévisualisation Google (éditeur) ───────────────────────────────────── */
 
-function GooglePreview( { placeId, minRating, max, colors, layout, columns, showHeader, showAvatar, showDate, showAuthorLink, cardStyle, maxTextLength, highlightFirst } ) {
+function GooglePreview( { placeId, minRating, max, colors, layout, columns, showHeader, showAvatar, showDate, showAuthorLink, cardStyle, maxTextLength, highlightFirst, showBusinessLink } ) {
   const [ state, setState ] = useState( { loading: false, data: null, error: null } );
 
   useEffect( () => {
@@ -159,8 +159,27 @@ function GooglePreview( { placeId, minRating, max, colors, layout, columns, show
     <div>
       { showHeader !== false && (
         <div style={ { display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" } }>
-          <strong style={ { fontSize: "1.4rem" } }>★ { data.overall_rating.toFixed( 1 ) }</strong>
-          <span style={ { opacity: 0.6, fontSize: "0.85rem" } }>{ data.total_ratings } { __( "avis Google", "g2rd" ) }</span>
+          { showBusinessLink && data.place_url
+            ? (
+              <a
+                href={ data.place_url }
+                target="_blank"
+                rel="noreferrer"
+                style={ { display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none", color: "inherit" } }
+                title={ __( "Voir sur Google Business", "g2rd" ) }
+              >
+                <strong style={ { fontSize: "1.4rem" } }>★ { data.overall_rating.toFixed( 1 ) }</strong>
+                <span style={ { opacity: 0.6, fontSize: "0.85rem" } }>{ data.total_ratings } { __( "avis Google", "g2rd" ) }</span>
+                <span style={ { fontSize: "0.72rem", opacity: 0.5 } }>↗</span>
+              </a>
+            )
+            : (
+              <>
+                <strong style={ { fontSize: "1.4rem" } }>★ { data.overall_rating.toFixed( 1 ) }</strong>
+                <span style={ { opacity: 0.6, fontSize: "0.85rem" } }>{ data.total_ratings } { __( "avis Google", "g2rd" ) }</span>
+              </>
+            )
+          }
         </div>
       ) }
       <div style={ gridStyle }>
@@ -215,7 +234,7 @@ export default function Edit( { attributes, setAttributes } ) {
     googleLayout, googleColumns, googleCardStyle,
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
-    googleMarqueeSpeed,
+    googleMarqueeSpeed, googleShowBusinessLink,
   } = attributes;
 
   const blockProps = useBlockProps( {
@@ -394,6 +413,15 @@ export default function Edit( { attributes, setAttributes } ) {
                   onChange={ ( v ) => setAttributes( { googleShowHeader: v } ) }
                   __nextHasNoMarginBottom
                 />
+                { googleShowHeader !== false && (
+                  <ToggleControl
+                    label={ __( "Lien vers Google Business", "g2rd" ) }
+                    checked={ !! googleShowBusinessLink }
+                    onChange={ ( v ) => setAttributes( { googleShowBusinessLink: v } ) }
+                    help={ __( "La note globale devient un lien cliquable vers votre fiche Google Business.", "g2rd" ) }
+                    __nextHasNoMarginBottom
+                  />
+                ) }
                 <ToggleControl
                   label={ __( "Avatar de l'auteur", "g2rd" ) }
                   checked={ googleShowAvatar !== false }
@@ -569,6 +597,7 @@ export default function Edit( { attributes, setAttributes } ) {
             cardStyle={ googleCardStyle || "shadow" }
             maxTextLength={ googleMaxTextLength || 0 }
             highlightFirst={ googleHighlightFirst }
+            showBusinessLink={ !! googleShowBusinessLink }
           />
         </div>
       ) : (

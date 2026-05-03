@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.1
+
+- **Testimonial** : nouveau toggle "Lien vers Google Business" — la barre de note globale (logo Google + étoiles + nombre d'avis) devient un lien cliquable vers la fiche Google Maps, activable dans le panneau du bloc, sans saisie manuelle d'URL.
+- **GoogleReviews API** : champ `url` ajouté aux fields Places API → exposé en `place_url` dans la réponse REST et inclus dans le cache transient 12h.
+
 ### 1.8.0
 
 - **Templates** : redesign complet des 21 templates FSE — heroes bleubeige gradient, barres de stats navy, sections cream, CTA bands cohérents sur toutes les pages (page-accueil, page-agence, page-artisan, page-vtc, page-ecommerce, page-contact, page-landing, page-services, page.html, single.html, archive.html, search.html, 404.html, single/archive CPT portfolio/prestations/qui-sommes-nous, taxonomy-site_web).

@@ -107,7 +107,8 @@
     "googleShowAuthorLink": { "type": "boolean", "default": false },
     "googleMaxTextLength":  { "type": "number",  "default": 0 },
     "googleHighlightFirst": { "type": "boolean", "default": false },
-    "googleMarqueeSpeed":   { "type": "number",  "default": 40 }
+    "googleMarqueeSpeed":        { "type": "number",  "default": 40 },
+    "googleShowBusinessLink":    { "type": "boolean", "default": false }
   },
   "supports": {
     "html": false,
