@@ -1,136 +1,70 @@
-<!-- wp:template-part {"slug":"header","theme":"g2rd-theme","area":"header"} /-->
+<!-- wp:template-part {"slug":"header-color","theme":"g2rd-theme","area":"header"} /-->
 
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-  <!-- wp:columns -->
-  <div class="wp-block-columns">
-    <!-- wp:column {"width":"20%"} -->
-    <div class="wp-block-column" style="flex-basis: 20%">
-      <!-- wp:post-featured-image {"aspectRatio":"1","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|l"}}}} /-->
-    </div>
-    <!-- /wp:column -->
+<!-- wp:cover {"useFeaturedImage":true,"minHeight":55,"minHeightUnit":"vh","dimRatio":70,"overlayColor":"primary","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
+<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:55vh"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-70 has-background-dim"></span><div class="wp-block-cover__inner-container">
 
-    <!-- wp:column {"width":"80%"} -->
-    <div class="wp-block-column" style="flex-basis: 80%">
-      <!-- wp:post-terms {"term":"categories-qui-sommes-nous"} /-->
+<!-- wp:post-terms {"term":"categories-qui-sommes-nous","style":{"typography":{"fontSize":"0.8125rem","fontWeight":"700","letterSpacing":"4px","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} /-->
 
-      <!-- wp:post-title {"level":1} /-->
+<!-- wp:post-title {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"clamp(2rem,4vw,3.5rem)","fontWeight":"800","lineHeight":"1.15"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} /-->
 
-      <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-      <div class="wp-block-group">
-        <!-- wp:paragraph -->
-        <p>[icones_images]</p>
-        <!-- /wp:paragraph -->
-      </div>
-      <!-- /wp:group -->
-    </div>
-    <!-- /wp:column -->
-  </div>
-  <!-- /wp:columns -->
+</div></div>
+<!-- /wp:cover -->
 
-  <!-- wp:post-content /-->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-  <!-- wp:group {"layout":{"type":"constrained"}} -->
-  <div class="wp-block-group">
-    <!-- wp:heading -->
-    <h2 class="wp-block-heading">Expérience en développement :</h2>
-    <!-- /wp:heading -->
+<!-- wp:post-content {"align":"full","layout":{"type":"constrained"}} /-->
 
-    <!-- wp:paragraph -->
-    <p>[experience_dev]</p>
-    <!-- /wp:paragraph -->
+</main>
+<!-- /wp:group -->
 
-    <!-- wp:heading -->
-    <h2 class="wp-block-heading">Soft skills :</h2>
-    <!-- /wp:heading -->
+<!-- wp:group {"align":"full","style":{"color":{"background":"#f7f2ea"},"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-background" style="background-color:#f7f2ea;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-    <!-- wp:paragraph -->
-    <p>[soft_skills]</p>
-    <!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"4px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600;letter-spacing:4px;text-transform:uppercase">Réalisations</p>
+<!-- /wp:paragraph -->
 
-    <!-- wp:heading -->
-    <h2 class="wp-block-heading">Méthodologie :</h2>
-    <!-- /wp:heading -->
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800"},"color":{"text":"#2F425D"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:#2F425D;margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800">Projets réalisés</h2>
+<!-- /wp:heading -->
 
-    <!-- wp:paragraph -->
-    <p>[methodologie]</p>
-    <!-- /wp:paragraph -->
-
-    <!-- wp:heading -->
-    <h2 class="wp-block-heading">Objectif :</h2>
-    <!-- /wp:heading -->
-
-    <!-- wp:paragraph -->
-    <p>[objectif]</p>
-    <!-- /wp:paragraph -->
-
-    <!-- wp:spacer {"height":"50px"} -->
-    <div style="height: 50px" aria-hidden="true" class="wp-block-spacer"></div>
-    <!-- /wp:spacer -->
-  </div>
-  <!-- /wp:group -->
-
-  <!-- wp:group {"layout":{"type":"constrained"}} -->
-  <div class="wp-block-group">
-    <!-- wp:heading -->
-    <h2 class="wp-block-heading">Projets réalisés :</h2>
-    <!-- /wp:heading -->
-
-    <!-- wp:query {"queryId":4,"query":{"perPage":10,"pages":0,"offset":0,"postType":"portfolio","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"parents":[],"format":[]}} -->
-    <div class="wp-block-query">
-      <!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|m"}},"layout":{"type":"grid","columnCount":2,"minimumColumnWidth":null}} -->
-      <!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|s"}},"border":{"radius":"1rem"}},"backgroundColor":"white","layout":{"type":"constrained"},"clickableArticles":true} -->
-      <div
-        class="wp-block-group has-white-background-color has-background"
-        style="
-          border-radius: 1rem;
-          padding-top: 0;
-          padding-bottom: var(--wp--preset--spacing--s);
-        "
-      >
-        <!-- wp:post-featured-image {"isLink":true,"style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}},"spacing":{"margin":{"bottom":"var:preset|spacing|xs"}}}} /-->
-
-        <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}}},"layout":{"type":"constrained"}} -->
-        <div
-          class="wp-block-group"
-          style="
-            padding-right: var(--wp--preset--spacing--xs);
-            padding-left: var(--wp--preset--spacing--xs);
-          "
-        >
-          <!-- wp:post-title {"textAlign":"center","level":3,"isLink":true,"fontSize":"l"} /-->
-
-          <!-- wp:post-terms {"term":"category","textAlign":"center"} /-->
-        </div>
-        <!-- /wp:group -->
-      </div>
-      <!-- /wp:group -->
-      <!-- /wp:post-template -->
-
-      <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
-      <!-- wp:query-pagination-previous /-->
-
-      <!-- wp:query-pagination-numbers /-->
-
-      <!-- wp:query-pagination-next /-->
-      <!-- /wp:query-pagination -->
-
-      <!-- wp:query-no-results -->
-      <!-- wp:paragraph {"align":"center"} -->
-      <p class="has-text-align-center">
-        Aucun site web n'est disponible pour le moment.
-      </p>
-      <!-- /wp:paragraph -->
-      <!-- /wp:query-no-results -->
-    </div>
-    <!-- /wp:query -->
-  </div>
-  <!-- /wp:group -->
-
-  <!-- wp:spacer {"height":"50px"} -->
-  <div style="height: 50px" aria-hidden="true" class="wp-block-spacer"></div>
-  <!-- /wp:spacer -->
+<!-- wp:query {"queryId":12,"query":{"perPage":4,"pages":0,"offset":0,"postType":"site_web","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"align":"wide"} -->
+<div class="wp-block-query alignwide">
+<!-- wp:post-template {"layout":{"type":"grid","columnCount":2},"style":{"spacing":{"blockGap":"var:preset|spacing|m"}}} -->
+<!-- wp:group {"className":"portfolio g2rd-clickable-article","style":{"border":{"radius":"1rem"},"color":{"background":"#FAFAFA"},"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|s"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
+<div class="wp-block-group portfolio g2rd-clickable-article has-background" style="border-radius:1rem;background-color:#FAFAFA;padding-top:0;padding-bottom:var(--wp--preset--spacing--s)">
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}}}} /-->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--xs);padding-right:var(--wp--preset--spacing--s);padding-left:var(--wp--preset--spacing--s)">
+<!-- wp:post-terms {"term":"type-projets","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
+<!-- wp:post-title {"level":3,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.3"},"color":{"text":"#2F425D"}}} /-->
 </div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results --><!-- wp:paragraph /--><!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:cover {"minHeight":360,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
+<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Votre projet web</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:#FAFAFA;margin-top:0;margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;line-height:1.2">Prêt à créer votre site web&nbsp;?</h2>
+<!-- /wp:heading -->
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"1rem"}}} -->
+<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"#D4A373","text":"#2F425D"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:#2F425D;background-color:#D4A373;padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Discuter de mon projet →</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+</div></div>
+<!-- /wp:cover -->
 
 <!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

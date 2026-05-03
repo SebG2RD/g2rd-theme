@@ -8,7 +8,7 @@ Description: Un thème Full Site Editing (FSE) moderne et flexible pour les agen
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.7.3.2
+Version: 1.8.0
 License: EUPL-1.2
 License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 Text Domain: g2rd
@@ -28,6 +28,11 @@ GitHub Theme URI: https://github.com/SebG2RD/g2rd-theme
     data-config + récupération REST si besoin).
   - CSS mobile : neutralise les largeurs 33.33% pour forcer 2×2 (50%).
 */
+
+/* Reset FSE — supprime la marge automatique entre blocs enfants directs */
+:where(.wp-site-blocks) > * {
+  margin-block-start: 0;
+}
 
 /* Logo TranslatePress plugin */
 .trp-language-switcher > div {

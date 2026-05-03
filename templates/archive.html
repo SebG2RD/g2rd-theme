@@ -1,65 +1,75 @@
 <!-- wp:template-part {"slug":"header-color","theme":"g2rd-theme","area":"header"} /-->
 
-<!-- wp:group {"tagName":"main","metadata":{"categories":["posts"],"patternName":"posts-loop","name":"Liste des articles en grille"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"}}},"layout":{"type":"constrained"}} -->
-<main
-  class="wp-block-group"
-  style="
-    padding-top: var(--wp--preset--spacing--xl);
-    padding-bottom: var(--wp--preset--spacing--xl);
-  "
->
-  <!-- wp:heading {"textAlign":"center","level":1} -->
-  <h1 class="wp-block-heading has-text-align-center">
-    Nos dernières actualités
-  </h1>
-  <!-- /wp:heading -->
+<!-- wp:cover {"minHeight":520,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
+<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:520px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
 
-  <!-- wp:query {"queryId":0,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[],"format":[]},"align":"wide"} -->
-  <div class="wp-block-query alignwide">
-    <!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
-    <!-- wp:group {"layout":{"type":"constrained"},"clickableArticles":true} -->
-    <div class="wp-block-group">
-      <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0rem","bottomRight":"0rem"}}}} /-->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Actualités &amp; Blog</p>
+<!-- /wp:paragraph -->
 
-      <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|xs","left":"var:preset|spacing|xs","top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs"}}},"layout":{"type":"constrained"}} -->
-      <div
-        class="wp-block-group"
-        style="
-          padding-top: var(--wp--preset--spacing--xs);
-          padding-right: var(--wp--preset--spacing--xs);
-          padding-bottom: var(--wp--preset--spacing--xs);
-          padding-left: var(--wp--preset--spacing--xs);
-        "
-      >
-        <!-- wp:post-title {"textAlign":"center","level":3} /-->
+<!-- wp:query-title {"type":"archive","textAlign":"center","style":{"typography":{"fontSize":"clamp(2.5rem,5vw,4.25rem)","fontWeight":"800","lineHeight":"1.1"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} /-->
 
-        <!-- wp:post-date {"textAlign":"center"} /-->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.125rem","lineHeight":"1.75","fontWeight":"300"},"color":{"text":"rgba(255,255,255,0.7)"},"spacing":{"margin":{"bottom":"0"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:rgba(255,255,255,0.7);margin-bottom:0;font-size:1.125rem;font-weight:300;line-height:1.75">Conseils, actualités et retours d'expérience sur le web, le SEO et le design.</p>
+<!-- /wp:paragraph -->
 
-        <!-- wp:post-excerpt {"textAlign":"center","excerptLength":25} /-->
+</div></div>
+<!-- /wp:cover -->
 
-        <!-- wp:read-more /-->
-      </div>
-      <!-- /wp:group -->
-    </div>
-    <!-- /wp:group -->
-    <!-- /wp:post-template -->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-    <!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"center"}} -->
-    <!-- wp:query-pagination-previous /-->
+<!-- wp:query {"queryId":0,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"align":"wide"} -->
+<div class="wp-block-query alignwide">
 
-    <!-- wp:query-pagination-numbers /-->
-
-    <!-- wp:query-pagination-next /-->
-    <!-- /wp:query-pagination -->
-
-    <!-- wp:query-no-results -->
-    <!-- wp:paragraph {"placeholder":"Ajouter un texte ou des blocs qui s'afficheront lorsqu'une requête ne renverra aucun résultat."} -->
-    <p>Il n'y a pas d'article.</p>
-    <!-- /wp:paragraph -->
-    <!-- /wp:query-no-results -->
-  </div>
-  <!-- /wp:query -->
-</main>
+<!-- wp:post-template {"layout":{"type":"grid","columnCount":3},"style":{"spacing":{"blockGap":"var:preset|spacing|m"}}} -->
+<!-- wp:group {"className":"h-article g2rd-clickable-article","style":{"border":{"radius":"1rem"},"color":{"background":"#FAFAFA"},"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|s"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
+<div class="wp-block-group h-article g2rd-clickable-article has-background" style="border-radius:1rem;background-color:#FAFAFA;padding-top:0;padding-bottom:var(--wp--preset--spacing--s)">
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}}}} /-->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--xs);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--xs);padding-left:var(--wp--preset--spacing--s)">
+<!-- wp:post-terms {"term":"category","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
+<!-- wp:post-title {"level":3,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.35"},"color":{"text":"#2F425D"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
+<!-- wp:post-date {"style":{"typography":{"fontSize":"0.8125rem"},"color":{"text":"rgba(47,66,93,0.5)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} /-->
+<!-- wp:post-excerpt {"excerptLength":20,"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.6"},"color":{"text":"rgba(47,66,93,0.7)"}}} /-->
+</div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.0625rem"},"color":{"text":"rgba(47,66,93,0.6)"},"spacing":{"margin":{"top":"var:preset|spacing|xl"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:rgba(47,66,93,0.6);margin-top:var(--wp--preset--spacing--xl);font-size:1.0625rem">Aucun article disponible pour le moment.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+
+<!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|l"}}}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+</div>
+<!-- /wp:query -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:cover {"minHeight":360,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
+<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Votre projet web</p>
+<!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:#FAFAFA;margin-top:0;margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;line-height:1.2">Prêt à créer votre site web&nbsp;?</h2>
+<!-- /wp:heading -->
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"1rem"}}} -->
+<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"#D4A373","text":"#2F425D"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:#2F425D;background-color:#D4A373;padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Discuter de mon projet →</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+</div></div>
+<!-- /wp:cover -->
 
 <!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->

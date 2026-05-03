@@ -62,6 +62,7 @@ class ScriptsManager {
         \add_action('wp_enqueue_scripts', [$this, 'applyDeferStrategy'], 999);
         \add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
         \add_filter('litespeed_optm_js_exc', [$this, 'excludeFromLitespeed']);
+        \add_action('wp', [$this, 'conditionalMagicPageStyle']);
     }
 
     /**
@@ -134,6 +135,20 @@ class ScriptsManager {
             $ver
         );
 
+        // Header (variante dark + variante light) et footer — présents sur toutes les pages.
+        \wp_enqueue_style(
+            'g2rd-header',
+            $uri . '/assets/css/header.css',
+            [],
+            $ver
+        );
+        \wp_enqueue_style(
+            'g2rd-footer',
+            $uri . '/assets/css/footer.css',
+            [],
+            $ver
+        );
+
         // Micro-interactions : CSS + JS d'animation au scroll
         \wp_enqueue_style(
             'g2rd-micro-interactions',
@@ -183,6 +198,25 @@ class ScriptsManager {
                     true
                 );
             }
+        }
+    }
+
+    /**
+     * Enqueue conditionnel de magic-page.css sur les pages utilisant la classe g2rd-magic-page.
+     *
+     * Complète le chargement via style_handle (block styles) pour les pages
+     * qui utilisent g2rd-magic-page comme className sans avoir de bloc style magic actif.
+     *
+     * @since 1.7.3.3
+     * @return void
+     */
+    public function conditionalMagicPageStyle(): void {
+        if ( ! \is_singular() ) {
+            return;
+        }
+        $post = \get_post();
+        if ( $post && \str_contains( $post->post_content, 'g2rd-magic-page' ) ) {
+            \wp_enqueue_style( 'g2rd-magic-page' );
         }
     }
 

@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.0
+
+- **Templates** : redesign complet des 21 templates FSE — heroes bleubeige gradient, barres de stats navy, sections cream, CTA bands cohérents sur toutes les pages (page-accueil, page-agence, page-artisan, page-vtc, page-ecommerce, page-contact, page-landing, page-services, page.html, single.html, archive.html, search.html, 404.html, single/archive CPT portfolio/prestations/qui-sommes-nous, taxonomy-site_web).
+- **CSS** : `assets/css/header.css` + `assets/css/footer.css` — styles du header dark/light et du footer glassmorphism extraits dans des fichiers CSS dédiés (separation of concerns, maintenance facilitée).
+- **ScriptsManager** : enqueue global de `g2rd-header` et `g2rd-footer` sur toutes les pages frontend.
+
 ### 1.7.3.2
 
 - **fix** : FAQPage JSON-LD en double — les items de tous les blocs FAQ (`g2rd/faq` mode GEO et `g2rd-geo-faq`) sont fusionnés dans un seul `<script type="application/ld+json">` émis en `wp_footer`, éliminant l'alerte Google Search Console "Champ FAQPage en double".

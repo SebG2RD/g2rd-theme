@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Footer template part — footer.html
+   .g2rd-footer-modern
+   ========================================================================== */
+
+.g2rd-footer-modern {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(212, 163, 115, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.08), transparent 26%),
+    linear-gradient(135deg, #172233 0%, #2f435e 58%, #111827 100%) !important;
+  color: #fafafa;
+  border-top: 1px solid rgba(212, 163, 115, 0.24);
+}
+
+.g2rd-footer-modern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+.g2rd-footer-modern > * {
+  position: relative;
+  z-index: 1;
+}
+
+.g2rd-footer-wrap {
+  width: min(1320px, calc(100% - 2rem));
+  margin: 0 auto !important;
+  padding: 4rem 0 2rem;
+}
+
+.g2rd-footer-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.g2rd-footer-card {
+  min-height: 265px;
+  padding: 2rem;
+  border: 1px solid rgba(212, 163, 115, 0.28);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px);
+  text-align: center;
+}
+
+.g2rd-footer-card .wp-block-image {
+  margin: 0 auto 1.25rem;
+}
+
+.g2rd-footer-card img {
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 14px 38px rgba(0, 0, 0, 0.24));
+}
+
+.g2rd-footer-card p {
+  color: rgba(250, 250, 250, 0.76) !important;
+  line-height: 1.7;
+}
+
+.g2rd-footer-title {
+  margin-bottom: 1.25rem !important;
+  color: #d4a373 !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.g2rd-footer-modern .wp-block-navigation {
+  justify-content: center !important;
+  width: 100%;
+}
+
+.g2rd-footer-modern .wp-block-navigation__container {
+  align-items: center !important;
+  gap: 0.35rem;
+}
+
+.g2rd-footer-modern .wp-block-navigation-item__content {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  color: rgba(250, 250, 250, 0.84) !important;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+
+.g2rd-footer-modern .wp-block-navigation-item__content:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.g2rd-footer-actions {
+  gap: 0.75rem;
+}
+
+.g2rd-footer-actions .wp-block-button__link {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px !important;
+  padding: 0.88rem 1.2rem !important;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.g2rd-footer-account .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.58rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
+  color: #fafafa !important;
+  border: 1px solid rgba(212, 163, 115, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 16px 42px rgba(0, 0, 0, 0.18);
+}
+
+.g2rd-footer-account .wp-block-button__link::before {
+  content: "";
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 34%, #fafafa 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 82%, #fafafa 0 34%, transparent 35%),
+    linear-gradient(135deg, #d4a373, #f1d0ad);
+  box-shadow: 0 0 18px rgba(212, 163, 115, 0.55);
+}
+
+.g2rd-footer-contact .wp-block-button__link {
+  background: #d4a373 !important;
+  color: #111827 !important;
+  border: 1px solid #d4a373;
+  box-shadow: 0 14px 38px rgba(212, 163, 115, 0.22);
+}
+
+.g2rd-footer-actions .wp-block-button__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+}
+
+.g2rd-footer-contact-list {
+  margin-top: 1rem;
+}
+
+.g2rd-footer-contact-list p {
+  margin: 0 0 0.75rem 0;
+  color: rgba(250, 250, 250, 0.76) !important;
+}
+
+.g2rd-footer-contact-list a {
+  color: #fafafa !important;
+  text-decoration: none;
+}
+
+.g2rd-footer-contact-list a:hover {
+  color: #d4a373 !important;
+}
+
+.g2rd-footer-separator {
+  width: 100%;
+  max-width: 1320px;
+  margin: 3rem auto 0 !important;
+  border-color: rgba(212, 163, 115, 0.24) !important;
+}
+
+.g2rd-footer-bottom {
+  width: min(1320px, calc(100% - 2rem));
+  margin: 0 auto !important;
+  padding: 1.35rem 0 1.5rem;
+  gap: 1rem;
+}
+
+.g2rd-footer-bottom p {
+  margin: 0;
+  color: rgba(250, 250, 250, 0.64) !important;
+}
+
+.g2rd-footer-bottom a {
+  color: #fafafa !important;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.g2rd-footer-bottom a:hover {
+  color: #d4a373 !important;
+}
+
+.g2rd-footer-modern .wp-block-social-links {
+  gap: 0.6rem;
+}
+
+.g2rd-footer-modern .wp-social-link {
+  border: 1px solid rgba(212, 163, 115, 0.34);
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: #fafafa !important;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.g2rd-footer-modern .wp-social-link:hover {
+  transform: translateY(-3px);
+  background: rgba(212, 163, 115, 0.22) !important;
+  border-color: rgba(212, 163, 115, 0.70);
+}
+
+.g2rd-footer-modern .wp-social-link svg {
+  fill: #fafafa !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 950px) {
+  .g2rd-footer-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .g2rd-footer-card {
+    min-height: auto;
+  }
+
+  .g2rd-footer-bottom {
+    flex-direction: column;
+    justify-content: center !important;
+    text-align: center;
+  }
+
+  .g2rd-footer-actions .wp-block-button,
+  .g2rd-footer-actions .wp-block-button__link {
+    width: 100%;
+    text-align: center;
+  }
+}
