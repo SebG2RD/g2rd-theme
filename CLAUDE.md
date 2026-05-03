@@ -275,6 +275,33 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 - **`class-license-manager.php`** — gestionnaire de licences actuel (GitHub Updater)
 - **SureCart produits** : le support des produits SureCart (`sc-product`) est **conservé** dans `class-filterable-grid.php` pour les utilisateurs du thème qui utilisent SureCart — ne pas le retirer
 
+## Fonctionnalités contrôlées par la page d'options admin
+
+La page d'options React (`blocks/g2rd-options-page/`) gère les features via `ThemeOptions::isFeatureEnabled()`.
+
+| Feature key | Classe PHP | Activée par défaut |
+| --- | --- | --- |
+| `gsap_animations` | `class-gsap-animations.php` | non |
+| `particles_effect` | `class-particules-effect.php` | non |
+| `glass_effect` | `class-glass-effect.php` | non |
+| `clickable_articles` | `class-clickable-articles.php` | non |
+| `accessibility` | `class-theme-setup.php` | **oui** |
+| `dark_mode` | `class-dark-mode.php` | **oui** |
+| `enable_ai` | `class-geo-analyzer.php` | non |
+| `patterns_require_license` | (accès patterns) | non |
+
+Ajouter une nouvelle feature : 1) clé dans `FEATURES` (class-theme-options.php) ; 2) `isFeatureEnabled('key')` dans la classe concernée ; 3) icône dashicon dans `FeatureCard.js` ; 4) `npm run build:options`.
+
+## Design system Magic Page (v1.7.3+)
+
+CSS conditionnel chargé uniquement sur les pages utilisant les styles de bloc concernés (via `style_handle` dans `register_block_style()`).
+
+- **Fichier CSS** : `assets/css/magic-page.css` — enregistré via `wp_register_style()`, jamais enqueué globalement
+- **Styles de blocs** : `magic-dark`, `magic-light` sur `core/group` ; `neomorphic`, `soft-pressed` sur `core/button`
+- **Patterns** : `section-magic-dark.php`, `section-magic-light.php`
+- **Tokens** : `blue-dark`, `blue-soft`, `cream`, `muted` dans `theme-settings.json` ; gradients `magic-dark`/`magic-light` ; shadows `magic`/`magic-xl`
+- **Principe** : ne jamais enqueuer `g2rd-magic-page` directement — laisser WordPress le charger via `style_handle`
+
 ## CI / Qualité PHP
 
 ### release.yml
@@ -382,3 +409,7 @@ Invoquer avec `/nom-du-skill` pour charger un contexte expert spécialisé.
 | `/production` | **Release** : bump version, changelog README, PHPCS, build, ZIP, commit `release:` |
 | `/simplify` | Revue du code modifié : qualité, réutilisation, efficacité — puis correction |
 | `/review` | Revue d'une Pull Request GitHub |
+| `/update-config` | Configurer Claude Code (hooks, permissions, settings.json) — automatisations récurrentes |
+| `/fewer-permission-prompts` | Ajouter des permissions allowlist pour réduire les prompts répétitifs |
+| `/schedule` | Créer un agent planifié (cron) pour des tâches récurrentes automatisées |
+| `/find-skills` | Trouver et installer un skill Claude Code par description fonctionnelle |
