@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.3.1
+
+- **fix** : `composer.lock` resynchronisé — hash de contenu désaligné après la mise à jour de `extra.g2rd_theme_version` en 1.7.3, corrigeant l'erreur CI `composer validate`.
+- **docs** : CLAUDE.md mis à jour — table des skills disponibles, Magic Page design system, features admin, LiteSpeed compatibility.
+
 ### 1.7.3
 
 - **feat** : Anti-FOUC dark mode — script inline dans `<head>` (priority 1) élimine le flash lumière→sombre avant le rendu.
