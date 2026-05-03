@@ -237,7 +237,7 @@
           "fontFace": [
             {
               "fontFamily": "Plus Jakarta Sans",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",

@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.3
+
+- **Perf** : Plus Jakarta Sans — `fontDisplay: swap` + preload déclaré en `<head>` (police découverte à 334ms dans la chaîne critique).
+- **Perf** : `fetchpriority="high"` automatique sur la première image LCP des templates FSE (suppression du délai d'affichage élément).
+- **Perf** : stratégie `defer` appliquée automatiquement à tous les `viewScript` des blocs g2rd (suppression du render-blocking sur LCP/FCP).
+
 ### 1.8.2
 
 - **Feat** : Agent Discovery — WebMCP (`navigator.modelContext.provideContext()`), Agent Skills index (`/.well-known/agent-skills/index.json`), MCP Server Card (`/.well-known/mcp/server-card.json`), Link headers RFC 8288 pour la compatibilité agents IA.

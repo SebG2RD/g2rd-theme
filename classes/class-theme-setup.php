@@ -54,6 +54,7 @@ class ThemeSetup {
         // send_headers s'exécute avant tout output HTML → header() fonctionne correctement
         \add_action('send_headers', [$this, 'addSecurityHeaders']);
         \add_action('wp_head', [$this, 'addPreloadLinks'], 2);
+        \add_filter('render_block_core/image', [$this, 'addFetchpriorityToLcpImage']);
 
         $this->setupFeatures();
     }
@@ -85,14 +86,40 @@ class ThemeSetup {
 
         $uri = \get_template_directory_uri();
 
-        // Précharger la police principale du thème (fetchpriority=high pour LCP)
+        // Précharger les polices principales du thème
         echo '<link rel="preload" href="' . \esc_url($uri) . '/assets/fonts/Inter_28pt-Regular.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">' . "\n";
+        echo '<link rel="preload" href="' . \esc_url($uri) . '/assets/fonts/PlusJakartaSans-Regular.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
 
         // Préconnexion au CDN Typed.js uniquement si le bloc est présent sur la page
         if (\has_block('g2rd/typed')) {
             echo '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>' . "\n";
             echo '<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">' . "\n";
         }
+    }
+
+    /**
+     * Ajoute fetchpriority="high" et supprime loading="lazy" sur la première image
+     * du contenu de page (candidat LCP). WordPress 6.3+ le fait pour les images
+     * post-thumbnail mais échoue sur les blocs image dans les templates FSE.
+     *
+     * @param string $block_content HTML généré par le bloc.
+     * @return string
+     */
+    public function addFetchpriorityToLcpImage( string $block_content ): string {
+        static $done = false;
+        if ( $done || \is_admin() ) {
+            return $block_content;
+        }
+        $done = true;
+
+        // Retirer loading="lazy" et ajouter fetchpriority="high" sur le <img>
+        $block_content = \preg_replace( '/ loading="lazy"/', '', $block_content );
+        $block_content = \preg_replace(
+            '/(<img\b(?![^>]*fetchpriority)[^>]*)(>)/',
+            '$1 fetchpriority="high"$2',
+            $block_content
+        );
+        return $block_content;
     }
 
     /**

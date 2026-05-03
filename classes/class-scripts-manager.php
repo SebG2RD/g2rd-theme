@@ -85,11 +85,27 @@ class ScriptsManager {
     /**
      * Applique la stratégie defer native WP 6.4+ aux scripts non critiques.
      * Priorité 999 pour s'exécuter après que toutes les classes aient enregistré leurs scripts.
+     * Inclut également les viewScript des blocs g2rd (enqueués par register_block_type).
      */
     public function applyDeferStrategy(): void {
         foreach ($this->defer_scripts as $handle) {
             if (\wp_script_is($handle, 'enqueued') || \wp_script_is($handle, 'registered')) {
                 \wp_script_add_data($handle, 'strategy', 'defer');
+            }
+        }
+
+        // Defer sur les viewScript des blocs g2rd — handles générés par register_block_type()
+        // au format "{block-slug}-view-script". Ces scripts écoutent DOMContentLoaded
+        // et fonctionnent correctement avec defer.
+        global $wp_scripts;
+        if ( ! isset( $wp_scripts->registered ) ) {
+            return;
+        }
+        foreach ( $wp_scripts->registered as $handle => $script ) {
+            if ( \str_starts_with( $handle, 'g2rd-' ) && \str_ends_with( $handle, '-view-script' ) ) {
+                if ( \wp_script_is( $handle, 'enqueued' ) ) {
+                    \wp_script_add_data( $handle, 'strategy', 'defer' );
+                }
             }
         }
     }
