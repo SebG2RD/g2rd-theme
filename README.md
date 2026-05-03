@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.3.2
+
+- **fix** : FAQPage JSON-LD en double — les items de tous les blocs FAQ (`g2rd/faq` mode GEO et `g2rd-geo-faq`) sont fusionnés dans un seul `<script type="application/ld+json">` émis en `wp_footer`, éliminant l'alerte Google Search Console "Champ FAQPage en double".
+- **fix(CI)** : `package.json` verrouillé à 3 parties (`1.7.3`) pour compatibilité `verify-release-version.sh`.
+
 ### 1.7.3.1
 
 - **fix** : `composer.lock` resynchronisé — hash de contenu désaligné après la mise à jour de `extra.g2rd_theme_version` en 1.7.3, corrigeant l'erreur CI `composer validate`.

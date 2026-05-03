@@ -89,7 +89,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 	</div>
 
 	<?php
-	/* JSON-LD FAQPage schema.org */
+	/* JSON-LD FAQPage schema.org — items collectés pour fusion en wp_footer */
 	$schema_items = [];
 	foreach ( $items as $item ) {
 		$question = sanitize_text_field( $item['question'] ?? '' );
@@ -107,16 +107,33 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 		];
 	}
 
-	if ( ! empty( $schema_items ) ) :
-		$schema = [
-			'@context'   => 'https://schema.org',
-			'@type'      => 'FAQPage',
-			'mainEntity' => $schema_items,
-		];
+	// Accumulate items for a single merged FAQPage JSON-LD emitted in wp_footer.
+	// This prevents duplicate FAQPage schemas when multiple FAQ blocks coexist on the same page.
+	if ( ! empty( $schema_items ) ) {
+		if ( ! isset( $GLOBALS['g2rd_faq_schema_items'] ) ) {
+			$GLOBALS['g2rd_faq_schema_items'] = [];
+			\add_action(
+				'wp_footer',
+				static function () {
+					if ( empty( $GLOBALS['g2rd_faq_schema_items'] ) ) {
+						return;
+					}
+					$schema = [
+						'@context'   => 'https://schema.org',
+						'@type'      => 'FAQPage',
+						'mainEntity' => $GLOBALS['g2rd_faq_schema_items'],
+					];
+					?>
+					<script type="application/ld+json">
+					<?php echo \wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</script>
+					<?php
+				},
+				5
+			);
+		}
+		\array_push( $GLOBALS['g2rd_faq_schema_items'], ...$schema_items );
+	}
 	?>
-	<script type="application/ld+json">
-	<?php echo wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	</script>
-	<?php endif; ?>
 
 </div>
