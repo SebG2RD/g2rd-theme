@@ -38,6 +38,9 @@ class AgentDiscovery {
 
 		// Content Signals — directives IA dans robots.txt
 		\add_filter( 'robots_txt', [ $this, 'addContentSignals' ], 10, 2 );
+
+		// WebMCP — outils navigateur exposés aux agents IA (gated par enable_ai)
+		\add_action( 'wp_head', [ $this, 'injectWebMcp' ], 1 );
 	}
 
 	// -------------------------------------------------------------------------
@@ -63,6 +66,12 @@ class AgentDiscovery {
 
 		// Catalogue d'API (RFC 9727, application/linkset+json)
 		\header( 'Link: <' . $home . '/.well-known/api-catalog>; rel="api-catalog"', false );
+
+		// Agent Skills Discovery RFC v0.2.0
+		\header( 'Link: <' . $home . '/.well-known/agent-skills/index.json>; rel="agent-skills"', false );
+
+		// MCP Server Card SEP-1649
+		\header( 'Link: <' . $home . '/.well-known/mcp/server-card.json>; rel="mcp-server-card"', false );
 	}
 
 	// -------------------------------------------------------------------------
@@ -85,6 +94,12 @@ class AgentDiscovery {
 		switch ( $path ) {
 			case '/.well-known/api-catalog':
 				$this->outputApiCatalog();
+				break;
+			case '/.well-known/agent-skills/index.json':
+				$this->outputAgentSkills();
+				break;
+			case '/.well-known/mcp/server-card.json':
+				$this->outputMcpServerCard();
 				break;
 		}
 	}
@@ -135,6 +150,215 @@ class AgentDiscovery {
 		}
 
 		exit;
+	}
+
+	// -------------------------------------------------------------------------
+	// Agent Skills Discovery RFC v0.2.0 — /.well-known/agent-skills/index.json
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Génère l'index de découverte des skills (Agent Skills Discovery RFC v0.2.0).
+	 *
+	 * @return void
+	 */
+	private function outputAgentSkills(): void {
+		$method = \strtoupper( \sanitize_text_field( \wp_unslash( $_SERVER['REQUEST_METHOD'] ?? 'GET' ) ) );
+
+		if ( ! \in_array( $method, [ 'GET', 'HEAD' ], true ) ) {
+			\status_header( 405 );
+			\header( 'Allow: GET, HEAD' );
+			exit;
+		}
+
+		$home    = \home_url();
+		$version = \wp_get_theme()->get( 'Version' );
+
+		$card_url  = $home . '/.well-known/mcp/server-card.json';
+		$rest_url  = $home . '/wp-json';
+		$card_hash = \hash( 'sha256', $card_url . $version );
+		$rest_hash = \hash( 'sha256', $rest_url );
+
+		$index = [
+			'$schema' => 'https://agentskills.org/schema/v0.2.0/index.json',
+			'skills'  => [
+				[
+					'name'        => 'mcp-server',
+					'type'        => 'mcp',
+					'description' => \sprintf(
+						/* translators: %s: site name */
+						\__( 'MCP Server for %s — exposes site tools and resources to AI agents via the browser WebMCP API.', 'g2rd' ),
+						\get_bloginfo( 'name' )
+					),
+					'url'         => $card_url,
+					'sha256'      => $card_hash,
+				],
+				[
+					'name'        => 'wp-rest-api',
+					'type'        => 'rest',
+					'description' => \sprintf(
+						/* translators: %s: site name */
+						\__( 'WordPress REST API for %s — access posts, pages, and custom content types.', 'g2rd' ),
+						\get_bloginfo( 'name' )
+					),
+					'url'         => $rest_url,
+					'sha256'      => $rest_hash,
+				],
+			],
+		];
+
+		\status_header( 200 );
+		\header( 'Content-Type: application/json; charset=UTF-8' );
+		\header( 'Cache-Control: public, max-age=3600' );
+		\header( 'Access-Control-Allow-Origin: *' );
+
+		if ( 'HEAD' !== $method ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- application/json, pas HTML
+			echo \wp_json_encode( $index, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+		}
+
+		exit;
+	}
+
+	// -------------------------------------------------------------------------
+	// MCP Server Card SEP-1649 — /.well-known/mcp/server-card.json
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Génère la fiche MCP Server Card (SEP-1649) pour la découverte par les agents IA.
+	 *
+	 * @return void
+	 */
+	private function outputMcpServerCard(): void {
+		$method = \strtoupper( \sanitize_text_field( \wp_unslash( $_SERVER['REQUEST_METHOD'] ?? 'GET' ) ) );
+
+		if ( ! \in_array( $method, [ 'GET', 'HEAD' ], true ) ) {
+			\status_header( 405 );
+			\header( 'Allow: GET, HEAD' );
+			exit;
+		}
+
+		$home    = \home_url();
+		$version = \wp_get_theme()->get( 'Version' );
+
+		$card = [
+			'serverInfo'   => [
+				'name'    => \get_bloginfo( 'name' ),
+				'version' => $version,
+			],
+			'transport'    => [
+				'type'     => 'http',
+				'endpoint' => $home . '/wp-json/g2rd/v1',
+			],
+			'capabilities' => [
+				'tools'     => true,
+				'resources' => false,
+				'prompts'   => false,
+			],
+			'tools'        => [
+				[
+					'name'        => 'search',
+					'description' => \__( 'Search the site for pages, posts, and content.', 'g2rd' ),
+					'endpoint'    => $home . '/wp-json/wp/v2/search',
+				],
+				[
+					'name'        => 'posts',
+					'description' => \__( 'Access blog posts and articles.', 'g2rd' ),
+					'endpoint'    => $home . '/wp-json/wp/v2/posts',
+				],
+				[
+					'name'        => 'pages',
+					'description' => \__( 'Access site pages.', 'g2rd' ),
+					'endpoint'    => $home . '/wp-json/wp/v2/pages',
+				],
+				[
+					'name'        => 'google-reviews',
+					'description' => \__( 'Access cached Google Business reviews.', 'g2rd' ),
+					'endpoint'    => $home . '/wp-json/g2rd/v1/google-reviews',
+				],
+			],
+		];
+
+		\status_header( 200 );
+		\header( 'Content-Type: application/json; charset=UTF-8' );
+		\header( 'Cache-Control: public, max-age=3600' );
+		\header( 'Access-Control-Allow-Origin: *' );
+
+		if ( 'HEAD' !== $method ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- application/json, pas HTML
+			echo \wp_json_encode( $card, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+		}
+
+		exit;
+	}
+
+	// -------------------------------------------------------------------------
+	// WebMCP — navigator.modelContext.provideContext()
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Injecte le snippet WebMCP dans <head> pour exposer les outils du site aux agents IA.
+	 *
+	 * Activé uniquement si la fonctionnalité enable_ai est activée dans les options.
+	 * Chaque outil expose une action concrète : recherche, navigation contact, accueil.
+	 *
+	 * @return void
+	 */
+	public function injectWebMcp(): void {
+		if ( \is_admin() ) {
+			return;
+		}
+
+		if ( ! ThemeOptions::isFeatureEnabled( 'enable_ai' ) ) {
+			return;
+		}
+
+		$home        = \esc_url_raw( \home_url() );
+		$search_base = \esc_url_raw( $home . '/?s=' );
+		$site_name   = \get_bloginfo( 'name' );
+		$site_desc   = \get_bloginfo( 'description' );
+
+		$contact_url = $home . '/contact/';
+		$contact     = \get_page_by_path( 'contact' );
+		if ( $contact instanceof \WP_Post ) {
+			$contact_url = \esc_url_raw( (string) \get_permalink( $contact->ID ) );
+		}
+
+		$urls = \wp_json_encode(
+			[
+				's' => $search_base,
+				'c' => $contact_url,
+				'h' => $home,
+			],
+			JSON_UNESCAPED_SLASHES
+		);
+
+		$script = '(function(){if(typeof navigator==="undefined"||!navigator.modelContext)return;'
+			. 'var u=' . $urls . ';'
+			. 'navigator.modelContext.provideContext({'
+			. 'name:' . \wp_json_encode( $site_name ) . ','
+			. 'description:' . \wp_json_encode( $site_desc ) . ','
+			. 'tools:['
+			. '{'
+			. 'name:"search_site",'
+			. 'description:"Search the site for pages, posts, services, or portfolio items",'
+			. 'inputSchema:{type:"object",properties:{query:{type:"string",description:"The search query"}},required:["query"]},'
+			. 'execute:async function(i){window.location.href=u.s+encodeURIComponent(i.query);return{success:true};}'
+			. '},'
+			. '{'
+			. 'name:"navigate_to_contact",'
+			. 'description:"Navigate to the contact page to get in touch or request a quote",'
+			. 'inputSchema:{type:"object",properties:{}},'
+			. 'execute:async function(){window.location.href=u.c;return{success:true};}'
+			. '},'
+			. '{'
+			. 'name:"navigate_home",'
+			. 'description:"Navigate to the homepage",'
+			. 'inputSchema:{type:"object",properties:{}},'
+			. 'execute:async function(){window.location.href=u.h;return{success:true};}'
+			. '}'
+			. ']});})();';
+
+		\wp_print_inline_script_tag( $script );
 	}
 
 	// -------------------------------------------------------------------------

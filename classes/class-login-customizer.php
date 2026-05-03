@@ -258,6 +258,28 @@ body.login { background: {$bg_color} !important; }";
             $inline_css .= "\n" . $bg_image_css;
         }
 
+        // Responsive — placé après les règles dynamiques pour les surcharger (cascade CSS)
+        $inline_css .= '
+@media screen and (max-width: 768px) {
+    #login {
+        width: 100% !important;
+        padding: 30px 20px !important;
+    }
+    #loginform {
+        width: 90% !important;
+    }
+    .login-image { display: none !important; }
+    .login-container { flex-direction: column !important; }
+    .login h1 a {
+        width: 200px !important;
+    }
+}
+@media screen and (max-width: 480px) {
+    #login { padding: 24px 16px !important; }
+    #loginform { width: 100% !important; }
+    .login h1 a { width: 160px !important; }
+}';
+
         \wp_add_inline_style( 'g2rd-login', $inline_css );
 
         // Bouton CTA

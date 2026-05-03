@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.2
+
+- **Feat** : Agent Discovery — WebMCP (`navigator.modelContext.provideContext()`), Agent Skills index (`/.well-known/agent-skills/index.json`), MCP Server Card (`/.well-known/mcp/server-card.json`), Link headers RFC 8288 pour la compatibilité agents IA.
+- **Fix** : page de connexion WordPress — responsive mobile/tablette corrigé (media queries injectées dans le CSS inline après les règles dynamiques).
+
 ### 1.8.1
 
 - **Testimonial** : nouveau toggle "Lien vers Google Business" — la barre de note globale (logo Google + étoiles + nombre d'avis) devient un lien cliquable vers la fiche Google Maps, activable dans le panneau du bloc, sans saisie manuelle d'URL.
