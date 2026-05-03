@@ -29,12 +29,13 @@ export function FeatureCard( { featureKey, definition, value, onChange, locked }
 
 function getIcon( key ) {
 	const icons = {
-		gsap_animations:         'video-alt3',
-		particles_effect:        'star-filled',
-		glass_effect:            'admin-appearance',
-		clickable_articles:      'admin-links',
-		dark_mode:               'visibility',
-		enable_ai:               'rest-api',
+		gsap_animations:          'video-alt3',
+		particles_effect:         'star-filled',
+		glass_effect:             'admin-appearance',
+		clickable_articles:       'admin-links',
+		accessibility:            'universal',
+		dark_mode:                'visibility',
+		enable_ai:                'rest-api',
 		patterns_require_license: 'lock',
 	};
 	return icons[ key ] || 'admin-generic';

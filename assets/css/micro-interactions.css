@@ -52,12 +52,12 @@
 
 .g2rd-card-hover {
   transition: transform 0.22s ease, box-shadow 0.22s ease;
-  will-change: transform;
 }
 
 .g2rd-card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+  will-change: transform;
 }
 
 /* ──────────────────────────────────────────────
@@ -68,6 +68,11 @@
 .button-primary,
 .button-secondary {
   transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.wp-block-button__link:hover,
+.button-primary:hover,
+.button-secondary:hover {
   will-change: transform;
 }
 
@@ -104,12 +109,12 @@
 .wp-block-image img,
 .g2rd-img-zoom img {
   transition: transform 0.4s ease;
-  will-change: transform;
 }
 
 .wp-block-post figure:hover .wp-post-image,
 .g2rd-img-zoom:hover img {
   transform: scale(1.04);
+  will-change: transform;
 }
 
 /* ──────────────────────────────────────────────

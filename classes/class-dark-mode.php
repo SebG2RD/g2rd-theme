@@ -54,10 +54,28 @@ class DarkMode {
      * @return void
      */
     public function register_hooks(): void {
+        \add_action('wp_head', [$this, 'outputAntiFoucScript'], 1);
         \add_action('wp_enqueue_scripts', [$this, 'enqueueDarkModeAssets']);
         \add_filter('body_class', [$this, 'addDarkModeBodyClass']);
         \add_action('wp_ajax_g2rd_toggle_dark_mode', [$this, 'toggleDarkMode']);
         \add_action('wp_ajax_nopriv_g2rd_toggle_dark_mode', [$this, 'toggleDarkMode']);
+    }
+
+    /**
+     * Script critique anti-FOUC injecté en début de <head> (non différé).
+     *
+     * Lit localStorage avant le rendu pour éviter le flash lumière→sombre.
+     * Applique data-theme="dark" sur <html> dès le parsing ; dark-mode.js
+     * synchronise ensuite <body> après son exécution différée.
+     *
+     * @since 1.7.3
+     * @return void
+     */
+    public function outputAntiFoucScript(): void {
+        $key = \esc_js( self::PREFERENCE_KEY );
+        ?>
+<script>!function(){try{var k='<?php echo $key; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already esc_js'd above ?>',s=localStorage.getItem(k),p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='enabled'||(s===null&&p)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('dark-mode-active');}}catch(e){}}();</script>
+        <?php
     }
 
     /**

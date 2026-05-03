@@ -127,6 +127,18 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.7.3
+
+- **feat** : Anti-FOUC dark mode — script inline dans `<head>` (priority 1) élimine le flash lumière→sombre avant le rendu.
+- **feat** : FSE templates persistants — `wp_option` résistant aux flush de transients et aux mises à jour ; suppression conservatrice (trash/auto-draft uniquement).
+- **feat** : Panneau d'accessibilité contrôlable depuis la page d'options admin (toggle + icône dashicons).
+- **feat** : Magic Page design system — `magic-page.css` conditionnel via `style_handle`, 4 styles de blocs (magic-dark, magic-light, neomorphic, soft-pressed), 2 patterns.
+- **fix** : LiteSpeed Cache — filtre `litespeed_optm_js_exc` exclut `dark-mode.js`, `accessibility.js` et `fluent-cart` du defer LiteSpeed.
+- **fix** : GSAP preload 404 — URLs CDN Cloudflare corrigées avec `crossorigin="anonymous"`.
+- **fix** : `clickable-articles.js` — preload warning supprimé (conflit avec LiteSpeed defer).
+- **perf** : `will-change: transform` déplacé sur `:hover` uniquement — réduit la saturation GPU sur pages denses.
+- **perf** : Scroll listener passif (`{ passive: true }`) + throttle `requestAnimationFrame` dans `accessibility.js`.
+
 ### 1.7.2.3
 
 - **Fix** : styles du bloc FAQ absents en production — `src/style.css` exclu du ZIP ; compilation webpack vers `build/style-style.css` + `block.json` mis à jour.

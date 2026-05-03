@@ -106,6 +106,10 @@ class ThemeOptions {
             'label'       => 'Articles entièrement cliquables',
             'description' => 'Rend les cartes d\'articles entièrement cliquables.',
         ],
+        'accessibility' => [
+            'label'       => 'Panneau d\'accessibilité',
+            'description' => 'Ajoute un bouton flottant donnant accès aux options d\'accessibilité (taille du texte, contraste, animations, etc.).',
+        ],
         'dark_mode' => [
             'label'       => 'Mode sombre (Dark Mode)',
             'description' => 'Ajoute un bouton flottant pour basculer en mode sombre. Respecte la préférence système.',

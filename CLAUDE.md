@@ -311,6 +311,17 @@ env:
 - `wp_head` : supprimer les balises inutiles (wp_generator, wlwmanifest, rsd_link, liens REST)
 - Fusionner les callbacks `render_block` quand plusieurs filtres s'appliquent au même hook
 - Effet particules : désactivé automatiquement pour Google PageSpeed Insights et Lighthouse (v1.0.8+)
+- **will-change** : déclarer uniquement sur `:hover` / `:focus`, jamais sur les éléments statiques — évite la saturation GPU sur les pages avec beaucoup de cartes ou boutons
+- **Scroll listeners** : toujours utiliser `{ passive: true }` + `requestAnimationFrame` throttle pour les callbacks scroll
+- **Preload CDN** : les `<link rel="preload">` doivent pointer vers la même URL que le `<script src>` — si les scripts viennent d'un CDN, le preload doit utiliser l'URL CDN avec `crossorigin="anonymous"`, pas un chemin local
+
+### Compatibilité LiteSpeed Cache
+
+LiteSpeed Cache convertit tous les scripts en `type="litespeed/javascript"` (defer JS), y compris les scripts de données localisées (`-js-extra`). Cela crée des erreurs si un script principal s'exécute avant que ses données soient disponibles.
+
+- **Exclusion via filter** : `ScriptsManager::excludeFromLitespeed()` exclut `dark-mode.js`, `accessibility.js` et `fluent-cart` de l'optimisation LiteSpeed via le filtre `litespeed_optm_js_exc`
+- **Anti-FOUC dark mode** : script inline dans `<head>` (priorité 1) via `DarkMode::outputAntiFoucScript()` — lit `localStorage` et applique `data-theme="dark"` avant le rendu, indépendamment de LiteSpeed
+- **Preload + LiteSpeed** : ne pas ajouter de `<link rel="preload">` pour des scripts que LiteSpeed peut bundler — ils deviennent des 404 ou des warnings "not used within a few seconds"
 
 ## Export production
 
@@ -363,13 +374,11 @@ Invoquer avec `/nom-du-skill` pour charger un contexte expert spécialisé.
 | Skill | Quand l'utiliser |
 | --- | --- |
 | `/wordpress-pro` | Tout ce qui touche WordPress : hooks, REST API, sécurité WP, WooCommerce, performance, WPCS |
-| `/senior-architect` | Décisions d'architecture, patterns système, analyse de dépendances, trade-offs techniques |
-| `/senior-backend` | Conception d'API REST, optimisation de requêtes, authentification, logique métier complexe |
-| `/senior-frontend` | Composants React/JSX avancés, optimisation de bundle, gestion d'état, performance frontend |
 | `/react-best-practices` | Optimisation spécifique des blocs Gutenberg React : éviter les waterfalls, bundle, rendering |
 | `/frontend-design` | Création d'interfaces visuellement distinctives, direction artistique, composants UI |
-| `/ui-design-system` | Tokens de design, documentation composants, cohérence visuelle, handoff design-dev |
 | `/code-reviewer` | Revue de code : qualité, sécurité, bonnes pratiques, checklist PR |
-| `/webapp-testing` | Tests frontend avec Playwright, debug UI, vérification comportement visuel |
-| `/skill-creator` | Créer ou améliorer un skill `.claude/skills/` |
+| `/security-review` | Audit de sécurité complet sur les changements en cours (OWASP, nonces, capabilities) |
+| `/web-security-testing` | Tests de sécurité OWASP Top 10 : injection, XSS, authentification, contrôle d'accès |
 | `/production` | **Release** : bump version, changelog README, PHPCS, build, ZIP, commit `release:` |
+| `/simplify` | Revue du code modifié : qualité, réutilisation, efficacité — puis correction |
+| `/review` | Revue d'une Pull Request GitHub |

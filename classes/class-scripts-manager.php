@@ -37,8 +37,6 @@ class ScriptsManager {
      * on applique la stratégie defer ici à priorité tardive.
      */
     private array $defer_scripts = [
-        'g2rd-accessibility',
-        'g2rd-dark-mode',
         'gsap',
         'scrolltrigger',
         'gsap-animation',
@@ -63,6 +61,24 @@ class ScriptsManager {
         \add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         \add_action('wp_enqueue_scripts', [$this, 'applyDeferStrategy'], 999);
         \add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
+        \add_filter('litespeed_optm_js_exc', [$this, 'excludeFromLitespeed']);
+    }
+
+    /**
+     * Exclut les scripts critiques du thème de l'optimisation LiteSpeed Cache.
+     *
+     * LiteSpeed convertit tous les scripts en type="litespeed/javascript" (defer),
+     * ce qui rompt les scripts de données localisées (-js-extra) en les chargeant
+     * après le script principal. On exclut les scripts gérés par le thème.
+     *
+     * @param array $excludes Liste des patterns d'exclusion.
+     * @return array
+     */
+    public function excludeFromLitespeed( array $excludes ): array {
+        $excludes[] = 'dark-mode.js';
+        $excludes[] = 'accessibility.js';
+        $excludes[] = 'fluent-cart';
+        return $excludes;
     }
 
     /**
@@ -108,6 +124,15 @@ class ScriptsManager {
     public function enqueueScripts(): void {
         $ver = \wp_get_theme()->get( 'Version' );
         $uri = \get_template_directory_uri();
+
+        // Design system Magic Page — enregistré ici, enqueué uniquement via style_handle
+        // de register_block_style() (BlockStyles::registerMagicStyles) sur les pages concernées.
+        \wp_register_style(
+            'g2rd-magic-page',
+            $uri . '/assets/css/magic-page.css',
+            [],
+            $ver
+        );
 
         // Micro-interactions : CSS + JS d'animation au scroll
         \wp_enqueue_style(

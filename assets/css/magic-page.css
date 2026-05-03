@@ -1,0 +1,478 @@
+/* ================================================================
+   G2RD Magic Page — Design System
+   Styles réutilisables : classes utilitaires + styles de blocs WP
+   Toutes les couleurs utilisent les variables var(--wp--preset--*)
+   ================================================================ */
+
+/* ── Page wrapper ─────────────────────────────────────────────── */
+.g2rd-magic-page {
+	overflow: hidden;
+}
+
+/* ── Espacement vertical uniforme (override inline Gutenberg) ─── */
+.g2rd-magic-section {
+	position: relative;
+	padding-top: clamp(5rem, 8vw, 8rem) !important;
+	padding-bottom: clamp(5rem, 8vw, 8rem) !important;
+}
+
+/* ================================================================
+   SECTION SOMBRE
+   Utilisable via : classe g2rd-magic-dark OU style Gutenberg
+   "Magic — Sombre" (is-style-magic-dark)
+   ================================================================ */
+.g2rd-magic-dark,
+.wp-block-group.is-style-magic-dark {
+	position: relative;
+	overflow: hidden;
+	color: var(--wp--preset--color--white);
+	background:
+		radial-gradient(circle at 20% 10%, rgba(212, 163, 115, 0.28), transparent 26%),
+		radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.12), transparent 24%),
+		radial-gradient(circle at 50% 90%, rgba(212, 163, 115, 0.14), transparent 28%),
+		linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--primary) 58%, #111827 100%);
+}
+
+/* Grille SVG en arrière-plan — masquée vers les bords */
+.g2rd-magic-dark::before,
+.wp-block-group.is-style-magic-dark::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+	background-size: 44px 44px;
+	mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.g2rd-magic-dark > *,
+.wp-block-group.is-style-magic-dark > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* ================================================================
+   SECTION CLAIRE
+   Utilisable via : classe g2rd-magic-light OU style Gutenberg
+   "Magic — Claire" (is-style-magic-light)
+   ================================================================ */
+.g2rd-magic-light,
+.wp-block-group.is-style-magic-light {
+	position: relative;
+	background:
+		radial-gradient(circle at 10% 0%, rgba(212, 163, 115, 0.16), transparent 24%),
+		radial-gradient(circle at 85% 20%, rgba(47, 67, 94, 0.10), transparent 26%),
+		linear-gradient(180deg, #ffffff 0%, var(--wp--preset--color--cream) 100%);
+}
+
+/* Espacement automatique sur les block styles (pas besoin de la classe g2rd-magic-section) */
+.wp-block-group.is-style-magic-dark,
+.wp-block-group.is-style-magic-light {
+	padding-top: clamp(5rem, 8vw, 8rem) !important;
+	padding-bottom: clamp(5rem, 8vw, 8rem) !important;
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.g2rd-magic-hero {
+	min-height: 86vh;
+	display: flex;
+	align-items: center;
+}
+
+.g2rd-magic-hero-inner {
+	width: 100%;
+}
+
+.g2rd-magic-hero h1 {
+	max-width: 1040px;
+	margin-bottom: 1.4rem;
+	color: var(--wp--preset--color--white);
+}
+
+.g2rd-magic-hero p {
+	max-width: 720px;
+	color: rgba(250, 250, 250, 0.78);
+	line-height: 1.75;
+}
+
+.g2rd-magic-hero .wp-block-columns {
+	align-items: center !important;
+	gap: clamp(2rem, 6vw, 6rem);
+}
+
+/* ================================================================
+   EYEBROW (badge de catégorie en haut d'un titre)
+   ================================================================ */
+.g2rd-magic-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	width: fit-content;
+	margin-bottom: 1.25rem;
+	padding: 0.55rem 0.9rem;
+	border: 1px solid rgba(212, 163, 115, 0.42);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.08);
+	color: rgba(250, 250, 250, 0.9);
+	font-size: 0.88rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	backdrop-filter: blur(16px);
+}
+
+/* Point doré lumineux avant le texte */
+.g2rd-magic-eyebrow::before {
+	content: "";
+	flex-shrink: 0;
+	width: 0.55rem;
+	height: 0.55rem;
+	border-radius: 50%;
+	background: var(--wp--preset--color--secondary);
+	box-shadow: 0 0 22px rgba(212, 163, 115, 0.9);
+}
+
+/* ================================================================
+   CARTE VISUELLE (image flottante avec effet glassmorphism)
+   ================================================================ */
+.g2rd-magic-visual-card {
+	position: relative;
+	padding: clamp(1.4rem, 2vw, 2rem);
+	border: 1px solid rgba(212, 163, 115, 0.34);
+	border-radius: 36px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06));
+	box-shadow: var(--wp--preset--shadow--magic);
+	backdrop-filter: blur(22px);
+}
+
+.g2rd-magic-visual-card::after {
+	content: "G2RD";
+	position: absolute;
+	right: 1.4rem;
+	bottom: 1.2rem;
+	padding: 0.45rem 0.8rem;
+	border-radius: 999px;
+	background: rgba(212, 163, 115, 0.18);
+	color: rgba(250, 250, 250, 0.82);
+	font-size: 0.8rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+}
+
+.g2rd-magic-visual-card img {
+	width: 100%;
+	filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.35));
+}
+
+/* ================================================================
+   TEXTE TYPÉ (bloc g2rd/typed)
+   ================================================================ */
+.g2rd-magic-typed {
+	margin: 1.6rem 0 1.9rem;
+	color: var(--wp--preset--color--secondary);
+	font-weight: 800;
+}
+
+/* ================================================================
+   BOUTONS
+   Styles de blocs Gutenberg : is-style-neomorphic, is-style-soft-pressed
+   ================================================================ */
+
+/* Base commune pour tous les boutons dans une magic page */
+.g2rd-magic-buttons .wp-block-button__link,
+.g2rd-magic-page .wp-block-button__link {
+	border-radius: 999px;
+	padding: 1rem 1.45rem;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+/* Style Gutenberg : bouton blanc néomorphique */
+.g2rd-magic-page .is-style-neomorphic .wp-block-button__link,
+.wp-block-button.is-style-neomorphic .wp-block-button__link {
+	border-radius: 999px;
+	padding: 1rem 1.45rem;
+	font-weight: 800;
+	background: var(--wp--preset--color--white);
+	color: var(--wp--preset--color--primary);
+	box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Style Gutenberg : bouton doré pressé */
+.g2rd-magic-page .is-style-soft-pressed .wp-block-button__link,
+.wp-block-button.is-style-soft-pressed .wp-block-button__link {
+	border-radius: 999px;
+	padding: 1rem 1.45rem;
+	font-weight: 800;
+	background: var(--wp--preset--color--secondary);
+	color: #111827;
+	box-shadow: 0 18px 45px rgba(212, 163, 115, 0.26);
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.g2rd-magic-page .wp-block-button__link:hover,
+.wp-block-button.is-style-neomorphic .wp-block-button__link:hover,
+.wp-block-button.is-style-soft-pressed .wp-block-button__link:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+/* ================================================================
+   HEADING CENTRÉ AVEC EYEBROW
+   Wrapper standard pour les titres de section
+   ================================================================ */
+.g2rd-magic-heading {
+	max-width: 850px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 3rem;
+	text-align: center;
+}
+
+/* Premier paragraphe = eyebrow pill */
+.g2rd-magic-heading p:first-child {
+	display: inline-flex;
+	width: fit-content;
+	margin-bottom: 1rem;
+	padding: 0.48rem 0.8rem;
+	border: 1px solid rgba(212, 163, 115, 0.35);
+	border-radius: 999px;
+	background: rgba(212, 163, 115, 0.10);
+	color: var(--wp--preset--color--primary);
+	font-size: 0.82rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.g2rd-magic-dark .g2rd-magic-heading p:first-child,
+.wp-block-group.is-style-magic-dark .g2rd-magic-heading p:first-child {
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--wp--preset--color--secondary);
+}
+
+.g2rd-magic-heading h2 {
+	margin-bottom: 1rem;
+	color: var(--wp--preset--color--blue-dark);
+}
+
+.g2rd-magic-dark .g2rd-magic-heading h2,
+.wp-block-group.is-style-magic-dark .g2rd-magic-heading h2 {
+	color: var(--wp--preset--color--white);
+}
+
+.g2rd-magic-heading p {
+	color: var(--wp--preset--color--muted);
+	line-height: 1.7;
+}
+
+.g2rd-magic-dark .g2rd-magic-heading p,
+.wp-block-group.is-style-magic-dark .g2rd-magic-heading p {
+	color: rgba(250, 250, 250, 0.74);
+}
+
+/* ================================================================
+   CARTE CONTENU (posts, prestations, articles)
+   ================================================================ */
+.g2rd-magic-card,
+.g2rd-magic-page .wp-block-query .wp-block-group,
+.g2rd-magic-page .wp-block-query .wp-block-columns {
+	border: 1px solid rgba(212, 163, 115, 0.26);
+	border-radius: 32px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.78));
+	box-shadow: 0 24px 80px rgba(47, 67, 94, 0.13);
+	backdrop-filter: blur(20px);
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.g2rd-magic-page .wp-block-query .wp-block-group:hover,
+.g2rd-magic-page .wp-block-query .wp-block-columns:hover,
+.g2rd-magic-card:hover {
+	transform: translateY(-6px);
+	border-color: rgba(212, 163, 115, 0.55);
+	box-shadow: 0 34px 110px rgba(47, 67, 94, 0.20);
+}
+
+.g2rd-magic-page .wp-block-post-title a,
+.g2rd-magic-page .wp-block-post-title {
+	color: var(--wp--preset--color--primary);
+	font-weight: 850;
+	text-decoration: none;
+}
+
+.g2rd-magic-page .wp-block-post-excerpt {
+	color: var(--wp--preset--color--muted);
+	line-height: 1.65;
+}
+
+.g2rd-magic-page .wp-block-post-featured-image img {
+	width: 100%;
+	border-radius: 24px;
+	object-fit: contain;
+}
+
+/* ================================================================
+   COMPTEURS / STATISTIQUES
+   ================================================================ */
+.g2rd-magic-stats-row {
+	gap: 1rem !important;
+}
+
+.g2rd-magic-stats .wp-block-g2rd-counter {
+	min-width: 185px;
+	padding: 1.6rem;
+	border: 1px solid rgba(212, 163, 115, 0.34);
+	border-radius: 30px;
+	background: rgba(255, 255, 255, 0.08);
+	box-shadow: 0 26px 80px rgba(0, 0, 0, 0.20);
+	backdrop-filter: blur(22px);
+}
+
+.g2rd-magic-stats .counter-number,
+.g2rd-magic-stats .counter-prefix,
+.g2rd-magic-stats .counter-suffix {
+	font-weight: 900;
+}
+
+.g2rd-magic-stats .counter-title {
+	margin-top: 0.4rem;
+	font-weight: 700;
+	color: rgba(250, 250, 250, 0.82) !important;
+}
+
+/* ================================================================
+   GRILLE FILTRABLE (bloc g2rd/filterable-grid)
+   Scopé sous .g2rd-magic-page pour ne pas écraser les grilles
+   sur les pages qui n'utilisent pas le design system Magic Page.
+   ================================================================ */
+.g2rd-magic-page .g2rd-filter-grid__card {
+	border: 1px solid rgba(212, 163, 115, 0.28) !important;
+	border-radius: 34px !important;
+	overflow: hidden;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.78)) !important;
+	box-shadow: 0 28px 90px rgba(47, 67, 94, 0.16) !important;
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.g2rd-magic-page .g2rd-filter-grid__card:hover {
+	transform: translateY(-7px);
+	border-color: rgba(212, 163, 115, 0.58) !important;
+	box-shadow: 0 38px 120px rgba(47, 67, 94, 0.24) !important;
+}
+
+.g2rd-magic-page .g2rd-filter-grid__media img,
+.g2rd-magic-page .g2rd-filter-grid__media {
+	border-radius: 26px;
+}
+
+.g2rd-magic-page .g2rd-filter-grid__title {
+	color: var(--wp--preset--color--primary);
+	font-weight: 900;
+}
+
+.g2rd-magic-page .g2rd-filter-grid__excerpt {
+	color: var(--wp--preset--color--muted);
+	line-height: 1.65;
+}
+
+/* ================================================================
+   RÉSEAUX SOCIAUX
+   ================================================================ */
+.g2rd-magic-social .wp-block-social-links {
+	gap: 1rem;
+}
+
+.g2rd-magic-social .wp-social-link {
+	border: 1px solid rgba(212, 163, 115, 0.34);
+	border-radius: 999px !important;
+	background: rgba(255, 255, 255, 0.09) !important;
+	box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+	transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.g2rd-magic-social .wp-social-link:hover {
+	transform: translateY(-5px);
+	background: rgba(212, 163, 115, 0.22) !important;
+}
+
+/* ================================================================
+   GRILLE CONTACT (align-items stretch)
+   ================================================================ */
+.g2rd-magic-contact-grid {
+	align-items: stretch !important;
+}
+
+/* ================================================================
+   ÉTAPE / CARTE PROCESSUS
+   ================================================================ */
+.g2rd-magic-step {
+	height: 100%;
+	border: 1px solid rgba(212, 163, 115, 0.34);
+	border-radius: 30px;
+	background: rgba(255, 255, 255, 0.08);
+	box-shadow: 0 28px 90px rgba(0, 0, 0, 0.18);
+	backdrop-filter: blur(22px);
+}
+
+.g2rd-magic-step p,
+.g2rd-magic-step strong {
+	color: var(--wp--preset--color--white);
+}
+
+.g2rd-magic-step .g2rd-iconbox__icon {
+	color: var(--wp--preset--color--secondary);
+}
+
+/* ================================================================
+   CARTE ÉQUIPE
+   ================================================================ */
+.g2rd-magic-team-card {
+	border: 1px solid rgba(212, 163, 115, 0.28);
+	border-radius: 32px;
+	background: rgba(255, 255, 255, 0.84);
+	box-shadow: 0 24px 80px rgba(47, 67, 94, 0.13);
+	backdrop-filter: blur(18px);
+}
+
+.g2rd-magic-team-card img {
+	box-shadow: 0 22px 65px rgba(47, 67, 94, 0.24);
+}
+
+/* ================================================================
+   TÉMOIGNAGES
+   ================================================================ */
+.g2rd-magic-testimonials .g2rd-testimonial__card,
+.g2rd-magic-testimonials .g2rd-testimonial__google-header {
+	border-radius: 30px !important;
+	border: 1px solid rgba(212, 163, 115, 0.34) !important;
+	box-shadow: 0 28px 90px rgba(0, 0, 0, 0.20) !important;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 900px) {
+	.g2rd-magic-hero {
+		min-height: auto;
+	}
+
+	.g2rd-magic-visual-card {
+		margin-top: 2rem;
+	}
+
+	.g2rd-magic-stats-row {
+		flex-wrap: wrap !important;
+	}
+
+	.g2rd-magic-page .wp-block-button,
+	.g2rd-magic-page .wp-block-button__link {
+		width: 100%;
+		text-align: center;
+	}
+}

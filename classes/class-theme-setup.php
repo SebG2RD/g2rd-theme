@@ -105,29 +105,29 @@ class ThemeSetup {
         // Styles principaux avec version du thème
         \wp_enqueue_style('main', \get_stylesheet_uri(), [], $this->theme_version);
 
-        // Styles d'accessibilité
-        \wp_enqueue_style(
-            'g2rd-accessibility',
-            \get_template_directory_uri() . '/assets/css/accessibility.css',
-            [],
-            $this->theme_version
-        );
+        // Panneau d'accessibilité — conditionnel selon les options du thème
+        if ( \G2RD\ThemeOptions::isFeatureEnabled( 'accessibility' ) ) {
+            \wp_enqueue_style(
+                'g2rd-accessibility',
+                \get_template_directory_uri() . '/assets/css/accessibility.css',
+                [],
+                $this->theme_version
+            );
 
-        // Scripts d'accessibilité avec chargement différé (stratégie native WP 6.4+)
-        \wp_enqueue_script(
-            'g2rd-accessibility',
-            \get_template_directory_uri() . '/assets/js/accessibility.js',
-            [],
-            $this->theme_version,
-            true
-        );
-        \wp_script_add_data('g2rd-accessibility', 'strategy', 'defer');
+            \wp_enqueue_script(
+                'g2rd-accessibility',
+                \get_template_directory_uri() . '/assets/js/accessibility.js',
+                [],
+                $this->theme_version,
+                true
+            );
+            \wp_script_add_data( 'g2rd-accessibility', 'strategy', 'defer' );
 
-        // Ajouter les données localisées pour les scripts
-        wp_localize_script('g2rd-accessibility', 'g2rdData', [
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('g2rd-nonce')
-        ]);
+            \wp_localize_script( 'g2rd-accessibility', 'g2rdData', [
+                'ajaxUrl' => \admin_url( 'admin-ajax.php' ),
+                'nonce'   => \wp_create_nonce( 'g2rd-nonce' ),
+            ] );
+        }
     }
 
     /**

@@ -32,6 +32,26 @@
           "name": "Blanc éclatant",
           "slug": "white",
           "color": "#FAFAFA"
+        },
+        {
+          "name": "Bleu sombre",
+          "slug": "blue-dark",
+          "color": "#172233"
+        },
+        {
+          "name": "Bleu doux",
+          "slug": "blue-soft",
+          "color": "#3c5473"
+        },
+        {
+          "name": "Crème",
+          "slug": "cream",
+          "color": "#f7f2ea"
+        },
+        {
+          "name": "Texte atténué",
+          "slug": "muted",
+          "color": "#6b7280"
         }
       ],
       "gradients": [
@@ -49,6 +69,16 @@
           "name": "Bleu beige",
           "slug": "bleubeige",
           "gradient": "linear-gradient(135deg, #2f425d 0%, #d4a373 100%)"
+        },
+        {
+          "name": "Section sombre",
+          "slug": "magic-dark",
+          "gradient": "linear-gradient(135deg, #172233 0%, #2f435e 58%, #111827 100%)"
+        },
+        {
+          "name": "Section claire",
+          "slug": "magic-light",
+          "gradient": "linear-gradient(180deg, #ffffff 0%, #f7f2ea 100%)"
         }
       ],
       "duotone": [
@@ -434,6 +464,16 @@
           "name": "Lueur secondaire",
           "slug": "secondary-glow",
           "shadow": "0 4px 24px rgba(212, 163, 115, 0.32), 0 2px 8px rgba(212, 163, 115, 0.18)"
+        },
+        {
+          "name": "Magic — Carte",
+          "slug": "magic",
+          "shadow": "0 28px 90px rgba(0, 0, 0, 0.28)"
+        },
+        {
+          "name": "Magic — Carte XL",
+          "slug": "magic-xl",
+          "shadow": "0 34px 110px rgba(47, 67, 94, 0.20)"
         }
       ]
     }

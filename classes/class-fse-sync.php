@@ -19,11 +19,17 @@ namespace G2RD;
  */
 class FseSync {
 
-	/** Clé du transient de synchronisation (v4). */
-	private const SYNC_TRANSIENT = 'g2rd_sync_v4';
+	/**
+	 * Clé d'option (persistante, résiste aux flush transients) stockant
+	 * la version du thème au dernier passage de sync_fse_once.
+	 */
+	private const SYNC_VERSION_OPTION = 'g2rd_sync_version';
 
-	/** Clé du transient de recréation (v3). */
-	private const RECREATE_TRANSIENT = 'g2rd_tpl_recreated_v3';
+	/**
+	 * Clé d'option (persistante) stockant la version du thème au dernier
+	 * passage de recreate_fse_templates. Remplace l'ancien transient.
+	 */
+	private const RECREATE_VERSION_OPTION = 'g2rd_recreate_version';
 
 	/** Clé de l'option stockant la version au dernier flush des permaliens. */
 	private const REWRITE_VERSION_OPTION = 'g2rd_rewrite_flushed_version';
@@ -90,37 +96,89 @@ class FseSync {
 	}
 
 	/**
-	 * Resynchronisation forcée une seule fois — se déclenche au prochain admin_init
-	 * après restauration manuelle des fichiers, puis ne s'exécute plus.
+	 * Nettoyage conservateur une seule fois par version de thème.
+	 *
+	 * Utilise wp_option (non effacée par les flush de transients ou les mises
+	 * à jour) et supprime uniquement les entrées auto-draft / trash — jamais
+	 * les templates publiés que l'utilisateur a personnalisés dans l'éditeur.
 	 *
 	 * @return void
 	 */
 	public function sync_fse_once(): void {
-		if ( \get_transient( self::SYNC_TRANSIENT ) ) {
+		$current_version = \wp_get_theme()->get( 'Version' );
+
+		if ( \get_option( self::SYNC_VERSION_OPTION ) === $current_version ) {
 			return;
 		}
 
+		// Nettoyage des anciens transients hérités des versions précédentes.
 		\delete_transient( 'g2rd_sync_done' );
 		\delete_transient( 'g2rd_sync_v2' );
 		\delete_transient( 'g2rd_sync_v3' );
+		\delete_transient( 'g2rd_sync_v4' );
 
-		$this->sync_fse_templates();
+		$this->cleanup_stale_templates();
 
-		\set_transient( self::SYNC_TRANSIENT, true, DAY_IN_SECONDS * 30 );
+		\update_option( self::SYNC_VERSION_OPTION, $current_version, false );
+	}
+
+	/**
+	 * Supprime uniquement les entrées auto-draft et trash du thème.
+	 *
+	 * Préserve les templates publiés (personnalisations utilisateur).
+	 * Appelé par sync_fse_once() — jamais lors d'un changement de thème.
+	 *
+	 * @return void
+	 */
+	private function cleanup_stale_templates(): void {
+		$slugs = [ \get_stylesheet(), 'G2RD-theme', 'g2rd-theme' ];
+
+		$stale_posts = \get_posts(
+			[
+				'post_type'      => [ 'wp_template_part', 'wp_template' ],
+				'posts_per_page' => -1,
+				'post_status'    => [ 'trash', 'auto-draft' ], // publish intentionnellement exclu
+				'tax_query'      => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					[
+						'taxonomy' => 'wp_theme',
+						'field'    => 'name',
+						'terms'    => $slugs,
+						'operator' => 'IN',
+					],
+				],
+			]
+		);
+
+		foreach ( $stale_posts as $post ) {
+			\wp_delete_post( $post->ID, true );
+		}
+
+		\wp_clean_themes_cache();
+
+		if ( \class_exists( 'WP_Theme_JSON_Resolver' ) ) {
+			\WP_Theme_JSON_Resolver::clean_cached_data();
+		}
 	}
 
 	/**
 	 * Recrée en DB les template parts et templates FSE manquants depuis le filesystem.
 	 *
+	 * S'exécute une seule fois par version de thème (wp_option, résistante aux
+	 * flush de transients). Ne touche jamais aux templates déjà présents en DB.
+	 *
 	 * @return void
 	 */
 	public function recreate_fse_templates(): void {
-		if ( \get_transient( self::RECREATE_TRANSIENT ) ) {
+		$current_version = \wp_get_theme()->get( 'Version' );
+
+		if ( \get_option( self::RECREATE_VERSION_OPTION ) === $current_version ) {
 			return;
 		}
 
+		// Nettoyage des anciens transients hérités des versions précédentes.
 		\delete_transient( 'g2rd_tpl_recreated_v1' );
 		\delete_transient( 'g2rd_tpl_recreated_v2' );
+		\delete_transient( 'g2rd_tpl_recreated_v3' );
 
 		$theme_slug = \get_stylesheet();
 		$theme_dir  = \get_template_directory();
@@ -227,7 +285,7 @@ class FseSync {
 			\WP_Theme_JSON_Resolver::clean_cached_data();
 		}
 
-		\set_transient( self::RECREATE_TRANSIENT, true, DAY_IN_SECONDS * 30 );
+		\update_option( self::RECREATE_VERSION_OPTION, $current_version, false );
 	}
 
 	/**

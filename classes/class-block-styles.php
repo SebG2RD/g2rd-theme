@@ -51,6 +51,7 @@ class BlockStyles {
      */
     public function register_hooks(): void {
         \add_action('init', [$this, 'registerBlockStyles']);
+        \add_action('init', [$this, 'registerMagicStyles']);
         \add_action('switch_theme', [$this, 'clearStylesCache']);
         \add_action('wp_enqueue_scripts', [$this, 'enqueueBlockStyles']);
     }
@@ -100,6 +101,46 @@ class BlockStyles {
                 }
             }
         }
+    }
+
+    /**
+     * Enregistre les styles de blocs du design system Magic Page.
+     * Le CSS (g2rd-magic-page) est chargé via style_handle — WordPress
+     * l'enqueue uniquement sur les pages qui rendent un bloc avec ce style.
+     */
+    public function registerMagicStyles(): void {
+        \register_block_style(
+            'core/group',
+            [
+                'name'         => 'magic-dark',
+                'label'        => \__( 'Magic — Sombre', 'g2rd' ),
+                'style_handle' => 'g2rd-magic-page',
+            ]
+        );
+        \register_block_style(
+            'core/group',
+            [
+                'name'         => 'magic-light',
+                'label'        => \__( 'Magic — Claire', 'g2rd' ),
+                'style_handle' => 'g2rd-magic-page',
+            ]
+        );
+        \register_block_style(
+            'core/button',
+            [
+                'name'         => 'neomorphic',
+                'label'        => \__( 'Néomorphique', 'g2rd' ),
+                'style_handle' => 'g2rd-magic-page',
+            ]
+        );
+        \register_block_style(
+            'core/button',
+            [
+                'name'         => 'soft-pressed',
+                'label'        => \__( 'Doré pressé', 'g2rd' ),
+                'style_handle' => 'g2rd-magic-page',
+            ]
+        );
     }
 
     /**

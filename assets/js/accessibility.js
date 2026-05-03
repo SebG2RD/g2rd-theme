@@ -404,13 +404,20 @@
       handleReducedMotion();
       setupAccessibilityPanel();
       const scrollBtn = createScrollToTopButton();
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 200) {
-          scrollBtn.style.display = "flex";
-        } else {
-          scrollBtn.style.display = "none";
-        }
-      });
+      let scrollTicking = false;
+      window.addEventListener(
+        "scroll",
+        () => {
+          if ( ! scrollTicking ) {
+            window.requestAnimationFrame( () => {
+              scrollBtn.style.display = window.scrollY > 200 ? "flex" : "none";
+              scrollTicking = false;
+            } );
+            scrollTicking = true;
+          }
+        },
+        { passive: true }
+      );
     }
   }
 

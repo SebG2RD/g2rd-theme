@@ -71,9 +71,8 @@ class GSAPAnimations {
         if ( ! $has_gsap ) {
             return;
         }
-        $uri = \get_template_directory_uri();
-        echo '<link rel="preload" href="' . \esc_url( $uri ) . '/assets/js/vendor/gsap.min.js" as="script">';
-        echo '<link rel="preload" href="' . \esc_url( $uri ) . '/assets/js/vendor/ScrollTrigger.min.js" as="script">';
+        echo '<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script" crossorigin="anonymous">';
+        echo '<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" as="script" crossorigin="anonymous">';
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * Gestion des articles cliquables
- * 
+ *
  * Cette classe gère la fonctionnalité des articles cliquables,
  * permettant de rendre l'ensemble d'un article interactif.
  *
@@ -16,7 +16,7 @@ namespace G2RD;
 
 /**
  * Gestion des articles cliquables
- * 
+ *
  * Cette classe gère l'ajout et la configuration de la fonctionnalité
  * de clic sur les articles dans les blocs de type group.
  *
@@ -51,35 +51,6 @@ class ClickableArticles {
 
         // Ajouter l'attribut data-clickable-articles aux blocs
         \add_filter('render_block', [$this, 'addClickableAttribute'], 10, 2);
-
-        // Ajouter les liens de préchargement pour les ressources critiques
-        \add_action('wp_head', [$this, 'addPreloadLinks'], 1);
-    }
-
-    /**
-     * Ajoute les liens de préchargement pour les ressources critiques
-     */
-    public function addPreloadLinks(): void {
-        // Précharger uniquement si la page contient des blocs avec articles cliquables
-        if ( \is_admin() || ! $this->pageHasClickableBlocks() ) {
-            return;
-        }
-        echo '<link rel="preload" href="' . \esc_url( \get_template_directory_uri() ) . '/assets/js/clickable-articles.js" as="script">';
-    }
-
-    /**
-     * Vérifie si la page courante contient des blocs avec articles cliquables.
-     *
-     * @return bool
-     */
-    private function pageHasClickableBlocks(): bool {
-        $clickable_blocks = [ 'g2rd/card-g2rd', 'g2rd/filterable-grid', 'core/query' ];
-        foreach ( $clickable_blocks as $block ) {
-            if ( \has_block( $block ) ) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
