@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.6
+
+- **Fix dark mode** : couverture complète de tous les blocs (Testimonial, FilterableGrid, Modal, Counter, Carousel, Countdown, GEO Summary, FAQ, Toggle Content, Slider, Header).
+- **Fix** : synchronisation cookie/localStorage corrigée — le dark mode PHP (body class) restait actif après désactivation JS.
+- **Fix a11y** : contrastes WCAG 2.1 corrigés en dark mode — `contrast-3` #9e9e9e (6.99:1 AA), liens #7cb4f5 (5.5:1 AA), FAQ accent secondaire gold (7.37:1 AAA), GEO Summary tagline/bullet (7.37:1 AAA).
+
 ### 1.8.5
 
 - **Fix** : Table des matières — cache-buster `view.asset.php` mis à jour pour forcer le rechargement du JS corrigé (hash identique = ancien fichier servi par LiteSpeed/navigateur).
