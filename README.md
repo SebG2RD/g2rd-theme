@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.5
+
+- **Fix** : Table des matières — cache-buster `view.asset.php` mis à jour pour forcer le rechargement du JS corrigé (hash identique = ancien fichier servi par LiteSpeed/navigateur).
+
 ### 1.8.4
 
 - **Fix** : Table des matières — priorité du sélecteur corrigée, seuls les titres du contenu de l'article (`.wp-block-post-content`) sont indexés, plus les titres de la page entière.
