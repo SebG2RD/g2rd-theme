@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.8.4
+
+- **Fix** : Table des matières — priorité du sélecteur corrigée, seuls les titres du contenu de l'article (`.wp-block-post-content`) sont indexés, plus les titres de la page entière.
+
 ### 1.8.3
 
 - **Perf** : Plus Jakarta Sans — `fontDisplay: swap` + preload déclaré en `<head>` (police découverte à 334ms dans la chaîne critique).
