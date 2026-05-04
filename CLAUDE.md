@@ -29,27 +29,27 @@ g2rd-theme/
 │   │   └── PostSelector.js          # Composant partagé entre blocs
 │   │
 │   ├── — Blocs pré-compilés (pas de src/, assets directs) —
-│   ├── AdvancedList/
-│   ├── Breadcrumb/
-│   ├── DeviceMockup/
+│   ├── g2rd-advanced-list/
+│   ├── g2rd-breadcrumb/
+│   ├── g2rd-device-mockup/
 │   ├── g2rd/                        # Bloc générique (index.js + block.json)
-│   ├── IconBox/
-│   ├── Map/
-│   ├── Marquee/
-│   ├── Modal/
-│   ├── ProgressBar/
-│   ├── ShareButtons/
-│   ├── Slider/
-│   ├── SlidingPanel/
-│   ├── TableOfContents/
-│   ├── ToggleContent/
-│   ├── Toolbars/
+│   ├── g2rd-icon-box/
+│   ├── g2rd-map/
+│   ├── g2rd-marquee/
+│   ├── g2rd-modal/
+│   ├── g2rd-progress-bar/
+│   ├── g2rd-share-buttons/
+│   ├── g2rd-slider/
+│   ├── g2rd-sliding-panel/
+│   ├── g2rd-table-of-contents/
+│   ├── g2rd-toggle-content/
+│   ├── g2rd-toolbars/
 │   │
 │   ├── — Blocs avec npm workspace (src/ + build/) —
-│   ├── CardG2rd/
-│   ├── CodeG2rd/
-│   ├── FilterableGrid/
-│   ├── PricingTable/
+│   ├── g2rd-card/
+│   ├── g2rd-code/
+│   ├── g2rd-filterable-grid/
+│   ├── g2rd-pricing-table/
 │   ├── g2rd-advanced-heading/
 │   ├── g2rd-block-api/
 │   ├── g2rd-carousel/

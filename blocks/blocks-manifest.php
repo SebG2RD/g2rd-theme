@@ -1,7 +1,7 @@
 <?php
 // Auto-généré par sync_g2rd_build_to_g2rd_blocks.php
 return array (
-  'AdvancedList' => 
+  'g2rd-advanced-list' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -100,7 +100,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'Breadcrumb' => 
+  'g2rd-breadcrumb' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -171,7 +171,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'CardG2rd' => 
+  'g2rd-card' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -257,7 +257,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'CodeG2rd' => 
+  'g2rd-code' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -366,7 +366,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'DeviceMockup' => 
+  'g2rd-device-mockup' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -434,7 +434,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'FilterableGrid' => 
+  'g2rd-filterable-grid' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -557,7 +557,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'IconBox' => 
+  'g2rd-icon-box' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -661,7 +661,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'Map' => 
+  'g2rd-map' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -753,7 +753,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'Marquee' => 
+  'g2rd-marquee' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -819,7 +819,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'Modal' => 
+  'g2rd-modal' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -913,7 +913,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'ProgressBar' => 
+  'g2rd-progress-bar' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1009,7 +1009,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'ShareButtons' => 
+  'g2rd-share-buttons' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1117,7 +1117,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'Slider' => 
+  'g2rd-slider' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1235,7 +1235,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'SlidingPanel' => 
+  'g2rd-sliding-panel' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1359,7 +1359,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'TableOfContents' => 
+  'g2rd-table-of-contents' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1430,7 +1430,7 @@ return array (
     'style' => 'file:./style-index.css',
     'viewScript' => 'file:./view.js',
   ),
-  'ToggleContent' => 
+  'g2rd-toggle-content' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
@@ -1505,7 +1505,7 @@ return array (
     'editorStyle' => 'file:./index.css',
     'style' => 'file:./style-index.css',
   ),
-  'Toolbars' => 
+  'g2rd-toolbars' => 
   array (
     '$schema' => 'https://schemas.wp.org/trunk/block.json',
     'apiVersion' => 3,
