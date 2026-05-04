@@ -61,7 +61,7 @@
 	/* Palette de gris */
 	--wp--preset--color--contrast:      #f0f0f0;
 	--wp--preset--color--contrast-2:    #b0b0b0;
-	--wp--preset--color--contrast-3:    #6e6e6e;
+	--wp--preset--color--contrast-3:    #9e9e9e; /* #6e6e6e → 3.67:1 FAIL ; #9e9e9e → 6.99:1 AA */
 
 	/* Fond des cartes et surfaces */
 	--wp--preset--color--surface:       #1e1e1e;
@@ -543,6 +543,27 @@
 .dark-mode-active .geo-summary__point,
 [data-theme="dark"] .geo-summary__point {
 	color: #b0bec8;
+}
+
+/* =========================================================
+   Texte couleur primary (#2F425D) sur surfaces sombres — 1.83:1 FAIL
+   Surcharge ciblée des éléments qui utilisent primary comme couleur de texte
+   ========================================================= */
+
+/* FilterableGrid — prix et liens */
+.dark-mode-active .g2rd-fg__price,
+.dark-mode-active .g2rd-fg__readmore,
+[data-theme="dark"] .g2rd-fg__price,
+[data-theme="dark"] .g2rd-fg__readmore {
+	color: var(--wp--preset--color--foreground, #e8e8e8);
+}
+
+/* GEO Summary — tagline et bullets */
+.dark-mode-active .geo-summary__tagline,
+.dark-mode-active .geo-summary__bullet,
+[data-theme="dark"] .geo-summary__tagline,
+[data-theme="dark"] .geo-summary__bullet {
+	color: var(--wp--preset--color--secondary, #d4a373);
 }
 
 /* =========================================================
