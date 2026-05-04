@@ -76,6 +76,11 @@ Desktop.ini
 coverage/
 .nyc_output/
 
+# Playwright — artefacts de tests (captures, vidéos, rapport HTML)
+tests/playwright/report/
+test-results/
+playwright-report/
+
 # Si ce dépôt est la racine d’une installation WordPress complète (pas seulement le dossier du thème),
 # décommentez les lignes suivantes :
 # /wp-config.php

@@ -303,3 +303,41 @@ jobs:
 
       - name: Build project
         run: npm run build --if-present
+
+  playwright:
+    name: Playwright E2E (optionnel)
+    needs: detect
+    if: ${{ needs.detect.outputs.wordpress == 'true' && vars.PLAYWRIGHT_BASE_URL != '' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ vars.PLAYWRIGHT_BASE_URL }}
+          PLAYWRIGHT_HERO_PAGE: ${{ vars.PLAYWRIGHT_HERO_PAGE || '/' }}
+          PLAYWRIGHT_CAROUSEL_PAGE: ${{ vars.PLAYWRIGHT_CAROUSEL_PAGE || '/demo-carousel' }}
+          PLAYWRIGHT_FAQ_PAGE: ${{ vars.PLAYWRIGHT_FAQ_PAGE || '/demo-faq' }}
+
+      - name: Upload rapport Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: tests/playwright/report/
+          retention-days: 7
