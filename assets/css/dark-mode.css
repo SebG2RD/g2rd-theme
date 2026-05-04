@@ -67,6 +67,12 @@
 	--wp--preset--color--surface:       #1e1e1e;
 	--wp--preset--color--surface-alt:   #2a2a2a;
 
+	/* Variables personnalisées blocs G2RD */
+	--g2rd-t-bg:                 #1e1e1e;
+	--g2rd-t-shadow:             0 4px 24px rgba(0, 0, 0, 0.35);
+	--wrb-toggle-inactive-color: #444444;
+	--wrb-progress-track-color:  #3a3a3a;
+
 	color-scheme: dark;
 }
 
@@ -80,15 +86,15 @@
 	color: var(--wp--preset--color--foreground, #e8e8e8);
 }
 
-/* Liens */
+/* Liens — couleur lisible sur fond sombre */
 .dark-mode-active a,
 [data-theme="dark"] a {
-	color: var(--wp--preset--color--primary, #6ab0f5);
+	color: #7cb4f5;
 }
 
 .dark-mode-active a:hover,
 [data-theme="dark"] a:hover {
-	color: var(--wp--preset--color--primary, #94c8ff);
+	color: #a8d0ff;
 }
 
 /* =========================================================
@@ -200,4 +206,387 @@
 	:root:not([data-theme="light"]) {
 		color-scheme: dark;
 	}
+}
+
+/* =========================================================
+   Header light — adapté au dark mode
+   ========================================================= */
+
+.dark-mode-active .g2rd-site-header-light,
+[data-theme="dark"] .g2rd-site-header-light {
+	background:
+		linear-gradient(135deg, rgba(23, 34, 51, 0.94) 0%, rgba(47, 67, 94, 0.94) 100%);
+	border-bottom-color: rgba(212, 163, 115, 0.22);
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation-item__content,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation-item__content {
+	color: rgba(250, 250, 250, 0.86) !important;
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation-item__content:hover,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation-item__content:hover {
+	color: #ffffff !important;
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode-active .g2rd-site-header-light .current-menu-item > .wp-block-navigation-item__content,
+[data-theme="dark"] .g2rd-site-header-light .current-menu-item > .wp-block-navigation-item__content {
+	color: #ffffff !important;
+	background: rgba(212, 163, 115, 0.18);
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__submenu-container,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__submenu-container {
+	background: rgba(23, 34, 51, 0.96) !important;
+	border-color: rgba(212, 163, 115, 0.22) !important;
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__submenu-container .wp-block-navigation-item__content,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	color: rgba(250, 250, 250, 0.86) !important;
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container-open,
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container-close,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container-open,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container-close {
+	color: #fafafa;
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open {
+	background: linear-gradient(135deg, #172233 0%, #2f435e 100%) !important;
+	color: #fafafa !important;
+}
+
+.dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content,
+[data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	color: #fafafa !important;
+}
+
+.dark-mode-active .g2rd-header-light-account .wp-block-button__link,
+[data-theme="dark"] .g2rd-header-light-account .wp-block-button__link {
+	background:
+		radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
+		linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
+	color: #fafafa !important;
+	border-color: rgba(212, 163, 115, 0.42);
+}
+
+.dark-mode-active .g2rd-header-light-contact .wp-block-button__link,
+[data-theme="dark"] .g2rd-header-light-contact .wp-block-button__link {
+	background: #d4a373 !important;
+	color: #111827 !important;
+	border-color: #d4a373;
+}
+
+/* =========================================================
+   Bloc Testimonial G2RD
+   ========================================================= */
+
+.dark-mode-active .g2rd-testimonial__author,
+[data-theme="dark"] .g2rd-testimonial__author {
+	border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card,
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card {
+	background: var(--g2rd-t-bg, #1e1e1e) !important;
+	border-color: rgba(255, 255, 255, 0.08);
+	box-shadow: var(--g2rd-t-shadow, 0 4px 24px rgba(0, 0, 0, 0.35));
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="flat"],
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="flat"] {
+	background: #252525 !important;
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="bordered"],
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="bordered"] {
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="glass"],
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card[data-card-style="glass"] {
+	background: rgba(255, 255, 255, 0.07) !important;
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__author,
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__author {
+	border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode-active .g2rd-testimonial__nav,
+[data-theme="dark"] .g2rd-testimonial__nav {
+	background: #1e1e1e !important;
+	border-color: rgba(255, 255, 255, 0.12);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__google-header--link:hover,
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__google-header--link:hover {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__google-header.is-skeleton,
+.dark-mode-active .g2rd-testimonial--google .g2rd-testimonial__card.is-skeleton,
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__google-header.is-skeleton,
+[data-theme="dark"] .g2rd-testimonial--google .g2rd-testimonial__card.is-skeleton {
+	background: linear-gradient(90deg, #2a2a2a 25%, #353535 50%, #2a2a2a 75%);
+	background-size: 200% 100%;
+}
+
+/* =========================================================
+   Bloc Filterable Grid
+   ========================================================= */
+
+.dark-mode-active .g2rd-filter-grid__card,
+[data-theme="dark"] .g2rd-filter-grid__card {
+	background: #1e1e1e;
+	border-color: rgba(255, 255, 255, 0.06);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode-active .g2rd-filter-grid__search-form input,
+.dark-mode-active .g2rd-filter-grid__taxonomy select,
+[data-theme="dark"] .g2rd-filter-grid__search-form input,
+[data-theme="dark"] .g2rd-filter-grid__taxonomy select {
+	background: #2a2a2a;
+	border-color: rgba(255, 255, 255, 0.15);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .g2rd-fg__page-btn,
+.dark-mode-active .g2rd-filter-grid__pagination-btn,
+[data-theme="dark"] .g2rd-fg__page-btn,
+[data-theme="dark"] .g2rd-filter-grid__pagination-btn {
+	background: #2a2a2a;
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode-active .g2rd-filter-grid__badge,
+[data-theme="dark"] .g2rd-filter-grid__badge {
+	background: rgba(255, 255, 255, 0.08);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .g2rd-filter-grid__media,
+[data-theme="dark"] .g2rd-filter-grid__media {
+	background: linear-gradient(135deg, rgba(60, 70, 85, 0.5), rgba(40, 50, 65, 0.4));
+}
+
+.dark-mode-active .g2rd-filter-grid__price-skeleton,
+[data-theme="dark"] .g2rd-filter-grid__price-skeleton {
+	background: #3a3a3a;
+}
+
+/* =========================================================
+   Bloc Modal G2RD
+   ========================================================= */
+
+.dark-mode-active .g2rd-modal__dialog,
+[data-theme="dark"] .g2rd-modal__dialog {
+	background: #1e1e1e;
+	color: #e8e8e8;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================================
+   Bloc Counter G2RD
+   ========================================================= */
+
+.dark-mode-active .g2rd-counter.layout-bar .counter-bar,
+[data-theme="dark"] .g2rd-counter.layout-bar .counter-bar {
+	background-color: #3a3a3a;
+}
+
+/* =========================================================
+   Bloc ProgressBar
+   ========================================================= */
+
+.dark-mode-active .g2rd-progress-bar__circle-track,
+[data-theme="dark"] .g2rd-progress-bar__circle-track {
+	stroke: #3a3a3a;
+}
+
+/* =========================================================
+   Bloc Carousel G2RD
+   ========================================================= */
+
+.dark-mode-active .carousel-badge,
+[data-theme="dark"] .carousel-badge {
+	background: rgba(28, 28, 28, 0.92);
+	border-color: rgba(255, 255, 255, 0.12);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .swiper-button-prev,
+.dark-mode-active .swiper-button-next,
+[data-theme="dark"] .swiper-button-prev,
+[data-theme="dark"] .swiper-button-next {
+	background: rgba(28, 28, 28, 0.92);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode-active .swiper-button-prev::after,
+.dark-mode-active .swiper-button-next::after,
+[data-theme="dark"] .swiper-button-prev::after,
+[data-theme="dark"] .swiper-button-next::after {
+	border-color: #e8e8e8;
+}
+
+.dark-mode-active .swiper-button-prev:hover,
+.dark-mode-active .swiper-button-next:hover,
+[data-theme="dark"] .swiper-button-prev:hover,
+[data-theme="dark"] .swiper-button-next:hover {
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode-active .swiper-pagination-bullet,
+[data-theme="dark"] .swiper-pagination-bullet {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   Bloc Slider G2RD
+   ========================================================= */
+
+.dark-mode-active .g2rd-slider__arrow.is-type-circle,
+[data-theme="dark"] .g2rd-slider__arrow.is-type-circle {
+	background: rgba(28, 28, 28, 0.92);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .g2rd-slider__arrow.is-type-circle:hover,
+[data-theme="dark"] .g2rd-slider__arrow.is-type-circle:hover {
+	background: #2a2a2a;
+}
+
+.dark-mode-active .g2rd-slider__pagination.is-style-numbers .g2rd-slider__pagination-btn,
+[data-theme="dark"] .g2rd-slider__pagination.is-style-numbers .g2rd-slider__pagination-btn {
+	background: #2a2a2a;
+	border-color: rgba(255, 255, 255, 0.15);
+	color: #e8e8e8;
+}
+
+.dark-mode-active .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn,
+[data-theme="dark"] .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn {
+	background: rgba(255, 255, 255, 0.25);
+}
+
+.dark-mode-active .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn:hover,
+.dark-mode-active .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn[aria-selected="true"],
+[data-theme="dark"] .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn:hover,
+[data-theme="dark"] .g2rd-slider__pagination.is-style-dots .g2rd-slider__pagination-btn[aria-selected="true"] {
+	background: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   Bloc Toggle Content
+   ========================================================= */
+
+.dark-mode-active .g2rd-toggle-content__slider:before,
+[data-theme="dark"] .g2rd-toggle-content__slider:before {
+	background-color: #e8e8e8;
+}
+
+/* =========================================================
+   Bloc Countdown G2RD
+   ========================================================= */
+
+.dark-mode-active .countdown-item,
+[data-theme="dark"] .countdown-item {
+	background: #1e1e1e;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode-active .countdown-value,
+[data-theme="dark"] .countdown-value {
+	color: #e8e8e8;
+}
+
+.dark-mode-active .countdown-label,
+[data-theme="dark"] .countdown-label {
+	color: #b0b0b0;
+}
+
+.dark-mode-active .countdown-item:hover .countdown-label,
+[data-theme="dark"] .countdown-item:hover .countdown-label {
+	color: #e8e8e8;
+}
+
+.dark-mode-active .countdown-ended,
+[data-theme="dark"] .countdown-ended {
+	background: #1e1e1e;
+}
+
+/* =========================================================
+   Bloc GEO Summary
+   ========================================================= */
+
+.dark-mode-active .wp-block-g2rd-geo-summary,
+[data-theme="dark"] .wp-block-g2rd-geo-summary {
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 12%, #121212) 0%,
+		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 18%, #121212) 100%
+	);
+}
+
+.dark-mode-active .geo-summary__text,
+[data-theme="dark"] .geo-summary__text {
+	color: #c8d4e0;
+}
+
+.dark-mode-active .geo-summary__point,
+[data-theme="dark"] .geo-summary__point {
+	color: #b0bec8;
+}
+
+/* =========================================================
+   Bloc FAQ G2RD — accent visible sur fond sombre
+   ========================================================= */
+
+.dark-mode-active .g2rd-faq,
+[data-theme="dark"] .g2rd-faq {
+	--g2rd-faq-border: var(--wp--preset--color--secondary, #d4a373);
+	--g2rd-faq-question-color: #e8e8e8;
+	--g2rd-faq-icon-color: var(--wp--preset--color--secondary, #d4a373);
+}
+
+/* =========================================================
+   Articles cliquables / Cards globales
+   ========================================================= */
+
+.dark-mode-active .h-article,
+.dark-mode-active .portfolio,
+[data-theme="dark"] .h-article,
+[data-theme="dark"] .portfolio {
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   Éditeur Gutenberg — Preview de blocs en dark mode
+   ========================================================= */
+
+.dark-mode-active .g2rd-carousel-preview,
+[data-theme="dark"] .g2rd-carousel-preview {
+	background: #1e1e1e;
+	border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode-active .g2rd-carousel-preview .carousel-slide,
+[data-theme="dark"] .g2rd-carousel-preview .carousel-slide {
+	background: #2a2a2a;
+}
+
+/* =========================================================
+   Accessibilité — focus visible en dark mode
+   ========================================================= */
+
+.dark-mode-active :focus-visible,
+[data-theme="dark"] :focus-visible {
+	outline-color: var(--wp--preset--color--secondary, #d4a373);
 }

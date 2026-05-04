@@ -59,6 +59,19 @@
 		}
 
 		/**
+		 * Synchronise le cookie PHP avec l'état JS.
+		 * Nécessaire car PHP lit le cookie côté serveur pour ajouter la classe body.
+		 *
+		 * @param {string} state - 'enabled' ou 'disabled'
+		 */
+		setCookie(state) {
+			try {
+				const maxAge = 365 * 24 * 60 * 60;
+				document.cookie = STORAGE_KEY + '=' + state + '; path=/; max-age=' + maxAge + '; SameSite=Strict';
+			} catch(e) {}
+		}
+
+		/**
 		 * Active le mode sombre
 		 *
 		 * @param {boolean} save - Sauvegarder la préférence (false lors de l'init)
@@ -67,6 +80,7 @@
 			this.isDarkMode = true;
 			document.body.classList.add(BODY_CLASS);
 			document.documentElement.setAttribute(DATA_ATTR, 'dark');
+			this.setCookie('enabled');
 
 			if (save) {
 				localStorage.setItem(STORAGE_KEY, 'enabled');
@@ -85,6 +99,7 @@
 			this.isDarkMode = false;
 			document.body.classList.remove(BODY_CLASS);
 			document.documentElement.removeAttribute(DATA_ATTR);
+			this.setCookie('disabled');
 
 			if (save) {
 				localStorage.setItem(STORAGE_KEY, 'disabled');
