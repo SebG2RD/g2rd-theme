@@ -25,46 +25,33 @@ $g2rd_autoload = __DIR__ . '/vendor/autoload.php';
 if ( \file_exists( $g2rd_autoload ) ) {
     require_once $g2rd_autoload;
 } else {
-    require_once __DIR__ . '/classes/class-abilities.php';
-    require_once __DIR__ . '/classes/class-api-connector.php';
-    require_once __DIR__ . '/classes/class-block-categories.php';
-    require_once __DIR__ . '/classes/class-block-editor-autoload.php';
-    require_once __DIR__ . '/classes/class-block-editor-enhancements.php';
-    require_once __DIR__ . '/classes/class-block-patterns.php';
-    require_once __DIR__ . '/classes/class-block-styles.php';
-    require_once __DIR__ . '/classes/class-block-stylesheets.php';
-    require_once __DIR__ . '/classes/class-business-mode.php';
-    require_once __DIR__ . '/classes/class-carousel-assets.php';
-    require_once __DIR__ . '/classes/class-clickable-articles.php';
-    require_once __DIR__ . '/classes/class-client-mode.php';
-    require_once __DIR__ . '/classes/class-coming-soon.php';
-    require_once __DIR__ . '/classes/class-conditional-menu.php';
-    require_once __DIR__ . '/classes/class-custom-post-types-portfolio.php';
-    require_once __DIR__ . '/classes/class-custom-post-types-prestations.php';
-    require_once __DIR__ . '/classes/class-custom-post-types-qui-sommes-nous.php';
-    require_once __DIR__ . '/classes/class-dark-mode.php';
-    require_once __DIR__ . '/classes/class-filterable-grid.php';
-    require_once __DIR__ . '/classes/class-fluent-cart-support.php';
-    require_once __DIR__ . '/classes/class-fse-sync.php';
-    require_once __DIR__ . '/classes/class-geo-analyzer.php';
-    require_once __DIR__ . '/classes/class-github-updater.php';
-    require_once __DIR__ . '/classes/class-glass-effect.php';
-    require_once __DIR__ . '/classes/class-google-reviews.php';
-    require_once __DIR__ . '/classes/class-gsap-animations.php';
-    require_once __DIR__ . '/classes/class-json-config.php';
-    require_once __DIR__ . '/classes/class-license-manager.php';
-    require_once __DIR__ . '/classes/class-license-server.php';
-    require_once __DIR__ . '/classes/class-login-customizer.php';
-    require_once __DIR__ . '/classes/class-onboarding.php';
-    require_once __DIR__ . '/classes/class-particules-effect.php';
-    require_once __DIR__ . '/classes/class-portfolio-query.php';
-    require_once __DIR__ . '/classes/class-scripts-manager.php';
-    require_once __DIR__ . '/classes/class-seo-helper.php';
-    require_once __DIR__ . '/classes/class-shortcode.php';
-    require_once __DIR__ . '/classes/class-theme-admin.php';
-    require_once __DIR__ . '/classes/class-theme-options.php';
-    require_once __DIR__ . '/classes/class-theme-setup.php';
-    require_once __DIR__ . '/classes/class-agent-discovery.php';
+    // Distributions ZIP sans vendor/ : chargement dynamique depuis classes/.
+    $g2rd_classes_dir = __DIR__ . '/classes';
+
+    // Passe 1 — ordre de chargement critique (dépendances inter-classes).
+    // FseSync en tête : instanciée ligne 71 avant bootstrap_theme().
+    $g2rd_priority = [
+        'class-fse-sync.php',               // instanciée avant bootstrap_theme
+        'class-json-config.php',            // lue par ThemeOptions au chargement
+        'class-theme-options.php',          // consultée partout dans bootstrap_theme
+        'class-block-categories.php',       // doit précéder l'enregistrement des blocs
+        'class-block-editor-autoload.php',  // enregistre les blocs Gutenberg
+        'class-scripts-manager.php',        // dépend de ThemeOptions
+        'class-license-manager.php',        // instancié directement dans bootstrap_theme
+        'class-github-updater.php',         // dépend de LicenseManager
+    ];
+    $g2rd_loaded = [];
+    foreach ( $g2rd_priority as $g2rd_file ) {
+        require_once $g2rd_classes_dir . '/' . $g2rd_file;
+        $g2rd_loaded[] = $g2rd_file;
+    }
+
+    // Passe 2 — toutes les autres classes (ordre alphabétique, pas de dépendances critiques).
+    foreach ( glob( $g2rd_classes_dir . '/class-*.php' ) ?: [] as $g2rd_path ) {
+        if ( ! \in_array( \basename( $g2rd_path ), $g2rd_loaded, true ) ) {
+            require_once $g2rd_path;
+        }
+    }
 }
 
 // Enregistrer le hook after_switch_theme avant after_setup_theme
