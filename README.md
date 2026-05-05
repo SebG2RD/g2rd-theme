@@ -127,6 +127,13 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.9.1
+
+- **Sécurité** : chargement dynamique des classes renforcé — `realpath()`, `basename()`, `str_starts_with()` + confinement au répertoire `classes/`.
+- **Fix FAQ** : overflow corrigé éditeur/frontend + option `allowMultiple` accordéon fonctionnelle dans le canvas Gutenberg.
+- **CI** : correction des faux positifs PHPCS Security sur les `require_once` dynamiques.
+- **Dépendances** : `npm audit fix` axios high severity.
+
 ### 1.9.0
 
 - **Sécurité** : validation `accentColor` avant injection dans `dangerouslySetInnerHTML` du bloc Hero — protection XSS sur l'attribut style.
