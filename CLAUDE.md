@@ -92,7 +92,7 @@ g2rd-theme/
 │   ├── class-custom-post-types-qui-sommes-nous.php
 │   ├── class-dark-mode.php
 │   ├── class-filterable-grid.php                # Grille filtrée (WooCommerce, SureCart, CPT)
-│   ├── class-fluent-cart-support.php            # Intégration FluentCart (remplace SureCart licence)
+│   ├── class-fluent-cart-support.php            # Intégration FluentCart — portail client, licences, webhooks
 │   ├── class-fse-sync.php                       # Synchronisation FSE (extrait de block-editor-autoload)
 │   ├── class-github-updater.php                 # Mise à jour automatique depuis GitHub
 │   ├── class-glass-effect.php

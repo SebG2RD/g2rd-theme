@@ -10,7 +10,7 @@ import {
   Button,
   ButtonGroup,
 } from "@wordpress/components";
-import { useState, useCallback } from "@wordpress/element";
+import { useState, useCallback, useEffect } from "@wordpress/element";
 
 const ICON_MAP = {
   "plus-minus": { open: "−", closed: "+" },
@@ -44,6 +44,10 @@ export default function Edit({ attributes, setAttributes }) {
   } = attributes;
 
   const [openIndex, setOpenIndex] = useState(openFirst ? 0 : -1);
+
+  useEffect(() => {
+    setOpenIndex(openFirst ? 0 : -1);
+  }, [openFirst]);
 
   const blockProps = useBlockProps({ className: "g2rd-faq" });
 

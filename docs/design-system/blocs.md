@@ -137,7 +137,7 @@ Bloc de témoignages clients avec avatar, nom, poste, note et texte. Lien vers G
 ---
 
 ### `g2rd/filterable-grid`
-Grille filtrée dynamiquement par catégorie. Compatible WooCommerce, SureCart et CPTs custom.
+Grille filtrée dynamiquement par catégorie. Compatible WooCommerce, SureCart, FluentCart et CPTs custom.
 
 ---
 

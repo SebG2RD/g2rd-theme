@@ -127,6 +127,20 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.9.0
+
+- **Sécurité** : validation `accentColor` avant injection dans `dangerouslySetInnerHTML` du bloc Hero — protection XSS sur l'attribut style.
+- **Sécurité** : strip `<script>` sur `price_html` dans filterable-grid/view.js — défense en profondeur sur l'HTML WooCommerce/FluentCart.
+- **Fix** : memory leak `setTimeout` dans `TabLicence.js` — `clearTimeout` ajouté à l'unmount via `useRef` + `useEffect`.
+- **Perf** : `cardOpts` et `cardColors` mémorisés avec `useMemo` dans filterable-grid/edit.js — re-renders inutiles des cartes éliminés.
+- **Fix** : `openIndex` de l'accordéon FAQ resynchronisé avec l'attribut `openFirst` via `useEffect`.
+- **Refactor** : `TabLicence.js` migré de 6 `useState` vers `useReducer` — transitions d'état déterministes.
+- **UX** : `window.confirm()` remplacé par `<ConfirmDialog>` WordPress dans l'onglet Licence.
+- **Refactor** : 40 `require_once` statiques remplacés par un glob dynamique avec ordre de priorité dans `functions.php`.
+- **Feat** : setup Playwright E2E — config, `.env.example`, specs hero/carousel/faq, CI optionnel.
+- **Docs** : design system complet — tokens, blocs, patterns, features, page Gutenberg.
+- **Chore** : normalisation des noms de dossiers de blocs en kebab-case (`g2rd-*`).
+
 ### 1.8.6
 
 - **Fix dark mode** : couverture complète de tous les blocs (Testimonial, FilterableGrid, Modal, Counter, Carousel, Countdown, GEO Summary, FAQ, Toggle Content, Slider, Header).

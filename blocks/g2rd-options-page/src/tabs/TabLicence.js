@@ -1,5 +1,5 @@
-import { useState, useCallback } from '@wordpress/element';
-import { TextControl, Button, Spinner } from '@wordpress/components';
+import { useCallback, useEffect, useReducer, useRef } from '@wordpress/element';
+import { TextControl, Button, Spinner, __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
 const { licenseRestUrl, nonce, licenseData: initialData } = window.G2RDOptionsData || {};
@@ -11,28 +11,72 @@ const STATUS_CONFIG = {
 	inactive: { label: 'Inactive', color: '#787c82', icon: 'dashicons-warning' },
 };
 
+const initialState = {
+	status:      initialData?.status     || 'inactive',
+	maskedKey:   initialData?.masked_key || '',
+	licenseInfo: initialData?.data       || {},
+	domain:      initialData?.domain     || '',
+	licenseKey:  '',
+	isLoading:   false,
+	notice:      null,
+	confirmOpen: false,
+};
+
+function reducer( state, action ) {
+	switch ( action.type ) {
+		case 'KEY_CHANGE':
+			return { ...state, licenseKey: action.payload };
+		case 'LOADING':
+			return { ...state, isLoading: true };
+		case 'ACTIVATE_SUCCESS':
+			return {
+				...state,
+				status:      action.payload.status     || 'inactive',
+				maskedKey:   action.payload.masked_key || '',
+				licenseInfo: action.payload.data       || {},
+				domain:      action.payload.domain     || '',
+				licenseKey:  '',
+				isLoading:   false,
+			};
+		case 'DEACTIVATE_SUCCESS':
+			return {
+				...state,
+				status:      'inactive',
+				maskedKey:   '',
+				licenseInfo: {},
+				domain:      '',
+				isLoading:   false,
+			};
+		case 'REQUEST_DONE':
+			return { ...state, isLoading: false };
+		case 'CONFIRM_OPEN':
+			return { ...state, confirmOpen: true };
+		case 'CONFIRM_CLOSE':
+			return { ...state, confirmOpen: false };
+		case 'NOTICE_SHOW':
+			return { ...state, notice: action.payload };
+		case 'NOTICE_CLEAR':
+			return { ...state, notice: null };
+		default:
+			return state;
+	}
+}
+
 export function TabLicence() {
-	const [ status,     setStatus     ] = useState( ( initialData?.status )     || 'inactive' );
-	const [ maskedKey,  setMaskedKey  ] = useState( ( initialData?.masked_key ) || '' );
-	const [ licenseInfo, setLicenseInfo ] = useState( ( initialData?.data )     || {} );
-	const [ domain,     setDomain     ] = useState( ( initialData?.domain )     || '' );
-	const [ licenseKey, setLicenseKey ] = useState( '' );
-	const [ isLoading,  setIsLoading  ] = useState( false );
-	const [ notice,     setNotice     ] = useState( null );
+	const [ state, dispatch ] = useReducer( reducer, initialState );
+	const { status, maskedKey, licenseInfo, domain, licenseKey, isLoading, notice, confirmOpen } = state;
+
+	const timerRef = useRef( null );
+
+	useEffect( () => () => clearTimeout( timerRef.current ), [] );
 
 	const isActive = status === 'active';
 	const badge    = STATUS_CONFIG[ status ] || STATUS_CONFIG.inactive;
 
 	const showNotice = useCallback( ( type, message ) => {
-		setNotice( { type, message } );
-		setTimeout( () => setNotice( null ), 5000 );
-	}, [] );
-
-	const applyLicenseData = useCallback( ( data ) => {
-		setStatus( data.status     || 'inactive' );
-		setMaskedKey( data.masked_key || '' );
-		setLicenseInfo( data.data  || {} );
-		setDomain( data.domain     || '' );
+		dispatch( { type: 'NOTICE_SHOW', payload: { type, message } } );
+		clearTimeout( timerRef.current );
+		timerRef.current = setTimeout( () => dispatch( { type: 'NOTICE_CLEAR' } ), 5000 );
 	}, [] );
 
 	const handleActivate = useCallback( async () => {
@@ -40,7 +84,7 @@ export function TabLicence() {
 			showNotice( 'error', 'Veuillez saisir une clé de licence.' );
 			return;
 		}
-		setIsLoading( true );
+		dispatch( { type: 'LOADING' } );
 		try {
 			const res = await apiFetch( {
 				url: licenseRestUrl + '/activate',
@@ -49,23 +93,21 @@ export function TabLicence() {
 				data: { license_key: licenseKey.trim() },
 			} );
 			if ( res?.success ) {
-				applyLicenseData( res.license || {} );
-				setLicenseKey( '' );
+				dispatch( { type: 'ACTIVATE_SUCCESS', payload: res.license || {} } );
 				showNotice( 'success', res.message );
 			} else {
+				dispatch( { type: 'REQUEST_DONE' } );
 				showNotice( 'error', res?.message || 'Activation échouée.' );
 			}
 		} catch ( err ) {
+			dispatch( { type: 'REQUEST_DONE' } );
 			showNotice( 'error', err?.message || 'Erreur réseau.' );
-		} finally {
-			setIsLoading( false );
 		}
-	}, [ licenseKey, showNotice, applyLicenseData ] );
+	}, [ licenseKey, showNotice ] );
 
 	const handleDeactivate = useCallback( async () => {
-		// eslint-disable-next-line no-alert
-		if ( ! window.confirm( 'Désactiver la licence sur ce domaine ?' ) ) return;
-		setIsLoading( true );
+		dispatch( { type: 'LOADING' } );
+		dispatch( { type: 'CONFIRM_CLOSE' } );
 		try {
 			const res = await apiFetch( {
 				url: licenseRestUrl + '/deactivate',
@@ -73,21 +115,27 @@ export function TabLicence() {
 				headers: { 'X-WP-Nonce': nonce },
 			} );
 			if ( res?.success ) {
-				setStatus( 'inactive' );
-				setMaskedKey( '' );
-				setLicenseInfo( {} );
-				setDomain( '' );
+				dispatch( { type: 'DEACTIVATE_SUCCESS' } );
 				showNotice( 'info', res.message );
+			} else {
+				dispatch( { type: 'REQUEST_DONE' } );
 			}
 		} catch ( err ) {
+			dispatch( { type: 'REQUEST_DONE' } );
 			showNotice( 'error', err?.message || 'Erreur réseau.' );
-		} finally {
-			setIsLoading( false );
 		}
 	}, [ showNotice ] );
 
 	return (
 		<div className="g2rd-tab-content">
+
+			<ConfirmDialog
+				isOpen={ confirmOpen }
+				onConfirm={ handleDeactivate }
+				onCancel={ () => dispatch( { type: 'CONFIRM_CLOSE' } ) }
+			>
+				Désactiver la licence sur ce domaine ? Cela libérera une activation utilisable sur un autre site.
+			</ConfirmDialog>
 
 			<section className="g2rd-section">
 				<h2 className="g2rd-section__title">
@@ -156,7 +204,7 @@ export function TabLicence() {
 							<Button
 								variant="secondary"
 								isDestructive
-								onClick={ handleDeactivate }
+								onClick={ () => dispatch( { type: 'CONFIRM_OPEN' } ) }
 								disabled={ isLoading }
 							>
 								{ isLoading ? (
@@ -180,7 +228,7 @@ export function TabLicence() {
 							<TextControl
 								label="Clé de licence"
 								value={ licenseKey }
-								onChange={ setLicenseKey }
+								onChange={ ( val ) => dispatch( { type: 'KEY_CHANGE', payload: val } ) }
 								placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"
 								autoComplete="off"
 								onKeyDown={ ( e ) => e.key === 'Enter' && handleActivate() }

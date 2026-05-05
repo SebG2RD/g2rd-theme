@@ -17,6 +17,9 @@ import {
   __experimentalHStack as HStack,
 } from "@wordpress/components";
 
+const CSS_COLOR_RE = /^#[0-9a-fA-F]{3,8}$|^rgb\(\s*\d|^rgba\(\s*\d|^hsl\(\s*\d|^var\(--[\w-]+\)$/;
+const sanitizeCssColor = ( color ) => CSS_COLOR_RE.test( color || '' ) ? color : '';
+
 function HeroPreview({ attributes }) {
   const {
     kicker, heading, subheading,
@@ -25,6 +28,8 @@ function HeroPreview({ attributes }) {
     headingColor, accentColor, textColor, ctaPrimaryBg, ctaPrimaryColor,
     alignment, minHeight, paddingVertical,
   } = attributes;
+
+  const safeAccentColor = sanitizeCssColor( accentColor );
 
   const textAlign = alignment === "center" ? "center" : "left";
 
@@ -96,7 +101,7 @@ function HeroPreview({ attributes }) {
             lineHeight: 1.1,
             marginBottom: "1.25rem",
           }}
-          dangerouslySetInnerHTML={{ __html: heading.replace(/<mark>/g, `<mark style="background:none;color:${accentColor}">`).replace(/<mark /g, `<mark style="background:none;color:${accentColor}" `) }}
+          dangerouslySetInnerHTML={{ __html: heading.replace(/<mark>/g, `<mark style="background:none;color:${safeAccentColor}">`).replace(/<mark /g, `<mark style="background:none;color:${safeAccentColor}" `) }}
         />
 
         <p

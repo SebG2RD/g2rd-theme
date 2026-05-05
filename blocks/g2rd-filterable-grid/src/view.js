@@ -130,7 +130,10 @@ function renderCard(item, opts) {
   let priceHtml = "";
   if (showPrice && p) {
     if (p.price_html) {
-      priceHtml = `<div class="g2rd-fg__price">${p.price_html}</div>`;
+      // price_html est généré par WooCommerce (get_price_html()) ou FluentCart côté serveur —
+      // HTML de confiance same-origin. On retire tout de même les <script> par défense en profondeur.
+      const safePriceHtml = p.price_html.replace( /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "" );
+      priceHtml = `<div class="g2rd-fg__price">${safePriceHtml}</div>`;
     } else if (p.price != null) {
       const formatted = Number(p.price).toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
       priceHtml = `<div class="g2rd-fg__price">${esc(formatted)}</div>`;

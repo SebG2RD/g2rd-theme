@@ -271,9 +271,15 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     }, {});
   }, [contentTypes]);
 
-  // Options transmises à CardPreview
-  const cardOpts   = { cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate };
-  const cardColors = { titleColor, cardTextColor, excerptColor };
+  // Options transmises à CardPreview — mémorisées pour éviter de re-rendre toutes les cartes
+  const cardOpts   = useMemo(
+    () => ( { cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate } ),
+    [ cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate ]
+  );
+  const cardColors = useMemo(
+    () => ( { titleColor, cardTextColor, excerptColor } ),
+    [ titleColor, cardTextColor, excerptColor ]
+  );
 
   // Squelettes affichés pendant le chargement ou si aucun post
   const skeletons = Array.from({ length: Math.min(postsPerPage, 6) });
