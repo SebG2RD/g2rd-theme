@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.9.2
+
+- **Fix FAQ GEO** : mode `<details>/<summary>` — `allowMultiple` fonctionnel sur le frontend via événement `toggle` natif ; masquage du marqueur `<summary>` dans Firefox, Chrome et Safari (`list-style: none` + `::marker { content: none }`).
+
 ### 1.9.1
 
 - **Sécurité** : chargement dynamique des classes renforcé — `realpath()`, `basename()`, `str_starts_with()` + confinement au répertoire `classes/`.
