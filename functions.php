@@ -25,31 +25,54 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
     require_once __DIR__ . '/vendor/autoload.php';
 } else {
     // Distributions ZIP sans vendor/ : chargement dynamique depuis classes/.
-    $g2rd_classes_dir = __DIR__ . '/classes';
+    // realpath() résout les liens symboliques et confirme l'existence du répertoire.
+    $g2rd_classes_dir = \realpath( __DIR__ . '/classes' );
 
-    // Passe 1 — ordre de chargement critique (dépendances inter-classes).
-    // FseSync en tête : instanciée ligne 71 avant bootstrap_theme().
-    $g2rd_priority = [
-        'class-fse-sync.php',               // instanciée avant bootstrap_theme
-        'class-json-config.php',            // lue par ThemeOptions au chargement
-        'class-theme-options.php',          // consultée partout dans bootstrap_theme
-        'class-block-categories.php',       // doit précéder l'enregistrement des blocs
-        'class-block-editor-autoload.php',  // enregistre les blocs Gutenberg
-        'class-scripts-manager.php',        // dépend de ThemeOptions
-        'class-license-manager.php',        // instancié directement dans bootstrap_theme
-        'class-github-updater.php',         // dépend de LicenseManager
-    ];
-    $g2rd_loaded = [];
-    foreach ( $g2rd_priority as $g2rd_file ) {
-        require_once $g2rd_classes_dir . '/' . $g2rd_file; // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
-        $g2rd_loaded[] = $g2rd_file;
-    }
+    if ( false !== $g2rd_classes_dir ) {
+        // Passe 1 — ordre de chargement critique (dépendances inter-classes).
+        // FseSync en tête : instanciée avant bootstrap_theme().
+        $g2rd_priority = [
+            'class-fse-sync.php',               // instanciée avant bootstrap_theme
+            'class-json-config.php',            // lue par ThemeOptions au chargement
+            'class-theme-options.php',          // consultée partout dans bootstrap_theme
+            'class-block-categories.php',       // doit précéder l'enregistrement des blocs
+            'class-block-editor-autoload.php',  // enregistre les blocs Gutenberg
+            'class-scripts-manager.php',        // dépend de ThemeOptions
+            'class-license-manager.php',        // instancié directement dans bootstrap_theme
+            'class-github-updater.php',         // dépend de LicenseManager
+        ];
 
-    // Passe 2 — toutes les autres classes (ordre alphabétique, pas de dépendances critiques).
-    foreach ( glob( $g2rd_classes_dir . '/class-*.php' ) ?: [] as $g2rd_path ) {
-        if ( ! \in_array( \basename( $g2rd_path ), $g2rd_loaded, true ) ) {
-            require_once $g2rd_path; // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
+        // Préfixe calculé une fois hors des boucles.
+        $g2rd_prefix = $g2rd_classes_dir . DIRECTORY_SEPARATOR;
+        $g2rd_loaded = [];
+
+        // phpcs:disable PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
+        // Justification : realpath() valide l'existence de chaque chemin et résout les
+        // liens symboliques ; str_starts_with() confine au répertoire classes/ ;
+        // basename() bloque toute traversée de chemin (ex. "../"). PHPCS ne peut pas
+        // analyser statiquement le retour de realpath(), d'où la désactivation ciblée.
+        foreach ( $g2rd_priority as $g2rd_file ) {
+            $g2rd_full = \realpath( $g2rd_prefix . \basename( $g2rd_file ) );
+            if ( false === $g2rd_full || ! \str_starts_with( $g2rd_full, $g2rd_prefix ) ) {
+                continue;
+            }
+            require_once $g2rd_full;
+            $g2rd_loaded[] = \basename( $g2rd_full );
         }
+
+        // Passe 2 — toutes les autres classes (ordre alphabétique, pas de dépendances critiques).
+        // Le pattern glob /class-*.php garantit déjà l'extension ; realpath() confirme
+        // l'existence et str_starts_with() assure le confinement au répertoire classes/.
+        foreach ( \glob( $g2rd_classes_dir . '/class-*.php' ) ?: [] as $g2rd_path ) {
+            $g2rd_real = \realpath( $g2rd_path );
+            if ( false === $g2rd_real || ! \str_starts_with( $g2rd_real, $g2rd_prefix ) ) {
+                continue;
+            }
+            if ( ! \in_array( \basename( $g2rd_real ), $g2rd_loaded, true ) ) {
+                require_once $g2rd_real;
+            }
+        }
+        // phpcs:enable PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
     }
 }
 
