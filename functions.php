@@ -21,9 +21,8 @@ if ( ! \defined( 'G2RD_BLOCK_CATEGORY' ) ) {
 
 // Charger l'autoloader Composer si disponible (PSR-4 + classmap).
 // Fallback : requires statiques pour les distributions ZIP sans vendor/ (production).
-$g2rd_autoload = __DIR__ . '/vendor/autoload.php';
-if ( \file_exists( $g2rd_autoload ) ) {
-    require_once $g2rd_autoload; // phpcs:ignore Security.BadFunctions.EasyRFI.WarnEasyRFI -- chemin construit depuis __DIR__, pas d'entrée utilisateur.
+if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+    require_once __DIR__ . '/vendor/autoload.php';
 } else {
     // Distributions ZIP sans vendor/ : chargement dynamique depuis classes/.
     $g2rd_classes_dir = __DIR__ . '/classes';
@@ -42,14 +41,14 @@ if ( \file_exists( $g2rd_autoload ) ) {
     ];
     $g2rd_loaded = [];
     foreach ( $g2rd_priority as $g2rd_file ) {
-        require_once $g2rd_classes_dir . '/' . $g2rd_file; // phpcs:ignore Security.BadFunctions.EasyRFI.WarnEasyRFI -- $g2rd_file provient d'un tableau hardcodé de noms .php, pas d'entrée utilisateur.
+        require_once $g2rd_classes_dir . '/' . $g2rd_file; // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
         $g2rd_loaded[] = $g2rd_file;
     }
 
     // Passe 2 — toutes les autres classes (ordre alphabétique, pas de dépendances critiques).
     foreach ( glob( $g2rd_classes_dir . '/class-*.php' ) ?: [] as $g2rd_path ) {
         if ( ! \in_array( \basename( $g2rd_path ), $g2rd_loaded, true ) ) {
-            require_once $g2rd_path; // phpcs:ignore Security.BadFunctions.EasyRFI.WarnEasyRFI -- glob restreint à /class-*.php dans un chemin WordPress interne contrôlé.
+            require_once $g2rd_path; // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
         }
     }
 }
