@@ -43,24 +43,49 @@ export default function Edit({ attributes, setAttributes }) {
     headerIcon,
   } = attributes;
 
-  const [openIndex, setOpenIndex] = useState(openFirst ? 0 : -1);
+  const [openIndices, setOpenIndices] = useState(() => new Set(openFirst ? [0] : []));
 
   useEffect(() => {
-    setOpenIndex(openFirst ? 0 : -1);
+    setOpenIndices(new Set(openFirst ? [0] : []));
   }, [openFirst]);
+
+  const toggleItem = useCallback((idx) => {
+    setOpenIndices((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) {
+        next.delete(idx);
+      } else {
+        if (!allowMultiple) next.clear();
+        next.add(idx);
+      }
+      return next;
+    });
+  }, [allowMultiple]);
 
   const blockProps = useBlockProps({ className: "g2rd-faq" });
 
   const addItem = useCallback(() => {
+    const newIdx = items.length;
     setAttributes({
       items: [...items, { question: __("Nouvelle question ?", "g2rd"), answer: __("Votre réponse ici.", "g2rd") }],
     });
-    setOpenIndex(items.length);
-  }, [items, setAttributes]);
+    setOpenIndices((prev) => {
+      const next = allowMultiple ? new Set(prev) : new Set();
+      next.add(newIdx);
+      return next;
+    });
+  }, [items, setAttributes, allowMultiple]);
 
   const removeItem = useCallback((idx) => {
     setAttributes({ items: items.filter((_, i) => i !== idx) });
-    setOpenIndex(-1);
+    setOpenIndices((prev) => {
+      const next = new Set();
+      prev.forEach((i) => {
+        if (i < idx) next.add(i);
+        else if (i > idx) next.add(i - 1);
+      });
+      return next;
+    });
   }, [items, setAttributes]);
 
   const updateItem = useCallback((idx, field, value) => {
@@ -75,7 +100,15 @@ export default function Edit({ attributes, setAttributes }) {
     const updated = [...items];
     [updated[idx - 1], updated[idx]] = [updated[idx], updated[idx - 1]];
     setAttributes({ items: updated });
-    setOpenIndex(idx - 1);
+    setOpenIndices((prev) => {
+      const next = new Set();
+      prev.forEach((i) => {
+        if (i === idx) next.add(idx - 1);
+        else if (i === idx - 1) next.add(idx);
+        else next.add(i);
+      });
+      return next;
+    });
   }, [items, setAttributes]);
 
   const moveDown = useCallback((idx) => {
@@ -83,7 +116,15 @@ export default function Edit({ attributes, setAttributes }) {
     const updated = [...items];
     [updated[idx], updated[idx + 1]] = [updated[idx + 1], updated[idx]];
     setAttributes({ items: updated });
-    setOpenIndex(idx + 1);
+    setOpenIndices((prev) => {
+      const next = new Set();
+      prev.forEach((i) => {
+        if (i === idx) next.add(idx + 1);
+        else if (i === idx + 1) next.add(idx);
+        else next.add(i);
+      });
+      return next;
+    });
   }, [items, setAttributes]);
 
   const icons = ICON_MAP[iconType] || ICON_MAP["plus-minus"];
@@ -215,7 +256,7 @@ export default function Edit({ attributes, setAttributes }) {
           }}
         >
           {items.map((item, idx) => {
-            const isOpen = openIndex === idx;
+            const isOpen = openIndices.has(idx);
             return (
               <div
                 key={idx}
@@ -224,7 +265,7 @@ export default function Edit({ attributes, setAttributes }) {
                 {/* Entête de l'item */}
                 <div
                   className="g2rd-faq__question"
-                  onClick={() => setOpenIndex(isOpen ? -1 : idx)}
+                  onClick={() => toggleItem(idx)}
                   style={{ cursor: "pointer" }}
                 >
                   <TextControl
