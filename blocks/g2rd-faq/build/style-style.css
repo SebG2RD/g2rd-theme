@@ -202,8 +202,18 @@
 
 /* ─── Mode GEO : <details> / <summary> ─── */
 
+/* Masquer le marqueur natif dans tous les navigateurs */
+
+.g2rd-faq--geo .g2rd-faq__question {
+  list-style: none;           /* Firefox */
+}
+
+.g2rd-faq--geo .g2rd-faq__question::marker {
+  content: none;              /* Standard (Chrome 86+, Firefox 68+) */
+}
+
 .g2rd-faq--geo .g2rd-faq__question::-webkit-details-marker {
-  display: none;
+  display: none;              /* Safari / Chrome ancien */
 }
 
 /* Annule animation grid (mode natif details) */
