@@ -55,6 +55,7 @@ class ThemeSetup {
         \add_action('send_headers', [$this, 'addSecurityHeaders']);
         \add_action('wp_head', [$this, 'addPreloadLinks'], 2);
         \add_filter('render_block_core/image', [$this, 'addFetchpriorityToLcpImage']);
+        \add_action('wp_enqueue_scripts', [$this, 'removeUnnecessaryAssets'], 100);
 
         $this->setupFeatures();
     }
@@ -120,6 +121,18 @@ class ThemeSetup {
             $block_content
         );
         return $block_content;
+    }
+
+    /**
+     * Supprime les assets WordPress inutiles sur le frontend public.
+     *
+     * Priorité 100 pour s'exécuter après les enqueues WordPress (priorité 10 par défaut).
+     * wp-embed.min.js (~3 KB) gère le redimensionnement des embeds oEmbed côté visiteur
+     * (resize de l'iframe quand un contenu externe embarque nos pages). Inutile sur un
+     * site vitrine où personne n'embarque notre contenu via oEmbed.
+     */
+    public function removeUnnecessaryAssets(): void {
+        \wp_dequeue_script( 'wp-embed' );
     }
 
     /**

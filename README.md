@@ -127,9 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
-### 1.9.2
+### 1.9.3
 
 - **Fix FAQ GEO** : mode `<details>/<summary>` — `allowMultiple` fonctionnel sur le frontend via événement `toggle` natif ; masquage du marqueur `<summary>` dans Firefox, Chrome et Safari (`list-style: none` + `::marker { content: none }`).
+- **Perf** : suppression de `wp-embed.min.js` sur toutes les pages frontend — script oEmbed inutile sur un site vitrine (~3 KB JS évités).
+- **Perf** : déqueue automatique des assets frontend des plugins admin-only (Hostinger AI, ManageWP Worker, Fluent Boards, Fluent Security, Fluent Messaging, Loco Translate) via `ScriptsManager::dequeuePluginAssets()` ; filtre `g2rd_dequeue_plugin_handles` pour personnalisation.
+- **Perf** : blocs Counter, Typed, FAQ migrés de `"script"` vers `"viewScript"` — leurs scripts ne chargent plus dans le canvas Gutenberg (éditeur plus léger), le frontend est inchangé.
 
 ### 1.9.1
 

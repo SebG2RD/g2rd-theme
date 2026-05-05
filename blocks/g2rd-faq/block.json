@@ -16,7 +16,7 @@
     "editorScript": "file:./build/index.js",
     "editorStyle": "file:./build/style-style.css",
     "style": "file:./build/style-style.css",
-    "script": "file:./build/view.js",
+    "viewScript": "file:./build/view.js",
     "render": "file:./render.php",
     "attributes": {
         "items": {

@@ -59,6 +59,7 @@ class ScriptsManager {
      */
     public function register_hooks(): void {
         \add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+        \add_action('wp_enqueue_scripts', [$this, 'dequeuePluginAssets'], 100);
         \add_action('wp_enqueue_scripts', [$this, 'applyDeferStrategy'], 999);
         \add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
         \add_filter('litespeed_optm_js_exc', [$this, 'excludeFromLitespeed']);
@@ -127,6 +128,56 @@ class ScriptsManager {
             || \str_contains( $ua, 'GTmetrix'          )
             || \str_contains( $ua, 'PTST'              ) // WebPageTest
             || \str_contains( $ua, 'Pingdom'           );
+    }
+
+    /**
+     * Désenregistre les assets de plugins d'administration sur le frontend public.
+     *
+     * Ces plugins ne servent qu'à l'interface d'administration de WordPress et n'ont
+     * aucune raison d'ajouter du JS ou du CSS sur les pages publiques du site.
+     * Les handles qui n'existent pas sont silencieusement ignorés par WordPress.
+     *
+     * Utiliser le filtre 'g2rd_dequeue_plugin_handles' pour étendre ou réduire cette liste
+     * selon la configuration du site : add_filter('g2rd_dequeue_plugin_handles', fn($h) => $h).
+     *
+     * @since 1.9.3
+     * @return void
+     */
+    public function dequeuePluginAssets(): void {
+        /**
+         * Liste des handles (scripts et styles confondus) à désenregistrer sur le frontend.
+         * WordPress appelle wp_dequeue_script/style silencieusement si le handle est inconnu.
+         *
+         * @param string[] $handles
+         */
+        $handles = \apply_filters( 'g2rd_dequeue_plugin_handles', [
+            // Hostinger AI Assistant — outil IA exclusivement admin
+            'hostinger-ai-assistant',
+            'hostinger-ai-assistant-css',
+            'hstng-ai-assistant',
+            // ManageWP Worker — agent de synchronisation back-end uniquement
+            'mwp-worker',
+            'worker',
+            // Fluent Boards — gestion de projets admin
+            'fluent-boards-app',
+            'fluent-boards-app-style',
+            'fluent-boards',
+            // Fluent Security — tableau de bord sécurité admin
+            'fluent-security-app',
+            'fluent-security-public-app',
+            'fluent_security_public',
+            // Fluent Messaging / FluentCRM — CRM admin
+            'fluent-messaging',
+            'fluentcrm-admin',
+            // Loco Translate — interface de traduction admin (pas de frontend UI)
+            'loco-translate',
+            'loco-translate-admin',
+        ] );
+
+        foreach ( $handles as $handle ) {
+            \wp_dequeue_script( $handle );
+            \wp_dequeue_style( $handle );
+        }
     }
 
     /**

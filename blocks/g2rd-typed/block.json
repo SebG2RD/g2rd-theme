@@ -16,7 +16,7 @@
   "editorScript": "file:./build/index.js",
   "editorStyle": "file:./src/style.css",
   "style": "file:./src/style.css",
-  "script": "file:./build/view.js",
+  "viewScript": "file:./build/view.js",
   "attributes": {
     "typedStrings": {
       "type": "array",
