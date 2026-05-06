@@ -49,30 +49,6 @@ class GSAPAnimations {
 
         // Charger les contrôles de bloc dans l'éditeur
         \add_action('enqueue_block_editor_assets', [$this, 'registerEditorScripts']);
-        \add_action('wp_head', [$this, 'addPreloadLinks'], 1);
-    }
-
-    /**
-     * Ajoute les liens de préchargement pour GSAP
-     */
-    public function addPreloadLinks(): void {
-        if ( \is_admin() || ScriptsManager::is_speed_test() ) {
-            return;
-        }
-        // Précharger GSAP uniquement si la page contient des blocs animés
-        $gsap_blocks = [ 'g2rd/hero', 'g2rd/container', 'g2rd/cta-band', 'g2rd/testimonial' ];
-        $has_gsap    = false;
-        foreach ( $gsap_blocks as $block ) {
-            if ( \has_block( $block ) ) {
-                $has_gsap = true;
-                break;
-            }
-        }
-        if ( ! $has_gsap ) {
-            return;
-        }
-        echo '<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script" crossorigin="anonymous">';
-        echo '<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" as="script" crossorigin="anonymous">';
     }
 
     /**
