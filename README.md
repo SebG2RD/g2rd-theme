@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.2
+
+- **Fix** : groupe cliquable — regex remplacé par `WP_HTML_Tag_Processor` (WP 6.2+) pour compatibilité fiable avec les structures de blocs WordPress 6.6+ (classes layout multiples, inner container).
+- **Fix** : CSS manquant en navigation privée — suppression du `defer_non_critical_css` dans `PerformanceCSS` (conflit avec `css_async.min.js` de LiteSpeed Cache en cache froid).
+
 ### 1.10.1
 
 - **Fix** : groupe cliquable — `readyState` check remplace `DOMContentLoaded` pour compatibilité LiteSpeed Cache (callback ne se déclenchait jamais si LiteSpeed avait déjà exécuté le DOM) ; `cursor: pointer` ajouté sur le groupe activé ; `clickable-articles.js` exclu de l'optimisation LiteSpeed.

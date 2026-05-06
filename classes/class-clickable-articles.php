@@ -122,46 +122,32 @@ class ClickableArticles {
     }
 
     /**
-     * Ajoute l'attribut data-clickable-articles aux blocs de type group et columns
+     * Ajoute l'attribut data-clickable-articles au premier tag du bloc.
+     *
+     * Utilise WP_HTML_Tag_Processor (WP 6.2+) pour une modification fiable,
+     * quel que soit l'ordre des classes ou la structure de layout (WP 6.6+).
      *
      * @since 1.0.0
-     * @param string $block_content Le contenu HTML du bloc
-     * @param array  $block        Les informations du bloc
-     * @return string Le contenu HTML modifié
+     * @param string               $block_content Contenu HTML du bloc.
+     * @param array<string, mixed> $block         Données du bloc.
+     * @return string Contenu HTML modifié.
      */
-    public function addClickableAttribute(string $block_content, array $block): string {
-        // Vérifier si c'est un bloc de type group ou columns
-        if ($block['blockName'] !== 'core/group' && $block['blockName'] !== 'core/columns') {
+    public function addClickableAttribute( string $block_content, array $block ): string {
+        if ( 'core/group' !== $block['blockName'] && 'core/columns' !== $block['blockName'] ) {
             return $block_content;
         }
 
-        // Vérifier si l'option clickableArticles est activée
-        if (!isset($block['attrs']['clickableArticles']) || !$block['attrs']['clickableArticles']) {
+        if ( empty( $block['attrs']['clickableArticles'] ) ) {
             return $block_content;
         }
 
-        // Ajouter l'attribut data-clickable-articles et les attributs d'accessibilité
-        $class_name = $block['blockName'] === 'core/group' ? 'wp-block-group' : 'wp-block-columns';
-        $pattern = '/class="' . preg_quote($class_name, '/') . '([^"]*)"/';
-        $replacement = 'class="' . $class_name . '$1" data-clickable-articles="true" role="button" tabindex="0"';
+        $class_name = 'core/group' === $block['blockName'] ? 'wp-block-group' : 'wp-block-columns';
+        $processor  = new \WP_HTML_Tag_Processor( $block_content );
 
-        $block_content = preg_replace($pattern, $replacement, $block_content); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceDyn -- pattern construit via preg_quote(), pas d'entrée utilisateur
-
-        // Ajouter la classe g2rd-clickable-article aux articles dans le bloc
-        if (strpos($block_content, '<article') !== false || strpos($block_content, 'wp-block-post') !== false) {
-            // Ajouter la classe aux articles
-            $block_content = preg_replace(
-                '/<article([^>]*)class="([^"]*)"/',
-                '<article$1class="$2 g2rd-clickable-article" role="button" tabindex="0"',
-                $block_content
-            );
-
-            // Ajouter la classe aux blocs de post
-            $block_content = preg_replace(
-                '/<div([^>]*)class="([^"]*wp-block-post[^"]*)"/',
-                '<div$1class="$2 g2rd-clickable-article" role="button" tabindex="0"',
-                $block_content
-            );
+        if ( $processor->next_tag( [ 'class_name' => $class_name ] ) ) {
+            $processor->set_attribute( 'data-clickable-articles', 'true' );
+            $processor->set_attribute( 'tabindex', '0' );
+            return $processor->get_updated_html();
         }
 
         return $block_content;

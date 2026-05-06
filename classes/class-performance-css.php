@@ -1,6 +1,6 @@
 <?php
 /**
- * Performance CSS — CSS critique inline + chargement différé des styles non critiques
+ * Performance CSS — CSS critique inline dans &lt;head&gt;
  *
  * @package G2RD
  * @since   1.9.4
@@ -13,20 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Inline le CSS critique dans <head> et diffère les styles non critiques
- * via le pattern media="print" onload="this.media='all'".
+ * Inline le CSS critique dans <head>.
+ *
+ * Note : le chargement différé des styles non critiques (media="print" onload)
+ * est intentionnellement absent — LiteSpeed Cache gère son propre CSS async
+ * via css_async.min.js. Une double-déférence provoque des styles manquants
+ * en navigation privée (cache froid).
  */
 class PerformanceCSS {
-
-	/**
-	 * Handles CSS à charger en différé (non critiques pour le rendu initial).
-	 *
-	 * @var string[]
-	 */
-	private const DEFERRED_STYLES = [
-		'g2rd-footer',
-		'g2rd-micro-interactions',
-	];
 
 	/** @var string Version du thème, utilisée comme clé de cache. */
 	private string $theme_version;
@@ -45,7 +39,6 @@ class PerformanceCSS {
 	 */
 	public function register_hooks(): void {
 		\add_action( 'wp_head', [ $this, 'output_critical_css' ], 1 );
-		\add_filter( 'style_loader_tag', [ $this, 'defer_non_critical_css' ], 10, 2 );
 		\add_action( 'switch_theme', [ $this, 'invalidate_cache' ] );
 	}
 
@@ -109,32 +102,6 @@ class PerformanceCSS {
 		$css = (string) \preg_replace( '/\s*([:;{},>~+])\s*/', '$1', $css );
 
 		return \trim( $css );
-	}
-
-	/**
-	 * Passe les styles non critiques en chargement différé via media="print" onload.
-	 *
-	 * @param  string $tag    Balise <link> générée par WordPress.
-	 * @param  string $handle Handle du style.
-	 * @return string Balise modifiée avec noscript fallback, ou originale si non ciblée.
-	 */
-	public function defer_non_critical_css( string $tag, string $handle ): string {
-		if ( \is_admin() || ! \in_array( $handle, self::DEFERRED_STYLES, true ) ) {
-			return $tag;
-		}
-
-		// Remplace media='all' par media='print' + onload trick
-		$deferred = \str_replace( " media='all'", " media='print' onload=\"this.media='all'\"", $tag );
-
-		// Si WordPress n'a pas émis media='all' explicitement, on l'insère avant />
-		if ( $deferred === $tag ) {
-			$deferred = \str_replace( ">\n", " media='print' onload=\"this.media='all'\">\n", $tag );
-		}
-
-		// Fallback pour les navigateurs sans JS
-		$noscript = '<noscript>' . $tag . '</noscript>' . "\n";
-
-		return $deferred . $noscript;
 	}
 
 	/**
