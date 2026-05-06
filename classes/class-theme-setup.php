@@ -133,6 +133,11 @@ class ThemeSetup {
      */
     public function removeUnnecessaryAssets(): void {
         \wp_dequeue_script( 'wp-embed' );
+
+        // comment-reply (~1 KB) uniquement nécessaire quand les commentaires sont ouverts sur un post.
+        if ( ! \is_singular() || ! \comments_open() ) {
+            \wp_dequeue_script( 'comment-reply' );
+        }
     }
 
     /**
@@ -244,6 +249,9 @@ class ThemeSetup {
         \remove_action('wp_head', 'rest_output_link_wp_head', 10);
         \remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
         \remove_action('template_redirect', 'rest_output_link_header', 11);
+
+        # Supprimer les flux RSS secondaires (catégories, tags, auteurs) — le flux principal reste
+        \remove_action('wp_head', 'feed_links_extra', 3);
     }
 
     /**
