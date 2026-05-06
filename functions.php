@@ -115,6 +115,7 @@ function bootstrap_theme(): void
         Conditional_Menu::class,
         ApiConnector::class,
         Abilities::class,
+        PerformanceCache::class,
         PerformanceCSS::class,
         PerformanceImages::class,
     ];
