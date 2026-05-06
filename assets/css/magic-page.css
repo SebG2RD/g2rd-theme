@@ -455,6 +455,200 @@
 }
 
 /* ================================================================
+   SERVICE / PRESTATION — Composants des pages prestation
+   Chargé via magic-page.css (style_handle sur magic-dark / magic-light)
+   ================================================================ */
+
+/* Supprime les marges automatiques du layout flow Gutenberg dans les magic pages */
+.g2rd-magic-page :where(.is-layout-flow) > * {
+	margin-block-start: 0;
+}
+
+/* Cover hero prestation */
+.g2rd-service-hero-cover {
+	min-height: 620px;
+}
+
+.g2rd-service-hero-cover .wp-block-cover__background {
+	opacity: 1 !important;
+}
+
+.g2rd-service-hero-cover h1,
+.g2rd-service-hero-cover p,
+.g2rd-service-hero-cover strong {
+	color: var(--wp--preset--color--white) !important;
+}
+
+/* Breadcrumb */
+.g2rd-magic-breadcrumb {
+	margin-bottom: 2rem;
+}
+
+/* Eyebrow en section claire (override du fond sombre par défaut) */
+.g2rd-magic-light .g2rd-magic-eyebrow {
+	background: rgba(212, 163, 115, 0.12);
+	color: var(--wp--preset--color--primary) !important;
+}
+
+/* Chiffres clés (KPI) */
+.g2rd-service-kpi {
+	background:
+		radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.18), transparent 32%),
+		linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--primary) 100%) !important;
+}
+
+.g2rd-service-kpi .wp-block-columns {
+	gap: 1rem;
+}
+
+.g2rd-service-kpi .wp-block-column {
+	border: 1px solid rgba(212, 163, 115, 0.30) !important;
+	border-radius: 24px;
+	background: rgba(255, 255, 255, 0.08) !important;
+	box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+	backdrop-filter: blur(14px);
+}
+
+.g2rd-service-kpi .counter-number,
+.g2rd-service-kpi .counter-prefix,
+.g2rd-service-kpi .counter-suffix {
+	color: var(--wp--preset--color--secondary) !important;
+}
+
+.g2rd-service-kpi .counter-title {
+	color: rgba(250, 250, 250, 0.78) !important;
+}
+
+/* Marquee */
+.g2rd-service-marquee {
+	background: var(--wp--preset--color--cream) !important;
+	border-top: 1px solid rgba(47, 67, 94, 0.08);
+	border-bottom: 1px solid rgba(47, 67, 94, 0.08);
+}
+
+/* Cartes de prestation */
+.g2rd-service-card {
+	height: 100%;
+	border: 1px solid rgba(212, 163, 115, 0.25);
+	border-radius: 28px;
+	background: #ffffff !important;
+	box-shadow: 0 20px 60px rgba(47, 67, 94, 0.10);
+}
+
+.g2rd-service-card-featured {
+	border-color: rgba(212, 163, 115, 0.65);
+	background: linear-gradient(180deg, #ffffff 0%, var(--wp--preset--color--cream) 100%) !important;
+}
+
+.g2rd-service-card h3,
+.g2rd-service-card strong {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+.g2rd-service-card p {
+	color: var(--wp--preset--color--muted) !important;
+}
+
+.g2rd-service-card-icon {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+.g2rd-service-badge {
+	display: inline-flex;
+	width: fit-content;
+	padding: 0.4rem 0.75rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--secondary);
+	color: #ffffff !important;
+	font-weight: 700;
+}
+
+.g2rd-service-link a {
+	color: var(--wp--preset--color--secondary) !important;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+/* Timeline / Méthode */
+.g2rd-service-timeline-item {
+	border: 1px solid rgba(212, 163, 115, 0.28);
+	border-radius: 24px;
+	background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.g2rd-service-timeline-item p {
+	color: rgba(250, 250, 250, 0.76) !important;
+}
+
+.g2rd-service-timeline-item strong {
+	color: var(--wp--preset--color--white) !important;
+}
+
+.g2rd-service-step-number {
+	color: var(--wp--preset--color--secondary) !important;
+	font-weight: 800;
+}
+
+/* Carte SEO inclus */
+.g2rd-service-seo-card {
+	border: 1px solid rgba(212, 163, 115, 0.24);
+	border-radius: 22px;
+	background: #ffffff !important;
+	box-shadow: 0 14px 45px rgba(47, 67, 94, 0.08);
+}
+
+.g2rd-service-seo-card p,
+.g2rd-service-seo-card strong {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+/* Pourquoi G2RD */
+.g2rd-service-info-list .g2rd-info-block {
+	margin-bottom: 1rem;
+	border: 1px solid rgba(212, 163, 115, 0.22);
+	border-radius: 24px !important;
+	background: #ffffff !important;
+	box-shadow: 0 16px 50px rgba(47, 67, 94, 0.08);
+}
+
+.g2rd-service-info-list h3 {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+.g2rd-service-info-list p {
+	color: var(--wp--preset--color--muted) !important;
+}
+
+/* FAQ */
+.g2rd-service-faq {
+	background: #f7f4ef !important;
+}
+
+.g2rd-service-faq h2,
+.g2rd-service-faq p {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+/* Bloc GEO résumé */
+.wp-block-g2rd-geo-summary {
+	background: #ffffff !important;
+	color: var(--wp--preset--color--primary) !important;
+	border-radius: 24px;
+	box-shadow: 0 18px 55px rgba(47, 67, 94, 0.08);
+}
+
+.wp-block-g2rd-geo-summary li,
+.wp-block-g2rd-geo-summary span {
+	color: var(--wp--preset--color--primary) !important;
+}
+
+/* CTA final */
+.g2rd-service-cta h2,
+.g2rd-service-cta p {
+	color: var(--wp--preset--color--white) !important;
+}
+
+/* ================================================================
    RESPONSIVE
    ================================================================ */
 @media (max-width: 900px) {
@@ -462,7 +656,12 @@
 		min-height: auto;
 	}
 
+	.g2rd-service-hero-cover {
+		min-height: auto;
+	}
+
 	.g2rd-magic-visual-card {
+		max-width: 100%;
 		margin-top: 2rem;
 	}
 
