@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.3
+
+- **Fix** : groupe cliquable — `next_tag()` sans filtre de classe (robuste en WP 6.6+) ; `cursor:pointer` injecté via `wp_head` indépendamment du JS ; navigation via `window.location.href` au lieu de `link.click()`.
+
 ### 1.10.2
 
 - **Fix** : groupe cliquable — regex remplacé par `WP_HTML_Tag_Processor` (WP 6.2+) pour compatibilité fiable avec les structures de blocs WordPress 6.6+ (classes layout multiples, inner container).

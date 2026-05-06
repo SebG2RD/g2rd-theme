@@ -43,14 +43,10 @@ class ClickableArticles {
      * @return void
      */
     public function register_hooks(): void {
-        // Charger les scripts sur le frontend
-        \add_action('wp_enqueue_scripts', [$this, 'registerFrontendScripts']);
-
-        // Charger les contrôles de bloc dans l'éditeur
-        \add_action('enqueue_block_editor_assets', [$this, 'registerEditorScripts']);
-
-        // Ajouter l'attribut data-clickable-articles aux blocs
-        \add_filter('render_block', [$this, 'addClickableAttribute'], 10, 2);
+        \add_action( 'wp_enqueue_scripts',      [ $this, 'registerFrontendScripts' ] );
+        \add_action( 'enqueue_block_editor_assets', [ $this, 'registerEditorScripts' ] );
+        \add_filter( 'render_block',            [ $this, 'addClickableAttribute' ], 10, 2 );
+        \add_action( 'wp_head',                 [ $this, 'outputCursorStyle' ], 20 );
     }
 
     /**
@@ -132,6 +128,30 @@ class ClickableArticles {
      * @param array<string, mixed> $block         Données du bloc.
      * @return string Contenu HTML modifié.
      */
+    /**
+     * Injecte cursor:pointer pour les éléments cliquables (indépendant du JS).
+     *
+     * @return void
+     */
+    public function outputCursorStyle(): void {
+        if ( \is_admin() ) {
+            return;
+        }
+        echo "<style>[data-clickable-articles=\"true\"]{cursor:pointer}</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- valeur CSS statique, aucune donnée utilisateur
+    }
+
+    /**
+     * Ajoute l'attribut data-clickable-articles au wrapper du bloc.
+     *
+     * Utilise WP_HTML_Tag_Processor (WP 6.2+) : next_tag() sans filtre de classe
+     * pour cibler le premier tag du bloc (toujours le wrapper) quel que soit le
+     * layout ou les classes générées par WordPress 6.6+.
+     *
+     * @since 1.0.0
+     * @param string               $block_content Contenu HTML du bloc.
+     * @param array<string, mixed> $block         Données du bloc.
+     * @return string Contenu HTML modifié.
+     */
     public function addClickableAttribute( string $block_content, array $block ): string {
         if ( 'core/group' !== $block['blockName'] && 'core/columns' !== $block['blockName'] ) {
             return $block_content;
@@ -141,10 +161,9 @@ class ClickableArticles {
             return $block_content;
         }
 
-        $class_name = 'core/group' === $block['blockName'] ? 'wp-block-group' : 'wp-block-columns';
-        $processor  = new \WP_HTML_Tag_Processor( $block_content );
+        $processor = new \WP_HTML_Tag_Processor( $block_content );
 
-        if ( $processor->next_tag( [ 'class_name' => $class_name ] ) ) {
+        if ( $processor->next_tag() ) {
             $processor->set_attribute( 'data-clickable-articles', 'true' );
             $processor->set_attribute( 'tabindex', '0' );
             return $processor->get_updated_html();

@@ -57,9 +57,14 @@ function initClickableArticles() {
     );
 
     block.addEventListener("click", function (e) {
+      if (e.target.closest("a") || e.target.closest("button")) {
+        return;
+      }
       e.stopPropagation();
-      if (!e.target.closest("a") && !e.target.closest("button")) {
-        link.click();
+      if (link.target === "_blank") {
+        window.open(link.href, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = link.href;
       }
     });
 
