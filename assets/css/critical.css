@@ -1,0 +1,162 @@
+/* ==========================================================================
+   G2RD Critical CSS — styles above-the-fold inlinés dans <head>
+   Maintenir manuellement : ne contenir QUE les styles visibles dans les
+   100vh premiers pixels (header + hero). Tout le reste se charge en différé.
+
+   À mettre à jour quand le header ou le bloc hero changent significativement.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base layout
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* WordPress FSE layout */
+.wp-site-blocks {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   Header — variante foncée (.g2rd-site-header)
+   -------------------------------------------------------------------------- */
+
+.g2rd-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: linear-gradient(135deg, #172233 0%, #2f435e 100%);
+  border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+  backdrop-filter: blur(18px);
+}
+
+.g2rd-site-header__inner {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.g2rd-site-header .wp-block-image {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.g2rd-site-header .wp-block-image img {
+  display: block;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Header — variante claire (.g2rd-site-header-light)
+   -------------------------------------------------------------------------- */
+
+.g2rd-site-header-light {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 248, 242, 0.94) 100%);
+  border-bottom: 1px solid rgba(47, 67, 94, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.g2rd-site-header-light__inner {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.g2rd-site-header-light .wp-block-image {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.g2rd-site-header-light .wp-block-image img {
+  display: block;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation — styles communs (évite le FOUC nav)
+   -------------------------------------------------------------------------- */
+
+.wp-block-navigation-item__content {
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Bloc Hero (g2rd/hero) — structure initiale pour éviter le CLS
+   -------------------------------------------------------------------------- */
+
+.g2rd-hero {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.g2rd-hero__inner {
+  width: 100%;
+}
+
+.g2rd-hero__heading {
+  margin: 0 0 1.25rem;
+}
+
+.g2rd-hero__subheading {
+  margin: 0 0 2rem;
+}
+
+.g2rd-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Boutons WordPress (évite le flash sur le CTA du header)
+   -------------------------------------------------------------------------- */
+
+.wp-block-button__link,
+.wp-element-button {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.82rem 1.15rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll animations — état initial (évite le CLS au premier paint)
+   -------------------------------------------------------------------------- */
+
+.scroll-animation {
+  opacity: 0;
+  transform: translateY(24px);
+}

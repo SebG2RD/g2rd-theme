@@ -115,6 +115,7 @@ function bootstrap_theme(): void
         Conditional_Menu::class,
         ApiConnector::class,
         Abilities::class,
+        PerformanceCSS::class,
     ];
 
     // Fonctionnalités optionnelles (activables/désactivables depuis la page d'options)
