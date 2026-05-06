@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.1
+
+- **Fix** : groupe cliquable — `readyState` check remplace `DOMContentLoaded` pour compatibilité LiteSpeed Cache (callback ne se déclenchait jamais si LiteSpeed avait déjà exécuté le DOM) ; `cursor: pointer` ajouté sur le groupe activé ; `clickable-articles.js` exclu de l'optimisation LiteSpeed.
+
 ### 1.10.0
 
 - **Performance** : CSS critique inliné dans `<head>` via `PerformanceCSS` — footer et micro-interactions chargés en différé (amélioration FCP/LCP).

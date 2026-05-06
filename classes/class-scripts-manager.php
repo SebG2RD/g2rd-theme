@@ -80,6 +80,7 @@ class ScriptsManager {
         $excludes[] = 'dark-mode.js';
         $excludes[] = 'accessibility.js';
         $excludes[] = 'fluent-cart';
+        $excludes[] = 'clickable-articles.js';
         return $excludes;
     }
 
