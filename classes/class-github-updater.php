@@ -141,15 +141,11 @@ class GitHubUpdater {
             $transient->response[$theme_slug] = [
                 'theme'        => $theme_slug,
                 'new_version'  => $latest_version,
-                'url'          => $this->github_url,
+                'url'          => \self_admin_url( 'theme-install.php?tab=theme-information&theme=' . rawurlencode( $theme_slug ) ),
                 'package'      => $this->get_download_url($release_data),
                 'requires'     => '6.5',
                 'requires_php' => '8.0',
                 'last_updated' => $release_data['published_at'],
-                'sections'     => [
-                    'description' => $release_data['body'],
-                    'changelog'   => $release_data['body'],
-                ],
             ];
         } else {
             // Si la version est identique ou plus récente, on s'assure qu'il n'y a pas de notification
@@ -199,20 +195,27 @@ class GitHubUpdater {
             return $false;
         }
 
-        return [
-            'name' => 'G2RD Theme',
-            'slug' => $theme_slug,
-            'version' => ltrim($release_data['tag_name'], 'v'),
-            'author' => 'Sebastien GERARD',
-            'author_profile' => 'https://github.com/SebG2RD',
-            'last_updated' => $release_data['published_at'],
-            'homepage' => $this->github_url,
-            'sections' => [
-                'description' => $release_data['body'],
-                'changelog' => $release_data['body'],
-            ],
-            'download_link' => $this->get_download_url($release_data),
+        $latest_version   = ltrim( (string) $release_data['tag_name'], 'v' );
+        $changelog_html   = $this->formatChangelog( (string) ( $release_data['body'] ?? '' ) );
+        $description_html = '<p>' . \esc_html__( 'Thème WordPress Full Site Editing moderne et flexible pour les agences web.', 'g2rd' ) . '</p>';
+
+        $info                 = new \stdClass();
+        $info->name           = 'G2RD Theme';
+        $info->slug           = $theme_slug;
+        $info->version        = $latest_version;
+        $info->author         = 'Sebastien GERARD';
+        $info->author_profile = 'https://github.com/SebG2RD';
+        $info->last_updated   = (string) ( $release_data['published_at'] ?? '' );
+        $info->homepage       = $this->github_url;
+        $info->requires       = '6.5';
+        $info->requires_php   = '8.0';
+        $info->download_link  = $this->get_download_url( $release_data );
+        $info->sections       = [
+            'description' => $description_html,
+            'changelog'   => $changelog_html,
         ];
+
+        return $info;
     }
 
     /**
@@ -321,6 +324,63 @@ class GitHubUpdater {
         }
 
         return \trailingslashit( $new_source );
+    }
+
+    /**
+     * Convertit le corps Markdown d'une release GitHub en HTML sécurisé.
+     *
+     * @param string $markdown Corps de la release (Markdown GitHub).
+     * @return string HTML échappé prêt à l'affichage dans le Thickbox WordPress.
+     */
+    private function formatChangelog( string $markdown ): string {
+        $lines   = explode( "\n", $markdown );
+        $html    = '';
+        $in_list = false;
+
+        foreach ( $lines as $line ) {
+            $line = rtrim( $line );
+
+            if ( preg_match( '/^### (.+)$/', $line, $m ) ) {
+                if ( $in_list ) {
+                    $html   .= '</ul>';
+                    $in_list = false;
+                }
+                $html .= '<h4>' . \esc_html( $m[1] ) . '</h4>';
+            } elseif ( preg_match( '/^## (.+)$/', $line, $m ) ) {
+                if ( $in_list ) {
+                    $html   .= '</ul>';
+                    $in_list = false;
+                }
+                $html .= '<h3>' . \esc_html( $m[1] ) . '</h3>';
+            } elseif ( preg_match( '/^[-*] (.+)$/', $line, $m ) ) {
+                if ( ! $in_list ) {
+                    $html   .= '<ul>';
+                    $in_list = true;
+                }
+                $item = \esc_html( $m[1] );
+                $item = (string) preg_replace( '/\*\*(.+?)\*\*/', '<strong>$1</strong>', $item ); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird -- remplacement statique, pas de modificateur /e
+                $html .= '<li>' . $item . '</li>';
+            } elseif ( '' === $line ) {
+                if ( $in_list ) {
+                    $html   .= '</ul>';
+                    $in_list = false;
+                }
+            } else {
+                if ( $in_list ) {
+                    $html   .= '</ul>';
+                    $in_list = false;
+                }
+                $para  = \esc_html( $line );
+                $para  = (string) preg_replace( '/\*\*(.+?)\*\*/', '<strong>$1</strong>', $para ); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird -- remplacement statique, pas de modificateur /e
+                $html .= '<p>' . $para . '</p>';
+            }
+        }
+
+        if ( $in_list ) {
+            $html .= '</ul>';
+        }
+
+        return $html;
     }
 
     /**

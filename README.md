@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.4
+
+- **Feature** : lien « Voir les détails de la version X.Y.Z » dans la notification de MAJ WordPress — ouvre un modal Thickbox avec le changelog formaté depuis la release GitHub.
+- **Fix** : `getThemeInfo` retourne désormais un objet stdClass (attendu par `theme-install.php`).
+
 ### 1.10.3
 
 - **Fix** : groupe cliquable — `next_tag()` sans filtre de classe (robuste en WP 6.6+) ; `cursor:pointer` injecté via `wp_head` indépendamment du JS ; navigation via `window.location.href` au lieu de `link.click()`.
