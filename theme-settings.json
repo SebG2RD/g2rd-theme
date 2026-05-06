@@ -162,7 +162,7 @@
           "fontFace": [
             {
               "fontFamily": "Rubik",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -177,7 +177,7 @@
           "fontFace": [
             {
               "fontFamily": "Quantum",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -192,7 +192,7 @@
           "fontFace": [
             {
               "fontFamily": "DM Serif Display",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -207,7 +207,7 @@
           "fontFace": [
             {
               "fontFamily": "Audiowide",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -222,7 +222,7 @@
           "fontFace": [
             {
               "fontFamily": "Inter",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -252,7 +252,7 @@
           "fontFace": [
             {
               "fontFamily": "Acme",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -267,7 +267,7 @@
           "fontFace": [
             {
               "fontFamily": "Borel",
-              "fontDisplay": "block",
+              "fontDisplay": "swap",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "400",
