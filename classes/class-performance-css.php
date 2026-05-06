@@ -102,7 +102,7 @@ class PerformanceCSS {
 	 */
 	private function minify( string $css ): string {
 		// Supprime les commentaires CSS /* ... */
-		$css = (string) \preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
+		$css = (string) \preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css ); // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.PregReplace.PregReplaceWeird -- CSS strip, pas de modificateur /e
 		// Réduit les espaces multiples, tabulations et retours à la ligne
 		$css = (string) \preg_replace( '/\s+/', ' ', $css );
 		// Supprime les espaces autour des caractères spéciaux : ; { }

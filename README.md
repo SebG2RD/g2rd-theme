@@ -127,6 +127,20 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.0
+
+- **Performance** : CSS critique inliné dans `<head>` via `PerformanceCSS` — footer et micro-interactions chargés en différé (amélioration FCP/LCP).
+- **Performance** : `font-display: swap` sur les 8 polices du thème — texte visible pendant le chargement des polices (amélioration FCP).
+- **Performance** : lazy loading intelligent via `PerformanceImages` — première image en `eager/fetchpriority=high`, reste en `lazy/decoding=async` avec dimensions explicites (amélioration CLS/LCP).
+- **Performance** : preload de l'image hero dans `<head>` via `parse_blocks()` (amélioration LCP).
+- **Performance** : détection WebP automatique via `wp_content_img_tag` — swap vers `.webp` si disponible sur le serveur.
+- **Performance** : suppression `feed_links_extra` et déqueue conditionnel de `comment-reply` (réduction TBT).
+- **Performance** : cache transients centralisé via `PerformanceCache` — CSS critique 24h, JSON-LD 12h, invalidation automatique sur `switch_theme`/`save_post`.
+- **Performance** : `PerformanceAudit` — log WP_DEBUG : SQL, styles, scripts et taille HTML par page.
+- **Fix** : suppression des preload GSAP CDN qui causaient des warnings console « preloaded but not used within a few seconds ».
+- **Fix** : bloc Google Reviews — cache stale permanent (fallback sur dernières données connues si API en erreur ou clé manquante).
+- **Style** : composants page prestation intégrés dans `magic-page.css` — supprime le CSS inline Gutenberg des `<!-- wp:html -->`.
+
 ### 1.9.3
 
 - **Fix FAQ GEO** : mode `<details>/<summary>` — `allowMultiple` fonctionnel sur le frontend via événement `toggle` natif ; masquage du marqueur `<summary>` dans Firefox, Chrome et Safari (`list-style: none` + `::marker { content: none }`).
