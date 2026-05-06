@@ -116,6 +116,7 @@ function bootstrap_theme(): void
         ApiConnector::class,
         Abilities::class,
         PerformanceCSS::class,
+        PerformanceImages::class,
     ];
 
     // Fonctionnalités optionnelles (activables/désactivables depuis la page d'options)
