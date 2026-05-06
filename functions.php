@@ -116,6 +116,7 @@ function bootstrap_theme(): void
         ApiConnector::class,
         Abilities::class,
         PerformanceCache::class,
+        PerformanceAudit::class,
         PerformanceCSS::class,
         PerformanceImages::class,
     ];
