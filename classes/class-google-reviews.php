@@ -96,7 +96,13 @@ class GoogleReviews {
 	// ── Callbacks ────────────────────────────────────────────────────────
 
 	/**
-	 * Endpoint GET — retourne les avis avec cache transient 12h.
+	 * Endpoint GET — retourne les avis avec cache transient 12h + cache stale permanent.
+	 *
+	 * Stratégie stale-while-revalidate :
+	 * 1. Transient frais (12h)  → réponse immédiate.
+	 * 2. Transient expiré       → appel API Google.
+	 * 3. API en erreur          → fallback sur le cache stale (wp_options) si disponible.
+	 * 4. Aucun cache            → retourne l'erreur.
 	 *
 	 * @param \WP_REST_Request $request Requête REST.
 	 * @return \WP_REST_Response|\WP_Error
@@ -107,14 +113,21 @@ class GoogleReviews {
 		$max        = \max( 1, \min( 5, (int) $request->get_param( 'max' ) ) );
 
 		$cache_key = 'g2rd_gr_' . \md5( $place_id );
-		$cached    = \get_transient( $cache_key );
+		$stale_key = 'g2rd_gr_stale_' . \md5( $place_id );
 
+		// 1. Cache transient frais — priorité absolue.
+		$cached = \get_transient( $cache_key );
 		if ( false !== $cached ) {
 			return self::filtered_response( $cached, $min_rating, $max );
 		}
 
+		// 2. Clé API manquante — fallback stale avant d'échouer.
 		$api_key = self::get_api_key();
 		if ( empty( $api_key ) ) {
+			$stale = \get_option( $stale_key );
+			if ( ! empty( $stale ) ) {
+				return self::filtered_response( $stale, $min_rating, $max );
+			}
 			return new \WP_Error(
 				'no_api_key',
 				\__( 'Clé API Google Maps non configurée. Rendez-vous dans Options G2RD → Intégrations.', 'g2rd' ),
@@ -137,13 +150,23 @@ class GoogleReviews {
 
 		$response = \wp_remote_get( $api_url, [ 'timeout' => 10, 'sslverify' => true ] );
 
+		// 3. Erreur réseau ou API → fallback sur le cache stale.
 		if ( \is_wp_error( $response ) ) {
+			$stale = \get_option( $stale_key );
+			if ( ! empty( $stale ) ) {
+				return self::filtered_response( $stale, $min_rating, $max );
+			}
 			return $response;
 		}
 
 		$body = \json_decode( \wp_remote_retrieve_body( $response ), true );
 
 		if ( ! isset( $body['status'] ) || 'OK' !== $body['status'] ) {
+			// 3bis. Réponse Google invalide (REQUEST_DENIED, quota, etc.) → stale.
+			$stale = \get_option( $stale_key );
+			if ( ! empty( $stale ) ) {
+				return self::filtered_response( $stale, $min_rating, $max );
+			}
 			return new \WP_Error(
 				'places_api_error',
 				\sanitize_text_field( $body['status'] ?? 'UNKNOWN_ERROR' ),
@@ -151,6 +174,7 @@ class GoogleReviews {
 			);
 		}
 
+		// 4. Succès → met à jour le transient frais ET le cache stale permanent.
 		$result   = $body['result'] ?? [];
 		$raw_data = [
 			'place_name'     => \sanitize_text_field( $result['name'] ?? '' ),
@@ -161,6 +185,7 @@ class GoogleReviews {
 		];
 
 		\set_transient( $cache_key, $raw_data, self::CACHE_TTL );
+		\update_option( $stale_key, $raw_data, false ); // autoload=false, stockage permanent
 
 		return self::filtered_response( $raw_data, $min_rating, $max );
 	}
@@ -173,8 +198,9 @@ class GoogleReviews {
 	 */
 	public static function clear_cache( \WP_REST_Request $request ): \WP_REST_Response {
 		$place_id  = $request->get_param( 'place_id' );
-		$cache_key = 'g2rd_gr_' . \md5( $place_id );
-		\delete_transient( $cache_key );
+		$hash      = \md5( $place_id );
+		\delete_transient( 'g2rd_gr_' . $hash );
+		\delete_option( 'g2rd_gr_stale_' . $hash );
 
 		return new \WP_REST_Response( [ 'cleared' => true ], 200 );
 	}
