@@ -1,11 +1,11 @@
-import { useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 export default function Save({ attributes }) {
   const {
     kicker, heading, subheading,
     ctaPrimaryText, ctaPrimaryUrl, ctaSecondaryText, ctaSecondaryUrl, showSecondary,
     socialProof, showSocialProof,
-    backgroundType, backgroundColor, imageUrl, imageAlt,
+    backgroundType, backgroundColor, imageUrl,
     overlayColor, overlayOpacity,
     headingColor, accentColor, textColor, ctaPrimaryBg, ctaPrimaryColor,
     alignment, minHeight, paddingVertical,
@@ -30,8 +30,8 @@ export default function Save({ attributes }) {
       {backgroundType === "image" && imageUrl && (
         <div
           className="g2rd-hero__overlay"
-          style={{ position: "absolute", inset: 0, backgroundColor: overlayColor, opacity: overlayOpacity / 100 }}
           aria-hidden="true"
+          style={{ position: "absolute", inset: 0, backgroundColor: overlayColor, opacity: overlayOpacity / 100 }}
         />
       )}
 
@@ -46,12 +46,12 @@ export default function Save({ attributes }) {
         }}
       >
         {kicker && (
-          <p
+          <RichText.Content
+            tagName="p"
             className="g2rd-hero__kicker"
+            value={kicker}
             style={{ color: accentColor, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.875rem", marginBottom: "0.75rem" }}
-          >
-            {kicker}
-          </p>
+          />
         )}
 
         <h1
@@ -60,43 +60,47 @@ export default function Save({ attributes }) {
           dangerouslySetInnerHTML={{ __html: markedHeading }}
         />
 
-        <p
-          className="g2rd-hero__subheading"
-          style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, fontSize: "1.1rem", marginBottom: "2rem" }}
-        >
-          {subheading}
-        </p>
+        {subheading && (
+          <RichText.Content
+            tagName="p"
+            className="g2rd-hero__subheading"
+            value={subheading}
+            style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, fontSize: "1.1rem", marginBottom: "2rem" }}
+          />
+        )}
 
         <div
           className="g2rd-hero__ctas"
           style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: alignment === "center" ? "center" : "flex-start" }}
         >
-          <a
-            href={ctaPrimaryUrl}
-            className="g2rd-hero__btn g2rd-hero__btn--primary"
-            style={{ backgroundColor: ctaPrimaryBg, color: ctaPrimaryColor, padding: "0.9rem 2rem", borderRadius: "4px", fontWeight: 700, textDecoration: "none", display: "inline-block" }}
-          >
-            {ctaPrimaryText}
-          </a>
+          {ctaPrimaryText && (
+            <RichText.Content
+              tagName="a"
+              href={ctaPrimaryUrl}
+              className="g2rd-hero__btn g2rd-hero__btn--primary"
+              value={ctaPrimaryText}
+              style={{ backgroundColor: ctaPrimaryBg, color: ctaPrimaryColor, padding: "0.9rem 2rem", borderRadius: "4px", fontWeight: 700, textDecoration: "none", display: "inline-block" }}
+            />
+          )}
 
           {showSecondary && ctaSecondaryText && (
-            <a
+            <RichText.Content
+              tagName="a"
               href={ctaSecondaryUrl}
               className="g2rd-hero__btn g2rd-hero__btn--secondary"
+              value={ctaSecondaryText}
               style={{ border: "1px solid rgba(250,250,250,0.6)", color: headingColor, padding: "0.9rem 2rem", borderRadius: "4px", fontWeight: 600, textDecoration: "none", display: "inline-block" }}
-            >
-              {ctaSecondaryText}
-            </a>
+            />
           )}
         </div>
 
         {showSocialProof && socialProof && (
-          <p
+          <RichText.Content
+            tagName="p"
             className="g2rd-hero__social-proof"
+            value={socialProof}
             style={{ color: textColor, opacity: 0.65, fontSize: "0.875rem", marginTop: "1.5rem" }}
-          >
-            {socialProof}
-          </p>
+          />
         )}
       </div>
     </div>

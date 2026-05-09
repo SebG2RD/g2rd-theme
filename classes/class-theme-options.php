@@ -159,6 +159,7 @@ class ThemeOptions {
         'g2rd/typed'             => [ 'title' => 'Texte animé (Typed)',    'icon' => 'edit' ],
         'g2rd/block-api'         => [ 'title' => 'Connecteur API',         'icon' => 'rest-api' ],
         'g2rd/container'         => [ 'title' => 'Conteneur responsive',   'icon' => 'layout' ],
+        'g2rd/effect-kits'       => [ 'title' => 'Effect Kits',            'icon' => 'superhero' ],
         'g2rd/bases'             => [ 'title' => 'Blocs de base G2RD',     'icon' => 'layout' ],
     ];
 

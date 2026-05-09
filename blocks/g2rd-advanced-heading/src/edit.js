@@ -270,13 +270,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						options={ [ "h1","h2","h3","h4","h5","h6","p" ].map( t => ( { label: t.toUpperCase(), value: t } ) ) }
 						onChange={ ( v ) => setAttributes( { headingTag: v } ) }
 					/>
-					<TextControl
-						label={ __( "Texte avant les mots animés", "g2rd" ) }
-						value={ textBefore }
-						onChange={ ( v ) => setAttributes( { textBefore: v } ) }
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-					/>
+					<p style={{ fontSize: "12px", color: "#757575", marginBottom: "8px" }}>
+						{ __( "Éditez le texte avant/après directement sur le bloc.", "g2rd" ) }
+					</p>
 					<div style={ { margin: "12px 0 8px" } }>
 						<p style={ { margin: "0 0 6px", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", color: "#1e1e1e" } }>
 							{ __( "Mots animés", "g2rd" ) }
@@ -303,13 +299,6 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ __( "Ajouter un mot", "g2rd" ) }
 						</Button>
 					</div>
-					<TextControl
-						label={ __( "Texte après les mots animés", "g2rd" ) }
-						value={ textAfter }
-						onChange={ ( v ) => setAttributes( { textAfter: v } ) }
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-					/>
 				</PanelBody>
 
 				{ /* Animation */ }
@@ -521,9 +510,14 @@ export default function Edit( { attributes, setAttributes } ) {
 				) }
 
 				<TagName className="g2rd-adv-heading" style={ headingStyle }>
-					{ textBefore && (
-						<span className="g2rd-adv-heading__static-before">{ textBefore }&nbsp;</span>
-					) }
+					<RichText
+						tagName="span"
+						className="g2rd-adv-heading__static-before"
+						value={ textBefore }
+						onChange={ ( v ) => setAttributes( { textBefore: v } ) }
+						placeholder={ __( "Texte avant…", "g2rd" ) }
+						style={ textBefore ? {} : { opacity: 0.4, minWidth: "60px", display: "inline-block" } }
+					/>&nbsp;
 
 					<span
 						className={ [
@@ -554,9 +548,14 @@ export default function Edit( { attributes, setAttributes } ) {
 						</span>
 					</span>
 
-					{ textAfter && (
-						<span className="g2rd-adv-heading__static-after">&nbsp;{ textAfter }</span>
-					) }
+					&nbsp;<RichText
+						tagName="span"
+						className="g2rd-adv-heading__static-after"
+						value={ textAfter }
+						onChange={ ( v ) => setAttributes( { textAfter: v } ) }
+						placeholder={ __( "Texte après…", "g2rd" ) }
+						style={ textAfter ? {} : { opacity: 0.4, minWidth: "60px", display: "inline-block" } }
+					/>
 				</TagName>
 			</div>
 		</>

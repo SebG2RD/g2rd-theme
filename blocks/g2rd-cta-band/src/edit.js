@@ -1,9 +1,13 @@
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import {
+  useBlockProps,
+  InspectorControls,
+  PanelColorSettings,
+  RichText,
+} from "@wordpress/block-editor";
 import {
   PanelBody,
   TextControl,
-  TextareaControl,
   ToggleControl,
   RangeControl,
   Button,
@@ -31,80 +35,29 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Contenu", "g2rd")} initialOpen>
-          <TextControl
-            label={__("Titre", "g2rd")}
-            value={title}
-            onChange={(v) => setAttributes({ title: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <TextareaControl
-            label={__("Description", "g2rd")}
-            value={description}
-            onChange={(v) => setAttributes({ description: v })}
-            __nextHasNoMarginBottom
-            rows={3}
-          />
-          <TextControl
-            label={__("Texte bouton principal", "g2rd")}
-            value={ctaText}
-            onChange={(v) => setAttributes({ ctaText: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
+        <PanelBody title={__("Liens & options", "g2rd")} initialOpen>
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={ctaUrl}
             onChange={(v) => setAttributes({ ctaUrl: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
             type="url"
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
           <TextControl
-            label={__("Texte bouton secondaire (optionnel)", "g2rd")}
-            value={ctaSecondaryText}
-            onChange={(v) => setAttributes({ ctaSecondaryText: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
+            label={__("URL bouton secondaire (optionnel)", "g2rd")}
+            value={ctaSecondaryUrl}
+            onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
+            type="url"
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          {ctaSecondaryText && (
-            <TextControl
-              label={__("URL bouton secondaire", "g2rd")}
-              value={ctaSecondaryUrl}
-              onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              type="url"
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-            />
-          )}
           <ToggleControl
             label={__("Afficher la réassurance", "g2rd")}
             checked={showReassurance}
             onChange={(v) => setAttributes({ showReassurance: v })}
             __nextHasNoMarginBottom
           />
-          {showReassurance && (
-            <TextControl
-              label={__("Texte de réassurance", "g2rd")}
-              value={reassurance}
-              onChange={(v) => setAttributes({ reassurance: v })}
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-            />
-          )}
         </PanelBody>
 
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
@@ -173,31 +126,63 @@ export default function Edit({ attributes, setAttributes }) {
 
       <div {...blockProps}>
         <div className="g2rd-cta-band__inner">
-          <h2
+          <RichText
+            tagName="h2"
             className="g2rd-cta-band__title"
-            style={{ color: titleColor, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "1rem" }}
-          >
-            {title}
-          </h2>
-          {description && (
-            <p className="g2rd-cta-band__desc" style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, maxWidth: "600px", margin: "0 auto 2rem" }}>
-              {description}
-            </p>
-          )}
+            value={title}
+            onChange={(v) => setAttributes({ title: v })}
+            placeholder={__("Titre du bandeau…", "g2rd")}
+            style={{
+              color: titleColor,
+              fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)",
+              fontWeight: 800,
+              lineHeight: 1.2,
+              marginBottom: "1rem",
+            }}
+          />
+          <RichText
+            tagName="p"
+            className="g2rd-cta-band__desc"
+            value={description}
+            onChange={(v) => setAttributes({ description: v })}
+            placeholder={__("Description…", "g2rd")}
+            style={{
+              color: textColor,
+              opacity: 0.9,
+              lineHeight: 1.75,
+              maxWidth: "600px",
+              margin: "0 auto 2rem",
+            }}
+          />
           <div className="g2rd-cta-band__btns">
-            <a className="g2rd-cta-band__btn" style={{ backgroundColor: ctaBg, color: ctaColor }} href={ctaUrl}>
-              {ctaText}
-            </a>
-            {ctaSecondaryText && (
-              <a className="g2rd-cta-band__btn g2rd-cta-band__btn--secondary" style={{ color: titleColor }} href={ctaSecondaryUrl}>
-                {ctaSecondaryText}
-              </a>
-            )}
+            <RichText
+              tagName="a"
+              className="g2rd-cta-band__btn g2rd-cta-band__btn--primary"
+              value={ctaText}
+              onChange={(v) => setAttributes({ ctaText: v })}
+              placeholder={__("Texte du bouton…", "g2rd")}
+              style={{ backgroundColor: ctaBg, color: ctaColor }}
+              href={ctaUrl}
+            />
+            <RichText
+              tagName="a"
+              className="g2rd-cta-band__btn g2rd-cta-band__btn--secondary"
+              value={ctaSecondaryText}
+              onChange={(v) => setAttributes({ ctaSecondaryText: v })}
+              placeholder={__("Bouton secondaire (optionnel)…", "g2rd")}
+              style={{ color: titleColor }}
+              href={ctaSecondaryUrl}
+            />
           </div>
-          {showReassurance && reassurance && (
-            <p className="g2rd-cta-band__reassurance" style={{ color: textColor, opacity: 0.6 }}>
-              {reassurance}
-            </p>
+          {showReassurance && (
+            <RichText
+              tagName="p"
+              className="g2rd-cta-band__reassurance"
+              value={reassurance}
+              onChange={(v) => setAttributes({ reassurance: v })}
+              placeholder={__("Texte de réassurance…", "g2rd")}
+              style={{ color: textColor, opacity: 0.6 }}
+            />
           )}
         </div>
       </div>

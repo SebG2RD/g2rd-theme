@@ -92,6 +92,7 @@ export default function save({ attributes }) {
       return (
         <span
           className={`dashicons dashicons-${iconName} counter-icon`}
+          aria-hidden="true"
           style={{
             color: iconColor,
             fontSize: `${iconSize}px`,

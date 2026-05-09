@@ -1,4 +1,4 @@
-import { useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 export default function Save({ attributes }) {
   const {
@@ -19,48 +19,60 @@ export default function Save({ attributes }) {
   return (
     <div {...blockProps}>
       <div className="g2rd-cta-band__inner">
-        <h2
+        <RichText.Content
+          tagName="h2"
           className="g2rd-cta-band__title"
-          style={{ color: titleColor, fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "1rem" }}
-        >
-          {title}
-        </h2>
+          value={title}
+          style={{
+            color: titleColor,
+            fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)",
+            fontWeight: 800,
+            lineHeight: 1.2,
+            marginBottom: "1rem",
+          }}
+        />
 
         {description && (
-          <p
+          <RichText.Content
+            tagName="p"
             className="g2rd-cta-band__desc"
-            style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, maxWidth: "600px", margin: "0 auto 2rem" }}
-          >
-            {description}
-          </p>
+            value={description}
+            style={{
+              color: textColor,
+              opacity: 0.9,
+              lineHeight: 1.75,
+              maxWidth: "600px",
+              margin: "0 auto 2rem",
+            }}
+          />
         )}
 
         <div className="g2rd-cta-band__btns">
-          <a
+          <RichText.Content
+            tagName="a"
             href={ctaUrl}
             className="g2rd-cta-band__btn g2rd-cta-band__btn--primary"
+            value={ctaText}
             style={{ backgroundColor: ctaBg, color: ctaColor }}
-          >
-            {ctaText}
-          </a>
+          />
           {ctaSecondaryText && (
-            <a
+            <RichText.Content
+              tagName="a"
               href={ctaSecondaryUrl}
               className="g2rd-cta-band__btn g2rd-cta-band__btn--secondary"
+              value={ctaSecondaryText}
               style={{ color: titleColor }}
-            >
-              {ctaSecondaryText}
-            </a>
+            />
           )}
         </div>
 
         {showReassurance && reassurance && (
-          <p
+          <RichText.Content
+            tagName="p"
             className="g2rd-cta-band__reassurance"
+            value={reassurance}
             style={{ color: textColor, opacity: 0.6 }}
-          >
-            {reassurance}
-          </p>
+          />
         )}
       </div>
     </div>

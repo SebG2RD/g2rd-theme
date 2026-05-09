@@ -71,10 +71,10 @@ $css = "
             $prefix      = \esc_html(   $col['pricePrefix']   ?? '' );
             $description = \wp_kses_post( $col['description'] ?? '' );
             $features    = array_map( 'wp_kses_post', (array) ( $col['features'] ?? [] ) );
-            $cta_text    = \esc_html(   $col['ctaText']       ?? '' );
-            $cta_url     = \esc_url(    $col['ctaUrl']        ?? '#' );
+            $cta_text    = \wp_kses_post( $col['ctaText']       ?? '' );
+            $cta_url     = \esc_url(     $col['ctaUrl']        ?? '#' );
             $cta_target  = ! empty( $col['ctaTarget'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
-            $badge       = \esc_html(   $col['badge']         ?? '' );
+            $badge       = \wp_kses_post( $col['badge']        ?? '' );
             $is_featured = ! empty( $col['isFeatured'] );
             $accent      = \sanitize_hex_color( $col['accentColor'] ?? '' ) ?: $global_accent ?: 'var(--wp--preset--color--primary, #2F425D)';
             $order       = array_filter( (array) ( $col['elementsOrder'] ?? ['badge','title','subtitle','price','description','features','cta'] ) );

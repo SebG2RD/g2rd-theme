@@ -347,45 +347,33 @@ export default function Edit({ attributes, setAttributes }) {
 
         {/* --- Bouton CTA --- */}
         <PanelBody title={__("Bouton CTA", "g2rd")} initialOpen={false}>
-          <TextControl
-            label={__("Texte du bouton", "g2rd")}
-            value={ctaText}
-            onChange={(v) => setAttributes({ ctaText: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            placeholder={__("Ex : En savoir plus", "g2rd")}
+          <p className="components-base-control__label">{__("URL", "g2rd")}</p>
+          <URLInput
+            value={ctaUrl}
+            onChange={(v) => setAttributes({ ctaUrl: v })}
           />
-          {ctaText && (
-            <>
-              <p className="components-base-control__label">{__("URL", "g2rd")}</p>
-              <URLInput
-                value={ctaUrl}
-                onChange={(v) => setAttributes({ ctaUrl: v })}
-              />
-              <ToggleControl
-                label={__("Ouvrir dans un nouvel onglet", "g2rd")}
-                checked={ctaTarget}
-                onChange={(v) => setAttributes({ ctaTarget: v })}
-              />
-              <SelectControl
-                label={__("Style du bouton", "g2rd")}
-                value={ctaStyle}
-                options={[
-                  { label: __("Bouton rempli", "g2rd"), value: "button" },
-                  { label: __("Lien simple", "g2rd"), value: "link" },
-                ]}
-                onChange={(v) => setAttributes({ ctaStyle: v })}
-              />
-              {ctaStyle === "button" && (
-                <RangeControl
-                  label={__("Rayon des coins (px)", "g2rd")}
-                  value={ctaBorderRadius}
-                  onChange={(v) => setAttributes({ ctaBorderRadius: v })}
-                  min={0}
-                  max={40}
-                />
-              )}
-            </>
+          <ToggleControl
+            label={__("Ouvrir dans un nouvel onglet", "g2rd")}
+            checked={ctaTarget}
+            onChange={(v) => setAttributes({ ctaTarget: v })}
+          />
+          <SelectControl
+            label={__("Style du bouton", "g2rd")}
+            value={ctaStyle}
+            options={[
+              { label: __("Bouton rempli", "g2rd"), value: "button" },
+              { label: __("Lien simple", "g2rd"), value: "link" },
+            ]}
+            onChange={(v) => setAttributes({ ctaStyle: v })}
+          />
+          {ctaStyle === "button" && (
+            <RangeControl
+              label={__("Rayon des coins (px)", "g2rd")}
+              value={ctaBorderRadius}
+              onChange={(v) => setAttributes({ ctaBorderRadius: v })}
+              min={0}
+              max={40}
+            />
           )}
         </PanelBody>
 
@@ -489,27 +477,26 @@ export default function Edit({ attributes, setAttributes }) {
             style={{ color: descriptionColor || undefined }}
           />
 
-          {ctaText && (
-            <div className="g2rd-card__cta">
-              <span
-                className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
-                style={
-                  ctaStyle === "button"
-                    ? {
-                        backgroundColor:
-                          ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
-                        color: ctaTextColor || "var(--wp--preset--color--white,#fff)",
-                        borderRadius: `${ctaBorderRadius}px`,
-                      }
-                    : {
-                        color: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
-                      }
-                }
-              >
-                {ctaText}
-              </span>
-            </div>
-          )}
+          <div className="g2rd-card__cta">
+            <RichText
+              tagName="span"
+              className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
+              value={ctaText}
+              onChange={(v) => setAttributes({ ctaText: v })}
+              placeholder={__("Texte du bouton (optionnel)…", "g2rd")}
+              style={
+                ctaStyle === "button"
+                  ? {
+                      backgroundColor: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
+                      color: ctaTextColor || "var(--wp--preset--color--white,#fff)",
+                      borderRadius: `${ctaBorderRadius}px`,
+                    }
+                  : {
+                      color: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
+                    }
+              }
+            />
+          </div>
         </div>
       </div>
     </>

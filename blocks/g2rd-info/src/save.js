@@ -39,6 +39,7 @@ export default function save({ attributes }) {
         <div className="g2rd-info-icon">
           <span
             className={`dashicons ${icon || "dashicons-info"}`}
+            aria-hidden="true"
             style={{
               fontSize: `${iconSize}px`,
               color: iconColor || "#FAFAFA",

@@ -1,0 +1,9 @@
+.g2rd-effect-kits {
+  border: 1px dashed var(--wp--preset--color--secondary);
+  padding: 12px;
+}
+
+.g2rd-effect-kits > .components-notice {
+  margin-bottom: 12px;
+}
+

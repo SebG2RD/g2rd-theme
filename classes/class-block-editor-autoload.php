@@ -64,6 +64,7 @@ class BlockEditorAutoload {
         \add_action('init', [$this, 'registerBlocksAssets']);
         \add_filter('wp_theme_json_data_theme', [$this, 'composeThemeJson']);
         \add_action('enqueue_block_editor_assets', [$this, 'enqueueLicenseEditorNotice']);
+        \add_action('enqueue_block_editor_assets', [$this, 'localizeEffectKitsEditor'], 15);
         
         // Forcer le rechargement des blocs en mode développement
         if (defined('WP_DEBUG') && WP_DEBUG) {
@@ -170,6 +171,32 @@ class BlockEditorAutoload {
             . "',{isDismissible:true,id:'g2rd-license-inactive-editor-notice'});}});";
 
         \wp_add_inline_script('wp-dom-ready', $script);
+    }
+
+    /**
+     * Expose à l’éditeur du bloc Effect Kits l’état de la licence (notice contextuelle dans edit.js).
+     *
+     * @return void
+     */
+    public function localizeEffectKitsEditor(): void {
+        $registry = \WP_Block_Type_Registry::get_instance();
+        if ( ! $registry->is_registered( 'g2rd/effect-kits' ) ) {
+            return;
+        }
+
+        $block_type    = $registry->get_registered( 'g2rd/effect-kits' );
+        $editor_handle = isset( $block_type->editor_script ) ? (string) $block_type->editor_script : '';
+        if ( '' === $editor_handle || ! \wp_script_is( $editor_handle, 'registered' ) ) {
+            return;
+        }
+
+        \wp_localize_script(
+            $editor_handle,
+            'g2rdEffectKitsEditor',
+            [
+                'licensed' => \G2RD\LicenseManager::is_active(),
+            ]
+        );
     }
 
     /**

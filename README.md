@@ -127,6 +127,14 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.5
+
+- **Feature** : édition inline RichText sur 7 blocs (g2rd-cta-band, g2rd-hero, g2rd-card, g2rd-advanced-heading, g2rd-geo-summary, g2rd-pricing-table, g2rd-geo-faq) — le contenu textuel s'édite directement sur le canvas sans passer par la sidebar.
+- **Feature** : nouveau bloc `g2rd/effect-kits` enregistré — support dans `BlockEditorAutoload` (localisation licence éditeur) et dans la page d'options.
+- **Fix** : `aria-hidden="true"` ajouté sur les icônes Dashicons décoratives dans g2rd-card, g2rd-info et g2rd-counter.
+- **Fix** : g2rd-carousel — fallback `alt` sur les images de carrousel (`caption` si `alt` vide).
+- **Fix** : g2rd-pricing-table `render.php` — `wp_kses_post` remplace `esc_html` pour `ctaText` et `badge` (support HTML RichText).
+
 ### 1.10.4
 
 - **Feature** : lien « Voir les détails de la version X.Y.Z » dans la notification de MAJ WordPress — ouvre un modal Thickbox avec le changelog formaté depuis la release GitHub.

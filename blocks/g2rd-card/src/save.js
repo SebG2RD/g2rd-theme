@@ -68,6 +68,7 @@ export default function Save({ attributes }) {
         >
           <span
             className={`dashicons ${icon}`}
+            aria-hidden="true"
             style={{
               fontSize: `${Math.round(iconSize * 0.6)}px`,
               color: iconColor || "var(--wp--preset--color--primary,#2f425d)",
@@ -141,31 +142,25 @@ export default function Save({ attributes }) {
 
         {ctaText && (
           <div className="g2rd-card__cta">
-            <a
+            <RichText.Content
+              tagName="a"
               href={ctaUrl || "#"}
               className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
               target={ctaTarget ? "_blank" : undefined}
               rel={ctaTarget ? "noopener noreferrer" : undefined}
+              value={ctaText}
               style={
                 ctaStyle === "button"
                   ? {
-                      backgroundColor:
-                        ctaBgColor ||
-                        "var(--wp--preset--color--primary,#2f425d)",
-                      color:
-                        ctaTextColor ||
-                        "var(--wp--preset--color--white,#fff)",
+                      backgroundColor: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
+                      color: ctaTextColor || "var(--wp--preset--color--white,#fff)",
                       borderRadius: `${ctaBorderRadius}px`,
                     }
                   : {
-                      color:
-                        ctaBgColor ||
-                        "var(--wp--preset--color--primary,#2f425d)",
+                      color: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
                     }
               }
-            >
-              {ctaText}
-            </a>
+            />
           </div>
         )}
       </div>

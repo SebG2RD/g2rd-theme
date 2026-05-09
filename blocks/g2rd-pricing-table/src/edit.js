@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from '@wordpress/element';
-import { useBlockProps, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, PanelColorSettings, RichText } from '@wordpress/block-editor';
 import {
 	PanelBody, PanelRow, RangeControl, ToggleControl, SelectControl,
 	TextControl, Button, ColorPalette, Spinner, Notice, TextareaControl,
@@ -50,98 +50,158 @@ function emptyColumn() {
 	};
 }
 
-/** Aperçu d'une colonne dans l'éditeur */
-function ColumnPreview( { col, attrs } ) {
+/** Aperçu éditable d'une colonne — textes directement modifiables sur le canvas */
+function EditableColumnPreview( { col, attrs, colIndex, updateColumn } ) {
 	const {
 		showTitle, showSubtitle, showPrice, showDescription,
 		showFeatures, showCta, showBadge, design, showBoxShadow,
-		featureIcon, borderRadius, globalAccentColor,
+		featureIcon, borderRadius, globalAccentColor, globalTextColor, globalBgColor, featuredScale,
 	} = attrs;
 
 	const accent = col.accentColor || globalAccentColor || 'var(--wp--preset--color--primary, #2F425D)';
 	const radius = ( borderRadius || 12 ) + 'px';
 
-	const shadow = showBoxShadow
-		? '0 4px 24px rgba(0,0,0,0.12)'
-		: 'none';
-
 	const cardStyle = {
-		borderRadius: radius,
-		boxShadow:    shadow,
-		position:     'relative',
-		overflow:     'hidden',
-		transition:   'transform 0.2s',
-		transform:    col.isFeatured && attrs.featuredScale ? 'scale(1.04)' : 'scale(1)',
-		background:   design === 'gradient'
+		borderRadius:   radius,
+		boxShadow:      showBoxShadow ? '0 4px 24px rgba(0,0,0,0.12)' : 'none',
+		position:       'relative',
+		overflow:       'hidden',
+		transition:     'transform 0.2s',
+		transform:      col.isFeatured && featuredScale ? 'scale(1.04)' : 'scale(1)',
+		background:     design === 'gradient'
 			? `linear-gradient(135deg, ${accent}22 0%, ${accent}08 100%)`
 			: design === 'glass'
 			? 'rgba(255,255,255,0.18)'
-			: ( attrs.globalBgColor || '#fff' ),
+			: ( globalBgColor || '#fff' ),
 		backdropFilter: design === 'glass' ? 'blur(10px)' : 'none',
-		border:       design === 'bordered' ? `2px solid ${accent}` :
-		              design === 'glass'    ? '1px solid rgba(255,255,255,0.3)' :
-		              design === 'minimal'  ? `0 0 0 1px #e5e7eb` :
-		              col.isFeatured        ? `2px solid ${accent}` : '1px solid #e5e7eb',
-		padding:      '28px 24px',
-		color:        attrs.globalTextColor || 'inherit',
+		border:         design === 'bordered' ? `2px solid ${accent}` :
+		                design === 'glass'    ? '1px solid rgba(255,255,255,0.3)' :
+		                design === 'minimal'  ? '0 0 0 1px #e5e7eb' :
+		                col.isFeatured        ? `2px solid ${accent}` : '1px solid #e5e7eb',
+		padding:        '28px 24px',
+		color:          globalTextColor || 'inherit',
 	};
 
 	const order = col.elementsOrder || DEFAULT_ORDER;
 
 	const elements = {
-		badge: showBadge && col.badge ? (
-			<div key="badge" style={{
-				display:'inline-block', background: accent, color:'#fff',
-				borderRadius:'999px', padding:'3px 14px', fontSize:'12px',
-				fontWeight:700, marginBottom:'12px', letterSpacing:'0.05em',
-			}}>
-				{ col.badge }
+		badge: showBadge ? (
+			<div key="badge" style={{ marginBottom: '12px' }}>
+				<RichText
+					tagName="span"
+					value={ col.badge }
+					onChange={ ( v ) => updateColumn( colIndex, 'badge', v ) }
+					placeholder={ __( 'Badge (ex: Populaire)…', 'g2rd' ) }
+					allowedFormats={ [] }
+					style={{
+						display: 'inline-block', background: accent, color: '#fff',
+						borderRadius: '999px', padding: '3px 14px', fontSize: '12px',
+						fontWeight: 700, letterSpacing: '0.05em',
+					}}
+				/>
 			</div>
 		) : null,
-		title: showTitle && col.title ? (
-			<div key="title" style={{ fontWeight:700, fontSize:'22px', marginBottom:'4px' }}>{ col.title }</div>
+		title: showTitle ? (
+			<RichText
+				key="title"
+				tagName="div"
+				value={ col.title }
+				onChange={ ( v ) => updateColumn( colIndex, 'title', v ) }
+				placeholder={ __( 'Titre du plan…', 'g2rd' ) }
+				allowedFormats={ [ 'core/bold', 'core/italic' ] }
+				style={{ fontWeight: 700, fontSize: '22px', marginBottom: '4px' }}
+			/>
 		) : null,
-		subtitle: showSubtitle && col.subtitle ? (
-			<div key="subtitle" style={{ fontSize:'14px', opacity:0.7, marginBottom:'16px' }}>{ col.subtitle }</div>
+		subtitle: showSubtitle ? (
+			<RichText
+				key="subtitle"
+				tagName="div"
+				value={ col.subtitle }
+				onChange={ ( v ) => updateColumn( colIndex, 'subtitle', v ) }
+				placeholder={ __( 'Sous-titre…', 'g2rd' ) }
+				allowedFormats={ [ 'core/bold', 'core/italic' ] }
+				style={{ fontSize: '14px', opacity: 0.7, marginBottom: '16px' }}
+			/>
 		) : null,
 		price: showPrice && col.price ? (
-			<div key="price" style={{ margin:'16px 0', borderTop: design==='minimal' ? `2px solid ${accent}` : 'none', paddingTop: design==='minimal' ? '16px':'0' }}>
-				<span style={{ fontSize:'42px', fontWeight:800, color: accent }}>
+			<div key="price" style={{ margin: '16px 0', borderTop: design === 'minimal' ? `2px solid ${accent}` : 'none', paddingTop: design === 'minimal' ? '16px' : '0' }}>
+				<span style={{ fontSize: '42px', fontWeight: 800, color: accent }}>
 					{ col.pricePrefix }{ col.price }
 				</span>
 				{ col.pricePeriod && (
-					<span style={{ fontSize:'14px', opacity:0.6, marginLeft:'4px' }}>{ col.pricePeriod }</span>
+					<span style={{ fontSize: '14px', opacity: 0.6, marginLeft: '4px' }}>{ col.pricePeriod }</span>
 				) }
 			</div>
 		) : null,
-		description: showDescription && col.description ? (
-			<div key="desc" style={{ fontSize:'14px', opacity:0.8, marginBottom:'16px', lineHeight:1.6 }}>{ col.description }</div>
+		description: showDescription ? (
+			<RichText
+				key="desc"
+				tagName="div"
+				value={ col.description }
+				onChange={ ( v ) => updateColumn( colIndex, 'description', v ) }
+				placeholder={ __( 'Description du plan…', 'g2rd' ) }
+				allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+				style={{ fontSize: '14px', opacity: 0.8, marginBottom: '16px', lineHeight: 1.6 }}
+			/>
 		) : null,
-		features: showFeatures && col.features?.length ? (
-			<ul key="features" style={{ listStyle:'none', padding:0, margin:'0 0 20px', fontSize:'14px' }}>
-				{ col.features.map( ( f, i ) => (
-					<li key={i} style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'8px' }}>
-						<span style={{ color: accent, fontWeight:700, flexShrink:0 }}>{ featureIcon || '✓' }</span>
-						{ f }
-					</li>
+		features: showFeatures ? (
+			<div key="features" style={{ padding: 0, margin: '0 0 20px', fontSize: '14px' }}>
+				{ ( col.features || [] ).map( ( f, fi ) => (
+					<div key={ fi } style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+						<span style={{ color: accent, fontWeight: 700, flexShrink: 0 }}>{ featureIcon || '✓' }</span>
+						<RichText
+							tagName="span"
+							value={ f }
+							onChange={ ( v ) => {
+								const next = [ ...col.features ];
+								next[ fi ] = v;
+								updateColumn( colIndex, 'features', next );
+							} }
+							placeholder={ __( 'Fonctionnalité…', 'g2rd' ) }
+							allowedFormats={ [ 'core/bold', 'core/italic' ] }
+							style={{ flex: 1 }}
+						/>
+						<Button
+							size="small"
+							isDestructive
+							variant="tertiary"
+							onClick={ ( e ) => {
+								e.stopPropagation();
+								updateColumn( colIndex, 'features', col.features.filter( ( _, i ) => i !== fi ) );
+							} }
+						>✕</Button>
+					</div>
 				) ) }
-			</ul>
+				<Button
+					size="small"
+					variant="secondary"
+					onClick={ ( e ) => {
+						e.stopPropagation();
+						updateColumn( colIndex, 'features', [ ...( col.features || [] ), __( 'Nouvelle fonctionnalité', 'g2rd' ) ] );
+					} }
+				>+ { __( 'Ajouter', 'g2rd' ) }</Button>
+			</div>
 		) : null,
-		cta: showCta && col.ctaText ? (
-			<a key="cta" style={{
-				display:'block', textAlign:'center', padding:'12px 24px',
-				borderRadius:'8px', fontWeight:700, fontSize:'15px',
-				background: accent, color:'#fff', textDecoration:'none',
-				cursor:'pointer',
-			}}>
-				{ col.ctaText }
-			</a>
+		cta: showCta ? (
+			<RichText
+				key="cta"
+				tagName="div"
+				value={ col.ctaText }
+				onChange={ ( v ) => updateColumn( colIndex, 'ctaText', v ) }
+				placeholder={ __( 'Texte du bouton…', 'g2rd' ) }
+				allowedFormats={ [] }
+				style={{
+					display: 'block', textAlign: 'center', padding: '12px 24px',
+					borderRadius: '8px', fontWeight: 700, fontSize: '15px',
+					background: accent, color: '#fff', cursor: 'text',
+				}}
+			/>
 		) : null,
 	};
 
 	return (
 		<div style={ cardStyle }>
-			{ order.map( key => elements[key] || null ) }
+			{ order.map( ( key ) => elements[ key ] || null ) }
 		</div>
 	);
 }
@@ -364,7 +424,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								size="small"
 								onClick={ () => setActiveColTab( i ) }
 							>
-								{ col.title ? col.title.substring( 0, 12 ) : `Col ${i+1}` }
+								{ col.title ? col.title.replace( /<[^>]+>/g, '' ).substring( 0, 12 ) : `Col ${i+1}` }
 							</Button>
 						) ) }
 						{ columns.length < 5 && (
@@ -390,26 +450,6 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ val => updateColumn( activeColTab, 'isFeatured', val ) }
 							/>
 
-							<TextControl label={ __( 'Badge', 'g2rd' ) }
-								value={ col.badge }
-								onChange={ val => updateColumn( activeColTab, 'badge', val ) }
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-								placeholder={ __( 'Ex: Populaire', 'g2rd' ) }
-							/>
-							<TextControl label={ __( 'Titre', 'g2rd' ) }
-								value={ col.title }
-								onChange={ val => updateColumn( activeColTab, 'title', val ) }
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-							/>
-							<TextControl label={ __( 'Sous-titre', 'g2rd' ) }
-								value={ col.subtitle }
-								onChange={ val => updateColumn( activeColTab, 'subtitle', val ) }
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-							/>
-
 							{/* Prix */}
 							<fieldset style={{ border:'1px solid #ddd', borderRadius:'4px', padding:'8px 12px', marginBottom:'12px' }}>
 								<legend style={{fontSize:'12px',fontWeight:600}}>{ __( 'Prix', 'g2rd' ) }</legend>
@@ -433,49 +473,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								/>
 							</fieldset>
 
-							<TextareaControl label={ __( 'Description', 'g2rd' ) }
-								value={ col.description }
-								onChange={ val => updateColumn( activeColTab, 'description', val ) }
-								__nextHasNoMarginBottom
-								rows={ 3 }
-							/>
-
-							{/* Fonctionnalités */}
-							<fieldset style={{ border:'1px solid #ddd', borderRadius:'4px', padding:'8px 12px', marginBottom:'12px' }}>
-								<legend style={{fontSize:'12px',fontWeight:600}}>{ __( 'Fonctionnalités', 'g2rd' ) }</legend>
-								{ col.features.map( ( feat, fi ) => (
-									<div key={fi} style={{ display:'flex', gap:'4px', marginBottom:'4px' }}>
-										<TextControl
-											value={ feat }
-											onChange={ val => {
-											__next40pxDefaultSize
-											__nextHasNoMarginBottom
-												const next = [ ...col.features ];
-												next[fi] = val;
-												updateColumn( activeColTab, 'features', next );
-											} }
-											style={{flex:1}}
-										/>
-										<Button size="small" isDestructive variant="tertiary"
-											onClick={ () => {
-												const next = col.features.filter( (_, i) => i !== fi );
-												updateColumn( activeColTab, 'features', next );
-											} }
-										>✕</Button>
-									</div>
-								) ) }
-								<Button size="small" variant="secondary"
-									onClick={ () => updateColumn( activeColTab, 'features', [ ...col.features, __( 'Nouvelle fonctionnalité', 'g2rd' ) ] ) }
-								>+ { __( 'Ajouter', 'g2rd' ) }</Button>
-							</fieldset>
-
 							{/* CTA */}
-							<TextControl label={ __( 'Texte du bouton', 'g2rd' ) }
-								value={ col.ctaText }
-								onChange={ val => updateColumn( activeColTab, 'ctaText', val ) }
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
-							/>
 							<TextControl label={ __( 'URL du bouton', 'g2rd' ) }
 								value={ col.ctaUrl }
 								onChange={ val => updateColumn( activeColTab, 'ctaUrl', val ) }
@@ -584,15 +582,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div
 							key={ col.id }
 							onClick={ () => setActiveColTab( i ) }
-							style={ { cursor:'pointer', outline: activeColTab === i ? '2px solid #0073aa' : 'none', outlineOffset:'4px', borderRadius: ( borderRadius || 12 ) + 'px' } }
+							style={ { outline: activeColTab === i ? '2px solid #0073aa' : 'none', outlineOffset: '4px', borderRadius: ( borderRadius || 12 ) + 'px' } }
 						>
-							<ColumnPreview col={ col } attrs={ attributes } />
+							<EditableColumnPreview col={ col } attrs={ attributes } colIndex={ i } updateColumn={ updateColumn } />
 						</div>
 					) ) }
 				</div>
-				<p style={{ fontSize:'11px', color:'#999', textAlign:'center', marginTop:'8px' }}>
-					{ __( 'Cliquez sur une colonne pour l\'éditer dans la barre latérale', 'g2rd' ) }
-				</p>
 			</div>
 		</>
 	);

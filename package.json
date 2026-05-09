@@ -1,6 +1,6 @@
 {
   "name": "g2rd-theme",
-  "version": "1.10.4",
+  "version": "1.10.5",
   "private": true,
   "workspaces": [
     "blocks/g2rd-card",
@@ -21,6 +21,7 @@
     "blocks/g2rd-hero",
     "blocks/g2rd-testimonial",
     "blocks/g2rd-cta-band",
+    "blocks/g2rd-effect-kits",
     "blocks/g2rd-geo-analyzer",
     "blocks/g2rd-geo-summary",
     "blocks/g2rd-geo-faq",
@@ -52,6 +53,7 @@
     "build:hero": "npm run build --workspace=blocks/g2rd-hero",
     "build:testimonial": "npm run build --workspace=blocks/g2rd-testimonial",
     "build:cta-band": "npm run build --workspace=blocks/g2rd-cta-band",
+    "build:effect-kits": "npm run build --workspace=blocks/g2rd-effect-kits",
     "build:geo-analyzer": "npm run build --workspace=blocks/g2rd-geo-analyzer",
     "build:geo-summary": "npm run build --workspace=blocks/g2rd-geo-summary",
     "build:geo-faq": "npm run build --workspace=blocks/g2rd-geo-faq",

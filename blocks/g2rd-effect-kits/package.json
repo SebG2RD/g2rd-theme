@@ -1,0 +1,9 @@
+{
+  "name": "g2rd-effect-kits",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack --config webpack.config.js --mode development --watch"
+  },
+  "devDependencies": {}
+}

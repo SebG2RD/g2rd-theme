@@ -1,0 +1,140 @@
+:root {
+  --gs-root-hover-transition: all var(--gs-root-hover-timing, 0.5s)
+    var(--gs-root-hover-easing, cubic-bezier(0.42, 0, 0.58, 1));
+  --gs-root-hover-transform: translateY(-6px);
+  --gs-root-animation-transition: all var(--gs-root-animation-timing, 0.9s)
+    var(--gs-root-animation-easing, cubic-bezier(0.42, 0, 0.58, 1));
+  --gs-root-animation-transform: translateY(18px);
+  --gs-root-animation-clip-path: inset(0 0 100% 0);
+}
+
+.g2rd-effect-kits {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.g2rd-effect-kits.is-apply-children > * {
+  transition: var(--gs-root-hover-transition);
+}
+
+.g2rd-effect-kits.is-apply-self {
+  transition: var(--gs-root-hover-transition);
+}
+
+/* Perspective presets */
+.gs_style_perspective {
+  transform: perspective(1200px) translateZ(0) rotateX(0deg);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--wp--preset--color--contrast) 14%, transparent);
+}
+
+.gs_style_skewed {
+  transform: perspective(1000px) skewY(-2.5deg);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--wp--preset--color--contrast) 12%, transparent);
+}
+
+.gs_style_rotated {
+  transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--wp--preset--color--contrast) 14%, transparent);
+}
+
+.gs_style_stacked {
+  transform: perspective(900px) rotateX(8deg) rotateY(-8deg);
+  box-shadow: 0 10px 0 color-mix(in srgb, var(--wp--preset--color--contrast) 8%, transparent),
+    0 22px 36px color-mix(in srgb, var(--wp--preset--color--contrast) 14%, transparent);
+}
+
+.gs_style_3d_multi {
+  transform: perspective(900px) translateZ(0) rotateX(6deg);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--wp--preset--color--contrast) 8%, transparent),
+    0 6px 0 color-mix(in srgb, var(--wp--preset--color--contrast) 6%, transparent),
+    0 22px 38px color-mix(in srgb, var(--wp--preset--color--contrast) 12%, transparent);
+}
+
+/* Hover presets */
+.gs-twin-on-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.gs-twin-on-hover::before,
+.gs-twin-on-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform var(--gs-root-hover-timing, 0.5s)
+    var(--gs-root-hover-easing, cubic-bezier(0.42, 0, 0.58, 1));
+}
+
+.gs-twin-on-hover::before {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--wp--preset--color--base) 12%, transparent),
+    transparent
+  );
+  transform: translateX(-110%);
+}
+
+.gs-twin-on-hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--wp--preset--color--base) 12%, transparent)
+  );
+  transform: translateX(110%);
+}
+
+.gs-twin-on-hover:hover::before {
+  transform: translateX(0);
+}
+
+.gs-twin-on-hover:hover::after {
+  transform: translateX(0);
+}
+
+.gs_scale_on_hover:hover {
+  transform: scale(1.035);
+}
+
+.gs_top_on_hover:hover {
+  transform: var(--gs-root-hover-transform, translateY(-6px));
+}
+
+.gs_shadow_on_hover:hover {
+  box-shadow: 0 16px 28px color-mix(in srgb, var(--wp--preset--color--contrast) 16%, transparent);
+}
+
+/* Animation presets */
+.g2rd-ek-anim {
+  opacity: 0;
+  transition: var(--gs-root-animation-transition);
+  transition-delay: var(--g2rd-ek-item-delay, 0ms);
+  will-change: transform, opacity, clip-path;
+}
+
+.g2rd-ek-anim.is-inview {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+.g2rd-ek-anim--fade-in {
+  transform: none;
+}
+
+.g2rd-ek-anim--fade-up {
+  transform: var(--gs-root-animation-transform, translateY(18px));
+}
+
+.g2rd-ek-anim--zoom-in {
+  transform: scale(0.92);
+}
+
+.g2rd-ek-anim--clip-reveal {
+  clip-path: var(--gs-root-animation-clip-path, inset(0 0 100% 0));
+}
+
+.g2rd-ek-word {
+  display: inline-block;
+}

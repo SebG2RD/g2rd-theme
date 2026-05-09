@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/effect-kits",
+  "version": "1.0.0",
+  "title": "G2RD Effect Kits",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "superhero",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Wrapper d'effets modernes : presets perspective, hover et animations d'apparition sur le bloc ou ses enfants.",
+  "keywords": ["effects", "hover", "animation", "perspective", "interaction"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+  "viewScript": "file:./build/view.js",
+  "attributes": {
+    "perspectivePreset": {
+      "type": "string",
+      "default": "none"
+    },
+    "hoverPreset": {
+      "type": "string",
+      "default": "none"
+    },
+    "animationPreset": {
+      "type": "string",
+      "default": "none"
+    },
+    "applyToChildren": {
+      "type": "boolean",
+      "default": true
+    },
+    "staggerDelay": {
+      "type": "number",
+      "default": 120
+    },
+    "splitTextOnChildren": {
+      "type": "boolean",
+      "default": false
+    },
+    "animateOnParentActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "minHeight": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  }
+}

@@ -96,7 +96,10 @@ export default function save( { attributes } ) {
 
 			<TagName className="g2rd-adv-heading" style={ headingStyle }>
 				{ textBefore && (
-					<span className="g2rd-adv-heading__static-before">{ textBefore }&nbsp;</span>
+					<span
+						className="g2rd-adv-heading__static-before"
+						dangerouslySetInnerHTML={ { __html: textBefore + ' ' } }
+					/>
 				) }
 
 				<span className={ outerClasses } style={ outerStyle }>
@@ -114,7 +117,10 @@ export default function save( { attributes } ) {
 				</span>
 
 				{ textAfter && (
-					<span className="g2rd-adv-heading__static-after">&nbsp;{ textAfter }</span>
+					<span
+						className="g2rd-adv-heading__static-after"
+						dangerouslySetInnerHTML={ { __html: ' ' + textAfter } }
+					/>
 				) }
 			</TagName>
 		</div>

@@ -19,8 +19,8 @@ export default function Save( { attributes } ) {
 			{/* En-tête */}
 			<div className="geo-summary__header" aria-hidden="true">
 				<span className="geo-summary__icon">📝</span>
-				<span className="geo-summary__tagline">{ tagline }</span>
-				</div>
+				<span className="geo-summary__tagline" dangerouslySetInnerHTML={ { __html: tagline } } />
+			</div>
 
 			{/* Texte de résumé — itemprop abstract pour schema.org */}
 			{ summary && (
@@ -38,7 +38,7 @@ export default function Save( { attributes } ) {
 					{ filledPoints.map( ( point, i ) => (
 						<li key={ i } className="geo-summary__point">
 							<span className="geo-summary__bullet" aria-hidden="true">✦</span>
-							{ point }
+							<RichText.Content tagName="span" className="geo-summary__point-text" value={ point } />
 						</li>
 					) ) }
 				</ul>

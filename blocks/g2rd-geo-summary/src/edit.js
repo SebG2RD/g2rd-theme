@@ -5,7 +5,7 @@
  */
 
 import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { TextControl, Button }     from '@wordpress/components';
+import { Button }                  from '@wordpress/components';
 import { __ }                      from '@wordpress/i18n';
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -35,15 +35,13 @@ export default function Edit( { attributes, setAttributes } ) {
 			{/* Bandeau titre */}
 			<div className="geo-summary__header">
 				<span className="geo-summary__icon" aria-hidden="true">📝</span>
-				<TextControl
+				<RichText
+					tagName="span"
 					className="geo-summary__tagline-input"
 					value={ tagline }
 					onChange={ ( val ) => setAttributes( { tagline: val } ) }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 					placeholder={ __( 'En résumé', 'g2rd' ) }
-					hideLabelFromVision
-					label={ __( 'Titre du résumé', 'g2rd' ) }
+					allowedFormats={ [] }
 				/>
 				<span className="geo-summary__badge">GEO</span>
 			</div>
@@ -67,14 +65,13 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ keyPoints.map( ( point, i ) => (
 						<div key={ i } className="geo-summary__point-row">
 							<span className="geo-summary__bullet" aria-hidden="true">✦</span>
-							<TextControl
+							<RichText
+								tagName="span"
+								className="geo-summary__point-text"
 								value={ point }
 								onChange={ ( val ) => updatePoint( i, val ) }
-								__next40pxDefaultSize
-								__nextHasNoMarginBottom
 								placeholder={ __( `Point clé ${ i + 1 }…`, 'g2rd' ) }
-								hideLabelFromVision
-								label={ __( `Point clé ${ i + 1 }`, 'g2rd' ) }
+								allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 							/>
 							<Button
 								className="geo-summary__point-remove"

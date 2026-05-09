@@ -186,7 +186,7 @@ export default function Save({ attributes, className }) {
                           <a href={item.link} className="carousel-image-link">
                             <img
                               src={item.url}
-                              alt={item.alt || ""}
+                              alt={item.alt || item.caption || ""}
                               className="carousel-image"
                               loading="lazy"
                             />
@@ -194,7 +194,7 @@ export default function Save({ attributes, className }) {
                         ) : (
                           <img
                             src={item.url}
-                            alt={item.alt || ""}
+                            alt={item.alt || item.caption || ""}
                             className="carousel-image"
                             loading="lazy"
                           />
