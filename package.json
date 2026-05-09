@@ -67,7 +67,7 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@wordpress/scripts": "^32.1.0",
-    "dotenv": "^16.6.1"
+    "dotenv": "^17.4.2"
   },
   "overrides": {
     "postcss": "^8.5.10",
