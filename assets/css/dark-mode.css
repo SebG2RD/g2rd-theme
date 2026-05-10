@@ -136,13 +136,13 @@
 	background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Code et préformaté */
-.dark-mode-active code,
-.dark-mode-active pre,
-.dark-mode-active .wp-block-code,
-[data-theme="dark"] code,
-[data-theme="dark"] pre,
-[data-theme="dark"] .wp-block-code {
+/* Code et préformaté — exclusion Fluent Community (gère son propre style) */
+.dark-mode-active code:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *),
+.dark-mode-active pre:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *),
+.dark-mode-active .wp-block-code:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *),
+[data-theme="dark"] code:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *),
+[data-theme="dark"] pre:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *),
+[data-theme="dark"] .wp-block-code:not(.fcom_lesson_content *):not(.fcom_custom_editor_html *) {
 	background-color: #1a1a1a;
 	color: #e8e8e8;
 	border-color: rgba(255, 255, 255, 0.1);

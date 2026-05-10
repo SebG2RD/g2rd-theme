@@ -148,6 +148,9 @@ function bootstrap_theme(): void
     // Gestionnaire de mises à jour GitHub (nécessite une licence active)
     new GitHubUpdater( $license_manager );
 
+    // Bloc Pin Scroll — gestion licence + feature toggle + assets GSAP
+    new PinScroll( $license_manager );
+
     // Mode client (simplifie l'admin WP pour les utilisateurs non techniques)
     ( new Client_Mode() )->register_hooks();
 
@@ -183,3 +186,6 @@ function bootstrap_theme(): void
 
 // Inclusion explicite de la page d'options (hors namespace, à la fin)
 require_once \get_template_directory() . '/includes/license-init.php';
+
+// Correctifs d'accessibilité RGAA (hors namespace — filtres globaux WordPress)
+require_once \get_theme_file_path( 'inc/rgaa-accessibility.php' );

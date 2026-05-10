@@ -1,98 +1,21 @@
 /* Styles d'accessibilité pour le thème G2RD */
 
-/* Focus visible */
-:focus {
-  outline: 2px solid var(--wp--preset--color--primary);
-  outline-offset: 2px;
+/* ─── Focus visible ──────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 3px solid var(--wp--preset--color--primary);
+  outline-offset: 3px;
 }
 
-/* Support du mode sombre */
-@media (prefers-color-scheme: dark) {
-  /* Suppression des changements de couleurs automatiques */
+.a11y-keyboard-nav :focus {
+  outline: 3px solid var(--wp--preset--color--primary);
+  outline-offset: 3px;
 }
 
-/* Ajustement de la taille du texte */
-.text-large {
-  font-size: var(--wp--preset--font-size--l);
-  line-height: var(--wp--custom--line-height--regular);
-}
+/* ─── Lecteurs d'écran ───────────────────────────────────────────────────────── */
 
-.text-larger {
-  font-size: var(--wp--preset--font-size--xl);
-  line-height: var(--wp--custom--line-height--regular);
-}
-
-/* Navigation au clavier */
-.keyboard-navigation :focus {
-  outline: 2px solid var(--wp--preset--color--primary);
-  outline-offset: 2px;
-}
-
-/* Amélioration de la lisibilité */
-.readable-text {
-  max-width: 70ch;
-  line-height: var(--wp--custom--line-height--regular);
-}
-
-/* Espacement des paragraphes */
-p {
-  margin-bottom: 1.5em;
-}
-
-/* Liens accessibles */
-a {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-a:hover,
-a:focus {
-  text-decoration-thickness: 2px;
-}
-
-/* Formulaires accessibles */
-.form-group {
-  margin-bottom: var(--wp--preset--spacing--s);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: var(--wp--preset--spacing--xs);
-  font-weight: var(--wp--custom--font-weight--semibold);
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: var(--wp--preset--spacing--xs);
-  border: 2px solid var(--wp--preset--color--primary);
-  border-radius: var(--wp--custom--radius--s);
-  width: 100%;
-  max-width: 100%;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: var(--wp--preset--color--primary);
-  box-shadow: 0 0 0 2px rgba(47, 66, 93, 0.2);
-}
-
-.form-group .required {
-  color: var(--wp--preset--color--primary);
-}
-
-.error-message {
-  color: var(--wp--preset--color--primary);
-  font-size: var(--wp--preset--font-size--s);
-  margin-top: var(--wp--preset--spacing--xs);
-  padding: var(--wp--preset--spacing--xs);
-  background: rgba(47, 66, 93, 0.1);
-  border-radius: var(--wp--custom--radius--s);
-}
-
-/* Support des lecteurs d'écran */
-.screen-reader-text {
+.screen-reader-text,
+.a11y-live {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -117,12 +40,136 @@ a:focus {
   z-index: 100000;
 }
 
-/* Support RTL */
-[dir="rtl"] {
-  text-align: right;
+/* ─── Taille du texte ────────────────────────────────────────────────────────── */
+
+.a11y-text-small body,
+.a11y-text-small p,
+.a11y-text-small li,
+.a11y-text-small td {
+  font-size: 0.875em !important;
 }
 
-/* Support des animations réduites */
+.a11y-text-large body,
+.a11y-text-large p,
+.a11y-text-large li,
+.a11y-text-large td {
+  font-size: 1.125em !important;
+}
+
+.a11y-text-larger body,
+.a11y-text-larger p,
+.a11y-text-larger li,
+.a11y-text-larger td {
+  font-size: 1.25em !important;
+}
+
+/* ─── Police lisible ─────────────────────────────────────────────────────────── */
+
+.a11y-readable-font,
+.a11y-readable-font * {
+  font-family: Arial, Verdana, sans-serif !important;
+  letter-spacing: 0.06em;
+  word-spacing: 0.1em;
+}
+
+/* ─── Interligne ─────────────────────────────────────────────────────────────── */
+
+.a11y-line-height p,
+.a11y-line-height li,
+.a11y-line-height td,
+.a11y-line-height blockquote {
+  line-height: 2 !important;
+}
+
+/* ─── Alignement à gauche ────────────────────────────────────────────────────── */
+
+.a11y-text-left p,
+.a11y-text-left li,
+.a11y-text-left td {
+  text-align: left !important;
+}
+
+/* ─── Contraste élevé ────────────────────────────────────────────────────────── */
+
+.a11y-high-contrast {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.a11y-high-contrast *:not(script):not(style):not(.a11y-panel):not(.a11y-panel *):not(.a11y-float-btn):not(.a11y-scroll-top) {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.a11y-high-contrast a,
+.a11y-high-contrast a * {
+  color: #ff0 !important;
+  text-decoration: underline !important;
+}
+
+.a11y-high-contrast img {
+  filter: brightness(0.9) contrast(1.2);
+}
+
+/* ─── Niveaux de gris ────────────────────────────────────────────────────────── */
+
+.a11y-grayscale:not(.a11y-panel):not(.a11y-float-btn):not(.a11y-scroll-top) {
+  filter: grayscale(1);
+}
+
+/* Appliqué sur html pour couvrir toute la page */
+html:has(body.a11y-grayscale) {
+  filter: grayscale(1);
+}
+
+/* ─── Réduction des animations ───────────────────────────────────────────────── */
+
+.a11y-reduced-motion *,
+.a11y-reduced-motion *::before,
+.a11y-reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ─── Pause des animations ───────────────────────────────────────────────────── */
+
+.a11y-pause-anim *,
+.a11y-pause-anim *::before,
+.a11y-pause-anim *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* ─── Masque de lecture ──────────────────────────────────────────────────────── */
+
+.a11y-reading-mask::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 80px;
+  top: var(--a11y-mask-top, 200px);
+  background: rgba(47, 66, 93, 0.12);
+  border: 2px solid rgba(47, 66, 93, 0.3);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 99998;
+  transition: top 0.1s linear;
+}
+
+/* ─── Masquer les images ─────────────────────────────────────────────────────── */
+
+.a11y-hide-images img,
+.a11y-hide-images picture,
+.a11y-hide-images svg:not(.a11y-btn__icon):not(.a11y-float-btn svg):not(.a11y-scroll-top svg) {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* ─── Système : animations réduites ─────────────────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -132,248 +179,17 @@ a:focus {
   }
 }
 
-/* Amélioration des listes */
-ul,
-ol {
-  padding-left: 2em;
-  margin-bottom: 1.5em;
+/* ─── Formulaires accessibles ────────────────────────────────────────────────── */
+
+.error-message {
+  color: #b91c1c;
+  font-size: var(--wp--preset--font-size--s);
+  margin-top: var(--wp--preset--spacing--xs);
 }
 
-li {
-  margin-bottom: 0.5em;
-}
+/* ─── Bouton flottant ────────────────────────────────────────────────────────── */
 
-/* Amélioration des tableaux */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5em;
-}
-
-th,
-td {
-  padding: 0.75em;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background: #f5f5f5;
-  font-weight: 600;
-}
-
-/* Amélioration du panneau d'accessibilité */
-.accessibility-panel {
-  position: fixed;
-  bottom: var(--wp--preset--spacing--m);
-  left: 32px;
-  z-index: 9999;
-  background: var(--wp--preset--color--white);
-  border-radius: 18px;
-  box-shadow:
-    0 8px 32px rgba(47, 66, 93, 0.18),
-    0 1.5px 4px rgba(47, 66, 93, 0.1);
-  font-family: var(--wp--preset--font-family--inter);
-  max-width: 320px;
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
-}
-
-.accessibility-panel:not(.is-open) {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(30px);
-}
-
-.accessibility-panel__toggle {
-  background: var(--wp--preset--color--primary);
-  border: none;
-  padding: 10px 14px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--wp--preset--color--white);
-  box-shadow: 0 2px 8px rgba(47, 66, 93, 0.12);
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    box-shadow 0.2s;
-  position: absolute;
-  top: -30px;
-  right: 0;
-}
-
-.accessibility-panel__toggle:hover,
-.accessibility-panel__toggle:focus {
-  background: var(--wp--custom--color--primaryhover);
-  color: var(--wp--preset--color--white);
-  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
-}
-
-.accessibility-panel__content {
-  display: none;
-  padding: var(--wp--preset--spacing--s);
-}
-
-.accessibility-panel.is-open .accessibility-panel__content {
-  display: block;
-}
-
-.accessibility-panel__button {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--s);
-  margin-bottom: var(--wp--preset--spacing--xs);
-  background: var(--wp--preset--color--white);
-  border: 1px solid var(--wp--preset--color--primary);
-  border-radius: var(--wp--custom--radius--s);
-  cursor: pointer;
-  font-size: var(--wp--preset--font-size--m);
-  color: var(--wp--preset--color--primary);
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-}
-
-.accessibility-panel__button:hover,
-.accessibility-panel__button:focus {
-  background: var(--wp--custom--color--primaryhover);
-  color: var(--wp--preset--color--white);
-  border-color: var(--wp--custom--color--primaryhover);
-}
-
-.accessibility-panel__button.is-active {
-  background: var(--wp--preset--color--primary);
-  color: var(--wp--preset--color--white);
-  border-color: var(--wp--preset--color--primary);
-}
-
-.accessibility-panel__icon {
-  width: 20px;
-  height: 20px;
-  margin-right: var(--wp--preset--spacing--xs);
-}
-
-/* Amélioration des images */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Amélioration des boutons */
-button {
-  padding: 0.75em 1.5em;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-button:hover,
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.2);
-}
-
-/* Amélioration des titres */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
-}
-
-/* Amélioration des citations */
-blockquote {
-  margin: 1.5em 0;
-  padding: 1em 1.5em;
-  border-left: 4px solid #0073aa;
-  background: #f5f5f5;
-  font-style: italic;
-}
-
-/* Amélioration du code */
-code,
-pre {
-  font-family: Consolas, Monaco, "Andale Mono", monospace;
-  background: #f5f5f5;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-}
-
-pre {
-  padding: 1em;
-  overflow-x: auto;
-  margin: 1.5em 0;
-}
-
-/* Hauteur de ligne augmentée */
-.line-height-large {
-  line-height: 2 !important;
-}
-
-/* Alignement du texte centré */
-.text-align-center {
-  text-align: center !important;
-}
-
-/* Police très lisible */
-.readable-font,
-.readable-font * {
-  font-family: Arial, Verdana, Tahoma, sans-serif !important;
-  letter-spacing: 0.5px;
-}
-
-/* Niveaux de gris */
-.grayscale {
-  filter: grayscale(1) !important;
-}
-
-/* Masquer les images */
-.hide-images img {
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
-
-/* Mettre en pause les animations */
-.pause-animations *,
-.pause-animations *::before,
-.pause-animations *::after {
-  animation-play-state: paused !important;
-  transition: none !important;
-}
-
-/* Amélioration du masque de lecture */
-.reading-mask::before {
-  content: "";
-  position: fixed;
-  left: 0;
-  width: 100vw;
-  height: 90px;
-  top: var(--reading-mask-top, 200px);
-  background: rgba(47, 66, 93, 0.13);
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(47, 66, 93, 0.1);
-  pointer-events: none;
-  z-index: 99999;
-  transition:
-    top 0.15s,
-    background 0.2s;
-}
-
-.accessibility-floating-btn {
+.a11y-float-btn {
   position: fixed;
   bottom: 32px;
   left: 32px;
@@ -382,94 +198,382 @@ pre {
   color: var(--wp--preset--color--white);
   border: none;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
+  width: 52px;
+  height: 52px;
+  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    background 0.2s,
-    box-shadow 0.2s,
-    color 0.2s;
-  font-size: 20px;
+  transition: background 0.2s, box-shadow 0.2s;
+  padding: 0;
 }
 
-.accessibility-floating-btn:hover,
-.accessibility-floating-btn:focus {
-  background: var(--wp--custom--color--primaryhover);
-  color: var(--wp--preset--color--white);
-  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.22);
-  outline: none;
-}
-
-.accessibility-floating-btn svg,
-.accessibility-floating-btn svg * {
-  fill: var(--wp--preset--color--white) !important;
-  color: var(--wp--preset--color--white) !important;
-}
-
-.accessibility-floating-btn img {
-  width: 32px !important;
-  height: 32px !important;
-  max-width: 32px !important;
-  max-height: 32px !important;
-  display: block;
-  margin: auto;
+.a11y-float-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
   pointer-events: none;
-  object-fit: contain;
 }
 
-.scroll-to-top-btn {
+.a11y-float-btn:hover,
+.a11y-float-btn:focus-visible {
+  background: var(--wp--custom--color--primaryhover, #1e3a5f);
+  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.28);
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ─── Scroll to top ──────────────────────────────────────────────────────────── */
+
+.a11y-scroll-top {
   position: fixed;
   bottom: 32px;
   right: 32px;
-  z-index: 10001;
+  z-index: 10000;
   background: var(--wp--preset--color--primary);
   color: var(--wp--preset--color--white);
-  border: 2px solid #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.18);
+  width: 52px;
+  height: 52px;
+  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    background 0.2s,
-    box-shadow 0.2s,
-    color 0.2s,
-    opacity 0.2s,
-    border-color 0.2s;
-  font-size: 20px;
-  opacity: 1;
+  transition: background 0.2s, box-shadow 0.2s, opacity 0.2s;
+  padding: 0;
 }
 
-.scroll-to-top-btn:hover,
-.scroll-to-top-btn:focus {
-  background: var(--wp--custom--color--primaryhover);
-  color: var(--wp--preset--color--white);
-  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.22);
+.a11y-scroll-top[hidden] {
+  display: none;
+}
+
+.a11y-scroll-top svg {
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.a11y-scroll-top:hover,
+.a11y-scroll-top:focus-visible {
+  background: var(--wp--custom--color--primaryhover, #1e3a5f);
+  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.28);
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ─── Panneau d'accessibilité ────────────────────────────────────────────────── */
+
+.a11y-panel {
+  position: fixed;
+  bottom: 96px;
+  left: 16px;
+  z-index: 9999;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 120px);
+  background: var(--wp--preset--color--white, #fff);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(47, 66, 93, 0.18),
+    0 2px 6px rgba(47, 66, 93, 0.08);
+  font-family: var(--wp--preset--font-family--inter, system-ui, sans-serif);
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+  transition: opacity 0.22s, transform 0.22s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.a11y-panel.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.a11y-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(47, 66, 93, 0.1);
+  flex-shrink: 0;
+}
+
+.a11y-panel__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wp--preset--color--primary, #2f425d);
+  line-height: 1.3;
+}
+
+.a11y-panel__close {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--wp--preset--color--primary, #2f425d);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.a11y-panel__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.a11y-panel__close:hover,
+.a11y-panel__close:focus-visible {
+  background: rgba(47, 66, 93, 0.08);
   outline: none;
 }
 
-.scroll-to-top-btn svg,
-.scroll-to-top-btn svg * {
-  fill: var(--wp--preset--color--white) !important;
-  color: var(--wp--preset--color--white) !important;
+.a11y-panel__body {
+  overflow-y: auto;
+  padding: 12px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.scroll-to-top-btn img {
-  width: 32px !important;
-  height: 32px !important;
-  max-width: 32px !important;
-  max-height: 32px !important;
+/* ─── Sections du panneau ────────────────────────────────────────────────────── */
+
+.a11y-section {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(47, 66, 93, 0.08);
+}
+
+.a11y-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.a11y-section__title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(47, 66, 93, 0.5);
+  margin: 0 0 8px 2px;
+  line-height: 1;
+}
+
+/* ─── Contrôle de taille du texte ────────────────────────────────────────────── */
+
+.a11y-text-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.a11y-text-controls .a11y-btn {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.a11y-text-controls .a11y-btn .a11y-btn__label {
+  display: none;
+}
+
+.a11y-text-controls .a11y-btn .a11y-btn__icon {
+  margin: 0;
+}
+
+.a11y-text-level {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wp--preset--color--primary, #2f425d);
+}
+
+/* ─── Boutons du panneau ─────────────────────────────────────────────────────── */
+
+.a11y-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  background: rgba(47, 66, 93, 0.04);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--wp--preset--color--primary, #2f425d);
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.3;
+}
+
+.a11y-btn:last-child {
+  margin-bottom: 0;
+}
+
+.a11y-btn:hover,
+.a11y-btn:focus-visible {
+  background: rgba(47, 66, 93, 0.1);
+  border-color: rgba(47, 66, 93, 0.2);
+  outline: none;
+}
+
+.a11y-btn.is-active {
+  background: var(--wp--preset--color--primary, #2f425d);
+  color: var(--wp--preset--color--white, #fff);
+  border-color: var(--wp--preset--color--primary, #2f425d);
+}
+
+.a11y-btn.is-active:hover,
+.a11y-btn.is-active:focus-visible {
+  background: var(--wp--custom--color--primaryhover, #1e3a5f);
+  border-color: var(--wp--custom--color--primaryhover, #1e3a5f);
+}
+
+.a11y-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.a11y-btn__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a11y-btn__icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: none;
+}
+
+/* ─── Profils rapides ────────────────────────────────────────────────────────── */
+
+.a11y-section--presets {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+}
+
+.a11y-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.a11y-preset {
+  flex: 1;
+  min-width: 80px;
+  padding: 7px 6px;
+  background: rgba(47, 66, 93, 0.06);
+  border: 1px solid rgba(47, 66, 93, 0.12);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wp--preset--color--primary, #2f425d);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s;
+  line-height: 1.3;
+}
+
+.a11y-preset:hover,
+.a11y-preset:focus-visible {
+  background: rgba(47, 66, 93, 0.12);
+  border-color: rgba(47, 66, 93, 0.25);
+  outline: none;
+}
+
+/* ─── Réinitialiser ──────────────────────────────────────────────────────────── */
+
+.a11y-reset {
   display: block;
-  margin: 0 auto;
-  pointer-events: none;
-  object-fit: contain;
-  padding: 2px;
-  box-sizing: content-box;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: 1px solid rgba(47, 66, 93, 0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  color: rgba(47, 66, 93, 0.6);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+.a11y-reset:hover,
+.a11y-reset:focus-visible {
+  background: rgba(47, 66, 93, 0.06);
+  border-color: rgba(47, 66, 93, 0.35);
+  color: var(--wp--preset--color--primary, #2f425d);
+  outline: none;
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .a11y-panel {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    bottom: 80px;
+    max-height: calc(100vh - 100px);
+  }
+
+  .a11y-float-btn {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .a11y-scroll-top {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* ─── Contraste élevé — panneau lui-même toujours lisible ────────────────────── */
+
+.a11y-high-contrast .a11y-panel,
+.a11y-high-contrast .a11y-float-btn,
+.a11y-high-contrast .a11y-scroll-top {
+  background: #111 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+.a11y-high-contrast .a11y-btn {
+  background: #222 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+.a11y-high-contrast .a11y-btn.is-active {
+  background: #ff0 !important;
+  color: #000 !important;
+  border-color: #ff0 !important;
+}
+
+.a11y-high-contrast .a11y-panel__title,
+.a11y-high-contrast .a11y-section__title {
+  color: #fff !important;
 }

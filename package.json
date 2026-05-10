@@ -1,6 +1,6 @@
 {
   "name": "g2rd-theme",
-  "version": "1.10.7",
+  "version": "1.11.0",
   "private": true,
   "workspaces": [
     "blocks/g2rd-card",
@@ -25,7 +25,8 @@
     "blocks/g2rd-geo-analyzer",
     "blocks/g2rd-geo-summary",
     "blocks/g2rd-geo-faq",
-    "blocks/g2rd-options-page"
+    "blocks/g2rd-options-page",
+    "blocks/g2rd-pin-scroll"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
@@ -58,7 +59,8 @@
     "build:geo-summary": "npm run build --workspace=blocks/g2rd-geo-summary",
     "build:geo-faq": "npm run build --workspace=blocks/g2rd-geo-faq",
     "build:geo": "npm run build:geo-analyzer && npm run build:geo-summary && npm run build:geo-faq",
-    "build:options": "npm run build --workspace=blocks/g2rd-options-page"
+    "build:options": "npm run build --workspace=blocks/g2rd-options-page",
+    "build:pin-scroll": "npm run build --workspace=blocks/g2rd-pin-scroll"
   },
   "engines": {
     "node": ">=18.0.0",

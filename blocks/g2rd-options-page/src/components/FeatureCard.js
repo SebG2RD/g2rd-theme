@@ -37,6 +37,7 @@ function getIcon( key ) {
 		dark_mode:                'visibility',
 		enable_ai:                'rest-api',
 		patterns_require_license: 'lock',
+		pin_scroll:               'video-alt2',
 	};
 	return icons[ key ] || 'admin-generic';
 }

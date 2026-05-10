@@ -70,6 +70,7 @@ return array(
     'G2RD\\PerformanceCSS' => $baseDir . '/classes/class-performance-css.php',
     'G2RD\\PerformanceCache' => $baseDir . '/classes/class-performance-cache.php',
     'G2RD\\PerformanceImages' => $baseDir . '/classes/class-performance-images.php',
+    'G2RD\\PinScroll' => $baseDir . '/classes/class-pin-scroll.php',
     'G2RD\\PortfolioQuery' => $baseDir . '/classes/class-portfolio-query.php',
     'G2RD\\SEO_Helper' => $baseDir . '/classes/class-seo-helper.php',
     'G2RD\\ScriptsManager' => $baseDir . '/classes/class-scripts-manager.php',

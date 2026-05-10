@@ -127,6 +127,14 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.11.0
+
+- **Bloc** : nouveau bloc G2RD Pin Scroll — séquence d'images synchronisée au défilement (style Apple), verrouillé derrière licence + feature toggle.
+- **Accessibilité** : refonte complète du panneau d'accessibilité flottant — localStorage, aria-live, icônes distinctes, profils rapides (Dyslexie, Basse vision, Anti-mouvement), reset, mobile-responsive.
+- **RGAA** : intégration de `inc/rgaa-accessibility.php` directement dans le thème (8 correctifs : aria-label réseaux sociaux, lire la suite, privacy, formulaires Fluent Forms, skip-link, images décoratives).
+- **Dark mode** : isolation CSS Fluent Community — les blocs code de Fluent Community ne sont plus impactés par le dark mode du thème.
+- **Fix** : `overflow-x: clip` sur `.g2rd-magic-page` (RGAA 10.4 — zoom 200% sans troncature horizontale).
+
 ### 1.10.7
 
 - **Fix (RGAA 10.4)** : remplacement de `overflow: hidden` par `overflow-x: clip` sur `.g2rd-magic-page` et `.g2rd-magic-dark` — le contenu textuel n'est plus tronqué au zoom navigateur 200%.

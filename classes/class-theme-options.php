@@ -122,6 +122,10 @@ class ThemeOptions {
             'label'       => 'Compositions G2RD nécessitent une licence',
             'description' => 'Masque les compositions G2RD personnalisées lorsque la licence n\'est pas active.',
         ],
+        'pin_scroll' => [
+            'label'       => 'Pin Scroll (effet Apple)',
+            'description' => 'Active le bloc G2RD Pin Scroll — séquence d\'images synchronisée au défilement. Nécessite une licence active.',
+        ],
     ];
 
     private const FEATURE_DEFAULTS = [

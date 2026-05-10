@@ -3,6 +3,9 @@ import { ToggleControl } from '@wordpress/components';
 import { FeatureCard } from '../components/FeatureCard';
 
 const { features: featureDefs, blocks: blockDefs, licensed } = window.G2RDOptionsData || {};
+
+// Features nécessitant une licence active
+const LICENSE_REQUIRED_FEATURES = [ 'pin_scroll' ];
 const EMPTY_FEATURES = {};
 const EMPTY_BLOCKS   = [];
 
@@ -36,6 +39,7 @@ export function TabEditeur( { settings, update } ) {
 							definition={ def }
 							value={ features[ key ] }
 							onChange={ ( val ) => update( [ 'features', key ], val ) }
+							locked={ ! licensed && LICENSE_REQUIRED_FEATURES.includes( key ) }
 						/>
 					) ) }
 				</div>

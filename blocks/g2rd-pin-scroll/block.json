@@ -1,0 +1,89 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/pin-scroll",
+  "version": "1.0.0",
+  "title": "G2RD Pin Scroll",
+  "category": "g2rd-blocks",
+  "icon": {
+    "src": "video-alt2",
+    "foreground": "#FAFAFA",
+    "background": "#2F425D"
+  },
+  "description": "Séquence d'images synchronisée au défilement — effet Apple pin scroll avec animation image par image.",
+  "keywords": ["pin", "scroll", "sequence", "animation", "apple", "parallax", "cinématique"],
+  "textdomain": "g2rd",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css",
+
+  "attributes": {
+    "blockId": {
+      "type": "string",
+      "default": ""
+    },
+    "images": {
+      "type": "array",
+      "default": [],
+      "items": { "type": "object" }
+    },
+    "scrollDistance": {
+      "type": "number",
+      "default": 3000
+    },
+    "renderMode": {
+      "type": "string",
+      "default": "canvas"
+    },
+    "imageWidth": {
+      "type": "number",
+      "default": 1920
+    },
+    "imageHeight": {
+      "type": "number",
+      "default": 1080
+    },
+    "minHeight": {
+      "type": "string",
+      "default": "100vh"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "showOverlayText": {
+      "type": "boolean",
+      "default": false
+    },
+    "overlayText": {
+      "type": "string",
+      "default": ""
+    },
+    "overlayTextColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "overlayTextSize": {
+      "type": "number",
+      "default": 40
+    },
+    "overlayTextWeight": {
+      "type": "string",
+      "default": "700"
+    },
+    "overlayPosition": {
+      "type": "number",
+      "default": 30
+    },
+    "overlayFade": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"],
+    "alignWide": true
+  }
+}

@@ -1,0 +1,46 @@
+/* ── G2RD Pin Scroll — Styles frontend ─────────────────────────── */
+.g2rd-pin-scroll {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* Canvas mode */
+.g2rd-pin-scroll__canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	inset: 0;
+}
+
+/* Image mode */
+.g2rd-pin-scroll__frame {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	inset: 0;
+}
+
+/* Texte superposé — opacité gérée par GSAP */
+.g2rd-pin-scroll__overlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	text-align: center;
+	padding: var(--wp--preset--spacing--m, 2rem);
+	z-index: 2;
+	pointer-events: none;
+}
+
+.g2rd-pin-scroll__overlay span {
+	max-width: 800px;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+}
