@@ -127,6 +127,14 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.6
+
+- **Accessibilité (RGAA 6.1)** : champs `aria-label` éditables ajoutés sur les blocs g2rd-card, g2rd-hero, g2rd-cta-band, g2rd-pricing-table et g2rd-filterable-grid pour rendre explicites les liens au texte ambigu.
+- **Accessibilité (RGAA 3.2)** : contraste des couleurs `muted` et `neutral-500` corrigé — ratio ≥ 4.59:1 sur fond crème (WCAG AA).
+- **Accessibilité (RGAA 1.1)** : attributs `alt` de substitution ajoutés aux patterns `section-temoignages` (3 avatars) et `card-info-box` (icône).
+- **Updater** : lien "Afficher les détails de la version" ajouté sur la page Mises à jour WordPress pour le thème G2RD.
+- **Fix** : résolution vulnérabilité `basic-ftp` (npm audit fix).
+
 ### 1.10.5
 
 - **Feature** : édition inline RichText sur 7 blocs (g2rd-cta-band, g2rd-hero, g2rd-card, g2rd-advanced-heading, g2rd-geo-summary, g2rd-pricing-table, g2rd-geo-faq) — le contenu textuel s'édite directement sur le canvas sans passer par la sidebar.

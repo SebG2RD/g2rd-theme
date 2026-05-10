@@ -33,11 +33,19 @@
       "type": "string",
       "default": "#contact"
     },
+    "ctaAriaLabel": {
+      "type": "string",
+      "default": ""
+    },
     "ctaSecondaryText": {
       "type": "string",
       "default": ""
     },
     "ctaSecondaryUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaSecondaryAriaLabel": {
       "type": "string",
       "default": ""
     },

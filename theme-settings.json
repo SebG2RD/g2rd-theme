@@ -51,7 +51,7 @@
         {
           "name": "Texte atténué",
           "slug": "muted",
-          "color": "#6b7280"
+          "color": "#686F7D"
         }
       ],
       "gradients": [
@@ -359,7 +359,7 @@
         "neutral-50": "#F8FAFC",
         "neutral-100": "#F1F5F9",
         "neutral-200": "#E2E8F0",
-        "neutral-500": "#64748B",
+        "neutral-500": "#607086",
         "neutral-700": "#334155",
         "neutral-900": "#0F172A"
       }

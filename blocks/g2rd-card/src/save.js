@@ -24,6 +24,7 @@ export default function Save({ attributes }) {
     ctaText,
     ctaUrl,
     ctaTarget,
+    ctaAriaLabel,
     ctaStyle,
     ctaBgColor,
     ctaTextColor,
@@ -148,6 +149,7 @@ export default function Save({ attributes }) {
               className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
               target={ctaTarget ? "_blank" : undefined}
               rel={ctaTarget ? "noopener noreferrer" : undefined}
+              aria-label={ctaAriaLabel || undefined}
               value={ctaText}
               style={
                 ctaStyle === "button"

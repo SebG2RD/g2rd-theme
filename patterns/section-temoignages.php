@@ -53,7 +53,7 @@
 					<!-- wp:column {"verticalAlignment":"center","width":"50px"} -->
 					<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50px">
 						<!-- wp:image {"width":"50px","height":"50px","sizeSlug":"thumbnail","linkDestination":"none","style":{"border":{"radius":"50px"}}} -->
-						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="" /></figure>
+						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="Photo de Marie Dupont" /></figure>
 						<!-- /wp:image -->
 					</div>
 					<!-- /wp:column -->
@@ -97,7 +97,7 @@
 					<!-- wp:column {"verticalAlignment":"center","width":"50px"} -->
 					<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50px">
 						<!-- wp:image {"width":"50px","height":"50px","sizeSlug":"thumbnail","linkDestination":"none","style":{"border":{"radius":"50px"}}} -->
-						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="" /></figure>
+						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="Photo de Thomas Bernard" /></figure>
 						<!-- /wp:image -->
 					</div>
 					<!-- /wp:column -->
@@ -141,7 +141,7 @@
 					<!-- wp:column {"verticalAlignment":"center","width":"50px"} -->
 					<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50px">
 						<!-- wp:image {"width":"50px","height":"50px","sizeSlug":"thumbnail","linkDestination":"none","style":{"border":{"radius":"50px"}}} -->
-						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="" /></figure>
+						<figure class="wp-block-image size-thumbnail is-resized" style="border-radius:50px"><img style="width:50px;height:50px" alt="Photo de Sophie Martin" /></figure>
 						<!-- /wp:image -->
 					</div>
 					<!-- /wp:column -->

@@ -37,6 +37,10 @@
       "type": "string",
       "default": "#contact"
     },
+    "ctaPrimaryAriaLabel": {
+      "type": "string",
+      "default": ""
+    },
     "ctaSecondaryText": {
       "type": "string",
       "default": "Voir nos réalisations"
@@ -44,6 +48,10 @@
     "ctaSecondaryUrl": {
       "type": "string",
       "default": "#portfolio"
+    },
+    "ctaSecondaryAriaLabel": {
+      "type": "string",
+      "default": ""
     },
     "showSecondary": {
       "type": "boolean",

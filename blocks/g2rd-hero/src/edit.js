@@ -23,7 +23,8 @@ const sanitizeCssColor = ( color ) => CSS_COLOR_RE.test( color || '' ) ? color :
 export default function Edit({ attributes, setAttributes }) {
   const {
     kicker, heading, subheading,
-    ctaPrimaryText, ctaPrimaryUrl, ctaSecondaryText, ctaSecondaryUrl, showSecondary,
+    ctaPrimaryText, ctaPrimaryUrl, ctaPrimaryAriaLabel,
+    ctaSecondaryText, ctaSecondaryUrl, ctaSecondaryAriaLabel, showSecondary,
     socialProof, showSocialProof,
     backgroundType, backgroundColor, imageId, imageUrl, overlayColor, overlayOpacity,
     headingColor, accentColor, textColor, ctaPrimaryBg, ctaPrimaryColor,
@@ -71,6 +72,15 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
             type="url"
           />
+          <TextControl
+            label={__("Étiquette ARIA bouton principal", "g2rd")}
+            value={ctaPrimaryAriaLabel}
+            onChange={(val) => setAttributes({ ctaPrimaryAriaLabel: val })}
+            placeholder={__("Ex : Démarrer mon projet de site web", "g2rd")}
+            help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
           <ToggleControl
             label={__("Afficher le bouton secondaire", "g2rd")}
             checked={showSecondary}
@@ -78,14 +88,25 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
           {showSecondary && (
-            <TextControl
-              label={__("URL bouton secondaire", "g2rd")}
-              value={ctaSecondaryUrl}
-              onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-              type="url"
-            />
+            <>
+              <TextControl
+                label={__("URL bouton secondaire", "g2rd")}
+                value={ctaSecondaryUrl}
+                onChange={(val) => setAttributes({ ctaSecondaryUrl: val })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                type="url"
+              />
+              <TextControl
+                label={__("Étiquette ARIA bouton secondaire", "g2rd")}
+                value={ctaSecondaryAriaLabel}
+                onChange={(val) => setAttributes({ ctaSecondaryAriaLabel: val })}
+                placeholder={__("Ex : Voir nos réalisations WordPress", "g2rd")}
+                help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            </>
           )}
           <ToggleControl
             label={__("Afficher la preuve sociale", "g2rd")}

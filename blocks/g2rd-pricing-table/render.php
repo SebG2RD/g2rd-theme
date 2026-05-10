@@ -71,9 +71,10 @@ $css = "
             $prefix      = \esc_html(   $col['pricePrefix']   ?? '' );
             $description = \wp_kses_post( $col['description'] ?? '' );
             $features    = array_map( 'wp_kses_post', (array) ( $col['features'] ?? [] ) );
-            $cta_text    = \wp_kses_post( $col['ctaText']       ?? '' );
-            $cta_url     = \esc_url(     $col['ctaUrl']        ?? '#' );
-            $cta_target  = ! empty( $col['ctaTarget'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+            $cta_text       = \wp_kses_post( $col['ctaText']      ?? '' );
+            $cta_url        = \esc_url(     $col['ctaUrl']       ?? '#' );
+            $cta_target     = ! empty( $col['ctaTarget'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
+            $cta_aria_label = \esc_attr( $col['ctaAriaLabel'] ?? '' );
             $badge       = \wp_kses_post( $col['badge']        ?? '' );
             $is_featured = ! empty( $col['isFeatured'] );
             $accent      = \sanitize_hex_color( $col['accentColor'] ?? '' ) ?: $global_accent ?: 'var(--wp--preset--color--primary, #2F425D)';
@@ -158,7 +159,8 @@ $css = "
             }
 
             if ( $show_cta && $cta_text ) {
-                $elements['cta'] = '<a href="' . $cta_url . '"' . $cta_target . ' class="g2rd-pt__cta wp-element-button" style="display:block;text-align:center;padding:12px 24px;border-radius:8px;font-weight:700;font-size:15px;background:' . \esc_attr( $accent ) . ';color:#fff;text-decoration:none;">'
+                $aria_attr = $cta_aria_label ? ' aria-label="' . $cta_aria_label . '"' : '';
+                $elements['cta'] = '<a href="' . $cta_url . '"' . $cta_target . $aria_attr . ' class="g2rd-pt__cta wp-element-button" style="display:block;text-align:center;padding:12px 24px;border-radius:8px;font-weight:700;font-size:15px;background:' . \esc_attr( $accent ) . ';color:#fff;text-decoration:none;">'
                     . $cta_text . '</a>';
             } else {
                 $elements['cta'] = '';

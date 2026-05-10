@@ -3,7 +3,8 @@ import { useBlockProps, RichText } from "@wordpress/block-editor";
 export default function Save({ attributes }) {
   const {
     kicker, heading, subheading,
-    ctaPrimaryText, ctaPrimaryUrl, ctaSecondaryText, ctaSecondaryUrl, showSecondary,
+    ctaPrimaryText, ctaPrimaryUrl, ctaPrimaryAriaLabel,
+    ctaSecondaryText, ctaSecondaryUrl, ctaSecondaryAriaLabel, showSecondary,
     socialProof, showSocialProof,
     backgroundType, backgroundColor, imageUrl,
     overlayColor, overlayOpacity,
@@ -78,6 +79,7 @@ export default function Save({ attributes }) {
               tagName="a"
               href={ctaPrimaryUrl}
               className="g2rd-hero__btn g2rd-hero__btn--primary"
+              aria-label={ctaPrimaryAriaLabel || undefined}
               value={ctaPrimaryText}
               style={{ backgroundColor: ctaPrimaryBg, color: ctaPrimaryColor, padding: "0.9rem 2rem", borderRadius: "4px", fontWeight: 700, textDecoration: "none", display: "inline-block" }}
             />
@@ -88,6 +90,7 @@ export default function Save({ attributes }) {
               tagName="a"
               href={ctaSecondaryUrl}
               className="g2rd-hero__btn g2rd-hero__btn--secondary"
+              aria-label={ctaSecondaryAriaLabel || undefined}
               value={ctaSecondaryText}
               style={{ border: "1px solid rgba(250,250,250,0.6)", color: headingColor, padding: "0.9rem 2rem", borderRadius: "4px", fontWeight: 600, textDecoration: "none", display: "inline-block" }}
             />

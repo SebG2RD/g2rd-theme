@@ -2,8 +2,8 @@ import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 export default function Save({ attributes }) {
   const {
-    title, description, ctaText, ctaUrl,
-    ctaSecondaryText, ctaSecondaryUrl,
+    title, description, ctaText, ctaUrl, ctaAriaLabel,
+    ctaSecondaryText, ctaSecondaryUrl, ctaSecondaryAriaLabel,
     reassurance, showReassurance,
     customBg, titleColor, textColor, ctaBg, ctaColor,
     alignment, paddingVertical,
@@ -52,6 +52,7 @@ export default function Save({ attributes }) {
             tagName="a"
             href={ctaUrl}
             className="g2rd-cta-band__btn g2rd-cta-band__btn--primary"
+            aria-label={ctaAriaLabel || undefined}
             value={ctaText}
             style={{ backgroundColor: ctaBg, color: ctaColor }}
           />
@@ -60,6 +61,7 @@ export default function Save({ attributes }) {
               tagName="a"
               href={ctaSecondaryUrl}
               className="g2rd-cta-band__btn g2rd-cta-band__btn--secondary"
+              aria-label={ctaSecondaryAriaLabel || undefined}
               value={ctaSecondaryText}
               style={{ color: titleColor }}
             />

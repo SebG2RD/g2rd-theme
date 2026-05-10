@@ -20,7 +20,7 @@
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:image {"width":"50px","sizeSlug":"full","linkDestination":"none","align":"center"} -->
-    <figure class="wp-block-image aligncenter size-full is-resized"><img alt="" style="width:50px" /></figure>
+    <figure class="wp-block-image aligncenter size-full is-resized"><img alt="Icône illustrative" style="width:50px" /></figure>
     <!-- /wp:image -->
 
     <!-- wp:paragraph {"align":"center"} -->

@@ -480,6 +480,15 @@ export default function Edit( { attributes, setAttributes } ) {
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
 							/>
+							<TextControl
+								label={ __( 'Étiquette ARIA du bouton (accessibilité)', 'g2rd' ) }
+								value={ col.ctaAriaLabel || '' }
+								onChange={ val => updateColumn( activeColTab, 'ctaAriaLabel', val ) }
+								placeholder={ __( 'Ex : Choisir le plan Pro', 'g2rd' ) }
+								help={ __( 'Précise la destination pour les lecteurs d\'écran (RGAA 6.1).', 'g2rd' ) }
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+							/>
 							<ToggleControl
 								label={ __( 'Ouvrir dans un nouvel onglet', 'g2rd' ) }
 								checked={ col.ctaTarget }

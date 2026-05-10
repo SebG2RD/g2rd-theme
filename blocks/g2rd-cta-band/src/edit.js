@@ -16,8 +16,8 @@ import {
 
 export default function Edit({ attributes, setAttributes }) {
   const {
-    title, description, ctaText, ctaUrl,
-    ctaSecondaryText, ctaSecondaryUrl,
+    title, description, ctaText, ctaUrl, ctaAriaLabel,
+    ctaSecondaryText, ctaSecondaryUrl, ctaSecondaryAriaLabel,
     reassurance, showReassurance,
     customBg, titleColor, textColor, ctaBg, ctaColor,
     alignment, paddingVertical,
@@ -45,10 +45,27 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
           <TextControl
+            label={__("Étiquette ARIA bouton principal", "g2rd")}
+            value={ctaAriaLabel}
+            onChange={(v) => setAttributes({ ctaAriaLabel: v })}
+            placeholder={__("Ex : Demander un devis gratuit pour votre site", "g2rd")}
+            help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
             label={__("URL bouton secondaire (optionnel)", "g2rd")}
             value={ctaSecondaryUrl}
             onChange={(v) => setAttributes({ ctaSecondaryUrl: v })}
             type="url"
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Étiquette ARIA bouton secondaire", "g2rd")}
+            value={ctaSecondaryAriaLabel}
+            onChange={(v) => setAttributes({ ctaSecondaryAriaLabel: v })}
+            placeholder={__("Ex : Voir nos offres et tarifs", "g2rd")}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />

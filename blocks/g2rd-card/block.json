@@ -40,6 +40,7 @@
         "ctaText":         { "type": "string",  "default": "" },
         "ctaUrl":          { "type": "string",  "default": "" },
         "ctaTarget":       { "type": "boolean", "default": false },
+        "ctaAriaLabel":    { "type": "string",  "default": "" },
         "ctaStyle":        { "type": "string",  "default": "button" },
         "ctaBgColor":      { "type": "string",  "default": "" },
         "ctaTextColor":    { "type": "string",  "default": "" },

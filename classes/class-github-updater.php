@@ -87,6 +87,7 @@ class GitHubUpdater {
         \add_filter('pre_set_site_transient_update_themes', [$this, 'checkForUpdates']);
         \add_filter('themes_api', [$this, 'getThemeInfo'], 10, 3);
         \add_filter('upgrader_source_selection', [$this, 'preventThemeRename'], 10, 4);
+        \add_action('admin_footer-update-core.php', [$this, 'injectUpdateDetailsLink']);
     }
 
     /**
@@ -324,6 +325,66 @@ class GitHubUpdater {
         }
 
         return \trailingslashit( $new_source );
+    }
+
+    /**
+     * Injecte le lien « Afficher les détails » dans la ligne du thème sur la page des mises à jour.
+     *
+     * WordPress affiche ce lien automatiquement pour les plugins mais pas pour les thèmes
+     * tiers. On l'injecte via JavaScript en ciblant la ligne du thème par son slug.
+     *
+     * @since 1.10.6
+     * @return void
+     */
+    public function injectUpdateDetailsLink(): void {
+        $theme_slug  = basename( \get_template_directory() );
+        $update_data = \get_site_transient( 'update_themes' );
+
+        if ( empty( $update_data->response[ $theme_slug ]['new_version'] ) ) {
+            return;
+        }
+
+        $new_version = (string) $update_data->response[ $theme_slug ]['new_version'];
+        $details_url = \add_query_arg(
+            [
+                'TB_iframe' => 'true',
+                'width'     => 1024,
+                'height'    => 800,
+            ],
+            \self_admin_url( 'theme-install.php?tab=theme-information&theme=' . rawurlencode( $theme_slug ) )
+        );
+
+        printf(
+            '<script>
+            ( function() {
+                var slug  = %1$s;
+                var url   = %2$s;
+                var label = %3$s;
+                var checkbox = document.querySelector( \'input[name="checked[]"][value="\' + slug + \'"]\' );
+                if ( ! checkbox ) { return; }
+                var row = checkbox.closest( "tr" );
+                if ( ! row ) { return; }
+                var td = row.querySelector( ".plugin-description p, .column-description p" );
+                if ( ! td || td.querySelector( ".g2rd-details-link" ) ) { return; }
+                var a = document.createElement( "a" );
+                a.href      = url;
+                a.className = "thickbox open-plugin-details-modal g2rd-details-link";
+                a.setAttribute( "data-slug", slug );
+                a.textContent = label;
+                td.appendChild( document.createTextNode( " " ) );
+                td.appendChild( a );
+            } )();
+            </script>',
+            \wp_json_encode( $theme_slug ),
+            \wp_json_encode( $details_url ),
+            \wp_json_encode(
+                sprintf(
+                    /* translators: %s: numéro de version */
+                    \__( 'Afficher les détails de la version %s.', 'g2rd' ),
+                    $new_version
+                )
+            )
+        );
     }
 
     /**

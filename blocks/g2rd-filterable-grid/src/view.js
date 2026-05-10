@@ -81,7 +81,7 @@ function renderCard(item, opts) {
   const isCard = linkType === "full-card";
   const tag    = isCard ? "a" : "div";
   const tagAttrs = isCard
-    ? ` href="${attr(item.link)}" class="g2rd-filter-grid__card g2rd-fg__card--${cardDisplay}"`
+    ? ` href="${attr(item.link)}" class="g2rd-filter-grid__card g2rd-fg__card--${cardDisplay}" aria-label="${attr(item.title)}"`
     : ` class="g2rd-filter-grid__card g2rd-fg__card--${cardDisplay}"`;
 
   // Badge : premier terme de la première taxonomie disponible
@@ -150,12 +150,13 @@ function renderCard(item, opts) {
   // CTA
   let ctaHtml = "";
   if (linkType === "read-more") {
-    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__readmore">${esc(readMoreText || "Lire la suite")}</a>`;
+    const rmText = esc(readMoreText || "Lire la suite");
+    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__readmore" aria-label="${rmText} : ${attr(item.title)}">${rmText}</a>`;
   }
   if (showAddToCart && p?.add_to_cart_url) {
-    ctaHtml = `<a href="${attr(p.add_to_cart_url)}" class="g2rd-fg__add-to-cart">Ajouter au panier</a>`;
+    ctaHtml = `<a href="${attr(p.add_to_cart_url)}" class="g2rd-fg__add-to-cart" aria-label="Ajouter au panier : ${attr(item.title)}">Ajouter au panier</a>`;
   } else if (showAddToCart && p) {
-    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__add-to-cart">Voir le produit</a>`;
+    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__add-to-cart" aria-label="Voir le produit : ${attr(item.title)}">Voir le produit</a>`;
   }
 
   return `<${tag}${tagAttrs}>

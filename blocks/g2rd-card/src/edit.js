@@ -105,6 +105,7 @@ export default function Edit({ attributes, setAttributes }) {
     ctaText,
     ctaUrl,
     ctaTarget,
+    ctaAriaLabel,
     ctaStyle,
     ctaBgColor,
     ctaTextColor,
@@ -365,6 +366,15 @@ export default function Edit({ attributes, setAttributes }) {
               { label: __("Lien simple", "g2rd"), value: "link" },
             ]}
             onChange={(v) => setAttributes({ ctaStyle: v })}
+          />
+          <TextControl
+            label={__("Étiquette ARIA du lien (accessibilité)", "g2rd")}
+            value={ctaAriaLabel}
+            onChange={(v) => setAttributes({ ctaAriaLabel: v })}
+            placeholder={__("Ex : En savoir plus sur notre offre SEO", "g2rd")}
+            help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
           {ctaStyle === "button" && (
             <RangeControl
