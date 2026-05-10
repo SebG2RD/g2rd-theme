@@ -6,7 +6,7 @@
 
 /* ── Page wrapper ─────────────────────────────────────────────── */
 .g2rd-magic-page {
-	overflow: hidden;
+	overflow-x: clip;
 }
 
 /* ── Espacement vertical uniforme (override inline Gutenberg) ─── */
@@ -24,7 +24,7 @@
 .g2rd-magic-dark,
 .wp-block-group.is-style-magic-dark {
 	position: relative;
-	overflow: hidden;
+	overflow-x: clip;
 	color: var(--wp--preset--color--white);
 	background:
 		radial-gradient(circle at 20% 10%, rgba(212, 163, 115, 0.28), transparent 26%),

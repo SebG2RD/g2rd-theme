@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.10.7
+
+- **Fix (RGAA 10.4)** : remplacement de `overflow: hidden` par `overflow-x: clip` sur `.g2rd-magic-page` et `.g2rd-magic-dark` — le contenu textuel n'est plus tronqué au zoom navigateur 200%.
+
 ### 1.10.6
 
 - **Accessibilité (RGAA 6.1)** : champs `aria-label` éditables ajoutés sur les blocs g2rd-card, g2rd-hero, g2rd-cta-band, g2rd-pricing-table et g2rd-filterable-grid pour rendre explicites les liens au texte ambigu.
