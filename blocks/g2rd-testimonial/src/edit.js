@@ -234,7 +234,7 @@ export default function Edit( { attributes, setAttributes } ) {
     googleLayout, googleColumns, googleCardStyle,
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
-    googleMarqueeSpeed, googleShowBusinessLink,
+    googleMarqueeSpeed, googleShowBusinessLink, marqueePauseButton,
   } = attributes;
 
   const blockProps = useBlockProps( {
@@ -379,6 +379,16 @@ export default function Edit( { attributes, setAttributes } ) {
                   onChange={ ( v ) => setAttributes( { googleMarqueeSpeed: v } ) }
                   min={ 5 } max={ 120 } step={ 5 }
                   help={ __( "Durée d'un cycle complet. Faible = rapide, élevé = lent.", "g2rd" ) }
+                  __nextHasNoMarginBottom
+                />
+              ) }
+
+              { ( googleLayout === "marquee" ) && (
+                <ToggleControl
+                  label={ __( "Afficher le bouton pause", "g2rd" ) }
+                  help={ __( "RGAA 13.2 — requis si animation > 5 secondes", "g2rd" ) }
+                  checked={ marqueePauseButton !== false }
+                  onChange={ ( v ) => setAttributes( { marqueePauseButton: v } ) }
                   __nextHasNoMarginBottom
                 />
               ) }

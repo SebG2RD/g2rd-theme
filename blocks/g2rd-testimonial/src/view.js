@@ -145,7 +145,7 @@ function buildCarousel( cardsHTML ) {
  * Crée un carrousel défilant en continu (marquee).
  * Les cartes sont dupliquées pour assurer une boucle sans saut.
  */
-function buildMarquee( cardsHTML, speed ) {
+function buildMarquee( cardsHTML, speed, showPause ) {
 	const wrapper = document.createElement( 'div' );
 	wrapper.className = 'g2rd-testimonial__marquee';
 
@@ -164,6 +164,23 @@ function buildMarquee( cardsHTML, speed ) {
 	}
 
 	wrapper.appendChild( track );
+
+	if ( showPause && ! reducedMotion ) {
+		const btn = document.createElement( 'button' );
+		btn.type = 'button';
+		btn.className = 'g2rd-testimonial__marquee-pause';
+		btn.setAttribute( 'aria-label', 'Mettre le défilement en pause' );
+		btn.setAttribute( 'aria-pressed', 'false' );
+		btn.textContent = '⏸';
+		btn.addEventListener( 'click', function () {
+			const paused = 'true' === btn.getAttribute( 'aria-pressed' );
+			track.style.animationPlayState = paused ? 'running' : 'paused';
+			btn.setAttribute( 'aria-pressed', String( ! paused ) );
+			btn.setAttribute( 'aria-label', paused ? 'Mettre le défilement en pause' : 'Reprendre le défilement' );
+		} );
+		wrapper.appendChild( btn );
+	}
+
 	return wrapper;
 }
 
@@ -187,6 +204,7 @@ function initBlock( el ) {
 	const highlightFirst = el.dataset.googleHighlightFirst === 'true';
 	const marqueeSpeed      = parseInt( el.dataset.googleMarqueeSpeed ) || 40;
 	const showBusinessLink  = el.dataset.googleShowBusinessLink === 'true';
+	const marqueePauseButton = el.dataset.marqueePauseButton !== 'false';
 
 	const opts = { showAuthorLink, showDate, showAvatar, cardStyle, maxText, highlightFirst, showBusinessLink };
 
@@ -224,7 +242,7 @@ function initBlock( el ) {
 			if ( 'carousel' === layout ) {
 				el.appendChild( buildCarousel( cardsHTML ) );
 			} else if ( 'marquee' === layout ) {
-				el.appendChild( buildMarquee( cardsHTML, marqueeSpeed ) );
+				el.appendChild( buildMarquee( cardsHTML, marqueeSpeed, marqueePauseButton ) );
 			} else {
 				el.insertAdjacentHTML( 'beforeend', cardsHTML );
 			}

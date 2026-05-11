@@ -353,6 +353,7 @@ blockquote.g2rd-testimonial__card {
 
 .g2rd-testimonial__marquee {
   overflow: hidden;
+  position: relative;
 }
 
 .g2rd-testimonial__marquee-track {
@@ -402,6 +403,32 @@ blockquote.g2rd-testimonial__card {
 
 .g2rd-testimonial__name--link:hover {
   text-decoration: underline;
+}
+
+/* ── Bouton pause marquee (RGAA 13.2) ───────────────────────────────────── */
+
+.g2rd-testimonial__marquee-pause {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 10;
+  background: rgba( 0, 0, 0, 0.55 );
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g2rd-testimonial__marquee-pause:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
