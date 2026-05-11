@@ -1,6 +1,6 @@
 {
   "name": "g2rd-theme",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "private": true,
   "workspaces": [
     "blocks/g2rd-card",

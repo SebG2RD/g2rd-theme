@@ -127,6 +127,10 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.11.2
+
+- **Option BO** : bouton pause désactivé nativement sur tous les blocs animés (g2rd-carousel, g2rd-typed, g2rd-marquee, g2rd-testimonial) — activable via un toggle dans le panneau d'inspection Gutenberg.
+
 ### 1.11.1
 
 - **Accessibilité RGAA 10.1** : `:focus-visible` sur boutons carousel, counter, login, options-page, code éditeur.
