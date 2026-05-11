@@ -18,6 +18,9 @@
 
 		if ( ! track ) return;
 
+		/* ID unique pour aria-controls (RGAA 4.1) */
+		if ( ! track.id ) track.id = 'g2rd-slider-track-' + Math.random().toString( 36 ).slice( 2, 8 );
+
 		// Filtrer les enfants du track (exclure le bloc-appender de l'éditeur)
 		const slides = Array.from( track.children ).filter(
 			( slide ) => ! slide.hasAttribute( "data-block-appender" )
@@ -40,6 +43,7 @@
 		let currentIndex = 0;
 		let autoplayTimer = null;
 		let isTransitioning = false;
+		let liveRegion = null;
 
 		// ── Navigation ────────────────────────────────────────────────────────
 
@@ -63,6 +67,13 @@
 			isTransitioning = true;
 			track.style.transition = `transform ${ duration }ms ease`;
 			track.dataset.current = String( currentIndex );
+
+			/* aria-current sur le slide actif (RGAA 4.1) */
+			slides.forEach( ( slide, i ) => {
+				if ( i === currentIndex ) slide.setAttribute( 'aria-current', 'true' );
+				else slide.removeAttribute( 'aria-current' );
+			} );
+			if ( liveRegion ) liveRegion.textContent = 'Slide ' + ( currentIndex + 1 ) + ' sur ' + total;
 
 			if ( effect === "fade" ) {
 				slides.forEach( ( slide, i ) => {
@@ -151,6 +162,17 @@
 
 		prevBtn?.addEventListener( "click", () => goTo( currentIndex - 1 ) );
 		nextBtn?.addEventListener( "click", () => goTo( currentIndex + 1 ) );
+
+		/* aria-controls sur les boutons de navigation (RGAA 4.1) */
+		prevBtn?.setAttribute( 'aria-controls', track.id );
+		nextBtn?.setAttribute( 'aria-controls', track.id );
+
+		/* Région aria-live pour annoncer le changement de slide (RGAA 4.1) */
+		liveRegion = document.createElement( 'div' );
+		liveRegion.setAttribute( 'aria-live', 'polite' );
+		liveRegion.setAttribute( 'aria-atomic', 'true' );
+		liveRegion.className = 'screen-reader-text';
+		el.appendChild( liveRegion );
 
 		if ( pauseOnHover ) {
 			el.addEventListener( "mouseenter", stopAutoplay );

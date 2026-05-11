@@ -57,6 +57,7 @@
     "textdomain": "g2rd",
     "editorScript": "file:./index.js",
     "script": "file:./editor-toggle.js",
+    "viewScript": "file:./view.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css"
 }
