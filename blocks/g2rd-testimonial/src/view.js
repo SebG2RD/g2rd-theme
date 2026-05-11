@@ -151,9 +151,17 @@ function buildMarquee( cardsHTML, speed ) {
 
 	const track = document.createElement( 'div' );
 	track.className = 'g2rd-testimonial__marquee-track';
-	/* Duplication du contenu pour boucle seamless */
-	track.innerHTML = cardsHTML + cardsHTML;
-	track.style.animationDuration = ( speed || 40 ) + 's';
+
+	const reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	if ( reducedMotion ) {
+		track.innerHTML = cardsHTML;
+		track.style.flexWrap = 'wrap';
+		track.style.animationName = 'none';
+	} else {
+		/* Duplication du contenu pour boucle seamless */
+		track.innerHTML = cardsHTML + cardsHTML;
+		track.style.animationDuration = ( speed || 40 ) + 's';
+	}
 
 	wrapper.appendChild( track );
 	return wrapper;

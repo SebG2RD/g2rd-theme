@@ -941,5 +941,24 @@
   }
 }
 
+/* ── Préférence de réduction de mouvement (RGAA 13.1) ────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .swiper-slide,
+  .carousel-slide,
+  .carousel-image,
+  .carousel-caption,
+  .carousel-post-info,
+  .swiper-button-prev,
+  .swiper-button-next,
+  .swiper-button-prev::before,
+  .swiper-button-prev::after,
+  .swiper-button-next::before,
+  .swiper-button-next::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 
 /*# sourceMappingURL=index.css.map*/
