@@ -127,6 +127,20 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.11.1
+
+- **Accessibilité RGAA 10.1** : `:focus-visible` sur boutons carousel, counter, login, options-page, code éditeur.
+- **Accessibilité RGAA 13.1** : `prefers-reduced-motion` sur carousel, marquee, testimonial, typed.
+- **Accessibilité RGAA 13.2** : bouton pause ⏸ sur marquee (g2rd-marquee + g2rd-testimonial), carousel autoplay, typed animation en boucle.
+- **Accessibilité RGAA 2.4** : `aria-label="En-tête coloré"` sur header-color.html.
+- **Accessibilité RGAA 9.1** : `<blockquote>/<cite>` sémantique sur le bloc testimonial (mode manuel + Google Reviews).
+- **Accessibilité RGAA 12.8** : `aria-current="page"` dynamique sur les liens de navigation actifs.
+- **Accessibilité RGAA 4.1/12.8** : focus trap + retour de focus sur g2rd-modal et g2rd-sliding-panel.
+- **Accessibilité RGAA 10.2** : `aria-hidden` dynamique sur le contenu masqué de g2rd-toggle-content.
+- **Accessibilité RGAA 6.1** : alternative textuelle accessible sur g2rd-map (screen-reader-text).
+- **Accessibilité RGAA 12.1** : `aria-label` sur les liens icône-seule de g2rd-icon-box.
+- **Accessibilité RGAA 4.1** : `aria-controls`, `aria-live`, `aria-current` sur g2rd-slider.
+
 ### 1.11.0
 
 - **Bloc** : nouveau bloc G2RD Pin Scroll — séquence d'images synchronisée au défilement (style Apple), verrouillé derrière licence + feature toggle.
