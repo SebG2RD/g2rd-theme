@@ -504,8 +504,8 @@ function initializeCarousels() {
           swiper.autoplay.stop();
         }
 
-        // RGAA 13.2 — bouton pause accessible si autoplay actif sur desktop
-        if ( finalConfig.autoplayDelay && window.innerWidth >= 768 && ! reducedMotion ) {
+        // RGAA 13.2 — bouton pause accessible si activé dans le BO
+        if ( finalConfig.autoplayDelay && finalConfig.showPauseButton === true && window.innerWidth >= 768 && ! reducedMotion ) {
           const pauseBtn = document.createElement( 'button' );
           pauseBtn.type = 'button';
           pauseBtn.className = 'g2rd-carousel__pause';

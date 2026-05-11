@@ -109,7 +109,7 @@
     "googleHighlightFirst": { "type": "boolean", "default": false },
     "googleMarqueeSpeed":        { "type": "number",  "default": 40 },
     "googleShowBusinessLink":    { "type": "boolean", "default": false },
-    "marqueePauseButton":        { "type": "boolean", "default": true }
+    "marqueePauseButton":        { "type": "boolean", "default": false }
   },
   "supports": {
     "html": false,

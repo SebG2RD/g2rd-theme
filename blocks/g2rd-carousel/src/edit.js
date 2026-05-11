@@ -43,6 +43,7 @@ export default function Edit({ attributes, setAttributes }) {
     selectedPosts,
     showBoxShadow,
     height,
+    showPauseButton,
   } = attributes;
 
   const blockProps = useBlockProps();
@@ -246,6 +247,15 @@ export default function Edit({ attributes, setAttributes }) {
             checked={grabCursor}
             onChange={() => setAttributes({ grabCursor: !grabCursor })}
           />
+          { autoplayDelay > 0 && (
+            <ToggleControl
+              label={__("Afficher le bouton pause", "g2rd")}
+              help={__("RGAA 13.2 — requis pour les animations continues > 5 s", "g2rd")}
+              checked={showPauseButton === true}
+              onChange={(v) => setAttributes({ showPauseButton: v })}
+              __nextHasNoMarginBottom
+            />
+          ) }
         </PanelBody>
 
         {effect === "coverflow" && (

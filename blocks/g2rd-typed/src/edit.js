@@ -46,6 +46,7 @@ export default function Edit({ attributes, setAttributes }) {
     backgroundColor,
     padding,
     margin,
+    showPauseButton,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -203,6 +204,15 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             checked={loop}
             onChange={() => setAttributes({ loop: !loop })}
           />
+          { loop && (
+            <ToggleControl
+              label={__("Afficher le bouton pause", "g2rd")}
+              help={__("RGAA 13.2 — requis pour les animations en boucle infinie", "g2rd")}
+              checked={showPauseButton === true}
+              onChange={(v) => setAttributes({ showPauseButton: v })}
+              __nextHasNoMarginBottom
+            />
+          ) }
           <ToggleControl
             label={__("Mélanger les textes", "g2rd")}
             checked={shuffle}

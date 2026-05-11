@@ -44,7 +44,7 @@ export default function Save({ attributes }) {
       "data-google-highlight-first":   String( !! googleHighlightFirst ),
       "data-google-marquee-speed":        String( googleMarqueeSpeed || 40 ),
       "data-google-show-business-link":   String( !! googleShowBusinessLink ),
-      "data-marquee-pause-button":        String( marqueePauseButton !== false ),
+      ...( marqueePauseButton === true ? { "data-marquee-pause-button": "true" } : {} ),
       "aria-busy": "true",
       style: {
         "--g2rd-t-bg":     backgroundColor,

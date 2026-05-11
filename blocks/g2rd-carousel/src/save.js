@@ -28,6 +28,7 @@ export default function Save({ attributes, className }) {
     selectedPosts,
     showBoxShadow,
     height,
+    showPauseButton,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -112,6 +113,7 @@ export default function Save({ attributes, className }) {
     showCaptions, // transmettre l'option aux scripts front
     responsiveConfig, // Ajouter la configuration responsive
     ...(contentType && { contentType }), // N'inclure contentType que s'il existe
+    ...( showPauseButton === true ? { showPauseButton: true } : {} ),
   };
 
   // Utiliser tout le contenu disponible (pas de limitation côté serveur)

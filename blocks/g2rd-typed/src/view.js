@@ -49,8 +49,8 @@ function initializeTyped( typedElement, stringsElement, config ) {
 
 	const typedInstance = new Typed( typedElement, typedConfig );
 
-	/* RGAA 13.2 — bouton pause si animation en boucle infinie */
-	if ( loop ) {
+	/* RGAA 13.2 — bouton pause si activé dans le BO */
+	if ( loop && config.showPauseButton === true ) {
 		const block = typedElement.closest( '.g2rd-typed' );
 		if ( block ) {
 			const btn = document.createElement( 'button' );

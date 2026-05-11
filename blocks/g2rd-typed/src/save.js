@@ -28,6 +28,7 @@ export default function Save({ attributes }) {
     backgroundColor,
     padding,
     margin,
+    showPauseButton,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -59,6 +60,7 @@ export default function Save({ attributes }) {
       attr,
       bindInputFocusEvents,
       contentType,
+      ...( showPauseButton === true ? { showPauseButton: true } : {} ),
     }),
   });
 

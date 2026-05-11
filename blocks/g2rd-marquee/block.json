@@ -22,6 +22,10 @@
         "pauseOnHover": {
             "type": "boolean",
             "default": true
+        },
+        "showPauseButton": {
+            "type": "boolean",
+            "default": false
         }
     },
     "example": {

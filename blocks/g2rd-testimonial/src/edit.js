@@ -387,7 +387,7 @@ export default function Edit( { attributes, setAttributes } ) {
                 <ToggleControl
                   label={ __( "Afficher le bouton pause", "g2rd" ) }
                   help={ __( "RGAA 13.2 — requis si animation > 5 secondes", "g2rd" ) }
-                  checked={ marqueePauseButton !== false }
+                  checked={ marqueePauseButton === true }
                   onChange={ ( v ) => setAttributes( { marqueePauseButton: v } ) }
                   __nextHasNoMarginBottom
                 />

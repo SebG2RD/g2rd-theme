@@ -204,7 +204,7 @@ function initBlock( el ) {
 	const highlightFirst = el.dataset.googleHighlightFirst === 'true';
 	const marqueeSpeed      = parseInt( el.dataset.googleMarqueeSpeed ) || 40;
 	const showBusinessLink  = el.dataset.googleShowBusinessLink === 'true';
-	const marqueePauseButton = el.dataset.marqueePauseButton !== 'false';
+	const marqueePauseButton = el.dataset.marqueePauseButton === 'true';
 
 	const opts = { showAuthorLink, showDate, showAvatar, cardStyle, maxText, highlightFirst, showBusinessLink };
 

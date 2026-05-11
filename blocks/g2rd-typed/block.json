@@ -139,6 +139,10 @@
         "bottom": "0px",
         "left": "0px"
       }
+    },
+    "showPauseButton": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

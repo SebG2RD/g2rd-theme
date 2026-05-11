@@ -153,6 +153,10 @@
     "height": {
       "type": "number",
       "default": 400
+    },
+    "showPauseButton": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
