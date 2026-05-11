@@ -195,6 +195,12 @@
   outline: none;
 }
 
+.swiper-button-prev:focus-visible,
+.swiper-button-next:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
 .swiper-button-prev::before,
 .swiper-button-next::before {
   content: "";
