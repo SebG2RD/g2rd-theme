@@ -15,11 +15,21 @@ function initializeTyped( typedElement, stringsElement, config ) {
 	if ( typedElement.dataset.typedInit ) return;
 	typedElement.dataset.typedInit = "1";
 
+	/* RGAA 13.1 — prefers-reduced-motion : afficher le premier texte statique */
+	const reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	if ( reducedMotion ) {
+		const firstString = stringsElement.querySelector( 'p, span, div' );
+		typedElement.textContent = firstString ? firstString.textContent : '';
+		return;
+	}
+
+	const loop = config.loop !== undefined ? config.loop : true;
+
 	const typedConfig = {
 		stringsElement,
 		typeSpeed: config.typeSpeed || 70,
 		backSpeed: config.backSpeed || 35,
-		loop: config.loop !== undefined ? config.loop : true,
+		loop,
 		startDelay: config.startDelay || 0,
 		backDelay: config.backDelay || 500,
 		fadeOut: config.fadeOut || false,
@@ -37,7 +47,33 @@ function initializeTyped( typedElement, stringsElement, config ) {
 		contentType: config.contentType || "html",
 	};
 
-	new Typed( typedElement, typedConfig );
+	const typedInstance = new Typed( typedElement, typedConfig );
+
+	/* RGAA 13.2 — bouton pause si animation en boucle infinie */
+	if ( loop ) {
+		const block = typedElement.closest( '.g2rd-typed' );
+		if ( block ) {
+			const btn = document.createElement( 'button' );
+			btn.type = 'button';
+			btn.className = 'g2rd-typed__pause';
+			btn.setAttribute( 'aria-label', 'Mettre l\'animation en pause' );
+			btn.setAttribute( 'aria-pressed', 'false' );
+			btn.textContent = '⏸';
+			btn.addEventListener( 'click', function () {
+				const paused = 'true' === btn.getAttribute( 'aria-pressed' );
+				if ( paused ) {
+					typedInstance.start();
+					btn.setAttribute( 'aria-pressed', 'false' );
+					btn.setAttribute( 'aria-label', 'Mettre l\'animation en pause' );
+				} else {
+					typedInstance.stop();
+					btn.setAttribute( 'aria-pressed', 'true' );
+					btn.setAttribute( 'aria-label', 'Reprendre l\'animation' );
+				}
+			} );
+			block.appendChild( btn );
+		}
+	}
 }
 
 /**

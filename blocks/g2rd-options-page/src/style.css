@@ -548,6 +548,11 @@
 	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
 }
 
+.g2rd-color-input__text:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 2px;
+}
+
 .g2rd-color-input__swatches {
 	display: flex;
 	flex-wrap: wrap;

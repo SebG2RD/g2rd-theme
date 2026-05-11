@@ -498,6 +498,37 @@ function initializeCarousels() {
         // Stocker l'instance Swiper sur l'élément pour un accès futur
         carousel.swiperInstance = swiper;
 
+        // RGAA 13.1 — désactiver l'autoplay si prefers-reduced-motion
+        const reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+        if ( reducedMotion && swiper.autoplay ) {
+          swiper.autoplay.stop();
+        }
+
+        // RGAA 13.2 — bouton pause accessible si autoplay actif sur desktop
+        if ( finalConfig.autoplayDelay && window.innerWidth >= 768 && ! reducedMotion ) {
+          const pauseBtn = document.createElement( 'button' );
+          pauseBtn.type = 'button';
+          pauseBtn.className = 'g2rd-carousel__pause';
+          pauseBtn.setAttribute( 'aria-label', 'Mettre le défilement en pause' );
+          pauseBtn.setAttribute( 'aria-pressed', 'false' );
+          pauseBtn.textContent = '⏸';
+          pauseBtn.addEventListener( 'click', function () {
+            const paused = 'true' === pauseBtn.getAttribute( 'aria-pressed' );
+            if ( paused ) {
+              if ( swiper.autoplay && swiper.autoplay.start ) swiper.autoplay.start();
+              else if ( carousel._manualResume ) carousel._manualResume();
+              pauseBtn.setAttribute( 'aria-pressed', 'false' );
+              pauseBtn.setAttribute( 'aria-label', 'Mettre le défilement en pause' );
+            } else {
+              if ( swiper.autoplay && swiper.autoplay.stop ) swiper.autoplay.stop();
+              else if ( carousel._manualPause ) carousel._manualPause();
+              pauseBtn.setAttribute( 'aria-pressed', 'true' );
+              pauseBtn.setAttribute( 'aria-label', 'Reprendre le défilement' );
+            }
+          } );
+          carousel.appendChild( pauseBtn );
+        }
+
         // Navigation manuelle si les modules ne sont pas disponibles
         if (finalConfig.showNavigation && !Swiper.Navigation) {
           const prevButton = carousel.querySelector(".swiper-button-prev");
@@ -590,6 +621,10 @@ function initializeCarousels() {
             isAutoplayActive = true;
             startAutoplay();
           };
+
+          /* Expose pour le bouton pause RGAA 13.2 (fallback manuel) */
+          carousel._manualPause = pauseAutoplay;
+          carousel._manualResume = resumeAutoplay;
 
           // Démarrer l'autoplay
           startAutoplay();
