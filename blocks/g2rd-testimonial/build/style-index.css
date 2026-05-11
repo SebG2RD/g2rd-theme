@@ -1,3 +1,8 @@
+blockquote.g2rd-testimonial,
+blockquote.g2rd-testimonial__card {
+  margin: 0;
+}
+
 .g2rd-testimonial {
   position: relative;
   overflow: hidden;

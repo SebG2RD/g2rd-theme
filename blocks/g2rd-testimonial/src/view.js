@@ -42,8 +42,8 @@ function renderCard( review, opts, index ) {
 	}
 
 	const authorName = opts.showAuthorLink && review.author_url
-		? `<a href="${ escHtml( review.author_url ) }" target="_blank" rel="noopener noreferrer nofollow" class="g2rd-testimonial__name g2rd-testimonial__name--link">${ escHtml( review.author ) }</a>`
-		: `<strong class="g2rd-testimonial__name">${ escHtml( review.author ) }</strong>`;
+		? `<cite class="g2rd-testimonial__name g2rd-testimonial__name--link"><a href="${ escHtml( review.author_url ) }" target="_blank" rel="noopener noreferrer nofollow">${ escHtml( review.author ) }</a></cite>`
+		: `<cite class="g2rd-testimonial__name"><strong>${ escHtml( review.author ) }</strong></cite>`;
 
 	const date = opts.showDate
 		? `<span class="g2rd-testimonial__role">${ escHtml( review.relative_time ) }</span>`
@@ -52,7 +52,7 @@ function renderCard( review, opts, index ) {
 	const text = truncateText( review.text, opts.maxText );
 
 	return `
-		<div class="g2rd-testimonial__card${ featured ? ' is-featured' : '' }" data-card-style="${ escHtml( opts.cardStyle ) }">
+		<blockquote class="g2rd-testimonial__card${ featured ? ' is-featured' : '' }" data-card-style="${ escHtml( opts.cardStyle ) }">
 			${ renderStars( review.rating ) }
 			<p class="g2rd-testimonial__quote">${ text }</p>
 			<div class="g2rd-testimonial__author">
@@ -62,7 +62,7 @@ function renderCard( review, opts, index ) {
 					${ date }
 				</div>
 			</div>
-		</div>
+		</blockquote>
 	`;
 }
 

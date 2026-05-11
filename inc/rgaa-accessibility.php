@@ -113,81 +113,21 @@ if ( \defined( 'G2RD_RGAA_FIXES_LOADED' ) ) {
 	}
 );
 
-// 5. Fluent Forms — champs : suppr. tabindex positif, autocomplete, label sr-only
-$g2rd_rgaa_ff_field_fix = function ( $html, $data = [], $form = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-	// Supprime les tabindex positifs (RGAA 12.8)
-	$html = \preg_replace( '/\s*tabindex="[1-9]\d*"/', '', $html );
-
-	// Autocomplete sur les champs email (RGAA 11.13)
-	if ( false !== \strpos( $html, 'type="email"' ) && false === \strpos( $html, 'autocomplete' ) ) {
-		$html = \str_replace( 'type="email"', 'type="email" autocomplete="email"', $html );
-	}
-
-	// Label sr-only si le champ n'a que placeholder (RGAA 11.1)
-	if (
-		\is_array( $data )
-		&& ! empty( $data['attributes']['placeholder'] )
-		&& empty( $data['settings']['label'] )
-	) {
-		$label_text = $data['attributes']['placeholder'];
-		$input_id   = $data['attributes']['id'] ?? '';
-
-		if ( $input_id && false === \strpos( $html, '<label' ) ) {
-			$sr   = '<label for="' . \esc_attr( $input_id ) . '" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">'
-					. \esc_html( $label_text )
-					. '</label>';
-			$html = \preg_replace(
-				'/(<input[^>]*id="' . \preg_quote( $input_id, '/' ) . '"[^>]*>)/',
-				$sr . '$1',
-				$html
-			);
-		}
-	}
-
-	return $html;
-};
-
-\add_filter( 'fluentform/rendering_field_html_input_email', $g2rd_rgaa_ff_field_fix, 10, 3 );
-\add_filter( 'fluentform/rendering_field_html_input_text', $g2rd_rgaa_ff_field_fix, 10, 3 );
-\add_filter( 'fluentform/rendering_field_html_textarea', $g2rd_rgaa_ff_field_fix, 10, 3 );
-
-// 6. Fluent Forms — bouton : suppr. tabindex positif + aria-label redondant
-\add_filter(
-	'fluentform/rendering_field_html_button',
-	function ( $html, $data = [], $form = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		$html = \preg_replace( '/\s*tabindex="[1-9]\d*"/', '', $html );
-
-		if ( \preg_match( '/aria-label="([^"]+)"/', $html, $m ) ) {
-			$aria = \html_entity_decode( $m[1], ENT_QUOTES, 'UTF-8' );
-			if ( \preg_match( '/>([^<]+)<\/button>/', $html, $btn ) ) {
-				if ( \mb_strtolower( $aria ) === \mb_strtolower( \trim( $btn[1] ) ) ) {
-					$html = \str_replace( ' aria-label="' . $m[1] . '"', '', $html );
-				}
-			}
-		}
-
-		return $html;
-	},
-	10,
-	3
-);
-
-// 7. Skip-link : tabindex="-1" sur la cible + honeypot Fluent Forms aria-hidden
+// 7. Scripts frontend accessibilité (thème uniquement)
 \add_action(
 	'wp_footer',
 	function () {
 		?>
-		<script>
-		(function(){
+		<script>(function(){
 			var t=document.getElementById("wp--skip-link--target");
 			if(t&&!t.hasAttribute("tabindex")){t.setAttribute("tabindex","-1");}
-			document.querySelectorAll(".ff-hpsf-container").forEach(function(el){
-				el.setAttribute("aria-hidden","true");
-				var inp=el.querySelector("input");
-				if(inp){inp.setAttribute("tabindex","-1");}
+
+			var cur=window.location.href.replace(/\/$/, "").replace(/#.*$/, "");
+			document.querySelectorAll("nav a[href]").forEach(function(a){
+				var h=a.href.replace(/\/$/, "").replace(/#.*$/, "");
+				if(h===cur){a.setAttribute("aria-current","page");}
 			});
-		})();
-		</script>
+		})();</script>
 		<?php
 	}
 );

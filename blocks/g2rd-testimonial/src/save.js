@@ -80,7 +80,7 @@ export default function Save({ attributes }) {
   });
 
   return (
-    <div {...blockProps}>
+    <blockquote {...blockProps}>
       <StarRating rating={rating} color={starColor} />
 
       <div
@@ -119,12 +119,9 @@ export default function Save({ attributes }) {
           </div>
         )}
         <div className="g2rd-testimonial__author-info">
-          <RichText.Content
-            tagName="strong"
-            className="g2rd-testimonial__name"
-            value={authorName}
-            style={{ color: authorColor, display: "block", fontWeight: 700 }}
-          />
+          <cite className="g2rd-testimonial__name" style={{ color: authorColor, display: "block", fontWeight: 700 }}>
+            <RichText.Content tagName="strong" value={authorName} />
+          </cite>
           <RichText.Content
             tagName="span"
             className="g2rd-testimonial__role"
@@ -133,6 +130,6 @@ export default function Save({ attributes }) {
           />
         </div>
       </div>
-    </div>
+    </blockquote>
   );
 }
