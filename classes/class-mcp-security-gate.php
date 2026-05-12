@@ -188,16 +188,20 @@ class McpSecurityGate {
 			return false;
 		}
 
-		$current = \get_current_user_id();
+		$current  = \get_current_user_id();
+		$switched = $current !== $user_id;
 
-		if ( $current !== $user_id ) {
+		if ( $switched ) {
 			\wp_set_current_user( $user_id );
 		}
 
-		$has = \current_user_can( $capability );
-
-		if ( $current !== $user_id ) {
-			\wp_set_current_user( $current );
+		try {
+			$has = \current_user_can( $capability );
+		} finally {
+			// Always restore original user, even if current_user_can() throws.
+			if ( $switched ) {
+				\wp_set_current_user( $current );
+			}
 		}
 
 		return $has;

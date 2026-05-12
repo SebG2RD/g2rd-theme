@@ -89,9 +89,11 @@ class McpAuditLog {
 			'screen_context' => isset( $entry['screen_context'] )
 				? \sanitize_text_field( \substr( (string) $entry['screen_context'], 0, 500 ) )
 				: null,
-			'chain_hash'    => '', // Computed below after row data is final.
 		];
 
+		// Compute chain_hash over the data columns only — exclude chain_hash itself
+		// (not yet set) and id (unknown at insert time; added by DB auto-increment).
+		// verify_integrity() must exclude the same fields to reproduce identical input.
 		$row['chain_hash'] = $this->compute_chain_hash( $row, $prev_hash );
 
 		$table  = $wpdb->prefix . 'g2rd_mcp_audit_log';
@@ -232,9 +234,11 @@ class McpAuditLog {
 		$checked = 0;
 
 		foreach ( $rows as $row ) {
-			$stored_hash   = $row['chain_hash'];
-			$row_for_hash  = $row;
-			unset( $row_for_hash['chain_hash'] );
+			$stored_hash  = $row['chain_hash'];
+			$row_for_hash = $row;
+			// Exclude id (auto-increment, absent at log() time) and chain_hash
+			// to match exactly the fields hashed in log().
+			unset( $row_for_hash['id'], $row_for_hash['chain_hash'] );
 			$expected_hash = $this->compute_chain_hash( $row_for_hash, $prev_hash );
 
 			if ( ! \hash_equals( $expected_hash, $stored_hash ) ) {

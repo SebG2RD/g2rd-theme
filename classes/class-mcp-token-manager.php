@@ -85,7 +85,7 @@ class McpTokenManager {
 		$raw_token    = $this->generate_raw_token();
 		$token_hash   = $this->crypto->hash_token( $raw_token );
 		$token_prefix = $this->extract_prefix( $raw_token );
-		$expires_days = \absint( $options['expires_in_days'] ?? self::DEFAULT_EXPIRES_DAYS );
+		$expires_days = \max( 1, \absint( $options['expires_in_days'] ?? self::DEFAULT_EXPIRES_DAYS ) );
 		$expires_at   = \gmdate( 'Y-m-d H:i:s', \time() + $expires_days * \DAY_IN_SECONDS );
 
 		$allowed_ips = null;
@@ -281,7 +281,7 @@ class McpTokenManager {
 	 * Returns usage statistics for a specific token.
 	 *
 	 * @param int $token_id Token row ID.
-	 * @return array{last_used_at: string|null, last_used_ip: string|null, total_requests: int} Stats.
+	 * @return array{last_used_at: string|null, last_used_ip: string|null, requests_last_24h: int} Stats.
 	 */
 	public function get_token_stats( int $token_id ): array {
 		global $wpdb;
@@ -300,9 +300,9 @@ class McpTokenManager {
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		return [
-			'last_used_at'   => $row['last_used_at'] ?? null,
-			'last_used_ip'   => $row['last_used_ip'] ?? null,
-			'total_requests' => $count,
+			'last_used_at'      => $row['last_used_at'] ?? null,
+			'last_used_ip'      => $row['last_used_ip'] ?? null,
+			'requests_last_24h' => $count,
 		];
 	}
 
@@ -377,13 +377,17 @@ class McpTokenManager {
 	}
 
 	/**
-	 * Returns the first 8 characters of a raw token (used as DB lookup prefix).
+	 * Returns the first 21 characters of a raw token (used as DB lookup prefix).
+	 *
+	 * 21 chars = 'g2rd_' (5 fixed) + 16 random base62 chars (62^16 ≈ 4.7e28 values).
+	 * This makes prefix collisions negligible even with millions of active tokens.
+	 * The DB column token_prefix is VARCHAR(21); the migration adds an index on it.
 	 *
 	 * @param string $raw_token Raw token value.
-	 * @return string 8-character prefix string.
+	 * @return string 21-character prefix string.
 	 */
 	private function extract_prefix( string $raw_token ): string {
-		return \substr( $raw_token, 0, 8 );
+		return \substr( $raw_token, 0, 21 );
 	}
 
 	/**

@@ -135,7 +135,9 @@ class McpEncryption {
 	 * @return string 32-byte binary key suitable for AES-256 / HMAC-SHA256.
 	 */
 	public function derive_key( string $context ): string {
-		return \hash_hmac( 'sha256', $this->get_master_key(), self::KEY_CONTEXT_PREFIX . $context, true );
+		// Standard HKDF-like pattern: HMAC(key=secret, data=context_info).
+		// The master key is the HMAC key (secret); context is the info (data).
+		return \hash_hmac( 'sha256', self::KEY_CONTEXT_PREFIX . $context, $this->get_master_key(), true );
 	}
 
 	// ── Private helpers ───────────────────────────────────────────────────────
@@ -163,6 +165,7 @@ class McpEncryption {
 		// ensure AUTH_KEY is defined in the PHPUnit bootstrap.
 		$auth_key = \defined( 'AUTH_KEY' ) ? (string) \AUTH_KEY : 'g2rd_fallback_key_define_auth_key_in_tests';
 
-		return \hash_hmac( 'sha256', $auth_key, 'g2rd_mcp_master_v1' );
+		// AUTH_KEY is the HMAC key (secret); static string is the info (data).
+		return \hash_hmac( 'sha256', 'g2rd_mcp_master_v1', $auth_key );
 	}
 }

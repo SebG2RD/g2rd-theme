@@ -57,7 +57,7 @@ function g2rd_mcp_create_tokens_table(): void {
   user_id       BIGINT UNSIGNED  NOT NULL,
   token_name    VARCHAR(100)     NOT NULL,
   token_hash    VARCHAR(255)     NOT NULL,
-  token_prefix  VARCHAR(8)       NOT NULL,
+  token_prefix  VARCHAR(21)      NOT NULL,
   scope         ENUM('read_only','editor','admin','full') NOT NULL DEFAULT 'read_only',
   allowed_ips   TEXT             NULL,
   last_used_at  DATETIME         NULL,
@@ -68,7 +68,8 @@ function g2rd_mcp_create_tokens_table(): void {
   PRIMARY KEY  (id),
   UNIQUE KEY token_hash (token_hash),
   KEY user_id (user_id),
-  KEY expires_at (expires_at)
+  KEY expires_at (expires_at),
+  KEY token_prefix (token_prefix)
 ) ENGINE=InnoDB {$charset_collate};";
 	// phpcs:enable WordPress.DB.DirectDatabaseQuery.SchemaChange
 
