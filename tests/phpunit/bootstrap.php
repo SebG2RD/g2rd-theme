@@ -13,3 +13,8 @@ if (file_exists($autoload)) {
 if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__DIR__, 2) . '/');
 }
+
+// WordPress constants required by MCP classes.
+if (!defined('AUTH_KEY')) {
+    define('AUTH_KEY', 'g2rd_phpunit_auth_key_not_for_production_xYzAbCdEfGhIjKlMnOpQrStUvWxYz01');
+}
