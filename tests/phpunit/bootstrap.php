@@ -61,3 +61,28 @@ if (!defined('DAY_IN_SECONDS')) {
 if (!defined('ARRAY_A')) {
     define('ARRAY_A', 'ARRAY_A');
 }
+
+// In-memory transient store for rate-limiter tests.
+global $g2rd_transient_store;
+$g2rd_transient_store = [];
+
+if (!function_exists('get_transient')) {
+    function get_transient($transient) {
+        global $g2rd_transient_store;
+        return $g2rd_transient_store[$transient] ?? false;
+    }
+}
+if (!function_exists('set_transient')) {
+    function set_transient($transient, $value, $expiration = 0) {
+        global $g2rd_transient_store;
+        $g2rd_transient_store[$transient] = $value;
+        return true;
+    }
+}
+if (!function_exists('delete_transient')) {
+    function delete_transient($transient) {
+        global $g2rd_transient_store;
+        unset($g2rd_transient_store[$transient]);
+        return true;
+    }
+}
