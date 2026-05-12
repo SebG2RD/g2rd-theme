@@ -50,3 +50,14 @@ if (!function_exists('update_option')) {
         return true;
     }
 }
+if (!function_exists('current_time')) {
+    function current_time($type = 'mysql', $gmt = false) {
+        return ($type === 'timestamp') ? time() : gmdate('Y-m-d H:i:s');
+    }
+}
+if (!defined('DAY_IN_SECONDS')) {
+    define('DAY_IN_SECONDS', 86400);
+}
+if (!defined('ARRAY_A')) {
+    define('ARRAY_A', 'ARRAY_A');
+}
