@@ -67,6 +67,7 @@ return array(
     'G2RD\\McpAuditLog' => $baseDir . '/classes/class-mcp-audit-log.php',
     'G2RD\\McpEncryption' => $baseDir . '/classes/class-mcp-encryption.php',
     'G2RD\\McpRateLimiter' => $baseDir . '/classes/class-mcp-rate-limiter.php',
+    'G2RD\\McpSecurityGate' => $baseDir . '/classes/class-mcp-security-gate.php',
     'G2RD\\McpTokenManager' => $baseDir . '/classes/class-mcp-token-manager.php',
     'G2RD\\Onboarding' => $baseDir . '/classes/class-onboarding.php',
     'G2RD\\ParticlesEffect' => $baseDir . '/classes/class-particules-effect.php',

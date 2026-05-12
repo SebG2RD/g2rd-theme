@@ -137,6 +137,7 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'G2RD\\McpAuditLog' => __DIR__ . '/../..' . '/classes/class-mcp-audit-log.php',
         'G2RD\\McpEncryption' => __DIR__ . '/../..' . '/classes/class-mcp-encryption.php',
         'G2RD\\McpRateLimiter' => __DIR__ . '/../..' . '/classes/class-mcp-rate-limiter.php',
+        'G2RD\\McpSecurityGate' => __DIR__ . '/../..' . '/classes/class-mcp-security-gate.php',
         'G2RD\\McpTokenManager' => __DIR__ . '/../..' . '/classes/class-mcp-token-manager.php',
         'G2RD\\Onboarding' => __DIR__ . '/../..' . '/classes/class-onboarding.php',
         'G2RD\\ParticlesEffect' => __DIR__ . '/../..' . '/classes/class-particules-effect.php',
