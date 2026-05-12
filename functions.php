@@ -79,6 +79,10 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 // Enregistrer le hook after_switch_theme avant after_setup_theme
 ( new FseSync() )->register_switch_hook();
 
+// Migration MCP — tables SQL créées à l'activation du thème.
+require_once __DIR__ . '/migrations/001-mcp-tables.php';
+\add_action( 'after_switch_theme', __NAMESPACE__ . '\g2rd_mcp_run_migration_001' );
+
 /**
  * Initialise toutes les composantes du thème
  *
