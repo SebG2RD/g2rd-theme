@@ -58,6 +58,9 @@ skills-lock.json
 # Lock files des workspaces npm (le lock file racine fait autorité)
 blocks/*/package-lock.json
 
+# Thème enfant (source locale — à déployer manuellement dans wp-content/themes/)
+g2rd-child/
+
 # Fichiers système
 .DS_Store
 Thumbs.db
