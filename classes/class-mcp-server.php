@@ -149,6 +149,7 @@ class McpServer {
 		// All other methods require a Bearer token.
 		$raw_token = $this->extract_bearer_token( $request );
 		$client_ip = $this->extract_client_ip();
+		$req_ctx   = $this->build_request_context( $request );
 
 		if ( '' === $raw_token ) {
 			return $this->rpc_error( $id, -32001, 'Missing Authorization header' );
@@ -156,9 +157,9 @@ class McpServer {
 
 		switch ( $method ) {
 			case 'tools/list':
-				return $this->handle_tools_list( $id, $params, $raw_token, $client_ip );
+				return $this->handle_tools_list( $id, $params, $raw_token, $client_ip, $req_ctx );
 			case 'tools/call':
-				return $this->handle_tools_call( $id, $params, $raw_token, $client_ip );
+				return $this->handle_tools_call( $id, $params, $raw_token, $client_ip, $req_ctx );
 			default:
 				return $this->rpc_error( $id, -32601, 'Method not found' );
 		}
@@ -213,20 +214,22 @@ class McpServer {
 	/**
 	 * Handles tools/list — returns all registered MCP tools.
 	 *
-	 * @param mixed  $id        JSON-RPC request ID.
-	 * @param mixed  $params    Request params.
-	 * @param string $raw_token Bearer token.
-	 * @param string $client_ip Client IP address.
+	 * @param mixed                $id        JSON-RPC request ID.
+	 * @param mixed                $params    Request params.
+	 * @param string               $raw_token Bearer token.
+	 * @param string               $client_ip Client IP address.
+	 * @param array<string, mixed> $req_ctx   Request context (user_agent, screen_context, start_ms).
 	 * @return \WP_REST_Response
 	 */
-	private function handle_tools_list( mixed $id, mixed $params, string $raw_token, string $client_ip ): \WP_REST_Response {
+	private function handle_tools_list( mixed $id, mixed $params, string $raw_token, string $client_ip, array $req_ctx = [] ): \WP_REST_Response {
 		$gate_result = $this->gate->authorize(
 			$raw_token,
 			'read_only',
 			'read',
 			'mcp/tools-list',
 			$params,
-			$client_ip
+			$client_ip,
+			$req_ctx
 		);
 
 		if ( ! $gate_result['allowed'] ) {
@@ -244,13 +247,14 @@ class McpServer {
 	 * Injects client_ip into the gate_result so write abilities can pass it
 	 * to the confirmation queue's enqueue() method.
 	 *
-	 * @param mixed  $id        JSON-RPC request ID.
-	 * @param mixed  $params    Request params (must include 'name').
-	 * @param string $raw_token Bearer token.
-	 * @param string $client_ip Client IP address.
+	 * @param mixed                $id        JSON-RPC request ID.
+	 * @param mixed                $params    Request params (must include 'name').
+	 * @param string               $raw_token Bearer token.
+	 * @param string               $client_ip Client IP address.
+	 * @param array<string, mixed> $req_ctx   Request context (user_agent, screen_context, start_ms).
 	 * @return \WP_REST_Response
 	 */
-	private function handle_tools_call( mixed $id, mixed $params, string $raw_token, string $client_ip ): \WP_REST_Response {
+	private function handle_tools_call( mixed $id, mixed $params, string $raw_token, string $client_ip, array $req_ctx = [] ): \WP_REST_Response {
 		$tool_name = \is_array( $params ) ? (string) ( $params['name'] ?? '' ) : '';
 		$arguments = \is_array( $params ) ? ( $params['arguments'] ?? [] ) : [];
 
@@ -269,7 +273,8 @@ class McpServer {
 			$ability['wp_capability'],
 			$tool_name,
 			$arguments,
-			$client_ip
+			$client_ip,
+			$req_ctx
 		);
 
 		if ( ! $gate_result['allowed'] ) {
@@ -376,6 +381,24 @@ class McpServer {
 		}
 
 		return \trim( \substr( $auth, 7 ) );
+	}
+
+	/**
+	 * Builds the request context array from HTTP headers for audit log enrichment.
+	 *
+	 * Captures User-Agent, the X-G2RD-Screen header (injected by McpJsBridge on
+	 * admin pages), and the request start timestamp so the security gate can
+	 * store user_agent, screen_context, and execution_ms in every audit entry.
+	 *
+	 * @param \WP_REST_Request $request REST request.
+	 * @return array{start_ms: int, screen_context: string, user_agent: string}
+	 */
+	private function build_request_context( \WP_REST_Request $request ): array {
+		return [
+			'start_ms'       => (int) \round( \microtime( true ) * 1000 ),
+			'screen_context' => \sanitize_text_field( \substr( (string) ( $request->get_header( 'x-g2rd-screen' ) ?? '' ), 0, 500 ) ),
+			'user_agent'     => \sanitize_text_field( \substr( (string) ( $request->get_header( 'user-agent' ) ?? '' ), 0, 255 ) ),
+		];
 	}
 
 	/**

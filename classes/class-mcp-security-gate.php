@@ -57,12 +57,13 @@ class McpSecurityGate {
 	/**
 	 * Runs all seven security layers for an inbound MCP request.
 	 *
-	 * @param string               $raw_token     Bearer token from Authorization header.
-	 * @param string               $required_scope Minimum scope needed for this ability.
-	 * @param string               $wp_capability  WordPress capability required (e.g. 'edit_posts').
-	 * @param string               $ability_name   MCP ability identifier (e.g. 'g2rd/list-posts').
-	 * @param mixed                $input          Raw request payload (hashed before audit storage).
-	 * @param string               $client_ip      Client IP address.
+	 * @param string               $raw_token      Bearer token from Authorization header.
+	 * @param string               $required_scope  Minimum scope needed for this ability.
+	 * @param string               $wp_capability   WordPress capability required (e.g. 'edit_posts').
+	 * @param string               $ability_name    MCP ability identifier (e.g. 'g2rd/list-posts').
+	 * @param mixed                $input           Raw request payload (hashed before audit storage).
+	 * @param string               $client_ip       Client IP address.
+	 * @param array<string, mixed> $req_ctx         Optional request context: start_ms, user_agent, screen_context.
 	 * @return array{allowed: bool, user_id: int, token_id: int, scope: string, denial_reason: string} Gate result.
 	 */
 	public function authorize(
@@ -71,18 +72,19 @@ class McpSecurityGate {
 		string $wp_capability,
 		string $ability_name,
 		mixed $input,
-		string $client_ip
+		string $client_ip,
+		array $req_ctx = []
 	): array {
 		// Layer 1: IP lockout — fastest check, no DB hit.
 		if ( $this->limiter->is_locked_out( $client_ip ) ) {
-			return $this->deny( 0, 0, $ability_name, $input, $client_ip, 'ip_locked_out', 'IP locked out due to repeated authentication failures' );
+			return $this->deny( 0, 0, $ability_name, $input, $client_ip, 'ip_locked_out', 'IP locked out due to repeated authentication failures', $req_ctx );
 		}
 
 		// Layer 2: Token format + DB validation.
 		$token_data = $this->tokens->validate_token( $raw_token );
 		if ( false === $token_data ) {
 			$this->limiter->record_auth_failure( $client_ip );
-			return $this->deny( 0, 0, $ability_name, $input, $client_ip, 'invalid_token', 'Token is invalid, expired or revoked' );
+			return $this->deny( 0, 0, $ability_name, $input, $client_ip, 'invalid_token', 'Token is invalid, expired or revoked', $req_ctx );
 		}
 
 		$user_id  = $token_data['user_id'];
@@ -93,32 +95,39 @@ class McpSecurityGate {
 
 		// Layer 3: Scope hierarchy check.
 		if ( ! $this->tokens->scope_satisfies( $token_data['scope'], $required_scope ) ) {
-			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'insufficient_scope', "Token scope '{$token_data['scope']}' does not satisfy required '{$required_scope}'" );
+			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'insufficient_scope', "Token scope '{$token_data['scope']}' does not satisfy required '{$required_scope}'", $req_ctx );
 		}
 
 		// Layer 4: WordPress capability check.
 		if ( ! $this->check_wp_capability( $user_id, $wp_capability ) ) {
-			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'insufficient_capability', "User lacks required WordPress capability: {$wp_capability}" );
+			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'insufficient_capability', "User lacks required WordPress capability: {$wp_capability}", $req_ctx );
 		}
 
 		// Layer 5: IP allowlist (empty list = all IPs allowed).
 		if ( ! $this->check_ip_allowlist( $client_ip, $token_data['allowed_ips'] ) ) {
-			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'ip_not_allowed', 'Client IP is not in the token allowlist' );
+			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'ip_not_allowed', 'Client IP is not in the token allowlist', $req_ctx );
 		}
 
 		// Layer 6: Request rate limiting.
 		if ( ! $this->limiter->check_requests( $client_ip ) ) {
-			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'rate_limited', 'Too many requests — please slow down' );
+			return $this->deny( $user_id, $token_id, $ability_name, $input, $client_ip, 'rate_limited', 'Too many requests — please slow down', $req_ctx );
 		}
 
 		// Layer 7: Audit log — allowed decision.
+		$execution_ms = isset( $req_ctx['start_ms'] )
+			? \max( 0, (int) \round( \microtime( true ) * 1000 ) - $req_ctx['start_ms'] )
+			: null;
+
 		$this->audit->log( [
-			'user_id'      => $user_id,
-			'token_id'     => $token_id,
-			'ip_address'   => $client_ip,
-			'ability_name' => $ability_name,
-			'input'        => $input,
-			'decision'     => 'allowed',
+			'user_id'        => $user_id,
+			'token_id'       => $token_id,
+			'ip_address'     => $client_ip,
+			'ability_name'   => $ability_name,
+			'input'          => $input,
+			'decision'       => 'allowed',
+			'user_agent'     => $req_ctx['user_agent'] ?? '',
+			'execution_ms'   => $execution_ms,
+			'screen_context' => $req_ctx['screen_context'] ?? '',
 		] );
 
 		return [
@@ -135,13 +144,14 @@ class McpSecurityGate {
 	/**
 	 * Builds a denial result and writes it to the audit log.
 	 *
-	 * @param int    $user_id      WordPress user ID (0 if unknown).
-	 * @param int    $token_id     Token row ID (0 if unknown).
-	 * @param string $ability_name Ability being attempted.
-	 * @param mixed  $input        Raw request payload.
-	 * @param string $client_ip    Client IP address.
-	 * @param string $code         Machine-readable denial code.
-	 * @param string $reason       Human-readable denial reason.
+	 * @param int                  $user_id      WordPress user ID (0 if unknown).
+	 * @param int                  $token_id     Token row ID (0 if unknown).
+	 * @param string               $ability_name Ability being attempted.
+	 * @param mixed                $input        Raw request payload.
+	 * @param string               $client_ip    Client IP address.
+	 * @param string               $code         Machine-readable denial code.
+	 * @param string               $reason       Human-readable denial reason.
+	 * @param array<string, mixed> $req_ctx      Optional request context: start_ms, user_agent, screen_context.
 	 * @return array{allowed: bool, user_id: int, token_id: int, scope: string, denial_reason: string}
 	 */
 	private function deny(
@@ -151,16 +161,24 @@ class McpSecurityGate {
 		mixed $input,
 		string $client_ip,
 		string $code,
-		string $reason
+		string $reason,
+		array $req_ctx = []
 	): array {
+		$execution_ms = isset( $req_ctx['start_ms'] )
+			? \max( 0, (int) \round( \microtime( true ) * 1000 ) - $req_ctx['start_ms'] )
+			: null;
+
 		$this->audit->log( [
-			'user_id'       => $user_id,
-			'token_id'      => $token_id,
-			'ip_address'    => $client_ip,
-			'ability_name'  => $ability_name,
-			'input'         => $input,
-			'decision'      => 'denied',
-			'denial_reason' => "[{$code}] {$reason}",
+			'user_id'        => $user_id,
+			'token_id'       => $token_id,
+			'ip_address'     => $client_ip,
+			'ability_name'   => $ability_name,
+			'input'          => $input,
+			'decision'       => 'denied',
+			'denial_reason'  => "[{$code}] {$reason}",
+			'user_agent'     => $req_ctx['user_agent'] ?? '',
+			'execution_ms'   => $execution_ms,
+			'screen_context' => $req_ctx['screen_context'] ?? '',
 		] );
 
 		return [
