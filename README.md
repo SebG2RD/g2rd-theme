@@ -127,6 +127,13 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.12.1
+
+- **Fix MCP audit** : câblage de `X-G2RD-Screen`, `User-Agent` et `execution_ms` dans chaque entrée d'audit (allowed et denied) — complète l'intent du JS bridge (SP-5).
+- **CI SBOM** : nouveau workflow `sbom.yml` — génère un inventaire des dépendances CycloneDX JSON (Composer PHP + npm) signé via attestation sigstore et attaché à chaque GitHub Release.
+- **Thème enfant** : dossier `g2rd-child/` ajouté localement (non versionné) avec `style.css`, `functions.php`, `theme.json` et palette de design prête à l'emploi.
+- **Chore** : autoload Composer mis à jour pour `McpAbilities`, `McpConfirmationQueue` et `McpServer`.
+
 ### 1.11.2
 
 - **Option BO** : bouton pause désactivé nativement sur tous les blocs animés (g2rd-carousel, g2rd-typed, g2rd-marquee, g2rd-testimonial) — activable via un toggle dans le panneau d'inspection Gutenberg.

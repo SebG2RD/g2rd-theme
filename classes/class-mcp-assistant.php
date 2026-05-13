@@ -58,7 +58,7 @@ class McpAssistant {
 
 		$asset_file = $dir_path . '/blocks/g2rd-mcp-assistant/build/index.asset.php';
 		$asset      = \file_exists( $asset_file )
-			? require $asset_file
+			? require $asset_file // phpcs:ignore PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt -- chemin server-controlled, extension .php garantie par la concaténation
 			: [
 				'dependencies' => [ 'wp-plugins', 'wp-editor', 'wp-element', 'wp-components', 'wp-api-fetch' ],
 				'version'      => '1.0.0',
