@@ -539,6 +539,7 @@ class ThemeOptions {
         );
 
         return [
+            'restBase'        => \rest_url( '' ),
             'restUrl'         => \rest_url( self::REST_NAMESPACE . '/settings' ),
             'licenseRestUrl'  => \rest_url( self::REST_NAMESPACE . '/license' ),
             'nonce'           => \wp_create_nonce( 'wp_rest' ),

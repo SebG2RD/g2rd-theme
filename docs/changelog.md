@@ -1,5 +1,17 @@
 # Changelog du thème G2RD
 
+## 1.12.0
+
+- **MCP Server** : serveur Model Context Protocol natif — endpoint `POST /wp-json/g2rd/mcp/v1` — protocole JSON-RPC 2.0 compatible Claude Desktop, Cursor, ChatGPT, Gemini.
+- **MCP Sécurité SP-1** : 7 couches de sécurité — `McpEncryption` (AES-256-GCM), `McpTokenManager` (HMAC-SHA256, format `g2rd_` + 40 base62), `McpRateLimiter` (token bucket 60 req/min + 1000/24h), `McpAuditLog` (INSERT-only + hash de chaînage HMAC), `McpSecurityGate` (orchestrateur fail-closed).
+- **MCP SP-2** : endpoint REST + dispatcher JSON-RPC 2.0 + 3 outils lecture seule : `g2rd/get-site-info`, `g2rd/list-posts`, `g2rd/get-post`.
+- **MCP SP-3** : outils d'écriture avec gate humain — `g2rd/create-post`, `g2rd/update-post` — `McpConfirmationQueue` : TTL 15 min, tokens 256 bits, arguments chiffrés AES-256-GCM, email admin + liens confirmer/refuser, protection race condition via `UPDATE WHERE status='pending'`.
+- **MCP SP-4** : interface d'administration React dans Options G2RD — 3 onglets : MCP Tokens (liste/création/révocation), MCP Audit (journal paginé + filtre décision), MCP File (confirmations en attente avec boutons confirmer/refuser).
+- **MCP SP-5** : `McpAnomalyDetector` — détection brute force IP (≥5 refus/15min), taux de refus élevé (>50%/24h), pic de volume (>3× moyenne 7j) — cache transient 5 min. `McpJsBridge` — badge barre d'admin + polling 60s + middleware `X-G2RD-Screen` pour apiFetch. `McpAssistant` — panneau Gutenberg `PluginDocumentSettingPanel` montrant statut serveur + file + anomalies.
+- **BDD** : 3 nouvelles tables — `g2rd_mcp_tokens`, `g2rd_mcp_audit_log`, `g2rd_mcp_confirmation_queue` — migrations idempotentes via `dbDelta()`.
+- **Tests** : 62 tests PHPUnit couvrant les 6 classes de sécurité MCP (377 assertions).
+- **Docs** : `docs/mcp-server.md` — guide complet utilisateur (setup, tokens, outils, confirmation, sécurité).
+
 ## 1.3.0
 
 - **Licence** : système complet — `class-license-manager.php` refonte totale : activation, désactivation, validation périodique (cron 24h), cache transient, détection de changement de domain.

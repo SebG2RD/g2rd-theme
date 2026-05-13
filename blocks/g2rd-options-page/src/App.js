@@ -8,6 +8,9 @@ import { TabMaintenance } from './tabs/TabMaintenance';
 import { TabConnexion } from './tabs/TabConnexion';
 import { TabLicence } from './tabs/TabLicence';
 import { TabLicenceAdmin } from './tabs/TabLicenceAdmin';
+import { TabMcpTokens } from './tabs/TabMcpTokens';
+import { TabMcpAudit } from './tabs/TabMcpAudit';
+import { TabMcpQueue } from './tabs/TabMcpQueue';
 
 const { version, licensed, licenseServerMode } = window.G2RDOptionsData || {};
 
@@ -20,6 +23,9 @@ const TAB_CONFIG = [
 	{ name: 'connexion',     title: 'Connexion',          icon: 'lock' },
 	{ name: 'licence',       title: 'Licence',            icon: 'admin-network' },
 	...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'admin-network' } ] : [] ),
+	{ name: 'mcp-tokens', title: 'MCP Tokens',  icon: 'shield' },
+	{ name: 'mcp-audit',  title: 'MCP Audit',   icon: 'list-view' },
+	{ name: 'mcp-queue',  title: 'MCP File',    icon: 'clock' },
 ];
 
 const TABS = TAB_CONFIG.map( ( { name, title, icon } ) => ( {
@@ -98,6 +104,9 @@ export function App() {
 						case 'connexion':     return <TabConnexion     { ...props } />;
 						case 'licence':       return <TabLicence />;
 						case 'licence-admin': return <TabLicenceAdmin />;
+						case 'mcp-tokens':    return <TabMcpTokens />;
+						case 'mcp-audit':     return <TabMcpAudit />;
+						case 'mcp-queue':     return <TabMcpQueue />;
 						default:              return null;
 					}
 				} }

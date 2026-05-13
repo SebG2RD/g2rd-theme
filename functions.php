@@ -40,6 +40,19 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
             'class-scripts-manager.php',        // dépend de ThemeOptions
             'class-license-manager.php',        // instancié directement dans bootstrap_theme
             'class-github-updater.php',         // dépend de LicenseManager
+            // MCP stack — ordre de dépendances : encryption → limiter/audit/tokens → gate → queue → abilities → server → admin-api → sp5
+            'class-mcp-encryption.php',
+            'class-mcp-rate-limiter.php',
+            'class-mcp-audit-log.php',
+            'class-mcp-token-manager.php',
+            'class-mcp-security-gate.php',
+            'class-mcp-confirmation-queue.php',
+            'class-mcp-abilities.php',
+            'class-mcp-server.php',
+            'class-mcp-admin-api.php',
+            'class-mcp-anomaly-detector.php',
+            'class-mcp-js-bridge.php',
+            'class-mcp-assistant.php',
         ];
 
         // Préfixe calculé une fois hors des boucles.
@@ -79,9 +92,12 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 // Enregistrer le hook after_switch_theme avant after_setup_theme
 ( new FseSync() )->register_switch_hook();
 
-// Migration MCP — tables SQL créées à l'activation du thème.
+// Migrations MCP — tables SQL créées à l'activation du thème.
 require_once __DIR__ . '/migrations/001-mcp-tables.php';
 \add_action( 'after_switch_theme', __NAMESPACE__ . '\g2rd_mcp_run_migration_001' );
+
+require_once __DIR__ . '/migrations/002-mcp-confirmation-queue.php';
+\add_action( 'after_switch_theme', __NAMESPACE__ . '\g2rd_mcp_run_migration_002' );
 
 /**
  * Initialise toutes les composantes du thème
@@ -178,6 +194,18 @@ function bootstrap_theme(): void
 
     // Synchronisation FSE templates/template-parts (admin_init hooks)
     ( new FseSync() )->register_hooks();
+
+    // Serveur MCP — endpoint REST + dispatcher JSON-RPC 2.0
+    ( new McpServer() )->register_hooks();
+
+    // API MCP admin — endpoints REST pour la page d'options (tokens, audit, queue, anomalies)
+    ( new McpAdminApi() )->register_hooks();
+
+    // MCP JS Bridge — badge barre d'admin + middleware X-G2RD-Screen
+    ( new McpJsBridge() )->register_hooks();
+
+    // MCP Assistant — panneau sidebar Gutenberg (administrateurs uniquement)
+    ( new McpAssistant() )->register_hooks();
 
     // Initialiser les autres classes
     foreach ( $classes as $class ) {
