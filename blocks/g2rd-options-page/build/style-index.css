@@ -1,129 +1,303 @@
-/* ── App Shell ─────────────────────────────────────────────────── */
-.g2rd-options-app {
-	max-width: 960px;
-	margin: 24px auto;
-	padding-bottom: 80px;
+/* =============================================================
+   G2RD Options Page — Design system
+   ============================================================= */
+
+/* ── App shell ────────────────────────────────────────────────── */
+
+.g2rd-app {
+	display: flex;
+	flex-direction: column;
+	min-height: calc( 100vh - 32px );
+	margin: 0 0 0 -20px;         /* annule le padding WP wrap */
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: #f0f1f2;
+	color: #1d2327;
 }
+
 /* ── Header ────────────────────────────────────────────────────── */
-.g2rd-options-header {
+
+.g2rd-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px 24px;
+	gap: 16px;
+	padding: 0 28px;
+	height: 60px;
 	background: #fff;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	margin-bottom: 20px;
+	border-bottom: 1px solid #e2e4e7;
+	flex-shrink: 0;
+	position: sticky;
+	top: 32px;
+	z-index: 100;
 }
-.g2rd-options-header__left {
+
+.g2rd-header__brand {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 14px;
 }
-.g2rd-options-header__logo {
+
+.g2rd-header__logo {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 44px;
-	height: 44px;
-	background: var(--primary-color);
+	width: 36px;
+	height: 36px;
+	background: var(--primary-color, #2f425d);
 	color: #fff;
 	font-weight: 800;
-	font-size: 13px;
+	font-size: 11px;
 	border-radius: 8px;
 	letter-spacing: 0.5px;
+	flex-shrink: 0;
 }
-.g2rd-options-header__title {
-	margin: 0;
-	font-size: 18px;
+
+.g2rd-header__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.g2rd-header__title {
+	font-size: 15px;
 	font-weight: 700;
 	color: #1d2327;
+	line-height: 1.2;
 }
-.g2rd-options-header__version {
-	font-size: 12px;
-	color: #8c8f94;
+
+.g2rd-header__version {
+	font-size: 11px;
+	color: #a0a5aa;
+	line-height: 1;
 }
-.g2rd-options-header__right {
+
+.g2rd-header__actions {
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: 10px;
 }
-.g2rd-header-save {
+
+.g2rd-header__save {
 	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-/* ── Notice ────────────────────────────────────────────────────── */
-.g2rd-notice {
-	margin-bottom: 16px !important;
-}
-/* ── Tab Panel ─────────────────────────────────────────────────── */
-.g2rd-tab-panel .components-tab-panel__tabs {
-	border-bottom: 1px solid #ddd;
-	background: #fff;
-	padding: 0 8px;
-	border-radius: 8px 8px 0 0;
-	gap: 4px;
-}
-.g2rd-tab-panel .components-tab-panel__tab-content {
-	background: #fff;
-	border: 1px solid #ddd;
-	border-top: none;
-	border-radius: 0 0 8px 8px;
-	min-height: 300px;
-}
-.g2rd-tab-label {
-	display: inline-flex;
 	align-items: center;
 	gap: 6px;
 }
-.g2rd-tab-label .dashicons {
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
+
+/* ── Notice ────────────────────────────────────────────────────── */
+
+.g2rd-notice {
+	margin: 0 !important;
+	border-radius: 0 !important;
 }
-/* ── Sections ──────────────────────────────────────────────────── */
-.g2rd-tab-content {
+
+/* ── Body layout ──────────────────────────────────────────────── */
+
+.g2rd-body {
+	display: flex;
+	flex: 1;
+	min-height: 0;
+}
+
+/* ── Sidebar nav ──────────────────────────────────────────────── */
+
+.g2rd-nav {
+	width: 210px;
+	flex-shrink: 0;
+	background: #1e2d3d;
+	padding: 20px 0 32px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	overflow-y: auto;
+}
+
+.g2rd-nav__group {
+	padding: 0 0 8px;
+}
+
+.g2rd-nav__group + .g2rd-nav__group {
+	border-top: 1px solid rgba( 255, 255, 255, 0.07 );
+	padding-top: 12px;
+}
+
+.g2rd-nav__group-label {
+	display: block;
+	padding: 0 16px 6px;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.8px;
+	text-transform: uppercase;
+	color: rgba( 255, 255, 255, 0.35 );
+}
+
+.g2rd-nav__item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 9px 16px;
+	background: transparent;
+	border: none;
+	border-left: 3px solid transparent;
+	color: rgba( 255, 255, 255, 0.62 );
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: left;
+	transition: color 0.12s, background 0.12s, border-color 0.12s;
+	line-height: 1.3;
+}
+
+.g2rd-nav__item .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	flex-shrink: 0;
+	opacity: 0.7;
+	transition: opacity 0.12s;
+}
+
+.g2rd-nav__item:hover {
+	background: rgba( 255, 255, 255, 0.06 );
+	color: #fff;
+}
+
+.g2rd-nav__item:hover .dashicons {
+	opacity: 1;
+}
+
+.g2rd-nav__item--active {
+	background: rgba( 255, 255, 255, 0.1 );
+	border-left-color: var(--primary-color, #2f9fe8);
+	color: #fff;
+}
+
+.g2rd-nav__item--active .dashicons {
+	opacity: 1;
+}
+
+/* ── Main content ─────────────────────────────────────────────── */
+
+.g2rd-main {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
 	padding: 24px;
+	gap: 0;
+}
+
+.g2rd-main__heading {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 0 16px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #e2e4e7;
+}
+
+.g2rd-main__heading .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	color: var(--primary-color, #2f9fe8);
+	flex-shrink: 0;
+}
+
+.g2rd-main__heading h2 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: #1d2327;
+}
+
+.g2rd-main__content {
+	flex: 1;
+}
+
+/* ── Pills (licence badge) ────────────────────────────────────── */
+
+.g2rd-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 4px 10px;
+	border-radius: 20px;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+	white-space: nowrap;
+}
+
+.g2rd-pill .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+}
+
+.g2rd-pill--ok {
+	background: #d1fae5;
+	color: #065f46;
+}
+
+.g2rd-pill--warn {
+	background: #fef3c7;
+	color: #92400e;
+}
+
+/* ── Sections ─────────────────────────────────────────────────── */
+
+.g2rd-tab-content {
 	display: flex;
 	flex-direction: column;
 	gap: 32px;
 }
+
 .g2rd-section__title {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	font-size: 14px;
-	font-weight: 600;
+	font-size: 13px;
+	font-weight: 700;
 	color: #1d2327;
 	margin: 0 0 6px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #f0f0f1;
 }
+
 .g2rd-section__title .dashicons {
-	color: var(--primary-color);
+	color: var(--primary-color, #2f9fe8);
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
 }
+
 .g2rd-section__desc {
 	font-size: 13px;
 	color: #646970;
 	margin: 0 0 16px;
 }
-/* ── Card ──────────────────────────────────────────────────────── */
+
+/* ── Cards ─────────────────────────────────────────────────────── */
+
 .g2rd-card {
 	background: #f9f9f9;
 	border: 1px solid #e2e4e7;
-	border-radius: 6px;
+	border-radius: 8px;
 	padding: 16px 20px;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 }
+
 .g2rd-indent {
 	padding-left: 20px;
-	border-left: 2px solid #ddd;
+	border-left: 2px solid #e2e4e7;
 }
+
 /* ── Badges ────────────────────────────────────────────────────── */
+
 .g2rd-badge {
 	display: inline-flex;
 	align-items: center;
@@ -135,26 +309,32 @@
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 }
+
 .g2rd-badge--active {
 	background: #d1fae5;
 	color: #065f46;
 }
+
 .g2rd-badge--inactive {
 	background: #fef3c7;
 	color: #92400e;
 }
+
 .g2rd-badge--lock {
 	background: #e5e7eb;
 	color: #6b7280;
 	font-size: 11px;
 	margin-left: 8px;
 }
-/* ── Business Type Grid ────────────────────────────────────────── */
+
+/* ── Business type grid ───────────────────────────────────────── */
+
 .g2rd-business-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 180px, 1fr ) );
 	gap: 12px;
 }
+
 .g2rd-business-card {
 	display: flex;
 	flex-direction: column;
@@ -168,35 +348,43 @@
 	text-align: left;
 	transition: border-color 0.15s, background 0.15s;
 }
+
 .g2rd-business-card:hover {
 	border-color: var(--primary-color);
 	background: #f0f4f8;
 }
+
 .g2rd-business-card--active {
 	border-color: var(--primary-color);
 	background: #eef2f8;
 }
+
 .g2rd-business-card .dashicons {
 	font-size: 20px;
 	width: 20px;
 	height: 20px;
 	color: var(--primary-color);
 }
+
 .g2rd-business-card strong {
 	font-size: 13px;
 	font-weight: 600;
 	color: #1d2327;
 }
+
 .g2rd-business-card__desc {
 	font-size: 11px;
 	color: #8c8f94;
 }
-/* ── Color Slots ───────────────────────────────────────────────── */
+
+/* ── Color slots ──────────────────────────────────────────────── */
+
 .g2rd-colors-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
 	gap: 16px;
 }
+
 .g2rd-color-slot__label {
 	display: block;
 	font-size: 12px;
@@ -204,11 +392,13 @@
 	color: #646970;
 	margin-bottom: 8px;
 }
+
 .g2rd-color-slot__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
+
 .g2rd-swatch {
 	width: 28px;
 	height: 28px;
@@ -218,21 +408,26 @@
 	transition: transform 0.1s, border-color 0.15s;
 	padding: 0;
 }
+
 .g2rd-swatch:hover {
 	transform: scale( 1.15 );
 }
+
 .g2rd-swatch--active {
 	border-color: var(--primary-color);
 	outline: 2px solid #fff;
 	outline-offset: 1px;
 	box-shadow: 0 0 0 2px var(--primary-color);
 }
-/* ── Features Grid ─────────────────────────────────────────────── */
+
+/* ── Features grid ────────────────────────────────────────────── */
+
 .g2rd-features-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 280px, 1fr ) );
 	gap: 12px;
 }
+
 .g2rd-feature-card {
 	display: flex;
 	gap: 14px;
@@ -242,36 +437,44 @@
 	border-radius: 8px;
 	transition: border-color 0.15s;
 }
+
 .g2rd-feature-card:hover {
 	border-color: #b5bcc2;
 }
+
 .g2rd-feature-card--locked {
 	opacity: 0.6;
 }
+
 .g2rd-feature-card__icon {
 	flex-shrink: 0;
 }
+
 .g2rd-feature-card__icon .dashicons {
 	font-size: 22px;
 	width: 22px;
 	height: 22px;
 	color: var(--primary-color);
 }
+
 .g2rd-feature-card__body {
 	flex: 1;
 	min-width: 0;
 }
+
 .g2rd-feature-card__header {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 4px;
 }
+
 .g2rd-feature-card__label {
 	font-size: 13px;
 	font-weight: 600;
 	color: #1d2327;
 }
+
 .g2rd-feature-card__badge {
 	font-size: 10px;
 	font-weight: 600;
@@ -280,18 +483,22 @@
 	padding: 2px 6px;
 	border-radius: 4px;
 }
+
 .g2rd-feature-card__desc {
 	font-size: 12px;
 	color: #8c8f94;
 	margin: 0 0 10px;
 	line-height: 1.4;
 }
-/* ── Blocks Grid ───────────────────────────────────────────────── */
+
+/* ── Blocks grid ──────────────────────────────────────────────── */
+
 .g2rd-blocks-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
 	gap: 8px;
 }
+
 .g2rd-block-item {
 	display: flex;
 	align-items: center;
@@ -302,12 +509,15 @@
 	border-radius: 6px;
 	transition: opacity 0.15s;
 }
+
 .g2rd-block-item--off {
 	opacity: 0.5;
 }
+
 .g2rd-block-item--locked {
 	cursor: not-allowed;
 }
+
 .g2rd-block-item .dashicons {
 	flex-shrink: 0;
 	font-size: 16px;
@@ -315,18 +525,22 @@
 	height: 16px;
 	color: var(--primary-color);
 }
+
 .g2rd-block-item__title {
 	flex: 1;
 	font-size: 12px;
 	font-weight: 500;
 	color: #1d2327;
 }
-/* ── CPT List ──────────────────────────────────────────────────── */
+
+/* ── CPT list ─────────────────────────────────────────────────── */
+
 .g2rd-cpt-list {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
+
 .g2rd-cpt-panel {
 	background: #f9f9f9;
 	border: 1px solid #e2e4e7;
@@ -334,30 +548,36 @@
 	overflow: hidden;
 	transition: opacity 0.15s;
 }
+
 .g2rd-cpt-panel--disabled {
 	opacity: 0.6;
 }
+
 .g2rd-cpt-panel__header {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	padding: 14px 16px;
 }
+
 .g2rd-cpt-panel__header .dashicons {
 	color: var(--primary-color);
 	font-size: 18px;
 	width: 18px;
 	height: 18px;
 }
+
 .g2rd-cpt-panel__header strong {
 	flex: 1;
 	font-size: 13px;
 	font-weight: 600;
 	color: #1d2327;
 }
+
 .g2rd-cpt-panel__toggle {
 	margin-left: auto;
 }
+
 .g2rd-cpt-panel__fields {
 	padding: 16px;
 	border-top: 1px solid #e2e4e7;
@@ -366,87 +586,80 @@
 	flex-direction: column;
 	gap: 12px;
 }
+
 .g2rd-cpt-panel__row {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 12px;
 }
+
 .g2rd-cpt-panel__toggles {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
 }
-/* ── Save Bar ──────────────────────────────────────────────────── */
+
+/* ── Save bar (conservé pour compatibilité, masqué) ───────────── */
+
 .g2rd-save-bar {
-	position: fixed;
-	bottom: 0;
-	left: 160px;
-	right: 0;
-	z-index: 9999;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 12px 24px;
-	background: var(--primary-color);
-	color: #fff;
-	box-shadow: 0 -2px 12px rgba( 0, 0, 0, 0.15 );
+	display: none;
 }
-.g2rd-save-bar__label {
-	font-size: 13px;
-	font-weight: 500;
-}
-.g2rd-save-bar__actions {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-.g2rd-save-bar .components-spinner {
-	margin: 0;
-}
-/* ── Login Tab Layout ──────────────────────────────────────────── */
+
+/* ── Login layout ─────────────────────────────────────────────── */
+
 .g2rd-login-layout {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 24px;
 	align-items: start;
 }
+
 .g2rd-login-options {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
+
 .g2rd-login-preview-col .g2rd-section--sticky {
 	position: sticky;
-	top: 32px;
+	top: 92px;  /* header 60px + 32px admin bar */
 }
-/* ── Login Preview ─────────────────────────────────────────────── */
+
+/* ── Login preview ────────────────────────────────────────────── */
+
 .g2rd-login-preview {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
+
 .g2rd-login-preview__hint {
 	font-size: 11px;
 	color: #8c8f94;
 	margin: 0;
 	text-align: center;
 }
-/* ── Color Input ───────────────────────────────────────────────── */
+
+/* ── Color input ──────────────────────────────────────────────── */
+
 .g2rd-color-input {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
+
 .g2rd-color-input__label {
 	font-size: 13px;
 	font-weight: 500;
 	color: #1d2327;
 }
+
 .g2rd-color-input__row {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
+
 .g2rd-color-input__picker {
 	width: 36px;
 	height: 36px;
@@ -456,6 +669,7 @@
 	cursor: pointer;
 	flex-shrink: 0;
 }
+
 .g2rd-color-input__text {
 	flex: 1;
 	height: 36px;
@@ -465,21 +679,26 @@
 	font-size: 13px;
 	font-family: monospace;
 }
+
 .g2rd-color-input__text:focus {
 	outline: none;
 	border-color: var(--primary-color);
 	box-shadow: 0 0 0 2px rgba( 30, 58, 95, 0.15 );
 }
+
 .g2rd-color-input__text:focus-visible {
 	outline: 2px solid var(--primary-color);
 	outline-offset: 2px;
 }
+
 .g2rd-color-input__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
-/* ── Color Group Label ─────────────────────────────────────────── */
+
+/* ── Color group label ────────────────────────────────────────── */
+
 .g2rd-color-group-label {
 	font-size: 12px;
 	font-weight: 600;
@@ -488,23 +707,29 @@
 	letter-spacing: 0.5px;
 	margin: 16px 0 8px;
 }
-/* ── Color Grid ────────────────────────────────────────────────── */
+
+/* ── Color grid ───────────────────────────────────────────────── */
+
 .g2rd-color-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 16px;
 }
-/* ── Media Picker ──────────────────────────────────────────────── */
+
+/* ── Media picker ─────────────────────────────────────────────── */
+
 .g2rd-media-picker {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
+
 .g2rd-media-picker__label {
 	font-size: 13px;
 	font-weight: 500;
 	color: #1d2327;
 }
+
 .g2rd-media-picker__preview {
 	width: 100%;
 	max-height: 120px;
@@ -512,6 +737,7 @@
 	border-radius: 6px;
 	border: 1px solid #ddd;
 }
+
 .g2rd-media-picker__preview img {
 	width: 100%;
 	height: 120px;
@@ -519,17 +745,35 @@
 	   object-fit: cover;
 	display: block;
 }
+
 .g2rd-media-picker__actions {
 	display: flex;
 	gap: 8px;
 	flex-wrap: wrap;
 }
+
 .g2rd-media-picker__hint {
 	font-size: 11px;
 	color: #8c8f94;
 	margin: 0;
 }
-/* ── Responsive ────────────────────────────────────────────────── */
+
+/* ── MCP tabs ─────────────────────────────────────────────────── */
+
+.g2rd-mcp-tab {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+
+@media ( max-width: 1200px ) {
+	.g2rd-nav {
+		width: 180px;
+	}
+}
+
 @media ( max-width: 960px ) {
 	.g2rd-login-layout {
 		grid-template-columns: 1fr;
@@ -538,10 +782,57 @@
 	.g2rd-color-grid {
 		grid-template-columns: 1fr;
 	}
+
+	.g2rd-nav {
+		width: 160px;
+	}
+
+	.g2rd-nav__item {
+		font-size: 12px;
+		padding: 8px 12px;
+	}
 }
+
 @media ( max-width: 782px ) {
-	.g2rd-save-bar {
-		left: 0;
+	.g2rd-app {
+		margin-left: 0;
+	}
+
+	.g2rd-body {
+		flex-direction: column;
+	}
+
+	.g2rd-nav {
+		width: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
+		padding: 8px;
+		gap: 0;
+	}
+
+	.g2rd-nav__group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+		padding: 4px;
+		border-top: none !important;
+	}
+
+	.g2rd-nav__group-label {
+		display: none;
+	}
+
+	.g2rd-nav__item {
+		border-left: none;
+		border-bottom: 3px solid transparent;
+		border-radius: 6px 6px 0 0;
+		padding: 8px 12px;
+		font-size: 12px;
+	}
+
+	.g2rd-nav__item--active {
+		border-left-color: transparent;
+		border-bottom-color: var(--primary-color, #2f9fe8);
 	}
 
 	.g2rd-cpt-panel__row {
