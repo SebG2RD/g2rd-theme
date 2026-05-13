@@ -151,7 +151,8 @@ export function App() {
 						<span className={ `dashicons dashicons-${ activeItem?.icon }` } aria-hidden="true"></span>
 						<h2>{ activeItem?.title }</h2>
 					</div>
-					<div className="g2rd-main__content">
+					{ /* key force le remount et déclenche l'animation CSS */ }
+					<div className="g2rd-main__content" key={ activeTab }>
 						{ renderTab( activeTab, settings, update ) }
 					</div>
 				</main>
