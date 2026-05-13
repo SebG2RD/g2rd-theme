@@ -1,0 +1,98 @@
+name: SBOM — Inventaire des dépendances
+
+# Déclenchement : à chaque release publiée + manuel
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag de release cible (ex. v1.12.0) — laisser vide pour HEAD'
+        required: false
+        type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  sbom:
+    name: Générer et publier le SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write      # Pour attacher le SBOM à la release GitHub
+      id-token: write      # Pour l'attestation sigstore (actions/attest-sbom)
+      attestations: write  # Pour créer une attestation GitHub
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      # ── Installer les dépendances PHP ─────────────────────────────────────────
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+          coverage: none
+
+      - name: Composer install (prod)
+        run: composer install --no-interaction --prefer-dist --no-dev
+
+      # ── Installer les dépendances npm ─────────────────────────────────────────
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: npm install
+        run: npm ci --ignore-scripts
+
+      # ── Générer le SBOM avec Syft (Anchore) ──────────────────────────────────
+      # Syft détecte automatiquement les écosystèmes : Composer PHP + npm
+      # Format : CycloneDX JSON (interopérable OWASP / GitHub Advisory DB)
+
+      - name: Générer le SBOM (CycloneDX JSON)
+        id: sbom
+        uses: anchore/sbom-action@v0
+        with:
+          path: ./
+          format: cyclonedx-json
+          artifact-name: g2rd-theme-sbom.cdx.json
+          output-file: g2rd-theme-sbom.cdx.json
+          # Attache automatiquement à la release si déclenchement via release event
+          upload-release-assets: ${{ github.event_name == 'release' }}
+
+      # ── Attestation GitHub (sigstore) ─────────────────────────────────────────
+      # Crée une attestation cryptographique liée au SBOM dans la transparence log.
+      # Vérifiable via : gh attestation verify g2rd-theme-sbom.cdx.json --repo SebG2RD/g2rd-theme
+
+      - name: Attester le SBOM (GitHub Artifact Attestation)
+        uses: actions/attest-sbom@v2
+        with:
+          subject-path: g2rd-theme-sbom.cdx.json
+          sbom-path: g2rd-theme-sbom.cdx.json
+
+      # ── Uploader en artifact de workflow (toujours disponible) ────────────────
+
+      - name: Uploader le SBOM comme artifact de workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: g2rd-theme-sbom.cdx.json
+          retention-days: 90
+
+      # ── Attacher à la release si déclenchement manuel avec tag ───────────────
+
+      - name: Attacher le SBOM à la release (workflow_dispatch avec tag)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          files: g2rd-theme-sbom.cdx.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
