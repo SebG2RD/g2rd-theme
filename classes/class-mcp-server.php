@@ -71,7 +71,7 @@ class McpServer {
 			$crypto       = new McpEncryption();
 			$limiter      = new McpRateLimiter( $crypto );
 			$audit        = new McpAuditLog( $crypto );
-			$tokens       = new McpTokenManager( $crypto );
+			$tokens       = new McpTokenManager( $crypto, $audit );
 			$this->gate   = new McpSecurityGate( $tokens, $limiter, $audit );
 			$this->queue  = $queue ?? new McpConfirmationQueue( $crypto, $audit );
 		} else {
