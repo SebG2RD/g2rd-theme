@@ -61,6 +61,9 @@ blocks/*/package-lock.json
 # Thème enfant (source locale — à déployer manuellement dans wp-content/themes/)
 g2rd-child/
 
+# Documentation interne (specs, notes de conception — non pertinentes pour le dépôt)
+docs/
+
 # Fichiers système
 .DS_Store
 Thumbs.db
