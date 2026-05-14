@@ -7,9 +7,10 @@
 import { useBlockProps } from '@wordpress/block-editor';
 import { TextControl, TextareaControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { TypographySizePanel } from '../../shared/TypographySizePanel';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { items } = attributes;
+	const { items, questionFontSize, answerFontSize } = attributes;
 
 	const blockProps = useBlockProps( { className: 'wp-block-g2rd-geo-faq' } );
 
@@ -42,6 +43,22 @@ export default function Edit( { attributes, setAttributes } ) {
 	}
 
 	return (
+		<>
+		<TypographySizePanel
+			elements={ [
+				{
+					label:    __( 'Questions', 'g2rd' ),
+					value:    questionFontSize,
+					onChange: ( v ) => setAttributes( { questionFontSize: v ?? '' } ),
+				},
+				{
+					label:    __( 'Réponses', 'g2rd' ),
+					value:    answerFontSize,
+					onChange: ( v ) => setAttributes( { answerFontSize: v ?? '' } ),
+				},
+			] }
+		/>
+
 		<div { ...blockProps }>
 			{/* En-tête */}
 			<div className="geo-faq__header">
@@ -119,5 +136,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				{ __( '💡 Ce bloc génère automatiquement le schema.org FAQPage et améliore votre score GEO.', 'g2rd' ) }
 			</p>
 		</div>
+		</>
 	);
 }

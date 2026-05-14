@@ -53,7 +53,10 @@
         "paddingTop":      { "type": "string",  "default": "24px" },
         "paddingRight":    { "type": "string",  "default": "24px" },
         "paddingBottom":   { "type": "string",  "default": "24px" },
-        "paddingLeft":     { "type": "string",  "default": "24px" }
+        "paddingLeft":     { "type": "string",  "default": "24px" },
+        "headingFontSize":     { "type": "string", "default": "" },
+        "subheadingFontSize":  { "type": "string", "default": "" },
+        "descriptionFontSize": { "type": "string", "default": "" }
     },
     "supports": {
         "html": false

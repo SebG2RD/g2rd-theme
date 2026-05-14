@@ -39,7 +39,9 @@
         "optimizeForGEO": { "type": "boolean", "default": false },
         "showHeader": { "type": "boolean", "default": false },
         "headerText": { "type": "string", "default": "Questions fréquentes" },
-        "headerIcon": { "type": "string", "default": "❓" }
+        "headerIcon": { "type": "string", "default": "❓" },
+        "questionFontSize": { "type": "string", "default": "" },
+        "answerFontSize": { "type": "string", "default": "" }
     },
     "supports": {
         "html": false,

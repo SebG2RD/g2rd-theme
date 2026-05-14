@@ -16,7 +16,7 @@ export default function save( { attributes } ) {
 		textBefore, textAfter, animatedWords, headingTag,
 		alignment, animationEffect, animationSpeed,
 		textColor, animatedColor, animatedFontWeight,
-		fontSizeValue, fontWeight, lineHeight, letterSpacing,
+		fontSize, fontWeight, lineHeight, letterSpacing,
 		highlightEnabled, highlightBgColor, highlightTextColor, highlightPadding, highlightBorderRadius,
 		decoratorType, decoratorColor, decoratorSize,
 		numberValue, numberBgColor, numberTextColor, numberSize,
@@ -27,9 +27,9 @@ export default function save( { attributes } ) {
 
 	// ── Style du titre
 	const headingStyle = {};
-	if ( textColor )     headingStyle.color         = textColor;
-	if ( fontSizeValue ) headingStyle.fontSize       = fontSizeValue;
-	if ( fontWeight )    headingStyle.fontWeight     = fontWeight;
+	if ( textColor )  headingStyle.color        = textColor;
+	if ( fontSize )   headingStyle.fontSize     = fontSize;
+	if ( fontWeight ) headingStyle.fontWeight   = fontWeight;
 	if ( lineHeight )    headingStyle.lineHeight     = lineHeight;
 	if ( letterSpacing ) headingStyle.letterSpacing  = letterSpacing;
 	const shadow = buildTextShadow( attributes );

@@ -9,6 +9,7 @@ import {
   BlockControls,
   AlignmentToolbar,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   SelectControl,
@@ -119,6 +120,9 @@ export default function Edit({ attributes, setAttributes }) {
     paddingRight,
     paddingBottom,
     paddingLeft,
+    headingFontSize,
+    subheadingFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -214,6 +218,25 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __( "Taille du titre", "g2rd" ),
+            value: headingFontSize,
+            onChange: ( v ) => setAttributes( { headingFontSize: v || "" } ),
+          },
+          {
+            label: __( "Taille du sous-titre", "g2rd" ),
+            value: subheadingFontSize,
+            onChange: ( v ) => setAttributes( { subheadingFontSize: v || "" } ),
+          },
+          {
+            label: __( "Taille de la description", "g2rd" ),
+            value: descriptionFontSize,
+            onChange: ( v ) => setAttributes( { descriptionFontSize: v || "" } ),
+          },
+        ]}
+      />
       <BlockControls>
         <AlignmentToolbar
           value={alignment}
@@ -454,7 +477,7 @@ export default function Edit({ attributes, setAttributes }) {
             value={heading}
             onChange={(v) => setAttributes({ heading: v })}
             placeholder={__("Titre de la carte…", "g2rd")}
-            style={{ color: headingColor || undefined, margin: 0 }}
+            style={{ color: headingColor || undefined, fontSize: headingFontSize || undefined, margin: 0 }}
           />
 
           <RichText
@@ -463,7 +486,7 @@ export default function Edit({ attributes, setAttributes }) {
             value={subHeading}
             onChange={(v) => setAttributes({ subHeading: v })}
             placeholder={__("Sous-titre (optionnel)…", "g2rd")}
-            style={{ color: subHeadingColor || undefined }}
+            style={{ color: subHeadingColor || undefined, fontSize: subheadingFontSize || undefined }}
           />
 
           {showSeparator && (
@@ -484,7 +507,7 @@ export default function Edit({ attributes, setAttributes }) {
             value={description}
             onChange={(v) => setAttributes({ description: v })}
             placeholder={__("Description de la carte…", "g2rd")}
-            style={{ color: descriptionColor || undefined }}
+            style={{ color: descriptionColor || undefined, fontSize: descriptionFontSize || undefined }}
           />
 
           <div className="g2rd-card__cta">

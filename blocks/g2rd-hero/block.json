@@ -124,6 +124,18 @@
     "paddingVertical": {
       "type": "number",
       "default": 80
+    },
+    "headingFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "textFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "kickerFontSize": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

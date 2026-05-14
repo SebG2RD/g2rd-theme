@@ -7,7 +7,7 @@
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
-	const { summary, keyPoints, tagline } = attributes;
+	const { summary, keyPoints, tagline, summaryFontSize, keyPointFontSize } = attributes;
 	const blockProps                      = useBlockProps.save( {
 		className: 'wp-block-g2rd-geo-summary',
 	} );
@@ -29,6 +29,7 @@ export default function Save( { attributes } ) {
 					className="geo-summary__text"
 					value={ summary }
 					itemProp="abstract"
+					style={ summaryFontSize ? { fontSize: summaryFontSize } : undefined }
 				/>
 			) }
 
@@ -38,7 +39,12 @@ export default function Save( { attributes } ) {
 					{ filledPoints.map( ( point, i ) => (
 						<li key={ i } className="geo-summary__point">
 							<span className="geo-summary__bullet" aria-hidden="true">✦</span>
-							<RichText.Content tagName="span" className="geo-summary__point-text" value={ point } />
+							<RichText.Content
+								tagName="span"
+								className="geo-summary__point-text"
+								value={ point }
+								style={ keyPointFontSize ? { fontSize: keyPointFontSize } : undefined }
+							/>
 						</li>
 					) ) }
 				</ul>

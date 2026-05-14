@@ -7,6 +7,7 @@ import {
   MediaUpload,
   MediaUploadCheck,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   RangeControl,
@@ -235,6 +236,7 @@ export default function Edit( { attributes, setAttributes } ) {
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
     googleMarqueeSpeed, googleShowBusinessLink, marqueePauseButton,
+    quoteFontSize, authorFontSize, roleFontSize,
   } = attributes;
 
   const blockProps = useBlockProps( {
@@ -281,6 +283,25 @@ export default function Edit( { attributes, setAttributes } ) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={ [
+          {
+            label:    __( 'Citation', 'g2rd' ),
+            value:    quoteFontSize,
+            onChange: ( v ) => setAttributes( { quoteFontSize: v || '' } ),
+          },
+          {
+            label:    __( 'Auteur', 'g2rd' ),
+            value:    authorFontSize,
+            onChange: ( v ) => setAttributes( { authorFontSize: v || '' } ),
+          },
+          {
+            label:    __( 'Rôle', 'g2rd' ),
+            value:    roleFontSize,
+            onChange: ( v ) => setAttributes( { roleFontSize: v || '' } ),
+          },
+        ] }
+      />
       <InspectorControls>
 
         { /* ── Panneau Avis Google ── */ }
@@ -635,7 +656,7 @@ export default function Edit( { attributes, setAttributes } ) {
             value={ quote }
             onChange={ ( val ) => setAttributes( { quote: val } ) }
             placeholder={ __( "Témoignage du client…", "g2rd" ) }
-            style={ { color: quoteColor, fontStyle: "italic", lineHeight: "1.7", marginTop: "0.5rem" } }
+            style={ { color: quoteColor, fontStyle: "italic", lineHeight: "1.7", marginTop: "0.5rem", ...(quoteFontSize ? { fontSize: quoteFontSize } : {}) } }
           />
 
           <div className="g2rd-testimonial__author" style={ { display: "flex", alignItems: "center", gap: "0.75rem", marginTop: "1.25rem" } }>
@@ -654,7 +675,7 @@ export default function Edit( { attributes, setAttributes } ) {
                 value={ authorName }
                 onChange={ ( val ) => setAttributes( { authorName: val } ) }
                 placeholder={ __( "Prénom Nom", "g2rd" ) }
-                style={ { color: authorColor, display: "block", fontWeight: 700 } }
+                style={ { color: authorColor, display: "block", fontWeight: 700, ...(authorFontSize ? { fontSize: authorFontSize } : {}) } }
               />
               <RichText
                 tagName="span"
@@ -662,7 +683,7 @@ export default function Edit( { attributes, setAttributes } ) {
                 value={ authorRole }
                 onChange={ ( val ) => setAttributes( { authorRole: val } ) }
                 placeholder={ __( "Rôle — Entreprise", "g2rd" ) }
-                style={ { color: roleColor, fontSize: "0.875rem" } }
+                style={ { color: roleColor, fontSize: roleFontSize || "0.875rem" } }
               />
             </div>
           </div>

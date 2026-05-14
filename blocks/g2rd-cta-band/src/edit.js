@@ -5,6 +5,7 @@ import {
   PanelColorSettings,
   RichText,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   TextControl,
@@ -21,6 +22,7 @@ export default function Edit({ attributes, setAttributes }) {
     reassurance, showReassurance,
     customBg, titleColor, textColor, ctaBg, ctaColor,
     alignment, paddingVertical,
+    titleFontSize, textFontSize,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -34,6 +36,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={ [
+          {
+            label:    __( 'Titre', 'g2rd' ),
+            value:    titleFontSize,
+            onChange: ( v ) => setAttributes( { titleFontSize: v || '' } ),
+          },
+          {
+            label:    __( 'Texte', 'g2rd' ),
+            value:    textFontSize,
+            onChange: ( v ) => setAttributes( { textFontSize: v || '' } ),
+          },
+        ] }
+      />
       <InspectorControls>
         <PanelBody title={__("Liens & options", "g2rd")} initialOpen>
           <TextControl
@@ -151,7 +167,7 @@ export default function Edit({ attributes, setAttributes }) {
             placeholder={__("Titre du bandeau…", "g2rd")}
             style={{
               color: titleColor,
-              fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)",
+              fontSize: titleFontSize || "clamp(1.6rem, 2.5vw, 2.5rem)",
               fontWeight: 800,
               lineHeight: 1.2,
               marginBottom: "1rem",
@@ -169,6 +185,7 @@ export default function Edit({ attributes, setAttributes }) {
               lineHeight: 1.75,
               maxWidth: "600px",
               margin: "0 auto 2rem",
+              ...(textFontSize ? { fontSize: textFontSize } : {}),
             }}
           />
           <div className="g2rd-cta-band__btns">

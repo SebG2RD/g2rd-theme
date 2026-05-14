@@ -24,6 +24,7 @@ export default function Save({ attributes }) {
     googleShowHeader, googleShowAvatar, googleShowDate,
     googleShowAuthorLink, googleMaxTextLength, googleHighlightFirst,
     googleMarqueeSpeed, googleShowBusinessLink, marqueePauseButton,
+    quoteFontSize, authorFontSize, roleFontSize,
   } = attributes;
 
   /* ── Mode Google Reviews ─────────────────────────────────────────────── */
@@ -96,7 +97,7 @@ export default function Save({ attributes }) {
         tagName="p"
         className="g2rd-testimonial__quote"
         value={quote}
-        style={{ color: quoteColor, fontStyle: "italic", lineHeight: "1.7", marginTop: "0.5rem" }}
+        style={{ color: quoteColor, fontStyle: "italic", lineHeight: "1.7", marginTop: "0.5rem", ...(quoteFontSize ? { fontSize: quoteFontSize } : {}) }}
       />
 
       <div className="g2rd-testimonial__author">
@@ -120,14 +121,14 @@ export default function Save({ attributes }) {
           </div>
         )}
         <div className="g2rd-testimonial__author-info">
-          <cite className="g2rd-testimonial__name" style={{ color: authorColor, display: "block", fontWeight: 700 }}>
+          <cite className="g2rd-testimonial__name" style={{ color: authorColor, display: "block", fontWeight: 700, ...(authorFontSize ? { fontSize: authorFontSize } : {}) }}>
             <RichText.Content tagName="strong" value={authorName} />
           </cite>
           <RichText.Content
             tagName="span"
             className="g2rd-testimonial__role"
             value={authorRole}
-            style={{ color: roleColor, fontSize: "0.875rem" }}
+            style={{ color: roleColor, fontSize: roleFontSize || "0.875rem" }}
           />
         </div>
       </div>

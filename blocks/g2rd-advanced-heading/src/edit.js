@@ -22,6 +22,7 @@ import {
 	ColorPalette,
 } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 
 // ─────────────────────────────────────────────
 // Utilitaires
@@ -43,13 +44,13 @@ function buildTextShadow( attrs ) {
 
 function buildHeadingStyle( attrs ) {
 	const s = {};
-	if ( attrs.textColor )      s.color        = attrs.textColor;
-	if ( attrs.fontSizeValue )  s.fontSize     = attrs.fontSizeValue;
-	if ( attrs.fontWeight )     s.fontWeight   = attrs.fontWeight;
-	if ( attrs.lineHeight )     s.lineHeight   = attrs.lineHeight;
-	if ( attrs.letterSpacing )  s.letterSpacing = attrs.letterSpacing;
+	if ( attrs.textColor )  s.color         = attrs.textColor;
+	if ( attrs.fontSize )   s.fontSize      = attrs.fontSize;
+	if ( attrs.fontWeight ) s.fontWeight    = attrs.fontWeight;
+	if ( attrs.lineHeight ) s.lineHeight    = attrs.lineHeight;
+	if ( attrs.letterSpacing ) s.letterSpacing = attrs.letterSpacing;
 	const shadow = buildTextShadow( attrs );
-	if ( shadow )               s.textShadow   = shadow;
+	if ( shadow )           s.textShadow    = shadow;
 	return s;
 }
 
@@ -120,7 +121,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		textBefore, textAfter, animatedWords, headingTag,
 		alignment, animationEffect, animationSpeed,
 		textColor, animatedColor, animatedFontWeight,
-		fontSizeValue, fontWeight, lineHeight, letterSpacing,
+		fontSize, fontWeight, lineHeight, letterSpacing,
 		highlightEnabled, highlightBgColor, highlightTextColor, highlightPadding, highlightBorderRadius,
 		decoratorType, decoratorColor, decoratorSize,
 		numberValue, numberBgColor, numberTextColor, numberSize,
@@ -259,6 +260,16 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	return (
 		<>
+			<TypographySizePanel
+				elements={ [
+					{
+						label:    __( "Taille de police", "g2rd" ),
+						value:    fontSize,
+						onChange: ( v ) => setAttributes( { fontSize: v ?? "" } ),
+					},
+				] }
+			/>
+
 			{ /* ──────────── Contrôles inspecteur ──────────── */ }
 			<InspectorControls>
 
@@ -355,13 +366,6 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ label: "900 — Black",              value: "900" },
 						] }
 						onChange={ ( v ) => setAttributes( { animatedFontWeight: v } ) }
-					/>
-					<TextControl
-						label={ __( "Taille de police (ex : 3rem, 48px)", "g2rd" ) }
-						value={ fontSizeValue }
-						onChange={ ( v ) => setAttributes( { fontSizeValue: v } ) }
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 					/>
 					<SelectControl
 						label={ __( "Graisse globale", "g2rd" ) }

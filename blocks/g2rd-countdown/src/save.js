@@ -11,8 +11,8 @@ export default function Save({ attributes }) {
     showHours,
     showMinutes,
     showSeconds,
-    valueSize,
-    labelSize,
+    valueFontSize,
+    labelFontSize,
     itemSpacing,
     itemPadding,
     itemBackground,
@@ -30,8 +30,8 @@ export default function Save({ attributes }) {
       "--item-padding": itemPadding,
       "--item-background": itemBackground,
       "--item-border-radius": itemBorderRadius,
-      "--value-size": valueSize,
-      "--label-size": labelSize,
+      ...(valueFontSize ? { "--value-size": valueFontSize } : {}),
+      ...(labelFontSize ? { "--label-size": labelFontSize } : {}),
       "--animation-duration":
         animationSpeed === "slow"
           ? "2s"

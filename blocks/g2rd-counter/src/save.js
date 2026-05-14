@@ -31,6 +31,8 @@ export default function save({ attributes }) {
     prefixRightMargin,
     suffixLeftMargin,
     margin,
+    numberFontSize,
+    titleFontSize,
   } = attributes;
 
   const iconSize = attributes.iconSize || 48;
@@ -120,12 +122,13 @@ export default function save({ attributes }) {
             style={{
               marginRight: `${prefixRightMargin}px`,
               color: numberColor,
+              fontSize: numberFontSize || undefined,
             }}
           >
             {numberPrefix}
           </span>
         )}
-        <span className="counter-number" style={{ color: numberColor }}>
+        <span className="counter-number" style={{ color: numberColor, fontSize: numberFontSize || undefined }}>
           {formattedNumber}
         </span>
         {numberSuffix && (
@@ -134,6 +137,7 @@ export default function save({ attributes }) {
             style={{
               marginLeft: `${suffixLeftMargin}px`,
               color: numberColor,
+              fontSize: numberFontSize || undefined,
             }}
           >
             {numberSuffix}
@@ -154,7 +158,7 @@ export default function save({ attributes }) {
         tagName="h3"
         value={title}
         className="counter-title"
-        style={{ color: titleColor }}
+        style={{ color: titleColor, fontSize: titleFontSize || undefined }}
       />
     );
 

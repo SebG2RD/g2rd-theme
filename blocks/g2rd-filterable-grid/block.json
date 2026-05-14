@@ -81,7 +81,9 @@
         "excerptColor":     { "type": "string",  "default": "" },
         "imageAspectRatio": { "type": "string",  "default": "auto" },
         "imageObjectFit":   { "type": "string",  "default": "cover" },
-        "showUnderline":    { "type": "boolean", "default": true }
+        "showUnderline":    { "type": "boolean", "default": true },
+        "cardTitleFontSize": { "type": "string", "default": "" },
+        "excerptFontSize":   { "type": "string", "default": "" }
     },
     "example": {
         "attributes": {
@@ -102,9 +104,6 @@
         "color": {
             "text": true,
             "background": true
-        },
-        "typography": {
-            "fontSize": true
         },
         "spacing": {
             "margin": true,

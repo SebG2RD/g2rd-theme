@@ -46,6 +46,12 @@ $bg_color        = isset( $attributes['backgroundColor'] ) ? sanitize_hex_color(
 $border_color    = isset( $attributes['borderColor'] )    ? sanitize_hex_color( $attributes['borderColor'] )    : '';
 $separator_color = isset( $attributes['separatorColor'] ) ? sanitize_hex_color( $attributes['separatorColor'] ) : '';
 
+$question_font_size = ! empty( $attributes['questionFontSize'] ) ? sanitize_text_field( $attributes['questionFontSize'] ) : '';
+$answer_font_size   = ! empty( $attributes['answerFontSize'] )   ? sanitize_text_field( $attributes['answerFontSize'] )   : '';
+
+$question_font_style = $question_font_size ? ' style="font-size:' . esc_attr( $question_font_size ) . ';"' : '';
+$answer_font_style   = $answer_font_size   ? ' style="font-size:' . esc_attr( $answer_font_size )   . ';"' : '';
+
 $css_parts = [];
 if ( $question_color )  { $css_parts[] = "--g2rd-faq-question-color:{$question_color}"; }
 if ( $answer_color )    { $css_parts[] = "--g2rd-faq-answer-color:{$answer_color}"; }
@@ -100,7 +106,7 @@ if ( $optimize_geo ) :
 		>
 			<details class="g2rd-faq__details"<?php echo ( $open_first && 0 === $i ) ? ' open' : ''; ?>>
 				<summary class="g2rd-faq__question" itemprop="name">
-					<span class="g2rd-faq__question-text"><?php echo esc_html( $question ); ?></span>
+					<span class="g2rd-faq__question-text"<?php echo $question_font_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $question ); ?></span>
 					<span class="g2rd-faq__icon" aria-hidden="true">▾</span>
 				</summary>
 				<div
@@ -109,7 +115,7 @@ if ( $optimize_geo ) :
 					itemprop="acceptedAnswer"
 					itemtype="https://schema.org/Answer"
 				>
-					<div class="g2rd-faq__answer-inner" itemprop="text">
+					<div class="g2rd-faq__answer-inner" itemprop="text"<?php echo $answer_font_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 						<p><?php echo wp_kses_post( $answer ); ?></p>
 					</div>
 				</div>
@@ -195,7 +201,7 @@ if ( $optimize_geo ) :
 				aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>"
 				aria-controls="<?php echo esc_attr( 'g2rd-faq-answer-' . $i ); ?>"
 			>
-				<span class="g2rd-faq__question-text"><?php echo esc_html( $question ); ?></span>
+				<span class="g2rd-faq__question-text"<?php echo $question_font_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( $question ); ?></span>
 				<span class="g2rd-faq__icon" aria-hidden="true"></span>
 			</button>
 			<div
@@ -204,7 +210,7 @@ if ( $optimize_geo ) :
 				role="region"
 				aria-labelledby="<?php echo esc_attr( 'g2rd-faq-btn-' . $i ); ?>"
 			>
-				<div class="g2rd-faq__answer-inner">
+				<div class="g2rd-faq__answer-inner"<?php echo $answer_font_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 					<p><?php echo wp_kses_post( $answer ); ?></p>
 				</div>
 			</div>

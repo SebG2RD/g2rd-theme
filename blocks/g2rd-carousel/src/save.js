@@ -29,6 +29,8 @@ export default function Save({ attributes, className }) {
     showBoxShadow,
     height,
     showPauseButton,
+    titleFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -163,8 +165,8 @@ export default function Save({ attributes, className }) {
             </div>
           )}
           <div className="carousel-title">
-            <h2 className="wp-block-heading">{title}</h2>
-            <p>{description}</p>
+            <h2 className="wp-block-heading" style={titleFontSize ? { fontSize: titleFontSize } : undefined}>{title}</h2>
+            <p style={descriptionFontSize ? { fontSize: descriptionFontSize } : undefined}>{description}</p>
           </div>
         </div>
 

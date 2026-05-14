@@ -38,6 +38,9 @@ export default function Save({ attributes }) {
     paddingRight,
     paddingBottom,
     paddingLeft,
+    headingFontSize,
+    subheadingFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -106,7 +109,7 @@ export default function Save({ attributes }) {
             tagName={headingTag}
             className="g2rd-card__heading"
             value={heading}
-            style={{ color: headingColor || undefined, margin: 0 }}
+            style={{ color: headingColor || undefined, fontSize: headingFontSize || undefined, margin: 0 }}
           />
         )}
 
@@ -115,7 +118,7 @@ export default function Save({ attributes }) {
             tagName="p"
             className="g2rd-card__subheading"
             value={subHeading}
-            style={{ color: subHeadingColor || undefined }}
+            style={{ color: subHeadingColor || undefined, fontSize: subheadingFontSize || undefined }}
           />
         )}
 
@@ -137,7 +140,7 @@ export default function Save({ attributes }) {
             tagName="p"
             className="g2rd-card__description"
             value={description}
-            style={{ color: descriptionColor || undefined }}
+            style={{ color: descriptionColor || undefined, fontSize: descriptionFontSize || undefined }}
           />
         )}
 

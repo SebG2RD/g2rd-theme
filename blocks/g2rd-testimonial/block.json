@@ -109,7 +109,10 @@
     "googleHighlightFirst": { "type": "boolean", "default": false },
     "googleMarqueeSpeed":        { "type": "number",  "default": 40 },
     "googleShowBusinessLink":    { "type": "boolean", "default": false },
-    "marqueePauseButton":        { "type": "boolean", "default": false }
+    "marqueePauseButton":        { "type": "boolean", "default": false },
+    "quoteFontSize":             { "type": "string",  "default": "" },
+    "authorFontSize":            { "type": "string",  "default": "" },
+    "roleFontSize":              { "type": "string",  "default": "" }
   },
   "supports": {
     "html": false,

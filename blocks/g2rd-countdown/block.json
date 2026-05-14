@@ -61,13 +61,13 @@
       "type": "boolean",
       "default": true
     },
-    "valueSize": {
+    "valueFontSize": {
       "type": "string",
-      "default": "2em"
+      "default": ""
     },
-    "labelSize": {
+    "labelFontSize": {
       "type": "string",
-      "default": "0.9em"
+      "default": ""
     },
     "itemSpacing": {
       "type": "string",

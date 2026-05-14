@@ -7,6 +7,7 @@ export default function Save({ attributes }) {
     reassurance, showReassurance,
     customBg, titleColor, textColor, ctaBg, ctaColor,
     alignment, paddingVertical,
+    titleFontSize, textFontSize,
   } = attributes;
 
   const bg = customBg || "#2F425D";
@@ -25,7 +26,7 @@ export default function Save({ attributes }) {
           value={title}
           style={{
             color: titleColor,
-            fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)",
+            fontSize: titleFontSize || "clamp(1.6rem, 2.5vw, 2.5rem)",
             fontWeight: 800,
             lineHeight: 1.2,
             marginBottom: "1rem",
@@ -43,6 +44,7 @@ export default function Save({ attributes }) {
               lineHeight: 1.75,
               maxWidth: "600px",
               margin: "0 auto 2rem",
+              ...(textFontSize ? { fontSize: textFontSize } : {}),
             }}
           />
         )}

@@ -8,6 +8,7 @@ import {
   MediaUploadCheck,
   RichText,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   SelectControl,
@@ -90,6 +91,8 @@ export default function Edit({ attributes, setAttributes }) {
     iconSize,
     gap,
     layout,
+    titleFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -271,14 +274,14 @@ export default function Edit({ attributes, setAttributes }) {
         value={title}
         onChange={(value) => setAttributes({ title: value })}
         placeholder={__("Saisir un titre...", "g2rd")}
-        style={{ color: titleColor || "#333", fontSize: "1.5rem" }}
+        style={{ color: titleColor || "#333", fontSize: "1.5rem", ...(titleFontSize ? { fontSize: titleFontSize } : {}) }}
       />
       <RichText
         tagName="p"
         value={description}
         onChange={(value) => setAttributes({ description: value })}
         placeholder={__("Saisir une description...", "g2rd")}
-        style={{ color: descriptionColor || "#666", fontSize: "1rem" }}
+        style={{ color: descriptionColor || "#666", fontSize: "1rem", ...(descriptionFontSize ? { fontSize: descriptionFontSize } : {}) }}
       />
     </div>
   );
@@ -299,6 +302,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __("Taille du titre", "g2rd"),
+            value: titleFontSize,
+            onChange: (value) => setAttributes({ titleFontSize: value || "" }),
+          },
+          {
+            label: __("Taille de la description", "g2rd"),
+            value: descriptionFontSize,
+            onChange: (value) => setAttributes({ descriptionFontSize: value || "" }),
+          },
+        ]}
+      />
       <BlockControls>
         <ToolbarGroup>
           <ToolbarDropdownMenu

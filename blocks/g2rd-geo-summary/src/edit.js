@@ -7,9 +7,10 @@
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { Button }                  from '@wordpress/components';
 import { __ }                      from '@wordpress/i18n';
+import { TypographySizePanel }     from '../../shared/TypographySizePanel';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { summary, keyPoints, tagline } = attributes;
+	const { summary, keyPoints, tagline, summaryFontSize, keyPointFontSize } = attributes;
 
 	const blockProps = useBlockProps( { className: 'wp-block-g2rd-geo-summary' } );
 
@@ -31,6 +32,22 @@ export default function Edit( { attributes, setAttributes } ) {
 	}
 
 	return (
+		<>
+		<TypographySizePanel
+			elements={ [
+				{
+					label:    __( 'Résumé', 'g2rd' ),
+					value:    summaryFontSize,
+					onChange: ( v ) => setAttributes( { summaryFontSize: v ?? '' } ),
+				},
+				{
+					label:    __( 'Points clés', 'g2rd' ),
+					value:    keyPointFontSize,
+					onChange: ( v ) => setAttributes( { keyPointFontSize: v ?? '' } ),
+				},
+			] }
+		/>
+
 		<div { ...blockProps }>
 			{/* Bandeau titre */}
 			<div className="geo-summary__header">
@@ -54,6 +71,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				onChange={ ( val ) => setAttributes( { summary: val } ) }
 				placeholder={ __( 'Rédigez ici un résumé concis de cette page (2–4 phrases). Les IA utilisent ce passage en priorité pour répondre aux questions des utilisateurs.', 'g2rd' ) }
 				allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+				style={ summaryFontSize ? { fontSize: summaryFontSize } : undefined }
 			/>
 
 			{/* Points clés */}
@@ -72,6 +90,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ ( val ) => updatePoint( i, val ) }
 								placeholder={ __( `Point clé ${ i + 1 }…`, 'g2rd' ) }
 								allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+								style={ keyPointFontSize ? { fontSize: keyPointFontSize } : undefined }
 							/>
 							<Button
 								className="geo-summary__point-remove"
@@ -105,5 +124,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				</Button>
 			) }
 		</div>
+		</>
 	);
 }

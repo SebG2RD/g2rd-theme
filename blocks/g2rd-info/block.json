@@ -85,6 +85,14 @@
     "layout": {
       "type": "string",
       "default": "icon-left"
+    },
+    "titleFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "descriptionFontSize": {
+      "type": "string",
+      "default": ""
     }
   }
 }

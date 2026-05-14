@@ -10,6 +10,7 @@ import {
   MediaUpload,
   MediaUploadCheck,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   SelectControl,
@@ -115,6 +116,8 @@ export default function Edit({ attributes, setAttributes }) {
     prefixRightMargin,
     suffixLeftMargin,
     margin,
+    numberFontSize,
+    titleFontSize,
   } = attributes;
 
   const iconSize = attributes.iconSize || 48;
@@ -181,12 +184,13 @@ export default function Edit({ attributes, setAttributes }) {
             style={{
               marginRight: `${prefixRightMargin}px`,
               color: numberColor,
+              fontSize: numberFontSize || undefined,
             }}
           >
             {numberPrefix}
           </span>
         )}
-        <span className="counter-number" style={{ color: numberColor }}>
+        <span className="counter-number" style={{ color: numberColor, fontSize: numberFontSize || undefined }}>
           {formattedNumber}
         </span>
         {numberSuffix && (
@@ -195,6 +199,7 @@ export default function Edit({ attributes, setAttributes }) {
             style={{
               marginLeft: `${suffixLeftMargin}px`,
               color: numberColor,
+              fontSize: numberFontSize || undefined,
             }}
           >
             {numberSuffix}
@@ -214,7 +219,7 @@ export default function Edit({ attributes, setAttributes }) {
         onChange={(value) => setAttributes({ title: value })}
         placeholder={__("Saisir un titre...", "g2rd")}
         className="counter-title"
-        style={{ color: titleColor }}
+        style={{ color: titleColor, fontSize: titleFontSize || undefined }}
       />
     );
 
@@ -323,6 +328,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={ [
+          {
+            label: __( 'Chiffre', 'g2rd' ),
+            value: numberFontSize,
+            onChange: ( v ) => setAttributes( { numberFontSize: v } ),
+          },
+          {
+            label: __( 'Titre', 'g2rd' ),
+            value: titleFontSize,
+            onChange: ( v ) => setAttributes( { titleFontSize: v } ),
+          },
+        ] }
+      />
       <InspectorControls>
         <PanelBody title={__("Général", "g2rd")} initialOpen={true}>
           <SelectControl

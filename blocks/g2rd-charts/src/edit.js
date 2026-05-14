@@ -9,6 +9,7 @@ import {
 	PanelColorSettings,
 	store as blockEditorStore,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
 	PanelBody,
 	SelectControl,
@@ -145,7 +146,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		chartType, chartTitle, labels, datasets,
 		chartHeight, showLegend, showGrid, showValues,
 		stacked, borderRadius, tension, specMaxValue,
-		backgroundColor, gridColor, labelColor,
+		backgroundColor, gridColor, labelColor, labelFontSize,
 	} = attributes;
 
 	// ── Couleurs du thème via block-editor settings
@@ -228,12 +229,23 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 
 	const blockProps = useBlockProps( {
-		className: "g2rd-charts-wrap",
-		style: { backgroundColor: backgroundColor || undefined },
+		className:               "g2rd-charts-wrap",
+		style:                   { backgroundColor: backgroundColor || undefined },
+		"data-label-font-size":  labelFontSize || undefined,
 	} );
 
 	return (
 		<>
+			<TypographySizePanel
+				elements={ [
+					{
+						label:    __( "Libellés", "g2rd" ),
+						value:    labelFontSize,
+						onChange: ( v ) => setAttributes( { labelFontSize: v ?? "" } ),
+					},
+				] }
+			/>
+
 			<InspectorControls>
 
 				{ /* Type de graphique */ }

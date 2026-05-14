@@ -81,6 +81,10 @@
         "labelColor": {
             "type": "string",
             "default": "#374151"
+        },
+        "labelFontSize": {
+            "type": "string",
+            "default": ""
         }
     },
     "supports": {

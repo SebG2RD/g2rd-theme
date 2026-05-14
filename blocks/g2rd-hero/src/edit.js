@@ -7,6 +7,7 @@ import {
   PanelColorSettings,
   RichText,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   TextControl,
@@ -29,6 +30,7 @@ export default function Edit({ attributes, setAttributes }) {
     backgroundType, backgroundColor, imageId, imageUrl, overlayColor, overlayOpacity,
     headingColor, accentColor, textColor, ctaPrimaryBg, ctaPrimaryColor,
     alignment, minHeight, paddingVertical,
+    headingFontSize, textFontSize, kickerFontSize,
   } = attributes;
 
   const safeAccentColor = sanitizeCssColor( accentColor );
@@ -51,6 +53,25 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __( "Taille du titre", "g2rd" ),
+            value: headingFontSize,
+            onChange: ( v ) => setAttributes( { headingFontSize: v || "" } ),
+          },
+          {
+            label: __( "Taille du sous-titre", "g2rd" ),
+            value: textFontSize,
+            onChange: ( v ) => setAttributes( { textFontSize: v || "" } ),
+          },
+          {
+            label: __( "Taille de l'accroche (kicker)", "g2rd" ),
+            value: kickerFontSize,
+            onChange: ( v ) => setAttributes( { kickerFontSize: v || "" } ),
+          },
+        ]}
+      />
       <InspectorControls>
         <PanelBody title={__("Titre principal", "g2rd")} initialOpen>
           <TextareaControl
@@ -278,7 +299,7 @@ export default function Edit({ attributes, setAttributes }) {
               fontWeight: 600,
               letterSpacing: "0.1em",
               textTransform: "uppercase",
-              fontSize: "0.875rem",
+              fontSize: kickerFontSize || "0.875rem",
               marginBottom: "0.75rem",
             }}
           />
@@ -287,7 +308,7 @@ export default function Edit({ attributes, setAttributes }) {
             className="g2rd-hero__heading"
             style={{
               color: headingColor,
-              fontSize: "clamp(2rem, 4vw, 3.5rem)",
+              fontSize: headingFontSize || "clamp(2rem, 4vw, 3.5rem)",
               fontWeight: 800,
               lineHeight: 1.1,
               marginBottom: "1.25rem",
@@ -307,7 +328,7 @@ export default function Edit({ attributes, setAttributes }) {
               color: textColor,
               opacity: 0.9,
               lineHeight: 1.75,
-              fontSize: "1.1rem",
+              fontSize: textFontSize || "1.1rem",
               marginBottom: "2rem",
             }}
           />

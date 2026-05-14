@@ -5,6 +5,7 @@ import {
   MediaUpload,
   MediaUploadCheck,
 } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   Button,
@@ -44,6 +45,8 @@ export default function Edit({ attributes, setAttributes }) {
     showBoxShadow,
     height,
     showPauseButton,
+    titleFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps();
@@ -75,6 +78,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __("Taille du titre", "g2rd"),
+            value: titleFontSize,
+            onChange: (value) => setAttributes({ titleFontSize: value || "" }),
+          },
+          {
+            label: __("Taille de la description", "g2rd"),
+            value: descriptionFontSize,
+            onChange: (value) => setAttributes({ descriptionFontSize: value || "" }),
+          },
+        ]}
+      />
       <InspectorControls>
         <PanelBody title={__("Content Selection", "g2rd-carousel")}>
           <SelectControl
@@ -350,8 +367,8 @@ export default function Edit({ attributes, setAttributes }) {
                 </div>
               )}
               <div className="carousel-title">
-                <h2 className="wp-block-heading">{title}</h2>
-                <p>{description}</p>
+                <h2 className="wp-block-heading" style={titleFontSize ? { fontSize: titleFontSize } : undefined}>{title}</h2>
+                <p style={descriptionFontSize ? { fontSize: descriptionFontSize } : undefined}>{description}</p>
               </div>
             </div>
             <div

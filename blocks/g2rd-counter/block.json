@@ -99,13 +99,13 @@
       "type": "string",
       "default": "#000000"
     },
-    "numberTypography": {
-      "type": "object",
-      "default": {}
+    "numberFontSize": {
+      "type": "string",
+      "default": ""
     },
-    "titleTypography": {
-      "type": "object",
-      "default": {}
+    "titleFontSize": {
+      "type": "string",
+      "default": ""
     },
     "prefixRightMargin": {
       "type": "number",

@@ -9,9 +9,9 @@ import {
   TextControl,
   DateTimePicker,
   ToggleControl,
-  RangeControl,
   SelectControl,
 } from "@wordpress/components";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import { useState, useEffect } from "@wordpress/element";
 import { format } from "@wordpress/date";
 
@@ -25,8 +25,8 @@ export default function Edit({ attributes, setAttributes }) {
     showHours,
     showMinutes,
     showSeconds,
-    valueSize,
-    labelSize,
+    valueFontSize,
+    labelFontSize,
     itemSpacing,
     itemPadding,
     itemBackground,
@@ -103,10 +103,10 @@ export default function Edit({ attributes, setAttributes }) {
           transition: "all 0.3s ease",
         }}
       >
-        <div className="countdown-value" style={{ fontSize: valueSize }}>
+        <div className="countdown-value" style={{ fontSize: valueFontSize || undefined }}>
           {value}
         </div>
-        <div className="countdown-label" style={{ fontSize: labelSize }}>
+        <div className="countdown-label" style={{ fontSize: labelFontSize || undefined }}>
           {label}
         </div>
       </div>
@@ -115,6 +115,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __("Taille des valeurs", "g2rd"),
+            value: valueFontSize,
+            onChange: (value) => setAttributes({ valueFontSize: value || "" }),
+          },
+          {
+            label: __("Taille des étiquettes", "g2rd"),
+            value: labelFontSize,
+            onChange: (value) => setAttributes({ labelFontSize: value || "" }),
+          },
+        ]}
+      />
       <InspectorControls>
         <PanelBody title={__("Paramètres du minuteur", "g2rd")}>
           <DateTimePicker
@@ -234,26 +248,6 @@ export default function Edit({ attributes, setAttributes }) {
               { label: __("Rapide", "g2rd"), value: "fast" },
             ]}
             onChange={(value) => setAttributes({ animationSpeed: value })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <RangeControl
-            label={__("Taille des valeurs", "g2rd")}
-            value={parseInt(valueSize)}
-            onChange={(value) => setAttributes({ valueSize: `${value}em` })}
-            min={1}
-            max={5}
-            step={0.1}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <RangeControl
-            label={__("Taille des étiquettes", "g2rd")}
-            value={parseInt(labelSize)}
-            onChange={(value) => setAttributes({ labelSize: `${value}em` })}
-            min={0.5}
-            max={2}
-            step={0.1}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />

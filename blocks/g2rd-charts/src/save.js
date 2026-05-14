@@ -6,15 +6,16 @@
 import { useBlockProps } from "@wordpress/block-editor";
 
 export default function save( { attributes } ) {
-	const { chartHeight, backgroundColor } = attributes;
+	const { chartHeight, backgroundColor, labelFontSize } = attributes;
 
 	// La totalité de la config est passée au frontend en JSON
 	const config = JSON.stringify( attributes );
 
 	const blockProps = useBlockProps.save( {
-		className:        "g2rd-charts-wrap",
-		style:            { backgroundColor: backgroundColor || undefined },
-		"data-g2rd-chart": config,
+		className:              "g2rd-charts-wrap",
+		style:                  { backgroundColor: backgroundColor || undefined },
+		"data-g2rd-chart":      config,
+		"data-label-font-size": labelFontSize || undefined,
 	} );
 
 	return (

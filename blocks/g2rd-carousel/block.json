@@ -22,11 +22,7 @@
       "margin": true,
       "padding": true
     },
-    "align": ["wide", "full"],
-    "typography": {
-      "fontSize": true,
-      "lineHeight": true
-    }
+    "align": ["wide", "full"]
   },
   "textdomain": "g2rd",
   "editorScript": "file:./build/index.js",
@@ -157,6 +153,14 @@
     "showPauseButton": {
       "type": "boolean",
       "default": false
+    },
+    "titleFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "descriptionFontSize": {
+      "type": "string",
+      "default": ""
     }
   }
 }

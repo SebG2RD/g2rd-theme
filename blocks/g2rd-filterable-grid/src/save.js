@@ -37,6 +37,8 @@ export default function Save({ attributes }) {
     imageAspectRatio,
     imageObjectFit,
     showUnderline,
+    cardTitleFontSize,
+    excerptFontSize,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -58,8 +60,10 @@ export default function Save({ attributes }) {
     "data-show-date":    String(showDate),
     "data-show-rating":  String(showRating),
     "data-show-cart":    String(showAddToCart),
-    "data-orderby":      orderby || "date",
-    "data-order":        order || "DESC",
+    "data-orderby":             orderby || "date",
+    "data-order":               order || "DESC",
+    "data-card-title-fontsize": cardTitleFontSize || "",
+    "data-excerpt-fontsize":    excerptFontSize   || "",
   });
 
   const cssVars = {};
@@ -72,6 +76,8 @@ export default function Save({ attributes }) {
   if (imageObjectFit && imageObjectFit !== "cover") {
     cssVars["--g2rd-fg-img-fit"] = imageObjectFit;
   }
+  if (cardTitleFontSize) cssVars["--g2rd-fg-title-font-size"]   = cardTitleFontSize;
+  if (excerptFontSize)   cssVars["--g2rd-fg-excerpt-font-size"] = excerptFontSize;
 
   if (Object.keys(cssVars).length) {
     blockProps.style = { ...(blockProps.style || {}), ...cssVars };

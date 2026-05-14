@@ -25,6 +25,14 @@
                 { "question": "Où intervenez-vous ?", "answer": "Précisez votre zone géographique d'intervention." },
                 { "question": "Comment vous contacter ?", "answer": "Indiquez vos coordonnées ou renvoyez vers votre formulaire de contact." }
             ]
+        },
+        "questionFontSize": {
+            "type": "string",
+            "default": ""
+        },
+        "answerFontSize": {
+            "type": "string",
+            "default": ""
         }
     },
     "supports": {

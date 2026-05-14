@@ -32,6 +32,11 @@ if ( empty( $items ) ) {
 // Réindexer après le filtre
 $items = array_values( $items );
 
+$question_font_size = ! empty( $attributes['questionFontSize'] ) ? esc_attr( $attributes['questionFontSize'] ) : '';
+$answer_font_size   = ! empty( $attributes['answerFontSize'] ) ? esc_attr( $attributes['answerFontSize'] ) : '';
+$q_style            = $question_font_size ? ' style="font-size:' . $question_font_size . ';"' : '';
+$a_style            = $answer_font_size ? ' style="font-size:' . $answer_font_size . ';"' : '';
+
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'wp-block-g2rd-geo-faq',
 ] );
@@ -68,6 +73,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 				<summary
 					class="geo-faq__question"
 					itemprop="name"
+					<?php echo $q_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- valeur préalablement échappée via esc_attr() ?>
 				>
 					<span class="geo-faq__question-text"><?php echo esc_html( $question ); ?></span>
 					<span class="geo-faq__chevron" aria-hidden="true">▾</span>
@@ -79,7 +85,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 					itemprop="acceptedAnswer"
 					itemtype="https://schema.org/Answer"
 				>
-					<div class="geo-faq__answer-text" itemprop="text">
+					<div class="geo-faq__answer-text" itemprop="text"<?php echo $a_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- valeur préalablement échappée via esc_attr() ?>>
 						<?php echo wp_kses_post( nl2br( $answer ) ); ?>
 					</div>
 				</div>

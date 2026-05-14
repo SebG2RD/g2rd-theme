@@ -28,7 +28,7 @@
         "textColor":             { "type": "string",  "default": "" },
         "animatedColor":         { "type": "string",  "default": "" },
         "animatedFontWeight":    { "type": "string",  "default": "inherit" },
-        "fontSizeValue":         { "type": "string",  "default": "" },
+        "fontSize":              { "type": "string",  "default": "" },
         "fontWeight":            { "type": "string",  "default": "700" },
         "lineHeight":            { "type": "string",  "default": "" },
         "letterSpacing":         { "type": "string",  "default": "" },

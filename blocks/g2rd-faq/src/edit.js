@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   SelectControl,
@@ -41,6 +42,8 @@ export default function Edit({ attributes, setAttributes }) {
     showHeader,
     headerText,
     headerIcon,
+    questionFontSize,
+    answerFontSize,
   } = attributes;
 
   const [openIndices, setOpenIndices] = useState(() => new Set(openFirst ? [0] : []));
@@ -131,6 +134,20 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <TypographySizePanel
+        elements={[
+          {
+            label: __( "Taille des questions", "g2rd" ),
+            value: questionFontSize,
+            onChange: ( v ) => setAttributes( { questionFontSize: v || "" } ),
+          },
+          {
+            label: __( "Taille des réponses", "g2rd" ),
+            value: answerFontSize,
+            onChange: ( v ) => setAttributes( { answerFontSize: v || "" } ),
+          },
+        ]}
+      />
       <InspectorControls>
         <PanelBody title={__("Optimisation SEO / GEO", "g2rd")} initialOpen={false}>
           <ToggleControl
@@ -266,7 +283,7 @@ export default function Edit({ attributes, setAttributes }) {
                 <div
                   className="g2rd-faq__question"
                   onClick={() => toggleItem(idx)}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", fontSize: questionFontSize || undefined }}
                 >
                   <TextControl
                     value={item.question}
@@ -284,7 +301,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                 {/* Corps de la réponse */}
                 {isOpen && (
-                  <div className="g2rd-faq__answer-editor">
+                  <div className="g2rd-faq__answer-editor" style={{ fontSize: answerFontSize || undefined }}>
                     <TextareaControl
                       label={__("Réponse", "g2rd")}
                       value={item.answer}

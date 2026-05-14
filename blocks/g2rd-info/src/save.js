@@ -15,6 +15,8 @@ export default function save({ attributes }) {
     iconSize,
     gap,
     layout,
+    titleFontSize,
+    descriptionFontSize,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -70,12 +72,12 @@ export default function save({ attributes }) {
             <RichText.Content
               tagName="h3"
               value={title}
-              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem" }}
+              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem", ...(titleFontSize ? { fontSize: titleFontSize } : {}) }}
             />
             <RichText.Content
               tagName="p"
               value={description}
-              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem" }}
+              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem", ...(descriptionFontSize ? { fontSize: descriptionFontSize } : {}) }}
             />
           </div>
         </>
@@ -88,12 +90,12 @@ export default function save({ attributes }) {
             <RichText.Content
               tagName="h3"
               value={title}
-              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem" }}
+              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem", ...(titleFontSize ? { fontSize: titleFontSize } : {}) }}
             />
             <RichText.Content
               tagName="p"
               value={description}
-              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem" }}
+              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem", ...(descriptionFontSize ? { fontSize: descriptionFontSize } : {}) }}
             />
           </div>
           {renderMedia()}
@@ -107,12 +109,12 @@ export default function save({ attributes }) {
             <RichText.Content
               tagName="h3"
               value={title}
-              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem" }}
+              style={{ color: titleColor || "#FAFAFA", fontSize: "1.5rem", ...(titleFontSize ? { fontSize: titleFontSize } : {}) }}
             />
             <RichText.Content
               tagName="p"
               value={description}
-              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem" }}
+              style={{ color: descriptionColor || "#D4A373", fontSize: "1rem", ...(descriptionFontSize ? { fontSize: descriptionFontSize } : {}) }}
             />
           </div>
           {renderMedia()}

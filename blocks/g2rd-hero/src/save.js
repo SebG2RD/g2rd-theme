@@ -10,6 +10,7 @@ export default function Save({ attributes }) {
     overlayColor, overlayOpacity,
     headingColor, accentColor, textColor, ctaPrimaryBg, ctaPrimaryColor,
     alignment, minHeight, paddingVertical,
+    headingFontSize, textFontSize, kickerFontSize,
   } = attributes;
 
   const bgStyle =
@@ -51,13 +52,13 @@ export default function Save({ attributes }) {
             tagName="p"
             className="g2rd-hero__kicker"
             value={kicker}
-            style={{ color: accentColor, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.875rem", marginBottom: "0.75rem" }}
+            style={{ color: accentColor, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", fontSize: kickerFontSize || "0.875rem", marginBottom: "0.75rem" }}
           />
         )}
 
         <h1
           className="g2rd-hero__heading"
-          style={{ color: headingColor, fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.1, marginBottom: "1.25rem" }}
+          style={{ color: headingColor, fontSize: headingFontSize || "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.1, marginBottom: "1.25rem" }}
           dangerouslySetInnerHTML={{ __html: markedHeading }}
         />
 
@@ -66,7 +67,7 @@ export default function Save({ attributes }) {
             tagName="p"
             className="g2rd-hero__subheading"
             value={subheading}
-            style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, fontSize: "1.1rem", marginBottom: "2rem" }}
+            style={{ color: textColor, opacity: 0.9, lineHeight: 1.75, fontSize: textFontSize || "1.1rem", marginBottom: "2rem" }}
           />
         )}
 

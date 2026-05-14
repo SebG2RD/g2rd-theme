@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
   CheckboxControl,
@@ -43,7 +44,7 @@ const SOURCE_LABELS = {
  * @param {Object} props.opts   - Options d'affichage (cardDisplay, linkType, etc.)
  * @param {Object} props.colors - Couleurs personnalisées (titleColor, cardTextColor, excerptColor)
  */
-function CardPreview({ item, opts, colors }) {
+function CardPreview({ item, opts, colors, fontSizes }) {
   const {
     cardDisplay   = "summary",
     linkType      = "title",
@@ -53,6 +54,7 @@ function CardPreview({ item, opts, colors }) {
     showDate      = true,
   } = opts;
   const { titleColor, cardTextColor, excerptColor } = colors;
+  const { cardTitleFontSize, excerptFontSize } = fontSizes || {};
 
   const firstTax  = Object.values(item.terms || {})[0];
   const firstTerm = firstTax?.[0];
@@ -83,7 +85,7 @@ function CardPreview({ item, opts, colors }) {
         ) }
         <h3
           className="g2rd-fg__title"
-          style={ titleColor ? { color: titleColor } : {} }
+          style={ { ...(titleColor ? { color: titleColor } : {}), ...(cardTitleFontSize ? { fontSize: cardTitleFontSize } : {}) } }
         >
           { linkType === "title"
             ? <a href={ item.link } onClick={ (e) => e.preventDefault() }>{ item.title }</a>
@@ -93,7 +95,7 @@ function CardPreview({ item, opts, colors }) {
         { cardDisplay !== "compact" && excerpt && (
           <p
             className="g2rd-fg__excerpt"
-            style={ excerptColor ? { color: excerptColor } : {} }
+            style={ { ...(excerptColor ? { color: excerptColor } : {}), ...(excerptFontSize ? { fontSize: excerptFontSize } : {}) } }
           >
             { excerpt }
           </p>
@@ -155,6 +157,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     imageAspectRatio,
     imageObjectFit,
     showUnderline,
+    cardTitleFontSize,
+    excerptFontSize,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -280,12 +284,30 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     () => ( { titleColor, cardTextColor, excerptColor } ),
     [ titleColor, cardTextColor, excerptColor ]
   );
+  const cardFontSizes = useMemo(
+    () => ( { cardTitleFontSize, excerptFontSize } ),
+    [ cardTitleFontSize, excerptFontSize ]
+  );
 
   // Squelettes affichés pendant le chargement ou si aucun post
   const skeletons = Array.from({ length: Math.min(postsPerPage, 6) });
 
   return (
     <>
+      <TypographySizePanel
+        elements={ [
+          {
+            label:    __( 'Titre de la carte', 'g2rd' ),
+            value:    cardTitleFontSize,
+            onChange: ( v ) => setAttributes( { cardTitleFontSize: v || '' } ),
+          },
+          {
+            label:    __( 'Extrait', 'g2rd' ),
+            value:    excerptFontSize,
+            onChange: ( v ) => setAttributes( { excerptFontSize: v || '' } ),
+          },
+        ] }
+      />
       <InspectorControls>
         {/* ── Types de contenu ── */}
         <PanelBody title={ __("Types de contenu", "g2rd") } initialOpen={ true }>
@@ -572,6 +594,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                   item={ item }
                   opts={ cardOpts }
                   colors={ cardColors }
+                  fontSizes={ cardFontSizes }
                 />
               ))
           }
