@@ -127,6 +127,15 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.0
+
+- **Feature** : Contrôle de taille typographique par élément sur 14 blocs — panneau "Typographie" dans l'onglet Styles (presets S/M/L/XL/XXL du thème).
+- **Feature** : Composant partagé `TypographySizePanel` — architecture unifiée, `FontSizePicker` presets, aucune duplication entre blocs.
+- **Feature** : Page d'options admin — refonte visuelle complète (sidebar nav groupée par section, thème clair, polices Outfit + JetBrains Mono).
+- **Feature** : SBOM CycloneDX JSON — inventaire automatique des dépendances PHP + npm sur chaque release GitHub.
+- **Fix** : Audit MCP — câblage `X-G2RD-Screen`, `User-Agent` et `execution_ms` dans l'audit log (SP-1).
+- **Fix** : `McpTokenManager` — passage du paramètre `$audit` manquant, correctif PHPStan.
+
 ### 1.12.1
 
 - **Fix MCP audit** : câblage de `X-G2RD-Screen`, `User-Agent` et `execution_ms` dans chaque entrée d'audit (allowed et denied) — complète l'intent du JS bridge (SP-5).
