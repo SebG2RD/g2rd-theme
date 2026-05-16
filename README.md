@@ -127,6 +127,14 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.3
+
+- **Fix (Card)** : `align-items: center` sur les positions gauche/droite — icône et contenu correctement alignés sur la même ligne.
+- **Fix (Card)** : `display: block` sur l'overlay link (correction rendu lien carte entière).
+- **Fix (MCP)** : migrations tables déclenchées sur `after_setup_theme` — tables créées lors des mises à jour GitHub (plus seulement à l'activation).
+- **Fix (MCP)** : affichage du nom du token dans le tableau de la page d'options.
+- **Feat (Card)** : nouveaux contrôles dans l'onglet Styles — alignement global des éléments (`align-items`), écart média/contenu, écart entre éléments du contenu.
+
 ### 1.13.2
 
 - **Fix** : Migrations MCP déclenchées sur `after_setup_theme` — tables `wp_g2rd_mcp_tokens` et `wp_g2rd_mcp_audit_log` créées lors des mises à jour GitHub (plus seulement à l'activation initiale).

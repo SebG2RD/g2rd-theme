@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25020bfc0b038c0977677173320c2d0e",
+    "content-hash": "d7b236de702971248675d059b8a94ed8",
     "packages": [
         {
             "name": "scrivo/highlight.php",
