@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.2
+
+- **Fix** : Migrations MCP déclenchées sur `after_setup_theme` — tables `wp_g2rd_mcp_tokens` et `wp_g2rd_mcp_audit_log` créées lors des mises à jour GitHub (plus seulement à l'activation initiale).
+- **Fix** : Page d'options — onglet Tokens MCP affiche correctement le nom du token (`token_name`).
+
 ### 1.13.1
 
 - **Fix** : Bloc Card — `URLInput` importé depuis `@wordpress/block-editor` (était `@wordpress/components` → erreur à l'ouverture du panneau CTA).

@@ -92,12 +92,17 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 // Enregistrer le hook after_switch_theme avant after_setup_theme
 ( new FseSync() )->register_switch_hook();
 
-// Migrations MCP — tables SQL créées à l'activation du thème.
+// Migrations MCP — tables SQL créées à l'activation ET lors des mises à jour.
+// after_switch_theme : première activation propre.
+// after_setup_theme  : garantit l'exécution après mise à jour GitHub (thème déjà actif).
+// Les fonctions sont idempotentes (guard via get_option).
 require_once __DIR__ . '/migrations/001-mcp-tables.php';
 \add_action( 'after_switch_theme', __NAMESPACE__ . '\g2rd_mcp_run_migration_001' );
+\add_action( 'after_setup_theme',  __NAMESPACE__ . '\g2rd_mcp_run_migration_001' );
 
 require_once __DIR__ . '/migrations/002-mcp-confirmation-queue.php';
 \add_action( 'after_switch_theme', __NAMESPACE__ . '\g2rd_mcp_run_migration_002' );
+\add_action( 'after_setup_theme',  __NAMESPACE__ . '\g2rd_mcp_run_migration_002' );
 
 /**
  * Initialise toutes les composantes du thème

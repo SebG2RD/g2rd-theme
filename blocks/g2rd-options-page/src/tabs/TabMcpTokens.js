@@ -201,7 +201,7 @@ export function TabMcpTokens() {
 						<tbody>
 							{ tokens.map( ( t ) => (
 								<tr key={ t.id }>
-									<td><strong>{ t.name }</strong></td>
+									<td><strong>{ t.token_name || t.name }</strong></td>
 									<td>
 										<span style={ {
 											background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
