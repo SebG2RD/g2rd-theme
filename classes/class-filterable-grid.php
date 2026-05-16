@@ -315,8 +315,8 @@ class FilterableGrid {
 
         $item = [
             'id'        => $post->ID,
-            'title'     => \get_the_title($post),
-            'excerpt'   => $excerpt,
+            'title'     => \wp_specialchars_decode(\get_the_title($post), ENT_QUOTES),
+            'excerpt'   => \wp_specialchars_decode($excerpt, ENT_QUOTES),
             'link'      => \get_permalink($post),
             'date'      => \get_the_date('', $post),
             'date_iso'  => \get_the_date('c', $post),
