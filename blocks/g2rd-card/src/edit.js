@@ -139,7 +139,7 @@ export default function Edit({ attributes, setAttributes }) {
       padding: `${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}`,
       textAlign: alignment,
       gap: mediaGap || undefined,
-      alignItems: alignItems || undefined,
+      "--g2rd-card-align": alignItems || undefined,
     },
   });
 
