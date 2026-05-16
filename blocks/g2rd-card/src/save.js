@@ -41,6 +41,9 @@ export default function Save({ attributes }) {
     headingFontSize,
     subheadingFontSize,
     descriptionFontSize,
+    linkMode,
+    showSubHeading,
+    showDescription,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -53,7 +56,6 @@ export default function Save({ attributes }) {
     },
   });
 
-  // Icône ou image
   const renderMedia = () => {
     if (mediaType === "icon" && icon) {
       return (
@@ -101,6 +103,16 @@ export default function Save({ attributes }) {
 
   return (
     <div {...blockProps}>
+      {linkMode === "card" && ctaUrl && (
+        <a
+          className="g2rd-card__overlay-link"
+          href={ctaUrl}
+          target={ctaTarget ? "_blank" : undefined}
+          rel={ctaTarget ? "noopener noreferrer" : undefined}
+          aria-label={ctaAriaLabel || undefined}
+        ></a>
+      )}
+
       {media && <div className="g2rd-card__media">{media}</div>}
 
       <div className="g2rd-card__content">
@@ -113,7 +125,7 @@ export default function Save({ attributes }) {
           />
         )}
 
-        {subHeading && (
+        {showSubHeading && subHeading && (
           <RichText.Content
             tagName="p"
             className="g2rd-card__subheading"
@@ -128,14 +140,12 @@ export default function Save({ attributes }) {
             style={{
               width: `${separatorWidth}px`,
               height: `${separatorHeight}px`,
-              backgroundColor:
-                separatorColor ||
-                "var(--wp--preset--color--primary,#2f425d)",
+              backgroundColor: separatorColor || "var(--wp--preset--color--primary,#2f425d)",
             }}
           ></div>
         )}
 
-        {description && (
+        {showDescription && description && (
           <RichText.Content
             tagName="p"
             className="g2rd-card__description"
@@ -144,7 +154,7 @@ export default function Save({ attributes }) {
           />
         )}
 
-        {ctaText && (
+        {linkMode === "cta" && ctaText && (
           <div className="g2rd-card__cta">
             <RichText.Content
               tagName="a"

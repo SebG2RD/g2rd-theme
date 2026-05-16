@@ -127,6 +127,13 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.1
+
+- **Fix** : Bloc Card — `URLInput` importé depuis `@wordpress/block-editor` (était `@wordpress/components` → erreur à l'ouverture du panneau CTA).
+- **Feature** : Bloc Card — position icône/image en haut alignée sur l'alignement du texte (gauche/centre/droite).
+- **Feature** : Bloc Card — toggles pour masquer/afficher le sous-titre et la description (éditeur + front).
+- **Feature** : Bloc Card — mode de lien exclusif : Désactivé / Bouton CTA / Carte entière cliquable (overlay `<a>` absolu).
+
 ### 1.13.0
 
 - **Feature** : Contrôle de taille typographique par élément sur 14 blocs — panneau "Typographie" dans l'onglet Styles (presets S/M/L/XL/XXL du thème).

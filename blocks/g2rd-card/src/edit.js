@@ -8,6 +8,7 @@ import {
   RichText,
   BlockControls,
   AlignmentToolbar,
+  URLInput,
 } from "@wordpress/block-editor";
 import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
@@ -16,7 +17,6 @@ import {
   RangeControl,
   ToggleControl,
   TextControl,
-  URLInput,
   Button,
   ButtonGroup,
 } from "@wordpress/components";
@@ -123,6 +123,9 @@ export default function Edit({ attributes, setAttributes }) {
     headingFontSize,
     subheadingFontSize,
     descriptionFontSize,
+    linkMode,
+    showSubHeading,
+    showDescription,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -135,7 +138,6 @@ export default function Edit({ attributes, setAttributes }) {
     },
   });
 
-  // Rendu de l'icône ou de l'image dans l'éditeur
   const renderMedia = () => {
     if (mediaType === "icon") {
       return (
@@ -171,11 +173,7 @@ export default function Edit({ attributes, setAttributes }) {
             <MediaUploadCheck>
               <MediaUpload
                 onSelect={(media) =>
-                  setAttributes({
-                    imageUrl: media.url,
-                    imageId: media.id,
-                    imageAlt: media.alt || "",
-                  })
+                  setAttributes({ imageUrl: media.url, imageId: media.id, imageAlt: media.alt || "" })
                 }
                 allowedTypes={["image"]}
                 value={imageId}
@@ -193,11 +191,7 @@ export default function Edit({ attributes, setAttributes }) {
             <MediaUploadCheck>
               <MediaUpload
                 onSelect={(media) =>
-                  setAttributes({
-                    imageUrl: media.url,
-                    imageId: media.id,
-                    imageAlt: media.alt || "",
-                  })
+                  setAttributes({ imageUrl: media.url, imageId: media.id, imageAlt: media.alt || "" })
                 }
                 allowedTypes={["image"]}
                 render={({ open }) => (
@@ -221,19 +215,19 @@ export default function Edit({ attributes, setAttributes }) {
       <TypographySizePanel
         elements={[
           {
-            label: __( "Taille du titre", "g2rd" ),
+            label: __("Taille du titre", "g2rd"),
             value: headingFontSize,
-            onChange: ( v ) => setAttributes( { headingFontSize: v || "" } ),
+            onChange: (v) => setAttributes({ headingFontSize: v || "" }),
           },
           {
-            label: __( "Taille du sous-titre", "g2rd" ),
+            label: __("Taille du sous-titre", "g2rd"),
             value: subheadingFontSize,
-            onChange: ( v ) => setAttributes( { subheadingFontSize: v || "" } ),
+            onChange: (v) => setAttributes({ subheadingFontSize: v || "" }),
           },
           {
-            label: __( "Taille de la description", "g2rd" ),
+            label: __("Taille de la description", "g2rd"),
             value: descriptionFontSize,
-            onChange: ( v ) => setAttributes( { descriptionFontSize: v || "" } ),
+            onChange: (v) => setAttributes({ descriptionFontSize: v || "" }),
           },
         ]}
       />
@@ -328,16 +322,31 @@ export default function Edit({ attributes, setAttributes }) {
             label={__("Position du média", "g2rd")}
             value={iconPosition}
             options={[
-              { label: __("En haut (centré)", "g2rd"), value: "top" },
+              { label: __("En haut", "g2rd"), value: "top" },
               { label: __("À gauche", "g2rd"), value: "left" },
               { label: __("À droite", "g2rd"), value: "right" },
             ]}
             onChange={(v) => setAttributes({ iconPosition: v })}
           />
+          {iconPosition === "top" && (
+            <p style={{ fontSize: "12px", color: "#646970", marginTop: "4px" }}>
+              {__("L'alignement du média en haut suit l'alignement du texte (barre d'outils).", "g2rd")}
+            </p>
+          )}
         </PanelBody>
 
         {/* --- Contenu --- */}
         <PanelBody title={__("Contenu", "g2rd")} initialOpen={false}>
+          <ToggleControl
+            label={__("Afficher le sous-titre", "g2rd")}
+            checked={showSubHeading}
+            onChange={(v) => setAttributes({ showSubHeading: v })}
+          />
+          <ToggleControl
+            label={__("Afficher la description", "g2rd")}
+            checked={showDescription}
+            onChange={(v) => setAttributes({ showDescription: v })}
+          />
           <SelectControl
             label={__("Balise du titre", "g2rd")}
             value={headingTag}
@@ -369,44 +378,70 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
-        {/* --- Bouton CTA --- */}
-        <PanelBody title={__("Bouton CTA", "g2rd")} initialOpen={false}>
-          <p className="components-base-control__label">{__("URL", "g2rd")}</p>
-          <URLInput
-            value={ctaUrl}
-            onChange={(v) => setAttributes({ ctaUrl: v })}
-          />
-          <ToggleControl
-            label={__("Ouvrir dans un nouvel onglet", "g2rd")}
-            checked={ctaTarget}
-            onChange={(v) => setAttributes({ ctaTarget: v })}
-          />
+        {/* --- Lien --- */}
+        <PanelBody title={__("Lien", "g2rd")} initialOpen={false}>
           <SelectControl
-            label={__("Style du bouton", "g2rd")}
-            value={ctaStyle}
+            label={__("Mode de lien", "g2rd")}
+            value={linkMode}
             options={[
-              { label: __("Bouton rempli", "g2rd"), value: "button" },
-              { label: __("Lien simple", "g2rd"), value: "link" },
+              { label: __("Désactivé", "g2rd"), value: "none" },
+              { label: __("Bouton CTA", "g2rd"), value: "cta" },
+              { label: __("Carte entière", "g2rd"), value: "card" },
             ]}
-            onChange={(v) => setAttributes({ ctaStyle: v })}
+            onChange={(v) => setAttributes({ linkMode: v })}
           />
-          <TextControl
-            label={__("Étiquette ARIA du lien (accessibilité)", "g2rd")}
-            value={ctaAriaLabel}
-            onChange={(v) => setAttributes({ ctaAriaLabel: v })}
-            placeholder={__("Ex : En savoir plus sur notre offre SEO", "g2rd")}
-            help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          {ctaStyle === "button" && (
-            <RangeControl
-              label={__("Rayon des coins (px)", "g2rd")}
-              value={ctaBorderRadius}
-              onChange={(v) => setAttributes({ ctaBorderRadius: v })}
-              min={0}
-              max={40}
-            />
+
+          {linkMode !== "none" && (
+            <>
+              <p className="components-base-control__label">{__("URL", "g2rd")}</p>
+              <URLInput
+                value={ctaUrl}
+                onChange={(v) => setAttributes({ ctaUrl: v })}
+              />
+              <ToggleControl
+                label={__("Ouvrir dans un nouvel onglet", "g2rd")}
+                checked={ctaTarget}
+                onChange={(v) => setAttributes({ ctaTarget: v })}
+              />
+              <TextControl
+                label={__("Étiquette ARIA (accessibilité)", "g2rd")}
+                value={ctaAriaLabel}
+                onChange={(v) => setAttributes({ ctaAriaLabel: v })}
+                placeholder={__("Ex : En savoir plus sur notre offre SEO", "g2rd")}
+                help={__("Précise la destination pour les lecteurs d'écran (RGAA 6.1).", "g2rd")}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            </>
+          )}
+
+          {linkMode === "cta" && (
+            <>
+              <SelectControl
+                label={__("Style du bouton", "g2rd")}
+                value={ctaStyle}
+                options={[
+                  { label: __("Bouton rempli", "g2rd"), value: "button" },
+                  { label: __("Lien simple", "g2rd"), value: "link" },
+                ]}
+                onChange={(v) => setAttributes({ ctaStyle: v })}
+              />
+              {ctaStyle === "button" && (
+                <RangeControl
+                  label={__("Rayon des coins (px)", "g2rd")}
+                  value={ctaBorderRadius}
+                  onChange={(v) => setAttributes({ ctaBorderRadius: v })}
+                  min={0}
+                  max={40}
+                />
+              )}
+            </>
+          )}
+
+          {linkMode === "card" && (
+            <p style={{ fontSize: "12px", color: "#646970", margin: "8px 0 0", lineHeight: 1.5 }}>
+              {__("La carte entière sera cliquable. Le bouton CTA est désactivé dans ce mode.", "g2rd")}
+            </p>
           )}
         </PanelBody>
 
@@ -450,12 +485,16 @@ export default function Edit({ attributes, setAttributes }) {
                 ]
               : []),
             { value: headingColor, onChange: (v) => setAttributes({ headingColor: v || "" }), label: __("Couleur du titre", "g2rd") },
-            { value: subHeadingColor, onChange: (v) => setAttributes({ subHeadingColor: v || "" }), label: __("Couleur du sous-titre", "g2rd") },
-            { value: descriptionColor, onChange: (v) => setAttributes({ descriptionColor: v || "" }), label: __("Couleur de la description", "g2rd") },
+            ...(showSubHeading
+              ? [{ value: subHeadingColor, onChange: (v) => setAttributes({ subHeadingColor: v || "" }), label: __("Couleur du sous-titre", "g2rd") }]
+              : []),
+            ...(showDescription
+              ? [{ value: descriptionColor, onChange: (v) => setAttributes({ descriptionColor: v || "" }), label: __("Couleur de la description", "g2rd") }]
+              : []),
             ...(showSeparator
               ? [{ value: separatorColor, onChange: (v) => setAttributes({ separatorColor: v || "" }), label: __("Couleur du séparateur", "g2rd") }]
               : []),
-            ...(ctaText
+            ...(linkMode === "cta"
               ? [
                   { value: ctaBgColor, onChange: (v) => setAttributes({ ctaBgColor: v || "" }), label: __("Couleur du bouton (fond)", "g2rd") },
                   { value: ctaTextColor, onChange: (v) => setAttributes({ ctaTextColor: v || "" }), label: __("Couleur du bouton (texte)", "g2rd") },
@@ -480,14 +519,16 @@ export default function Edit({ attributes, setAttributes }) {
             style={{ color: headingColor || undefined, fontSize: headingFontSize || undefined, margin: 0 }}
           />
 
-          <RichText
-            tagName="p"
-            className="g2rd-card__subheading"
-            value={subHeading}
-            onChange={(v) => setAttributes({ subHeading: v })}
-            placeholder={__("Sous-titre (optionnel)…", "g2rd")}
-            style={{ color: subHeadingColor || undefined, fontSize: subheadingFontSize || undefined }}
-          />
+          {showSubHeading && (
+            <RichText
+              tagName="p"
+              className="g2rd-card__subheading"
+              value={subHeading}
+              onChange={(v) => setAttributes({ subHeading: v })}
+              placeholder={__("Sous-titre (optionnel)…", "g2rd")}
+              style={{ color: subHeadingColor || undefined, fontSize: subheadingFontSize || undefined }}
+            />
+          )}
 
           {showSeparator && (
             <div
@@ -495,41 +536,52 @@ export default function Edit({ attributes, setAttributes }) {
               style={{
                 width: `${separatorWidth}px`,
                 height: `${separatorHeight}px`,
-                backgroundColor:
-                  separatorColor || "var(--wp--preset--color--primary,#2f425d)",
+                backgroundColor: separatorColor || "var(--wp--preset--color--primary,#2f425d)",
               }}
             ></div>
           )}
 
-          <RichText
-            tagName="p"
-            className="g2rd-card__description"
-            value={description}
-            onChange={(v) => setAttributes({ description: v })}
-            placeholder={__("Description de la carte…", "g2rd")}
-            style={{ color: descriptionColor || undefined, fontSize: descriptionFontSize || undefined }}
-          />
-
-          <div className="g2rd-card__cta">
+          {showDescription && (
             <RichText
-              tagName="span"
-              className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
-              value={ctaText}
-              onChange={(v) => setAttributes({ ctaText: v })}
-              placeholder={__("Texte du bouton (optionnel)…", "g2rd")}
-              style={
-                ctaStyle === "button"
-                  ? {
-                      backgroundColor: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
-                      color: ctaTextColor || "var(--wp--preset--color--white,#fff)",
-                      borderRadius: `${ctaBorderRadius}px`,
-                    }
-                  : {
-                      color: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
-                    }
-              }
+              tagName="p"
+              className="g2rd-card__description"
+              value={description}
+              onChange={(v) => setAttributes({ description: v })}
+              placeholder={__("Description de la carte…", "g2rd")}
+              style={{ color: descriptionColor || undefined, fontSize: descriptionFontSize || undefined }}
             />
-          </div>
+          )}
+
+          {linkMode === "cta" && (
+            <div className="g2rd-card__cta">
+              <RichText
+                tagName="span"
+                className={`g2rd-card__cta-link g2rd-card__cta-link--${ctaStyle}`}
+                value={ctaText}
+                onChange={(v) => setAttributes({ ctaText: v })}
+                placeholder={__("Texte du bouton…", "g2rd")}
+                style={
+                  ctaStyle === "button"
+                    ? {
+                        backgroundColor: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
+                        color: ctaTextColor || "var(--wp--preset--color--white,#fff)",
+                        borderRadius: `${ctaBorderRadius}px`,
+                      }
+                    : {
+                        color: ctaBgColor || "var(--wp--preset--color--primary,#2f425d)",
+                      }
+                }
+              />
+            </div>
+          )}
+
+          {linkMode === "card" && (
+            <div className="g2rd-card__link-badge">
+              {ctaUrl
+                ? `🔗 ${ctaUrl}`
+                : __("🔗 Carte cliquable — définissez une URL dans le panneau Lien", "g2rd")}
+            </div>
+          )}
         </div>
       </div>
     </>

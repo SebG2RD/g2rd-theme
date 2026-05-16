@@ -16,3 +16,15 @@
   cursor: default;
   pointer-events: none;
 }
+
+/* Badge visuel mode carte cliquable */
+.g2rd-card__link-badge {
+  font-size: 12px;
+  color: #646970;
+  padding: 6px 10px;
+  border: 1px dashed #646970;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 4px;
+  word-break: break-all;
+}

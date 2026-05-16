@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
 }
 
 /* Position du média */
@@ -111,5 +112,19 @@
 .g2rd-card--align-center .g2rd-card__content { text-align: center; }
 .g2rd-card--align-right  .g2rd-card__content { text-align: right; }
 
+.g2rd-card--align-left.g2rd-card--icon-top   { align-items: flex-start; }
 .g2rd-card--align-center.g2rd-card--icon-top { align-items: center; }
 .g2rd-card--align-right.g2rd-card--icon-top  { align-items: flex-end; }
+
+/* Overlay lien global (linkMode: card) */
+.g2rd-card__overlay-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.g2rd-card__cta {
+  position: relative;
+  z-index: 2;
+}
