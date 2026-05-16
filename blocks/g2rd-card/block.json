@@ -59,7 +59,10 @@
         "descriptionFontSize": { "type": "string", "default": "" },
         "linkMode":            { "type": "string",  "default": "cta" },
         "showSubHeading":      { "type": "boolean", "default": true },
-        "showDescription":     { "type": "boolean", "default": true }
+        "showDescription":     { "type": "boolean", "default": true },
+        "mediaGap":            { "type": "string",  "default": "16px" },
+        "contentGap":          { "type": "string",  "default": "8px" },
+        "alignItems":          { "type": "string",  "default": "" }
     },
     "supports": {
         "html": false

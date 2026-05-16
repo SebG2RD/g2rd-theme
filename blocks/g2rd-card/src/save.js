@@ -44,6 +44,9 @@ export default function Save({ attributes }) {
     linkMode,
     showSubHeading,
     showDescription,
+    mediaGap,
+    contentGap,
+    alignItems,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -53,6 +56,8 @@ export default function Save({ attributes }) {
       borderRadius: borderRadius ? `${borderRadius}px` : undefined,
       padding: `${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}`,
       textAlign: alignment,
+      gap: mediaGap || undefined,
+      alignItems: alignItems || undefined,
     },
   });
 
@@ -115,7 +120,7 @@ export default function Save({ attributes }) {
 
       {media && <div className="g2rd-card__media">{media}</div>}
 
-      <div className="g2rd-card__content">
+      <div className="g2rd-card__content" style={{ gap: contentGap || undefined }}>
         {heading && (
           <RichText.Content
             tagName={headingTag}

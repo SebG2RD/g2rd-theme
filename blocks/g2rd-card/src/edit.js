@@ -126,6 +126,9 @@ export default function Edit({ attributes, setAttributes }) {
     linkMode,
     showSubHeading,
     showDescription,
+    mediaGap,
+    contentGap,
+    alignItems,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -135,6 +138,8 @@ export default function Edit({ attributes, setAttributes }) {
       borderRadius: borderRadius ? `${borderRadius}px` : undefined,
       padding: `${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}`,
       textAlign: alignment,
+      gap: mediaGap || undefined,
+      alignItems: alignItems || undefined,
     },
   });
 
@@ -212,6 +217,43 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      <InspectorControls group="styles">
+        <PanelBody title={__("Espacement des éléments", "g2rd")} initialOpen={false}>
+          <SelectControl
+            label={__("Alignement des éléments (align-items)", "g2rd")}
+            value={alignItems}
+            options={[
+              { label: __("Par défaut (auto)", "g2rd"), value: "" },
+              { label: __("Début (flex-start)", "g2rd"), value: "flex-start" },
+              { label: __("Centre (center)", "g2rd"), value: "center" },
+              { label: __("Fin (flex-end)", "g2rd"), value: "flex-end" },
+              { label: __("Étirer (stretch)", "g2rd"), value: "stretch" },
+            ]}
+            onChange={(v) => setAttributes({ alignItems: v })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Écart média / contenu", "g2rd")}
+            value={mediaGap}
+            onChange={(v) => setAttributes({ mediaGap: v })}
+            placeholder="16px"
+            help={__("Gap entre l'icône/image et le texte (ex : 12px, 1rem).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Écart entre éléments du contenu", "g2rd")}
+            value={contentGap}
+            onChange={(v) => setAttributes({ contentGap: v })}
+            placeholder="8px"
+            help={__("Espace entre titre, sous-titre, description (ex : 4px, 0.5rem).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+      </InspectorControls>
+
       <TypographySizePanel
         elements={[
           {
@@ -509,7 +551,7 @@ export default function Edit({ attributes, setAttributes }) {
       <div {...blockProps}>
         {media && <div className="g2rd-card__media">{media}</div>}
 
-        <div className="g2rd-card__content">
+        <div className="g2rd-card__content" style={{ gap: contentGap || undefined }}>
           <RichText
             tagName={headingTag}
             className="g2rd-card__heading"

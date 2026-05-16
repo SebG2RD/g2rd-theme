@@ -16,12 +16,12 @@
 
 .g2rd-card--icon-left {
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .g2rd-card--icon-right {
   flex-direction: row-reverse;
-  align-items: flex-start;
+  align-items: center;
 }
 
 /* Wrapper icône */
@@ -118,6 +118,7 @@
 
 /* Overlay lien global (linkMode: card) */
 .g2rd-card__overlay-link {
+  display: block;
   position: absolute;
   inset: 0;
   z-index: 1;
