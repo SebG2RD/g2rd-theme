@@ -127,6 +127,12 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.5
+
+- **Fix (éditeur)** : supprime les warnings de dépréciation `SelectControl` et `RangeControl` WP 6.8+ — `__next40pxDefaultSize` et `__nextHasNoMarginBottom` ajoutés sur 65+74 occurrences dans 24 fichiers, compatibilité assurée jusqu'à WP 7.1.
+- **Feat (blocs)** : dépréciations automatiques `g2rd-card` (4 versions), `g2rd-advanced-heading` (`fontSizeValue→fontSize`) et `g2rd-countdown` (`valueSize/labelSize→valueFontSize/labelFontSize`) — migration silencieuse des blocs existants lors d'une mise à jour thème sur un site client.
+- **Chore** : bump `@playwright/test` 1.59.1 → 1.60.0.
+
 ### 1.13.4
 
 - **Fix (Card)** : contrôle "Alignement des éléments" fonctionnel — passage à la CSS custom property `--g2rd-card-align` pour éliminer tout conflit de cascade entre inline style et sélecteurs CSS.
