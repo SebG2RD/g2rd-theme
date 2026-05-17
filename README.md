@@ -127,6 +127,13 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.6
+
+- **Fix** : page d'options admin inaccessible via `admin.php?page=g2rd-options` — le slug enregistré était `g2rd-theme-settings` (incohérence avec tous les liens du thème).
+- **Fix** : navigation par hash dans la page d'options — `#mcp-queue` (et tout onglet) dans l'URL ouvre directement le bon onglet.
+- **MCP** : code d'intégration complet (config Claude Desktop + Claude Code) affiché à la création d'un token API, et bouton "Voir config" sur chaque token existant.
+- **Fix critique** : CSS des blocs `g2rd-card`, `g2rd-carousel`, `g2rd-countdown`, `g2rd-dynamic-content`, `g2rd-geo-faq`, `g2rd-geo-summary`, `g2rd-info`, `g2rd-typed` jamais livré en production — `block.json` pointait vers `src/*.css` exclu du ZIP de production. Migré vers `build/*.css` généré par webpack.
+
 ### 1.13.5
 
 - **Fix (éditeur)** : supprime les warnings de dépréciation `SelectControl` et `RangeControl` WP 6.8+ — `__next40pxDefaultSize` et `__nextHasNoMarginBottom` ajoutés sur 65+74 occurrences dans 24 fichiers, compatibilité assurée jusqu'à WP 7.1.
