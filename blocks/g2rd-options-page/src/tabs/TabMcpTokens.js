@@ -4,6 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 const { restBase, nonce } = window.G2RDOptionsData || {};
 const API = `${ restBase }g2rd/v1`;
+const MCP_ENDPOINT = `${ restBase }g2rd/v1`;
 
 function formatDate( iso ) {
 	if ( ! iso ) return '—';
@@ -11,6 +12,102 @@ function formatDate( iso ) {
 		day: '2-digit', month: '2-digit', year: 'numeric',
 		hour: '2-digit', minute: '2-digit',
 	} );
+}
+
+function buildClaudeDesktopConfig( token ) {
+	return JSON.stringify( {
+		mcpServers: {
+			g2rd: {
+				url: MCP_ENDPOINT,
+				headers: {
+					Authorization: `Bearer ${ token }`,
+				},
+			},
+		},
+	}, null, 2 );
+}
+
+function buildClaudeCodeConfig( token ) {
+	return JSON.stringify( {
+		mcpServers: {
+			g2rd: {
+				command: 'npx',
+				args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ token }` ],
+			},
+		},
+	}, null, 2 );
+}
+
+function IntegrationCode( { token } ) {
+	const [ copiedKey, setCopiedKey ] = useState( null );
+
+	const copy = useCallback( ( text, key ) => {
+		navigator.clipboard.writeText( text );
+		setCopiedKey( key );
+		setTimeout( () => setCopiedKey( null ), 2000 );
+	}, [] );
+
+	const desktopConfig = buildClaudeDesktopConfig( token );
+	const codeConfig    = buildClaudeCodeConfig( token );
+
+	const block = ( label, hint, code, key ) => (
+		<div style={ { marginBottom: 20 } }>
+			<div style={ { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 4 } }>
+				<strong style={ { fontSize: 13 } }>{ label }</strong>
+				<span style={ { fontSize: 11, color: '#787c82' } }>{ hint }</span>
+			</div>
+			<div style={ { position: 'relative' } }>
+				<pre style={ {
+					margin: 0,
+					background: '#1e1e2e',
+					color: '#cdd6f4',
+					padding: '12px 40px 12px 14px',
+					borderRadius: 6,
+					fontSize: 12,
+					lineHeight: 1.6,
+					overflowX: 'auto',
+					whiteSpace: 'pre',
+				} }>{ code }</pre>
+				<Button
+					isSmall
+					onClick={ () => copy( code, key ) }
+					style={ {
+						position: 'absolute', top: 6, right: 6,
+						background: copiedKey === key ? '#22c55e' : 'rgba(255,255,255,0.15)',
+						color: '#fff', border: 'none', borderRadius: 4,
+						padding: '2px 8px', fontSize: 11,
+					} }
+				>
+					{ copiedKey === key ? '✓ Copié' : 'Copier' }
+				</Button>
+			</div>
+		</div>
+	);
+
+	return (
+		<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '20px 24px', marginTop: 16 } }>
+			<h4 style={ { margin: '0 0 4px', fontSize: 13, fontWeight: 600 } }>
+				<span className="dashicons dashicons-editor-code" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
+				Code d'intégration
+			</h4>
+			<p style={ { margin: '0 0 16px', fontSize: 12, color: '#787c82' } }>
+				Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+			</p>
+
+			{ block(
+				'Claude Desktop',
+				'~/Library/Application Support/Claude/claude_desktop_config.json (macOS)',
+				desktopConfig,
+				'desktop'
+			) }
+			{ block(
+				'Claude Code (.mcp.json)',
+				'Dossier racine du projet ou ~/.claude/.mcp.json',
+				codeConfig,
+				'code'
+			) }
+		</div>
+	);
 }
 
 export function TabMcpTokens() {
@@ -22,6 +119,7 @@ export function TabMcpTokens() {
 	const [ name,        setName        ] = useState( '' );
 	const [ scope,       setScope       ] = useState( 'read_only' );
 	const [ expiresIn,   setExpiresIn   ] = useState( 30 );
+	const [ expandedId,  setExpandedId  ] = useState( null );
 
 	const showNotice = useCallback( ( type, message ) => {
 		setNotice( { type, message } );
@@ -82,10 +180,11 @@ export function TabMcpTokens() {
 			} );
 			showNotice( 'success', 'Token révoqué.' );
 			setTokens( ( prev ) => prev.filter( ( t ) => t.id !== id ) );
+			if ( expandedId === id ) setExpandedId( null );
 		} catch ( err ) {
 			showNotice( 'error', err?.message || 'Erreur lors de la révocation.' );
 		}
-	}, [ showNotice ] );
+	}, [ showNotice, expandedId ] );
 
 	const copyToken = useCallback( ( token ) => {
 		navigator.clipboard.writeText( token );
@@ -121,7 +220,7 @@ export function TabMcpTokens() {
 							<span className="dashicons dashicons-yes-alt" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
 							Token créé — copiez-le maintenant, il ne sera plus affiché.
 						</strong>
-						<div style={ { display: 'flex', alignItems: 'center', gap: 8 } }>
+						<div style={ { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 } }>
 							<code style={ { flex: 1, wordBreak: 'break-all', background: '#dcfce7', padding: '6px 10px', borderRadius: 4, fontSize: 13 } }>
 								{ newToken.token }
 							</code>
@@ -129,9 +228,10 @@ export function TabMcpTokens() {
 								<span className="dashicons dashicons-clipboard" style={ { fontSize: 16, width: 16, height: 16 } }></span>
 							</Button>
 						</div>
-						<p style={ { margin: '8px 0 0', fontSize: 12, color: '#166534' } }>
+						<p style={ { margin: '0 0 4px', fontSize: 12, color: '#166534' } }>
 							Portée : <strong>{ newToken.scope }</strong> — Expire le : <strong>{ formatDate( newToken.expires_at ) }</strong>
 						</p>
+						<IntegrationCode token={ newToken.token } />
 					</div>
 				) }
 
@@ -195,33 +295,69 @@ export function TabMcpTokens() {
 								<th>Préfixe</th>
 								<th>Créé le</th>
 								<th>Expire le</th>
+								<th>Intégration</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							{ tokens.map( ( t ) => (
-								<tr key={ t.id }>
-									<td><strong>{ t.token_name || t.name }</strong></td>
-									<td>
-										<span style={ {
-											background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
-											color: t.scope === 'editor' ? '#92400e' : '#075985',
-											borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
-										} }>
-											{ t.scope === 'editor' ? 'Éditeur' : 'Lecture seule' }
-										</span>
-									</td>
-									<td><code style={ { fontSize: 12 } }>{ t.token_prefix }…</code></td>
-									<td style={ { fontSize: 12, color: '#787c82' } }>{ formatDate( t.created_at ) }</td>
-									<td style={ { fontSize: 12, color: new Date( t.expires_at ) < new Date() ? '#d63638' : 'inherit' } }>
-										{ formatDate( t.expires_at ) }
-									</td>
-									<td>
-										<Button variant="secondary" isDestructive isSmall onClick={ () => handleRevoke( t.id, t.name ) }>
-											Révoquer
-										</Button>
-									</td>
-								</tr>
+								<>
+									<tr key={ t.id }>
+										<td><strong>{ t.token_name || t.name }</strong></td>
+										<td>
+											<span style={ {
+												background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
+												color: t.scope === 'editor' ? '#92400e' : '#075985',
+												borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
+											} }>
+												{ t.scope === 'editor' ? 'Éditeur' : 'Lecture seule' }
+											</span>
+										</td>
+										<td><code style={ { fontSize: 12 } }>{ t.token_prefix }…</code></td>
+										<td style={ { fontSize: 12, color: '#787c82' } }>{ formatDate( t.created_at ) }</td>
+										<td style={ { fontSize: 12, color: new Date( t.expires_at ) < new Date() ? '#d63638' : 'inherit' } }>
+											{ formatDate( t.expires_at ) }
+										</td>
+										<td>
+											<Button
+												variant="link"
+												isSmall
+												onClick={ () => setExpandedId( expandedId === t.id ? null : t.id ) }
+												style={ { textDecoration: 'none', fontSize: 12 } }
+											>
+												<span className={ `dashicons dashicons-${ expandedId === t.id ? 'arrow-up-alt2' : 'editor-code' }` }
+													style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+												{ expandedId === t.id ? 'Fermer' : 'Voir config' }
+											</Button>
+										</td>
+										<td>
+											<Button variant="secondary" isDestructive isSmall onClick={ () => handleRevoke( t.id, t.token_name || t.name ) }>
+												Révoquer
+											</Button>
+										</td>
+									</tr>
+									{ expandedId === t.id && (
+										<tr key={ `${ t.id }-config` }>
+											<td colSpan={ 7 } style={ { padding: '0 12px 16px' } }>
+												<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '16px 20px' } }>
+													<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
+														Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+														<br />
+														<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
+													</p>
+													<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
+													<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
+														mcpServers: { g2rd: { url: MCP_ENDPOINT, headers: { Authorization: `Bearer ${ t.token_prefix }…(TOKEN)` } } }
+													}, null, 2 ) }</pre>
+													<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
+													<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
+														mcpServers: { g2rd: { command: 'npx', args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ t.token_prefix }…(TOKEN)` ] } }
+													}, null, 2 ) }</pre>
+												</div>
+											</td>
+										</tr>
+									) }
+								</>
 							) ) }
 						</tbody>
 					</table>

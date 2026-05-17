@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { Button, Notice } from '@wordpress/components';
 import { useSettings } from './hooks/useSettings';
 import { TabConfiguration } from './tabs/TabConfiguration';
@@ -69,9 +69,18 @@ function renderTab( name, settings, update ) {
 	}
 }
 
+function getInitialTab() {
+	const hash = window.location.hash.replace( '#', '' );
+	return ALL_ITEMS.find( ( i ) => i.name === hash ) ? hash : ALL_ITEMS[ 0 ].name;
+}
+
 export function App() {
 	const { settings, update, isDirty, isSaving, save, reset, notice, clearNotice } = useSettings();
-	const [ activeTab, setActiveTab ] = useState( ALL_ITEMS[ 0 ].name );
+	const [ activeTab, setActiveTab ] = useState( getInitialTab );
+
+	useEffect( () => {
+		window.location.hash = activeTab;
+	}, [ activeTab ] );
 
 	const activeItem = ALL_ITEMS.find( ( i ) => i.name === activeTab );
 

@@ -27,7 +27,7 @@ class ThemeOptions {
     private const OPTION_COLORS           = 'g2rd_admin_colors';
     private const OPTION_CPTS             = 'g2rd_cpt_settings';
     private const OPTION_COMING_SOON      = 'g2rd_coming_soon';
-    private const PAGE_SLUG               = 'g2rd-theme-settings';
+    private const PAGE_SLUG               = 'g2rd-options';
     private const REST_NAMESPACE          = 'g2rd/v1';
 
     // ── Définitions statiques ─────────────────────────────────────────────
