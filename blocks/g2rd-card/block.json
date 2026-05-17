@@ -14,8 +14,8 @@
     "keywords": ["card", "carte", "info", "icone"],
     "textdomain": "g2rd",
     "editorScript": "file:./build/index.js",
-    "editorStyle": "file:./src/editor.css",
-    "style": ["dashicons", "file:./src/style.css"],
+    "editorStyle": "file:./build/index.css",
+    "style": ["dashicons", "file:./build/style-index.css"],
     "attributes": {
         "mediaType":       { "type": "string",  "default": "icon" },
         "icon":            { "type": "string",  "default": "dashicons-star-filled" },

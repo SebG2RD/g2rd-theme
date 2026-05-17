@@ -14,8 +14,7 @@
   "keywords": ["typed", "animation", "text", "typing", "effect"],
   "textdomain": "g2rd",
   "editorScript": "file:./build/index.js",
-  "editorStyle": "file:./src/style.css",
-  "style": "file:./src/style.css",
+  "style": "file:./build/style-index.css",
   "viewScript": "file:./build/view.js",
   "attributes": {
     "typedStrings": {

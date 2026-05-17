@@ -14,8 +14,7 @@
     "keywords": ["faq", "geo", "questions", "réponses", "schema", "ia"],
     "textdomain": "g2rd",
     "editorScript": "file:./build/index.js",
-    "editorStyle": "file:./src/style.css",
-    "style": "file:./src/style.css",
+    "style": "file:./build/style-index.css",
     "render": "file:./render.php",
     "attributes": {
         "items": {

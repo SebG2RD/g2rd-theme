@@ -27,7 +27,7 @@
   "textdomain": "g2rd",
   "editorScript": "file:./build/index.js",
   "editorStyle": "file:./build/index.css",
-  "style": "file:./src/carousel.css",
+  "style": "file:./build/index.css",
   "script": "file:./build/carousel-frontend.js",
   "attributes": {
     "images": {

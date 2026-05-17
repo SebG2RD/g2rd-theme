@@ -1,0 +1,160 @@
+/* ── G2RD Card — styles partagés éditeur + frontend ── */
+
+.g2rd-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  align-items: var(--g2rd-card-align, center);
+}
+
+/* Position du média — la variable --g2rd-card-align fixe le défaut,
+   l'inline style du bloc la surcharge quand l'utilisateur la modifie */
+
+.g2rd-card--icon-top {
+  flex-direction: column;
+  --g2rd-card-align: center;
+}
+
+.g2rd-card--icon-left {
+  flex-direction: row;
+  --g2rd-card-align: center;
+}
+
+.g2rd-card--icon-right {
+  flex-direction: row-reverse;
+  --g2rd-card-align: center;
+}
+
+/* Wrapper icône */
+
+.g2rd-card__icon-wrap {
+  flex-shrink: 0;
+}
+
+/* Image */
+
+.g2rd-card__image-wrap {
+  flex-shrink: 0;
+}
+
+.g2rd-card__image-wrap img {
+  display: block;
+  height: auto;
+}
+
+/* Contenu */
+
+.g2rd-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.g2rd-card__heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.g2rd-card__subheading {
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.g2rd-card__separator {
+  border: none;
+  display: block;
+}
+
+.g2rd-card--align-center .g2rd-card__separator {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.g2rd-card--align-right .g2rd-card__separator {
+  margin-left: auto;
+}
+
+.g2rd-card__description {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Bouton CTA */
+
+.g2rd-card__cta {
+  margin-top: 4px;
+}
+
+.g2rd-card__cta-link--button {
+  display: inline-block;
+  font-weight: 600;
+  padding: 0.5em 1.25em;
+  text-decoration: none;
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.g2rd-card__cta-link--button:hover {
+  opacity: 0.88;
+}
+
+.g2rd-card__cta-link--link {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.g2rd-card__cta-link--link:hover {
+  text-decoration: none;
+}
+
+/* Alignements globaux */
+
+.g2rd-card--align-left   .g2rd-card__content { text-align: left; }
+
+.g2rd-card--align-center .g2rd-card__content { text-align: center; }
+
+.g2rd-card--align-right  .g2rd-card__content { text-align: right; }
+
+/* Alignement icône/image en position haut selon l'alignement du texte */
+
+.g2rd-card--align-left.g2rd-card--icon-top   { --g2rd-card-align: flex-start; }
+
+.g2rd-card--align-center.g2rd-card--icon-top { --g2rd-card-align: center; }
+
+.g2rd-card--align-right.g2rd-card--icon-top  { --g2rd-card-align: flex-end; }
+
+/* Overlay lien global (linkMode: card) */
+
+.g2rd-card__overlay-link {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.g2rd-card__overlay-link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.g2rd-card__overlay-link:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: -2px;
+}
+
+.g2rd-card__cta {
+  position: relative;
+  z-index: 2;
+}
+
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -14,8 +14,7 @@
     "keywords": ["résumé", "geo", "ia", "summary", "tldr", "points clés"],
     "textdomain": "g2rd",
     "editorScript": "file:./build/index.js",
-    "editorStyle": "file:./src/style.css",
-    "style": "file:./src/style.css",
+    "style": "file:./build/style-index.css",
     "attributes": {
         "summary": {
             "type": "string",

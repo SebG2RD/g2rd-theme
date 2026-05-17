@@ -28,7 +28,7 @@
   "textdomain": "g2rd",
   "editorScript": "file:./build/index.js",
   "editorStyle": "file:./build/index.css",
-  "style": ["dashicons", "file:./src/info.css"],
+  "style": ["dashicons", "file:./build/index.css"],
   "attributes": {
     "mediaType": {
       "type": "string",

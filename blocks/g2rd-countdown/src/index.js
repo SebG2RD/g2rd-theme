@@ -1,7 +1,7 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { useBlockProps } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
-// import "./countdown.css";
+import "./countdown.css";
 import "./countdown-frontend.js";
 import Edit from "./edit";
 import Save from "./save";

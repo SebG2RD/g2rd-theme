@@ -1,5 +1,6 @@
 import { registerBlockType }    from '@wordpress/blocks';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
+import './style.css';
 import Edit from './edit';
 import Save from './save';
 
