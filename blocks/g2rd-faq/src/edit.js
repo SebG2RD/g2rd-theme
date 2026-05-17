@@ -228,7 +228,7 @@ export default function Edit({ attributes, setAttributes }) {
               </Button>
             ))}
           </ButtonGroup>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Rayon des coins (px)", "g2rd")}
             value={borderRadius}
             onChange={(v) => setAttributes({ borderRadius: v })}

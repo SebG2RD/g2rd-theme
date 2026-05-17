@@ -199,7 +199,7 @@ export default function Edit({ attributes, setAttributes }) {
         />
 
         <PanelBody title={__("Apparence", "g2rd")}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Disposition", "g2rd")}
             value={layout}
             options={[
@@ -210,7 +210,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Style du minuteur", "g2rd")}
             value={timerStyle}
             options={[
@@ -225,7 +225,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Animation", "g2rd")}
             value={animation}
             options={[
@@ -239,7 +239,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Vitesse d'animation", "g2rd")}
             value={animationSpeed}
             options={[
@@ -251,7 +251,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Espacement", "g2rd")}
             value={parseInt(itemSpacing)}
             onChange={(value) => setAttributes({ itemSpacing: `${value}px` })}
@@ -261,7 +261,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Rembourrage", "g2rd")}
             value={parseInt(itemPadding)}
             onChange={(value) => setAttributes({ itemPadding: `${value}px` })}
@@ -271,7 +271,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Arrondi des coins", "g2rd")}
             value={parseInt(itemBorderRadius)}
             onChange={(value) =>

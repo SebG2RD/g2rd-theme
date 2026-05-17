@@ -81,7 +81,7 @@ export function TabMcpAudit() {
 						Journal d'audit MCP
 					</h2>
 					<div style={ { display: 'flex', gap: 12, alignItems: 'center' } }>
-						<SelectControl
+						<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 							value={ decision }
 							options={ [
 								{ label: 'Toutes les décisions', value: '' },

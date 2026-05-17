@@ -148,7 +148,7 @@ export function TabMcpTokens() {
 							/>
 						</div>
 						<div>
-							<SelectControl
+							<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label="Portée"
 								value={ scope }
 								options={ [

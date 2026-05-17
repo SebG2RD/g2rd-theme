@@ -102,7 +102,7 @@ export default function Edit({ attributes, setAttributes }) {
           </PanelBody>
         )}
         <PanelBody title={__("Effets de perspective", "g2rd")} initialOpen>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Preset perspective", "g2rd")}
             value={perspectivePreset}
             options={PERSPECTIVE_OPTIONS}
@@ -113,7 +113,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Effets hover", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Preset hover", "g2rd")}
             value={hoverPreset}
             options={HOVER_OPTIONS}
@@ -124,7 +124,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Animation", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Preset animation", "g2rd")}
             value={animationPreset}
             options={ANIMATION_OPTIONS}
@@ -142,7 +142,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           {animationPreset !== "none" && (
             <>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Stagger delay (ms)", "g2rd")}
                 value={staggerDelay}
                 onChange={(value) => setAttributes({ staggerDelay: value || 0 })}
@@ -173,7 +173,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Hauteur minimale (px)", "g2rd")}
             value={minHeight}
             onChange={(value) => setAttributes({ minHeight: value || 0 })}

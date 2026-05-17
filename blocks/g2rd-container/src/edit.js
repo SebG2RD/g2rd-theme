@@ -291,7 +291,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			{ layoutType === 'grid' && (
 				<PanelBody title={ __( 'Grille', 'g2rd' ) } initialOpen={ true }>
 					<DeviceSwitcher value={ device } onChange={ setDevice } />
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Colonnes', 'g2rd' ) }
 						value={ device === 'mobile' ? gridColumnsMobile : device === 'tablet' ? gridColumnsTablet : gridColumns }
 						onChange={ ( v ) => {
@@ -376,7 +376,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 			{ /* Fond */ }
 			<PanelBody title={ __( 'Fond', 'g2rd' ) } initialOpen={ false }>
-				<SelectControl
+				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Type de fond', 'g2rd' ) }
 					value={ bgType }
 					options={ [
@@ -432,7 +432,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						{ bgImageUrl && (
 							<img src={ bgImageUrl } alt="" style={ { width: '100%', maxHeight: '80px', objectFit: 'cover', marginBottom: '8px' } } />
 						) }
-						<SelectControl
+						<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 							label={ __( 'Taille', 'g2rd' ) }
 							value={ bgImageSize }
 							options={ [
@@ -494,7 +494,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					onChange={ ( v ) => setAttributes( { borderWidth: v } ) }
 					units={ [ { value: 'px', label: 'px' } ] }
 				/>
-				<SelectControl
+				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Style', 'g2rd' ) }
 					value={ borderStyle }
 					options={ [
@@ -519,7 +519,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						] }
 					/>
 				) }
-				<SelectControl
+				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Overflow', 'g2rd' ) }
 					value={ overflow }
 					options={ [
@@ -540,7 +540,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		<>
 			{ /* Balise HTML */ }
 			<PanelBody title={ __( 'Balise HTML', 'g2rd' ) } initialOpen={ true }>
-				<SelectControl
+				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Élément HTML', 'g2rd' ) }
 					value={ htmlTag }
 					options={ HTML_TAGS }
@@ -574,7 +574,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 			{ /* Animation d'entrée */ }
 			<PanelBody title={ __( "Animation d'entrée", 'g2rd' ) } initialOpen={ false }>
-				<SelectControl
+				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Animation', 'g2rd' ) }
 					value={ animation }
 					options={ ANIMATIONS }
@@ -584,7 +584,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				/>
 				{ animation !== 'none' && (
 					<>
-						<RangeControl
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 							label={ __( 'Délai (ms)', 'g2rd' ) }
 							value={ animationDelay }
 							onChange={ ( v ) => setAttributes( { animationDelay: v } ) }
@@ -592,7 +592,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							__next40pxDefaultSize={ true }
 							__nextHasNoMarginBottom={ true }
 						/>
-						<RangeControl
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 							label={ __( 'Durée (ms)', 'g2rd' ) }
 							value={ animationDuration }
 							onChange={ ( v ) => setAttributes( { animationDuration: v } ) }
@@ -600,7 +600,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							__next40pxDefaultSize={ true }
 							__nextHasNoMarginBottom={ true }
 						/>
-						<SelectControl
+						<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 							label={ __( 'Accélération', 'g2rd' ) }
 							value={ animationEasing }
 							options={ [

@@ -103,9 +103,9 @@ function ShadowRow( { index, attrs, set } ) {
 					clearable={ true }
 					__experimentalIsRenderedInSidebar
 				/>
-					<RangeControl label="X (px)" value={ attrs[ xKey ] } onChange={ ( v ) => set( { [ xKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
-					<RangeControl label="Y (px)" value={ attrs[ yKey ] } onChange={ ( v ) => set( { [ yKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
-					<RangeControl label={ __( "Flou (px)", "g2rd" ) } value={ attrs[ bKey ] } onChange={ ( v ) => set( { [ bKey ]: v } ) } min={ 0 } max={ 40 } __nextHasNoMarginBottom />
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label="X (px)" value={ attrs[ xKey ] } onChange={ ( v ) => set( { [ xKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label="Y (px)" value={ attrs[ yKey ] } onChange={ ( v ) => set( { [ yKey ]: v } ) } min={ -20 } max={ 20 } __nextHasNoMarginBottom />
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Flou (px)", "g2rd" ) } value={ attrs[ bKey ] } onChange={ ( v ) => set( { [ bKey ]: v } ) } min={ 0 } max={ 40 } __nextHasNoMarginBottom />
 				</>
 			) }
 		</div>
@@ -275,7 +275,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				{ /* Contenu */ }
 				<PanelBody title={ __( "Contenu", "g2rd" ) } initialOpen={ true }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Balise HTML", "g2rd" ) }
 						value={ headingTag }
 						options={ [ "h1","h2","h3","h4","h5","h6","p" ].map( t => ( { label: t.toUpperCase(), value: t } ) ) }
@@ -314,7 +314,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				{ /* Animation */ }
 				<PanelBody title={ __( "Animation", "g2rd" ) } initialOpen={ false }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Effet d'animation", "g2rd" ) }
 						value={ animationEffect }
 						options={ [
@@ -326,7 +326,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 						onChange={ ( v ) => setAttributes( { animationEffect: v } ) }
 					/>
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Durée par mot (ms)", "g2rd" ) }
 						value={ animationSpeed }
 						onChange={ ( v ) => setAttributes( { animationSpeed: v } ) }
@@ -353,7 +353,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					] }
 				/>
 				<PanelBody title={ __( "Typographie", "g2rd" ) } initialOpen={ false }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Graisse — mots animés", "g2rd" ) }
 						value={ animatedFontWeight }
 						options={ [
@@ -367,7 +367,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 						onChange={ ( v ) => setAttributes( { animatedFontWeight: v } ) }
 					/>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Graisse globale", "g2rd" ) }
 						value={ fontWeight }
 						options={ [ "300","400","600","700","800","900" ].map( w => ( { label: w, value: w } ) ) }
@@ -403,15 +403,15 @@ export default function Edit( { attributes, setAttributes } ) {
 							<ColorPalette value={ highlightBgColor } onChange={ ( v ) => setAttributes( { highlightBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
 							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Texte", "g2rd" ) }</p>
 							<ColorPalette value={ highlightTextColor } onChange={ ( v ) => setAttributes( { highlightTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-							<RangeControl label={ __( "Padding horizontal (px)", "g2rd" ) } value={ highlightPadding }      onChange={ ( v ) => setAttributes( { highlightPadding: v } ) }      min={ 0 } max={ 40 } __nextHasNoMarginBottom />
-							<RangeControl label={ __( "Arrondi (px)", "g2rd" ) }            value={ highlightBorderRadius } onChange={ ( v ) => setAttributes( { highlightBorderRadius: v } ) } min={ 0 } max={ 50 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Padding horizontal (px)", "g2rd" ) } value={ highlightPadding }      onChange={ ( v ) => setAttributes( { highlightPadding: v } ) }      min={ 0 } max={ 40 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Arrondi (px)", "g2rd" ) }            value={ highlightBorderRadius } onChange={ ( v ) => setAttributes( { highlightBorderRadius: v } ) } min={ 0 } max={ 50 } __nextHasNoMarginBottom />
 						</>
 					) }
 				</PanelBody>
 
 				{ /* Élément décoratif */ }
 				<PanelBody title={ __( "Élément décoratif", "g2rd" ) } initialOpen={ false }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Type de décoration", "g2rd" ) }
 						value={ decoratorType }
 						options={ [
@@ -430,12 +430,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						</>
 					) }
 					{ ( decoratorType === "zigzag" || decoratorType === "border" || decoratorType === "circle" ) && (
-						<RangeControl label={ __( "Épaisseur (px)", "g2rd" ) } value={ decoratorSize } onChange={ ( v ) => setAttributes( { decoratorSize: v } ) } min={ 1 } max={ 10 } __nextHasNoMarginBottom />
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Épaisseur (px)", "g2rd" ) } value={ decoratorSize } onChange={ ( v ) => setAttributes( { decoratorSize: v } ) } min={ 1 } max={ 10 } __nextHasNoMarginBottom />
 					) }
 					{ decoratorType === "number" && (
 						<>
-							<RangeControl label={ __( "Numéro affiché", "g2rd" ) } value={ numberValue } onChange={ ( v ) => setAttributes( { numberValue: v } ) } min={ 0 } max={ 99 } __nextHasNoMarginBottom />
-							<RangeControl label={ __( "Taille du badge (px)", "g2rd" ) } value={ numberSize } onChange={ ( v ) => setAttributes( { numberSize: v } ) } min={ 24 } max={ 120 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Numéro affiché", "g2rd" ) } value={ numberValue } onChange={ ( v ) => setAttributes( { numberValue: v } ) } min={ 0 } max={ 99 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Taille du badge (px)", "g2rd" ) } value={ numberSize } onChange={ ( v ) => setAttributes( { numberSize: v } ) } min={ 24 } max={ 120 } __nextHasNoMarginBottom />
 							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond du badge", "g2rd" ) }</p>
 							<ColorPalette value={ numberBgColor } onChange={ ( v ) => setAttributes( { numberBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
 							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur du numéro", "g2rd" ) }</p>

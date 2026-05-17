@@ -369,19 +369,19 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
         {/* ── Affichage ── */}
         <PanelBody title={ __("Affichage", "g2rd") } initialOpen={ false }>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Éléments par page", "g2rd") }
             value={ postsPerPage }
             onChange={ (v) => setAttributes({ postsPerPage: v }) }
             min={ 1 } max={ 24 }
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Colonnes", "g2rd") }
             value={ layoutColumns }
             onChange={ (v) => setAttributes({ layoutColumns: v }) }
             min={ 1 } max={ 6 }
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Type de carte", "g2rd") }
             value={ cardDisplay }
             options={ [
@@ -391,7 +391,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             ] }
             onChange={ (v) => setAttributes({ cardDisplay: v }) }
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Longueur de l'extrait (car.)", "g2rd") }
             value={ excerptLength }
             onChange={ (v) => setAttributes({ excerptLength: v }) }
@@ -438,7 +438,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
         {/* ── Image des cartes ── */}
         <PanelBody title={ __("Image des cartes", "g2rd") } initialOpen={ false }>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Format (ratio)", "g2rd") }
             value={ imageAspectRatio }
             options={ [
@@ -452,7 +452,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             ] }
             onChange={ (v) => setAttributes({ imageAspectRatio: v }) }
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Ajustement de l'image", "g2rd") }
             value={ imageObjectFit }
             options={ [
@@ -481,7 +481,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             __nextHasNoMarginBottom
           />
           { showTaxonomyFilter && availableTaxonomies.length > 0 && (
-            <SelectControl
+            <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={ __("Taxonomie à filtrer", "g2rd") }
               value={ taxonomy }
               options={ [
@@ -501,7 +501,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
         {/* ── Liens ── */}
         <PanelBody title={ __("Liens & CTA", "g2rd") } initialOpen={ false }>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Type de lien", "g2rd") }
             value={ linkType }
             options={ [
@@ -524,7 +524,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
         {/* ── Tri ── */}
         <PanelBody title={ __("Tri", "g2rd") } initialOpen={ false }>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Trier par", "g2rd") }
             value={ orderby }
             options={ [
@@ -537,7 +537,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             ] }
             onChange={ (v) => setAttributes({ orderby: v }) }
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={ __("Ordre", "g2rd") }
             value={ order }
             options={ [

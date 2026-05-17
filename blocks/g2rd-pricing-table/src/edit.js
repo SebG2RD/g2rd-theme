@@ -316,14 +316,14 @@ export default function Edit( { attributes, setAttributes } ) {
 				{/* Paramètres globaux */}
 				<PanelBody title={ __( 'Paramètres globaux', 'g2rd' ) } initialOpen={ true }>
 
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Design', 'g2rd' ) }
 						value={ design }
 						options={ DESIGNS }
 						onChange={ val => setAttributes( { design: val } ) }
 					/>
 
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Colonnes', 'g2rd' ) }
 						value={ columns.length }
 						min={1} max={5}
@@ -339,7 +339,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						} }
 					/>
 
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Border radius (px)', 'g2rd' ) }
 						value={ borderRadius }
 						min={0} max={32}
@@ -527,7 +527,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Notice status="info" isDismissible={false} style={{marginBottom:'12px'}}>
 								<small>{ __( 'Importe automatiquement le nom, la description et le prix depuis WooCommerce, SureCart ou FluentCart.', 'g2rd' ) }</small>
 							</Notice>
-							<SelectControl
+							<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label={ __( 'Source', 'g2rd' ) }
 								value={ col.productSource }
 								options={ [

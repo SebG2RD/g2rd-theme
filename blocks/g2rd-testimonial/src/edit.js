@@ -338,14 +338,14 @@ export default function Edit( { attributes, setAttributes } ) {
                 }
                 __nextHasNoMarginBottom
               />
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={ __( "Note minimum", "g2rd" ) }
                 value={ googleMinRating }
                 onChange={ ( v ) => setAttributes( { googleMinRating: v } ) }
                 min={ 1 } max={ 5 }
                 __nextHasNoMarginBottom
               />
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={ __( "Nombre d'avis à afficher (max 5)", "g2rd" ) }
                 value={ googleMaxReviews }
                 onChange={ ( v ) => setAttributes( { googleMaxReviews: v } ) }
@@ -384,7 +384,7 @@ export default function Edit( { attributes, setAttributes } ) {
               </div>
 
               { [ "grid", "carousel", "masonry", "marquee" ].includes( googleLayout || "grid" ) && googleLayout !== "list" && (
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={ __( "Colonnes visibles", "g2rd" ) }
                   value={ googleColumns || 3 }
                   onChange={ ( v ) => setAttributes( { googleColumns: v } ) }
@@ -394,7 +394,7 @@ export default function Edit( { attributes, setAttributes } ) {
               ) }
 
               { ( googleLayout === "marquee" ) && (
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={ __( "Vitesse du défilement (s)", "g2rd" ) }
                   value={ googleMarqueeSpeed || 40 }
                   onChange={ ( v ) => setAttributes( { googleMarqueeSpeed: v } ) }
@@ -484,7 +484,7 @@ export default function Edit( { attributes, setAttributes } ) {
               { /* ─ Avancé ─ */ }
               <div style={ divider }>
                 <span style={ sectionLabel }>Avancé</span>
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={ __( "Longueur max du texte", "g2rd" ) }
                   value={ googleMaxTextLength || 0 }
                   onChange={ ( v ) => setAttributes( { googleMaxTextLength: v } ) }
@@ -505,7 +505,7 @@ export default function Edit( { attributes, setAttributes } ) {
         { ! googleMode && (
           <>
             <PanelBody title={ __( "Notation & Mise en page", "g2rd" ) } initialOpen>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={ __( "Nombre d'étoiles", "g2rd" ) }
                 value={ rating }
                 onChange={ ( val ) => setAttributes( { rating: val } ) }
@@ -533,7 +533,7 @@ export default function Edit( { attributes, setAttributes } ) {
                   } ) }
                 </div>
               </div>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={ __( "Rayon de bordure (px)", "g2rd" ) }
                 value={ borderRadius }
                 onChange={ ( val ) => setAttributes( { borderRadius: val } ) }

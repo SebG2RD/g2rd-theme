@@ -62,20 +62,20 @@ export default function Edit({ attributes, setAttributes }) {
       <InspectorControls>
         {/* ── Source ── */}
         <PanelBody title={__("Source de contenu", "g2rd")} initialOpen={true}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de contenu", "g2rd")}
             value={postType}
             options={postTypes.length ? postTypes : [{ label: "Articles", value: "post" }]}
             onChange={(v) => setAttributes({ postType: v })}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Nombre d'éléments", "g2rd")}
             value={postsPerPage}
             onChange={(v) => setAttributes({ postsPerPage: v })}
             min={1}
             max={24}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Catégorie", "g2rd")}
             value={categoryId}
             options={categories}
@@ -85,7 +85,7 @@ export default function Edit({ attributes, setAttributes }) {
 
         {/* ── Tri ── */}
         <PanelBody title={__("Ordre et tri", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Trier par", "g2rd")}
             value={orderby}
             options={[
@@ -97,7 +97,7 @@ export default function Edit({ attributes, setAttributes }) {
             ]}
             onChange={(v) => setAttributes({ orderby: v })}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Ordre", "g2rd")}
             value={order}
             options={[
@@ -110,14 +110,14 @@ export default function Edit({ attributes, setAttributes }) {
 
         {/* ── Mise en page ── */}
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Colonnes", "g2rd")}
             value={columns}
             onChange={(v) => setAttributes({ columns: v })}
             min={1}
             max={6}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Ratio de l'image", "g2rd")}
             value={imageRatio}
             options={[
@@ -128,7 +128,7 @@ export default function Edit({ attributes, setAttributes }) {
             ]}
             onChange={(v) => setAttributes({ imageRatio: v })}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Rayon des cartes (px)", "g2rd")}
             value={cardRadius}
             onChange={(v) => setAttributes({ cardRadius: v })}

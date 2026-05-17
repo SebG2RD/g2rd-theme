@@ -250,7 +250,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				{ /* Type de graphique */ }
 				<PanelBody title={ __( "Type de graphique", "g2rd" ) } initialOpen={ true }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Type", "g2rd" ) }
 						value={ chartType }
 						options={ [
@@ -271,7 +271,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
 					/>
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Hauteur (px)", "g2rd" ) }
 						value={ chartHeight }
 						onChange={ ( v ) => setAttributes( { chartHeight: v } ) }
@@ -347,14 +347,14 @@ export default function Edit( { attributes, setAttributes } ) {
 					<ToggleControl label={ __( "Afficher la grille", "g2rd" ) }   checked={ showGrid }    onChange={ ( v ) => setAttributes( { showGrid: v } ) }    __nextHasNoMarginBottom />
 					{ ( chartType === "bar" || chartType === "stacked" ) && (
 						<>
-							<RangeControl label={ __( "Arrondi des barres (px)", "g2rd" ) } value={ borderRadius } onChange={ ( v ) => setAttributes( { borderRadius: v } ) } min={ 0 } max={ 20 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Arrondi des barres (px)", "g2rd" ) } value={ borderRadius } onChange={ ( v ) => setAttributes( { borderRadius: v } ) } min={ 0 } max={ 20 } __nextHasNoMarginBottom />
 						</>
 					) }
 					{ ( chartType === "line" || chartType === "area" ) && (
-						<RangeControl label={ __( "Courbure de la ligne (%)", "g2rd" ) } value={ tension } onChange={ ( v ) => setAttributes( { tension: v } ) } min={ 0 } max={ 100 } __nextHasNoMarginBottom />
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Courbure de la ligne (%)", "g2rd" ) } value={ tension } onChange={ ( v ) => setAttributes( { tension: v } ) } min={ 0 } max={ 100 } __nextHasNoMarginBottom />
 					) }
 					{ chartType === "bar-horizontal-spec" && (
-						<RangeControl label={ __( "Valeur maximale (specs)", "g2rd" ) } value={ specMaxValue } onChange={ ( v ) => setAttributes( { specMaxValue: v } ) } min={ 10 } max={ 1000 } __nextHasNoMarginBottom />
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Valeur maximale (specs)", "g2rd" ) } value={ specMaxValue } onChange={ ( v ) => setAttributes( { specMaxValue: v } ) } min={ 10 } max={ 1000 } __nextHasNoMarginBottom />
 					) }
 				</PanelBody>
 

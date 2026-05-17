@@ -102,13 +102,13 @@ export default function Edit({ attributes, setAttributes }) {
 							'g2rd'
 						)}
 					/>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={__('Langage', 'g2rd')}
 						value={language}
 						options={languageOptions}
 						onChange={(v) => setAttributes({ language: v })}
 					/>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={__('Thème coloration', 'g2rd')}
 						value={theme}
 						options={HLJS_THEMES}
@@ -116,14 +116,14 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 				<PanelBody title={__('Mise en forme', 'g2rd')}>
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={__('Taille de police (px)', 'g2rd')}
 						value={fontSize}
 						onChange={(v) => setAttributes({ fontSize: v ?? 14 })}
 						min={10}
 						max={24}
 					/>
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={__('Numéro de la première ligne', 'g2rd')}
 						value={startLine}
 						onChange={(v) => setAttributes({ startLine: v ?? 1 })}

@@ -42,13 +42,13 @@ export function TabConnexion( { settings, update } ) {
 						<>
 							<div className="g2rd-section">
 								<h3 className="g2rd-section__title">Mise en page</h3>
-								<SelectControl
+								<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 									label="Disposition"
 									value={ s.layout || 'two-columns' }
 									options={ LAYOUT_OPTIONS }
 									onChange={ ( v ) => set( 'layout', v ) }
 								/>
-								<RangeControl
+								<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 									label="Rayon des bords (px)"
 									value={ s.borderRadius ?? 8 }
 									onChange={ ( v ) => set( 'borderRadius', v ) }
@@ -115,7 +115,7 @@ export function TabConnexion( { settings, update } ) {
 
 							<div className="g2rd-section">
 								<h3 className="g2rd-section__title">Arrière-plan</h3>
-								<SelectControl
+								<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 									label="Type d'arrière-plan"
 									value={ s.bgType || 'image' }
 									options={ BG_TYPE_OPTIONS }

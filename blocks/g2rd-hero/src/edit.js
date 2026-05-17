@@ -138,7 +138,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Alignement du contenu", "g2rd")}
             value={alignment}
             options={[
@@ -149,7 +149,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Hauteur minimale (px)", "g2rd")}
             value={minHeight}
             onChange={(val) => setAttributes({ minHeight: val })}
@@ -159,7 +159,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Espacement vertical (px)", "g2rd")}
             value={paddingVertical}
             onChange={(val) => setAttributes({ paddingVertical: val })}
@@ -172,7 +172,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Arrière-plan", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de fond", "g2rd")}
             value={backgroundType}
             options={[
@@ -208,7 +208,7 @@ export default function Edit({ attributes, setAttributes }) {
                   )}
                 />
               </MediaUploadCheck>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Opacité overlay (%)", "g2rd")}
                 value={overlayOpacity}
                 onChange={(val) => setAttributes({ overlayOpacity: val })}

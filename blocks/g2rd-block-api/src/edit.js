@@ -176,7 +176,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 				{ /* --- Connecteur API --- */ }
 				<PanelBody title={ __( 'Connecteur API', 'g2rd' ) } initialOpen={ true }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Type de connecteur', 'g2rd' ) }
 						value={ connectorType }
 						options={ [
@@ -190,7 +190,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								: __( 'Exécuté sur le serveur. Les clés API restent privées.', 'g2rd' )
 						}
 					/>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Méthode HTTP', 'g2rd' ) }
 						value={ apiMethod }
 						options={ [
@@ -291,7 +291,7 @@ placeholder="Authorization: valeur côté serveur uniquement…"/>
 					/>
 					{ enableAjax && (
 						<>
-							<SelectControl
+							<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label={ __( 'Déclencheur', 'g2rd' ) }
 								value={ ajaxTrigger }
 								options={ [
@@ -335,7 +335,7 @@ placeholder="Authorization: valeur côté serveur uniquement…"/>
 							) }
 							{ ajaxTrigger === 'interval' && (
 								<>
-									<RangeControl
+									<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 										label={ __( 'Intervalle (ms)', 'g2rd' ) }
 										value={ intervalTime }
 										onChange={ ( value ) => setAttributes( { intervalTime: value } ) }
@@ -343,7 +343,7 @@ placeholder="Authorization: valeur côté serveur uniquement…"/>
 										max={ 60000 }
 										step={ 500 }
 									/>
-									<RangeControl
+									<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 										label={ __( "Nombre d'appels (0 = infini)", 'g2rd' ) }
 										value={ intervalCount }
 										onChange={ ( value ) => setAttributes( { intervalCount: value } ) }

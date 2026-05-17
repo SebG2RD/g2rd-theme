@@ -94,7 +94,7 @@ export default function Edit({ attributes, setAttributes }) {
       />
       <InspectorControls>
         <PanelBody title={__("Content Selection", "g2rd-carousel")}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Content Type", "g2rd-carousel")}
             value={currentContentType}
             options={[
@@ -182,7 +182,7 @@ export default function Edit({ attributes, setAttributes }) {
               "g2rd-carousel"
             )}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Height (px)", "g2rd-carousel")}
             value={height}
             onChange={(value) => setAttributes({ height: value })}
@@ -197,7 +197,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Animation Settings", "g2rd-carousel")}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Effect", "g2rd-carousel")}
             value={effect}
             options={[
@@ -209,7 +209,7 @@ export default function Edit({ attributes, setAttributes }) {
             ]}
             onChange={(value) => setAttributes({ effect: value })}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Visible Slides", "g2rd-carousel")}
             value={visibleSlides.toString()}
             options={[
@@ -223,7 +223,7 @@ export default function Edit({ attributes, setAttributes }) {
             }
             help={__("Number of slides visible at once", "g2rd-carousel")}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Autoplay Delay (ms)", "g2rd-carousel")}
             value={autoplayDelay}
             onChange={(value) => setAttributes({ autoplayDelay: value })}
@@ -231,7 +231,7 @@ export default function Edit({ attributes, setAttributes }) {
             max={10000}
             step={500}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Space Between", "g2rd-carousel")}
             value={spaceBetween}
             onChange={(value) => setAttributes({ spaceBetween: value })}
@@ -277,7 +277,7 @@ export default function Edit({ attributes, setAttributes }) {
 
         {effect === "coverflow" && (
           <PanelBody title={__("Coverflow Settings", "g2rd-carousel")}>
-            <RangeControl
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={__("Rotate", "g2rd-carousel")}
               value={coverflowRotate}
               onChange={(value) => setAttributes({ coverflowRotate: value })}
@@ -285,7 +285,7 @@ export default function Edit({ attributes, setAttributes }) {
               max={100}
               step={1}
             />
-            <RangeControl
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={__("Stretch", "g2rd-carousel")}
               value={coverflowStretch}
               onChange={(value) => setAttributes({ coverflowStretch: value })}
@@ -293,7 +293,7 @@ export default function Edit({ attributes, setAttributes }) {
               max={100}
               step={1}
             />
-            <RangeControl
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={__("Depth", "g2rd-carousel")}
               value={coverflowDepth}
               onChange={(value) => setAttributes({ coverflowDepth: value })}
@@ -301,7 +301,7 @@ export default function Edit({ attributes, setAttributes }) {
               max={500}
               step={10}
             />
-            <RangeControl
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={__("Modifier", "g2rd-carousel")}
               value={coverflowModifier}
               onChange={(value) => setAttributes({ coverflowModifier: value })}

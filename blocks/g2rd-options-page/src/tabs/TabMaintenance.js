@@ -35,7 +35,7 @@ export function TabMaintenance( { settings, update } ) {
 					/>
 					{ comingSoon.enabled && (
 						<div className="g2rd-indent">
-							<SelectControl
+							<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label="Page de maintenance"
 								help="La page affichée aux visiteurs pendant la maintenance."
 								value={ String( comingSoon.page_id || 0 ) }

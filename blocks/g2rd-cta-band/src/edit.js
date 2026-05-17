@@ -112,7 +112,7 @@ export default function Edit({ attributes, setAttributes }) {
               </Button>
             ))}
           </ButtonGroup>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Espacement vertical (px)", "g2rd")}
             value={paddingVertical}
             onChange={(v) => setAttributes({ paddingVertical: v })}

@@ -167,7 +167,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
           title={__("Paramètres d'animation", "g2rd")}
           initialOpen={false}
         >
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Vitesse de frappe", "g2rd")}
             value={typeSpeed}
             onChange={(value) => setAttributes({ typeSpeed: value })}
@@ -175,7 +175,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             max={200}
             step={5}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Vitesse d'effacement", "g2rd")}
             value={backSpeed}
             onChange={(value) => setAttributes({ backSpeed: value })}
@@ -183,7 +183,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             max={200}
             step={5}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Délai de départ", "g2rd")}
             value={startDelay}
             onChange={(value) => setAttributes({ startDelay: value })}
@@ -191,7 +191,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             max={5000}
             step={100}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Délai avant effacement", "g2rd")}
             value={backDelay}
             onChange={(value) => setAttributes({ backDelay: value })}
@@ -255,7 +255,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             __nextHasNoMarginBottom
             disabled={!fadeOut}
           />
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Délai de fondu", "g2rd")}
             value={fadeOutDelay}
             onChange={(value) => setAttributes({ fadeOutDelay: value })}
@@ -269,7 +269,7 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             checked={autoInsertCss}
             onChange={() => setAttributes({ autoInsertCss: !autoInsertCss })}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de contenu", "g2rd")}
             value={contentType}
             options={[

@@ -219,7 +219,7 @@ export default function Edit({ attributes, setAttributes }) {
     <>
       <InspectorControls group="styles">
         <PanelBody title={__("Espacement des éléments", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Alignement des éléments (align-items)", "g2rd")}
             value={alignItems}
             options={[
@@ -283,7 +283,7 @@ export default function Edit({ attributes, setAttributes }) {
       <InspectorControls>
         {/* --- Média --- */}
         <PanelBody title={__("Média", "g2rd")} initialOpen={true}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de média", "g2rd")}
             value={mediaType}
             options={[
@@ -332,7 +332,7 @@ export default function Edit({ attributes, setAttributes }) {
                   </div>
                 ))}
               </div>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Taille de l'icône (px)", "g2rd")}
                 value={iconSize}
                 onChange={(v) => setAttributes({ iconSize: v })}
@@ -340,7 +340,7 @@ export default function Edit({ attributes, setAttributes }) {
                 max={128}
                 step={4}
               />
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Rayon de l'arrière-plan (%)", "g2rd")}
                 value={iconBorderRadius}
                 onChange={(v) => setAttributes({ iconBorderRadius: v })}
@@ -351,7 +351,7 @@ export default function Edit({ attributes, setAttributes }) {
           )}
 
           {mediaType === "image" && (
-            <RangeControl
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
               label={__("Largeur de l'image (px)", "g2rd")}
               value={imageWidth}
               onChange={(v) => setAttributes({ imageWidth: v })}
@@ -360,7 +360,7 @@ export default function Edit({ attributes, setAttributes }) {
             />
           )}
 
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Position du média", "g2rd")}
             value={iconPosition}
             options={[
@@ -389,7 +389,7 @@ export default function Edit({ attributes, setAttributes }) {
             checked={showDescription}
             onChange={(v) => setAttributes({ showDescription: v })}
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Balise du titre", "g2rd")}
             value={headingTag}
             options={["h2","h3","h4","h5","h6","p"].map((t) => ({ label: t.toUpperCase(), value: t }))}
@@ -402,14 +402,14 @@ export default function Edit({ attributes, setAttributes }) {
           />
           {showSeparator && (
             <>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Largeur du séparateur (px)", "g2rd")}
                 value={separatorWidth}
                 onChange={(v) => setAttributes({ separatorWidth: v })}
                 min={10}
                 max={200}
               />
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Épaisseur du séparateur (px)", "g2rd")}
                 value={separatorHeight}
                 onChange={(v) => setAttributes({ separatorHeight: v })}
@@ -422,7 +422,7 @@ export default function Edit({ attributes, setAttributes }) {
 
         {/* --- Lien --- */}
         <PanelBody title={__("Lien", "g2rd")} initialOpen={false}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Mode de lien", "g2rd")}
             value={linkMode}
             options={[
@@ -459,7 +459,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           {linkMode === "cta" && (
             <>
-              <SelectControl
+              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Style du bouton", "g2rd")}
                 value={ctaStyle}
                 options={[
@@ -469,7 +469,7 @@ export default function Edit({ attributes, setAttributes }) {
                 onChange={(v) => setAttributes({ ctaStyle: v })}
               />
               {ctaStyle === "button" && (
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={__("Rayon des coins (px)", "g2rd")}
                   value={ctaBorderRadius}
                   onChange={(v) => setAttributes({ ctaBorderRadius: v })}
@@ -489,7 +489,7 @@ export default function Edit({ attributes, setAttributes }) {
 
         {/* --- Espacement & Bordures --- */}
         <PanelBody title={__("Espacement & Bordures", "g2rd")} initialOpen={false}>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Rayon des coins de la carte (px)", "g2rd")}
             value={borderRadius}
             onChange={(v) => setAttributes({ borderRadius: v })}

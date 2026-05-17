@@ -344,7 +344,7 @@ export default function Edit({ attributes, setAttributes }) {
       />
       <InspectorControls>
         <PanelBody title={__("Général", "g2rd")} initialOpen={true}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Disposition", "g2rd")}
             value={layout}
             options={[
@@ -357,7 +357,7 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
 
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Alignement", "g2rd")}
             value={alignment}
             options={[
@@ -386,7 +386,7 @@ export default function Edit({ attributes, setAttributes }) {
             }
           />
 
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Décimales", "g2rd")}
             value={decimalPlaces}
             onChange={(value) => setAttributes({ decimalPlaces: value })}
@@ -427,7 +427,7 @@ export default function Edit({ attributes, setAttributes }) {
             step={100}
           />
 
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Séparateur de milliers", "g2rd")}
             value={thousands}
             options={[
@@ -451,7 +451,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           {enableIcon && (
             <>
-              <SelectControl
+              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Position", "g2rd")}
                 value={iconPosition}
                 options={[
@@ -465,7 +465,7 @@ export default function Edit({ attributes, setAttributes }) {
                 __nextHasNoMarginBottom
               />
 
-              <SelectControl
+              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Type de média", "g2rd")}
                 value={mediaType}
                 options={[
@@ -478,7 +478,7 @@ export default function Edit({ attributes, setAttributes }) {
               />
 
               {mediaType === "icon" && (
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={__("Taille de l'icône (px)", "g2rd")}
                   value={iconSize}
                   onChange={(value) => setAttributes({ iconSize: value })}
@@ -489,7 +489,7 @@ export default function Edit({ attributes, setAttributes }) {
                 />
               )}
               {mediaType === "image" && (
-                <RangeControl
+                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                   label={__("Taille de l'image (px)", "g2rd")}
                   value={imageSize}
                   onChange={(value) => setAttributes({ imageSize: value })}
@@ -568,7 +568,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
 
         <PanelBody title={__("Nombre", "g2rd")} initialOpen={false}>
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Marge droite du préfixe", "g2rd")}
             value={prefixRightMargin}
             onChange={(value) => setAttributes({ prefixRightMargin: value })}
@@ -578,7 +578,7 @@ export default function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
 
-          <RangeControl
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Marge gauche du suffixe", "g2rd")}
             value={suffixLeftMargin}
             onChange={(value) => setAttributes({ suffixLeftMargin: value })}

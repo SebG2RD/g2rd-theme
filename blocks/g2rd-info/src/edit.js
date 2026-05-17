@@ -353,7 +353,7 @@ export default function Edit({ attributes, setAttributes }) {
 
       <InspectorControls>
         <PanelBody title={__("Média", "g2rd")} initialOpen={true}>
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de média", "g2rd")}
             value={mediaType}
             options={[
@@ -401,7 +401,7 @@ export default function Edit({ attributes, setAttributes }) {
                   </div>
                 )}
               </DropdownMenu>
-              <RangeControl
+              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={__("Taille de l'icône", "g2rd")}
                 value={iconSize}
                 onChange={(value) => setAttributes({ iconSize: value })}
@@ -489,7 +489,7 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Disposition", "g2rd")}
             value={layout}
             options={layoutOptions}

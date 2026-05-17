@@ -111,7 +111,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				</PanelBody>
 
 				<PanelBody title={ __( 'Animation', 'g2rd' ) } initialOpen={ false }>
-					<RangeControl
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Distance de défilement (px)', 'g2rd' ) }
 						value={ scrollDistance }
 						onChange={ ( v ) => setAttributes( { scrollDistance: v } ) }
@@ -124,7 +124,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				</PanelBody>
 
 				<PanelBody title={ __( 'Rendu', 'g2rd' ) } initialOpen={ false }>
-					<SelectControl
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Mode de rendu', 'g2rd' ) }
 						value={ renderMode }
 						options={ [
@@ -200,7 +200,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
 							/>
-							<RangeControl
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label={ __( 'Apparition (% du scroll)', 'g2rd' ) }
 								value={ overlayPosition }
 								onChange={ ( v ) => setAttributes( { overlayPosition: v } ) }
@@ -218,7 +218,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								style={ { marginTop: '8px' } }
 								__nextHasNoMarginBottom
 							/>
-							<RangeControl
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label={ __( 'Taille du texte (px)', 'g2rd' ) }
 								value={ overlayTextSize }
 								onChange={ ( v ) => setAttributes( { overlayTextSize: v } ) }
@@ -228,7 +228,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								style={ { marginTop: '8px' } }
 								__nextHasNoMarginBottom
 							/>
-							<SelectControl
+							<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 								label={ __( 'Graisse du texte', 'g2rd' ) }
 								value={ overlayTextWeight }
 								options={ [
