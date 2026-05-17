@@ -6,6 +6,7 @@ import "./style.css";
 import "./editor.css";
 import edit from "./edit";
 import save from "./save";
+import deprecated from "./deprecated";
 import metadata from "../block.json";
 
-registerBlockType( metadata.name, { edit, save } );
+registerBlockType( metadata.name, { edit, save, deprecated } );
