@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.4
+
+- **Fix (Card)** : contrôle "Alignement des éléments" fonctionnel — passage à la CSS custom property `--g2rd-card-align` pour éliminer tout conflit de cascade entre inline style et sélecteurs CSS.
+- **Fix (Card)** : overlay lien carte entière — ajout `cursor:pointer`, effet hover (fond semi-transparent) et `focus-visible` outline pour l'accessibilité clavier.
+
 ### 1.13.3
 
 - **Fix (Card)** : `align-items: center` sur les positions gauche/droite — icône et contenu correctement alignés sur la même ligne.
