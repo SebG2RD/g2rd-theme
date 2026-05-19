@@ -9,11 +9,13 @@
 .g2rd-fg__badge--sale{background:var(--wp--preset--color--secondary,#e74c3c);color:#fff}
 .g2rd-fg__badge--out{background:#6b7280;color:#fff}
 .g2rd-fg__badge--back{background:#f59e0b;color:#fff}
-.g2rd-fg__add-to-cart{background:var(--wp--preset--color--primary,#2f425d);border-radius:4px;color:var(--wp--preset--color--white,#fff)!important;display:inline-block;font-size:.875rem;font-weight:600;margin-top:4px;padding:.45em 1.1em;text-decoration:none;transition:opacity .2s}
-.g2rd-fg__add-to-cart:hover{opacity:.88}
-.g2rd-fg__readmore{color:var(--wp--preset--color--primary,#2f425d);display:inline-block;font-weight:600;margin-top:4px;text-decoration:none}
+.g2rd-fg__add-to-cart{background:var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d));border-radius:4px;color:var(--g2rd-fg-cta-color,var(--wp--preset--color--white,#fff))!important;display:inline-block;font-size:.875rem;font-weight:600;margin-top:4px;padding:.45em 1.1em;text-decoration:none;transition:background .15s,color .15s,opacity .15s}
+.g2rd-fg__add-to-cart:hover{background:var(--g2rd-fg-cta-hover-bg,var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d)));color:var(--g2rd-fg-cta-hover-color,var(--g2rd-fg-cta-color,var(--wp--preset--color--white,#fff)))!important;opacity:.88}
+.g2rd-fg__add-to-cart:focus-visible{outline:2px solid var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d));outline-offset:2px}
+.g2rd-fg__readmore{background:var(--g2rd-fg-cta-bg,transparent);border-radius:4px;color:var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d));display:inline-block;font-weight:600;margin-top:4px;text-decoration:none;transition:background .15s,color .15s}
 .g2rd-filter-grid__card a,.g2rd-fg__card a{text-decoration:none}
-.g2rd-fg__readmore:hover{text-decoration:none}
+.g2rd-fg__readmore:hover{background:var(--g2rd-fg-cta-hover-bg,var(--g2rd-fg-cta-bg,transparent));color:var(--g2rd-fg-cta-hover-color,var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d)));text-decoration:none}
+.g2rd-fg__readmore:focus-visible{outline:2px solid var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d));outline-offset:3px}
 .g2rd-fg__meta{align-items:center;color:#9ca3af;display:flex;font-size:.8rem;gap:8px;margin-top:auto}
 .g2rd-fg__title a{color:inherit;text-decoration:none}.g2rd-filter-grid.no-text-underline .g2rd-filter-grid__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card p{text-decoration:none}
 .g2rd-fg__title a:hover{text-decoration:underline}

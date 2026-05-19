@@ -309,14 +309,21 @@ class FilterableGrid {
         foreach ($taxonomies as $tax) {
             $terms = \get_the_terms($post->ID, $tax);
             if ($terms && !\is_wp_error($terms)) {
-                $badge_terms[$tax] = \array_map(fn($t) => ['id' => $t->term_id, 'name' => $t->name, 'slug' => $t->slug], $terms);
+                $badge_terms[$tax] = \array_map(
+                    fn( $t ) => [
+                        'id'   => $t->term_id,
+                        'name' => \html_entity_decode( $t->name, ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
+                        'slug' => $t->slug,
+                    ],
+                    $terms
+                );
             }
         }
 
         $item = [
             'id'        => $post->ID,
-            'title'     => \wp_specialchars_decode(\get_the_title($post), ENT_QUOTES),
-            'excerpt'   => \wp_specialchars_decode($excerpt, ENT_QUOTES),
+            'title'     => \html_entity_decode( \get_the_title( $post ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
+            'excerpt'   => \html_entity_decode( $excerpt, ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
             'link'      => \get_permalink($post),
             'date'      => \get_the_date('', $post),
             'date_iso'  => \get_the_date('c', $post),

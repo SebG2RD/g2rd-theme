@@ -83,7 +83,11 @@
         "imageObjectFit":   { "type": "string",  "default": "cover" },
         "showUnderline":    { "type": "boolean", "default": true },
         "cardTitleFontSize": { "type": "string", "default": "" },
-        "excerptFontSize":   { "type": "string", "default": "" }
+        "excerptFontSize":   { "type": "string", "default": "" },
+        "ctaBgColor":        { "type": "string", "default": "" },
+        "ctaTextColor":      { "type": "string", "default": "" },
+        "ctaHoverBgColor":   { "type": "string", "default": "" },
+        "ctaHoverTextColor": { "type": "string", "default": "" }
     },
     "example": {
         "attributes": {

@@ -127,6 +127,11 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.13.7
+
+- **Feat (filterable-grid)** : couleurs CTA personnalisables — fond, texte, survol fond, survol texte — via PanelColorSettings dans l'inspecteur Gutenberg.
+- **Fix (filterable-grid)** : caractères spéciaux (apostrophes typographiques `&#8217;`, entités HTML nommées) s'affichaient littéralement dans les titres, extraits et noms de termes.
+
 ### 1.13.6
 
 - **Fix** : page d'options admin inaccessible via `admin.php?page=g2rd-options` — le slug enregistré était `g2rd-theme-settings` (incohérence avec tous les liens du thème).

@@ -39,6 +39,10 @@ export default function Save({ attributes }) {
     showUnderline,
     cardTitleFontSize,
     excerptFontSize,
+    ctaBgColor,
+    ctaTextColor,
+    ctaHoverBgColor,
+    ctaHoverTextColor,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -78,6 +82,10 @@ export default function Save({ attributes }) {
   }
   if (cardTitleFontSize) cssVars["--g2rd-fg-title-font-size"]   = cardTitleFontSize;
   if (excerptFontSize)   cssVars["--g2rd-fg-excerpt-font-size"] = excerptFontSize;
+  if (ctaBgColor)        cssVars["--g2rd-fg-cta-bg"]          = ctaBgColor;
+  if (ctaTextColor)      cssVars["--g2rd-fg-cta-color"]        = ctaTextColor;
+  if (ctaHoverBgColor)   cssVars["--g2rd-fg-cta-hover-bg"]     = ctaHoverBgColor;
+  if (ctaHoverTextColor) cssVars["--g2rd-fg-cta-hover-color"]  = ctaHoverTextColor;
 
   if (Object.keys(cssVars).length) {
     blockProps.style = { ...(blockProps.style || {}), ...cssVars };

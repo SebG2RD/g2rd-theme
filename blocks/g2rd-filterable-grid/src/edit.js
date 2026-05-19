@@ -159,6 +159,10 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     showUnderline,
     cardTitleFontSize,
     excerptFontSize,
+    ctaBgColor,
+    ctaTextColor,
+    ctaHoverBgColor,
+    ctaHoverTextColor,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -179,6 +183,10 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   if (imageObjectFit && imageObjectFit !== "cover") {
     customStyle["--g2rd-fg-img-fit"] = imageObjectFit;
   }
+  if (ctaBgColor)        customStyle["--g2rd-fg-cta-bg"]          = ctaBgColor;
+  if (ctaTextColor)      customStyle["--g2rd-fg-cta-color"]        = ctaTextColor;
+  if (ctaHoverBgColor)   customStyle["--g2rd-fg-cta-hover-bg"]     = ctaHoverBgColor;
+  if (ctaHoverTextColor) customStyle["--g2rd-fg-cta-hover-color"]  = ctaHoverTextColor;
 
   const blockProps = useBlockProps({
     className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
@@ -432,6 +440,34 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               value:    excerptColor,
               onChange: (v) => setAttributes({ excerptColor: v || "" }),
               label:    __("Couleur de l'extrait", "g2rd"),
+            },
+          ] }
+        />
+
+        {/* ── Couleurs du CTA ── */}
+        <PanelColorSettings
+          title={ __("Couleurs du CTA (bouton)", "g2rd") }
+          initialOpen={ false }
+          colorSettings={ [
+            {
+              value:    ctaBgColor,
+              onChange: (v) => setAttributes({ ctaBgColor: v || "" }),
+              label:    __("Fond du bouton", "g2rd"),
+            },
+            {
+              value:    ctaTextColor,
+              onChange: (v) => setAttributes({ ctaTextColor: v || "" }),
+              label:    __("Couleur du texte", "g2rd"),
+            },
+            {
+              value:    ctaHoverBgColor,
+              onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),
+              label:    __("Fond au survol", "g2rd"),
+            },
+            {
+              value:    ctaHoverTextColor,
+              onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }),
+              label:    __("Texte au survol", "g2rd"),
             },
           ] }
         />
