@@ -3,8 +3,8 @@ import { Button, Spinner, TextControl, SelectControl } from '@wordpress/componen
 import apiFetch from '@wordpress/api-fetch';
 
 const { restBase, nonce } = window.G2RDOptionsData || {};
-const API = `${ restBase }g2rd/v1`;
-const MCP_ENDPOINT = `${ restBase }g2rd/v1`;
+const API          = `${ restBase }g2rd/v1`;
+const MCP_ENDPOINT = `${ restBase }g2rd/mcp/v1/`;
 
 function formatDate( iso ) {
 	if ( ! iso ) return '—';
@@ -14,25 +14,32 @@ function formatDate( iso ) {
 	} );
 }
 
+// Config stdio via le bridge local (compatible toutes versions Claude Desktop).
 function buildClaudeDesktopConfig( token ) {
 	return JSON.stringify( {
 		mcpServers: {
 			g2rd: {
-				url: MCP_ENDPOINT,
-				headers: {
-					Authorization: `Bearer ${ token }`,
+				command: 'node',
+				args:    [ '/chemin/vers/g2rd-theme/tools/g2rd-mcp-bridge.js' ],
+				env:     {
+					G2RD_MCP_URL:   MCP_ENDPOINT,
+					G2RD_MCP_TOKEN: token,
 				},
 			},
 		},
 	}, null, 2 );
 }
 
+// Config HTTP directe pour Claude Code CLI et clients MCP supportant Streamable HTTP.
 function buildClaudeCodeConfig( token ) {
 	return JSON.stringify( {
 		mcpServers: {
 			g2rd: {
-				command: 'npx',
-				args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ token }` ],
+				type:    'http',
+				url:     MCP_ENDPOINT,
+				headers: {
+					Authorization: `Bearer ${ token }`,
+				},
 			},
 		},
 	}, null, 2 );

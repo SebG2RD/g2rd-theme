@@ -62,7 +62,8 @@ class ScriptsManager {
         \add_action('wp_enqueue_scripts', [$this, 'dequeuePluginAssets'], 100);
         \add_action('wp_enqueue_scripts', [$this, 'applyDeferStrategy'], 999);
         \add_action('admin_enqueue_scripts', [$this, 'enqueueAdminScripts']);
-        \add_filter('litespeed_optm_js_exc', [$this, 'excludeFromLitespeed']);
+        \add_filter('litespeed_optm_js_exc',  [$this, 'excludeFromLitespeed']);
+        \add_filter('litespeed_optm_css_exc', [$this, 'excludeCssFromLitespeed']);
         \add_action('wp', [$this, 'conditionalMagicPageStyle']);
     }
 
@@ -81,6 +82,21 @@ class ScriptsManager {
         $excludes[] = 'accessibility.js';
         $excludes[] = 'fluent-cart';
         $excludes[] = 'clickable-articles.js';
+        return $excludes;
+    }
+
+    /**
+     * Exclut les styles critiques du thème de l'optimisation CSS LiteSpeed Cache.
+     *
+     * LiteSpeed peut différer ou supprimer les règles CSS "non critiques" (jamais
+     * présentes au premier rendu), notamment les états dynamiques comme .is-open.
+     * Ces feuilles de styles doivent être chargées de façon synchrone.
+     *
+     * @param array $excludes Liste des patterns d'exclusion.
+     * @return array
+     */
+    public function excludeCssFromLitespeed( array $excludes ): array {
+        $excludes[] = 'accessibility.css';
         return $excludes;
     }
 

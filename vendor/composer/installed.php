@@ -3,7 +3,7 @@
         'name' => 'g2rd/g2rd-theme',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6480864a0847a004b8bead37c7ef3ca506c65c48',
+        'reference' => 'd260c2101b40858c874b1db14eeb3a54305ebccd',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'g2rd/g2rd-theme' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6480864a0847a004b8bead37c7ef3ca506c65c48',
+            'reference' => 'd260c2101b40858c874b1db14eeb3a54305ebccd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

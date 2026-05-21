@@ -20,6 +20,7 @@ import {
   Button,
   ButtonGroup,
 } from "@wordpress/components";
+import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
 // Catégories d'icônes dashicons pour le sélecteur
 const ICON_CATEGORIES = {
@@ -546,6 +547,7 @@ export default function Edit({ attributes, setAttributes }) {
           ]}
         />
       </InspectorControls>
+      <G2RDAiInspectorPanel blockType="g2rd/card" attributes={attributes} setAttributes={setAttributes} />
 
       {/* --- Rendu éditeur --- */}
       <div {...blockProps}>

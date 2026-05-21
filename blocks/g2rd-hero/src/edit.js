@@ -17,6 +17,7 @@ import {
   RangeControl,
   Button,
 } from "@wordpress/components";
+import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
 const CSS_COLOR_RE = /^#[0-9a-fA-F]{3,8}$|^rgb\(\s*\d|^rgba\(\s*\d|^hsl\(\s*\d|^var\(--[\w-]+\)$/;
 const sanitizeCssColor = ( color ) => CSS_COLOR_RE.test( color || '' ) ? color : '';
@@ -263,6 +264,7 @@ export default function Edit({ attributes, setAttributes }) {
           ]}
         />
       </InspectorControls>
+      <G2RDAiInspectorPanel blockType="g2rd/hero" attributes={attributes} setAttributes={setAttributes} />
 
       <div {...blockProps}>
         {backgroundType === "image" && imageUrl && (

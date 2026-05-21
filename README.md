@@ -127,6 +127,15 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.14.0
+
+- **Module IA G2RD** : nouveau module complet (AiModule, AiClient, AiRest, AiPrompts) — génération de contenu via WordPress AI Connectors, désactivable depuis la page d'options.
+- **Panneau IA dans les blocs** : G2RDAiInspectorPanel intégré dans Hero, FAQ, CTA Band, Pricing Table, Testimonial et Card.
+- **Tab "Module IA"** : nouvelle section dans la page d'options pour configurer les paramètres IA (activation, quotas, ton/longueur par défaut).
+- **Bridge MCP stdio** : `tools/g2rd-mcp-bridge.js` — connecteur Claude Desktop via stdio pour le serveur MCP WordPress.
+- **Fix** : endpoint MCP corrigé dans TabMcpTokens (`g2rd/v1` → `g2rd/mcp/v1/`), config Claude Desktop générée au bon format stdio.
+- **Fix** : exclusion CSS LiteSpeed pour `accessibility.css` — le panneau d'accessibilité s'ouvre correctement après optimisation LiteSpeed.
+
 ### 1.13.7
 
 - **Feat (filterable-grid)** : couleurs CTA personnalisables — fond, texte, survol fond, survol texte — via PanelColorSettings dans l'inspecteur Gutenberg.

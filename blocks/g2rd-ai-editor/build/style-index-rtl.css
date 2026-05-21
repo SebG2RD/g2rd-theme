@@ -1,0 +1,318 @@
+/**
+ * Module IA G2RD — Styles éditeur Gutenberg
+ *
+ * Design : minimaliste professionnel, cohérent avec le design system G2RD.
+ * Utilise exclusivement les variables CSS WordPress/thème.
+ * Mobile-first, conforme WCAG 2.1 AA (contraste, focus visible).
+ *
+ * Composants couverts :
+ *  - .g2rd-ai-sidebar       (sidebar éditoriale)
+ *  - .g2rd-ai-tabs          (onglets)
+ *  - .g2rd-ai-context-panel (panneau contexte)
+ *  - .g2rd-ai-actions       (groupe de boutons)
+ *  - .g2rd-ai-button        (bouton de génération)
+ *  - .g2rd-ai-notice        (notice alert/status)
+ *  - .g2rd-ai-modal         (modal de prévisualisation)
+ *  - .g2rd-ai-inspector-panel (InspectorControls blocs)
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   1. VARIABLES LOCALES
+   Complète les variables WP sans en créer de nouvelles inutiles.
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-sidebar,
+.g2rd-ai-inspector-panel {
+	--g2rd-ai-accent:       var(--wp-admin-theme-color, #2F425D);
+	--g2rd-ai-accent-light: color-mix(in srgb, var(--g2rd-ai-accent) 12%, white);
+	--g2rd-ai-radius:       4px;
+	--g2rd-ai-gap:          12px;
+	--g2rd-ai-font-size:    13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. SIDEBAR LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-sidebar {
+	display:        flex;
+	flex-direction: column;
+	gap:            0;
+}
+
+.g2rd-ai-sidebar__header {
+	padding:         16px 16px 12px;
+	border-bottom:   1px solid var(--wp-components-color-gray-300, #e0e0e0);
+	background:      var(--g2rd-ai-accent-light);
+}
+
+.g2rd-ai-sidebar__title {
+	margin:         0 0 8px;
+	font-size:      14px;
+	font-weight:    600;
+	color:          var(--g2rd-ai-accent);
+	letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. ONGLETS
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-tabs .components-tab-panel__tabs {
+	display:     flex;
+	flex-wrap:   wrap;
+	gap:         2px;
+	padding:     8px 12px;
+	border-bottom: 1px solid var(--wp-components-color-gray-300, #e0e0e0);
+	background:  var(--wp-components-color-gray-100, #f7f7f7);
+}
+
+.g2rd-ai-tab.components-button {
+	padding:       6px 10px;
+	font-size:     12px;
+	font-weight:   500;
+	border-radius: var(--g2rd-ai-radius);
+	color:         var(--wp-components-color-gray-700, #444);
+}
+
+.g2rd-ai-tab.components-button:hover {
+	background: var(--g2rd-ai-accent-light);
+	color:      var(--g2rd-ai-accent);
+}
+
+.g2rd-ai-tab.components-button[aria-selected="true"] {
+	background: var(--g2rd-ai-accent);
+	color:      #fff;
+	font-weight: 600;
+}
+
+/* Focus visible — RGAA 10.7 */
+
+.g2rd-ai-tab.components-button:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. PANNEAU CONTEXTE
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-context-panel .components-panel__body-title {
+	font-size:   12px;
+	font-weight: 600;
+	color:       var(--wp-components-color-gray-600, #666);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.g2rd-ai-context-panel .components-base-control {
+	margin-bottom: var(--g2rd-ai-gap);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5. GROUPE D'ACTIONS (boutons IA)
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-actions {
+	display:        flex;
+	flex-direction: column;
+	gap:            6px;
+	margin-top:     12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. BOUTON G2RD AI
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-button.components-button {
+	width:          100%;
+	justify-content: flex-start;
+	gap:             8px;
+	font-size:       var(--g2rd-ai-font-size);
+	border-radius:   var(--g2rd-ai-radius);
+	transition:      background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+	position:        relative;
+	overflow:        hidden;
+}
+
+.g2rd-ai-button.components-button:hover:not(:disabled) {
+	background:    var(--g2rd-ai-accent);
+	color:         #fff;
+	border-color:  var(--g2rd-ai-accent);
+}
+
+.g2rd-ai-button.components-button:active:not(:disabled) {
+	transform: scale(0.98);
+}
+
+/* Focus visible — RGAA 10.7, WCAG 2.4.7 */
+
+.g2rd-ai-button.components-button:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 2px;
+	box-shadow:     none;
+}
+
+/* État loading */
+
+.g2rd-ai-button--loading.components-button {
+	opacity: 0.8;
+	cursor:  wait;
+}
+
+.g2rd-ai-button--loading .components-spinner {
+	margin: 0;
+	width:  16px;
+	height: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   7. NOTICE IA
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-notice {
+	margin: 8px 0;
+}
+
+.g2rd-ai-notice .components-notice {
+	margin:        0;
+	border-radius: var(--g2rd-ai-radius);
+	font-size:     var(--g2rd-ai-font-size);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   8. MODAL DE PRÉVISUALISATION
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-modal .components-modal__frame {
+	max-width:     720px;
+	width:         90vw;
+	border-radius: 8px;
+}
+
+.g2rd-ai-modal .components-modal__header {
+	border-bottom: 1px solid var(--wp-components-color-gray-300, #e0e0e0);
+	padding:       16px 20px;
+}
+
+.g2rd-ai-modal .components-modal__header-heading {
+	font-size:   16px;
+	font-weight: 600;
+	color:       var(--g2rd-ai-accent);
+}
+
+.g2rd-ai-modal__preview {
+	min-height:  120px;
+	padding:     16px;
+	margin:      0 0 16px;
+	background:  var(--wp-components-color-gray-100, #f7f7f7);
+	border:      1px solid var(--wp-components-color-gray-300, #e0e0e0);
+	border-radius: var(--g2rd-ai-radius);
+	overflow-y:  auto;
+	max-height:  360px;
+}
+
+/* Texte brut */
+
+.g2rd-ai-modal__text {
+	margin:      0;
+	font-size:   14px;
+	line-height: 1.6;
+	white-space: pre-wrap;
+	word-break:  break-word;
+	color:       var(--wp-components-color-gray-900, #1e1e1e);
+}
+
+/* JSON formaté */
+
+.g2rd-ai-modal__json {
+	margin:      0;
+	font-family: ui-monospace, 'Courier New', monospace;
+	font-size:   12px;
+	line-height: 1.5;
+	white-space: pre-wrap;
+	word-break:  break-all;
+	color:       var(--wp-components-color-gray-800, #333);
+}
+
+/* Spinner dans la modal */
+
+.g2rd-ai-modal__spinner {
+	display:         flex;
+	align-items:     center;
+	gap:             12px;
+	justify-content: center;
+	padding:         24px;
+	color:           var(--wp-components-color-gray-600, #666);
+	font-size:       13px;
+}
+
+.g2rd-ai-spinner-icon {
+	display:          inline-block;
+	width:            24px;
+	height:           24px;
+	border:           3px solid var(--g2rd-ai-accent-light);
+	border-top-color: var(--g2rd-ai-accent);
+	border-radius:    50%;
+	animation:        g2rd-ai-spin 0.7s linear infinite;
+}
+
+@keyframes g2rd-ai-spin {
+	to { transform: rotate(-360deg); }
+}
+
+/* Groupe d'actions de la modal */
+
+.g2rd-ai-modal__actions {
+	display:    flex;
+	flex-wrap:  wrap;
+	gap:        8px;
+	padding-top: 4px;
+}
+
+.g2rd-ai-modal__actions .components-button[variant="primary"] {
+	background:   var(--g2rd-ai-accent);
+	border-color: var(--g2rd-ai-accent);
+}
+
+.g2rd-ai-modal__actions .components-button[variant="primary"]:hover:not(:disabled) {
+	background:   color-mix(in srgb, var(--g2rd-ai-accent) 85%, black);
+	border-color: color-mix(in srgb, var(--g2rd-ai-accent) 85%, black);
+}
+
+/* Focus visible sur les boutons de la modal — RGAA 10.7 */
+
+.g2rd-ai-modal__actions .components-button:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   9. INSPECTOR PANEL (blocs Gutenberg)
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-inspector-panel .components-panel__body-title {
+	color:       var(--g2rd-ai-accent);
+	font-weight: 600;
+}
+
+.g2rd-ai-inspector-panel .g2rd-ai-actions {
+	margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   10. ACCESSIBILITÉ — TEXTES MASQUÉS VISUELLEMENT
+   ═══════════════════════════════════════════════════════════════ */
+
+.screen-reader-text {
+	position:   absolute;
+	width:      1px;
+	height:     1px;
+	padding:    0;
+	margin:     -1px;
+	overflow:   hidden;
+	clip:       rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border:     0;
+}
+

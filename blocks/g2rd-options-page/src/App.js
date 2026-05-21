@@ -12,6 +12,7 @@ import { TabLicenceAdmin }  from './tabs/TabLicenceAdmin';
 import { TabMcpTokens }     from './tabs/TabMcpTokens';
 import { TabMcpAudit }      from './tabs/TabMcpAudit';
 import { TabMcpQueue }      from './tabs/TabMcpQueue';
+import { TabIA }            from './tabs/TabIA';
 
 const { version, licensed, licenseServerMode } = window.G2RDOptionsData || {};
 
@@ -40,6 +41,12 @@ const NAV_GROUPS = [
 		],
 	},
 	{
+		label: 'IA',
+		items: [
+			{ name: 'ia', title: 'Module IA', icon: 'superhero-alt' },
+		],
+	},
+	{
 		label: 'MCP',
 		items: [
 			{ name: 'mcp-tokens', title: 'Tokens',  icon: 'shield' },
@@ -62,6 +69,7 @@ function renderTab( name, settings, update ) {
 		case 'connexion':     return <TabConnexion     { ...props } />;
 		case 'licence':       return <TabLicence />;
 		case 'licence-admin': return <TabLicenceAdmin />;
+		case 'ia':            return <TabIA />;
 		case 'mcp-tokens':    return <TabMcpTokens />;
 		case 'mcp-audit':     return <TabMcpAudit />;
 		case 'mcp-queue':     return <TabMcpQueue />;

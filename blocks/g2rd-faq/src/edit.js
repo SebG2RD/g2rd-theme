@@ -12,6 +12,7 @@ import {
   ButtonGroup,
 } from "@wordpress/components";
 import { useState, useCallback, useEffect } from "@wordpress/element";
+import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
 const ICON_MAP = {
   "plus-minus": { open: "−", closed: "+" },
@@ -249,6 +250,7 @@ export default function Edit({ attributes, setAttributes }) {
           ]}
         />
       </InspectorControls>
+      <G2RDAiInspectorPanel blockType="g2rd/faq" attributes={attributes} setAttributes={setAttributes} />
 
       <div {...blockProps}>
         {showHeader && (

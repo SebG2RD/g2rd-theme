@@ -85,6 +85,18 @@ if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
                 require_once $g2rd_real;
             }
         }
+
+        // Passe 3 — sous-dossier classes/ai/ (module IA, namespace G2RD\AI).
+        // phpcs:disable PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
+        $g2rd_ai_dir = \realpath( $g2rd_classes_dir . DIRECTORY_SEPARATOR . 'ai' );
+        if ( false !== $g2rd_ai_dir && \str_starts_with( $g2rd_ai_dir, $g2rd_classes_dir ) ) {
+            foreach ( \glob( $g2rd_ai_dir . '/class-*.php' ) ?: [] as $g2rd_ai_path ) {
+                $g2rd_ai_real = \realpath( $g2rd_ai_path );
+                if ( false !== $g2rd_ai_real && \str_starts_with( $g2rd_ai_real, $g2rd_ai_dir ) ) {
+                    require_once $g2rd_ai_real;
+                }
+            }
+        }
         // phpcs:enable PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt
     }
 }
@@ -193,6 +205,11 @@ function bootstrap_theme(): void
 
     // Module GEO Analyzer — scoring Generative Engine Optimization dans l'éditeur
     ( new GeoAnalyzer() )->register_hooks();
+
+    // Module IA G2RD — génération de contenu (désactivable via page d'options)
+    if ( ThemeOptions::isFeatureEnabled( 'enable_ai' ) ) {
+        ( new AI\AiModule() )->register_hooks();
+    }
 
     // Personnalisation de la page de connexion WordPress
     ( new LoginCustomizer() )->register_hooks();
