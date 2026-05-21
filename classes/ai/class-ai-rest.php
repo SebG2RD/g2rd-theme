@@ -378,7 +378,7 @@ class AiRest {
 			return;
 		}
 
-		( new \G2RD\McpAuditLog() )->log( [
+		( new \G2RD\McpAuditLog( new \G2RD\McpEncryption() ) )->log( [
 			'user_id'       => \get_current_user_id(),
 			'token_id'      => 0,
 			'ip_address'    => \sanitize_text_field( \wp_unslash( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) ) ),

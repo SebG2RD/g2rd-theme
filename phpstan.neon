@@ -12,3 +12,5 @@ parameters:
     ignoreErrors:
         # Fonctions WooCommerce — pas de stubs installés, usage conditionnel dans FilterableGrid
         - '#Function wc_get_product not found\.#'
+        # Fonction WordPress AI Connectors (WP 7.0+) — pas encore dans les stubs phpstan-wordpress
+        - '#Function wp_ai_client not found\.#'
