@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.15.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.15.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.15.3
+
+- **Fix** : révocation d'un token MCP supprime immédiatement l'enregistrement en base de données.
 
 ### 1.15.2
 
