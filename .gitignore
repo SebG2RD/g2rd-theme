@@ -65,7 +65,9 @@ blocks/*/package-lock.json
 g2rd-child/
 
 # Documentation interne (specs, notes de conception — non pertinentes pour le dépôt)
-docs/
+# docs/internal/ est une exception : décisions d'architecture à versionner
+docs/*
+!docs/internal/
 
 # Fichiers système
 .DS_Store
