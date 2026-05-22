@@ -395,8 +395,7 @@ class AgentDiscovery {
 		\header( 'X-Markdown-Tokens: ' . \str_word_count( $markdown ) );
 		\header( 'Cache-Control: public, max-age=600' );
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- text/markdown, pas HTML
-		echo $markdown;
+		echo \wp_kses_post( $markdown );
 		exit;
 	}
 
