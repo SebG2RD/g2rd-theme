@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.15.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.15.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.15.1
+
+- **Feat** : g2rd-mcp-bridge déclaré comme binaire npm global (`npm link`) — configuration Claude.ai MCP sans chemin absolu.
 
 ### 1.15.0
 

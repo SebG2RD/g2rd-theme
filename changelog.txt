@@ -1,3 +1,6 @@
+= 1.15.1 =
+* Nouveau : g2rd-mcp-bridge déclaré comme binaire npm global (npm link) — configuration Claude.ai MCP sans chemin absolu.
+
 = 1.15.0 =
 * Nouveau : champ « Consignes personnalisées » dans les réglages Module IA (contexte site injecté dans le prompt).
 * Nouveau : G2RDAiInspectorPanel intégré dans les blocs Pricing Table et Testimonial.
