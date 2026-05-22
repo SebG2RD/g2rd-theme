@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.16.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.16.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.16.1
+
+- **Fix** : Message "Connecteur IA non configuré" remplacé par un lien cliquable vers Apparence › Options G2RD › IA.
+- **Fix** : Thème sombre (dark chrome) retiré de la modal et du launcher IA — rendu neutre WordPress.
 
 ### 1.16.0
 
