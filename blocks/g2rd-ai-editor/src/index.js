@@ -71,7 +71,9 @@ if ( config.editorEnabled ) {
 							</button>
 							{ ! config.connectorReady && (
 								<p className="g2rd-ail__warn">
-									{ __( '⚠ Connecteur non configuré', 'g2rd' ) }
+									<a href={ config.settingsUrl } target="_blank" rel="noreferrer">
+										{ __( '⚠ Clé API Anthropic manquante', 'g2rd' ) }
+									</a>
 								</p>
 							) }
 						</div>

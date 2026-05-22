@@ -133,6 +133,7 @@ class AiModule {
 				'language'       => \get_locale() === 'fr_FR' ? 'fr' : 'en',
 				'userCan'        => \current_user_can( 'edit_posts' ),
 				'connectorReady' => AiClient::is_available(),
+				'settingsUrl'    => \esc_url( \admin_url( 'themes.php?page=g2rd-theme-options#ia' ) ),
 				'i18n'           => [
 					'generating'    => \esc_html__( 'Génération en cours…', 'g2rd' ),
 					'generated'     => \esc_html__( 'Proposition prête', 'g2rd' ),

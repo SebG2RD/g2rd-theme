@@ -330,7 +330,10 @@ export default function G2RDAiModal( { onClose } ) {
 				{ ! config.connectorReady && (
 					<div className="g2rd-aim__alert" role="alert">
 						<span aria-hidden="true">⚠</span>
-						{ __( 'Connecteur IA non configuré. Rendez-vous dans Réglages › IA.', 'g2rd' ) }
+						{ __( 'Clé API Anthropic non configurée.', 'g2rd' ) }{ ' ' }
+						<a href={ config.settingsUrl } target="_blank" rel="noreferrer">
+							{ __( 'Ouvrir Réglages G2RD › IA', 'g2rd' ) }
+						</a>
 					</div>
 				) }
 
