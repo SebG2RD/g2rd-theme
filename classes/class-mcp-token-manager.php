@@ -253,28 +253,90 @@ class McpTokenManager {
 	}
 
 	/**
-	 * Lists all active tokens for a user.
+	 * Lists tokens for a user, optionally including inactive ones.
 	 *
 	 * Never returns token_hash or the raw token.
+	 * Each row includes a computed 'status' field: 'active', 'expired', or 'revoked'.
 	 *
-	 * @param int $user_id WordPress user ID.
-	 * @return array<int, array{id: int, token_name: string, scope: string, token_prefix: string, last_used_at: string|null, last_used_ip: string|null, expires_at: string}> Token list.
+	 * @param int  $user_id          WordPress user ID.
+	 * @param bool $include_inactive When true, revoked and expired tokens are included.
+	 * @return array<int, array{id: int, token_name: string, scope: string, token_prefix: string, last_used_at: string|null, last_used_ip: string|null, expires_at: string, revoked_at: string|null, status: string}> Token list.
 	 */
-	public function list_tokens( int $user_id ): array {
+	public function list_tokens( int $user_id, bool $include_inactive = false ): array {
 		global $wpdb;
 		$table = $wpdb->prefix . 'g2rd_mcp_tokens';
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Live token list; table name from $wpdb->prefix.
+		$where = $include_inactive ? '' : 'AND revoked_at IS NULL AND expires_at > UTC_TIMESTAMP()';
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Live token list; table name and where clause are controlled values.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT id, token_name, scope, token_prefix, last_used_at, last_used_ip, expires_at, created_at FROM `{$table}` WHERE user_id = %d AND revoked_at IS NULL ORDER BY created_at DESC",
+				"SELECT id, token_name, scope, token_prefix, last_used_at, last_used_ip, expires_at, revoked_at, created_at FROM `{$table}` WHERE user_id = %d {$where} ORDER BY created_at DESC",
 				$user_id
 			),
 			\ARRAY_A
 		);
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
-		return $rows ?: [];
+		$rows = $rows ?: [];
+
+		foreach ( $rows as &$row ) {
+			if ( ! \is_null( $row['revoked_at'] ) ) {
+				$row['status'] = 'revoked';
+			} elseif ( ! empty( $row['expires_at'] ) && \strtotime( (string) $row['expires_at'] ) <= \time() ) {
+				$row['status'] = 'expired';
+			} else {
+				$row['status'] = 'active';
+			}
+		}
+		unset( $row );
+
+		return $rows;
+	}
+
+	/**
+	 * Permanently deletes an inactive token row from the database.
+	 *
+	 * Only revoked or expired tokens can be purged — active tokens are refused.
+	 * The caller must be the token owner or have manage_options.
+	 *
+	 * @param int $token_id          Token row ID to delete.
+	 * @param int $requesting_user_id User performing the deletion.
+	 * @return bool True if deleted, false if not found, active, or unauthorised.
+	 */
+	public function purge_token( int $token_id, int $requesting_user_id ): bool {
+		global $wpdb;
+		$table = $wpdb->prefix . 'g2rd_mcp_tokens';
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Live lookup; table name from $wpdb->prefix.
+		$row = $wpdb->get_row(
+			$wpdb->prepare( "SELECT user_id, revoked_at, expires_at FROM `{$table}` WHERE id = %d", $token_id ),
+			\ARRAY_A
+		);
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+		if ( ! $row ) {
+			return false;
+		}
+
+		$is_owner = (int) $row['user_id'] === $requesting_user_id;
+		$is_admin = \current_user_can( 'manage_options' );
+
+		if ( ! $is_owner && ! $is_admin ) {
+			return false;
+		}
+
+		$is_revoked = ! \is_null( $row['revoked_at'] );
+		$is_expired = ! empty( $row['expires_at'] ) && \strtotime( (string) $row['expires_at'] ) <= \time();
+
+		if ( ! $is_revoked && ! $is_expired ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Hard delete of inactive token; no cache to invalidate.
+		$result = $wpdb->delete( $table, [ 'id' => $token_id ], [ '%d' ] );
+
+		return false !== $result;
 	}
 
 	/**

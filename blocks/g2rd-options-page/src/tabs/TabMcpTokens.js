@@ -117,6 +117,23 @@ function IntegrationCode( { token } ) {
 	);
 }
 
+function TokenStatusBadge( { status } ) {
+	const styles = {
+		active:  { background: '#dcfce7', color: '#166534' },
+		expired: { background: '#fef9c3', color: '#854d0e' },
+		revoked: { background: '#fee2e2', color: '#991b1b' },
+	};
+	const labels = { active: 'Actif', expired: 'Expiré', revoked: 'Révoqué' };
+	return (
+		<span style={ {
+			...( styles[ status ] || styles.revoked ),
+			borderRadius: 4, padding: '2px 8px', fontSize: 11, fontWeight: 600,
+		} }>
+			{ labels[ status ] || status }
+		</span>
+	);
+}
+
 export function TabMcpTokens() {
 	const [ tokens,      setTokens      ] = useState( [] );
 	const [ isLoading,   setIsLoading   ] = useState( true );
@@ -127,17 +144,19 @@ export function TabMcpTokens() {
 	const [ scope,       setScope       ] = useState( 'read_only' );
 	const [ expiresIn,   setExpiresIn   ] = useState( 30 );
 	const [ expandedId,  setExpandedId  ] = useState( null );
+	const [ showInactive, setShowInactive ] = useState( false );
 
 	const showNotice = useCallback( ( type, message ) => {
 		setNotice( { type, message } );
 		setTimeout( () => setNotice( null ), 8000 );
 	}, [] );
 
-	const loadTokens = useCallback( async () => {
+	const loadTokens = useCallback( async ( withInactive ) => {
 		setIsLoading( true );
 		try {
+			const url = withInactive ? `${ API }/mcp-tokens?include_inactive=1` : `${ API }/mcp-tokens`;
 			const res = await apiFetch( {
-				url: `${ API }/mcp-tokens`,
+				url,
 				headers: { 'X-WP-Nonce': nonce },
 			} );
 			setTokens( res?.tokens || [] );
@@ -148,7 +167,13 @@ export function TabMcpTokens() {
 		}
 	}, [ showNotice ] );
 
-	useEffect( () => { loadTokens(); }, [ loadTokens ] );
+	const toggleInactive = useCallback( () => {
+		const next = ! showInactive;
+		setShowInactive( next );
+		loadTokens( next );
+	}, [ showInactive, loadTokens ] );
+
+	useEffect( () => { loadTokens( false ); }, [ loadTokens ] );
 
 	const handleCreate = useCallback( async () => {
 		if ( ! name.trim() ) {
@@ -168,7 +193,7 @@ export function TabMcpTokens() {
 			setName( '' );
 			setScope( 'read_only' );
 			setExpiresIn( 30 );
-			await loadTokens();
+			await loadTokens( showInactive );
 		} catch ( err ) {
 			showNotice( 'error', err?.message || 'Erreur lors de la création.' );
 		} finally {
@@ -186,10 +211,27 @@ export function TabMcpTokens() {
 				headers: { 'X-WP-Nonce': nonce },
 			} );
 			showNotice( 'success', 'Token révoqué.' );
-			setTokens( ( prev ) => prev.filter( ( t ) => t.id !== id ) );
+			await loadTokens( showInactive );
 			if ( expandedId === id ) setExpandedId( null );
 		} catch ( err ) {
 			showNotice( 'error', err?.message || 'Erreur lors de la révocation.' );
+		}
+	}, [ showNotice, expandedId, showInactive, loadTokens ] );
+
+	const handlePurge = useCallback( async ( id, tokenName ) => {
+		// eslint-disable-next-line no-alert
+		if ( ! window.confirm( `Supprimer définitivement le token « ${ tokenName } » ?\nCette action est irréversible.` ) ) return;
+		try {
+			await apiFetch( {
+				url: `${ API }/mcp-tokens/${ id }/purge`,
+				method: 'DELETE',
+				headers: { 'X-WP-Nonce': nonce },
+			} );
+			showNotice( 'success', 'Token supprimé.' );
+			setTokens( ( prev ) => prev.filter( ( t ) => t.id !== id ) );
+			if ( expandedId === id ) setExpandedId( null );
+		} catch ( err ) {
+			showNotice( 'error', err?.message || 'Erreur lors de la suppression.' );
 		}
 	}, [ showNotice, expandedId ] );
 
@@ -206,10 +248,17 @@ export function TabMcpTokens() {
 						<span className="dashicons dashicons-shield"></span>
 						Tokens API MCP
 					</h2>
-					<Button variant="secondary" isSmall onClick={ loadTokens } disabled={ isLoading }>
-						<span className="dashicons dashicons-update" style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
-						Rafraîchir
-					</Button>
+					<div style={ { display: 'flex', gap: 8 } }>
+						<Button variant="secondary" isSmall onClick={ toggleInactive }>
+							<span className={ `dashicons dashicons-${ showInactive ? 'hidden' : 'visibility' }` }
+								style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
+							{ showInactive ? 'Masquer inactifs' : 'Afficher inactifs' }
+						</Button>
+						<Button variant="secondary" isSmall onClick={ () => loadTokens( showInactive ) } disabled={ isLoading }>
+							<span className="dashicons dashicons-update" style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
+							Rafraîchir
+						</Button>
+					</div>
 				</div>
 				<p className="g2rd-section__desc">
 					Créez des tokens d'accès pour les agents MCP. Le token en clair n'est affiché qu'une seule fois à la création.
@@ -292,12 +341,15 @@ export function TabMcpTokens() {
 				{ isLoading ? (
 					<div style={ { textAlign: 'center', padding: 32 } }><Spinner /></div>
 				) : tokens.length === 0 ? (
-					<p style={ { color: '#787c82', fontStyle: 'italic' } }>Aucun token actif.</p>
+					<p style={ { color: '#787c82', fontStyle: 'italic' } }>
+						{ showInactive ? 'Aucun token.' : 'Aucun token actif.' }
+					</p>
 				) : (
 					<table className="widefat striped">
 						<thead>
 							<tr>
 								<th>Nom</th>
+								<th>Statut</th>
 								<th>Portée</th>
 								<th>Préfixe</th>
 								<th>Créé le</th>
@@ -307,65 +359,79 @@ export function TabMcpTokens() {
 							</tr>
 						</thead>
 						<tbody>
-							{ tokens.map( ( t ) => (
-								<>
-									<tr key={ t.id }>
-										<td><strong>{ t.token_name || t.name }</strong></td>
-										<td>
-											<span style={ {
-												background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
-												color: t.scope === 'editor' ? '#92400e' : '#075985',
-												borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
-											} }>
-												{ t.scope === 'editor' ? 'Éditeur' : 'Lecture seule' }
-											</span>
-										</td>
-										<td><code style={ { fontSize: 12 } }>{ t.token_prefix }…</code></td>
-										<td style={ { fontSize: 12, color: '#787c82' } }>{ formatDate( t.created_at ) }</td>
-										<td style={ { fontSize: 12, color: new Date( t.expires_at ) < new Date() ? '#d63638' : 'inherit' } }>
-											{ formatDate( t.expires_at ) }
-										</td>
-										<td>
-											<Button
-												variant="link"
-												isSmall
-												onClick={ () => setExpandedId( expandedId === t.id ? null : t.id ) }
-												style={ { textDecoration: 'none', fontSize: 12 } }
-											>
-												<span className={ `dashicons dashicons-${ expandedId === t.id ? 'arrow-up-alt2' : 'editor-code' }` }
-													style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
-												{ expandedId === t.id ? 'Fermer' : 'Voir config' }
-											</Button>
-										</td>
-										<td>
-											<Button variant="secondary" isDestructive isSmall onClick={ () => handleRevoke( t.id, t.token_name || t.name ) }>
-												Révoquer
-											</Button>
-										</td>
-									</tr>
-									{ expandedId === t.id && (
-										<tr key={ `${ t.id }-config` }>
-											<td colSpan={ 7 } style={ { padding: '0 12px 16px' } }>
-												<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '16px 20px' } }>
-													<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
-														Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
-														<br />
-														<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
-													</p>
-													<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
-													<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
-														mcpServers: { g2rd: { url: MCP_ENDPOINT, headers: { Authorization: `Bearer ${ t.token_prefix }…(TOKEN)` } } }
-													}, null, 2 ) }</pre>
-													<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
-													<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
-														mcpServers: { g2rd: { command: 'npx', args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ t.token_prefix }…(TOKEN)` ] } }
-													}, null, 2 ) }</pre>
-												</div>
+							{ tokens.map( ( t ) => {
+								const isInactive = t.status !== 'active';
+								const tokenName  = t.token_name || t.name;
+								return (
+									<>
+										<tr key={ t.id } style={ isInactive ? { opacity: 0.6 } : {} }>
+											<td><strong>{ tokenName }</strong></td>
+											<td><TokenStatusBadge status={ t.status } /></td>
+											<td>
+												<span style={ {
+													background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
+													color: t.scope === 'editor' ? '#92400e' : '#075985',
+													borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
+												} }>
+													{ t.scope === 'editor' ? 'Éditeur' : 'Lecture seule' }
+												</span>
+											</td>
+											<td><code style={ { fontSize: 12 } }>{ t.token_prefix }…</code></td>
+											<td style={ { fontSize: 12, color: '#787c82' } }>{ formatDate( t.created_at ) }</td>
+											<td style={ { fontSize: 12, color: isInactive ? '#d63638' : 'inherit' } }>
+												{ formatDate( t.expires_at ) }
+											</td>
+											<td>
+												{ ! isInactive && (
+													<Button
+														variant="link"
+														isSmall
+														onClick={ () => setExpandedId( expandedId === t.id ? null : t.id ) }
+														style={ { textDecoration: 'none', fontSize: 12 } }
+													>
+														<span className={ `dashicons dashicons-${ expandedId === t.id ? 'arrow-up-alt2' : 'editor-code' }` }
+															style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+														{ expandedId === t.id ? 'Fermer' : 'Voir config' }
+													</Button>
+												) }
+											</td>
+											<td>
+												{ isInactive ? (
+													<Button variant="secondary" isDestructive isSmall onClick={ () => handlePurge( t.id, tokenName ) }>
+														<span className="dashicons dashicons-trash" style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+														Supprimer
+													</Button>
+												) : (
+													<Button variant="secondary" isDestructive isSmall onClick={ () => handleRevoke( t.id, tokenName ) }>
+														Révoquer
+													</Button>
+												) }
 											</td>
 										</tr>
-									) }
-								</>
-							) ) }
+										{ expandedId === t.id && ! isInactive && (
+											<tr key={ `${ t.id }-config` }>
+												<td colSpan={ 8 } style={ { padding: '0 12px 16px' } }>
+													<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '16px 20px' } }>
+														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
+															Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+															<br />
+															<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
+														</p>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
+														<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
+															mcpServers: { g2rd: { url: MCP_ENDPOINT, headers: { Authorization: `Bearer ${ t.token_prefix }…(TOKEN)` } } }
+														}, null, 2 ) }</pre>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
+														<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
+															mcpServers: { g2rd: { command: 'npx', args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ t.token_prefix }…(TOKEN)` ] } }
+														}, null, 2 ) }</pre>
+													</div>
+												</td>
+											</tr>
+										) }
+									</>
+								);
+							} ) }
 						</tbody>
 					</table>
 				) }

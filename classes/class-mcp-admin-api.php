@@ -122,6 +122,19 @@ class McpAdminApi {
 			],
 		] );
 
+		\register_rest_route( self::REST_NAMESPACE, '/mcp-tokens/(?P<id>\d+)/purge', [
+			'methods'             => \WP_REST_Server::DELETABLE,
+			'callback'            => [ $this, 'purge_token' ],
+			'permission_callback' => $admin_perm,
+			'args'                => [
+				'id' => [
+					'required' => true,
+					'type'     => 'integer',
+					'minimum'  => 1,
+				],
+			],
+		] );
+
 		\register_rest_route( self::REST_NAMESPACE, '/mcp-audit', [
 			'methods'             => \WP_REST_Server::READABLE,
 			'callback'            => [ $this, 'get_audit' ],
@@ -200,14 +213,17 @@ class McpAdminApi {
 	// ── Endpoint callbacks ────────────────────────────────────────────────────
 
 	/**
-	 * GET /mcp-tokens — lists all non-revoked tokens for the current user.
+	 * GET /mcp-tokens — lists tokens for the current user.
+	 *
+	 * Pass ?include_inactive=1 to include revoked and expired tokens.
 	 *
 	 * @param \WP_REST_Request $request REST request.
 	 * @return \WP_REST_Response
 	 */
-	public function get_tokens( \WP_REST_Request $request ): \WP_REST_Response { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- $request unused; required by WP callback signature
-		$user_id = \get_current_user_id();
-		$tokens  = $this->tokens->list_tokens( $user_id );
+	public function get_tokens( \WP_REST_Request $request ): \WP_REST_Response {
+		$user_id          = \get_current_user_id();
+		$include_inactive = ! empty( $request->get_param( 'include_inactive' ) );
+		$tokens           = $this->tokens->list_tokens( $user_id, $include_inactive );
 
 		return new \WP_REST_Response( [
 			'tokens' => $tokens,
@@ -267,6 +283,30 @@ class McpAdminApi {
 		}
 
 		return new \WP_REST_Response( [ 'revoked' => true ], 200 );
+	}
+
+	/**
+	 * DELETE /mcp-tokens/{id}/purge — permanently removes an inactive token from the database.
+	 *
+	 * Only revoked or expired tokens can be purged. Active tokens are refused (400).
+	 *
+	 * @param \WP_REST_Request $request REST request (id as route param).
+	 * @return \WP_REST_Response
+	 */
+	public function purge_token( \WP_REST_Request $request ): \WP_REST_Response {
+		$token_id = \absint( $request->get_param( 'id' ) );
+		$user_id  = \get_current_user_id();
+
+		$success = $this->tokens->purge_token( $token_id, $user_id );
+
+		if ( ! $success ) {
+			return new \WP_REST_Response( [
+				'code'    => 'purge_failed',
+				'message' => \__( 'Token introuvable, toujours actif, ou suppression non autorisée.', 'g2rd' ),
+			], 400 );
+		}
+
+		return new \WP_REST_Response( [ 'purged' => true ], 200 );
 	}
 
 	/**
