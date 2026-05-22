@@ -83,17 +83,39 @@ rl.on( 'line', ( line ) => {
 
 	postToWordPress( JSON.stringify( body ) )
 		.then( ( raw ) => {
-			// Écrire la réponse brute si c'est du JSON valide, sinon erreur interne.
+			let parsed;
 			try {
-				JSON.parse( raw );
-				process.stdout.write( raw + '\n' );
+				parsed = JSON.parse( raw );
 			} catch {
 				writeStdout( {
 					jsonrpc: '2.0',
 					error:   { code: -32603, message: 'Invalid JSON from server' },
 					id:      body.id ?? null,
 				} );
+				return;
 			}
+
+			// Réponse JSON-RPC valide : transmettre telle quelle.
+			if ( parsed && parsed.jsonrpc === '2.0' ) {
+				process.stdout.write( raw + '\n' );
+				return;
+			}
+
+			// Réponse d'erreur WordPress ({"code":"...","message":"...","data":{...}}) :
+			// envelopper dans un JSON-RPC error pour que le client MCP comprenne.
+			const wpMsg = ( parsed && parsed.message )
+				? String( parsed.message )
+				: 'WordPress returned a non-JSON-RPC response';
+			const wpCode = ( parsed && parsed.data && parsed.data.status )
+				? -32000 - parseInt( parsed.data.status, 10 )
+				: -32603;
+
+			process.stderr.write( '[g2rd-mcp-bridge] WP error: ' + JSON.stringify( parsed ) + '\n' );
+			writeStdout( {
+				jsonrpc: '2.0',
+				error:   { code: wpCode, message: wpMsg, data: parsed },
+				id:      body.id ?? null,
+			} );
 		} )
 		.catch( ( err ) => {
 			writeStdout( {
