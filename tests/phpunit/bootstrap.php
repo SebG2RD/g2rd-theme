@@ -244,6 +244,12 @@ if (!class_exists('WP_Error')) {
             $this->code    = $code;
             $this->message = $message;
         }
+        public function get_error_message(string $code = ''): string {
+            return $this->message;
+        }
+        public function get_error_code(): string {
+            return $this->code;
+        }
     }
 }
 if (!function_exists('is_wp_error')) {
@@ -453,5 +459,107 @@ if (!function_exists('delete_transient')) {
         global $g2rd_transient_store;
         unset($g2rd_transient_store[$transient]);
         return true;
+    }
+}
+
+// ── Stubs licensing (LicenseManager + GitHubUpdater) ─────────────────────────
+
+if (!function_exists('home_url')) {
+    function home_url(string $path = ''): string {
+        return 'https://example.test' . $path;
+    }
+}
+if (!function_exists('delete_option')) {
+    function delete_option(string $option): bool {
+        global $g2rd_option_store;
+        unset($g2rd_option_store[$option]);
+        return true;
+    }
+}
+if (!function_exists('wp_next_scheduled')) {
+    function wp_next_scheduled(string $hook, array $args = []): int|false {
+        return false;
+    }
+}
+if (!function_exists('wp_schedule_event')) {
+    function wp_schedule_event(int $timestamp, string $recurrence, string $hook, array $args = []): bool {
+        return true;
+    }
+}
+if (!function_exists('get_template_directory')) {
+    function get_template_directory(): string {
+        return '/var/www/html/wp-content/themes/g2rd-theme';
+    }
+}
+if (!function_exists('wp_get_theme')) {
+    function wp_get_theme(string $slug = ''): object {
+        return new class {
+            public function get(string $field): string { return '1.14.0'; }
+        };
+    }
+}
+if (!function_exists('self_admin_url')) {
+    function self_admin_url(string $path = ''): string {
+        return 'https://example.test/wp-admin/' . ltrim($path, '/');
+    }
+}
+if (!function_exists('get_site_transient')) {
+    function get_site_transient(string $transient): mixed {
+        return false;
+    }
+}
+if (!function_exists('esc_html')) {
+    function esc_html(string $text): string {
+        return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+}
+if (!function_exists('esc_attr')) {
+    function esc_attr(string $text): string {
+        return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+}
+if (!function_exists('trailingslashit')) {
+    function trailingslashit(string $string): string {
+        return rtrim($string, '/\\') . '/';
+    }
+}
+if (!function_exists('untrailingslashit')) {
+    function untrailingslashit(string $string): string {
+        return rtrim($string, '/\\');
+    }
+}
+if (!function_exists('esc_url')) {
+    function esc_url(string $url): string {
+        return filter_var($url, FILTER_SANITIZE_URL) ?: '';
+    }
+}
+
+// HTTP spies — contrôlés par globals réinitialisés dans chaque setUp().
+global $g2rd_wp_remote_post_return, $g2rd_wp_remote_get_return;
+$g2rd_wp_remote_post_return = null;
+$g2rd_wp_remote_get_return  = null;
+
+if (!function_exists('wp_remote_post')) {
+    function wp_remote_post(string $url, array $args = []): mixed {
+        global $g2rd_wp_remote_post_return;
+        return $g2rd_wp_remote_post_return ?? new WP_Error('no_stub', 'wp_remote_post non configuré');
+    }
+}
+if (!function_exists('wp_remote_get')) {
+    function wp_remote_get(string $url, array $args = []): mixed {
+        global $g2rd_wp_remote_get_return;
+        return $g2rd_wp_remote_get_return ?? new WP_Error('no_stub', 'wp_remote_get non configuré');
+    }
+}
+if (!function_exists('wp_remote_retrieve_response_code')) {
+    function wp_remote_retrieve_response_code(mixed $response): int {
+        if (is_wp_error($response)) { return 0; }
+        return (int) ($response['response']['code'] ?? 0);
+    }
+}
+if (!function_exists('wp_remote_retrieve_body')) {
+    function wp_remote_retrieve_body(mixed $response): string {
+        if (is_wp_error($response)) { return ''; }
+        return (string) ($response['body'] ?? '');
     }
 }
