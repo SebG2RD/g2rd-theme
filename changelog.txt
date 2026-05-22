@@ -1,3 +1,7 @@
+= 1.15.2 =
+* Nouveau : tokens MCP inactifs visibles (révoqués/expirés) avec badge statut et bouton de suppression définitive.
+* Fix : bridge MCP convertit les erreurs WordPress en JSON-RPC valide (corrige validation Zod côté Claude).
+
 = 1.15.1 =
 * Nouveau : g2rd-mcp-bridge déclaré comme binaire npm global (npm link) — configuration Claude.ai MCP sans chemin absolu.
 

@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.15.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.15.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.15.2
+
+- **Feat** : tokens MCP inactifs (révoqués/expirés) visibles avec badge statut + bouton « Supprimer » (purge BD).
+- **Fix** : bridge MCP enveloppe les erreurs WordPress en JSON-RPC valide — élimine l'erreur de validation Zod côté Claude.
 
 ### 1.15.1
 
