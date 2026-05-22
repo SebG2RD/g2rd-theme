@@ -18,13 +18,14 @@ fail() {
 STYLE_VER="$(grep -m1 '^Version:' style.css | sed -E 's/^Version:[[:space:]]*//;s/[[:space:]]*$//')"
 PKG_VER="$(node -p "require('./package.json').version")"
 README_VER="$(grep -m1 '^Stable tag:' readme.txt | sed -E 's/^Stable tag:[[:space:]]*//;s/[[:space:]]*$//')"
-
 COMPOSER_VER="$(node -e "var d=require('./composer.json');process.stdout.write((d.extra&&d.extra.g2rd_theme_version)||'')")"
+README_MD_VER="$(grep -oE '\*\*[0-9]+\.[0-9]+(\.[0-9]+)+\*\*' README.md | head -1 | tr -d '*')"
 
 [ -n "$STYLE_VER" ] || fail "Version introuvable dans style.css"
 [ -n "$PKG_VER" ] || fail "version introuvable dans package.json"
 [ -n "$README_VER" ] || fail "Stable tag introuvable dans readme.txt"
 [ -n "$COMPOSER_VER" ] || fail "extra.g2rd_theme_version introuvable dans composer.json"
+[ -n "$README_MD_VER" ] || fail "Version actuelle introuvable dans README.md"
 
 if [ "$STYLE_VER" != "$EXPECTED" ]; then
   fail "style.css Version=$STYLE_VER (attendu $EXPECTED)"
@@ -41,5 +42,8 @@ fi
 if [ "$COMPOSER_VER" != "$EXPECTED" ]; then
   fail "composer.json extra.g2rd_theme_version=$COMPOSER_VER (attendu $EXPECTED)"
 fi
+if [ "$README_MD_VER" != "$EXPECTED" ]; then
+  fail "README.md Version actuelle=$README_MD_VER (attendu $EXPECTED)"
+fi
 
-echo "OK: versions alignées sur $EXPECTED (style.css=$STYLE_VER, package.json=$PKG_VER [semver], readme.txt=$README_VER, composer.json=$COMPOSER_VER)"
+echo "OK: versions alignées sur $EXPECTED (style.css=$STYLE_VER, package.json=$PKG_VER [semver], readme.txt=$README_VER, composer.json=$COMPOSER_VER, README.md=$README_MD_VER)"

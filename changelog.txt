@@ -1,3 +1,13 @@
+= 1.15.0 =
+* Nouveau : champ « Consignes personnalisées » dans les réglages Module IA (contexte site injecté dans le prompt).
+* Nouveau : G2RDAiInspectorPanel intégré dans les blocs Pricing Table et Testimonial.
+* Nouveau : compilation fr_FR.mo automatisée en CI lors des releases.
+* Fix : source maps désactivées en production + .map existants supprimés du dépôt.
+* Fix : wp_kses_post appliqué sur echo $markdown dans AgentDiscovery (PHPCS).
+* Fix : webpack-dev-server, uuid, brace-expansion, ws mis à jour (vulnérabilités Dependabot).
+* Test : couverture PHPUnit LicenseManager + GithubUpdater (29 tests).
+* Docs : stratégie vendor/ documentée dans docs/internal/vendor-strategy.md.
+
 = 1.14.0 =
 * Nouveau : module IA G2RD complet (AiModule, AiClient, AiRest, AiPrompts) via WordPress AI Connectors, désactivable depuis la page d'options.
 * Nouveau : panneau IA G2RDAiInspectorPanel intégré dans les blocs Hero, FAQ, CTA Band, Pricing Table, Testimonial et Card.
