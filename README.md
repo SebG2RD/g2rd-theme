@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.16.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.16.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.16.2
+
+- **Fix** : double préfixe URL dans `apiFetch` — `restUrl` (URL absolue) remplacé par `restPath` (chemin relatif `/g2rd/v1/ai/`), corrige le 404 sur la génération IA en production.
 
 ### 1.16.1
 

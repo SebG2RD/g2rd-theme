@@ -122,7 +122,7 @@ class AiModule {
 			self::SCRIPT_HANDLE,
 			'g2rdAiConfig',
 			[
-				'restUrl'        => \esc_url_raw( \rest_url( self::REST_NAMESPACE . '/ai/' ) ),
+				'restPath'       => '/' . self::REST_NAMESPACE . '/ai/',
 				'nonce'          => \wp_create_nonce( 'wp_rest' ),
 				'enabled'        => true,
 				'blocksEnabled'  => (bool) $settings['ai_blocks_enabled'],

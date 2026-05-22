@@ -77,7 +77,7 @@ export function useG2RDAi() {
 
 		try {
 			const response = await apiFetch( {
-				path:   ( config.restUrl ?? '/wp-json/g2rd/v1/ai/' ) + endpoint,
+				path:   ( config.restPath ?? '/g2rd/v1/ai/' ) + endpoint,
 				method: 'POST',
 				data:   payload,
 				signal: controller.signal,
