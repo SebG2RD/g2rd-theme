@@ -5,6 +5,7 @@ import {
 	ToggleControl,
 	RangeControl,
 	SelectControl,
+	TextareaControl,
 	Notice,
 } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
@@ -26,12 +27,13 @@ const LENGTH_OPTIONS = [
 ];
 
 const DEFAULTS = {
-	ai_blocks_enabled: false,
-	ai_editor_enabled: false,
-	ai_logs_enabled:   true,
-	ai_daily_limit:    50,
-	ai_default_tone:   'professionnel',
-	ai_default_length: 'moyen',
+	ai_blocks_enabled:      false,
+	ai_editor_enabled:      false,
+	ai_logs_enabled:        true,
+	ai_daily_limit:         50,
+	ai_default_tone:        'professionnel',
+	ai_default_length:      'moyen',
+	ai_custom_instructions: '',
 };
 
 export function TabIA() {
@@ -180,6 +182,26 @@ export function TabIA() {
 						__nextHasNoMarginBottom
 					/>
 				</div>
+			</section>
+
+			{ /* ── Consignes personnalisées ───────────────────────────── */ }
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-format-quote"></span>
+					Consignes personnalisées
+				</h2>
+				<p className="g2rd-section__desc">
+					Décrivez votre entreprise, votre activité, votre ton éditorial ou toute contrainte spécifique.
+					Ces informations seront automatiquement ajoutées au contexte de chaque génération IA.
+				</p>
+				<TextareaControl
+					label="Contexte de votre site web"
+					help="Exemple : « Agence web spécialisée PME à Lyon, ton chaleureux et professionnel, pas de jargon technique, clientèle artisans et commerçants. »"
+					value={ aiSettings.ai_custom_instructions }
+					onChange={ ( val ) => set( 'ai_custom_instructions', val ) }
+					rows={ 5 }
+					__nextHasNoMarginBottom
+				/>
 			</section>
 
 			{ /* ── Connecteur ───────────────────────────────────────────── */ }

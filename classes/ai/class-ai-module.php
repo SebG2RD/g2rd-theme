@@ -47,14 +47,15 @@ class AiModule {
 	 * @var array<string, mixed>
 	 */
 	private const DEFAULTS = [
-		'ai_blocks_enabled'  => false,
-		'ai_editor_enabled'  => false,
-		'ai_woo_enabled'     => false,
-		'ai_allowed_roles'   => [ 'administrator', 'editor' ],
-		'ai_logs_enabled'    => true,
-		'ai_daily_limit'     => 50,
-		'ai_default_tone'    => 'professionnel',
-		'ai_default_length'  => 'moyen',
+		'ai_blocks_enabled'        => false,
+		'ai_editor_enabled'        => false,
+		'ai_woo_enabled'           => false,
+		'ai_allowed_roles'         => [ 'administrator', 'editor' ],
+		'ai_logs_enabled'          => true,
+		'ai_daily_limit'           => 50,
+		'ai_default_tone'          => 'professionnel',
+		'ai_default_length'        => 'moyen',
+		'ai_custom_instructions'   => '',
 	];
 
 	/**

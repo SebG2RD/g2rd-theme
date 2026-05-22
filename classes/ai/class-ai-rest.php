@@ -329,6 +329,12 @@ class AiRest {
 		string $context,
 		\WP_REST_Request $request
 	): \WP_REST_Response|\WP_Error {
+		$settings     = AiModule::get_settings();
+		$custom_instr = \trim( (string) ( $settings['ai_custom_instructions'] ?? '' ) );
+		if ( ! empty( $custom_instr ) ) {
+			$prompt = "Contexte du site web : {$custom_instr}\n\n" . $prompt;
+		}
+
 		$client   = new AiClient();
 		$start_ms = \intval( \microtime( true ) * 1000 );
 
@@ -447,6 +453,10 @@ class AiRest {
 
 		if ( isset( $raw['ai_allowed_roles'] ) && \is_array( $raw['ai_allowed_roles'] ) ) {
 			$clean['ai_allowed_roles'] = \array_map( 'sanitize_key', $raw['ai_allowed_roles'] );
+		}
+
+		if ( isset( $raw['ai_custom_instructions'] ) ) {
+			$clean['ai_custom_instructions'] = \sanitize_textarea_field( (string) $raw['ai_custom_instructions'] );
 		}
 
 		return $clean;
