@@ -82,35 +82,45 @@ rl.on( 'line', ( line ) => {
 	}
 
 	postToWordPress( JSON.stringify( body ) )
-		.then( ( raw ) => {
+		.then( ( { body: raw, status } ) => {
+			process.stderr.write( '[g2rd-mcp-bridge] HTTP ' + status + ' ← ' + ( body.method || '?' ) + ' id=' + ( body.id ?? 'none' ) + '\n' );
+			process.stderr.write( '[g2rd-mcp-bridge] raw: ' + raw.slice( 0, 500 ) + ( raw.length > 500 ? '…' : '' ) + '\n' );
+
 			let parsed;
 			try {
-				parsed = JSON.parse( raw );
+				// Supprimer un éventuel BOM UTF-8 avant le JSON.
+				parsed = JSON.parse( raw.replace( /^\xef\xbb\xbf/, '' ) );
 			} catch {
+				process.stderr.write( '[g2rd-mcp-bridge] parse error — raw non-JSON\n' );
 				writeStdout( {
 					jsonrpc: '2.0',
-					error:   { code: -32603, message: 'Invalid JSON from server' },
+					error:   { code: -32603, message: 'Invalid JSON from server (HTTP ' + status + ')' },
 					id:      body.id ?? null,
 				} );
 				return;
 			}
 
-			// Réponse JSON-RPC valide : transmettre telle quelle.
-			if ( parsed && parsed.jsonrpc === '2.0' ) {
-				process.stdout.write( raw + '\n' );
+			// Réponse JSON-RPC valide : transmettre telle quelle uniquement si la
+			// structure est conforme (jsonrpc:"2.0" + result OU error, pas de clés WP).
+			if (
+				parsed &&
+				parsed.jsonrpc === '2.0' &&
+				! ( 'code' in parsed && 'message' in parsed && ! ( 'result' in parsed || 'error' in parsed ) )
+			) {
+				process.stdout.write( JSON.stringify( parsed ) + '\n' );
 				return;
 			}
 
-			// Réponse d'erreur WordPress ({"code":"...","message":"...","data":{...}}) :
-			// envelopper dans un JSON-RPC error pour que le client MCP comprenne.
+			// Réponse d'erreur WordPress ({"code":"...","message":"...","data":{...}})
+			// ou réponse hybride malformée : envelopper dans un JSON-RPC error.
 			const wpMsg = ( parsed && parsed.message )
 				? String( parsed.message )
-				: 'WordPress returned a non-JSON-RPC response';
+				: 'WordPress returned a non-JSON-RPC response (HTTP ' + status + ')';
 			const wpCode = ( parsed && parsed.data && parsed.data.status )
 				? -32000 - parseInt( parsed.data.status, 10 )
 				: -32603;
 
-			process.stderr.write( '[g2rd-mcp-bridge] WP error: ' + JSON.stringify( parsed ) + '\n' );
+			process.stderr.write( '[g2rd-mcp-bridge] WP error wrapped: ' + JSON.stringify( parsed ) + '\n' );
 			writeStdout( {
 				jsonrpc: '2.0',
 				error:   { code: wpCode, message: wpMsg, data: parsed },
@@ -118,6 +128,7 @@ rl.on( 'line', ( line ) => {
 			} );
 		} )
 		.catch( ( err ) => {
+			process.stderr.write( '[g2rd-mcp-bridge] network error: ' + String( err.message || err ) + '\n' );
 			writeStdout( {
 				jsonrpc: '2.0',
 				error:   { code: -32603, message: String( err.message || err ) },
@@ -158,7 +169,7 @@ function postToWordPress( payload ) {
 		const req = lib.request( options, ( res ) => {
 			let data = '';
 			res.on( 'data',  ( chunk ) => { data += chunk; } );
-			res.on( 'end',   ()        => { resolve( data.trim() ); } );
+			res.on( 'end',   ()        => { resolve( { body: data.trim(), status: res.statusCode } ); } );
 			res.on( 'error', reject );
 		} );
 
