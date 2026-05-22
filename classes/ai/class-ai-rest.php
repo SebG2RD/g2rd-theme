@@ -397,7 +397,7 @@ class AiRest {
 		( new \G2RD\McpAuditLog( new \G2RD\McpEncryption() ) )->log( [
 			'user_id'       => \get_current_user_id(),
 			'token_id'      => 0,
-			'ip_address'    => \sanitize_text_field( \wp_unslash( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) ) ),
+			'ip_address'    => (string) ( \filter_var( \sanitize_text_field( \wp_unslash( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) ) ), \FILTER_VALIDATE_IP ) ?: 'unknown' ),
 			'ability_name'  => 'g2rd/ai/' . $action,
 			'input'         => [ 'action' => $action, 'context' => $context, 'post_id' => $post_id ],
 			'decision'      => \is_wp_error( $result ) ? 'denied' : 'allowed',

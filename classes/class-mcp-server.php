@@ -414,7 +414,8 @@ class McpServer {
 	 * @return string Client IP address string.
 	 */
 	private function extract_client_ip(): string {
-		$remote_addr = \sanitize_text_field( \wp_unslash( (string) ( $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0' ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated -- ?? operator provides default
+		$raw_addr    = \sanitize_text_field( \wp_unslash( (string) ( $_SERVER['REMOTE_ADDR'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated -- ?? operator provides default
+		$remote_addr = (string) ( \filter_var( $raw_addr, \FILTER_VALIDATE_IP ) ?: 'unknown' );
 
 		if (
 			! \defined( 'G2RD_MCP_TRUSTED_PROXIES' )
@@ -436,7 +437,7 @@ class McpServer {
 
 		// X-Forwarded-For: client, proxy1, proxy2 — leftmost IP is the real client.
 		$parts  = \explode( ',', $forwarded );
-		$client = \trim( $parts[0] );
+		$client = (string) ( \filter_var( \trim( $parts[0] ), \FILTER_VALIDATE_IP ) ?: '' );
 
 		return '' !== $client ? $client : $remote_addr;
 	}

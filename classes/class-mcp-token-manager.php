@@ -90,7 +90,11 @@ class McpTokenManager {
 
 		$allowed_ips = null;
 		if ( ! empty( $options['allowed_ips'] ) && \is_array( $options['allowed_ips'] ) ) {
-			$allowed_ips = \implode( ',', \array_map( '\sanitize_text_field', $options['allowed_ips'] ) );
+			$valid_ips   = \array_filter(
+				\array_map( '\sanitize_text_field', $options['allowed_ips'] ),
+				static fn( string $ip ) => false !== \filter_var( $ip, \FILTER_VALIDATE_IP )
+			);
+			$allowed_ips = ! empty( $valid_ips ) ? \implode( ',', $valid_ips ) : null;
 		}
 
 		global $wpdb;
