@@ -93,6 +93,16 @@ jobs:
       - name: Compiler tous les blocs
         run: npm run build
 
+      - name: Compiler les traductions .mo
+        run: |
+          if command -v msgfmt &> /dev/null; then
+            find languages -name "*.po" -exec sh -c 'msgfmt "$1" -o "${1%.po}.mo"' _ {} \;
+            echo "OK: .mo compilés via msgfmt"
+          else
+            node tools/compile-mo.js
+            echo "OK: .mo compilés via Node.js fallback"
+          fi
+
       - name: Créer le ZIP de production
         run: |
           mkdir -p dist/g2rd-theme
