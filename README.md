@@ -127,6 +127,17 @@ g2rd-theme/
 
 ## Changelog
 
+### 1.15.0
+
+- **Feat** : champ « Consignes personnalisées » dans les réglages Module IA (contexte site injecté dans le prompt).
+- **Feat** : G2RDAiInspectorPanel intégré dans les blocs Pricing Table et Testimonial.
+- **Feat** : compilation fr_FR.mo automatisée en CI lors des releases.
+- **Fix** : source maps désactivées en production + .map existants supprimés du dépôt.
+- **Fix** : wp_kses_post appliqué sur echo $markdown dans AgentDiscovery (PHPCS).
+- **Fix** : webpack-dev-server mis à jour vers ^5.2.4 (vulnérabilité Dependabot #59).
+- **Test** : couverture PHPUnit LicenseManager + GithubUpdater (29 tests).
+- **Docs** : stratégie vendor/ documentée dans docs/internal/vendor-strategy.md.
+
 ### 1.14.0
 
 - **Module IA G2RD** : nouveau module complet (AiModule, AiClient, AiRest, AiPrompts) — génération de contenu via WordPress AI Connectors, désactivable depuis la page d'options.
