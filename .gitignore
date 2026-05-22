@@ -49,6 +49,7 @@ export-theme.ps1
 # Outils IA / assistants de développement (configurations locales, non pertinentes pour le dépôt)
 .claude/
 .agents/
+CLAUDE.md
 .cursor/
 .aider*
 .copilot/
