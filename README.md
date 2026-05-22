@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.15.3** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.16.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,14 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.16.0
+
+- **Feature** : Module IA G2RD — appel direct Anthropic (claude-sonnet-4-6), sans dépendance à `wp_ai_client()` ni plugin tiers. Clé API saisie dans les réglages, masquée en base.
+- **Feature** : Refonte UI assistant IA — sidebar remplacée par une modal plein-écran (contexte, onglets, résultat inline avec Insérer / Copier / Régénérer).
+- **Fix** : Validation IP stricte (`filter_var FILTER_VALIDATE_IP`) aux points d'entrée MCP et REST IA.
+- **Fix** : Suppression optimiste des tokens MCP + config Claude Desktop via commande `g2rd-mcp-bridge` npm-link.
+- **Fix** : Suppression ignore PHPStan `wp_ai_client` devenu obsolète.
 
 ### 1.15.3
 
