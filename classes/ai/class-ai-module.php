@@ -132,7 +132,7 @@ class AiModule {
 				'tone'           => \sanitize_text_field( (string) $settings['ai_default_tone'] ),
 				'language'       => \get_locale() === 'fr_FR' ? 'fr' : 'en',
 				'userCan'        => \current_user_can( 'edit_posts' ),
-				'connectorReady' => \function_exists( 'wp_ai_client' ),
+				'connectorReady' => AiClient::is_available(),
 				'i18n'           => [
 					'generating'    => \esc_html__( 'Génération en cours…', 'g2rd' ),
 					'generated'     => \esc_html__( 'Proposition prête', 'g2rd' ),

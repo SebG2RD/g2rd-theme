@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from '@wordpress/element';
 import {
 	Button,
 	Spinner,
+	TextControl,
 	ToggleControl,
 	RangeControl,
 	SelectControl,
@@ -10,8 +11,7 @@ import {
 } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
-const { restBase } = window.G2RDOptionsData || {};
-const AI_ENDPOINT  = `${ restBase }g2rd/v1/ai/settings`;
+const AI_ENDPOINT = '/g2rd/v1/ai/settings';
 
 const TONE_OPTIONS = [
 	{ label: 'Professionnel', value: 'professionnel' },
@@ -37,17 +37,27 @@ const DEFAULTS = {
 };
 
 export function TabIA() {
-	const [ aiSettings, setAiSettings ] = useState( DEFAULTS );
-	const [ loading,    setLoading ]    = useState( true );
-	const [ saving,     setSaving ]     = useState( false );
-	const [ notice,     setNotice ]     = useState( null );
+	const [ aiSettings,    setAiSettings ]    = useState( DEFAULTS );
+	const [ loading,       setLoading ]       = useState( true );
+	const [ saving,        setSaving ]        = useState( false );
+	const [ notice,        setNotice ]        = useState( null );
 
-	// Chargement des paramètres IA
+	// Clé API — état d'affichage
+	const [ apiKeySet,     setApiKeySet ]     = useState( false );
+	const [ apiKeyPreview, setApiKeyPreview ] = useState( '' );
+	const [ apiKeyEditing, setApiKeyEditing ] = useState( false );
+	const [ apiKeyValue,   setApiKeyValue ]   = useState( '' );
+
 	useEffect( () => {
-		apiFetch( { path: '/g2rd/v1/ai/settings' } )
+		apiFetch( { path: AI_ENDPOINT } )
 			.then( ( data ) => {
 				if ( data && typeof data === 'object' ) {
 					setAiSettings( ( prev ) => ( { ...prev, ...data } ) );
+					setApiKeySet( !! data.api_key_set );
+					setApiKeyPreview( data.api_key_preview || '' );
+					if ( ! data.api_key_set ) {
+						setApiKeyEditing( true );
+					}
 				}
 			} )
 			.catch( () => {
@@ -64,19 +74,35 @@ export function TabIA() {
 		setSaving( true );
 		setNotice( null );
 
+		const payload = { ...aiSettings };
+		delete payload.api_key_set;
+		delete payload.api_key_preview;
+
+		// N'envoyer la clé que si une nouvelle valeur a été saisie.
+		if ( apiKeyEditing && apiKeyValue.trim() ) {
+			payload.api_key = apiKeyValue.trim();
+		}
+
 		apiFetch( {
-			path:   '/g2rd/v1/ai/settings',
+			path:   AI_ENDPOINT,
 			method: 'POST',
-			data:   aiSettings,
+			data:   payload,
 		} )
 			.then( () => {
 				setNotice( { type: 'success', message: 'Paramètres IA enregistrés.' } );
+				if ( apiKeyEditing && apiKeyValue.trim() ) {
+					const k = apiKeyValue.trim();
+					setApiKeySet( true );
+					setApiKeyPreview( '••••' + k.slice( -4 ) );
+					setApiKeyEditing( false );
+					setApiKeyValue( '' );
+				}
 			} )
 			.catch( ( err ) => {
 				setNotice( { type: 'error', message: err?.message || 'Erreur lors de la sauvegarde.' } );
 			} )
 			.finally( () => setSaving( false ) );
-	}, [ aiSettings ] );
+	}, [ aiSettings, apiKeyEditing, apiKeyValue ] );
 
 	if ( loading ) {
 		return (
@@ -99,6 +125,41 @@ export function TabIA() {
 				</Notice>
 			) }
 
+			{ /* ── Clé API Anthropic ───────────────────────────────────── */ }
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-cloud"></span>
+					Clé API Anthropic
+				</h2>
+				<p className="g2rd-section__desc">
+					Clé secrète pour les appels IA. Obtenez-en une sur <strong>console.anthropic.com</strong>.
+					Elle est stockée en base et jamais exposée publiquement.
+				</p>
+				{ apiKeyEditing ? (
+					<TextControl
+						label="Clé API"
+						type="password"
+						value={ apiKeyValue }
+						onChange={ setApiKeyValue }
+						placeholder="sk-ant-..."
+						autoComplete="new-password"
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+				) : (
+					<div className="g2rd-api-key-row">
+						<code className="g2rd-api-key-preview">{ apiKeyPreview || '—' }</code>
+						<Button
+							variant="secondary"
+							size="small"
+							onClick={ () => { setApiKeyEditing( true ); setApiKeyValue( '' ); } }
+						>
+							Modifier
+						</Button>
+					</div>
+				) }
+			</section>
+
 			{ /* ── Activation ──────────────────────────────────────────── */ }
 			<section className="g2rd-section">
 				<h2 className="g2rd-section__title">
@@ -119,8 +180,8 @@ export function TabIA() {
 						__nextHasNoMarginBottom
 					/>
 					<ToggleControl
-						label="IA éditoriale (sidebar)"
-						help="Ajoute la sidebar IA dans l'éditeur Gutenberg : génération de pages, articles, SEO, réseaux sociaux, maillage."
+						label="IA éditoriale (modal)"
+						help="Ajoute le bouton IA dans la toolbar de l'éditeur Gutenberg : génération de pages, articles, SEO, réseaux sociaux, maillage."
 						checked={ !! aiSettings.ai_editor_enabled }
 						onChange={ ( val ) => set( 'ai_editor_enabled', val ) }
 						__nextHasNoMarginBottom
@@ -202,23 +263,6 @@ export function TabIA() {
 					rows={ 5 }
 					__nextHasNoMarginBottom
 				/>
-			</section>
-
-			{ /* ── Connecteur ───────────────────────────────────────────── */ }
-			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
-					<span className="dashicons dashicons-cloud"></span>
-					Connecteur IA WordPress
-				</h2>
-				<p className="g2rd-section__desc">
-					Le module IA utilise les <strong>WordPress AI Connectors</strong> (WordPress 7.0+).
-					Aucune clé API n'est stockée dans le thème : configurez votre fournisseur IA
-					directement dans <strong>Réglages → IA</strong> de WordPress.
-				</p>
-				<p className="g2rd-section__desc">
-					Si les Connectors ne sont pas disponibles (WordPress &lt; 7.0), les boutons IA
-					sont automatiquement désactivés avec un message explicatif.
-				</p>
 			</section>
 
 			{ /* ── Actions ──────────────────────────────────────────────── */ }

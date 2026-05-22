@@ -255,10 +255,20 @@ class AiRest {
 			if ( ! \is_array( $new_settings ) ) {
 				return new \WP_Error( 'ai_settings_invalid', \esc_html__( 'Données invalides.', 'g2rd' ), [ 'status' => 400 ] );
 			}
-			\update_option( AiModule::OPTION_KEY, $this->sanitize_settings( $new_settings ) );
+			// Fusionne avec l'option existante pour préserver api_key si non renvoyée.
+			$existing = \get_option( AiModule::OPTION_KEY, [] );
+			$existing = \is_array( $existing ) ? $existing : [];
+			\update_option( AiModule::OPTION_KEY, \array_merge( $existing, $this->sanitize_settings( $new_settings ) ) );
 		}
 
-		return new \WP_REST_Response( AiModule::get_settings(), 200 );
+		// Ne jamais exposer la clé brute — retourner seulement api_key_set + api_key_preview.
+		$settings = AiModule::get_settings();
+		$api_key  = $settings['api_key'] ?? '';
+		unset( $settings['api_key'] );
+		$settings['api_key_set']     = ! empty( $api_key );
+		$settings['api_key_preview'] = ! empty( $api_key ) ? '••••' . \substr( $api_key, -4 ) : '';
+
+		return new \WP_REST_Response( $settings, 200 );
 	}
 
 	// ──────────────────────────────────────────────────────────────────────
@@ -457,6 +467,11 @@ class AiRest {
 
 		if ( isset( $raw['ai_custom_instructions'] ) ) {
 			$clean['ai_custom_instructions'] = \sanitize_textarea_field( (string) $raw['ai_custom_instructions'] );
+		}
+
+		// api_key : sauvegarder uniquement si une nouvelle valeur est fournie.
+		if ( ! empty( $raw['api_key'] ) ) {
+			$clean['api_key'] = \sanitize_text_field( (string) $raw['api_key'] );
 		}
 
 		return $clean;
