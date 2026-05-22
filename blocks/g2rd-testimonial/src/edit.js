@@ -19,6 +19,7 @@ import {
 } from "@wordpress/components";
 import { useState, useEffect } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
+import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
 /* ── Icônes de layout (SVG inline) ──────────────────────────────────────── */
 
@@ -600,6 +601,7 @@ export default function Edit( { attributes, setAttributes } ) {
         />
 
       </InspectorControls>
+      <G2RDAiInspectorPanel blockType="g2rd/testimonial" attributes={attributes} setAttributes={setAttributes} />
 
       { /* ── Canvas ── */ }
       { googleMode ? (

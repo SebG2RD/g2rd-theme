@@ -6,6 +6,7 @@ import {
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
 const API_BASE = window.wpApiSettings?.root
 	? window.wpApiSettings.root.replace( /\/$/, '' )
@@ -575,6 +576,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 			</InspectorControls>
+			<G2RDAiInspectorPanel blockType="g2rd/pricing-table" attributes={attributes} setAttributes={setAttributes} />
 
 			{/* ── Aperçu dans l'éditeur ─────────────────────────────────────── */}
 			<div { ...blockProps }>
