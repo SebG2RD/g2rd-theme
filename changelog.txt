@@ -1,3 +1,207 @@
+= 1.14.0 =
+* Nouveau : module IA G2RD complet (AiModule, AiClient, AiRest, AiPrompts) via WordPress AI Connectors, désactivable depuis la page d'options.
+* Nouveau : panneau IA G2RDAiInspectorPanel intégré dans les blocs Hero, FAQ, CTA Band, Pricing Table, Testimonial et Card.
+* Nouveau : onglet "Module IA" dans la page d'options (activation, quotas, ton/longueur par défaut).
+* Nouveau : bridge MCP stdio tools/g2rd-mcp-bridge.js pour connecter Claude Desktop au serveur MCP WordPress.
+* Fix : endpoint MCP corrigé dans TabMcpTokens (g2rd/v1 → g2rd/mcp/v1/).
+* Fix : exclusion CSS LiteSpeed pour accessibility.css — panneau accessibilité fonctionnel après optimisation.
+
+= 1.13.7 =
+* Feat (filterable-grid) : couleurs CTA personnalisables via PanelColorSettings (fond, texte, survol).
+* Fix (filterable-grid) : caractères spéciaux HTML s'affichaient littéralement dans titres et extraits.
+
+= 1.13.6 =
+* Fix : CSS blocs migrés de src/ vers build/ pour tous les blocs concernés.
+* Nouveau : page d'options MCP (tokens, audit, file de confirmation).
+
+= 1.13.5 =
+* Fix : dépréciations blocs Gutenberg + warnings WordPress 6.8.
+
+= 1.13.4 =
+* Fix : Card alignItems via variable CSS + overlay link.
+
+= 1.13.3 =
+* Fix : bloc Card, serveur MCP, Filterable Grid + contrôles Card.
+
+= 1.13.1 =
+* Amélioration : bloc Card — nouvelles options de mise en page et d'affichage.
+* Fix : URLInput déprécié remplacé.
+
+= 1.13.0 =
+* Nouveau : typographie par élément sur 14 blocs (taille, poids, interligne).
+* Amélioration : interface admin en thème clair.
+
+= 1.12.0 =
+* Nouveau : serveur MCP natif — endpoint REST JSON-RPC 2.0, tokens, audit log, rate limiter, chiffrement AES-256-GCM.
+
+= 1.11.2 =
+* Fix : bouton pause désactivé par défaut sur les blocs animés (conformité WCAG).
+
+= 1.11.1 =
+* Audit RGAA complet sur les blocs interactifs.
+
+= 1.11.0 =
+* Nouveau : bloc Pin Scroll (animation défilement GSAP).
+* Refonte : panneau accessibilité — redesign complet RGAA.
+
+= 1.10.6 =
+* Nouveau : accessibilité RGAA renforcée + aria-label sur tous les blocs interactifs.
+* Amélioration : modal changelog dans les notifications de mise à jour.
+
+= 1.10.5 =
+* Nouveau : édition inline sur 7 blocs + module Effect Kits.
+
+= 1.10.4 =
+* Nouveau : modal changelog intégré dans la notification de mise à jour WordPress.
+
+= 1.10.3 =
+* Fix : groupe cliquable next_tag sans filtre de classe.
+
+= 1.10.2 =
+* Fix : groupe cliquable via WP_HTML_Tag_Processor + CSS incognito.
+
+= 1.10.1 =
+* Fix : groupe cliquable LiteSpeed + readyState.
+
+= 1.10.0 =
+* Performance : PSI, font-display, lazy loading, cache, CSS magic-page conditionnel.
+
+= 1.9.3 =
+* Fix : FAQ GEO, perf wp-embed + viewScript frontend uniquement.
+
+= 1.9.1 =
+* Fix : sécurité require_once, FAQ GEO, CI.
+
+= 1.9.0 =
+* Sécurité : correctifs XSS, optimisations React, tests Playwright E2E.
+
+= 1.8.6 =
+* Nouveau : dark mode complet, synchronisation cookie, conformité WCAG.
+
+= 1.8.5 =
+* Fix : TOC cache-buster view.asset.php.
+
+= 1.8.4 =
+* Fix : table des matières — sélecteur ciblé sur les articles.
+
+= 1.8.3 =
+* Performance : optimisations PageSpeed LCP, defer, préchargement police.
+
+= 1.8.2 =
+* Amélioration : agent discovery, login responsive.
+
+= 1.8.1 =
+* Nouveau : lien Google Business configurable sur le bloc témoignages.
+
+= 1.8.0 =
+* Refonte : templates FSE, CSS header/footer redesignés.
+
+= 1.7.3.2 =
+* Fix : FAQPage JSON-LD en double sur la page FAQ.
+
+= 1.7.3.1 =
+* Chore : synchronisation composer.lock, mise à jour CLAUDE.md.
+
+= 1.7.3 =
+* Nouveau : design system Magic Page (styles de blocs, patterns, tokens CSS).
+* Fix : anti-FOUC dark mode, compatibilité LiteSpeed, corrections FSE.
+
+= 1.7.2.3 =
+* Fix : CSS FAQ absent en production — build/ recompilé.
+
+= 1.7.2.2 =
+* Redesign : FAQ Editorial Accordion.
+
+= 1.7.2.1 =
+* Fix : classmap AgentDiscovery, vendor complet, chemins PHPCS.
+
+= 1.7.2 =
+* Nouveau : module Agent Discovery, Marquee alignfull, GEO Summary déprécié.
+
+= 1.7.1.4 =
+* Fix : hostname MySQL dans le workflow CI release.
+
+= 1.7.1.3 =
+* Fix : verify-theme-zip — gestion EPIPE pipefail.
+
+= 1.7.1.2 =
+* Fix : semver package.json, script verify-release-version.
+
+= 1.7.1.1 =
+* Chore : alignement des versions post-release 1.7.1.
+
+= 1.7.1 =
+* Fix : PHPStan, PHPCS, vulnérabilité sécurité postcss.
+
+= 1.7.0 =
+* Nouveau : autoloader Composer PSR-4, dégradé licence, tests PHPUnit, CI renforcé.
+
+= 1.6.9.5 =
+* Fix : corruption JSX TextControl lors du build CI.
+
+= 1.6.9.4 =
+* Fix : compatibilité PHP 8.1+, props React dépréciées, __next props.
+
+= 1.6.9.3 =
+* Amélioration : palette témoignages, typo apiculteur.
+
+= 1.6.9.2 =
+* Nouveau : marquee témoignages, correction carrousel, retouches visuelles.
+
+= 1.6.9.1 =
+* Nouveau : layouts carrousel/liste/maçonnerie, styles card, corrections.
+
+= 1.6.9 =
+* Nouveau : avis Google sur le bloc Testimonial, en-tête FAQ configurable, endpoints options API.
+
+= 1.6.8.1 =
+* Fix : toggle soulignement des liens dans FilterableGrid.
+
+= 1.6.8 =
+* Nouveau : image dans FilterableGrid, interface admin licences, bloc g2rd-info.
+
+= 1.6.7 =
+* Fix : mise à jour automatique — style.css absent du ZIP.
+
+= 1.6.6 =
+* Fix : correctifs critiques, dark mode icône lune/soleil, preloads polices.
+
+= 1.6.5 =
+* Nouveau : activation licence automatique FluentCart, sauvegarde en-tête, form grid.
+
+= 1.6.4 =
+* Amélioration : composant React Licence, fix updater, ZIP forward slashes.
+
+= 1.6.3 =
+* Fix : wrapper ZIP pour installation WordPress correcte.
+
+= 1.6.2 =
+* Fix : GH_PAT cascade dans le workflow release.
+
+= 1.6.1 =
+* Nouveau : auto-release GitHub Actions, synchronisation FluentCart, corrections ZIP.
+
+= 1.4.1 =
+* Fix : dépréciation wp.editPost dans WordPress 6.6.
+
+= 1.4.0 =
+* Nouveau : FAQ GEO unifié, blocs Hero/CTA, personnalisation page de connexion.
+
+= 1.3.4 =
+* Nouveau : module GEO Analyzer, blocs GEO (résumé, FAQ), page d'options React.
+
+= 1.3.3 =
+* Refonte : page d'options admin. Fix : CI PHPCS.
+
+= 1.3.2 =
+* Fix : PHP 8.1 add_submenu_page avec argument null.
+
+= 1.3.1 =
+* Sécurité : mise à jour dépendances npm. Nouveau : Phase 4 SEO/Business/Micro-interactions.
+
+= 1.3.0 =
+* Nouveau : système de licences FluentCart (remplacement SureCart).
+
 = 1.2.0 =
 * Refactoring : toutes les fonctionnalites inline de functions.php deplacees dans des classes dediees (/classes/)
 * Nouveau : class-block-editor-enhancements.php (Dashicons canvas, tooltip, responsive, render_block combine)
