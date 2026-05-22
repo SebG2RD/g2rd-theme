@@ -6,4 +6,5 @@ module.exports = {
     index: "./index.js",
     "countdown-frontend": "./countdown-frontend.js",
   },
+	devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 };

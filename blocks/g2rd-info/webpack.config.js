@@ -7,4 +7,5 @@ module.exports = {
     index: path.resolve(__dirname, "src/index.js"),
     "info-frontend": path.resolve(__dirname, "src/info-frontend.js"),
   },
+	devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 };

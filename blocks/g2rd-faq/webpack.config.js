@@ -7,4 +7,5 @@ module.exports = {
     view:  "./src/view.js",
     style: "./src/style.css",
   },
+	devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 };

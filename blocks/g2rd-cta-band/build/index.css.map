@@ -1,1 +1,0 @@
-{"version":3,"file":"index.css","mappings":"AAAA;EACE,oBAAoB;AACtB","sources":["webpack://g2rd-cta-band/./src/editor.css"],"sourcesContent":[".g2rd-cta-band .g2rd-cta-band__btn {\n  pointer-events: none;\n}\n"],"names":[],"sourceRoot":""}

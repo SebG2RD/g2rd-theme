@@ -7,4 +7,5 @@ module.exports = {
     index: path.resolve(__dirname, "src/index.js"),
     "carousel-frontend": path.resolve(__dirname, "src/carousel-frontend.js"),
   },
+	devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 };

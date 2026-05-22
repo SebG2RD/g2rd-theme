@@ -5,4 +5,5 @@ module.exports = {
 	entry: {
 		index: './src/index.js',
 	},
+	devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
 };

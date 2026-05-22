@@ -1,1 +1,0 @@
-{"version":3,"file":"index.css","mappings":"AAAA;EACE,cAAc;AAChB;;AAEA;EACE,oBAAoB;AACtB","sources":["webpack://g2rd-hero/./src/editor.css"],"sourcesContent":[".g2rd-hero-editor-wrap {\n  display: block;\n}\n\n.g2rd-hero-editor-wrap .g2rd-hero {\n  pointer-events: none;\n}\n"],"names":[],"sourceRoot":""}

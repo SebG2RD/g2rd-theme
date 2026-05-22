@@ -1,6 +1,9 @@
 # Dépendances JS (regénérables avec npm install)
 node_modules/
 
+# Source maps — générés en dev uniquement, inutiles en production
+blocks/*/build/*.map
+
 # vendor/ est intentionnellement versionné : les dépendances PHP Composer
 # font partie du livrable — requises lors de l'installation via GitHub Updater
 # (le zipball GitHub n'exécute pas composer install)
