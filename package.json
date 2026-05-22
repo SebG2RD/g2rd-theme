@@ -91,7 +91,7 @@
     "markdown-it": "^14.1.1",
     "smol-toml": "^1.6.1",
     "serialize-javascript": "^7.0.5",
-    "webpack-dev-server": "^5.2.3",
+    "webpack-dev-server": "^5.2.4",
     "@wordpress/scripts": {
       "copy-webpack-plugin": "^14.0.0",
       "markdownlint-cli": "^0.48.0",
@@ -99,7 +99,7 @@
       "markdown-it": "^14.1.1",
       "smol-toml": "^1.6.1",
       "serialize-javascript": "^7.0.5",
-      "webpack-dev-server": "^5.2.3"
+      "webpack-dev-server": "^5.2.4"
     }
   }
 }
