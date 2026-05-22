@@ -282,6 +282,9 @@ class McpAdminApi {
 			], 404 );
 		}
 
+		// Suppression immédiate après révocation — le token révoqué ne doit pas rester en base.
+		$this->tokens->purge_token( $token_id, $user_id );
+
 		return new \WP_REST_Response( [ 'revoked' => true ], 200 );
 	}
 
