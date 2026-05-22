@@ -66,6 +66,9 @@
     "build:mcp-assistant": "npm run build --workspace=blocks/g2rd-mcp-assistant",
     "build:ai-editor": "npm run build --workspace=blocks/g2rd-ai-editor"
   },
+  "bin": {
+    "g2rd-mcp-bridge": "tools/g2rd-mcp-bridge.js"
+  },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
