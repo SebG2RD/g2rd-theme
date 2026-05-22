@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from '@wordpress/element';
+import { useState, useEffect, useCallback, Fragment } from '@wordpress/element';
 import { Button, Spinner, TextControl, SelectControl } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -14,13 +14,12 @@ function formatDate( iso ) {
 	} );
 }
 
-// Config stdio via le bridge local (compatible toutes versions Claude Desktop).
+// Config stdio via le bridge npm-linked (g2rd-mcp-bridge doit être installé : npm link depuis le thème).
 function buildClaudeDesktopConfig( token ) {
 	return JSON.stringify( {
 		mcpServers: {
 			g2rd: {
-				command: 'node',
-				args:    [ '/chemin/vers/g2rd-theme/tools/g2rd-mcp-bridge.js' ],
+				command: 'g2rd-mcp-bridge',
 				env:     {
 					G2RD_MCP_URL:   MCP_ENDPOINT,
 					G2RD_MCP_TOKEN: token,
@@ -204,6 +203,9 @@ export function TabMcpTokens() {
 	const handleRevoke = useCallback( async ( id, tokenName ) => {
 		// eslint-disable-next-line no-alert
 		if ( ! window.confirm( `Révoquer le token « ${ tokenName } » ?` ) ) return;
+		// Suppression optimiste immédiate.
+		setTokens( ( prev ) => prev.filter( ( t ) => t.id !== id ) );
+		if ( expandedId === id ) setExpandedId( null );
 		try {
 			await apiFetch( {
 				url: `${ API }/mcp-tokens/${ id }`,
@@ -211,10 +213,10 @@ export function TabMcpTokens() {
 				headers: { 'X-WP-Nonce': nonce },
 			} );
 			showNotice( 'success', 'Token révoqué.' );
-			await loadTokens( showInactive );
-			if ( expandedId === id ) setExpandedId( null );
+			loadTokens( showInactive );
 		} catch ( err ) {
 			showNotice( 'error', err?.message || 'Erreur lors de la révocation.' );
+			loadTokens( showInactive );
 		}
 	}, [ showNotice, expandedId, showInactive, loadTokens ] );
 
@@ -363,8 +365,8 @@ export function TabMcpTokens() {
 								const isInactive = t.status !== 'active';
 								const tokenName  = t.token_name || t.name;
 								return (
-									<>
-										<tr key={ t.id } style={ isInactive ? { opacity: 0.6 } : {} }>
+									<Fragment key={ t.id }>
+										<tr style={ isInactive ? { opacity: 0.6 } : {} }>
 											<td><strong>{ tokenName }</strong></td>
 											<td><TokenStatusBadge status={ t.status } /></td>
 											<td>
@@ -429,9 +431,9 @@ export function TabMcpTokens() {
 												</td>
 											</tr>
 										) }
-									</>
-								);
-							} ) }
+								</Fragment>
+							);
+						} ) }
 						</tbody>
 					</table>
 				) }
