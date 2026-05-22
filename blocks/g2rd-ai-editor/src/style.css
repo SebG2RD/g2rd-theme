@@ -1,170 +1,677 @@
 /**
  * Module IA G2RD — Styles éditeur Gutenberg
  *
- * Design : minimaliste professionnel, cohérent avec le design system G2RD.
- * Utilise exclusivement les variables CSS WordPress/thème.
- * Mobile-first, conforme WCAG 2.1 AA (contraste, focus visible).
- *
  * Composants couverts :
- *  - .g2rd-ai-sidebar       (sidebar éditoriale)
- *  - .g2rd-ai-tabs          (onglets)
- *  - .g2rd-ai-context-panel (panneau contexte)
- *  - .g2rd-ai-actions       (groupe de boutons)
+ *  - .g2rd-aim              (modal principale — dark theme)
+ *  - .g2rd-ail              (launcher sidebar)
+ *  - .g2rd-ai-inspector-panel (InspectorControls blocs)
+ *  - .g2rd-ai-panel-result  (résultat inline InspectorPanel)
  *  - .g2rd-ai-button        (bouton de génération)
  *  - .g2rd-ai-notice        (notice alert/status)
- *  - .g2rd-ai-modal         (modal de prévisualisation)
- *  - .g2rd-ai-inspector-panel (InspectorControls blocs)
+ *
+ * Accessibilité : focus visible conforme WCAG 2.1 AA (RGAA 10.7)
  */
 
 /* ═══════════════════════════════════════════════════════════════
-   1. VARIABLES LOCALES
-   Complète les variables WP sans en créer de nouvelles inutiles.
+   1. VARIABLES GLOBALES
    ═══════════════════════════════════════════════════════════════ */
 
-.g2rd-ai-sidebar,
-.g2rd-ai-inspector-panel {
-	--g2rd-ai-accent:       var(--wp-admin-theme-color, #2F425D);
-	--g2rd-ai-accent-light: color-mix(in srgb, var(--g2rd-ai-accent) 12%, white);
-	--g2rd-ai-radius:       4px;
-	--g2rd-ai-gap:          12px;
-	--g2rd-ai-font-size:    13px;
+:root {
+	--g2rd-ai-accent:     #f59e0b;
+	--g2rd-ai-accent-dim: rgba(245, 158, 11, 0.14);
+	--g2rd-ai-dark-0:     #0b0e14;
+	--g2rd-ai-dark-1:     #111318;
+	--g2rd-ai-dark-2:     #181c25;
+	--g2rd-ai-dark-3:     #1f2433;
+	--g2rd-ai-border:     rgba(255, 255, 255, 0.07);
+	--g2rd-ai-text:       #e2e8f0;
+	--g2rd-ai-muted:      #7a8899;
+	--g2rd-ai-radius:     8px;
+	--g2rd-ai-radius-sm:  5px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2. SIDEBAR LAYOUT
+   2. MODAL PRINCIPALE — DARK CHROME
    ═══════════════════════════════════════════════════════════════ */
 
-.g2rd-ai-sidebar {
+/* Frame */
+.g2rd-aim .components-modal__frame {
+	background:    var(--g2rd-ai-dark-1);
+	border:        1px solid var(--g2rd-ai-border);
+	border-radius: 12px;
+	overflow:      hidden;
+	box-shadow:    0 32px 80px rgba(0, 0, 0, 0.65),
+	               0 0 0 1px rgba(245, 158, 11, 0.08);
+	max-width: min(940px, 96vw);
+	width:     min(940px, 96vw);
+}
+
+/* Header */
+.g2rd-aim .components-modal__header {
+	background:    var(--g2rd-ai-dark-0);
+	border-bottom: 1px solid rgba(245, 158, 11, 0.18);
+	padding:       14px 20px;
+}
+
+.g2rd-aim .components-modal__header-heading {
+	color:          var(--g2rd-ai-accent);
+	font-size:      13px;
+	font-weight:    700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.g2rd-aim .components-modal__header button.components-button {
+	color:  var(--g2rd-ai-muted);
+	fill:   var(--g2rd-ai-muted);
+}
+
+.g2rd-aim .components-modal__header button.components-button:hover {
+	color: var(--g2rd-ai-text);
+}
+
+/* Content area */
+.g2rd-aim .components-modal__content {
+	background: var(--g2rd-ai-dark-1);
+	padding:    0;
+}
+
+/* ── Body ─────────────────────────────────────────────────────── */
+
+.g2rd-aim__body {
 	display:        flex;
 	flex-direction: column;
 	gap:            0;
 }
 
-.g2rd-ai-sidebar__header {
-	padding:         16px 16px 12px;
-	border-bottom:   1px solid var(--wp-components-color-gray-300, #e0e0e0);
-	background:      var(--g2rd-ai-accent-light);
-}
+/* ── Alerte connecteur ────────────────────────────────────────── */
 
-.g2rd-ai-sidebar__title {
-	margin:         0 0 8px;
-	font-size:      14px;
-	font-weight:    600;
-	color:          var(--g2rd-ai-accent);
-	letter-spacing: 0.01em;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   3. ONGLETS
-   ═══════════════════════════════════════════════════════════════ */
-
-.g2rd-ai-tabs .components-tab-panel__tabs {
+.g2rd-aim__alert {
 	display:     flex;
-	flex-wrap:   wrap;
-	gap:         2px;
-	padding:     8px 12px;
-	border-bottom: 1px solid var(--wp-components-color-gray-300, #e0e0e0);
-	background:  var(--wp-components-color-gray-100, #f7f7f7);
+	align-items: center;
+	gap:         10px;
+	margin:      16px 20px 0;
+	padding:     10px 14px;
+	background:  rgba(245, 158, 11, 0.1);
+	border:      1px solid rgba(245, 158, 11, 0.3);
+	border-radius: var(--g2rd-ai-radius-sm);
+	color:       var(--g2rd-ai-accent);
+	font-size:   12px;
+	font-weight: 500;
 }
 
-.g2rd-ai-tab.components-button {
-	padding:       6px 10px;
+/* ── Sections ──────────────────────────────────────────────────── */
+
+.g2rd-aim__section {
+	padding:       16px 20px;
+	border-bottom: 1px solid var(--g2rd-ai-border);
+}
+
+.g2rd-aim__section--tabs {
+	padding: 0;
+}
+
+.g2rd-aim__section-label {
+	display:        block;
+	font-size:      10px;
+	font-weight:    700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color:          var(--g2rd-ai-muted);
+	margin-bottom:  12px;
+}
+
+/* ── Contexte : grille inputs ─────────────────────────────────── */
+
+.g2rd-aim__ctx-grid {
+	display:               grid;
+	grid-template-columns: 1fr 1fr;
+	gap:                   10px 16px;
+	margin-bottom:         10px;
+}
+
+.g2rd-aim__ctx-row {
+	display:   flex;
+	flex-wrap: wrap;
+	gap:       16px;
+	margin-top: 14px;
+}
+
+/* WP input overrides — dark theme */
+.g2rd-aim .components-input-control__input,
+.g2rd-aim .components-text-control input,
+.g2rd-aim .components-textarea-control textarea,
+.g2rd-aim .components-select-control__input {
+	background-color: var(--g2rd-ai-dark-3) !important;
+	color:            var(--g2rd-ai-text) !important;
+	border-color:     rgba(255, 255, 255, 0.12) !important;
+	border-radius:    var(--g2rd-ai-radius-sm) !important;
+}
+
+.g2rd-aim .components-input-control__input:focus,
+.g2rd-aim .components-text-control input:focus,
+.g2rd-aim .components-textarea-control textarea:focus,
+.g2rd-aim .components-select-control__input:focus {
+	border-color: var(--g2rd-ai-accent) !important;
+	box-shadow:   0 0 0 1px var(--g2rd-ai-accent) !important;
+	outline:      none !important;
+}
+
+.g2rd-aim .components-base-control__label,
+.g2rd-aim .components-input-control__label {
+	color:          var(--g2rd-ai-muted) !important;
+	font-size:      10px !important;
+	font-weight:    600 !important;
+	letter-spacing: 0.07em !important;
+	text-transform: uppercase !important;
+}
+
+/* ── Pills (ton / longueur / mode / réseau) ───────────────────── */
+
+.g2rd-aim__pills-group {
+	flex: 1;
+}
+
+.g2rd-aim__label {
+	display:        block;
+	font-size:      10px;
+	font-weight:    700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color:          var(--g2rd-ai-muted);
+	margin-bottom:  8px;
+}
+
+.g2rd-aim__pills {
+	display:   flex;
+	flex-wrap: wrap;
+	gap:       6px;
+}
+
+.g2rd-aim__pill {
+	padding:       5px 11px;
 	font-size:     12px;
 	font-weight:   500;
-	border-radius: var(--g2rd-ai-radius);
-	color:         var(--wp-components-color-gray-700, #444);
+	color:         var(--g2rd-ai-muted);
+	background:    var(--g2rd-ai-dark-3);
+	border:        1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	cursor:        pointer;
+	transition:    background 0.15s, color 0.15s, border-color 0.15s;
+	line-height:   1;
 }
 
-.g2rd-ai-tab.components-button:hover {
-	background: var(--g2rd-ai-accent-light);
-	color:      var(--g2rd-ai-accent);
+.g2rd-aim__pill:hover {
+	color:        var(--g2rd-ai-text);
+	border-color: rgba(255, 255, 255, 0.2);
 }
 
-.g2rd-ai-tab.components-button[aria-selected="true"] {
-	background: var(--g2rd-ai-accent);
-	color:      #fff;
-	font-weight: 600;
+.g2rd-aim__pill--on {
+	background:   var(--g2rd-ai-accent-dim);
+	color:        var(--g2rd-ai-accent);
+	border-color: rgba(245, 158, 11, 0.35);
+	font-weight:  600;
 }
 
-/* Focus visible — RGAA 10.7 */
-.g2rd-ai-tab.components-button:focus-visible {
+.g2rd-aim__pill:focus-visible {
 	outline:        2px solid var(--g2rd-ai-accent);
 	outline-offset: 2px;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   4. PANNEAU CONTEXTE
-   ═══════════════════════════════════════════════════════════════ */
+/* ── Onglets ──────────────────────────────────────────────────── */
 
-.g2rd-ai-context-panel .components-panel__body-title {
-	font-size:   12px;
-	font-weight: 600;
-	color:       var(--wp-components-color-gray-600, #666);
+.g2rd-aim__tabs {
+	display:     flex;
+	gap:         0;
+	padding:     0 20px;
+	border-bottom: 1px solid var(--g2rd-ai-border);
+	background:  var(--g2rd-ai-dark-2);
+}
+
+.g2rd-aim__tab {
+	padding:        11px 16px;
+	font-size:      13px;
+	font-weight:    500;
+	color:          var(--g2rd-ai-muted);
+	background:     transparent;
+	border:         none;
+	border-bottom:  2px solid transparent;
+	cursor:         pointer;
+	transition:     color 0.15s, border-color 0.15s;
+	white-space:    nowrap;
+}
+
+.g2rd-aim__tab:hover {
+	color: var(--g2rd-ai-text);
+}
+
+.g2rd-aim__tab--on {
+	color:        var(--g2rd-ai-accent);
+	border-bottom-color: var(--g2rd-ai-accent);
+	font-weight:  600;
+}
+
+.g2rd-aim__tab:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: -2px;
+}
+
+/* ── Contenu onglet ───────────────────────────────────────────── */
+
+.g2rd-aim__tab-panel {
+	padding: 16px 20px;
+}
+
+.g2rd-aim__tab-inner {
+	display:        flex;
+	flex-direction: column;
+	gap:            12px;
+}
+
+.g2rd-aim__btn-row {
+	display:   flex;
+	flex-wrap: wrap;
+	gap:       8px;
+}
+
+.g2rd-aim__hint {
+	margin:    0;
+	font-size: 12px;
+	color:     var(--g2rd-ai-muted);
+}
+
+/* ── Bouton de génération ─────────────────────────────────────── */
+
+.g2rd-aim__gen-btn {
+	display:         inline-flex;
+	align-items:     center;
+	gap:             8px;
+	padding:         10px 20px;
+	font-size:       13px;
+	font-weight:     600;
+	color:           var(--g2rd-ai-dark-0);
+	background:      var(--g2rd-ai-accent);
+	border:          none;
+	border-radius:   var(--g2rd-ai-radius-sm);
+	cursor:          pointer;
+	transition:      background 0.15s, transform 0.1s, opacity 0.15s;
+	white-space:     nowrap;
+}
+
+.g2rd-aim__gen-btn:hover:not(:disabled) {
+	background: color-mix(in srgb, var(--g2rd-ai-accent) 85%, #000);
+}
+
+.g2rd-aim__gen-btn:active:not(:disabled) {
+	transform: scale(0.97);
+}
+
+.g2rd-aim__gen-btn:disabled {
+	opacity: 0.4;
+	cursor:  not-allowed;
+}
+
+.g2rd-aim__gen-btn:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 2px;
+}
+
+.g2rd-aim__gen-btn--alt {
+	color:      var(--g2rd-ai-accent);
+	background: var(--g2rd-ai-accent-dim);
+	border:     1px solid rgba(245, 158, 11, 0.25);
+}
+
+.g2rd-aim__gen-btn--alt:hover:not(:disabled) {
+	background: rgba(245, 158, 11, 0.22);
+}
+
+.g2rd-aim__gen-star {
+	font-size: 11px;
+}
+
+/* Spinner inline dans le bouton générer */
+.g2rd-aim__spin {
+	display:          inline-block;
+	width:            14px;
+	height:           14px;
+	border:           2px solid rgba(0, 0, 0, 0.25);
+	border-top-color: var(--g2rd-ai-dark-0);
+	border-radius:    50%;
+	animation:        g2rd-aim-spin 0.65s linear infinite;
+	flex-shrink:      0;
+}
+
+@keyframes g2rd-aim-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* ── Zone de résultat ─────────────────────────────────────────── */
+
+.g2rd-aim__result-wrap {
+	padding:       16px 20px;
+	border-top:    1px solid var(--g2rd-ai-border);
+	background:    var(--g2rd-ai-dark-0);
+}
+
+/* Loading — 3 points pulsants */
+.g2rd-aim__loading {
+	display:         flex;
+	align-items:     center;
+	gap:             10px;
+	font-size:       13px;
+	color:           var(--g2rd-ai-muted);
+	padding:         8px 0;
+}
+
+.g2rd-aim__dot {
+	display:       inline-block;
+	width:         7px;
+	height:        7px;
+	border-radius: 50%;
+	background:    var(--g2rd-ai-accent);
+	animation:     g2rd-aim-pulse 1.2s ease-in-out infinite;
+	flex-shrink:   0;
+}
+
+.g2rd-aim__dot--2 {
+	animation-delay: 0.2s;
+}
+
+.g2rd-aim__dot--3 {
+	animation-delay: 0.4s;
+}
+
+@keyframes g2rd-aim-pulse {
+	0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+	40%           { opacity: 1;   transform: scale(1); }
+}
+
+/* Carte résultat */
+.g2rd-aim__result-card {
+	border:        1px solid rgba(245, 158, 11, 0.18);
+	border-radius: var(--g2rd-ai-radius);
+	overflow:      hidden;
+	animation:     g2rd-aim-fadein 0.25s ease;
+}
+
+@keyframes g2rd-aim-fadein {
+	from { opacity: 0; transform: translateY(6px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+.g2rd-aim__result-bar {
+	display:         flex;
+	align-items:     center;
+	justify-content: space-between;
+	padding:         8px 14px;
+	background:      var(--g2rd-ai-dark-2);
+	border-bottom:   1px solid var(--g2rd-ai-border);
+}
+
+.g2rd-aim__result-label {
+	font-size:      10px;
+	font-weight:    700;
+	letter-spacing: 0.1em;
 	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	color:          var(--g2rd-ai-accent);
 }
 
-.g2rd-ai-context-panel .components-base-control {
-	margin-bottom: var(--g2rd-ai-gap);
+.g2rd-aim__result-actions {
+	display: flex;
+	gap:     6px;
+}
+
+.g2rd-aim__action-btn {
+	display:       inline-flex;
+	align-items:   center;
+	gap:           5px;
+	padding:       5px 12px;
+	font-size:     12px;
+	font-weight:   500;
+	color:         var(--g2rd-ai-muted);
+	background:    transparent;
+	border:        1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	cursor:        pointer;
+	transition:    color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.g2rd-aim__action-btn:hover {
+	color:        var(--g2rd-ai-text);
+	border-color: rgba(255, 255, 255, 0.22);
+}
+
+.g2rd-aim__action-btn--primary {
+	color:        var(--g2rd-ai-dark-0);
+	background:   var(--g2rd-ai-accent);
+	border-color: var(--g2rd-ai-accent);
+	font-weight:  600;
+}
+
+.g2rd-aim__action-btn--primary:hover {
+	background: color-mix(in srgb, var(--g2rd-ai-accent) 85%, #000);
+}
+
+.g2rd-aim__action-btn:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 2px;
+}
+
+.g2rd-aim__result-body {
+	padding:      14px;
+	max-height:   340px;
+	overflow-y:   auto;
+	background:   var(--g2rd-ai-dark-1);
+	scrollbar-width: thin;
+	scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+}
+
+.g2rd-aim__result-text {
+	margin:      0;
+	font-size:   14px;
+	line-height: 1.65;
+	color:       var(--g2rd-ai-text);
+	white-space: pre-wrap;
+	word-break:  break-word;
+}
+
+.g2rd-aim__result-code {
+	margin:      0;
+	font-family: ui-monospace, 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+	font-size:   12px;
+	line-height: 1.55;
+	color:       color-mix(in srgb, var(--g2rd-ai-accent) 70%, var(--g2rd-ai-text));
+	white-space: pre-wrap;
+	word-break:  break-all;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   5. GROUPE D'ACTIONS (boutons IA)
+   3. LAUNCHER SIDEBAR
    ═══════════════════════════════════════════════════════════════ */
 
-.g2rd-ai-actions {
+.g2rd-ai-launcher-sidebar .components-panel__body {
+	border: none;
+}
+
+.g2rd-ail {
+	display:         flex;
+	flex-direction:  column;
+	align-items:     center;
+	justify-content: center;
+	text-align:      center;
+	padding:         40px 20px 32px;
+	min-height:      220px;
+	background:      linear-gradient(170deg, #0b0e14 0%, #111318 60%, #161b26 100%);
+}
+
+.g2rd-ail__star {
+	font-size:      32px;
+	color:          var(--g2rd-ai-accent);
+	margin-bottom:  12px;
+	animation:      g2rd-ail-glow 2.5s ease-in-out infinite;
+	display:        block;
+}
+
+@keyframes g2rd-ail-glow {
+	0%, 100% { text-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
+	50%      { text-shadow: 0 0 20px rgba(245, 158, 11, 0.7); }
+}
+
+.g2rd-ail__title {
+	margin:         0 0 6px;
+	font-size:      13px;
+	font-weight:    700;
+	color:          #e2e8f0;
+	letter-spacing: 0.02em;
+}
+
+.g2rd-ail__desc {
+	margin:      0 0 20px;
+	font-size:   12px;
+	line-height: 1.55;
+	color:       #7a8899;
+	max-width:   200px;
+}
+
+.g2rd-ail__btn {
+	padding:       10px 24px;
+	font-size:     13px;
+	font-weight:   700;
+	color:         #0b0e14;
+	background:    var(--g2rd-ai-accent);
+	border:        none;
+	border-radius: 6px;
+	cursor:        pointer;
+	transition:    background 0.15s, transform 0.1s;
+	letter-spacing: 0.01em;
+}
+
+.g2rd-ail__btn:hover {
+	background: color-mix(in srgb, var(--g2rd-ai-accent) 82%, #000);
+}
+
+.g2rd-ail__btn:active {
+	transform: scale(0.97);
+}
+
+.g2rd-ail__btn:focus-visible {
+	outline:        2px solid var(--g2rd-ai-accent);
+	outline-offset: 3px;
+}
+
+.g2rd-ail__warn {
+	margin-top:  12px;
+	font-size:   11px;
+	color:       rgba(245, 158, 11, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. INSPECTOR PANEL (blocs Gutenberg)
+   ═══════════════════════════════════════════════════════════════ */
+
+.g2rd-ai-inspector-panel {
+	--g2rd-ai-accent: #f59e0b;
+}
+
+.g2rd-ai-inspector-panel .components-panel__body-title {
+	color:       var(--g2rd-ai-accent);
+	font-weight: 600;
+}
+
+.g2rd-ai-inspector-panel .components-base-control {
+	margin-bottom: 10px;
+}
+
+.g2rd-ai-inspector-panel .g2rd-ai-actions {
 	display:        flex;
 	flex-direction: column;
 	gap:            6px;
-	margin-top:     12px;
+	margin-top:     10px;
+}
+
+/* Résultat inline dans le panneau */
+.g2rd-ai-panel-result {
+	margin-top:    12px;
+	border:        1px solid rgba(245, 158, 11, 0.25);
+	border-radius: 5px;
+	overflow:      hidden;
+	animation:     g2rd-aim-fadein 0.2s ease;
+}
+
+.g2rd-ai-panel-result__body {
+	padding:    10px;
+	max-height: 200px;
+	overflow-y: auto;
+	background: #f7f7f7;
+	scrollbar-width: thin;
+}
+
+.g2rd-ai-panel-result__text {
+	margin:      0;
+	font-size:   12px;
+	line-height: 1.5;
+	color:       #1e1e1e;
+	white-space: pre-wrap;
+	word-break:  break-word;
+}
+
+.g2rd-ai-panel-result__code {
+	margin:      0;
+	font-family: ui-monospace, monospace;
+	font-size:   11px;
+	line-height: 1.45;
+	color:       #333;
+	white-space: pre-wrap;
+	word-break:  break-all;
+}
+
+.g2rd-ai-panel-result__actions {
+	display:    flex;
+	gap:        6px;
+	padding:    8px;
+	background: #fff;
+	border-top: 1px solid #e0e0e0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   6. BOUTON G2RD AI
+   5. BOUTON G2RD AI (générique — blocs)
    ═══════════════════════════════════════════════════════════════ */
 
 .g2rd-ai-button.components-button {
-	width:          100%;
+	width:           100%;
 	justify-content: flex-start;
 	gap:             8px;
-	font-size:       var(--g2rd-ai-font-size);
-	border-radius:   var(--g2rd-ai-radius);
-	transition:      background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-	position:        relative;
-	overflow:        hidden;
+	font-size:       12px;
+	border-radius:   4px;
+	transition:      background 0.15s, color 0.15s;
 }
 
 .g2rd-ai-button.components-button:hover:not(:disabled) {
-	background:    var(--g2rd-ai-accent);
-	color:         #fff;
-	border-color:  var(--g2rd-ai-accent);
+	background:   color-mix(in srgb, var(--g2rd-ai-accent, #f59e0b) 12%, transparent);
+	color:        var(--g2rd-ai-accent, #f59e0b);
+	border-color: rgba(245, 158, 11, 0.3);
 }
 
-.g2rd-ai-button.components-button:active:not(:disabled) {
-	transform: scale(0.98);
-}
-
-/* Focus visible — RGAA 10.7, WCAG 2.4.7 */
 .g2rd-ai-button.components-button:focus-visible {
-	outline:        2px solid var(--g2rd-ai-accent);
+	outline:        2px solid var(--g2rd-ai-accent, #f59e0b);
 	outline-offset: 2px;
 	box-shadow:     none;
 }
 
-/* État loading */
 .g2rd-ai-button--loading.components-button {
-	opacity: 0.8;
+	opacity: 0.75;
 	cursor:  wait;
 }
 
 .g2rd-ai-button--loading .components-spinner {
 	margin: 0;
-	width:  16px;
-	height: 16px;
+	width:  14px;
+	height: 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   7. NOTICE IA
+   6. NOTICE IA
    ═══════════════════════════════════════════════════════════════ */
 
 .g2rd-ai-notice {
@@ -173,137 +680,22 @@
 
 .g2rd-ai-notice .components-notice {
 	margin:        0;
-	border-radius: var(--g2rd-ai-radius);
-	font-size:     var(--g2rd-ai-font-size);
+	border-radius: 4px;
+	font-size:     12px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   8. MODAL DE PRÉVISUALISATION
-   ═══════════════════════════════════════════════════════════════ */
-
-.g2rd-ai-modal .components-modal__frame {
-	max-width:     720px;
-	width:         90vw;
-	border-radius: 8px;
-}
-
-.g2rd-ai-modal .components-modal__header {
-	border-bottom: 1px solid var(--wp-components-color-gray-300, #e0e0e0);
-	padding:       16px 20px;
-}
-
-.g2rd-ai-modal .components-modal__header-heading {
-	font-size:   16px;
-	font-weight: 600;
-	color:       var(--g2rd-ai-accent);
-}
-
-.g2rd-ai-modal__preview {
-	min-height:  120px;
-	padding:     16px;
-	margin:      0 0 16px;
-	background:  var(--wp-components-color-gray-100, #f7f7f7);
-	border:      1px solid var(--wp-components-color-gray-300, #e0e0e0);
-	border-radius: var(--g2rd-ai-radius);
-	overflow-y:  auto;
-	max-height:  360px;
-}
-
-/* Texte brut */
-.g2rd-ai-modal__text {
-	margin:      0;
-	font-size:   14px;
-	line-height: 1.6;
-	white-space: pre-wrap;
-	word-break:  break-word;
-	color:       var(--wp-components-color-gray-900, #1e1e1e);
-}
-
-/* JSON formaté */
-.g2rd-ai-modal__json {
-	margin:      0;
-	font-family: ui-monospace, 'Courier New', monospace;
-	font-size:   12px;
-	line-height: 1.5;
-	white-space: pre-wrap;
-	word-break:  break-all;
-	color:       var(--wp-components-color-gray-800, #333);
-}
-
-/* Spinner dans la modal */
-.g2rd-ai-modal__spinner {
-	display:         flex;
-	align-items:     center;
-	gap:             12px;
-	justify-content: center;
-	padding:         24px;
-	color:           var(--wp-components-color-gray-600, #666);
-	font-size:       13px;
-}
-
-.g2rd-ai-spinner-icon {
-	display:          inline-block;
-	width:            24px;
-	height:           24px;
-	border:           3px solid var(--g2rd-ai-accent-light);
-	border-top-color: var(--g2rd-ai-accent);
-	border-radius:    50%;
-	animation:        g2rd-ai-spin 0.7s linear infinite;
-}
-
-@keyframes g2rd-ai-spin {
-	to { transform: rotate(360deg); }
-}
-
-/* Groupe d'actions de la modal */
-.g2rd-ai-modal__actions {
-	display:    flex;
-	flex-wrap:  wrap;
-	gap:        8px;
-	padding-top: 4px;
-}
-
-.g2rd-ai-modal__actions .components-button[variant="primary"] {
-	background:   var(--g2rd-ai-accent);
-	border-color: var(--g2rd-ai-accent);
-}
-
-.g2rd-ai-modal__actions .components-button[variant="primary"]:hover:not(:disabled) {
-	background:   color-mix(in srgb, var(--g2rd-ai-accent) 85%, black);
-	border-color: color-mix(in srgb, var(--g2rd-ai-accent) 85%, black);
-}
-
-/* Focus visible sur les boutons de la modal — RGAA 10.7 */
-.g2rd-ai-modal__actions .components-button:focus-visible {
-	outline:        2px solid var(--g2rd-ai-accent);
-	outline-offset: 2px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   9. INSPECTOR PANEL (blocs Gutenberg)
-   ═══════════════════════════════════════════════════════════════ */
-
-.g2rd-ai-inspector-panel .components-panel__body-title {
-	color:       var(--g2rd-ai-accent);
-	font-weight: 600;
-}
-
-.g2rd-ai-inspector-panel .g2rd-ai-actions {
-	margin-top: 8px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   10. ACCESSIBILITÉ — TEXTES MASQUÉS VISUELLEMENT
+   7. ACCESSIBILITÉ
    ═══════════════════════════════════════════════════════════════ */
 
 .screen-reader-text {
-	position:   absolute;
-	width:      1px;
-	height:     1px;
-	padding:    0;
-	margin:     -1px;
-	overflow:   hidden;
-	clip:       rect(0, 0, 0, 0);
+	position:    absolute;
+	width:       1px;
+	height:      1px;
+	padding:     0;
+	margin:      -1px;
+	overflow:    hidden;
+	clip:        rect(0, 0, 0, 0);
 	white-space: nowrap;
-	border:     0;
+	border:      0;
 }

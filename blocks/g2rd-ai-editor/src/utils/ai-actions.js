@@ -55,18 +55,6 @@ export const LENGTH_OPTIONS = [
 	{ label: 'Long',   value: 'long' },
 ];
 
-/**
- * Onglets de la sidebar éditoriale.
- *
- * @type {Array<{id: string, label: string}>}
- */
-export const SIDEBAR_TABS = [
-	{ id: 'page',    label: 'Page' },
-	{ id: 'post',    label: 'Article' },
-	{ id: 'seo',     label: 'SEO' },
-	{ id: 'social',  label: 'Réseaux sociaux' },
-	{ id: 'links',   label: 'Maillage interne' },
-];
 
 /**
  * Construit le payload pour un endpoint REST IA.
