@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.18.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.18.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.18.1**
+
+- **Fix** : renommage des 37 outils MCP de `g2rd/xxx` vers `g2rd_xxx` pour respecter le pattern imposé par l'API Anthropic (`^[a-zA-Z0-9_-]{1,64}$`) — corrige le rejet de `tools/list` par Claude Desktop.
 
 ### **1.18.0**
 
