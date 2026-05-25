@@ -791,6 +791,91 @@ class McpAbilities {
 					'required'   => [ 'item_id' ],
 				],
 			],
+
+			// ── Media upload ──────────────────────────────────────────────────────
+			'g2rd/upload-media'      => [
+				'name'           => 'g2rd/upload-media',
+				'description'    => 'Downloads an image from a URL and imports it into the WordPress media library. Allowed types: jpg, jpeg, png, gif, webp, svg, pdf. Max 10 MB. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'upload_files',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'url'         => [
+							'type'        => 'string',
+							'description' => 'URL of the file to download and import (required).',
+						],
+						'title'       => [
+							'type'        => 'string',
+							'description' => 'Attachment title.',
+						],
+						'alt_text'    => [
+							'type'        => 'string',
+							'description' => 'Alt text for the image.',
+						],
+						'caption'     => [
+							'type'        => 'string',
+							'description' => 'Image caption (post_excerpt).',
+						],
+						'description' => [
+							'type'        => 'string',
+							'description' => 'Image description (post_content).',
+						],
+					],
+					'required'   => [ 'url' ],
+				],
+			],
+
+			'g2rd/upload-media-base64' => [
+				'name'           => 'g2rd/upload-media-base64',
+				'description'    => 'Imports a file from base64-encoded content into the WordPress media library. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'upload_files',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'data'      => [
+							'type'        => 'string',
+							'description' => 'Base64-encoded file content (required).',
+						],
+						'filename'  => [
+							'type'        => 'string',
+							'description' => 'Filename including extension, e.g. "photo.png" (required).',
+						],
+						'mime_type' => [
+							'type'        => 'string',
+							'description' => 'MIME type, e.g. "image/png" (required).',
+						],
+						'title'     => [
+							'type'        => 'string',
+							'description' => 'Attachment title.',
+						],
+						'alt_text'  => [
+							'type'        => 'string',
+							'description' => 'Alt text for the image.',
+						],
+					],
+					'required'   => [ 'data', 'filename', 'mime_type' ],
+				],
+			],
+
+			'g2rd/delete-media'      => [
+				'name'           => 'g2rd/delete-media',
+				'description'    => 'Moves a media attachment to the trash (never permanently deleted). Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'delete_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'attachment_id' => [
+							'type'        => 'integer',
+							'description' => 'ID of the media attachment to trash (required).',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'attachment_id' ],
+				],
+			],
 		];
 	}
 
@@ -897,6 +982,9 @@ class McpAbilities {
 			case 'g2rd/update-option':
 			case 'g2rd/flush-cache':
 			case 'g2rd/update-menu-item':
+			case 'g2rd/upload-media':
+			case 'g2rd/upload-media-base64':
+			case 'g2rd/delete-media':
 				return $this->exec_enqueue_write( $name, $args, $gate_result );
 
 			default:

@@ -426,6 +426,12 @@ class McpConfirmationQueue {
 					return $this->exec_flush_cache();
 				case 'g2rd/update-menu-item':
 					return $this->exec_update_menu_item( $arguments );
+				case 'g2rd/upload-media':
+					return $this->exec_upload_media( $arguments );
+				case 'g2rd/upload-media-base64':
+					return $this->exec_upload_media_base64( $arguments );
+				case 'g2rd/delete-media':
+					return $this->exec_delete_media( $arguments );
 				default:
 					return false;
 			}
@@ -1232,6 +1238,192 @@ class McpConfirmationQueue {
 		);
 
 		return ! \is_wp_error( $result );
+	}
+
+	/**
+	 * Executes g2rd/upload-media: downloads a file from a URL and imports it into the media library.
+	 *
+	 * Allowed extensions: jpg, jpeg, png, gif, webp, svg, pdf. Max size: 10 MB.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (url required; title, alt_text, caption, description optional).
+	 * @return bool True on success.
+	 */
+	private function exec_upload_media( array $args ): bool {
+		if ( ! \current_user_can( 'upload_files' ) ) {
+			return false;
+		}
+
+		$url = \esc_url_raw( (string) ( $args['url'] ?? '' ) );
+		if ( empty( $url ) ) {
+			return false;
+		}
+
+		$allowed_exts = [ 'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf' ];
+		$ext          = strtolower( (string) pathinfo( (string) \wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
+		if ( ! \in_array( $ext, $allowed_exts, true ) ) {
+			return false;
+		}
+
+		require_once \ABSPATH . 'wp-admin/includes/media.php';
+		require_once \ABSPATH . 'wp-admin/includes/file.php';
+		require_once \ABSPATH . 'wp-admin/includes/image.php';
+
+		$tmp = \download_url( $url );
+		if ( \is_wp_error( $tmp ) ) {
+			return false;
+		}
+
+		// Enforce 10 MB size limit.
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_filesize -- checking local tmp file before import
+		if ( filesize( $tmp ) > 10 * 1024 * 1024 ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file created by download_url
+			unlink( $tmp );
+			return false;
+		}
+
+		$filename   = \sanitize_file_name( basename( (string) \wp_parse_url( $url, PHP_URL_PATH ) ) );
+		$file_array = [
+			'name'     => $filename,
+			'tmp_name' => $tmp,
+		];
+
+		$title         = \sanitize_text_field( (string) ( $args['title'] ?? '' ) );
+		$attachment_id = \media_handle_sideload( $file_array, 0, $title ?: null );
+
+		if ( \is_wp_error( $attachment_id ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file cleanup after failed sideload
+			unlink( $tmp );
+			return false;
+		}
+
+		if ( ! empty( $args['alt_text'] ) ) {
+			\update_post_meta( $attachment_id, '_wp_attachment_image_alt', \sanitize_text_field( (string) $args['alt_text'] ) );
+		}
+
+		$update_data = [ 'ID' => $attachment_id ];
+		if ( ! empty( $args['caption'] ) ) {
+			$update_data['post_excerpt'] = \sanitize_text_field( (string) $args['caption'] );
+		}
+		if ( ! empty( $args['description'] ) ) {
+			$update_data['post_content'] = \wp_kses_post( (string) $args['description'] );
+		}
+		if ( count( $update_data ) > 1 ) {
+			\wp_update_post( $update_data );
+		}
+
+		\update_option( 'g2rd_mcp_last_upload_media', [
+			'attachment_id' => $attachment_id,
+			'source_url'    => $url,
+			'user_id'       => \get_current_user_id(),
+			'time'          => \current_time( 'mysql' ),
+		] );
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/upload-media-base64: decodes base64 content and imports it into the media library.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (data, filename, mime_type required; title, alt_text optional).
+	 * @return bool True on success.
+	 */
+	private function exec_upload_media_base64( array $args ): bool {
+		if ( ! \current_user_can( 'upload_files' ) ) {
+			return false;
+		}
+
+		$b64_data  = (string) ( $args['data'] ?? '' );
+		$filename  = \sanitize_file_name( (string) ( $args['filename'] ?? '' ) );
+		$mime_type = \sanitize_text_field( (string) ( $args['mime_type'] ?? '' ) );
+
+		if ( empty( $b64_data ) || empty( $filename ) || empty( $mime_type ) ) {
+			return false;
+		}
+
+		$allowed_mimes = [
+			'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+			'image/svg+xml', 'application/pdf',
+		];
+		if ( ! \in_array( $mime_type, $allowed_mimes, true ) ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- intentional media import from base64
+		$decoded = base64_decode( $b64_data, true );
+		if ( false === $decoded ) {
+			return false;
+		}
+
+		if ( strlen( $decoded ) > 10 * 1024 * 1024 ) {
+			return false;
+		}
+
+		require_once \ABSPATH . 'wp-admin/includes/image.php';
+
+		$upload_dir = \wp_upload_dir();
+		$file_path  = trailingslashit( $upload_dir['path'] ) . $filename;
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- writing decoded binary to uploads dir
+		$written = file_put_contents( $file_path, $decoded );
+		if ( false === $written ) {
+			return false;
+		}
+
+		$title      = \sanitize_text_field( (string) ( $args['title'] ?? pathinfo( $filename, PATHINFO_FILENAME ) ) );
+		$attachment = [
+			'guid'           => trailingslashit( $upload_dir['url'] ) . $filename,
+			'post_mime_type' => $mime_type,
+			'post_title'     => $title,
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		];
+
+		$attachment_id = \wp_insert_attachment( $attachment, $file_path );
+		if ( \is_wp_error( $attachment_id ) || $attachment_id <= 0 ) {
+			return false;
+		}
+
+		$metadata = \wp_generate_attachment_metadata( $attachment_id, $file_path );
+		\wp_update_attachment_metadata( $attachment_id, $metadata );
+
+		if ( ! empty( $args['alt_text'] ) ) {
+			\update_post_meta( $attachment_id, '_wp_attachment_image_alt', \sanitize_text_field( (string) $args['alt_text'] ) );
+		}
+
+		\update_option( 'g2rd_mcp_last_upload_media', [
+			'attachment_id' => $attachment_id,
+			'filename'      => $filename,
+			'user_id'       => \get_current_user_id(),
+			'time'          => \current_time( 'mysql' ),
+		] );
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/delete-media: moves a media attachment to the trash.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (attachment_id required).
+	 * @return bool True on success.
+	 */
+	private function exec_delete_media( array $args ): bool {
+		if ( ! \current_user_can( 'delete_posts' ) ) {
+			return false;
+		}
+
+		$attachment_id = \absint( $args['attachment_id'] ?? 0 );
+		if ( $attachment_id <= 0 ) {
+			return false;
+		}
+
+		$post = \get_post( $attachment_id );
+		if ( ! ( $post instanceof \WP_Post ) || 'attachment' !== $post->post_type ) {
+			return false;
+		}
+
+		$result = \wp_trash_post( $attachment_id );
+
+		return false !== $result;
 	}
 
 	/**
