@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.16.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.16.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### 1.16.3
+
+- **Fix** : endpoint MCP déplacé de `g2rd/mcp/v1/` vers `g2rd/v1/mcp` — corrige la 404 sur Hostinger (conflit avec le plugin AI Assistant natif).
 
 ### 1.16.2
 

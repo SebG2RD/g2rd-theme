@@ -4,7 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 const { restBase, nonce } = window.G2RDOptionsData || {};
 const API          = `${ restBase }g2rd/v1`;
-const MCP_ENDPOINT = `${ restBase }g2rd/mcp/v1/`;
+const MCP_ENDPOINT = `${ restBase }g2rd/v1/mcp`;
 
 function formatDate( iso ) {
 	if ( ! iso ) return '—';

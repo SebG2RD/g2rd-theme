@@ -5,7 +5,7 @@
  * Registers the WordPress REST endpoint and dispatches inbound JSON-RPC 2.0
  * requests to the appropriate MCP abilities.
  *
- * Endpoint:  POST /wp-json/g2rd/mcp/v1
+ * Endpoint:  POST /wp-json/g2rd/v1/mcp
  * Auth:      Bearer token in Authorization header (validated by McpSecurityGate).
  *            permission_callback is always __return_true — WP session is never used.
  *
@@ -34,7 +34,7 @@ namespace G2RD;
 class McpServer {
 
 	/** @var string REST namespace for the MCP endpoint. */
-	private const REST_NAMESPACE = 'g2rd/mcp/v1';
+	private const REST_NAMESPACE = 'g2rd/v1';
 
 	/** @var string MCP protocol version this server implements. */
 	private const MCP_VERSION = '2024-11-05';
@@ -104,7 +104,7 @@ class McpServer {
 	public function register_route(): void {
 		\register_rest_route(
 			self::REST_NAMESPACE,
-			'/',
+			'/mcp',
 			[
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => [ $this, 'handle_request' ],
