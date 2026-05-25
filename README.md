@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.16.3.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.17.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.17.0**
+
+- **Feature** : MCP WordPress étendu à 34 outils — `get-post` avec HTML, taxonomies, SEO et image mise en avant ; `list-posts` avec filtres statut/recherche/catégorie/tag ; nouveaux outils lecture (get-post-meta, list-categories, list-tags, list-media, get-seo-data, get-seo-overview, get-redirections, list-plugins, get-theme-info, list-themes, get-options, get-users, get-site-health, get-cron-jobs, list-menus).
+- **Feature** : 15 outils d'écriture MCP avec confirmation admin (delete-post, update-post étendu, update-post-meta, update-seo-data, create-redirection, create-category, create-tag, update-media, activate/deactivate/update-plugin, update-option whitelist, flush-cache, update-menu-item).
+- **Refactor** : déplacement `export-theme.ps1` dans `tools/`.
 
 ### 1.16.3.1
 

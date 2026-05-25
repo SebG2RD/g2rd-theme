@@ -46,8 +46,24 @@ class McpConfirmationQueue {
 	/** @var string Table name suffix (without $wpdb->prefix). */
 	private const TABLE_SUFFIX = 'g2rd_mcp_confirmation_queue';
 
-	/** @var string[] Post statuses allowed via write tools (no future/private/trash). */
+	/** @var string[] Post statuses allowed for create-post. */
 	private const ALLOWED_STATUSES = [ 'draft', 'pending', 'publish' ];
+
+	/** @var string[] Post statuses allowed for update-post (broader — includes future and private). */
+	private const UPDATE_ALLOWED_STATUSES = [ 'draft', 'pending', 'publish', 'future', 'private' ];
+
+	/** @var string[] WordPress option keys that may be updated via g2rd/update-option. */
+	private const OPTION_WHITELIST = [
+		'blogname',
+		'blogdescription',
+		'timezone_string',
+		'date_format',
+		'time_format',
+		'posts_per_page',
+		'default_comment_status',
+		'default_ping_status',
+		'permalink_structure',
+	];
 
 	/** @var McpEncryption AES-256-GCM encryption provider. */
 	private McpEncryption $crypto;
@@ -384,6 +400,32 @@ class McpConfirmationQueue {
 					return $this->exec_create_post( $arguments );
 				case 'g2rd/update-post':
 					return $this->exec_update_post( $arguments );
+				case 'g2rd/delete-post':
+					return $this->exec_delete_post( $arguments );
+				case 'g2rd/update-post-meta':
+					return $this->exec_update_post_meta( $arguments );
+				case 'g2rd/update-seo-data':
+					return $this->exec_update_seo_data( $arguments );
+				case 'g2rd/create-redirection':
+					return $this->exec_create_redirection( $arguments );
+				case 'g2rd/create-category':
+					return $this->exec_create_category( $arguments );
+				case 'g2rd/create-tag':
+					return $this->exec_create_tag( $arguments );
+				case 'g2rd/update-media':
+					return $this->exec_update_media( $arguments );
+				case 'g2rd/activate-plugin':
+					return $this->exec_activate_plugin( $arguments );
+				case 'g2rd/deactivate-plugin':
+					return $this->exec_deactivate_plugin( $arguments );
+				case 'g2rd/update-plugin':
+					return $this->exec_update_plugin( $arguments );
+				case 'g2rd/update-option':
+					return $this->exec_update_option( $arguments );
+				case 'g2rd/flush-cache':
+					return $this->exec_flush_cache();
+				case 'g2rd/update-menu-item':
+					return $this->exec_update_menu_item( $arguments );
 				default:
 					return false;
 			}
@@ -431,12 +473,12 @@ class McpConfirmationQueue {
 	}
 
 	/**
-	 * Executes g2rd/update-post: updates an existing post.
+	 * Executes g2rd/update-post: updates an existing post with extended fields.
 	 *
-	 * Capability check runs inside the switched user context.
-	 * At least one content field (title, content, excerpt) must be provided.
+	 * Supports title, content, excerpt, status, categories, tags, featured image,
+	 * slug, publish date and page template. Capability check runs inside the switched user context.
 	 *
-	 * @param array<string, mixed> $args Tool arguments (post_id required; title, content, excerpt optional).
+	 * @param array<string, mixed> $args Tool arguments (post_id required; all other fields optional).
 	 * @return bool True if the post was updated successfully.
 	 */
 	private function exec_update_post( array $args ): bool {
@@ -465,14 +507,63 @@ class McpConfirmationQueue {
 		if ( isset( $args['excerpt'] ) ) {
 			$postarr['post_excerpt'] = \sanitize_textarea_field( (string) $args['excerpt'] );
 		}
+		if ( isset( $args['status'] ) ) {
+			$status = \sanitize_key( (string) $args['status'] );
+			if ( \in_array( $status, self::UPDATE_ALLOWED_STATUSES, true ) ) {
+				$postarr['post_status'] = $status;
+			}
+		}
+		if ( isset( $args['slug'] ) ) {
+			$postarr['post_name'] = \sanitize_title( (string) $args['slug'] );
+		}
+		if ( isset( $args['date'] ) ) {
+			$date_gmt = \get_gmt_from_date( \sanitize_text_field( (string) $args['date'] ) );
+			if ( $date_gmt ) {
+				$postarr['post_date_gmt'] = $date_gmt;
+				$postarr['post_date']     = \sanitize_text_field( (string) $args['date'] );
+			}
+		}
 
-		if ( \count( $postarr ) <= 1 ) {
+		// At least one field must differ from the ID.
+		if ( \count( $postarr ) <= 1 &&
+			! isset( $args['categories'] ) &&
+			! isset( $args['tags'] ) &&
+			! isset( $args['featured_image_id'] ) &&
+			! isset( $args['template'] )
+		) {
 			return false;
 		}
 
 		$result = \wp_update_post( $postarr, true );
 
-		return ! \is_wp_error( $result ) && $result > 0;
+		if ( \is_wp_error( $result ) || ! $result ) {
+			return false;
+		}
+
+		if ( isset( $args['categories'] ) && \is_array( $args['categories'] ) ) {
+			$cat_ids = \array_filter( \array_map( 'absint', $args['categories'] ) );
+			\wp_set_post_categories( $post_id, $cat_ids );
+		}
+
+		if ( isset( $args['tags'] ) && \is_array( $args['tags'] ) ) {
+			$tags = \array_filter( \array_map( 'sanitize_text_field', $args['tags'] ) );
+			\wp_set_post_tags( $post_id, $tags, false );
+		}
+
+		if ( isset( $args['featured_image_id'] ) ) {
+			$img_id = \absint( $args['featured_image_id'] );
+			if ( 0 === $img_id ) {
+				\delete_post_thumbnail( $post_id );
+			} else {
+				\set_post_thumbnail( $post_id, $img_id );
+			}
+		}
+
+		if ( isset( $args['template'] ) ) {
+			\update_post_meta( $post_id, '_wp_page_template', \sanitize_text_field( (string) $args['template'] ) );
+		}
+
+		return true;
 	}
 
 	/**
@@ -597,5 +688,573 @@ class McpConfirmationQueue {
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		return \is_array( $row ) ? $row : null;
+	}
+
+	// ── Additional write tool executors ───────────────────────────────────────
+
+	/**
+	 * Executes g2rd/delete-post: moves a post to the trash.
+	 *
+	 * Never performs permanent deletion. Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (post_id required).
+	 * @return bool True if the post was trashed successfully.
+	 */
+	private function exec_delete_post( array $args ): bool {
+		$post_id = \absint( $args['post_id'] ?? 0 );
+
+		if ( $post_id <= 0 ) {
+			return false;
+		}
+
+		if ( ! ( \get_post( $post_id ) instanceof \WP_Post ) ) {
+			return false;
+		}
+
+		if ( ! \current_user_can( 'delete_post', $post_id ) ) {
+			return false;
+		}
+
+		return (bool) \wp_trash_post( $post_id );
+	}
+
+	/**
+	 * Executes g2rd/update-post-meta: updates a meta field on a post.
+	 *
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (post_id, meta_key, meta_value required).
+	 * @return bool True if the meta was updated.
+	 */
+	private function exec_update_post_meta( array $args ): bool {
+		$post_id    = \absint( $args['post_id'] ?? 0 );
+		$meta_key   = \sanitize_key( (string) ( $args['meta_key'] ?? '' ) );
+		$meta_value = (string) ( $args['meta_value'] ?? '' );
+
+		if ( $post_id <= 0 || '' === $meta_key ) {
+			return false;
+		}
+
+		if ( ! ( \get_post( $post_id ) instanceof \WP_Post ) ) {
+			return false;
+		}
+
+		if ( ! \current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		$result = \update_post_meta( $post_id, $meta_key, \sanitize_text_field( $meta_value ) );
+
+		return false !== $result;
+	}
+
+	/**
+	 * Executes g2rd/update-seo-data: writes SEO meta via the active SEO plugin.
+	 *
+	 * Auto-detects the active SEO plugin. Silently succeeds if no plugin is found.
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (post_id required; SEO fields optional).
+	 * @return bool True on success.
+	 */
+	private function exec_update_seo_data( array $args ): bool {
+		$post_id = \absint( $args['post_id'] ?? 0 );
+
+		if ( $post_id <= 0 || ! ( \get_post( $post_id ) instanceof \WP_Post ) ) {
+			return false;
+		}
+
+		if ( ! \current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		$plugin = $this->detect_active_seo_plugin_queue();
+
+		$map = [];
+
+		switch ( $plugin ) {
+			case 'yoast':
+				$map = [
+					'meta_title'       => '_yoast_wpseo_title',
+					'meta_description' => '_yoast_wpseo_metadesc',
+					'canonical'        => '_yoast_wpseo_canonical',
+					'og_title'         => '_yoast_wpseo_opengraph-title',
+					'og_description'   => '_yoast_wpseo_opengraph-description',
+					'focus_keyword'    => '_yoast_wpseo_focuskw',
+				];
+				break;
+			case 'rank_math':
+				$map = [
+					'meta_title'       => 'rank_math_title',
+					'meta_description' => 'rank_math_description',
+					'canonical'        => 'rank_math_canonical_url',
+					'og_title'         => 'rank_math_facebook_title',
+					'og_description'   => 'rank_math_facebook_description',
+					'focus_keyword'    => 'rank_math_focus_keyword',
+				];
+				break;
+			case 'seopress':
+				$map = [
+					'meta_title'       => '_seopress_titles_title',
+					'meta_description' => '_seopress_titles_desc',
+					'canonical'        => '_seopress_robots_canonical',
+					'og_title'         => '_seopress_social_fb_title',
+					'og_description'   => '_seopress_social_fb_desc',
+					'focus_keyword'    => '_seopress_analysis_target_kw',
+				];
+				break;
+			case 'aioseo':
+				$map = [
+					'meta_title'       => '_aioseo_title',
+					'meta_description' => '_aioseo_description',
+					'canonical'        => '_aioseo_canonical_url',
+					'og_title'         => '_aioseo_og_title',
+					'og_description'   => '_aioseo_og_description',
+					'focus_keyword'    => '', // handled below
+				];
+				break;
+		}
+
+		foreach ( $map as $arg_key => $meta_key ) {
+			if ( isset( $args[ $arg_key ] ) && '' !== $meta_key ) {
+				\update_post_meta( $post_id, $meta_key, \sanitize_text_field( (string) $args[ $arg_key ] ) );
+			}
+		}
+
+		// noindex — plugin-specific handling.
+		if ( isset( $args['noindex'] ) ) {
+			$noindex = (bool) $args['noindex'];
+			if ( 'yoast' === $plugin ) {
+				\update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', $noindex ? '1' : '0' );
+			} elseif ( 'rank_math' === $plugin ) {
+				$current = (string) \get_post_meta( $post_id, 'rank_math_robots', true );
+				if ( $noindex && false === \strpos( $current, 'noindex' ) ) {
+					\update_post_meta( $post_id, 'rank_math_robots', 'noindex,nofollow' );
+				} elseif ( ! $noindex ) {
+					\update_post_meta( $post_id, 'rank_math_robots', 'index,follow' );
+				}
+			} elseif ( 'seopress' === $plugin ) {
+				\update_post_meta( $post_id, '_seopress_robots_index', $noindex ? '1' : '' );
+			} elseif ( 'aioseo' === $plugin ) {
+				\update_post_meta( $post_id, '_aioseo_robots_default', $noindex ? '0' : '1' );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/create-redirection: creates a URL redirection via the Redirection plugin.
+	 *
+	 * Returns false if the Redirection plugin is not active.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (source, target, type required).
+	 * @return bool True on success.
+	 */
+	private function exec_create_redirection( array $args ): bool {
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		$source = \sanitize_text_field( (string) ( $args['source'] ?? '' ) );
+		$target = \sanitize_text_field( (string) ( $args['target'] ?? '' ) );
+		$type   = \absint( $args['type'] ?? 301 );
+
+		if ( '' === $source || '' === $target ) {
+			return false;
+		}
+
+		if ( ! \in_array( $type, [ 301, 302 ], true ) ) {
+			$type = 301;
+		}
+
+		if ( ! \class_exists( 'Red_Item' ) ) {
+			return false;
+		}
+
+		$item = \Red_Item::create( [
+			'url'         => $source,
+			'action_data' => [ 'url' => $target ],
+			'action_type' => 'url',
+			'action_code' => $type,
+			'match_type'  => 'url',
+			'group_id'    => 1,
+		] );
+
+		return ! \is_wp_error( $item );
+	}
+
+	/**
+	 * Executes g2rd/create-category: inserts a new post category.
+	 *
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (name required; slug, description, parent_id optional).
+	 * @return bool True if the category was created.
+	 */
+	private function exec_create_category( array $args ): bool {
+		if ( ! \current_user_can( 'manage_categories' ) ) {
+			return false;
+		}
+
+		$name = \sanitize_text_field( (string) ( $args['name'] ?? '' ) );
+
+		if ( '' === $name ) {
+			return false;
+		}
+
+		$term_args = [
+			'description' => \sanitize_textarea_field( (string) ( $args['description'] ?? '' ) ),
+			'parent'      => \absint( $args['parent_id'] ?? 0 ),
+		];
+
+		if ( ! empty( $args['slug'] ) ) {
+			$term_args['slug'] = \sanitize_title( (string) $args['slug'] );
+		}
+
+		$result = \wp_insert_term( $name, 'category', $term_args );
+
+		return ! \is_wp_error( $result );
+	}
+
+	/**
+	 * Executes g2rd/create-tag: inserts a new post tag.
+	 *
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (name required; slug, description optional).
+	 * @return bool True if the tag was created.
+	 */
+	private function exec_create_tag( array $args ): bool {
+		if ( ! \current_user_can( 'manage_categories' ) ) {
+			return false;
+		}
+
+		$name = \sanitize_text_field( (string) ( $args['name'] ?? '' ) );
+
+		if ( '' === $name ) {
+			return false;
+		}
+
+		$term_args = [
+			'description' => \sanitize_textarea_field( (string) ( $args['description'] ?? '' ) ),
+		];
+
+		if ( ! empty( $args['slug'] ) ) {
+			$term_args['slug'] = \sanitize_title( (string) $args['slug'] );
+		}
+
+		$result = \wp_insert_term( $name, 'post_tag', $term_args );
+
+		return ! \is_wp_error( $result );
+	}
+
+	/**
+	 * Executes g2rd/update-media: updates a media attachment's metadata.
+	 *
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (media_id required; alt, title, description, caption optional).
+	 * @return bool True on success.
+	 */
+	private function exec_update_media( array $args ): bool {
+		$media_id = \absint( $args['media_id'] ?? 0 );
+
+		if ( $media_id <= 0 ) {
+			return false;
+		}
+
+		$post = \get_post( $media_id );
+
+		if ( ! ( $post instanceof \WP_Post ) || 'attachment' !== $post->post_type ) {
+			return false;
+		}
+
+		if ( ! \current_user_can( 'edit_post', $media_id ) ) {
+			return false;
+		}
+
+		if ( isset( $args['alt'] ) ) {
+			\update_post_meta( $media_id, '_wp_attachment_image_alt', \sanitize_text_field( (string) $args['alt'] ) );
+		}
+
+		$postarr = [ 'ID' => $media_id ];
+
+		if ( isset( $args['title'] ) ) {
+			$postarr['post_title'] = \sanitize_text_field( (string) $args['title'] );
+		}
+		if ( isset( $args['description'] ) ) {
+			$postarr['post_content'] = \sanitize_textarea_field( (string) $args['description'] );
+		}
+		if ( isset( $args['caption'] ) ) {
+			$postarr['post_excerpt'] = \sanitize_text_field( (string) $args['caption'] );
+		}
+
+		if ( \count( $postarr ) > 1 ) {
+			$result = \wp_update_post( $postarr, true );
+			if ( \is_wp_error( $result ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/activate-plugin: activates an installed plugin.
+	 *
+	 * Refuses to operate if no activate_plugins capability. Capability check
+	 * runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (plugin_file required).
+	 * @return bool True on success.
+	 */
+	private function exec_activate_plugin( array $args ): bool {
+		if ( ! \current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+
+		$plugin_file = \sanitize_text_field( (string) ( $args['plugin_file'] ?? '' ) );
+
+		if ( '' === $plugin_file ) {
+			return false;
+		}
+
+		if ( ! \function_exists( 'activate_plugin' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$result = \activate_plugin( $plugin_file );
+
+		return ! \is_wp_error( $result );
+	}
+
+	/**
+	 * Executes g2rd/deactivate-plugin: deactivates an active plugin.
+	 *
+	 * Refuses to deactivate the G2RD theme-core plugin. Capability check
+	 * runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (plugin_file required).
+	 * @return bool True on success.
+	 */
+	private function exec_deactivate_plugin( array $args ): bool {
+		if ( ! \current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+
+		$plugin_file = \sanitize_text_field( (string) ( $args['plugin_file'] ?? '' ) );
+
+		if ( '' === $plugin_file ) {
+			return false;
+		}
+
+		// Self-protection: never deactivate G2RD core or MCP-related plugins.
+		if ( false !== \strpos( $plugin_file, 'g2rd' ) ) {
+			return false;
+		}
+
+		if ( ! \function_exists( 'deactivate_plugins' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		\deactivate_plugins( $plugin_file );
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/update-plugin: updates a plugin to its latest available version.
+	 *
+	 * Logs the previous version before updating. Capability check runs inside
+	 * switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (plugin_file required).
+	 * @return bool True if the update succeeded or the plugin was already current.
+	 */
+	private function exec_update_plugin( array $args ): bool {
+		if ( ! \current_user_can( 'update_plugins' ) ) {
+			return false;
+		}
+
+		$plugin_file = \sanitize_text_field( (string) ( $args['plugin_file'] ?? '' ) );
+
+		if ( '' === $plugin_file ) {
+			return false;
+		}
+
+		if ( ! \function_exists( 'get_plugins' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		if ( ! \class_exists( 'Plugin_Upgrader' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		}
+		if ( ! \class_exists( 'Automatic_Upgrader_Skin' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/class-automatic-upgrader-skin.php';
+		}
+
+		$all_plugins = \get_plugins();
+		$prev_version = isset( $all_plugins[ $plugin_file ] ) ? (string) $all_plugins[ $plugin_file ]['Version'] : 'unknown';
+
+		// Log the version being replaced.
+		\update_option( 'g2rd_mcp_last_plugin_update', [
+			'plugin'       => $plugin_file,
+			'from_version' => $prev_version,
+			'updated_at'   => \gmdate( 'Y-m-d H:i:s' ),
+		] );
+
+		$upgrader = new \Plugin_Upgrader( new \Automatic_Upgrader_Skin() );
+		$result   = $upgrader->upgrade( $plugin_file );
+
+		// Plugin_Upgrader::upgrade() returns true on success, WP_Error on failure,
+		// or false/null when plugin is already up to date (not an error).
+		return true === $result || null === $result || false === $result;
+	}
+
+	/**
+	 * Executes g2rd/update-option: updates a whitelisted WordPress option.
+	 *
+	 * Refuses all keys outside OPTION_WHITELIST. Capability check runs inside
+	 * switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (option_key, option_value required).
+	 * @return bool True on success.
+	 */
+	private function exec_update_option( array $args ): bool {
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		$key   = \sanitize_key( (string) ( $args['option_key'] ?? '' ) );
+		$value = \sanitize_text_field( (string) ( $args['option_value'] ?? '' ) );
+
+		if ( '' === $key || ! \in_array( $key, self::OPTION_WHITELIST, true ) ) {
+			return false;
+		}
+
+		return \update_option( $key, $value );
+	}
+
+	/**
+	 * Executes g2rd/flush-cache: purges all detected caches.
+	 *
+	 * Always flushes the WP object cache. Also calls purge functions for
+	 * WP Rocket, LiteSpeed Cache, W3 Total Cache and WP Super Cache if active.
+	 * Capability check runs inside switched user context.
+	 *
+	 * @return bool True on success.
+	 */
+	private function exec_flush_cache(): bool {
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		// WordPress object cache.
+		\wp_cache_flush();
+
+		// WP Rocket.
+		if ( \function_exists( 'rocket_clean_domain' ) ) {
+			\rocket_clean_domain();
+		}
+
+		// LiteSpeed Cache.
+		if ( \class_exists( 'LiteSpeed_Cache_API' ) ) {
+			\LiteSpeed_Cache_API::purge_all();
+		} elseif ( \has_action( 'litespeed_purge_all' ) ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- LiteSpeed Cache third-party hook
+			\do_action( 'litespeed_purge_all' );
+		}
+
+		// W3 Total Cache.
+		if ( \function_exists( 'w3tc_flush_all' ) ) {
+			\w3tc_flush_all();
+		}
+
+		// WP Super Cache.
+		if ( \function_exists( 'wp_cache_clean_cache' ) ) {
+			global $file_prefix, $cache_path;
+			\wp_cache_clean_cache( $file_prefix ?? 'wp-cache-', true );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/update-menu-item: updates a navigation menu item.
+	 *
+	 * Capability check runs inside switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (item_id required; title, url, order, parent optional).
+	 * @return bool True on success.
+	 */
+	private function exec_update_menu_item( array $args ): bool {
+		if ( ! \current_user_can( 'edit_theme_options' ) ) {
+			return false;
+		}
+
+		$item_id = \absint( $args['item_id'] ?? 0 );
+
+		if ( $item_id <= 0 ) {
+			return false;
+		}
+
+		$post = \get_post( $item_id );
+
+		if ( ! ( $post instanceof \WP_Post ) || 'nav_menu_item' !== $post->post_type ) {
+			return false;
+		}
+
+		$menu_item_data = [];
+
+		if ( isset( $args['title'] ) ) {
+			$menu_item_data['menu-item-title'] = \sanitize_text_field( (string) $args['title'] );
+		}
+		if ( isset( $args['url'] ) ) {
+			$menu_item_data['menu-item-url'] = \esc_url_raw( (string) $args['url'] );
+		}
+		if ( isset( $args['order'] ) ) {
+			$menu_item_data['menu-item-position'] = \absint( $args['order'] );
+		}
+		if ( isset( $args['parent'] ) ) {
+			$menu_item_data['menu-item-parent-id'] = \absint( $args['parent'] );
+		}
+
+		if ( empty( $menu_item_data ) ) {
+			return false;
+		}
+
+		$menu_item_data['menu-item-status'] = 'publish';
+
+		$result = \wp_update_nav_menu_item(
+			0, // menu ID — 0 uses the item's existing menu
+			$item_id,
+			$menu_item_data
+		);
+
+		return ! \is_wp_error( $result );
+	}
+
+	/**
+	 * Detects the active SEO plugin by checking defined constants.
+	 *
+	 * Mirrors McpAbilities::detect_active_seo_plugin() for use in the queue context.
+	 * Returns 'yoast', 'rank_math', 'seopress', 'aioseo', or 'none'.
+	 *
+	 * @return string
+	 */
+	private function detect_active_seo_plugin_queue(): string {
+		if ( \defined( 'WPSEO_VERSION' ) ) {
+			return 'yoast';
+		}
+		if ( \defined( 'RANK_MATH_VERSION' ) ) {
+			return 'rank_math';
+		}
+		if ( \defined( 'SEOPRESS_VERSION' ) ) {
+			return 'seopress';
+		}
+		if ( \defined( 'AIOSEO_VERSION' ) ) {
+			return 'aioseo';
+		}
+		return 'none';
 	}
 }
