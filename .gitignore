@@ -44,7 +44,7 @@ pnpm-debug.log*
 .eslintcache
 
 # Scripts d'export local (non pertinents pour les contributeurs)
-export-theme.ps1
+/export-theme.ps1
 
 # Outils IA / assistants de développement (configurations locales, non pertinentes pour le dépôt)
 .claude/

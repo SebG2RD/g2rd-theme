@@ -28,7 +28,8 @@ g2rd-theme/
 │   ├── compile-mo.js             # Compilateur .po → .mo minimal (dev Windows, sans msgfmt)
 │   ├── audit-blocks.mjs          # Audit et validation des block.json
 │   ├── verify-release-version.sh # Vérifie l'alignement de version sur 5 fichiers
-│   └── verify-theme-zip.sh       # Vérifie la structure du ZIP de production
+│   ├── verify-theme-zip.sh       # Vérifie la structure du ZIP de production
+│   └── export-theme.ps1          # Script PowerShell export ZIP production
 ├── blocks/           # Blocs Gutenberg custom (un dossier par bloc)
 │   ├── blocks-manifest.php          # Auto-généré par build-blocks-manifest
 │   ├── shared/
@@ -186,7 +187,6 @@ g2rd-theme/
 ├── configuration.json
 ├── theme-settings.json              # Tokens de design (couleurs, typo, espacements)
 ├── theme-styles.json                # Styles déclaratifs FSE
-├── export-theme.ps1                 # Script PowerShell export ZIP production
 ├── functions.php
 ├── style.css                        # Métadonnées du thème (Text Domain: g2rd)
 └── theme.json                       # Configuration FSE de base (composé dynamiquement)
@@ -465,7 +465,7 @@ LiteSpeed Cache convertit tous les scripts en `type="litespeed/javascript"` (def
 
 ```powershell
 # Depuis la racine du projet (PowerShell)
-.\export-theme.ps1
+.\tools\export-theme.ps1
 # Génère : C:\Users\gerar\Downloads\Développement Web\G2RD-theme.zip
 ```
 
