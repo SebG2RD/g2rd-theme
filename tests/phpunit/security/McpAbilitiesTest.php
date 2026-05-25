@@ -47,12 +47,12 @@ final class McpAbilitiesTest extends TestCase {
 	// ── Test 1 : list_tools structure ─────────────────────────────────────────
 
 	/**
-	 * list_tools() returns exactly 5 tools (3 read-only + 2 write), each with required keys.
+	 * list_tools() returns exactly 34 tools (19 read-only + 15 write), each with required keys.
 	 */
 	public function test_list_tools_returns_five_tools(): void {
 		$tools = $this->abilities->list_tools();
 
-		$this->assertCount( 5, $tools );
+		$this->assertCount( 34, $tools );
 
 		$names = array_column( $tools, 'name' );
 		$this->assertContains( 'g2rd/get-site-info', $names );
@@ -240,8 +240,8 @@ final class McpAbilitiesTest extends TestCase {
 		$this->assertSame( 'My Post', $data['title'] );
 		$this->assertSame( 'publish', $data['status'] );
 		// Content should have HTML tags stripped.
-		$this->assertStringNotContainsString( '<p>', $data['content'] );
-		$this->assertStringContainsString( 'Hello', $data['content'] );
+		$this->assertStringNotContainsString( '<p>', $data['content_text'] );
+		$this->assertStringContainsString( 'Hello', $data['content_text'] );
 	}
 
 	// ── Test 6 : call() unknown tool ──────────────────────────────────────────

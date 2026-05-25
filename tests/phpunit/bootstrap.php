@@ -138,6 +138,7 @@ if (!class_exists('WP_Post')) {
         public string $post_excerpt     = '';
         public string $post_type        = 'post';
         public int    $post_author      = 1;
+        public int    $post_parent      = 0;
     }
 }
 
@@ -561,5 +562,43 @@ if (!function_exists('wp_remote_retrieve_body')) {
     function wp_remote_retrieve_body(mixed $response): string {
         if (is_wp_error($response)) { return ''; }
         return (string) ($response['body'] ?? '');
+    }
+}
+
+// ── Stubs added for MCP v1.17.0 (34 tools) ───────────────────────────────────
+
+if (!function_exists('is_multisite')) {
+    function is_multisite(): bool {
+        return false;
+    }
+}
+if (!function_exists('apply_filters')) {
+    function apply_filters(string $hook, mixed $value, mixed ...$args): mixed {
+        return $value;
+    }
+}
+if (!function_exists('get_the_category')) {
+    function get_the_category(int $post_id = 0): array {
+        return [];
+    }
+}
+if (!function_exists('get_the_tags')) {
+    function get_the_tags(int $post_id = 0): array|false {
+        return false;
+    }
+}
+if (!function_exists('get_post_thumbnail_id')) {
+    function get_post_thumbnail_id(int $post_id = 0): int {
+        return 0;
+    }
+}
+if (!function_exists('get_the_post_thumbnail_url')) {
+    function get_the_post_thumbnail_url(int $post_id = 0, string $size = 'post-thumbnail'): string|false {
+        return '';
+    }
+}
+if (!function_exists('get_page_template_slug')) {
+    function get_page_template_slug(int $post_id = 0): string {
+        return '';
     }
 }
