@@ -151,7 +151,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			1,
 			1,
 			'127.0.0.1',
-			'g2rd/create-post',
+			'g2rd_create-post',
 			[ 'title' => 'Hello World', 'status' => 'draft' ]
 		);
 
@@ -176,11 +176,11 @@ final class McpConfirmationQueueTest extends TestCase {
 	public function test_enqueue_sends_email(): void {
 		global $g2rd_wp_mail_log;
 
-		$this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd/create-post', [ 'title' => 'Test' ] );
+		$this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd_create-post', [ 'title' => 'Test' ] );
 
 		$this->assertCount( 1, $g2rd_wp_mail_log );
 		$this->assertSame( 'admin@example.com', $g2rd_wp_mail_log[0]['to'] );
-		$this->assertStringContainsString( 'g2rd/create-post', $g2rd_wp_mail_log[0]['message'] );
+		$this->assertStringContainsString( 'g2rd_create-post', $g2rd_wp_mail_log[0]['message'] );
 	}
 
 	/**
@@ -190,7 +190,7 @@ final class McpConfirmationQueueTest extends TestCase {
 		global $g2rd_wpdb_insert_return;
 		$g2rd_wpdb_insert_return = false;
 
-		$result = $this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd/create-post', [ 'title' => 'Fail' ] );
+		$result = $this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd_create-post', [ 'title' => 'Fail' ] );
 
 		$this->assertFalse( $result );
 	}
@@ -217,7 +217,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			'reject_token'  => str_repeat( 'c', 64 ),
 			'status'        => 'pending',
 			'expires_at'    => gmdate( 'Y-m-d H:i:s', time() - 1 ),
-			'ability_name'  => 'g2rd/create-post',
+			'ability_name'  => 'g2rd_create-post',
 			'arguments_enc' => '',
 			'user_id'       => 1,
 			'token_id'      => 1,
@@ -240,7 +240,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			'reject_token'  => str_repeat( 'e', 64 ),
 			'status'        => 'confirmed',
 			'expires_at'    => gmdate( 'Y-m-d H:i:s', time() + 900 ),
-			'ability_name'  => 'g2rd/create-post',
+			'ability_name'  => 'g2rd_create-post',
 			'arguments_enc' => '',
 			'user_id'       => 1,
 			'token_id'      => 1,
@@ -267,7 +267,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			'reject_token'  => str_repeat( '0', 64 ),
 			'status'        => 'pending',
 			'expires_at'    => gmdate( 'Y-m-d H:i:s', time() + 900 ),
-			'ability_name'  => 'g2rd/create-post',
+			'ability_name'  => 'g2rd_create-post',
 			'arguments_enc' => $arguments_enc,
 			'user_id'       => 1,
 			'token_id'      => 1,
@@ -294,7 +294,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			'reject_token'  => str_repeat( '2', 64 ),
 			'status'        => 'pending',
 			'expires_at'    => gmdate( 'Y-m-d H:i:s', time() + 900 ),
-			'ability_name'  => 'g2rd/create-post',
+			'ability_name'  => 'g2rd_create-post',
 			'arguments_enc' => $arguments_enc,
 			'user_id'       => 1,
 			'token_id'      => 1,
@@ -329,7 +329,7 @@ final class McpConfirmationQueueTest extends TestCase {
 			'reject_token'  => str_repeat( '5', 64 ),
 			'status'        => 'pending',
 			'expires_at'    => gmdate( 'Y-m-d H:i:s', time() + 900 ),
-			'ability_name'  => 'g2rd/create-post',
+			'ability_name'  => 'g2rd_create-post',
 			'arguments_enc' => '',
 			'user_id'       => 1,
 			'token_id'      => 1,

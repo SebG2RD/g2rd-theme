@@ -88,7 +88,7 @@ class McpConfirmationQueue {
 	 * @param int                  $user_id      WordPress user ID of the MCP token owner.
 	 * @param int                  $token_id     MCP API token row ID.
 	 * @param string               $ip_address   Client IP address.
-	 * @param string               $ability_name Tool name (e.g. 'g2rd/create-post').
+	 * @param string               $ability_name Tool name (e.g. 'g2rd_create-post').
 	 * @param array<string, mixed> $arguments    Tool arguments (plain text — encrypted before storage).
 	 * @return array{confirm_token: string, reject_token: string, expires_at: string}|false
 	 *   Confirmation handles on success, false on DB or encryption failure.
@@ -396,41 +396,41 @@ class McpConfirmationQueue {
 
 		try {
 			switch ( $ability_name ) {
-				case 'g2rd/create-post':
+				case 'g2rd_create-post':
 					return $this->exec_create_post( $arguments );
-				case 'g2rd/update-post':
+				case 'g2rd_update-post':
 					return $this->exec_update_post( $arguments );
-				case 'g2rd/delete-post':
+				case 'g2rd_delete-post':
 					return $this->exec_delete_post( $arguments );
-				case 'g2rd/update-post-meta':
+				case 'g2rd_update-post-meta':
 					return $this->exec_update_post_meta( $arguments );
-				case 'g2rd/update-seo-data':
+				case 'g2rd_update-seo-data':
 					return $this->exec_update_seo_data( $arguments );
-				case 'g2rd/create-redirection':
+				case 'g2rd_create-redirection':
 					return $this->exec_create_redirection( $arguments );
-				case 'g2rd/create-category':
+				case 'g2rd_create-category':
 					return $this->exec_create_category( $arguments );
-				case 'g2rd/create-tag':
+				case 'g2rd_create-tag':
 					return $this->exec_create_tag( $arguments );
-				case 'g2rd/update-media':
+				case 'g2rd_update-media':
 					return $this->exec_update_media( $arguments );
-				case 'g2rd/activate-plugin':
+				case 'g2rd_activate-plugin':
 					return $this->exec_activate_plugin( $arguments );
-				case 'g2rd/deactivate-plugin':
+				case 'g2rd_deactivate-plugin':
 					return $this->exec_deactivate_plugin( $arguments );
-				case 'g2rd/update-plugin':
+				case 'g2rd_update-plugin':
 					return $this->exec_update_plugin( $arguments );
-				case 'g2rd/update-option':
+				case 'g2rd_update-option':
 					return $this->exec_update_option( $arguments );
-				case 'g2rd/flush-cache':
+				case 'g2rd_flush-cache':
 					return $this->exec_flush_cache();
-				case 'g2rd/update-menu-item':
+				case 'g2rd_update-menu-item':
 					return $this->exec_update_menu_item( $arguments );
-				case 'g2rd/upload-media':
+				case 'g2rd_upload-media':
 					return $this->exec_upload_media( $arguments );
-				case 'g2rd/upload-media-base64':
+				case 'g2rd_upload-media-base64':
 					return $this->exec_upload_media_base64( $arguments );
-				case 'g2rd/delete-media':
+				case 'g2rd_delete-media':
 					return $this->exec_delete_media( $arguments );
 				default:
 					return false;

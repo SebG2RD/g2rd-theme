@@ -55,11 +55,11 @@ final class McpAbilitiesTest extends TestCase {
 		$this->assertCount( 37, $tools );
 
 		$names = array_column( $tools, 'name' );
-		$this->assertContains( 'g2rd/get-site-info', $names );
-		$this->assertContains( 'g2rd/list-posts', $names );
-		$this->assertContains( 'g2rd/get-post', $names );
-		$this->assertContains( 'g2rd/create-post', $names );
-		$this->assertContains( 'g2rd/update-post', $names );
+		$this->assertContains( 'g2rd_get-site-info', $names );
+		$this->assertContains( 'g2rd_list-posts', $names );
+		$this->assertContains( 'g2rd_get-post', $names );
+		$this->assertContains( 'g2rd_create-post', $names );
+		$this->assertContains( 'g2rd_update-post', $names );
 
 		foreach ( $tools as $tool ) {
 			$this->assertArrayHasKey( 'name', $tool );
@@ -77,10 +77,10 @@ final class McpAbilitiesTest extends TestCase {
 	 * get() returns the full tool definition including required_scope.
 	 */
 	public function test_get_returns_tool_definition(): void {
-		$tool = $this->abilities->get( 'g2rd/list-posts' );
+		$tool = $this->abilities->get( 'g2rd_list-posts' );
 
 		$this->assertNotNull( $tool );
-		$this->assertSame( 'g2rd/list-posts', $tool['name'] );
+		$this->assertSame( 'g2rd_list-posts', $tool['name'] );
 		$this->assertSame( 'read_only', $tool['required_scope'] );
 		$this->assertSame( 'read', $tool['wp_capability'] );
 	}
@@ -89,7 +89,7 @@ final class McpAbilitiesTest extends TestCase {
 	 * get() returns null for an unknown tool name.
 	 */
 	public function test_get_returns_null_for_unknown_tool(): void {
-		$this->assertNull( $this->abilities->get( 'g2rd/nonexistent' ) );
+		$this->assertNull( $this->abilities->get( 'g2rd_nonexistent' ) );
 	}
 
 	// ── Test 3 : get-site-info ────────────────────────────────────────────────
@@ -98,7 +98,7 @@ final class McpAbilitiesTest extends TestCase {
 	 * get-site-info returns site metadata in text/JSON content.
 	 */
 	public function test_get_site_info_returns_metadata(): void {
-		$result = $this->abilities->call( 'g2rd/get-site-info', [], $this->gate );
+		$result = $this->abilities->call( 'g2rd_get-site-info', [], $this->gate );
 
 		$this->assertFalse( $result['isError'] );
 		$this->assertSame( 'text', $result['content'][0]['type'] );
@@ -117,7 +117,7 @@ final class McpAbilitiesTest extends TestCase {
 	 */
 	public function test_list_posts_unknown_post_type_returns_error(): void {
 		$result = $this->abilities->call(
-			'g2rd/list-posts',
+			'g2rd_list-posts',
 			[ 'post_type' => 'nonexistent_type' ],
 			$this->gate
 		);
@@ -146,7 +146,7 @@ final class McpAbilitiesTest extends TestCase {
 			'max_num_pages' => 1,
 		];
 
-		$result = $this->abilities->call( 'g2rd/list-posts', [ 'per_page' => 5, 'page' => 1 ], $this->gate );
+		$result = $this->abilities->call( 'g2rd_list-posts', [ 'per_page' => 5, 'page' => 1 ], $this->gate );
 
 		$this->assertFalse( $result['isError'] );
 
@@ -166,7 +166,7 @@ final class McpAbilitiesTest extends TestCase {
 		global $g2rd_query_store;
 		$g2rd_query_store = [ 'posts' => [], 'found_posts' => 0, 'max_num_pages' => 1 ];
 
-		$result = $this->abilities->call( 'g2rd/list-posts', [ 'per_page' => 999 ], $this->gate );
+		$result = $this->abilities->call( 'g2rd_list-posts', [ 'per_page' => 999 ], $this->gate );
 
 		$this->assertFalse( $result['isError'] );
 		$data = json_decode( $result['content'][0]['text'], true );
@@ -179,7 +179,7 @@ final class McpAbilitiesTest extends TestCase {
 	 * get-post without post_id returns isError = true.
 	 */
 	public function test_get_post_missing_id_returns_error(): void {
-		$result = $this->abilities->call( 'g2rd/get-post', [], $this->gate );
+		$result = $this->abilities->call( 'g2rd_get-post', [], $this->gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'post_id', $result['content'][0]['text'] );
@@ -189,7 +189,7 @@ final class McpAbilitiesTest extends TestCase {
 	 * get-post with a non-existent post ID returns isError = true.
 	 */
 	public function test_get_post_not_found_returns_error(): void {
-		$result = $this->abilities->call( 'g2rd/get-post', [ 'post_id' => 9999 ], $this->gate );
+		$result = $this->abilities->call( 'g2rd_get-post', [ 'post_id' => 9999 ], $this->gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( '9999', $result['content'][0]['text'] );
@@ -206,7 +206,7 @@ final class McpAbilitiesTest extends TestCase {
 		$post->post_status = 'draft';
 		$g2rd_post_store[10] = $post;
 
-		$result = $this->abilities->call( 'g2rd/get-post', [ 'post_id' => 10 ], $this->gate );
+		$result = $this->abilities->call( 'g2rd_get-post', [ 'post_id' => 10 ], $this->gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'not accessible', $result['content'][0]['text'] );
@@ -231,7 +231,7 @@ final class McpAbilitiesTest extends TestCase {
 		$post->post_author     = 1;
 		$g2rd_post_store[7]    = $post;
 
-		$result = $this->abilities->call( 'g2rd/get-post', [ 'post_id' => 7 ], $this->gate );
+		$result = $this->abilities->call( 'g2rd_get-post', [ 'post_id' => 7 ], $this->gate );
 
 		$this->assertFalse( $result['isError'] );
 
@@ -250,7 +250,7 @@ final class McpAbilitiesTest extends TestCase {
 	 * call() with an unregistered tool name returns isError = true.
 	 */
 	public function test_call_unknown_tool_returns_error(): void {
-		$result = $this->abilities->call( 'g2rd/delete-everything', [], $this->gate );
+		$result = $this->abilities->call( 'g2rd_delete-everything', [], $this->gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'Unknown tool', $result['content'][0]['text'] );
@@ -262,8 +262,8 @@ final class McpAbilitiesTest extends TestCase {
 	 * get() returns the write tool definitions with correct required_scope.
 	 */
 	public function test_write_tools_have_editor_scope(): void {
-		$create = $this->abilities->get( 'g2rd/create-post' );
-		$update = $this->abilities->get( 'g2rd/update-post' );
+		$create = $this->abilities->get( 'g2rd_create-post' );
+		$update = $this->abilities->get( 'g2rd_update-post' );
 
 		$this->assertNotNull( $create );
 		$this->assertSame( 'editor', $create['required_scope'] );
@@ -279,7 +279,7 @@ final class McpAbilitiesTest extends TestCase {
 	 */
 	public function test_create_post_wrong_scope_returns_error(): void {
 		$gate   = array_merge( $this->gate, [ 'scope' => 'read_only' ] );
-		$result = $this->abilities->call( 'g2rd/create-post', [ 'title' => 'Test' ], $gate );
+		$result = $this->abilities->call( 'g2rd_create-post', [ 'title' => 'Test' ], $gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'editor scope', $result['content'][0]['text'] );
@@ -291,7 +291,7 @@ final class McpAbilitiesTest extends TestCase {
 	public function test_create_post_without_queue_returns_unavailable_error(): void {
 		$gate   = array_merge( $this->gate, [ 'scope' => 'editor', 'client_ip' => '127.0.0.1' ] );
 		// $this->abilities has no queue (constructed without one in setUp).
-		$result = $this->abilities->call( 'g2rd/create-post', [ 'title' => 'Test' ], $gate );
+		$result = $this->abilities->call( 'g2rd_create-post', [ 'title' => 'Test' ], $gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'unavailable', $result['content'][0]['text'] );
@@ -315,7 +315,7 @@ final class McpAbilitiesTest extends TestCase {
 		$abilities_with_queue = new McpAbilities( $queue_mock );
 		$gate = array_merge( $this->gate, [ 'scope' => 'editor', 'client_ip' => '127.0.0.1' ] );
 
-		$result = $abilities_with_queue->call( 'g2rd/create-post', [ 'title' => 'New Post' ], $gate );
+		$result = $abilities_with_queue->call( 'g2rd_create-post', [ 'title' => 'New Post' ], $gate );
 
 		$this->assertFalse( $result['isError'] );
 
@@ -343,7 +343,7 @@ final class McpAbilitiesTest extends TestCase {
 		$abilities_with_queue = new McpAbilities( $queue_mock );
 		$gate = array_merge( $this->gate, [ 'scope' => 'editor', 'client_ip' => '127.0.0.1' ] );
 
-		$result = $abilities_with_queue->call( 'g2rd/update-post', [ 'post_id' => 1, 'title' => 'Updated' ], $gate );
+		$result = $abilities_with_queue->call( 'g2rd_update-post', [ 'post_id' => 1, 'title' => 'Updated' ], $gate );
 
 		$this->assertFalse( $result['isError'] );
 
@@ -365,7 +365,7 @@ final class McpAbilitiesTest extends TestCase {
 		$abilities_with_queue = new McpAbilities( $queue_mock );
 		$gate = array_merge( $this->gate, [ 'scope' => 'editor', 'client_ip' => '127.0.0.1' ] );
 
-		$result = $abilities_with_queue->call( 'g2rd/create-post', [ 'title' => 'Fail' ], $gate );
+		$result = $abilities_with_queue->call( 'g2rd_create-post', [ 'title' => 'Fail' ], $gate );
 
 		$this->assertTrue( $result['isError'] );
 		$this->assertStringContainsString( 'Failed to enqueue', $result['content'][0]['text'] );

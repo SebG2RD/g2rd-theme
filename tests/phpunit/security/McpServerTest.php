@@ -270,7 +270,7 @@ final class McpServerTest extends TestCase {
 				'jsonrpc' => '2.0',
 				'method'  => 'tools/call',
 				'id'      => 6,
-				'params'  => [ 'name' => 'g2rd/nonexistent', 'arguments' => [] ],
+				'params'  => [ 'name' => 'g2rd_nonexistent', 'arguments' => [] ],
 			],
 			'g2rd_validtoken'
 		);
@@ -317,7 +317,7 @@ final class McpServerTest extends TestCase {
 				'jsonrpc' => '2.0',
 				'method'  => 'tools/call',
 				'id'      => 8,
-				'params'  => [ 'name' => 'g2rd/get-site-info', 'arguments' => [] ],
+				'params'  => [ 'name' => 'g2rd_get-site-info', 'arguments' => [] ],
 			],
 			'g2rd_validtoken'
 		);

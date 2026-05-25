@@ -72,8 +72,8 @@ class McpAbilities {
 		$this->registry = [
 
 			// ── Content read tools ─────────────────────────────────────────────
-			'g2rd/get-site-info'     => [
-				'name'           => 'g2rd/get-site-info',
+			'g2rd_get-site-info'     => [
+				'name'           => 'g2rd_get-site-info',
 				'description'    => 'Returns public WordPress site metadata: name, description, URL, language, WP version and timezone.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -82,8 +82,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/list-posts'        => [
-				'name'           => 'g2rd/list-posts',
+			'g2rd_list-posts'        => [
+				'name'           => 'g2rd_list-posts',
 				'description'    => 'Returns a paginated list of posts. With read_only scope only published posts are returned; editor scope unlocks non-publish statuses via the "status" parameter. Supports keyword search and category/tag filters.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -129,8 +129,8 @@ class McpAbilities {
 					],
 				],
 			],
-			'g2rd/get-post'          => [
-				'name'           => 'g2rd/get-post',
+			'g2rd_get-post'          => [
+				'name'           => 'g2rd_get-post',
 				'description'    => 'Returns a single post by ID with HTML content, plain-text content, categories, tags, featured image, template, SEO meta and author. With read_only scope only published posts are accessible; editor scope also returns draft, pending and private posts.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -146,8 +146,8 @@ class McpAbilities {
 					'required'   => [ 'post_id' ],
 				],
 			],
-			'g2rd/get-post-meta'     => [
-				'name'           => 'g2rd/get-post-meta',
+			'g2rd_get-post-meta'     => [
+				'name'           => 'g2rd_get-post-meta',
 				'description'    => 'Returns all meta fields for a post. Published posts are accessible with read_only scope; non-published posts require editor scope.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -165,8 +165,8 @@ class McpAbilities {
 			],
 
 			// ── Taxonomy read tools ────────────────────────────────────────────
-			'g2rd/list-categories'   => [
-				'name'           => 'g2rd/list-categories',
+			'g2rd_list-categories'   => [
+				'name'           => 'g2rd_list-categories',
 				'description'    => 'Returns all categories with ID, name, slug, description, parent ID and post count.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -175,8 +175,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/list-tags'         => [
-				'name'           => 'g2rd/list-tags',
+			'g2rd_list-tags'         => [
+				'name'           => 'g2rd_list-tags',
 				'description'    => 'Returns all tags with ID, name, slug, description and post count.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -187,8 +187,8 @@ class McpAbilities {
 			],
 
 			// ── Media read tools ───────────────────────────────────────────────
-			'g2rd/list-media'        => [
-				'name'           => 'g2rd/list-media',
+			'g2rd_list-media'        => [
+				'name'           => 'g2rd_list-media',
 				'description'    => 'Returns a paginated list of media library items with ID, URL, title, alt, mime type, dimensions and file size.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -215,8 +215,8 @@ class McpAbilities {
 					],
 				],
 			],
-			'g2rd/get-media'         => [
-				'name'           => 'g2rd/get-media',
+			'g2rd_get-media'         => [
+				'name'           => 'g2rd_get-media',
 				'description'    => 'Returns detailed information for a single media attachment.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -234,8 +234,8 @@ class McpAbilities {
 			],
 
 			// ── SEO read tools ─────────────────────────────────────────────────
-			'g2rd/get-seo-data'      => [
-				'name'           => 'g2rd/get-seo-data',
+			'g2rd_get-seo-data'      => [
+				'name'           => 'g2rd_get-seo-data',
 				'description'    => 'Returns SEO meta for a post: title, description, canonical URL, noindex flag, Open Graph fields and focus keyword. Auto-detects active SEO plugin (Yoast, Rank Math, SEOPress, AIOSEO).',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -251,8 +251,8 @@ class McpAbilities {
 					'required'   => [ 'post_id' ],
 				],
 			],
-			'g2rd/get-seo-overview'  => [
-				'name'           => 'g2rd/get-seo-overview',
+			'g2rd_get-seo-overview'  => [
+				'name'           => 'g2rd_get-seo-overview',
 				'description'    => 'Returns a site-wide SEO audit: count of published posts missing meta title, meta description, featured image, and posts marked noindex. Checks up to 500 most-recent published posts.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -261,8 +261,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/get-redirections'  => [
-				'name'           => 'g2rd/get-redirections',
+			'g2rd_get-redirections'  => [
+				'name'           => 'g2rd_get-redirections',
 				'description'    => 'Returns active URL redirections. Compatible with Redirection plugin and Rank Math.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -273,8 +273,8 @@ class McpAbilities {
 			],
 
 			// ── Admin read tools ───────────────────────────────────────────────
-			'g2rd/list-plugins'      => [
-				'name'           => 'g2rd/list-plugins',
+			'g2rd_list-plugins'      => [
+				'name'           => 'g2rd_list-plugins',
 				'description'    => 'Returns all installed plugins: name, version, active status, available update. Requires manage_options capability.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'manage_options',
@@ -283,8 +283,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/get-theme-info'    => [
-				'name'           => 'g2rd/get-theme-info',
+			'g2rd_get-theme-info'    => [
+				'name'           => 'g2rd_get-theme-info',
 				'description'    => 'Returns active theme details: name, version, template, available update.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -293,8 +293,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/list-themes'       => [
-				'name'           => 'g2rd/list-themes',
+			'g2rd_list-themes'       => [
+				'name'           => 'g2rd_list-themes',
 				'description'    => 'Returns all installed themes: name, version, active status.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -303,8 +303,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/get-options'       => [
-				'name'           => 'g2rd/get-options',
+			'g2rd_get-options'       => [
+				'name'           => 'g2rd_get-options',
 				'description'    => 'Returns a whitelisted set of WordPress site options (blogname, blogdescription, timezone, posts_per_page, etc.). Never exposes passwords, API keys or security salts. Requires manage_options capability.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'manage_options',
@@ -313,8 +313,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/get-users'         => [
-				'name'           => 'g2rd/get-users',
+			'g2rd_get-users'         => [
+				'name'           => 'g2rd_get-users',
 				'description'    => 'Returns a list of WordPress users: ID, display name, email, role and post count. Never exposes passwords or authentication tokens. Requires list_users capability.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'list_users',
@@ -339,8 +339,8 @@ class McpAbilities {
 			],
 
 			// ── System read tools ──────────────────────────────────────────────
-			'g2rd/get-site-health'   => [
-				'name'           => 'g2rd/get-site-health',
+			'g2rd_get-site-health'   => [
+				'name'           => 'g2rd_get-site-health',
 				'description'    => 'Returns server and WordPress health info: PHP version, WP version, MySQL version, HTTPS status, memory limits, available updates counts, active plugins count, debug mode. Requires manage_options.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'manage_options',
@@ -349,8 +349,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/get-cron-jobs'     => [
-				'name'           => 'g2rd/get-cron-jobs',
+			'g2rd_get-cron-jobs'     => [
+				'name'           => 'g2rd_get-cron-jobs',
 				'description'    => 'Returns all scheduled WP-Cron tasks: hook name, next run datetime (UTC) and recurrence interval.',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'manage_options',
@@ -359,8 +359,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/list-menus'        => [
-				'name'           => 'g2rd/list-menus',
+			'g2rd_list-menus'        => [
+				'name'           => 'g2rd_list-menus',
 				'description'    => 'Returns all navigation menus with their items (title, URL, parent, order, type).',
 				'required_scope' => 'read_only',
 				'wp_capability'  => 'read',
@@ -371,8 +371,8 @@ class McpAbilities {
 			],
 
 			// ── Write tools (editor scope — confirmation required) ─────────────
-			'g2rd/create-post'       => [
-				'name'           => 'g2rd/create-post',
+			'g2rd_create-post'       => [
+				'name'           => 'g2rd_create-post',
 				'description'    => 'Creates a new WordPress post. Requires administrator email confirmation before execution.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'edit_posts',
@@ -408,8 +408,8 @@ class McpAbilities {
 					'required'   => [ 'title' ],
 				],
 			],
-			'g2rd/update-post'       => [
-				'name'           => 'g2rd/update-post',
+			'g2rd_update-post'       => [
+				'name'           => 'g2rd_update-post',
 				'description'    => 'Updates an existing WordPress post: title, content, excerpt, status, categories, tags, featured image, slug, publish date and page template. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'edit_posts',
@@ -468,8 +468,8 @@ class McpAbilities {
 					'required'   => [ 'post_id' ],
 				],
 			],
-			'g2rd/delete-post'       => [
-				'name'           => 'g2rd/delete-post',
+			'g2rd_delete-post'       => [
+				'name'           => 'g2rd_delete-post',
 				'description'    => 'Moves a post to the trash. Never performs permanent deletion. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'delete_posts',
@@ -485,8 +485,8 @@ class McpAbilities {
 					'required'   => [ 'post_id' ],
 				],
 			],
-			'g2rd/update-post-meta'  => [
-				'name'           => 'g2rd/update-post-meta',
+			'g2rd_update-post-meta'  => [
+				'name'           => 'g2rd_update-post-meta',
 				'description'    => 'Updates a specific meta field for a post. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'edit_posts',
@@ -510,8 +510,8 @@ class McpAbilities {
 					'required'   => [ 'post_id', 'meta_key', 'meta_value' ],
 				],
 			],
-			'g2rd/update-seo-data'   => [
-				'name'           => 'g2rd/update-seo-data',
+			'g2rd_update-seo-data'   => [
+				'name'           => 'g2rd_update-seo-data',
 				'description'    => 'Updates SEO meta for a post via the detected SEO plugin (Yoast, Rank Math, SEOPress, AIOSEO). Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'edit_posts',
@@ -555,8 +555,8 @@ class McpAbilities {
 					'required'   => [ 'post_id' ],
 				],
 			],
-			'g2rd/create-redirection' => [
-				'name'           => 'g2rd/create-redirection',
+			'g2rd_create-redirection' => [
+				'name'           => 'g2rd_create-redirection',
 				'description'    => 'Creates a URL redirection. Requires the Redirection plugin to be active. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'manage_options',
@@ -581,8 +581,8 @@ class McpAbilities {
 					'required'   => [ 'source', 'target' ],
 				],
 			],
-			'g2rd/create-category'   => [
-				'name'           => 'g2rd/create-category',
+			'g2rd_create-category'   => [
+				'name'           => 'g2rd_create-category',
 				'description'    => 'Creates a new post category. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'manage_categories',
@@ -611,8 +611,8 @@ class McpAbilities {
 					'required'   => [ 'name' ],
 				],
 			],
-			'g2rd/create-tag'        => [
-				'name'           => 'g2rd/create-tag',
+			'g2rd_create-tag'        => [
+				'name'           => 'g2rd_create-tag',
 				'description'    => 'Creates a new post tag. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'manage_categories',
@@ -636,8 +636,8 @@ class McpAbilities {
 					'required'   => [ 'name' ],
 				],
 			],
-			'g2rd/update-media'      => [
-				'name'           => 'g2rd/update-media',
+			'g2rd_update-media'      => [
+				'name'           => 'g2rd_update-media',
 				'description'    => 'Updates media alt text, title, description and caption. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'upload_files',
@@ -669,8 +669,8 @@ class McpAbilities {
 					'required'   => [ 'media_id' ],
 				],
 			],
-			'g2rd/activate-plugin'   => [
-				'name'           => 'g2rd/activate-plugin',
+			'g2rd_activate-plugin'   => [
+				'name'           => 'g2rd_activate-plugin',
 				'description'    => 'Activates an installed plugin by its plugin file path (e.g. "akismet/akismet.php"). Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'activate_plugins',
@@ -685,8 +685,8 @@ class McpAbilities {
 					'required'   => [ 'plugin_file' ],
 				],
 			],
-			'g2rd/deactivate-plugin' => [
-				'name'           => 'g2rd/deactivate-plugin',
+			'g2rd_deactivate-plugin' => [
+				'name'           => 'g2rd_deactivate-plugin',
 				'description'    => 'Deactivates an active plugin. The G2RD theme and its core MCP plugin cannot be deactivated. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'activate_plugins',
@@ -701,8 +701,8 @@ class McpAbilities {
 					'required'   => [ 'plugin_file' ],
 				],
 			],
-			'g2rd/update-plugin'     => [
-				'name'           => 'g2rd/update-plugin',
+			'g2rd_update-plugin'     => [
+				'name'           => 'g2rd_update-plugin',
 				'description'    => 'Updates a plugin to its latest available version. Logs the previous version before updating. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'update_plugins',
@@ -717,8 +717,8 @@ class McpAbilities {
 					'required'   => [ 'plugin_file' ],
 				],
 			],
-			'g2rd/update-option'     => [
-				'name'           => 'g2rd/update-option',
+			'g2rd_update-option'     => [
+				'name'           => 'g2rd_update-option',
 				'description'    => 'Updates a whitelisted WordPress option. Allowed keys: blogname, blogdescription, timezone_string, date_format, time_format, posts_per_page, default_comment_status, default_ping_status, permalink_structure. All other keys are refused. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'manage_options',
@@ -748,8 +748,8 @@ class McpAbilities {
 					'required'   => [ 'option_key', 'option_value' ],
 				],
 			],
-			'g2rd/flush-cache'       => [
-				'name'           => 'g2rd/flush-cache',
+			'g2rd_flush-cache'       => [
+				'name'           => 'g2rd_flush-cache',
 				'description'    => 'Purges all active caches: WP object cache, WP Rocket, LiteSpeed Cache, W3 Total Cache, WP Super Cache. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'manage_options',
@@ -758,8 +758,8 @@ class McpAbilities {
 					'properties' => new \stdClass(),
 				],
 			],
-			'g2rd/update-menu-item'  => [
-				'name'           => 'g2rd/update-menu-item',
+			'g2rd_update-menu-item'  => [
+				'name'           => 'g2rd_update-menu-item',
 				'description'    => 'Updates a navigation menu item: title, URL, order and parent. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'edit_theme_options',
@@ -793,8 +793,8 @@ class McpAbilities {
 			],
 
 			// ── Media upload ──────────────────────────────────────────────────────
-			'g2rd/upload-media'      => [
-				'name'           => 'g2rd/upload-media',
+			'g2rd_upload-media'      => [
+				'name'           => 'g2rd_upload-media',
 				'description'    => 'Downloads an image from a URL and imports it into the WordPress media library. Allowed types: jpg, jpeg, png, gif, webp, svg, pdf. Max 10 MB. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'upload_files',
@@ -826,8 +826,8 @@ class McpAbilities {
 				],
 			],
 
-			'g2rd/upload-media-base64' => [
-				'name'           => 'g2rd/upload-media-base64',
+			'g2rd_upload-media-base64' => [
+				'name'           => 'g2rd_upload-media-base64',
 				'description'    => 'Imports a file from base64-encoded content into the WordPress media library. Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'upload_files',
@@ -859,8 +859,8 @@ class McpAbilities {
 				],
 			],
 
-			'g2rd/delete-media'      => [
-				'name'           => 'g2rd/delete-media',
+			'g2rd_delete-media'      => [
+				'name'           => 'g2rd_delete-media',
 				'description'    => 'Moves a media attachment to the trash (never permanently deleted). Requires administrator email confirmation.',
 				'required_scope' => 'editor',
 				'wp_capability'  => 'delete_posts',
@@ -904,7 +904,7 @@ class McpAbilities {
 	/**
 	 * Returns a tool definition by name, or null if not registered.
 	 *
-	 * @param string $name Tool name (e.g. 'g2rd/get-post').
+	 * @param string $name Tool name (e.g. 'g2rd_get-post').
 	 * @return array<string, mixed>|null
 	 */
 	public function get( string $name ): ?array {
@@ -927,64 +927,64 @@ class McpAbilities {
 
 		switch ( $name ) {
 			// ── Read tools ─────────────────────────────────────────────────────
-			case 'g2rd/get-site-info':
+			case 'g2rd_get-site-info':
 				return $this->exec_get_site_info();
-			case 'g2rd/list-posts':
+			case 'g2rd_list-posts':
 				return $this->exec_list_posts( $args, $gate_result );
-			case 'g2rd/get-post':
+			case 'g2rd_get-post':
 				return $this->exec_get_post( $args, $gate_result );
-			case 'g2rd/get-post-meta':
+			case 'g2rd_get-post-meta':
 				return $this->exec_get_post_meta( $args, $gate_result );
-			case 'g2rd/list-categories':
+			case 'g2rd_list-categories':
 				return $this->exec_list_categories();
-			case 'g2rd/list-tags':
+			case 'g2rd_list-tags':
 				return $this->exec_list_tags();
-			case 'g2rd/list-media':
+			case 'g2rd_list-media':
 				return $this->exec_list_media( $args );
-			case 'g2rd/get-media':
+			case 'g2rd_get-media':
 				return $this->exec_get_media( $args );
-			case 'g2rd/get-seo-data':
+			case 'g2rd_get-seo-data':
 				return $this->exec_get_seo_data( $args, $gate_result );
-			case 'g2rd/get-seo-overview':
+			case 'g2rd_get-seo-overview':
 				return $this->exec_get_seo_overview();
-			case 'g2rd/get-redirections':
+			case 'g2rd_get-redirections':
 				return $this->exec_get_redirections();
-			case 'g2rd/list-plugins':
+			case 'g2rd_list-plugins':
 				return $this->exec_list_plugins( $gate_result );
-			case 'g2rd/get-theme-info':
+			case 'g2rd_get-theme-info':
 				return $this->exec_get_theme_info();
-			case 'g2rd/list-themes':
+			case 'g2rd_list-themes':
 				return $this->exec_list_themes();
-			case 'g2rd/get-options':
+			case 'g2rd_get-options':
 				return $this->exec_get_options( $gate_result );
-			case 'g2rd/get-users':
+			case 'g2rd_get-users':
 				return $this->exec_get_users( $args, $gate_result );
-			case 'g2rd/get-site-health':
+			case 'g2rd_get-site-health':
 				return $this->exec_get_site_health( $gate_result );
-			case 'g2rd/get-cron-jobs':
+			case 'g2rd_get-cron-jobs':
 				return $this->exec_get_cron_jobs( $gate_result );
-			case 'g2rd/list-menus':
+			case 'g2rd_list-menus':
 				return $this->exec_list_menus();
 
 			// ── Write tools (enqueue for confirmation) ─────────────────────────
-			case 'g2rd/create-post':
-			case 'g2rd/update-post':
-			case 'g2rd/delete-post':
-			case 'g2rd/update-post-meta':
-			case 'g2rd/update-seo-data':
-			case 'g2rd/create-redirection':
-			case 'g2rd/create-category':
-			case 'g2rd/create-tag':
-			case 'g2rd/update-media':
-			case 'g2rd/activate-plugin':
-			case 'g2rd/deactivate-plugin':
-			case 'g2rd/update-plugin':
-			case 'g2rd/update-option':
-			case 'g2rd/flush-cache':
-			case 'g2rd/update-menu-item':
-			case 'g2rd/upload-media':
-			case 'g2rd/upload-media-base64':
-			case 'g2rd/delete-media':
+			case 'g2rd_create-post':
+			case 'g2rd_update-post':
+			case 'g2rd_delete-post':
+			case 'g2rd_update-post-meta':
+			case 'g2rd_update-seo-data':
+			case 'g2rd_create-redirection':
+			case 'g2rd_create-category':
+			case 'g2rd_create-tag':
+			case 'g2rd_update-media':
+			case 'g2rd_activate-plugin':
+			case 'g2rd_deactivate-plugin':
+			case 'g2rd_update-plugin':
+			case 'g2rd_update-option':
+			case 'g2rd_flush-cache':
+			case 'g2rd_update-menu-item':
+			case 'g2rd_upload-media':
+			case 'g2rd_upload-media-base64':
+			case 'g2rd_delete-media':
 				return $this->exec_enqueue_write( $name, $args, $gate_result );
 
 			default:
