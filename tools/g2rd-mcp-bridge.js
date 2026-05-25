@@ -81,9 +81,16 @@ rl.on( 'line', ( line ) => {
 		return;
 	}
 
+	const isNotification = ! ( 'id' in body );
+
 	postToWordPress( JSON.stringify( body ) )
 		.then( ( { body: raw, status } ) => {
 			process.stderr.write( '[g2rd-mcp-bridge] HTTP ' + status + ' ← ' + ( body.method || '?' ) + ' id=' + ( body.id ?? 'none' ) + '\n' );
+
+			// Notifications MCP (sans id) : le serveur retourne 202 sans corps.
+			// Le protocole MCP interdit de répondre à une notification — on ignore.
+			if ( isNotification || ( status === 202 && ! raw ) ) return;
+
 			process.stderr.write( '[g2rd-mcp-bridge] raw: ' + raw.slice( 0, 500 ) + ( raw.length > 500 ? '…' : '' ) + '\n' );
 
 			let parsed;
