@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.17.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.18.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.18.0**
+
+- **Feature** : Nouvel outil MCP `upload-media` — télécharge une image depuis une URL et l'importe dans la médiathèque WordPress (types autorisés : jpg, png, gif, webp, svg, pdf ; limite 10 Mo).
+- **Feature** : Nouvel outil MCP `upload-media-base64` — importe un fichier encodé en base64 dans la médiathèque (utile pour les images générées par Claude).
+- **Feature** : Nouvel outil MCP `delete-media` — déplace un attachment en corbeille (suppression permanente impossible).
+- **Refactor** : MCP passe de 34 à 37 outils.
 
 ### **1.17.0**
 
