@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.18.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.18.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.18.2**
+
+- **Fix** : support thème enfant dans `composeThemeJson()` — les couleurs définies dans le `theme.json` du thème enfant sont désormais fusionnées avec celles du parent (ajout + surcharge par slug). La clé de cache intègre le `mtime` du `theme.json` enfant pour une invalidation automatique à chaque modification.
 
 ### **1.18.1**
 

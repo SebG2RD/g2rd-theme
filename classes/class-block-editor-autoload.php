@@ -285,6 +285,12 @@ class BlockEditorAutoload {
             $mtimes[] = @filemtime($f);
         }
 
+        // Invalider le cache si le theme.json du thème enfant change
+        $child_dir = \get_stylesheet_directory();
+        if ($child_dir !== $dir) {
+            $mtimes[] = @filemtime($child_dir . '/theme.json');
+        }
+
         return 'g2rd_theme_json_' . md5(implode('_', $mtimes));
     }
 
@@ -323,6 +329,15 @@ class BlockEditorAutoload {
             return $theme_json;
         }
 
+        // Fusionner le theme.json du thème enfant s'il existe
+        $child_dir = \get_stylesheet_directory();
+        if ($child_dir !== $dir) {
+            $child_json = $this->loadJsonFile($child_dir . '/theme.json');
+            if (null !== $child_json) {
+                $theme_settings = $this->mergeChildSettings($theme_settings, $child_json);
+            }
+        }
+
         // Charger les variations de style
         $style_files = \glob($dir . '/styles/*.json') ?: [];
         $variations  = [];
@@ -347,6 +362,72 @@ class BlockEditorAutoload {
         }
 
         return $theme_json->update_with($new_data);
+    }
+
+    /**
+     * Fusionne les settings du thème enfant dans ceux du thème parent.
+     * Les tableaux indexés (palette, fontSizes…) sont concaténés ; en cas de slug
+     * identique, l'entrée enfant remplace celle du parent.
+     *
+     * @since 1.19.0
+     * @param array<string,mixed> $parent Données du thème parent (theme-settings.json).
+     * @param array<string,mixed> $child  Données du theme.json enfant.
+     * @return array<string,mixed>
+     */
+    private function mergeChildSettings(array $parent, array $child): array {
+        $child_settings = $child['settings'] ?? [];
+        if (empty($child_settings)) {
+            return $parent;
+        }
+
+        $merged = $parent;
+
+        // Fusion récursive des listes indexées par slug (palette, fontSizes, spacingScale…)
+        $slug_lists = [
+            ['color', 'palette'],
+            ['color', 'gradients'],
+            ['typography', 'fontSizes'],
+            ['typography', 'fontFamilies'],
+            ['spacing', 'spacingSizes'],
+            ['shadow', 'presets'],
+        ];
+
+        foreach ($slug_lists as $path) {
+            [$group, $key] = $path;
+            $child_items  = $child_settings[ $group ][ $key ] ?? [];
+            if (empty($child_items)) {
+                continue;
+            }
+
+            $parent_items = $merged['settings'][ $group ][ $key ] ?? [];
+
+            // Indexer le parent par slug pour permettre la surcharge
+            $indexed = [];
+            foreach ($parent_items as $item) {
+                $indexed[ $item['slug'] ] = $item;
+            }
+            foreach ($child_items as $item) {
+                $indexed[ $item['slug'] ] = $item;
+            }
+
+            $merged['settings'][ $group ][ $key ] = array_values($indexed);
+        }
+
+        // Fusion des valeurs scalaires du thème enfant (custom, layout, etc.)
+        foreach ($child_settings as $group => $values) {
+            if (!is_array($values)) {
+                $merged['settings'][ $group ] = $values;
+                continue;
+            }
+            // Ne pas écraser les listes déjà fusionnées ci-dessus
+            foreach ($values as $prop => $val) {
+                if (!is_array($val)) {
+                    $merged['settings'][ $group ][ $prop ] = $val;
+                }
+            }
+        }
+
+        return $merged;
     }
 
     /**
