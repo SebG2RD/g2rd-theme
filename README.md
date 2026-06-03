@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.18.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.19.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.19.0**
+
+- **theme.json enfant prioritaire** : le `theme.json` d'un thème enfant pilote désormais entièrement les réglages qu'il définit — palette, polices, espacements remplacent ceux du parent (deep-merge « enfant prioritaire ») ; les réglages absents héritent du parent.
+- **Point d'extension `externalTabs`** : onglet externalisable sur la page d'options (filtre PHP + hook JS) pour brancher des modules tiers.
+- **Bridge MCP — debug optionnel** : les traces du bridge stdio sont conditionnées à la variable `G2RD_MCP_DEBUG` (silencieuses par défaut).
+- **Maintenance** : montée de `@wordpress/scripts` (Dependabot).
 
 ### **1.18.2**
 
