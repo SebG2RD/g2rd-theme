@@ -136,7 +136,7 @@ export function TabLicenceAdmin() {
 					lorsque le client l'active dans <strong>Options G2RD → Licence</strong> sur son site.
 				</p>
 				<p style={ { color: '#646970', marginTop: -6, marginBottom: 16, fontSize: 12 } }>
-					Référence produit : nouvelles licences via FluentCart. SureCart reste limité à la compatibilité historique.
+					Référence produit : licences gérées via FluentCart.
 				</p>
 
 				{ notice && (
