@@ -174,9 +174,9 @@ class FluentCartSupport {
             return;
         }
 
-        // Vérifier que le produit existe bien dans WordPress (tout post type FluentCart)
+        // Vérifier que le produit existe bien dans WordPress (post type produit FluentCart)
         $post_type = \get_post_type($product_id);
-        if (!$post_type || !in_array($post_type, ['product', 'fc_product', 'fc-product', 'fluentcart-product'], true)) {
+        if (!$post_type || !in_array($post_type, ['fluent-products', 'product', 'fc_product', 'fc-product', 'fluentcart-product'], true)) {
             return;
         }
 
