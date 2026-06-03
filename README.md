@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.19.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.20.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.20.0**
+
+- **Téléchargement FluentCart (g2rd.fr)** : nouvel endpoint sécurisé `/download/g2rd-theme.zip?license=…` qui valide la licence et streame le ZIP depuis un cache local hors webroot, mis à jour automatiquement à chaque release.
+- **Livraison automatisée** : lien de téléchargement de la dernière version ajouté dans l'email d'achat et dans l'espace client (onglet Licences).
+- **Admin licences** : alignement de l'onglet de gestion des licences (TabLicenceAdmin).
 
 ### **1.19.0**
 
