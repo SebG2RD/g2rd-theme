@@ -63,6 +63,59 @@ class AiClient {
 			);
 		}
 
+		// 1. Connecteur WordPress AI Client (plugin « AI » + providers) si disponible.
+		$via_connector = $this->complete_via_connector( $prompt );
+		if ( null !== $via_connector ) {
+			return $via_connector;
+		}
+
+		// 2. Fallback : appel direct à l'API Anthropic.
+		return $this->complete_direct( $prompt, $args );
+	}
+
+	/**
+	 * Tente la génération via le connecteur WordPress AI Client.
+	 *
+	 * Retourne null si le connecteur est absent/non configuré ou échoue, afin de
+	 * basculer proprement sur le client direct (try/catch défensif : l'API exacte
+	 * du plugin peut évoluer).
+	 *
+	 * @param string $prompt Prompt déjà sanitisé.
+	 * @return string|\WP_Error|null
+	 */
+	private function complete_via_connector( string $prompt ): string|\WP_Error|null {
+		$class = '\WordPress\AiClient\AiClient';
+
+		if ( ! \class_exists( $class ) ) {
+			return null;
+		}
+
+		try {
+			if ( \method_exists( $class, 'isConfigured' ) && ! $class::isConfigured() ) {
+				return null;
+			}
+
+			$text = $class::prompt( $prompt )->generateText();
+			$text = \is_string( $text ) ? \trim( $text ) : '';
+
+			return ( '' !== $text ) ? \sanitize_textarea_field( $text ) : null;
+		} catch ( \Throwable $e ) {
+			if ( \defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- diagnostic conditionné à WP_DEBUG
+				\error_log( 'G2RD AiClient : connecteur indisponible, fallback direct — ' . $e->getMessage() );
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Appel direct à l'API Anthropic (fallback quand le connecteur est absent).
+	 *
+	 * @param string               $prompt Prompt à envoyer.
+	 * @param array<string, mixed> $args   Arguments optionnels (max_tokens…).
+	 * @return string|\WP_Error Réponse textuelle ou WP_Error.
+	 */
+	private function complete_direct( string $prompt, array $args = [] ): string|\WP_Error {
 		$settings = \get_option( AiModule::OPTION_KEY, [] );
 		$api_key  = \is_array( $settings ) ? ( $settings['api_key'] ?? '' ) : '';
 
@@ -134,6 +187,22 @@ class AiClient {
 	 * @return bool
 	 */
 	public static function is_available(): bool {
+		// Connecteur WordPress AI Client configuré ?
+		$class = '\WordPress\AiClient\AiClient';
+		if ( \class_exists( $class ) ) {
+			try {
+				if ( ! \method_exists( $class, 'isConfigured' ) || $class::isConfigured() ) {
+					return true;
+				}
+			} catch ( \Throwable $e ) {
+				if ( \defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- diagnostic conditionné à WP_DEBUG
+					\error_log( 'G2RD AiClient::is_available : ' . $e->getMessage() );
+				}
+			}
+		}
+
+		// Sinon, clé API directe configurée ?
 		$settings = \get_option( AiModule::OPTION_KEY, [] );
 		return \is_array( $settings ) && ! empty( $settings['api_key'] );
 	}
