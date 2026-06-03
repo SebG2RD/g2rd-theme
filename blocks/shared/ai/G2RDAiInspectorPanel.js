@@ -17,8 +17,6 @@ import { __, sprintf }                    from '@wordpress/i18n';
 import { InspectorControls }              from '@wordpress/block-editor';
 import {
 	PanelBody,
-	SelectControl,
-	TextControl,
 	Button,
 } from '@wordpress/components';
 
@@ -53,13 +51,6 @@ const BLOCK_ACTIONS = {
 	],
 };
 
-const TONE_OPTIONS = [
-	{ label: 'Professionnel', value: 'professionnel' },
-	{ label: 'Décontracté',   value: 'decontracte' },
-	{ label: 'Technique',     value: 'technique' },
-	{ label: 'Humain',        value: 'humain' },
-];
-
 // ──────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -76,21 +67,17 @@ export function G2RDAiInspectorPanel( { blockType, attributes, setAttributes } )
 		return null;
 	}
 
-	const [ activity, setActivity ]           = useState( '' );
-	const [ city, setCity ]                   = useState( '' );
-	const [ tone, setTone ]                   = useState( config.tone ?? 'professionnel' );
 	const [ currentAction, setCurrentAction ] = useState( null );
 
 	const { generate, loading, result, parsed, error, reset } = useG2RDAi();
 
+	// Le contexte (activité, ville, ton) vient désormais du Profil du site, injecté
+	// côté serveur. On n'envoie plus que le contexte propre au bloc courant.
 	const ctx = useMemo( () => ( {
-		activity,
-		city,
-		tone,
 		language:         config.language ?? 'fr',
 		existing_content: attributes?.heading ?? attributes?.content ?? '',
 		service:          attributes?.title   ?? '',
-	} ), [ activity, city, tone, attributes, config.language ] );
+	} ), [ attributes, config.language ] );
 
 	const handleAction = useCallback( async ( action ) => {
 		if ( ! config.connectorReady ) {
@@ -148,29 +135,9 @@ export function G2RDAiInspectorPanel( { blockType, attributes, setAttributes } )
 					/>
 				) }
 
-				<TextControl
-					label={ __( 'Activité', 'g2rd' ) }
-					value={ activity }
-					onChange={ setActivity }
-					placeholder={ __( 'Ex. agence web…', 'g2rd' ) }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-				/>
-				<TextControl
-					label={ __( 'Ville', 'g2rd' ) }
-					value={ city }
-					onChange={ setCity }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-				/>
-				<SelectControl
-					label={ __( 'Ton', 'g2rd' ) }
-					value={ tone }
-					options={ TONE_OPTIONS }
-					onChange={ setTone }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-				/>
+				<p className="g2rd-ai-panel-hint">
+					{ __( 'Le contexte (activité, ville, ton) provient du Profil du site : Options G2RD → IA.', 'g2rd' ) }
+				</p>
 
 				<div
 					className="g2rd-ai-actions"
