@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.20.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.0**
+
+- **Profil du site IA** : le contexte (activité, ville, cible, ton) se saisit une seule fois dans Options G2RD → IA, puis est réinjecté automatiquement dans toutes les générations — fini la re-saisie dans chaque bloc.
+- **Connecteur WordPress AI** : l'inférence passe par le WordPress AI Client (providers Anthropic/OpenAI) avec repli automatique sur l'appel direct Anthropic.
+- **Panneau IA simplifié** dans les blocs (Hero, FAQ, CTA, Tarifs, Témoignage, Card) : plus de champs de contexte répétés.
+- **Fix FluentCart** : reconnaissance du post type produit `fluent-products` (mise à jour de la version produit à chaque release).
 
 ### **1.20.0**
 
