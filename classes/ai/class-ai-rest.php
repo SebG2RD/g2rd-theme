@@ -34,10 +34,15 @@ class AiRest {
 			'/ai/generate-social'    => 'handle_generate_social',
 			'/ai/suggest-links'      => 'handle_suggest_links',
 			'/ai/settings'           => 'handle_settings',
+			'/ai/profile'            => 'handle_profile',
 		];
 
+		$dual_method_routes = [ '/ai/settings', '/ai/profile' ];
+
 		foreach ( $routes as $route => $method ) {
-			$http_method = '/ai/settings' === $route ? [ \WP_REST_Server::READABLE, \WP_REST_Server::CREATABLE ] : \WP_REST_Server::CREATABLE;
+			$http_method = \in_array( $route, $dual_method_routes, true )
+				? [ \WP_REST_Server::READABLE, \WP_REST_Server::CREATABLE ]
+				: \WP_REST_Server::CREATABLE;
 
 			\register_rest_route(
 				AiModule::REST_NAMESPACE,
@@ -271,6 +276,39 @@ class AiRest {
 		return new \WP_REST_Response( $settings, 200 );
 	}
 
+	/**
+	 * GET|POST /g2rd/v1/ai/profile.
+	 *
+	 * GET : lecture du profil du site (utilisé pour pré-remplir les générations).
+	 * POST : sauvegarde du profil (admin uniquement). Source unique du contexte —
+	 * remplace les champs activité/ville/ton re-saisis dans chaque bloc.
+	 *
+	 * @param \WP_REST_Request $request Requête.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function handle_profile( \WP_REST_Request $request ): \WP_REST_Response|\WP_Error {
+		if ( \WP_REST_Server::CREATABLE === $request->get_method() ) {
+			if ( ! \current_user_can( 'manage_options' ) ) {
+				return new \WP_Error( 'ai_profile_forbidden', \esc_html__( 'Accès interdit.', 'g2rd' ), [ 'status' => 403 ] );
+			}
+
+			$incoming = $request->get_param( 'profile' );
+			if ( ! \is_array( $incoming ) ) {
+				return new \WP_Error( 'ai_profile_invalid', \esc_html__( 'Données invalides.', 'g2rd' ), [ 'status' => 400 ] );
+			}
+
+			$clean = [
+				'activity' => \sanitize_text_field( (string) ( $incoming['activity'] ?? '' ) ),
+				'city'     => \sanitize_text_field( (string) ( $incoming['city'] ?? '' ) ),
+				'target'   => \sanitize_text_field( (string) ( $incoming['target'] ?? '' ) ),
+				'tone'     => \sanitize_key( (string) ( $incoming['tone'] ?? 'professionnel' ) ),
+			];
+			\update_option( AiModule::PROFILE_KEY, $clean, false );
+		}
+
+		return new \WP_REST_Response( [ 'profile' => AiModule::get_profile() ], 200 );
+	}
+
 	// ──────────────────────────────────────────────────────────────────────
 	// HELPERS PRIVÉS
 	// ──────────────────────────────────────────────────────────────────────
@@ -413,20 +451,29 @@ class AiRest {
 	 * @return array<string, string>
 	 */
 	private function sanitize_context( mixed $raw ): array {
-		if ( ! \is_array( $raw ) ) {
-			return [];
+		$clean = [];
+
+		if ( \is_array( $raw ) ) {
+			$allowed_keys = [
+				'activity', 'city', 'service', 'target', 'tone', 'language',
+				'length', 'existing_content', 'keywords', 'objective', 'zone',
+				'pages_list', 'post_type',
+			];
+
+			foreach ( $allowed_keys as $key ) {
+				if ( isset( $raw[ $key ] ) ) {
+					$clean[ $key ] = \sanitize_textarea_field( (string) $raw[ $key ] );
+				}
+			}
 		}
 
-		$allowed_keys = [
-			'activity', 'city', 'service', 'target', 'tone', 'language',
-			'length', 'existing_content', 'keywords', 'objective', 'zone',
-			'pages_list', 'post_type',
-		];
-
-		$clean = [];
-		foreach ( $allowed_keys as $key ) {
-			if ( isset( $raw[ $key ] ) ) {
-				$clean[ $key ] = \sanitize_textarea_field( (string) $raw[ $key ] );
+		// Profil du site : réinjecté comme valeurs par défaut quand le frontend ne
+		// les fournit pas. Source unique du contexte → fini la re-saisie par bloc.
+		// Une valeur explicite venant de la requête a toujours priorité.
+		$profile = AiModule::get_profile();
+		foreach ( [ 'activity', 'city', 'target', 'tone' ] as $key ) {
+			if ( '' !== (string) $profile[ $key ] && empty( $clean[ $key ] ) ) {
+				$clean[ $key ] = $profile[ $key ];
 			}
 		}
 
