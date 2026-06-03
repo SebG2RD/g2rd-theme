@@ -12,6 +12,14 @@ import {
 import apiFetch from '@wordpress/api-fetch';
 
 const AI_ENDPOINT = '/g2rd/v1/ai/settings';
+const PROFILE_ENDPOINT = '/g2rd/v1/ai/profile';
+
+const PROFILE_DEFAULTS = {
+	activity: '',
+	city:     '',
+	target:   '',
+	tone:     'professionnel',
+};
 
 const TONE_OPTIONS = [
 	{ label: 'Professionnel', value: 'professionnel' },
@@ -38,6 +46,7 @@ const DEFAULTS = {
 
 export function TabIA() {
 	const [ aiSettings,    setAiSettings ]    = useState( DEFAULTS );
+	const [ profile,       setProfile ]       = useState( PROFILE_DEFAULTS );
 	const [ loading,       setLoading ]       = useState( true );
 	const [ saving,        setSaving ]        = useState( false );
 	const [ notice,        setNotice ]        = useState( null );
@@ -49,8 +58,12 @@ export function TabIA() {
 	const [ apiKeyValue,   setApiKeyValue ]   = useState( '' );
 
 	useEffect( () => {
-		apiFetch( { path: AI_ENDPOINT } )
-			.then( ( data ) => {
+		// Requêtes parallèles (pas de cascade) : réglages + profil.
+		Promise.all( [
+			apiFetch( { path: AI_ENDPOINT } ).catch( () => null ),
+			apiFetch( { path: PROFILE_ENDPOINT } ).catch( () => null ),
+		] )
+			.then( ( [ data, profileData ] ) => {
 				if ( data && typeof data === 'object' ) {
 					setAiSettings( ( prev ) => ( { ...prev, ...data } ) );
 					setApiKeySet( !! data.api_key_set );
@@ -58,16 +71,22 @@ export function TabIA() {
 					if ( ! data.api_key_set ) {
 						setApiKeyEditing( true );
 					}
+				} else {
+					setNotice( { type: 'error', message: 'Impossible de charger les paramètres IA.' } );
 				}
-			} )
-			.catch( () => {
-				setNotice( { type: 'error', message: 'Impossible de charger les paramètres IA.' } );
+				if ( profileData && profileData.profile ) {
+					setProfile( ( prev ) => ( { ...prev, ...profileData.profile } ) );
+				}
 			} )
 			.finally( () => setLoading( false ) );
 	}, [] );
 
 	const set = useCallback( ( key, value ) => {
 		setAiSettings( ( prev ) => ( { ...prev, [ key ]: value } ) );
+	}, [] );
+
+	const setProfileField = useCallback( ( key, value ) => {
+		setProfile( ( prev ) => ( { ...prev, [ key ]: value } ) );
 	}, [] );
 
 	const handleSave = useCallback( () => {
@@ -83,13 +102,13 @@ export function TabIA() {
 			payload.api_key = apiKeyValue.trim();
 		}
 
-		apiFetch( {
-			path:   AI_ENDPOINT,
-			method: 'POST',
-			data:   payload,
-		} )
+		// Réglages + profil enregistrés en parallèle.
+		Promise.all( [
+			apiFetch( { path: AI_ENDPOINT, method: 'POST', data: payload } ),
+			apiFetch( { path: PROFILE_ENDPOINT, method: 'POST', data: { profile } } ),
+		] )
 			.then( () => {
-				setNotice( { type: 'success', message: 'Paramètres IA enregistrés.' } );
+				setNotice( { type: 'success', message: 'Réglages IA et profil du site enregistrés.' } );
 				if ( apiKeyEditing && apiKeyValue.trim() ) {
 					const k = apiKeyValue.trim();
 					setApiKeySet( true );
@@ -102,7 +121,7 @@ export function TabIA() {
 				setNotice( { type: 'error', message: err?.message || 'Erreur lors de la sauvegarde.' } );
 			} )
 			.finally( () => setSaving( false ) );
-	}, [ aiSettings, apiKeyEditing, apiKeyValue ] );
+	}, [ aiSettings, apiKeyEditing, apiKeyValue, profile ] );
 
 	if ( loading ) {
 		return (
@@ -124,6 +143,54 @@ export function TabIA() {
 					{ notice.message }
 				</Notice>
 			) }
+
+			{ /* ── Profil du site (capturé une fois, réutilisé partout) ── */ }
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-id"></span>
+					Profil du site
+				</h2>
+				<p className="g2rd-section__desc">
+					Saisi <strong>une seule fois</strong> ici, puis réutilisé automatiquement par toutes
+					les générations IA (blocs, pages, articles…). Plus besoin de re-saisir l'activité ou
+					la ville dans chaque bloc.
+				</p>
+
+				<div className="g2rd-settings-grid">
+					<TextControl
+						label="Activité"
+						placeholder="Ex. Apiculture artisanale"
+						value={ profile.activity }
+						onChange={ ( val ) => setProfileField( 'activity', val ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+					<TextControl
+						label="Ville / zone"
+						placeholder="Ex. Villiers-sous-Grez"
+						value={ profile.city }
+						onChange={ ( val ) => setProfileField( 'city', val ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+					<TextControl
+						label="Cible"
+						placeholder="Ex. Particuliers gourmets"
+						value={ profile.target }
+						onChange={ ( val ) => setProfileField( 'target', val ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+					<SelectControl
+						label="Ton par défaut"
+						value={ profile.tone }
+						options={ TONE_OPTIONS }
+						onChange={ ( val ) => setProfileField( 'tone', val ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+				</div>
+			</section>
 
 			{ /* ── Clé API Anthropic ───────────────────────────────────── */ }
 			<section className="g2rd-section">

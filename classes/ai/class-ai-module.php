@@ -59,6 +59,39 @@ class AiModule {
 	];
 
 	/**
+	 * Clé d'option du profil du site (refonte AI Studio).
+	 * Capturé une fois, réinjecté côté serveur dans tous les prompts.
+	 *
+	 * @var string
+	 */
+	public const PROFILE_KEY = 'g2rd_ai_profile';
+
+	/**
+	 * Valeurs par défaut du profil du site.
+	 *
+	 * @var array<string, string>
+	 */
+	private const PROFILE_DEFAULTS = [
+		'activity' => '',
+		'city'     => '',
+		'target'   => '',
+		'tone'     => 'professionnel',
+	];
+
+	/**
+	 * Retourne le profil du site (fusionné avec les valeurs par défaut).
+	 *
+	 * @return array<string, string>
+	 */
+	public static function get_profile(): array {
+		$saved = \get_option( self::PROFILE_KEY, [] );
+		if ( ! \is_array( $saved ) ) {
+			$saved = [];
+		}
+		return \array_merge( self::PROFILE_DEFAULTS, $saved );
+	}
+
+	/**
 	 * Enregistre les hooks WordPress.
 	 *
 	 * @return void
