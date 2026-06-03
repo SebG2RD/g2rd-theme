@@ -39,6 +39,14 @@ const { URL }  = require( 'url' );
 const MCP_URL   = ( process.env.G2RD_MCP_URL   || '' ).trim();
 const MCP_TOKEN = ( process.env.G2RD_MCP_TOKEN  || '' ).trim();
 
+// Debug optionnel : activer avec G2RD_MCP_DEBUG=1 (ou true/yes/on).
+// Les traces vont toujours sur stderr — jamais sur stdout, qui est réservé
+// au flux JSON-RPC du protocole MCP.
+const DEBUG = /^(1|true|yes|on)$/i.test( ( process.env.G2RD_MCP_DEBUG || '' ).trim() );
+const dbg   = ( msg ) => {
+	if ( DEBUG ) process.stderr.write( '[g2rd-mcp-bridge] ' + msg + '\n' );
+};
+
 if ( ! MCP_URL ) {
 	process.stderr.write( '[g2rd-mcp-bridge] Erreur : G2RD_MCP_URL est requis.\n' );
 	process.exit( 1 );
@@ -85,20 +93,20 @@ rl.on( 'line', ( line ) => {
 
 	postToWordPress( JSON.stringify( body ) )
 		.then( ( { body: raw, status } ) => {
-			process.stderr.write( '[g2rd-mcp-bridge] HTTP ' + status + ' ← ' + ( body.method || '?' ) + ' id=' + ( body.id ?? 'none' ) + '\n' );
+			dbg( 'HTTP ' + status + ' ← ' + ( body.method || '?' ) + ' id=' + ( body.id ?? 'none' ) );
 
 			// Notifications MCP (sans id) : le serveur retourne 202 sans corps.
 			// Le protocole MCP interdit de répondre à une notification — on ignore.
 			if ( isNotification || ( status === 202 && ! raw ) ) return;
 
-			process.stderr.write( '[g2rd-mcp-bridge] raw: ' + raw.slice( 0, 500 ) + ( raw.length > 500 ? '…' : '' ) + '\n' );
+			dbg( 'raw: ' + raw.slice( 0, 500 ) + ( raw.length > 500 ? '…' : '' ) );
 
 			let parsed;
 			try {
 				// Supprimer un éventuel BOM UTF-8 avant le JSON.
 				parsed = JSON.parse( raw.replace( /^\xef\xbb\xbf/, '' ) );
 			} catch {
-				process.stderr.write( '[g2rd-mcp-bridge] parse error — raw non-JSON\n' );
+				dbg( 'parse error — raw non-JSON' );
 				writeStdout( {
 					jsonrpc: '2.0',
 					error:   { code: -32603, message: 'Invalid JSON from server (HTTP ' + status + ')' },
@@ -127,7 +135,7 @@ rl.on( 'line', ( line ) => {
 				? -32000 - parseInt( parsed.data.status, 10 )
 				: -32603;
 
-			process.stderr.write( '[g2rd-mcp-bridge] WP error wrapped: ' + JSON.stringify( parsed ) + '\n' );
+			dbg( 'WP error wrapped: ' + JSON.stringify( parsed ) );
 			writeStdout( {
 				jsonrpc: '2.0',
 				error:   { code: wpCode, message: wpMsg, data: parsed },
@@ -135,7 +143,7 @@ rl.on( 'line', ( line ) => {
 			} );
 		} )
 		.catch( ( err ) => {
-			process.stderr.write( '[g2rd-mcp-bridge] network error: ' + String( err.message || err ) + '\n' );
+			dbg( 'network error: ' + String( err.message || err ) );
 			writeStdout( {
 				jsonrpc: '2.0',
 				error:   { code: -32603, message: String( err.message || err ) },

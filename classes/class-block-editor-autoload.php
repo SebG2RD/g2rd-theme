@@ -366,8 +366,15 @@ class BlockEditorAutoload {
 
     /**
      * Fusionne les settings du thème enfant dans ceux du thème parent.
-     * Les tableaux indexés (palette, fontSizes…) sont concaténés ; en cas de slug
-     * identique, l'entrée enfant remplace celle du parent.
+     *
+     * Règle générale : un paramètre **défini dans l'enfant prend le dessus** ; un
+     * paramètre **absent de l'enfant** conserve la valeur du parent.
+     *
+     * - Listes séquentielles (palette, gradients, fontSizes, fontFamilies,
+     *   spacingSizes, shadows, aspectRatios…) : si l'enfant en fournit une, elle
+     *   REMPLACE intégralement celle du parent (pas de fusion par index/slug).
+     * - Objets associatifs (custom, layout, drapeaux color…) : fusion récursive,
+     *   l'enfant écrasant clé par clé, le reste du parent étant conservé.
      *
      * @since 1.19.0
      * @param array<string,mixed> $parent Données du thème parent (theme-settings.json).
@@ -380,54 +387,59 @@ class BlockEditorAutoload {
             return $parent;
         }
 
-        $merged = $parent;
+        $parent['settings'] = $this->deepMergeChildSettings(
+            $parent['settings'] ?? [],
+            $child_settings
+        );
 
-        // Fusion récursive des listes indexées par slug (palette, fontSizes, spacingScale…)
-        $slug_lists = [
-            ['color', 'palette'],
-            ['color', 'gradients'],
-            ['typography', 'fontSizes'],
-            ['typography', 'fontFamilies'],
-            ['spacing', 'spacingSizes'],
-            ['shadow', 'presets'],
-        ];
+        return $parent;
+    }
 
-        foreach ($slug_lists as $path) {
-            [$group, $key] = $path;
-            $child_items  = $child_settings[ $group ][ $key ] ?? [];
-            if (empty($child_items)) {
-                continue;
-            }
+    /**
+     * Fusion récursive « l'enfant prend le dessus ».
+     *
+     * Les objets associatifs sont fusionnés clé par clé ; les listes séquentielles
+     * (palette, polices…) et les valeurs scalaires de l'enfant remplacent entièrement
+     * celles du parent. Une clé absente de l'enfant garde la valeur du parent.
+     *
+     * @since 1.19.0
+     * @param array<string,mixed> $parent Valeurs du parent.
+     * @param array<string,mixed> $child  Valeurs de l'enfant (prioritaires).
+     * @return array<string,mixed>
+     */
+    private function deepMergeChildSettings(array $parent, array $child): array {
+        foreach ($child as $key => $child_val) {
+            $parent_val = $parent[ $key ] ?? null;
 
-            $parent_items = $merged['settings'][ $group ][ $key ] ?? [];
-
-            // Indexer le parent par slug pour permettre la surcharge
-            $indexed = [];
-            foreach ($parent_items as $item) {
-                $indexed[ $item['slug'] ] = $item;
-            }
-            foreach ($child_items as $item) {
-                $indexed[ $item['slug'] ] = $item;
-            }
-
-            $merged['settings'][ $group ][ $key ] = array_values($indexed);
-        }
-
-        // Fusion des valeurs scalaires du thème enfant (custom, layout, etc.)
-        foreach ($child_settings as $group => $values) {
-            if (!is_array($values)) {
-                $merged['settings'][ $group ] = $values;
-                continue;
-            }
-            // Ne pas écraser les listes déjà fusionnées ci-dessus
-            foreach ($values as $prop => $val) {
-                if (!is_array($val)) {
-                    $merged['settings'][ $group ][ $prop ] = $val;
-                }
+            if (
+                is_array($child_val)
+                && is_array($parent_val)
+                && ! $this->isList($child_val)
+                && ! $this->isList($parent_val)
+            ) {
+                // Deux objets associatifs → fusion récursive.
+                $parent[ $key ] = $this->deepMergeChildSettings($parent_val, $child_val);
+            } else {
+                // Liste séquentielle, scalaire, ou clé absente du parent → remplacement.
+                $parent[ $key ] = $child_val;
             }
         }
 
-        return $merged;
+        return $parent;
+    }
+
+    /**
+     * Indique si un tableau est une liste séquentielle (clés 0..n-1).
+     * Équivalent d'array_is_list() (PHP 8.1+), réécrit pour la compat PHP 8.0.
+     *
+     * @param array<mixed> $array Tableau à tester.
+     * @return bool
+     */
+    private function isList(array $array): bool {
+        if ([] === $array) {
+            return true;
+        }
+        return \array_keys($array) === \range(0, \count($array) - 1);
     }
 
     /**
