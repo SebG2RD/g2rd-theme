@@ -661,6 +661,41 @@ class LicenseServer {
     }
 
     /**
+     * Valide une clé de licence pour un téléchargement (validation clé-seule,
+     * sans exigence d'activation de domaine — le download précède l'activation).
+     *
+     * Réutilisée par ThemeDownload pour protéger l'endpoint de téléchargement.
+     *
+     * @param string $license_key Clé de licence.
+     * @return bool True si la clé existe, est active et non expirée.
+     */
+    public function is_key_valid_for_download( string $license_key ): bool {
+        if ('' === $license_key) {
+            return false;
+        }
+
+        $license = $this->get_license($license_key);
+        if (null === $license) {
+            return false;
+        }
+
+        $status = (string) ($license['status'] ?? '');
+        if (\in_array($status, ['expired', 'cancelled', 'revoked', 'invalid'], true)) {
+            return false;
+        }
+
+        $expires_at = $license['expires_at'] ?? null;
+        if (!empty($expires_at)) {
+            $timestamp = \strtotime((string) $expires_at);
+            if (false !== $timestamp && $timestamp < \time()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Récupère la liste des activations pour une clé de licence.
      * Stockées dans l'option WordPress g2rd_activations_{hash(key)}.
      *

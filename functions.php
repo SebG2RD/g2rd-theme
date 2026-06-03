@@ -182,6 +182,9 @@ function bootstrap_theme(): void
     // Serveur de licences (côté g2rd.fr uniquement : endpoints REST FluentCart)
     ( new LicenseServer() )->register_hooks();
 
+    // Endpoint de téléchargement du thème (côté g2rd.fr uniquement : cache + stream license-gated)
+    ( new ThemeDownload() )->register_hooks();
+
     // Gestionnaire de mises à jour GitHub (nécessite une licence active)
     new GitHubUpdater( $license_manager );
 

@@ -124,14 +124,17 @@ class FluentCartSupport {
         $name    = $user instanceof \WP_User ? $user->display_name : $email;
         $subject = \__('Votre clé de licence G2RD FSE', 'g2rd');
 
+        $download_url = ThemeDownload::get_download_url($license_key);
+
         $message = sprintf(
-            /* translators: 1: prénom client, 2: clé de licence, 3: URL portail client */
+            /* translators: 1: prénom client, 2: clé de licence, 3: URL de téléchargement, 4: URL portail client */
             \__(
-                "Bonjour %1\$s,\n\nMerci pour votre achat ! Voici votre clé de licence G2RD FSE :\n\n    %2\$s\n\nPour l'activer :\n1. Connectez-vous à votre site WordPress\n2. Allez dans Apparence → Options G2RD → Licence\n3. Entrez votre clé et cliquez sur « Activer la licence »\n\nVotre portail client (domaines activés, support) : %3\$s\n\nÀ bientôt,\nL'équipe G2RD",
+                "Bonjour %1\$s,\n\nMerci pour votre achat ! Voici votre clé de licence G2RD FSE :\n\n    %2\$s\n\nTélécharger la dernière version du thème :\n%3\$s\n\nPour l'activer :\n1. Installez le thème téléchargé (Apparence → Thèmes → Ajouter)\n2. Allez dans Apparence → Options G2RD → Licence\n3. Entrez votre clé et cliquez sur « Activer la licence »\n\nVotre portail client (téléchargement, domaines activés, support) : %4\$s\n\nÀ bientôt,\nL'équipe G2RD",
                 'g2rd'
             ),
             \esc_html($name),
             $license_key,
+            \esc_url_raw($download_url),
             \esc_url(\home_url('/portail-client'))
         );
 
@@ -311,6 +314,17 @@ class FluentCartSupport {
                                     ?>
                                 <?php endif; ?>
                             </div>
+                        </div>
+
+                        <!-- Téléchargement de la dernière version -->
+                        <div style="margin-bottom:16px;">
+                            <a
+                                href="<?php echo \esc_url(ThemeDownload::get_download_url($license['license_key'])); ?>"
+                                class="button button-primary"
+                                style="text-decoration:none;"
+                            >
+                                <?php \esc_html_e('Télécharger la dernière version', 'g2rd'); ?>
+                            </a>
                         </div>
 
                         <!-- Tableau des domaines activés -->
