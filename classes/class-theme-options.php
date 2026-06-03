@@ -558,6 +558,24 @@ class ThemeOptions {
             'licenseServerMode'      => LicenseServer::is_server_mode(),
             'licenseAdminUrl'        => LicenseServer::is_server_mode() ? \rest_url( 'g2rd/v1/license-admin' ) : null,
             'googleReviewsClearUrl'  => \rest_url( 'g2rd/v1/google-reviews/cache' ),
+            /**
+             * Point d'extension introduit en v1.19.0 — les plugins peuvent
+             * pousser un onglet dans la page d'options du thème via ce filtre.
+             *
+             * Format attendu pour chaque entrée :
+             *   [
+             *     'key'         => 'connector',   // identifiant unique
+             *     'label'       => 'Manager G2RD',
+             *     'description' => 'Texte court (optionnel)',
+             *     'icon'        => 'cloud',        // dashicon sans préfixe (optionnel)
+             *     'mount_id'    => 'g2rd-...-root', // id du div racine si le plugin
+             *                                       // veut monter du DOM custom
+             *     'data'        => [ ... ],        // données initiales transmises au plugin
+             *   ]
+             *
+             * Cf docs/plugin-wordpress.md (G2RD WP Manager).
+             */
+            'externalTabs' => \array_values( (array) \apply_filters( 'g2rd_options_external_tabs', [] ) ),
         ];
     }
 }
