@@ -287,12 +287,19 @@ class AiRest {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function handle_profile( \WP_REST_Request $request ): \WP_REST_Response|\WP_Error {
-		if ( \WP_REST_Server::CREATABLE === $request->get_method() ) {
+		// Lit le profil depuis le body JSON (get_param) avec repli sur get_json_params.
+		$incoming = $request->get_param( 'profile' );
+		if ( null === $incoming ) {
+			$json     = $request->get_json_params();
+			$incoming = \is_array( $json ) ? ( $json['profile'] ?? null ) : null;
+		}
+
+		// Toute requête qui fournit « profile » est une écriture — indépendamment de
+		// la détection de méthode (plus robuste que comparer get_method()).
+		if ( null !== $incoming ) {
 			if ( ! \current_user_can( 'manage_options' ) ) {
 				return new \WP_Error( 'ai_profile_forbidden', \esc_html__( 'Accès interdit.', 'g2rd' ), [ 'status' => 403 ] );
 			}
-
-			$incoming = $request->get_param( 'profile' );
 			if ( ! \is_array( $incoming ) ) {
 				return new \WP_Error( 'ai_profile_invalid', \esc_html__( 'Données invalides.', 'g2rd' ), [ 'status' => 400 ] );
 			}
@@ -304,9 +311,22 @@ class AiRest {
 				'tone'     => \sanitize_key( (string) ( $incoming['tone'] ?? 'professionnel' ) ),
 			];
 			\update_option( AiModule::PROFILE_KEY, $clean, false );
+
+			// Garde-fou : si l'option ne persiste pas (blocage plugin de sécu / DB),
+			// le signaler dans les logs pour diagnostic (ne change pas la réponse).
+			if ( \defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				$persisted = \get_option( AiModule::PROFILE_KEY, [] );
+				if ( $persisted !== $clean ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- diagnostic conditionné à WP_DEBUG
+					\error_log( 'G2RD AiRest : profil NON persisté après update_option — lu=' . \wp_json_encode( $persisted ) );
+				}
+			}
 		}
 
-		return new \WP_REST_Response( [ 'profile' => AiModule::get_profile() ], 200 );
+		// Anti-cache : empêche un cache REST de servir un profil périmé au rechargement.
+		$response = new \WP_REST_Response( [ 'profile' => AiModule::get_profile() ], 200 );
+		$response->header( 'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0' );
+		return $response;
 	}
 
 	// ──────────────────────────────────────────────────────────────────────
