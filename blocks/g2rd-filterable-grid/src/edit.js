@@ -163,6 +163,12 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     ctaTextColor,
     ctaHoverBgColor,
     ctaHoverTextColor,
+    ctaPaddingY,
+    ctaPaddingX,
+    ctaBorderWidth,
+    ctaBorderStyle,
+    ctaBorderColor,
+    ctaBorderRadius,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -187,6 +193,12 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   if (ctaTextColor)      customStyle["--g2rd-fg-cta-color"]        = ctaTextColor;
   if (ctaHoverBgColor)   customStyle["--g2rd-fg-cta-hover-bg"]     = ctaHoverBgColor;
   if (ctaHoverTextColor) customStyle["--g2rd-fg-cta-hover-color"]  = ctaHoverTextColor;
+  if (ctaPaddingY)     customStyle["--g2rd-fg-cta-pad-y"]        = ctaPaddingY;
+  if (ctaPaddingX)     customStyle["--g2rd-fg-cta-pad-x"]        = ctaPaddingX;
+  if (ctaBorderWidth)  customStyle["--g2rd-fg-cta-border-width"] = ctaBorderWidth;
+  if (ctaBorderStyle)  customStyle["--g2rd-fg-cta-border-style"] = ctaBorderStyle;
+  if (ctaBorderColor)  customStyle["--g2rd-fg-cta-border-color"] = ctaBorderColor;
+  if (ctaBorderRadius) customStyle["--g2rd-fg-cta-radius"]       = ctaBorderRadius;
 
   const blockProps = useBlockProps({
     className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
@@ -468,6 +480,62 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               value:    ctaHoverTextColor,
               onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }),
               label:    __("Texte au survol", "g2rd"),
+            },
+          ] }
+        />
+
+        {/* ── Espacement & bordure du CTA ── */}
+        <PanelBody title={ __("CTA — espacement & bordure", "g2rd") } initialOpen={ false }>
+          <p style={ { fontSize: "12px", color: "#757575", marginTop: 0 } }>
+            { __("Toute valeur CSS est acceptée (px, rem, em, %, ou clamp() pour un rendu fluide).", "g2rd") }
+          </p>
+          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Padding vertical", "g2rd") }
+            value={ ctaPaddingY }
+            onChange={ (v) => setAttributes({ ctaPaddingY: v }) }
+            placeholder=".45em"
+          />
+          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Padding horizontal", "g2rd") }
+            value={ ctaPaddingX }
+            onChange={ (v) => setAttributes({ ctaPaddingX: v }) }
+            placeholder="1.1em"
+          />
+          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Épaisseur de bordure", "g2rd") }
+            value={ ctaBorderWidth }
+            onChange={ (v) => setAttributes({ ctaBorderWidth: v }) }
+            placeholder="1px"
+          />
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Style de bordure", "g2rd") }
+            value={ ctaBorderStyle }
+            onChange={ (v) => setAttributes({ ctaBorderStyle: v }) }
+            options={ [
+              { label: __("Aucune", "g2rd"),  value: "" },
+              { label: __("Pleine", "g2rd"),  value: "solid" },
+              { label: __("Tirets", "g2rd"),  value: "dashed" },
+              { label: __("Points", "g2rd"),  value: "dotted" },
+              { label: __("Double", "g2rd"),  value: "double" },
+            ] }
+          />
+          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Rayon de bordure", "g2rd") }
+            value={ ctaBorderRadius }
+            onChange={ (v) => setAttributes({ ctaBorderRadius: v }) }
+            placeholder="4px ou 999px"
+          />
+        </PanelBody>
+
+        {/* ── Couleur de la bordure du CTA ── */}
+        <PanelColorSettings
+          title={ __("Bordure du CTA — couleur", "g2rd") }
+          initialOpen={ false }
+          colorSettings={ [
+            {
+              value:    ctaBorderColor,
+              onChange: (v) => setAttributes({ ctaBorderColor: v || "" }),
+              label:    __("Couleur de la bordure", "g2rd"),
             },
           ] }
         />

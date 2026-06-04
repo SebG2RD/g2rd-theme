@@ -43,6 +43,12 @@ export default function Save({ attributes }) {
     ctaTextColor,
     ctaHoverBgColor,
     ctaHoverTextColor,
+    ctaPaddingY,
+    ctaPaddingX,
+    ctaBorderWidth,
+    ctaBorderStyle,
+    ctaBorderColor,
+    ctaBorderRadius,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -86,6 +92,12 @@ export default function Save({ attributes }) {
   if (ctaTextColor)      cssVars["--g2rd-fg-cta-color"]        = ctaTextColor;
   if (ctaHoverBgColor)   cssVars["--g2rd-fg-cta-hover-bg"]     = ctaHoverBgColor;
   if (ctaHoverTextColor) cssVars["--g2rd-fg-cta-hover-color"]  = ctaHoverTextColor;
+  if (ctaPaddingY)     cssVars["--g2rd-fg-cta-pad-y"]        = ctaPaddingY;
+  if (ctaPaddingX)     cssVars["--g2rd-fg-cta-pad-x"]        = ctaPaddingX;
+  if (ctaBorderWidth)  cssVars["--g2rd-fg-cta-border-width"] = ctaBorderWidth;
+  if (ctaBorderStyle)  cssVars["--g2rd-fg-cta-border-style"] = ctaBorderStyle;
+  if (ctaBorderColor)  cssVars["--g2rd-fg-cta-border-color"] = ctaBorderColor;
+  if (ctaBorderRadius) cssVars["--g2rd-fg-cta-radius"]       = ctaBorderRadius;
 
   if (Object.keys(cssVars).length) {
     blockProps.style = { ...(blockProps.style || {}), ...cssVars };

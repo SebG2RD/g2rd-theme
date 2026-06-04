@@ -87,7 +87,13 @@
         "ctaBgColor":        { "type": "string", "default": "" },
         "ctaTextColor":      { "type": "string", "default": "" },
         "ctaHoverBgColor":   { "type": "string", "default": "" },
-        "ctaHoverTextColor": { "type": "string", "default": "" }
+        "ctaHoverTextColor": { "type": "string", "default": "" },
+        "ctaPaddingY":       { "type": "string", "default": "" },
+        "ctaPaddingX":       { "type": "string", "default": "" },
+        "ctaBorderWidth":    { "type": "string", "default": "" },
+        "ctaBorderStyle":    { "type": "string", "default": "" },
+        "ctaBorderColor":    { "type": "string", "default": "" },
+        "ctaBorderRadius":   { "type": "string", "default": "" }
     },
     "example": {
         "attributes": {
