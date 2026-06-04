@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.1**
+
+- **Fix IA** : fiabilisation de la persistance du « Profil du site » (sauvegarde indépendante de la méthode HTTP, en-tête anti-cache, et garde-fou de diagnostic si une écriture d'option est bloquée).
 
 ### **1.21.0**
 
