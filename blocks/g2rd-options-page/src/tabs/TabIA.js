@@ -107,8 +107,13 @@ export function TabIA() {
 			apiFetch( { path: AI_ENDPOINT, method: 'POST', data: payload } ),
 			apiFetch( { path: PROFILE_ENDPOINT, method: 'POST', data: { profile } } ),
 		] )
-			.then( () => {
+			.then( ( [ , profileRes ] ) => {
 				setNotice( { type: 'success', message: 'Réglages IA et profil du site enregistrés.' } );
+				// Reflète le profil RÉELLEMENT enregistré (renvoyé par le serveur) :
+				// si la persistance échoue, les champs se videront immédiatement.
+				if ( profileRes && profileRes.profile ) {
+					setProfile( ( prev ) => ( { ...prev, ...profileRes.profile } ) );
+				}
 				if ( apiKeyEditing && apiKeyValue.trim() ) {
 					const k = apiKeyValue.trim();
 					setApiKeySet( true );
