@@ -133,6 +133,7 @@ g2rd-theme/
 - **Connecteur WordPress AI** : l'inférence passe par le WordPress AI Client (providers Anthropic/OpenAI) avec repli automatique sur l'appel direct Anthropic.
 - **Panneau IA simplifié** dans les blocs (Hero, FAQ, CTA, Tarifs, Témoignage, Card) : plus de champs de contexte répétés.
 - **Fix FluentCart** : reconnaissance du post type produit `fluent-products` (mise à jour de la version produit à chaque release).
+- **Grille filtrable** : nouveaux contrôles du CTA (padding, bordure complète, rayon) — valeurs CSS libres (dont `clamp()` pour un rendu fluide), visibles dans l'éditeur et sur le front.
 
 ### **1.20.0**
 
