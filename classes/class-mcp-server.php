@@ -321,7 +321,7 @@ class McpServer {
 
 			if ( $success ) {
 				\wp_die(
-					\esc_html__( 'Opération MCP confirmée et exécutée avec succès.', 'g2rd' ),
+					$this->build_confirmation_html( $this->queue->get_last_report() ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML built with per-value escaping in build_confirmation_html()
 					\esc_html__( 'MCP — Confirmation', 'g2rd' ),
 					[ 'response' => 200, 'back_link' => true ]
 				);
@@ -349,6 +349,68 @@ class McpServer {
 			\esc_html__( 'MCP — Erreur de refus', 'g2rd' ),
 			[ 'response' => 403, 'back_link' => true ]
 		);
+	}
+
+	/**
+	 * Builds the HTML body shown after a successful confirmation.
+	 *
+	 * For composite operations (g2rd_create-full-post, g2rd_batch) it renders a rich
+	 * recap with per-value escaping and clickable Edit/View links; otherwise it
+	 * returns the generic success message. All dynamic values are escaped here, so
+	 * the returned string is safe to pass directly to wp_die().
+	 *
+	 * @param array<string, mixed>|null $report Structured execution report, or null.
+	 * @return string Safe HTML.
+	 */
+	private function build_confirmation_html( ?array $report ): string {
+		$generic = \esc_html__( 'Opération MCP confirmée et exécutée avec succès.', 'g2rd' );
+
+		if ( null === $report ) {
+			return $generic;
+		}
+
+		// Batch recap.
+		if ( ! empty( $report['batch'] ) ) {
+			$items = '';
+			foreach ( (array) ( $report['operations'] ?? [] ) as $op ) {
+				$state  = empty( $op['success'] ) ? '❌' : '✅';
+				$label  = \esc_html( (string) ( $op['tool'] ?? '?' ) );
+				$err    = empty( $op['error'] ) ? '' : ' (' . \esc_html( (string) $op['error'] ) . ')';
+				$items .= "<li>{$state} {$label}{$err}</li>";
+			}
+			return '<p>' . \esc_html__( 'Lot MCP exécuté.', 'g2rd' ) . '</p><ul>' . $items . '</ul>';
+		}
+
+		// create-full-post recap.
+		if ( 'g2rd_create-full-post' === ( $report['tool'] ?? '' ) ) {
+			if ( empty( $report['success'] ) ) {
+				return '<p>' . \esc_html__( "Échec de la création de l'article.", 'g2rd' ) . ' '
+					. \esc_html( (string) ( $report['error'] ?? '' ) ) . '</p>';
+			}
+
+			$steps = '';
+			foreach ( (array) ( $report['steps'] ?? [] ) as $name => $state ) {
+				$steps .= '<li>' . \esc_html( (string) $name ) . ' : ' . \esc_html( (string) $state ) . '</li>';
+			}
+
+			$post_url = (string) ( $report['post_url'] ?? '' );
+			$edit_url = (string) ( $report['edit_url'] ?? '' );
+			$links    = '';
+			if ( '' !== $edit_url ) {
+				$links .= '<a href="' . \esc_url( $edit_url ) . '">' . \esc_html__( 'Éditer', 'g2rd' ) . '</a> ';
+			}
+			if ( '' !== $post_url ) {
+				$links .= '<a href="' . \esc_url( $post_url ) . '">' . \esc_html__( 'Voir', 'g2rd' ) . '</a>';
+			}
+
+			return '<p>' . \esc_html__( 'Article créé avec succès.', 'g2rd' ) . '</p>'
+				. '<p>' . \esc_html__( "ID de l'article :", 'g2rd' ) . ' ' . (int) ( $report['post_id'] ?? 0 )
+				. ' — ' . \esc_html__( 'Média :', 'g2rd' ) . ' ' . (int) ( $report['attachment_id'] ?? 0 ) . '</p>'
+				. ( '' !== $links ? '<p>' . $links . '</p>' : '' )
+				. '<ul>' . $steps . '</ul>';
+		}
+
+		return $generic;
 	}
 
 	/**

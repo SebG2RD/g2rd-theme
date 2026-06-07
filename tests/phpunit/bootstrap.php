@@ -602,3 +602,167 @@ if (!function_exists('get_page_template_slug')) {
         return '';
     }
 }
+
+// ── Stubs added for MCP create-full-post / batch (composite write tools) ──────
+
+if (!function_exists('sanitize_title')) {
+    function sanitize_title($title, $fallback_title = '', $context = 'save'): string {
+        $title = strtolower(trim((string) $title));
+        $title = preg_replace('/[^a-z0-9]+/', '-', $title);
+        return trim((string) $title, '-');
+    }
+}
+if (!function_exists('sanitize_file_name')) {
+    function sanitize_file_name(string $filename): string {
+        return preg_replace('/[^A-Za-z0-9._-]/', '', $filename);
+    }
+}
+if (!function_exists('wp_parse_url')) {
+    function wp_parse_url(string $url, int $component = -1) {
+        return parse_url($url, $component);
+    }
+}
+if (!function_exists('esc_url_raw')) {
+    function esc_url_raw(string $url): string {
+        return trim($url);
+    }
+}
+if (!function_exists('get_edit_post_link')) {
+    function get_edit_post_link($id = 0, string $context = 'display'): string {
+        $id = is_object($id) ? $id->ID : (int) $id;
+        return "https://example.com/wp-admin/post.php?post={$id}&action=edit";
+    }
+}
+
+// In-memory post meta store (write_seo_meta, sideload alt text).
+global $g2rd_post_meta_store;
+$g2rd_post_meta_store = [];
+if (!function_exists('update_post_meta')) {
+    function update_post_meta($post_id, $key, $value, $prev = '') {
+        global $g2rd_post_meta_store;
+        $g2rd_post_meta_store[(int) $post_id][$key] = $value;
+        return true;
+    }
+}
+if (!function_exists('get_post_meta')) {
+    function get_post_meta($post_id, $key = '', $single = false) {
+        global $g2rd_post_meta_store;
+        if ('' === $key) {
+            return $g2rd_post_meta_store[(int) $post_id] ?? [];
+        }
+        $val = $g2rd_post_meta_store[(int) $post_id][$key] ?? '';
+        return $single ? $val : [$val];
+    }
+}
+
+// download_url spy — controllable. Default writes a real 1×1 PNG to a temp file.
+global $g2rd_download_url_result, $g2rd_download_url_bytes;
+$g2rd_download_url_result = null; // WP_Error to force failure; else auto temp file
+$g2rd_download_url_bytes  = base64_decode(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+);
+if (!function_exists('download_url')) {
+    function download_url(string $url, int $timeout = 300) {
+        global $g2rd_download_url_result, $g2rd_download_url_bytes;
+        if ($g2rd_download_url_result instanceof WP_Error) {
+            return $g2rd_download_url_result;
+        }
+        $tmp = tempnam(sys_get_temp_dir(), 'g2rd_dl_');
+        file_put_contents($tmp, $g2rd_download_url_bytes);
+        return $tmp;
+    }
+}
+
+// wp_check_filetype_and_ext — fallback MIME resolver (used when finfo is absent).
+global $g2rd_filetype_return;
+$g2rd_filetype_return = null; // array to force a value; else derive from extension
+if (!function_exists('wp_check_filetype_and_ext')) {
+    function wp_check_filetype_and_ext(string $file, string $filename, $mimes = null): array {
+        global $g2rd_filetype_return;
+        if (is_array($g2rd_filetype_return)) {
+            return $g2rd_filetype_return;
+        }
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $map = [
+            'jpg'  => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png',
+            'gif'  => 'image/gif',  'webp' => 'image/webp', 'svg' => 'image/svg+xml',
+            'pdf'  => 'application/pdf',
+        ];
+        $type = $map[$ext] ?? '';
+        return ['ext' => $type ? $ext : false, 'type' => $type ?: false, 'proper_filename' => false];
+    }
+}
+
+// media_handle_sideload — controllable. Default creates an attachment post.
+global $g2rd_media_sideload_result;
+$g2rd_media_sideload_result = null; // WP_Error/int to force a result; else auto id
+if (!function_exists('media_handle_sideload')) {
+    function media_handle_sideload(array $file_array, int $post_id = 0, $desc = null, array $post_data = []) {
+        global $g2rd_media_sideload_result, $g2rd_post_store;
+        // Real WP leaves the temp file for the caller to clean up on failure.
+        if ($g2rd_media_sideload_result instanceof WP_Error || is_int($g2rd_media_sideload_result)) {
+            return $g2rd_media_sideload_result;
+        }
+        if (!empty($file_array['tmp_name']) && file_exists($file_array['tmp_name'])) {
+            @unlink($file_array['tmp_name']); // success: WP moves the temp file into the library
+        }
+        $id              = count($g2rd_post_store) + 500;
+        $att             = new WP_Post();
+        $att->ID         = $id;
+        $att->post_type  = 'attachment';
+        $att->post_title = (string) ($desc ?? ($file_array['name'] ?? ''));
+        $g2rd_post_store[$id] = $att;
+        return $id;
+    }
+}
+if (!function_exists('wp_delete_attachment')) {
+    function wp_delete_attachment(int $post_id, bool $force_delete = false) {
+        global $g2rd_post_store, $g2rd_deleted_attachments;
+        $g2rd_deleted_attachments[] = $post_id;
+        $existing = $g2rd_post_store[$post_id] ?? null;
+        unset($g2rd_post_store[$post_id]);
+        return $existing ?? false;
+    }
+}
+global $g2rd_deleted_attachments;
+$g2rd_deleted_attachments = [];
+
+// Featured image + terms spies.
+global $g2rd_post_thumbnails, $g2rd_post_terms;
+$g2rd_post_thumbnails = [];
+$g2rd_post_terms      = [];
+if (!function_exists('set_post_thumbnail')) {
+    function set_post_thumbnail($post, int $thumbnail_id): bool {
+        global $g2rd_post_thumbnails;
+        $id = is_object($post) ? $post->ID : (int) $post;
+        $g2rd_post_thumbnails[$id] = $thumbnail_id;
+        return true;
+    }
+}
+if (!function_exists('delete_post_thumbnail')) {
+    function delete_post_thumbnail($post): bool {
+        global $g2rd_post_thumbnails;
+        $id = is_object($post) ? $post->ID : (int) $post;
+        unset($g2rd_post_thumbnails[$id]);
+        return true;
+    }
+}
+if (!function_exists('wp_set_post_categories')) {
+    function wp_set_post_categories(int $post_id, $categories = [], bool $append = false) {
+        global $g2rd_post_terms;
+        $g2rd_post_terms[$post_id]['category'] = (array) $categories;
+        return (array) $categories;
+    }
+}
+if (!function_exists('wp_set_post_tags')) {
+    function wp_set_post_tags(int $post_id, $tags = '', bool $append = false) {
+        global $g2rd_post_terms;
+        $g2rd_post_terms[$post_id]['post_tag'] = (array) $tags;
+        return (array) $tags;
+    }
+}
+if (!function_exists('wp_insert_term')) {
+    function wp_insert_term(string $term, string $taxonomy = 'post_tag', array $args = []) {
+        return ['term_id' => 1, 'term_taxonomy_id' => 1];
+    }
+}

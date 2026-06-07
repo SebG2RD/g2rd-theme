@@ -876,6 +876,137 @@ class McpAbilities {
 					'required'   => [ 'attachment_id' ],
 				],
 			],
+
+			'g2rd_create-full-post'  => [
+				'name'           => 'g2rd_create-full-post',
+				'description'    => 'Creates a complete WordPress post in a single confirmation: title, content, excerpt, status, slug, categories, tags, a featured image sideloaded from a URL, and SEO meta (via the detected SEO plugin). One email confirmation covers the whole operation. Requires administrator email confirmation before execution.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'title'                  => [
+							'type'        => 'string',
+							'description' => 'Post title (required).',
+						],
+						'content'                => [
+							'type'        => 'string',
+							'description' => 'Post content: HTML or Gutenberg block markup (required).',
+						],
+						'excerpt'                => [
+							'type'        => 'string',
+							'description' => 'Post excerpt.',
+						],
+						'status'                 => [
+							'type'        => 'string',
+							'description' => 'Post status: draft, pending or publish (default: draft).',
+							'default'     => 'draft',
+							'enum'        => [ 'draft', 'pending', 'publish' ],
+						],
+						'post_type'              => [
+							'type'        => 'string',
+							'description' => 'Post type slug (default: post).',
+							'default'     => 'post',
+						],
+						'slug'                   => [
+							'type'        => 'string',
+							'description' => 'URL-safe post slug.',
+						],
+						'categories'             => [
+							'type'        => 'array',
+							'description' => 'Array of existing category IDs to assign.',
+							'items'       => [ 'type' => 'integer' ],
+						],
+						'tags'                   => [
+							'type'        => 'array',
+							'description' => 'Array of tag names or slugs (missing tags are created).',
+							'items'       => [ 'type' => 'string' ],
+						],
+						'featured_image_url'     => [
+							'type'        => 'string',
+							'description' => 'URL of an image (jpg, png, webp, gif, max 10 MB) to import and set as the featured image.',
+						],
+						'featured_image_title'   => [
+							'type'        => 'string',
+							'description' => 'Title for the imported featured image.',
+						],
+						'featured_image_alt'     => [
+							'type'        => 'string',
+							'description' => 'Alt text for the imported featured image.',
+						],
+						'featured_image_caption' => [
+							'type'        => 'string',
+							'description' => 'Caption for the imported featured image.',
+						],
+						'seo'                    => [
+							'type'        => 'object',
+							'description' => 'SEO meta written via the detected SEO plugin (Yoast, Rank Math, SEOPress, AIOSEO).',
+							'properties'  => [
+								'meta_title'       => [
+									'type'        => 'string',
+									'description' => 'SEO title tag.',
+								],
+								'meta_description' => [
+									'type'        => 'string',
+									'description' => 'SEO meta description.',
+								],
+								'focus_keyword'    => [
+									'type'        => 'string',
+									'description' => 'Focus keyword or keyphrase.',
+								],
+								'og_title'         => [
+									'type'        => 'string',
+									'description' => 'Open Graph title.',
+								],
+								'og_description'   => [
+									'type'        => 'string',
+									'description' => 'Open Graph description.',
+								],
+								'canonical'        => [
+									'type'        => 'string',
+									'description' => 'Canonical URL.',
+								],
+								'noindex'          => [
+									'type'        => 'boolean',
+									'description' => 'Set to true to mark the page as noindex.',
+								],
+							],
+						],
+					],
+					'required'   => [ 'title', 'content' ],
+				],
+			],
+
+			'g2rd_batch'             => [
+				'name'           => 'g2rd_batch',
+				'description'    => 'Groups several write operations into a single administrator email confirmation. Operations run sequentially after approval (best-effort, no global rollback). Nested batches are not allowed; max 20 operations. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'operations' => [
+							'type'        => 'array',
+							'description' => 'List of write operations to execute (max 20). Each item has a tool name and its arguments.',
+							'items'       => [
+								'type'       => 'object',
+								'properties' => [
+									'tool'      => [
+										'type'        => 'string',
+										'description' => 'Write tool name, e.g. "g2rd_create-post" (g2rd_batch itself is not allowed).',
+									],
+									'arguments' => [
+										'type'        => 'object',
+										'description' => 'Arguments object passed to that tool.',
+									],
+								],
+								'required'   => [ 'tool', 'arguments' ],
+							],
+						],
+					],
+					'required'   => [ 'operations' ],
+				],
+			],
 		];
 	}
 
@@ -985,6 +1116,8 @@ class McpAbilities {
 			case 'g2rd_upload-media':
 			case 'g2rd_upload-media-base64':
 			case 'g2rd_delete-media':
+			case 'g2rd_create-full-post':
+			case 'g2rd_batch':
 				return $this->exec_enqueue_write( $name, $args, $gate_result );
 
 			default:

@@ -350,6 +350,11 @@ Le bridge détecte les réponses non-JSON-RPC (erreurs WordPress) et les convert
 | `read_only` | `tools/list`, lecture CPTs |
 | `editor` | + opérations d'écriture (passe par confirmation admin) |
 
+### Outils composites (1 appel = 1 confirmation = 1 e-mail)
+
+- **`g2rd_create-full-post`** — crée un article complet en une seule opération atomique : article + image à la une (sideload URL avec vérif MIME réelle) + catégories/tags + métas SEO. Orchestré dans `McpConfirmationQueue::exec_create_full_post()` (ordre : image → `wp_insert_post` → image à la une → terms → SEO ; rollback du média si l'insert échoue). Réutilise les helpers partagés `sideload_media_from_url()` et `write_seo_meta()`. Résultat riche affiché sur la page de confirmation + option `g2rd_mcp_last_operation_result`.
+- **`g2rd_batch`** — regroupe jusqu'à 20 opérations d'écriture en une confirmation (`exec_batch()` → `dispatch_operation()` par op). Best-effort, statut par op, pas de rollback global, refus des lots imbriqués/outils inconnus.
+
 ## Module IA (v1.14.0+)
 
 Intégration Claude via WordPress Abilities API, activable depuis la page d'options (clé `enable_ai`).

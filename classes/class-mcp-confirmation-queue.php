@@ -52,6 +52,32 @@ class McpConfirmationQueue {
 	/** @var string[] Post statuses allowed for update-post (broader — includes future and private). */
 	private const UPDATE_ALLOWED_STATUSES = [ 'draft', 'pending', 'publish', 'future', 'private' ];
 
+	/** @var int Maximum number of operations allowed in a single g2rd_batch call. */
+	private const BATCH_MAX_OPS = 20;
+
+	/** @var string[] Write tools that may appear inside a g2rd_batch (never g2rd_batch itself). */
+	private const BATCH_ALLOWED_TOOLS = [
+		'g2rd_create-post',
+		'g2rd_update-post',
+		'g2rd_delete-post',
+		'g2rd_update-post-meta',
+		'g2rd_update-seo-data',
+		'g2rd_create-redirection',
+		'g2rd_create-category',
+		'g2rd_create-tag',
+		'g2rd_update-media',
+		'g2rd_activate-plugin',
+		'g2rd_deactivate-plugin',
+		'g2rd_update-plugin',
+		'g2rd_update-option',
+		'g2rd_flush-cache',
+		'g2rd_update-menu-item',
+		'g2rd_upload-media',
+		'g2rd_upload-media-base64',
+		'g2rd_delete-media',
+		'g2rd_create-full-post',
+	];
+
 	/** @var string[] WordPress option keys that may be updated via g2rd/update-option. */
 	private const OPTION_WHITELIST = [
 		'blogname',
@@ -72,12 +98,34 @@ class McpConfirmationQueue {
 	private McpAuditLog $audit;
 
 	/**
+	 * Structured report of the most recent confirmed execution.
+	 *
+	 * Populated by composite operations (g2rd_create-full-post, g2rd_batch) so the
+	 * admin confirmation page can surface a rich recap. Null for simple boolean ops.
+	 *
+	 * @var array<string, mixed>|null
+	 */
+	private ?array $last_report = null;
+
+	/**
 	 * @param McpEncryption $crypto Encryption provider.
 	 * @param McpAuditLog   $audit  Audit log.
 	 */
 	public function __construct( McpEncryption $crypto, McpAuditLog $audit ) {
 		$this->crypto = $crypto;
 		$this->audit  = $audit;
+	}
+
+	/**
+	 * Returns the structured report of the most recent confirmed execution, if any.
+	 *
+	 * Composite operations populate this so the confirmation landing page can show
+	 * post IDs, URLs and per-step status. Returns null for simple boolean operations.
+	 *
+	 * @return array<string, mixed>|null
+	 */
+	public function get_last_report(): ?array {
+		return $this->last_report;
 	}
 
 	// ── Public API ────────────────────────────────────────────────────────────
@@ -395,48 +443,67 @@ class McpConfirmationQueue {
 		\wp_set_current_user( $user_id );
 
 		try {
-			switch ( $ability_name ) {
-				case 'g2rd_create-post':
-					return $this->exec_create_post( $arguments );
-				case 'g2rd_update-post':
-					return $this->exec_update_post( $arguments );
-				case 'g2rd_delete-post':
-					return $this->exec_delete_post( $arguments );
-				case 'g2rd_update-post-meta':
-					return $this->exec_update_post_meta( $arguments );
-				case 'g2rd_update-seo-data':
-					return $this->exec_update_seo_data( $arguments );
-				case 'g2rd_create-redirection':
-					return $this->exec_create_redirection( $arguments );
-				case 'g2rd_create-category':
-					return $this->exec_create_category( $arguments );
-				case 'g2rd_create-tag':
-					return $this->exec_create_tag( $arguments );
-				case 'g2rd_update-media':
-					return $this->exec_update_media( $arguments );
-				case 'g2rd_activate-plugin':
-					return $this->exec_activate_plugin( $arguments );
-				case 'g2rd_deactivate-plugin':
-					return $this->exec_deactivate_plugin( $arguments );
-				case 'g2rd_update-plugin':
-					return $this->exec_update_plugin( $arguments );
-				case 'g2rd_update-option':
-					return $this->exec_update_option( $arguments );
-				case 'g2rd_flush-cache':
-					return $this->exec_flush_cache();
-				case 'g2rd_update-menu-item':
-					return $this->exec_update_menu_item( $arguments );
-				case 'g2rd_upload-media':
-					return $this->exec_upload_media( $arguments );
-				case 'g2rd_upload-media-base64':
-					return $this->exec_upload_media_base64( $arguments );
-				case 'g2rd_delete-media':
-					return $this->exec_delete_media( $arguments );
-				default:
-					return false;
-			}
+			return $this->dispatch_operation( $ability_name, $arguments );
 		} finally {
 			\wp_set_current_user( $original_user );
+		}
+	}
+
+	/**
+	 * Dispatches a single write operation to its executor.
+	 *
+	 * Extracted from execute_operation() so g2rd_batch can reuse it per
+	 * sub-operation within the already-switched user context. Does NOT switch
+	 * user context itself — callers must do that (execute_operation does).
+	 *
+	 * @param string               $ability_name Tool name.
+	 * @param array<string, mixed> $arguments    Decrypted tool arguments.
+	 * @return bool True on success.
+	 */
+	private function dispatch_operation( string $ability_name, array $arguments ): bool {
+		switch ( $ability_name ) {
+			case 'g2rd_create-post':
+				return $this->exec_create_post( $arguments );
+			case 'g2rd_update-post':
+				return $this->exec_update_post( $arguments );
+			case 'g2rd_delete-post':
+				return $this->exec_delete_post( $arguments );
+			case 'g2rd_update-post-meta':
+				return $this->exec_update_post_meta( $arguments );
+			case 'g2rd_update-seo-data':
+				return $this->exec_update_seo_data( $arguments );
+			case 'g2rd_create-redirection':
+				return $this->exec_create_redirection( $arguments );
+			case 'g2rd_create-category':
+				return $this->exec_create_category( $arguments );
+			case 'g2rd_create-tag':
+				return $this->exec_create_tag( $arguments );
+			case 'g2rd_update-media':
+				return $this->exec_update_media( $arguments );
+			case 'g2rd_activate-plugin':
+				return $this->exec_activate_plugin( $arguments );
+			case 'g2rd_deactivate-plugin':
+				return $this->exec_deactivate_plugin( $arguments );
+			case 'g2rd_update-plugin':
+				return $this->exec_update_plugin( $arguments );
+			case 'g2rd_update-option':
+				return $this->exec_update_option( $arguments );
+			case 'g2rd_flush-cache':
+				return $this->exec_flush_cache();
+			case 'g2rd_update-menu-item':
+				return $this->exec_update_menu_item( $arguments );
+			case 'g2rd_upload-media':
+				return $this->exec_upload_media( $arguments );
+			case 'g2rd_upload-media-base64':
+				return $this->exec_upload_media_base64( $arguments );
+			case 'g2rd_delete-media':
+				return $this->exec_delete_media( $arguments );
+			case 'g2rd_create-full-post':
+				return $this->exec_create_full_post( $arguments );
+			case 'g2rd_batch':
+				return $this->exec_batch( $arguments );
+			default:
+				return false;
 		}
 	}
 
@@ -598,7 +665,7 @@ class McpConfirmationQueue {
 		$user         = \get_userdata( $user_id );
 		$user_login   = $user ? (string) $user->user_login : "user #{$user_id}";
 		$site_name    = (string) \get_bloginfo( 'name' );
-		$args_display = (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
+		$args_display = $this->format_arguments_for_email( $ability_name, $arguments );
 
 		$confirm_url = \add_query_arg(
 			[
@@ -634,6 +701,115 @@ class McpConfirmationQueue {
 		);
 
 		return (bool) \wp_mail( $admin_email, $subject, $message );
+	}
+
+	/**
+	 * Builds the human-readable "Arguments" section of the confirmation email.
+	 *
+	 * Composite tools (g2rd_create-full-post, g2rd_batch) get a structured recap so
+	 * the administrator can review at a glance; every other tool falls back to the
+	 * pretty-printed JSON used historically.
+	 *
+	 * @param string               $ability_name Tool name.
+	 * @param array<string, mixed> $arguments    Plain-text arguments.
+	 * @return string
+	 */
+	private function format_arguments_for_email( string $ability_name, array $arguments ): string {
+		if ( 'g2rd_create-full-post' === $ability_name ) {
+			return $this->format_full_post_recap( $arguments );
+		}
+
+		if ( 'g2rd_batch' === $ability_name ) {
+			return $this->format_batch_recap( $arguments );
+		}
+
+		return (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
+	}
+
+	/**
+	 * Formats a g2rd_create-full-post payload as a readable recap for the email.
+	 *
+	 * The full HTML content is summarised (length only) to keep the email concise.
+	 *
+	 * @param array<string, mixed> $a Tool arguments.
+	 * @return string
+	 */
+	private function format_full_post_recap( array $a ): string {
+		$lines   = [];
+		$lines[] = '• Titre : ' . (string) ( $a['title'] ?? '' );
+		if ( ! empty( $a['slug'] ) ) {
+			$lines[] = '• Slug : ' . (string) $a['slug'];
+		}
+		$lines[] = '• Statut : ' . (string) ( $a['status'] ?? 'draft' );
+		$lines[] = '• Type : ' . (string) ( $a['post_type'] ?? 'post' );
+
+		if ( ! empty( $a['categories'] ) && \is_array( $a['categories'] ) ) {
+			$lines[] = '• Catégories (IDs) : ' . \implode( ', ', \array_map( 'strval', $a['categories'] ) );
+		}
+		if ( ! empty( $a['tags'] ) && \is_array( $a['tags'] ) ) {
+			$lines[] = '• Tags : ' . \implode( ', ', \array_map( 'strval', $a['tags'] ) );
+		}
+		if ( ! empty( $a['excerpt'] ) ) {
+			$lines[] = '• Extrait : ' . (string) $a['excerpt'];
+		}
+		if ( ! empty( $a['featured_image_url'] ) ) {
+			$lines[] = '• Image à la une : ' . (string) $a['featured_image_url'];
+			if ( ! empty( $a['featured_image_alt'] ) ) {
+				$lines[] = '  – Texte alternatif : ' . (string) $a['featured_image_alt'];
+			}
+		}
+
+		if ( ! empty( $a['seo'] ) && \is_array( $a['seo'] ) ) {
+			$lines[]    = '• SEO :';
+			$seo_labels = [
+				'meta_title'       => 'Titre SEO',
+				'meta_description' => 'Méta description',
+				'focus_keyword'    => 'Mot-clé cible',
+				'canonical'        => 'Canonical',
+				'og_title'         => 'OG title',
+				'og_description'   => 'OG description',
+			];
+			foreach ( $seo_labels as $key => $label ) {
+				if ( isset( $a['seo'][ $key ] ) && '' !== $a['seo'][ $key ] ) {
+					$lines[] = '  – ' . $label . ' : ' . (string) $a['seo'][ $key ];
+				}
+			}
+			if ( isset( $a['seo']['noindex'] ) ) {
+				$lines[] = '  – Noindex : ' . ( $a['seo']['noindex'] ? 'oui' : 'non' );
+			}
+		}
+
+		$content = (string) ( $a['content'] ?? '' );
+		if ( '' !== $content ) {
+			$lines[] = '• Contenu : ' . \strlen( $content ) . ' caractères (HTML/blocs)';
+		}
+
+		return \implode( "\n", $lines );
+	}
+
+	/**
+	 * Formats a g2rd_batch payload as a readable list of operations for the email.
+	 *
+	 * @param array<string, mixed> $a Tool arguments.
+	 * @return string
+	 */
+	private function format_batch_recap( array $a ): string {
+		$operations = ( isset( $a['operations'] ) && \is_array( $a['operations'] ) ) ? $a['operations'] : [];
+		if ( empty( $operations ) ) {
+			return 'Lot vide (aucune opération).';
+		}
+
+		$lines = [ \sprintf( 'Lot de %d opération(s) :', \count( $operations ) ) ];
+		$n     = 1;
+		foreach ( $operations as $op ) {
+			$tool    = \is_array( $op ) ? (string) ( $op['tool'] ?? '?' ) : '?';
+			$op_args = \is_array( $op ) && isset( $op['arguments'] ) ? $op['arguments'] : [];
+			$summary = (string) \wp_json_encode( $op_args, \JSON_UNESCAPED_UNICODE );
+			$lines[] = \sprintf( '%d. %s — %s', $n, $tool, $summary );
+			++$n;
+		}
+
+		return \implode( "\n", $lines );
 	}
 
 	/**
@@ -774,9 +950,28 @@ class McpConfirmationQueue {
 			return false;
 		}
 
-		$plugin = $this->detect_active_seo_plugin_queue();
+		$this->write_seo_meta( $post_id, $args );
 
-		$map = [];
+		return true;
+	}
+
+	/**
+	 * Writes SEO meta fields for a post via the active SEO plugin.
+	 *
+	 * Shared by g2rd_update-seo-data and g2rd_create-full-post. Auto-detects the
+	 * plugin (Yoast, Rank Math, SEOPress, AIOSEO); silently no-ops if none is found.
+	 * The caller is responsible for the capability check.
+	 *
+	 * @param int                  $post_id Target post ID.
+	 * @param array<string, mixed> $seo     SEO fields: meta_title, meta_description,
+	 *                                       canonical, og_title, og_description,
+	 *                                       focus_keyword, noindex.
+	 * @return array{plugin: string, written: string[]} Detected plugin and written field keys.
+	 */
+	private function write_seo_meta( int $post_id, array $seo ): array {
+		$plugin  = $this->detect_active_seo_plugin_queue();
+		$written = [];
+		$map     = [];
 
 		switch ( $plugin ) {
 			case 'yoast':
@@ -816,20 +1011,21 @@ class McpConfirmationQueue {
 					'canonical'        => '_aioseo_canonical_url',
 					'og_title'         => '_aioseo_og_title',
 					'og_description'   => '_aioseo_og_description',
-					'focus_keyword'    => '', // handled below
+					'focus_keyword'    => '', // not supported as a simple meta on AIOSEO
 				];
 				break;
 		}
 
 		foreach ( $map as $arg_key => $meta_key ) {
-			if ( isset( $args[ $arg_key ] ) && '' !== $meta_key ) {
-				\update_post_meta( $post_id, $meta_key, \sanitize_text_field( (string) $args[ $arg_key ] ) );
+			if ( isset( $seo[ $arg_key ] ) && '' !== $meta_key ) {
+				\update_post_meta( $post_id, $meta_key, \sanitize_text_field( (string) $seo[ $arg_key ] ) );
+				$written[] = $arg_key;
 			}
 		}
 
 		// noindex — plugin-specific handling.
-		if ( isset( $args['noindex'] ) ) {
-			$noindex = (bool) $args['noindex'];
+		if ( isset( $seo['noindex'] ) ) {
+			$noindex = (bool) $seo['noindex'];
 			if ( 'yoast' === $plugin ) {
 				\update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', $noindex ? '1' : '0' );
 			} elseif ( 'rank_math' === $plugin ) {
@@ -844,9 +1040,10 @@ class McpConfirmationQueue {
 			} elseif ( 'aioseo' === $plugin ) {
 				\update_post_meta( $post_id, '_aioseo_robots_default', $noindex ? '0' : '1' );
 			}
+			$written[] = 'noindex';
 		}
 
-		return true;
+		return [ 'plugin' => $plugin, 'written' => $written ];
 	}
 
 	/**
@@ -1258,57 +1455,20 @@ class McpConfirmationQueue {
 			return false;
 		}
 
-		$allowed_exts = [ 'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf' ];
-		$ext          = strtolower( (string) pathinfo( (string) \wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
-		if ( ! \in_array( $ext, $allowed_exts, true ) ) {
-			return false;
-		}
-
-		require_once \ABSPATH . 'wp-admin/includes/media.php';
-		require_once \ABSPATH . 'wp-admin/includes/file.php';
-		require_once \ABSPATH . 'wp-admin/includes/image.php';
-
-		$tmp = \download_url( $url );
-		if ( \is_wp_error( $tmp ) ) {
-			return false;
-		}
-
-		// Enforce 10 MB size limit.
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_filesize -- checking local tmp file before import
-		if ( filesize( $tmp ) > 10 * 1024 * 1024 ) {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file created by download_url
-			unlink( $tmp );
-			return false;
-		}
-
-		$filename   = \sanitize_file_name( basename( (string) \wp_parse_url( $url, PHP_URL_PATH ) ) );
-		$file_array = [
-			'name'     => $filename,
-			'tmp_name' => $tmp,
-		];
-
-		$title         = \sanitize_text_field( (string) ( $args['title'] ?? '' ) );
-		$attachment_id = \media_handle_sideload( $file_array, 0, $title ?: null );
+		$attachment_id = $this->sideload_media_from_url(
+			$url,
+			[
+				'title'       => (string) ( $args['title'] ?? '' ),
+				'alt_text'    => (string) ( $args['alt_text'] ?? '' ),
+				'caption'     => (string) ( $args['caption'] ?? '' ),
+				'description' => (string) ( $args['description'] ?? '' ),
+			],
+			[ 'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf' ],
+			[ 'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'application/pdf' ]
+		);
 
 		if ( \is_wp_error( $attachment_id ) ) {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file cleanup after failed sideload
-			unlink( $tmp );
 			return false;
-		}
-
-		if ( ! empty( $args['alt_text'] ) ) {
-			\update_post_meta( $attachment_id, '_wp_attachment_image_alt', \sanitize_text_field( (string) $args['alt_text'] ) );
-		}
-
-		$update_data = [ 'ID' => $attachment_id ];
-		if ( ! empty( $args['caption'] ) ) {
-			$update_data['post_excerpt'] = \sanitize_text_field( (string) $args['caption'] );
-		}
-		if ( ! empty( $args['description'] ) ) {
-			$update_data['post_content'] = \wp_kses_post( (string) $args['description'] );
-		}
-		if ( count( $update_data ) > 1 ) {
-			\wp_update_post( $update_data );
 		}
 
 		\update_option( 'g2rd_mcp_last_upload_media', [
@@ -1319,6 +1479,137 @@ class McpConfirmationQueue {
 		] );
 
 		return true;
+	}
+
+	/**
+	 * Downloads a file from a URL and imports it into the media library.
+	 *
+	 * Shared by g2rd_upload-media and g2rd_create-full-post. Validates the
+	 * extension, enforces a 10 MB limit, and verifies the REAL MIME type of the
+	 * downloaded bytes (finfo / wp_check_filetype_and_ext) against an allowlist —
+	 * not just the URL extension. The caller is responsible for the capability check.
+	 *
+	 * @param string                $url           Source URL (already passed through esc_url_raw).
+	 * @param array<string, string> $meta          Optional metadata: title, alt_text, caption, description.
+	 * @param string[]              $allowed_exts  Lower-case extensions accepted (e.g. ['jpg','png']).
+	 * @param string[]              $allowed_mimes Real MIME types accepted (e.g. ['image/jpeg']).
+	 * @return int|\WP_Error Attachment ID on success, WP_Error otherwise.
+	 */
+	private function sideload_media_from_url( string $url, array $meta, array $allowed_exts, array $allowed_mimes ) {
+		if ( '' === $url ) {
+			return new \WP_Error( 'empty_url', 'Empty media URL.' );
+		}
+
+		$path = (string) \wp_parse_url( $url, \PHP_URL_PATH );
+		$ext  = \strtolower( (string) \pathinfo( $path, \PATHINFO_EXTENSION ) );
+		if ( ! \in_array( $ext, $allowed_exts, true ) ) {
+			return new \WP_Error( 'invalid_extension', "Extension not allowed: {$ext}" );
+		}
+
+		// Load WordPress media helpers (guarded so unit tests can stub them instead).
+		if ( \file_exists( \ABSPATH . 'wp-admin/includes/media.php' ) ) {
+			require_once \ABSPATH . 'wp-admin/includes/media.php';
+			require_once \ABSPATH . 'wp-admin/includes/file.php';
+			require_once \ABSPATH . 'wp-admin/includes/image.php';
+		}
+
+		$tmp = \download_url( $url );
+		if ( \is_wp_error( $tmp ) ) {
+			return $tmp;
+		}
+
+		// Enforce 10 MB size limit.
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_filesize -- checking local tmp file before import
+		if ( filesize( $tmp ) > 10 * 1024 * 1024 ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file created by download_url
+			unlink( $tmp );
+			return new \WP_Error( 'file_too_large', 'File exceeds the 10 MB limit.' );
+		}
+
+		$filename = \sanitize_file_name( \basename( $path ) );
+
+		// Verify the REAL MIME type of the downloaded bytes, not just the URL extension.
+		if ( ! $this->verify_real_mime( $tmp, $filename, $ext, $allowed_mimes ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file cleanup after MIME mismatch
+			unlink( $tmp );
+			return new \WP_Error( 'invalid_mime', 'Real file content does not match an allowed MIME type.' );
+		}
+
+		$title         = \sanitize_text_field( $meta['title'] ?? '' );
+		$file_array    = [
+			'name'     => $filename,
+			'tmp_name' => $tmp,
+		];
+		$attachment_id = \media_handle_sideload( $file_array, 0, $title ?: null );
+
+		if ( \is_wp_error( $attachment_id ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- tmp file cleanup after failed sideload
+			unlink( $tmp );
+			return $attachment_id;
+		}
+
+		if ( ! empty( $meta['alt_text'] ) ) {
+			\update_post_meta( $attachment_id, '_wp_attachment_image_alt', \sanitize_text_field( $meta['alt_text'] ) );
+		}
+
+		$update_data = [ 'ID' => $attachment_id ];
+		if ( ! empty( $meta['caption'] ) ) {
+			$update_data['post_excerpt'] = \sanitize_text_field( $meta['caption'] );
+		}
+		if ( ! empty( $meta['description'] ) ) {
+			$update_data['post_content'] = \wp_kses_post( $meta['description'] );
+		}
+		if ( \count( $update_data ) > 1 ) {
+			\wp_update_post( $update_data );
+		}
+
+		return (int) $attachment_id;
+	}
+
+	/**
+	 * Verifies that a downloaded file's real MIME type matches an allowlist.
+	 *
+	 * Uses finfo on the file bytes when available, falling back to
+	 * wp_check_filetype_and_ext(). SVG (XML-based) is tolerated when the detector
+	 * reports a generic XML/text type, since MIME detectors disagree on SVG.
+	 *
+	 * @param string   $tmp           Local temporary file path.
+	 * @param string   $filename      Sanitized filename (with extension).
+	 * @param string   $ext           Lower-case extension.
+	 * @param string[] $allowed_mimes Accepted MIME types.
+	 * @return bool True if the real MIME type is allowed.
+	 */
+	private function verify_real_mime( string $tmp, string $filename, string $ext, array $allowed_mimes ): bool {
+		$real_mime = '';
+
+		if ( \function_exists( 'finfo_open' ) ) {
+			$finfo = \finfo_open( \FILEINFO_MIME_TYPE );
+			if ( false !== $finfo ) {
+				$detected = \finfo_file( $finfo, $tmp );
+				\finfo_close( $finfo );
+				$real_mime = \is_string( $detected ) ? $detected : '';
+			}
+		}
+
+		if ( '' === $real_mime ) {
+			$checked   = \wp_check_filetype_and_ext( $tmp, $filename );
+			$real_mime = (string) ( $checked['type'] ?? '' );
+		}
+
+		if ( '' === $real_mime ) {
+			return false;
+		}
+
+		if ( \in_array( $real_mime, $allowed_mimes, true ) ) {
+			return true;
+		}
+
+		// SVG is XML-based: finfo commonly reports text/xml, application/xml or text/plain.
+		if ( 'svg' === $ext && \in_array( 'image/svg+xml', $allowed_mimes, true ) ) {
+			return \in_array( $real_mime, [ 'text/xml', 'application/xml', 'text/plain', 'text/html' ], true );
+		}
+
+		return false;
 	}
 
 	/**
@@ -1424,6 +1715,222 @@ class McpConfirmationQueue {
 		$result = \wp_trash_post( $attachment_id );
 
 		return false !== $result;
+	}
+
+	// ── Composite write executors ─────────────────────────────────────────────
+
+	/**
+	 * Stores a structured execution report for the admin confirmation page.
+	 *
+	 * Kept both in memory (get_last_report()) and persisted in an option so the
+	 * last result can be inspected later (mirrors g2rd_mcp_last_upload_media).
+	 *
+	 * @param array<string, mixed> $report Structured report.
+	 * @return void
+	 */
+	private function set_report( array $report ): void {
+		$this->last_report = $report;
+		\update_option( 'g2rd_mcp_last_operation_result', $report, false );
+	}
+
+	/**
+	 * Executes g2rd/create-full-post: creates a complete post in one atomic operation.
+	 *
+	 * Order: sideload featured image → wp_insert_post → set featured image →
+	 * assign terms → write SEO meta. If the image fails, the post is still created
+	 * and the failure is reported. If wp_insert_post fails, the imported media is
+	 * rolled back (deleted). A structured report is stored via set_report().
+	 * Capability checks run inside the switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (title and content required).
+	 * @return bool True if the post was created.
+	 */
+	private function exec_create_full_post( array $args ): bool {
+		if ( ! \current_user_can( 'edit_posts' ) ) {
+			$this->set_report( [ 'success' => false, 'error' => 'insufficient_permissions' ] );
+			return false;
+		}
+
+		$title = \sanitize_text_field( (string) ( $args['title'] ?? '' ) );
+		if ( '' === $title ) {
+			$this->set_report( [ 'success' => false, 'error' => 'missing_title' ] );
+			return false;
+		}
+
+		$steps = [
+			'image'    => 'skipped',
+			'post'     => 'pending',
+			'featured' => 'skipped',
+			'terms'    => 'skipped',
+			'seo'      => 'skipped',
+		];
+
+		// ── Step 1: featured image sideload (non-blocking) ──────────────────────
+		$attachment_id = 0;
+		$image_url     = \esc_url_raw( (string) ( $args['featured_image_url'] ?? '' ) );
+
+		if ( '' !== $image_url ) {
+			if ( ! \current_user_can( 'upload_files' ) ) {
+				$steps['image'] = 'failed: insufficient permissions (upload_files)';
+			} else {
+				$sideloaded = $this->sideload_media_from_url(
+					$image_url,
+					[
+						'title'    => (string) ( $args['featured_image_title'] ?? '' ),
+						'alt_text' => (string) ( $args['featured_image_alt'] ?? '' ),
+						'caption'  => (string) ( $args['featured_image_caption'] ?? '' ),
+					],
+					[ 'jpg', 'jpeg', 'png', 'gif', 'webp' ],
+					[ 'image/jpeg', 'image/png', 'image/gif', 'image/webp' ]
+				);
+
+				if ( \is_wp_error( $sideloaded ) ) {
+					$steps['image'] = 'failed: ' . $sideloaded->get_error_message();
+				} else {
+					$attachment_id  = (int) $sideloaded;
+					$steps['image'] = 'ok';
+				}
+			}
+		}
+
+		// ── Step 2: insert the post (rollback image on failure) ─────────────────
+		$status = \sanitize_key( (string) ( $args['status'] ?? 'draft' ) );
+		if ( ! \in_array( $status, self::ALLOWED_STATUSES, true ) ) {
+			$status = 'draft';
+		}
+
+		$postarr = [
+			'post_title'   => $title,
+			'post_content' => \wp_kses_post( (string) ( $args['content'] ?? '' ) ),
+			'post_status'  => $status,
+			'post_type'    => \sanitize_key( (string) ( $args['post_type'] ?? 'post' ) ),
+			'post_excerpt' => \sanitize_textarea_field( (string) ( $args['excerpt'] ?? '' ) ),
+		];
+
+		if ( ! empty( $args['slug'] ) ) {
+			$postarr['post_name'] = \sanitize_title( (string) $args['slug'] );
+		}
+
+		$post_id = \wp_insert_post( $postarr, true );
+
+		if ( \is_wp_error( $post_id ) || ! $post_id ) {
+			$steps['post'] = 'failed';
+			// Rollback: remove the imported media so it does not dangle.
+			if ( $attachment_id > 0 ) {
+				\wp_delete_attachment( $attachment_id, true );
+				$steps['image'] = 'rolled_back';
+			}
+			$this->set_report( [
+				'success' => false,
+				'tool'    => 'g2rd_create-full-post',
+				'error'   => 'post_insert_failed',
+				'steps'   => $steps,
+			] );
+			return false;
+		}
+
+		$post_id       = (int) $post_id;
+		$steps['post'] = 'ok';
+
+		// ── Step 3: featured image ──────────────────────────────────────────────
+		if ( $attachment_id > 0 ) {
+			\set_post_thumbnail( $post_id, $attachment_id );
+			$steps['featured'] = 'ok';
+		}
+
+		// ── Step 4: terms (categories + tags) ───────────────────────────────────
+		$term_results = [];
+		if ( isset( $args['categories'] ) && \is_array( $args['categories'] ) ) {
+			$cat_ids = \array_values( \array_filter( \array_map( 'absint', $args['categories'] ) ) );
+			\wp_set_post_categories( $post_id, $cat_ids );
+			$term_results[] = \count( $cat_ids ) . ' categories';
+		}
+		if ( isset( $args['tags'] ) && \is_array( $args['tags'] ) ) {
+			$tags = \array_values( \array_filter( \array_map( 'sanitize_text_field', $args['tags'] ) ) );
+			\wp_set_post_tags( $post_id, $tags, false );
+			$term_results[] = \count( $tags ) . ' tags';
+		}
+		if ( ! empty( $term_results ) ) {
+			$steps['terms'] = 'ok (' . \implode( ', ', $term_results ) . ')';
+		}
+
+		// ── Step 5: SEO meta ────────────────────────────────────────────────────
+		if ( isset( $args['seo'] ) && \is_array( $args['seo'] ) && ! empty( $args['seo'] ) ) {
+			$seo_result   = $this->write_seo_meta( $post_id, $args['seo'] );
+			$steps['seo'] = 'none' === $seo_result['plugin']
+				? 'no SEO plugin detected'
+				: 'ok (' . $seo_result['plugin'] . ': ' . \implode( ', ', $seo_result['written'] ) . ')';
+		}
+
+		// ── Step 6: structured report ───────────────────────────────────────────
+		$this->set_report( [
+			'success'       => true,
+			'tool'          => 'g2rd_create-full-post',
+			'post_id'       => $post_id,
+			'post_url'      => (string) \get_permalink( $post_id ),
+			'edit_url'      => (string) \get_edit_post_link( $post_id, 'raw' ),
+			'attachment_id' => $attachment_id,
+			'steps'         => $steps,
+		] );
+
+		return true;
+	}
+
+	/**
+	 * Executes g2rd/batch: runs several write operations under one confirmation.
+	 *
+	 * Operations run sequentially via dispatch_operation() in the already-switched
+	 * user context. Best-effort: each operation's success is recorded; there is NO
+	 * global rollback (a g2rd_create-full-post inside the batch keeps its own
+	 * internal rollback). Nested batches and unknown tools are rejected.
+	 *
+	 * @param array<string, mixed> $args Tool arguments ('operations' array required).
+	 * @return bool True if at least one operation succeeded.
+	 */
+	private function exec_batch( array $args ): bool {
+		$operations = $args['operations'] ?? null;
+
+		if ( ! \is_array( $operations ) || empty( $operations ) ) {
+			$this->set_report( [ 'success' => false, 'batch' => true, 'error' => 'no_operations' ] );
+			return false;
+		}
+
+		$operations = \array_slice( $operations, 0, self::BATCH_MAX_OPS );
+		$results    = [];
+		$any_ok     = false;
+
+		foreach ( $operations as $i => $op ) {
+			$tool    = \is_array( $op ) ? (string) ( $op['tool'] ?? '' ) : '';
+			$op_args = \is_array( $op ) && isset( $op['arguments'] ) && \is_array( $op['arguments'] )
+				? $op['arguments']
+				: [];
+
+			if ( 'g2rd_batch' === $tool || ! \in_array( $tool, self::BATCH_ALLOWED_TOOLS, true ) ) {
+				$results[] = [
+					'index'   => (int) $i,
+					'tool'    => $tool,
+					'success' => false,
+					'error'   => 'tool_not_allowed',
+				];
+				continue;
+			}
+
+			$ok        = $this->dispatch_operation( $tool, $op_args );
+			$any_ok    = $any_ok || $ok;
+			$results[] = [
+				'index'   => (int) $i,
+				'tool'    => $tool,
+				'success' => $ok,
+			];
+		}
+
+		$this->set_report( [
+			'success'    => $any_ok,
+			'batch'      => true,
+			'operations' => $results,
+		] );
+
+		return $any_ok;
 	}
 
 	/**
