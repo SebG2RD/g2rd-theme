@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.3**
+
+- **Fix mises à jour du thème** : la dernière release GitHub est désormais mise en cache (6 h, transient partagé par la vérification de MAJ et la fiche thème). Fini l'épuisement du quota API GitHub lors des snapshots REST du connector, qui faisait disparaître la mise à jour du thème custom dans le manager.
+- **Robustesse** : un `403 rate limit` (qui n'est pas une erreur WP) est désormais détecté via le code HTTP, avec backoff de 15 min ; une mise à jour déjà connue n'est plus jamais effacée par un appel raté.
 
 ### **1.21.2**
 
