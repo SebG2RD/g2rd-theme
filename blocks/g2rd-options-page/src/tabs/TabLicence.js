@@ -149,7 +149,7 @@ export function TabLicence() {
 					</a>
 				</p>
 				<p style={ { color: '#646970', marginTop: -6, marginBottom: 16, fontSize: 12 } }>
-					Les nouvelles licences sont gérées via FluentCart. SureCart reste supporté uniquement pour la compatibilité historique.
+					Les licences sont gérées via FluentCart.
 				</p>
 
 				{ notice && (

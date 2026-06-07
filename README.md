@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.2**
+
+- **MCP — `g2rd_create-full-post`** : crée un article complet (contenu, image à la une importée depuis une URL, catégories, tags, métas SEO) en un seul appel et une seule confirmation e-mail, là où il fallait 4 actions auparavant.
+- **MCP — `g2rd_batch`** : regroupe jusqu'à 20 actions d'écriture en une seule confirmation (exécution séquentielle, statut par opération).
+- **Sécurité** : vérification du type MIME réel des médias importés (sideload), bénéficiant aussi à `g2rd_upload-media` ; rollback automatique du média si la création de l'article échoue.
+- **Style** : clarification du libellé de licence dans l'onglet Licence (FluentCart).
 
 ### **1.21.1**
 
