@@ -87,6 +87,72 @@ final class GithubUpdaterTest extends TestCase {
 		self::assertEmpty( $result->response );
 	}
 
+	// ── checkForUpdates() — cache release (correctif détection MAJ thème) ─────
+
+	public function test_check_for_updates_injects_update_from_cached_release(): void {
+		global $g2rd_option_store, $g2rd_transient_store, $g2rd_wp_remote_get_return;
+		$g2rd_option_store['g2rd_license_status'] = 'active';
+		// Release déjà en cache → aucun appel HTTP (sinon WP_Error « no_stub »).
+		$g2rd_wp_remote_get_return                         = null;
+		$g2rd_transient_store['g2rd_theme_latest_release'] = [
+			'tag_name'     => 'v2.0.0',
+			'published_at' => '2026-06-01T00:00:00Z',
+			'assets'       => [],
+			'zipball_url'  => 'https://api.github.com/repos/SebG2RD/g2rd-theme/zipball/v2.0.0',
+		];
+
+		$transient           = new \stdClass();
+		$transient->checked  = [ 'g2rd-theme' => '1.14.0' ];
+		$transient->response = [];
+
+		$result = $this->updater->checkForUpdates( $transient );
+
+		self::assertArrayHasKey( 'g2rd-theme', $result->response );
+		self::assertSame( '2.0.0', $result->response['g2rd-theme']['new_version'] );
+	}
+
+	public function test_check_for_updates_fetches_and_caches_release(): void {
+		global $g2rd_option_store, $g2rd_transient_store, $g2rd_wp_remote_get_return;
+		$g2rd_option_store['g2rd_license_status'] = 'active';
+		$g2rd_wp_remote_get_return                = [
+			'response' => [ 'code' => 200 ],
+			'body'     => (string) json_encode( [ 'tag_name' => 'v2.0.0', 'published_at' => 'x' ] ),
+		];
+
+		$transient           = new \stdClass();
+		$transient->checked  = [ 'g2rd-theme' => '1.14.0' ];
+		$transient->response = [];
+
+		$result = $this->updater->checkForUpdates( $transient );
+
+		self::assertSame( '2.0.0', $result->response['g2rd-theme']['new_version'] );
+		// La release est désormais mise en cache (plus d'appel à chaque filtre).
+		self::assertIsArray( $g2rd_transient_store['g2rd_theme_latest_release'] ?? null );
+	}
+
+	public function test_check_for_updates_keeps_existing_update_on_rate_limit(): void {
+		global $g2rd_option_store, $g2rd_transient_store, $g2rd_wp_remote_get_return;
+		$g2rd_option_store['g2rd_license_status'] = 'active';
+		// 403 « rate limit » : ce n'est PAS un WP_Error, mais le code HTTP ≠ 200.
+		$g2rd_wp_remote_get_return = [
+			'response' => [ 'code' => 403 ],
+			'body'     => '{"message":"API rate limit exceeded"}',
+		];
+
+		$transient           = new \stdClass();
+		$transient->checked  = [ 'g2rd-theme' => '1.14.0' ];
+		// Une MAJ est déjà connue (injectée plus tôt en contexte admin).
+		$transient->response = [ 'g2rd-theme' => [ 'new_version' => '2.0.0' ] ];
+
+		$result = $this->updater->checkForUpdates( $transient );
+
+		// Régression : un appel raté ne doit JAMAIS effacer une MAJ déjà connue.
+		self::assertArrayHasKey( 'g2rd-theme', $result->response );
+		self::assertSame( '2.0.0', $result->response['g2rd-theme']['new_version'] );
+		// Backoff posé pour ne pas re-solliciter l'API immédiatement.
+		self::assertNotFalse( $g2rd_transient_store['g2rd_theme_release_backoff'] ?? false );
+	}
+
 	// ── formatChangelog() — méthode privée via Reflection ────────────────────
 
 	private function callFormatChangelog( string $markdown ): string {

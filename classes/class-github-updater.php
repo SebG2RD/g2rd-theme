@@ -56,6 +56,34 @@ class GitHubUpdater {
     ];
 
     /**
+     * Clé de cache (transient) de la dernière release GitHub.
+     *
+     * @since 1.21.3
+     * @var string
+     */
+    private const RELEASE_CACHE_KEY = 'g2rd_theme_latest_release';
+
+    /**
+     * Durée du cache release, en secondes (6 h). Évite de marteler l'API GitHub
+     * (limitée à 60 req/h/IP en non authentifié) à chaque déclenchement du filtre
+     * pre_set_site_transient_update_themes — y compris pendant les snapshots REST
+     * du connector G2RD, où l'échec faisait disparaître la MAJ du thème custom.
+     *
+     * @since 1.21.3
+     * @var int
+     */
+    private const RELEASE_CACHE_TTL = 21600;
+
+    /**
+     * Clé de backoff après un appel API en échec (15 min) : empêche de re-marteler
+     * l'API sans écraser une release déjà mise en cache.
+     *
+     * @since 1.21.3
+     * @var string
+     */
+    private const RELEASE_BACKOFF_KEY = 'g2rd_theme_release_backoff';
+
+    /**
      * Instance du gestionnaire de licences
      *
      * @since 1.0.0
@@ -112,22 +140,18 @@ class GitHubUpdater {
             return $transient;
         }
 
+        // Lookup release mis en cache (cf get_latest_release). En cas d'échec
+        // (réseau / rate-limit GitHub), on retourne le transient INCHANGÉ : on ne
+        // doit jamais effacer une mise à jour déjà connue à cause d'un appel raté
+        // (c'était la cause du bug « MAJ thème invisible » dans le manager).
+        $release_data = $this->get_latest_release();
+        if ($release_data === null) {
+            return $transient;
+        }
+
         $theme_slug = basename(\get_template_directory());
         $theme_data = \wp_get_theme($theme_slug);
         $current_version = $theme_data->get('Version');
-
-        // Récupérer les informations de la dernière version via l'API GitHub
-        $response = \wp_remote_get(self::GITHUB_API_URL, self::REQUEST_ARGS);
-
-        if (\is_wp_error($response)) {
-            return $transient;
-        }
-
-        $release_data = json_decode(\wp_remote_retrieve_body($response), true);
-
-        if (empty($release_data) || !isset($release_data['tag_name'])) {
-            return $transient;
-        }
 
         $latest_version = ltrim((string) $release_data['tag_name'], 'v');
 
@@ -154,6 +178,53 @@ class GitHubUpdater {
         }
 
         return $transient;
+    }
+
+    /**
+     * Récupère (et met en cache) la dernière release GitHub.
+     *
+     * Le filtre pre_set_site_transient_update_themes est déclenché très souvent
+     * (pages admin, cron, et chaque snapshot REST du connector G2RD qui force un
+     * wp_update_themes()). Un appel API non caché épuisait le quota GitHub
+     * (60 req/h/IP non authentifié) : l'appel échouait alors en contexte REST et
+     * la MAJ du thème custom n'apparaissait pas dans le manager. On met donc la
+     * release en cache 6 h, avec un backoff court en cas d'échec pour ne pas
+     * marteler l'API — sans jamais écraser une release déjà valide.
+     *
+     * @since 1.21.3
+     * @return array<string, mixed>|null Données de release, ou null si indisponible.
+     */
+    private function get_latest_release(): ?array {
+        $cached = \get_transient(self::RELEASE_CACHE_KEY);
+        if (is_array($cached) && isset($cached['tag_name'])) {
+            return $cached;
+        }
+
+        // Un appel récent a échoué : ne pas re-solliciter l'API tout de suite.
+        if (\get_transient(self::RELEASE_BACKOFF_KEY)) {
+            return null;
+        }
+
+        $response = \wp_remote_get(self::GITHUB_API_URL, self::REQUEST_ARGS);
+
+        // Échec réseau OU code HTTP ≠ 200 (un 403 « rate limit exceeded » n'est
+        // PAS un WP_Error : il faut tester explicitement le code de réponse).
+        if (\is_wp_error($response) || 200 !== (int) \wp_remote_retrieve_response_code($response)) {
+            \set_transient(self::RELEASE_BACKOFF_KEY, 1, 15 * 60);
+            return null;
+        }
+
+        $release_data = json_decode(\wp_remote_retrieve_body($response), true);
+
+        if (!is_array($release_data) || !isset($release_data['tag_name'])) {
+            \set_transient(self::RELEASE_BACKOFF_KEY, 1, 15 * 60);
+            return null;
+        }
+
+        \set_transient(self::RELEASE_CACHE_KEY, $release_data, self::RELEASE_CACHE_TTL);
+        \delete_transient(self::RELEASE_BACKOFF_KEY);
+
+        return $release_data;
     }
 
     /**
@@ -184,15 +255,9 @@ class GitHubUpdater {
             return $false;
         }
 
-        $response = \wp_remote_get(self::GITHUB_API_URL, self::REQUEST_ARGS);
+        $release_data = $this->get_latest_release();
 
-        if (\is_wp_error($response)) {
-            return $false;
-        }
-
-        $release_data = json_decode(\wp_remote_retrieve_body($response), true);
-
-        if (empty($release_data) || !isset($release_data['tag_name'])) {
+        if ($release_data === null) {
             return $false;
         }
 
