@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.3** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.4** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.4**
+
+- **Style** : refonte et réorganisation de `style.css` en sections structurées (variables `:root`, reset FSE, animations, images, articles cliquables, effet glass, particules, template produit FluentCart, responsive).
+- **Fix** : montée de version pour forcer le rafraîchissement du cache navigateur — les modifications CSS de `style.css` n'étaient pas prises en compte tant que la version (cache-buster `?ver=`) restait identique.
 
 ### **1.21.3**
 
