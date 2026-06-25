@@ -93,7 +93,8 @@
         "ctaBorderWidth":    { "type": "string", "default": "" },
         "ctaBorderStyle":    { "type": "string", "default": "" },
         "ctaBorderColor":    { "type": "string", "default": "" },
-        "ctaBorderRadius":   { "type": "string", "default": "" }
+        "ctaBorderRadius":   { "type": "string", "default": "" },
+        "ctaButtonStyle":    { "type": "string", "default": "" }
     },
     "example": {
         "attributes": {

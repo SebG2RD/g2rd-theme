@@ -32,6 +32,36 @@ class FilterableGrid {
      */
     public function register_hooks(): void {
         \add_action('rest_api_init', [$this, 'registerRoutes']);
+        \add_filter('render_block', [$this, 'enqueueButtonStyles'], 10, 2);
+    }
+
+    /**
+     * Charge les feuilles de style nécessaires au CTA « bouton natif » de la grille.
+     *
+     * Dans un thème de blocs, les styles des blocs cœur sont chargés séparément :
+     * le CTA (markup wp-block-button rendu côté JS) a besoin de la feuille du bloc
+     * bouton pour les variantes fill/outline. Les styles Magic Page (néomorphique,
+     * doré pressé) sont chargés uniquement si l'un d'eux est sélectionné.
+     *
+     * @param  string               $block_content Contenu HTML du bloc.
+     * @param  array<string, mixed> $block         Données du bloc analysé.
+     * @return string
+     */
+    public function enqueueButtonStyles( string $block_content, array $block ): string {
+        if ( 'g2rd/filterable-grid' !== ( $block['blockName'] ?? '' ) ) {
+            return $block_content;
+        }
+
+        if ( \wp_style_is( 'wp-block-button', 'registered' ) ) {
+            \wp_enqueue_style( 'wp-block-button' );
+        }
+
+        $style = $block['attrs']['ctaButtonStyle'] ?? '';
+        if ( \in_array( $style, [ 'neomorphic', 'soft-pressed', 'magic-dark', 'magic-light' ], true ) ) {
+            \wp_enqueue_style( 'g2rd-magic-page' );
+        }
+
+        return $block_content;
     }
 
     /**

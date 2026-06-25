@@ -74,7 +74,7 @@ function renderStars(rating) {
 function renderCard(item, opts) {
   const {
     cardDisplay, linkType, readMoreText, excerptLength,
-    showBadge, showDate, showPrice, showRating, showAddToCart,
+    showBadge, showDate, showPrice, showRating, showAddToCart, ctaButtonStyle,
   } = opts;
 
   const p      = item.product;
@@ -147,16 +147,19 @@ function renderCard(item, opts) {
       <span class="g2rd-fg__rating-count">(${p.rating_count})</span></div>`;
   }
 
-  // CTA
+  // CTA — bouton natif WordPress (markup wp-block-button) pour hériter des styles de boutons du site.
   let ctaHtml = "";
+  const ctaStyleClass = ctaButtonStyle ? ` is-style-${attr(ctaButtonStyle)}` : "";
+  const ctaButton = (href, label, text) =>
+    `<div class="wp-block-button g2rd-fg__cta${ctaStyleClass}"><a href="${attr(href)}" class="wp-block-button__link wp-element-button" aria-label="${label}">${text}</a></div>`;
   if (linkType === "read-more") {
     const rmText = esc(readMoreText || "Lire la suite");
-    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__readmore" aria-label="${rmText} : ${attr(item.title)}">${rmText}</a>`;
+    ctaHtml = ctaButton(item.link, `${rmText} : ${attr(item.title)}`, rmText);
   }
   if (showAddToCart && p?.add_to_cart_url) {
-    ctaHtml = `<a href="${attr(p.add_to_cart_url)}" class="g2rd-fg__add-to-cart" aria-label="Ajouter au panier : ${attr(item.title)}">Ajouter au panier</a>`;
+    ctaHtml = ctaButton(p.add_to_cart_url, `Ajouter au panier : ${attr(item.title)}`, "Ajouter au panier");
   } else if (showAddToCart && p) {
-    ctaHtml = `<a href="${attr(item.link)}" class="g2rd-fg__add-to-cart" aria-label="Voir le produit : ${attr(item.title)}">Voir le produit</a>`;
+    ctaHtml = ctaButton(item.link, `Voir le produit : ${attr(item.title)}`, "Voir le produit");
   }
 
   return `<${tag}${tagAttrs}>
@@ -201,6 +204,7 @@ class FilterableGrid {
       showAddToCart:el.dataset.showCart               === "true",
       orderby:      el.dataset.orderby                || "date",
       order:        el.dataset.order                  || "DESC",
+      ctaButtonStyle: el.dataset.ctaStyle             || "",
     };
 
     this.state = {
@@ -355,6 +359,7 @@ class FilterableGrid {
       showPrice:    this.cfg.showPrice,
       showRating:   this.cfg.showRating,
       showAddToCart:this.cfg.showAddToCart,
+      ctaButtonStyle: this.cfg.ctaButtonStyle,
     };
 
     this.grid.innerHTML = items.map((item) => renderCard(item, opts)).join("");

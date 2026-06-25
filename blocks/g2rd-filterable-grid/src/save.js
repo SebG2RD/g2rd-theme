@@ -49,6 +49,7 @@ export default function Save({ attributes }) {
     ctaBorderStyle,
     ctaBorderColor,
     ctaBorderRadius,
+    ctaButtonStyle,
   } = attributes;
 
   const blockProps = useBlockProps.save({
@@ -74,6 +75,8 @@ export default function Save({ attributes }) {
     "data-order":               order || "DESC",
     "data-card-title-fontsize": cardTitleFontSize || "",
     "data-excerpt-fontsize":    excerptFontSize   || "",
+    // Ajout conditionnel : les instances existantes (valeur vide) gardent un rendu identique → pas d'invalidation de bloc.
+    ...(ctaButtonStyle ? { "data-cta-style": ctaButtonStyle } : {}),
   });
 
   const cssVars = {};

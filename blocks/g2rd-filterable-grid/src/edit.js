@@ -1,5 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import { useSelect } from "@wordpress/data";
+import { store as blocksStore } from "@wordpress/blocks";
 import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
@@ -52,6 +54,7 @@ function CardPreview({ item, opts, colors, fontSizes }) {
     excerptLength = 150,
     showBadge     = true,
     showDate      = true,
+    ctaButtonStyle = "",
   } = opts;
   const { titleColor, cardTextColor, excerptColor } = colors;
   const { cardTitleFontSize, excerptFontSize } = fontSizes || {};
@@ -106,13 +109,15 @@ function CardPreview({ item, opts, colors, fontSizes }) {
           ) }
         </div>
         { linkType === "read-more" && (
-          <a
-            href={ item.link }
-            className="g2rd-fg__readmore"
-            onClick={ (e) => e.preventDefault() }
-          >
-            { readMoreText }
-          </a>
+          <div className={ `wp-block-button g2rd-fg__cta${ ctaButtonStyle ? ` is-style-${ ctaButtonStyle }` : "" }` }>
+            <a
+              href={ item.link }
+              className="wp-block-button__link wp-element-button"
+              onClick={ (e) => e.preventDefault() }
+            >
+              { readMoreText }
+            </a>
+          </div>
         ) }
       </div>
     </Wrapper>
@@ -159,16 +164,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     showUnderline,
     cardTitleFontSize,
     excerptFontSize,
-    ctaBgColor,
-    ctaTextColor,
-    ctaHoverBgColor,
-    ctaHoverTextColor,
-    ctaPaddingY,
-    ctaPaddingX,
-    ctaBorderWidth,
-    ctaBorderStyle,
-    ctaBorderColor,
-    ctaBorderRadius,
+    ctaButtonStyle,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -177,6 +173,12 @@ export default function Edit({ attributes, setAttributes, clientId }) {
       setAttributes({ blockId: `g2rd-fg-${ clientId.slice(0, 8) }` });
     }
   }, []);
+
+  // Styles de boutons natifs enregistrés (fill, outline + styles du thème : neomorphic, soft-pressed…)
+  const buttonStyles = useSelect(
+    ( select ) => select( blocksStore ).getBlockStyles( "core/button" ) || [],
+    []
+  );
 
   // Propriétés CSS custom propagées par cascade aux enfants
   const customStyle = {};
@@ -189,16 +191,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   if (imageObjectFit && imageObjectFit !== "cover") {
     customStyle["--g2rd-fg-img-fit"] = imageObjectFit;
   }
-  if (ctaBgColor)        customStyle["--g2rd-fg-cta-bg"]          = ctaBgColor;
-  if (ctaTextColor)      customStyle["--g2rd-fg-cta-color"]        = ctaTextColor;
-  if (ctaHoverBgColor)   customStyle["--g2rd-fg-cta-hover-bg"]     = ctaHoverBgColor;
-  if (ctaHoverTextColor) customStyle["--g2rd-fg-cta-hover-color"]  = ctaHoverTextColor;
-  if (ctaPaddingY)     customStyle["--g2rd-fg-cta-pad-y"]        = ctaPaddingY;
-  if (ctaPaddingX)     customStyle["--g2rd-fg-cta-pad-x"]        = ctaPaddingX;
-  if (ctaBorderWidth)  customStyle["--g2rd-fg-cta-border-width"] = ctaBorderWidth;
-  if (ctaBorderStyle)  customStyle["--g2rd-fg-cta-border-style"] = ctaBorderStyle;
-  if (ctaBorderColor)  customStyle["--g2rd-fg-cta-border-color"] = ctaBorderColor;
-  if (ctaBorderRadius) customStyle["--g2rd-fg-cta-radius"]       = ctaBorderRadius;
 
   const blockProps = useBlockProps({
     className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
@@ -297,8 +289,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
   // Options transmises à CardPreview — mémorisées pour éviter de re-rendre toutes les cartes
   const cardOpts   = useMemo(
-    () => ( { cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate } ),
-    [ cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate ]
+    () => ( { cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate, ctaButtonStyle } ),
+    [ cardDisplay, linkType, readMoreText, excerptLength, showBadge, showDate, ctaButtonStyle ]
   );
   const cardColors = useMemo(
     () => ( { titleColor, cardTextColor, excerptColor } ),
@@ -456,90 +448,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           ] }
         />
 
-        {/* ── Couleurs du CTA ── */}
-        <PanelColorSettings
-          title={ __("Couleurs du CTA (bouton)", "g2rd") }
-          initialOpen={ false }
-          colorSettings={ [
-            {
-              value:    ctaBgColor,
-              onChange: (v) => setAttributes({ ctaBgColor: v || "" }),
-              label:    __("Fond du bouton", "g2rd"),
-            },
-            {
-              value:    ctaTextColor,
-              onChange: (v) => setAttributes({ ctaTextColor: v || "" }),
-              label:    __("Couleur du texte", "g2rd"),
-            },
-            {
-              value:    ctaHoverBgColor,
-              onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),
-              label:    __("Fond au survol", "g2rd"),
-            },
-            {
-              value:    ctaHoverTextColor,
-              onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }),
-              label:    __("Texte au survol", "g2rd"),
-            },
-          ] }
-        />
-
-        {/* ── Espacement & bordure du CTA ── */}
-        <PanelBody title={ __("CTA — espacement & bordure", "g2rd") } initialOpen={ false }>
-          <p style={ { fontSize: "12px", color: "#757575", marginTop: 0 } }>
-            { __("Toute valeur CSS est acceptée (px, rem, em, %, ou clamp() pour un rendu fluide).", "g2rd") }
-          </p>
-          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Padding vertical", "g2rd") }
-            value={ ctaPaddingY }
-            onChange={ (v) => setAttributes({ ctaPaddingY: v }) }
-            placeholder=".45em"
-          />
-          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Padding horizontal", "g2rd") }
-            value={ ctaPaddingX }
-            onChange={ (v) => setAttributes({ ctaPaddingX: v }) }
-            placeholder="1.1em"
-          />
-          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Épaisseur de bordure", "g2rd") }
-            value={ ctaBorderWidth }
-            onChange={ (v) => setAttributes({ ctaBorderWidth: v }) }
-            placeholder="1px"
-          />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Style de bordure", "g2rd") }
-            value={ ctaBorderStyle }
-            onChange={ (v) => setAttributes({ ctaBorderStyle: v }) }
-            options={ [
-              { label: __("Aucune", "g2rd"),  value: "" },
-              { label: __("Pleine", "g2rd"),  value: "solid" },
-              { label: __("Tirets", "g2rd"),  value: "dashed" },
-              { label: __("Points", "g2rd"),  value: "dotted" },
-              { label: __("Double", "g2rd"),  value: "double" },
-            ] }
-          />
-          <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Rayon de bordure", "g2rd") }
-            value={ ctaBorderRadius }
-            onChange={ (v) => setAttributes({ ctaBorderRadius: v }) }
-            placeholder="4px ou 999px"
-          />
-        </PanelBody>
-
-        {/* ── Couleur de la bordure du CTA ── */}
-        <PanelColorSettings
-          title={ __("Bordure du CTA — couleur", "g2rd") }
-          initialOpen={ false }
-          colorSettings={ [
-            {
-              value:    ctaBorderColor,
-              onChange: (v) => setAttributes({ ctaBorderColor: v || "" }),
-              label:    __("Couleur de la bordure", "g2rd"),
-            },
-          ] }
-        />
-
         {/* ── Image des cartes ── */}
         <PanelBody title={ __("Image des cartes", "g2rd") } initialOpen={ false }>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
@@ -622,6 +530,18 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               onChange={ (v) => setAttributes({ readMoreText: v }) }
               __next40pxDefaultSize
               __nextHasNoMarginBottom
+            />
+          ) }
+          { (linkType === "read-more" || hasProductType) && (
+            <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+              label={ __("Style du bouton (natif WordPress)", "g2rd") }
+              value={ ctaButtonStyle }
+              options={ [
+                { label: __("Style par défaut du thème", "g2rd"), value: "" },
+                ...buttonStyles.map( ( s ) => ( { label: s.label, value: s.name } ) ),
+              ] }
+              onChange={ (v) => setAttributes({ ctaButtonStyle: v }) }
+              help={ __("Reprend les designs des boutons natifs WordPress pour rester cohérent avec le site.", "g2rd") }
             />
           ) }
         </PanelBody>

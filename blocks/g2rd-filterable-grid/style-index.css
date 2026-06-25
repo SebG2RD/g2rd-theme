@@ -9,18 +9,15 @@
 .g2rd-fg__badge--sale{background:var(--wp--preset--color--secondary,#e74c3c);color:#fff}
 .g2rd-fg__badge--out{background:#6b7280;color:#fff}
 .g2rd-fg__badge--back{background:#f59e0b;color:#fff}
-.g2rd-fg__add-to-cart{background:var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d));border:var(--g2rd-fg-cta-border-width,0) var(--g2rd-fg-cta-border-style,solid) var(--g2rd-fg-cta-border-color,transparent);border-radius:var(--g2rd-fg-cta-radius,4px);color:var(--g2rd-fg-cta-color,var(--wp--preset--color--white,#fff))!important;display:inline-block;font-size:.875rem;font-weight:600;margin-top:4px;padding:var(--g2rd-fg-cta-pad-y,.45em) var(--g2rd-fg-cta-pad-x,1.1em);text-decoration:none;transition:background .15s,color .15s,opacity .15s,border-color .15s}
-.g2rd-fg__add-to-cart:hover{background:var(--g2rd-fg-cta-hover-bg,var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d)));color:var(--g2rd-fg-cta-hover-color,var(--g2rd-fg-cta-color,var(--wp--preset--color--white,#fff)))!important;opacity:.88}
-.g2rd-fg__add-to-cart:focus-visible{outline:2px solid var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary,#2f425d));outline-offset:2px}
-.g2rd-fg__readmore{background:var(--g2rd-fg-cta-bg,transparent);border:var(--g2rd-fg-cta-border-width,0) var(--g2rd-fg-cta-border-style,solid) var(--g2rd-fg-cta-border-color,transparent);border-radius:var(--g2rd-fg-cta-radius,4px);color:var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d));display:inline-block;font-weight:600;margin-top:4px;padding:var(--g2rd-fg-cta-pad-y,0) var(--g2rd-fg-cta-pad-x,0);text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+/* CTA : bouton natif WordPress (wp-block-button). Styles hérités du thème / des styles de boutons natifs. */
+.g2rd-filter-grid .g2rd-fg__cta{margin-top:auto;padding-top:.5rem}
+.g2rd-filter-grid .g2rd-fg__cta .wp-block-button__link{text-decoration:none}
 .g2rd-filter-grid__card a,.g2rd-fg__card a{text-decoration:none}
-.g2rd-fg__readmore:hover{background:var(--g2rd-fg-cta-hover-bg,var(--g2rd-fg-cta-bg,transparent));color:var(--g2rd-fg-cta-hover-color,var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d)));text-decoration:none}
-.g2rd-fg__readmore:focus-visible{outline:2px solid var(--g2rd-fg-cta-color,var(--wp--preset--color--primary,#2f425d));outline-offset:3px}
 .g2rd-fg__meta{align-items:center;color:#9ca3af;display:flex;font-size:.8rem;gap:8px;margin-top:auto}
 .g2rd-fg__title a{color:inherit;text-decoration:none}.g2rd-filter-grid.no-text-underline .g2rd-filter-grid__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card a,.g2rd-filter-grid.no-text-underline .g2rd-fg__card p{text-decoration:none}
 .g2rd-fg__title a:hover{text-decoration:underline}
-.g2rd-fg__title{color:var(--g2rd-fg-title-color,inherit);font-size:1.05rem;font-weight:600;line-height:1.35;margin:0}
-.g2rd-fg__excerpt{color:var(--g2rd-fg-excerpt-color,inherit);font-size:.95rem;line-height:1.5;margin:0;opacity:.78}
+.g2rd-fg__title{color:var(--g2rd-fg-title-color,inherit);font-size:var(--g2rd-fg-title-font-size,1.05rem);font-weight:600;line-height:1.35;margin:0}
+.g2rd-fg__excerpt{color:var(--g2rd-fg-excerpt-color,inherit);font-size:var(--g2rd-fg-excerpt-font-size,.95rem);line-height:1.5;margin:0;opacity:.78}
 .g2rd-fg__empty,.g2rd-fg__error{background:rgba(148,163,184,.14);border-radius:12px;margin:0;padding:1rem;text-align:center}
 .g2rd-fg__nav{align-items:center;display:flex;flex-wrap:wrap;gap:.5rem}
 .g2rd-fg__page-btn{background:hsla(0,0%,100%,.9);border:1px solid rgba(15,23,42,.18);border-radius:999px;color:inherit;cursor:pointer;font-size:.9rem;font-weight:500;padding:.45rem .85rem;transition:all .15s ease}
