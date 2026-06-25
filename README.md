@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.4** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.21.5** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.21.5**
+
+- **Accessibilité (RGAA)** : compteurs affichant leur valeur réelle sans JS, liens de navigation `href="#"` redirigés vers une vraie destination, emojis décoratifs masqués aux lecteurs d'écran (`aria-hidden`), `alt=""` de secours sur les images de galerie, `autocomplete` + association label/champ sur les formulaires.
+- **Accessibilité (structure)** : repère `<main>` ajouté à 15 templates — lien d'évitement fonctionnel sur toutes les pages.
+- **Fix** : réparation de `archive-prestations.html` (tronqué depuis la 1.8.0 — pied de page et structure restaurés).
+- **Grille filtrable** : CTA transformé en bouton WordPress natif avec choix du style natif (cohérence graphique) ; tailles de titre et d'extrait désormais appliquées côté front.
 
 ### **1.21.4**
 
