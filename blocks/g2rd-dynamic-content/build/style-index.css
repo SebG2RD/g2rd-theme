@@ -48,8 +48,7 @@
 .g2rd-dynamic-content__image img {
   display: block;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: transform 0.3s ease;
   width: 100%;
 }

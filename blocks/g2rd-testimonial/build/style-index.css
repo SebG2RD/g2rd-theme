@@ -27,7 +27,6 @@ blockquote.g2rd-testimonial__card {
 
 .g2rd-testimonial__accent {
   -webkit-user-select: none;
-     -moz-user-select: none;
           user-select: none;
 }
 
@@ -48,8 +47,7 @@ blockquote.g2rd-testimonial__card {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   flex-shrink: 0;
 }
 
@@ -239,25 +237,20 @@ blockquote.g2rd-testimonial__card {
 
 .g2rd-testimonial--google[data-google-layout="masonry"] {
   display: block;
-  -moz-columns: var( --g2rd-t-cols, 3 );
-       columns: var( --g2rd-t-cols, 3 );
-  -moz-column-gap: 1.25rem;
-       column-gap: 1.25rem;
+  columns: var( --g2rd-t-cols, 3 );
+  column-gap: 1.25rem;
 }
 
 .g2rd-testimonial--google[data-google-layout="masonry"] .g2rd-testimonial__card {
-  -moz-column-break-inside: avoid;
-       break-inside: avoid;
+  break-inside: avoid;
   display: flex;
   flex-direction: column;
   margin-bottom: 1.25rem;
 }
 
 .g2rd-testimonial--google[data-google-layout="masonry"] .g2rd-testimonial__google-header {
-  -moz-column-span: all;
-       column-span: all;
-  -moz-column-break-inside: avoid;
-       break-inside: avoid;
+  column-span: all;
+  break-inside: avoid;
   margin-bottom: 1rem;
 }
 
@@ -440,8 +433,7 @@ blockquote.g2rd-testimonial__card {
   }
 
   .g2rd-testimonial--google[data-google-layout="masonry"] {
-    -moz-columns: 1;
-         columns: 1;
+    columns: 1;
   }
 
   .g2rd-testimonial__nav-prev { left: -0.75rem; }

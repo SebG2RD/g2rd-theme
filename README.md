@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.21.5** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.22.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.22.0**
+
+- **Charte graphique** : nouvelle palette navy/lime/rose en remplacement de bleu/beige.
+- **Couleurs dynamiques** : tout le markup (patterns, parts, templates) et le CSS référencent les variables de la palette (`var(--wp--preset--color--*)` + `color-mix()` pour les translucides) — un changement de charte ou de variation de style se propage automatiquement à tous les blocs, sans repasser sur chacun.
+- **Fix template parts** : résolution robuste du header/footer (retrait de l'attribut `theme` codé en dur dans les `wp:template-part`) — corrige l'erreur « élément de modèle supprimé ou non disponible » sur une install neuve ; suppression du template part fantôme `newsletter`.
+- **Maintenance** : mises à jour de dépendances Dependabot (`@wordpress/scripts` 32.5.0, `@playwright/test` 1.61.1).
 
 ### **1.21.5**
 

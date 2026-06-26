@@ -198,8 +198,7 @@
 
 @media print {
   .g2rd-info-block {
-    -moz-column-break-inside: avoid;
-         break-inside: avoid;
+    break-inside: avoid;
     page-break-inside: avoid;
   }
 }
