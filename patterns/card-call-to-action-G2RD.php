@@ -3,7 +3,7 @@
 /**
  * Title: Card Call to Action G2RD
  * Slug: G2RD-theme/card-call-to-action-G2RD
- * Description: Présentation de l'entreprise
+ * Description: Présentation de l'entreprise en bandeau sombre avec double CTA et galerie
  * Categories: card, hero
  * Keywords: présentation, carte, hero
  * Viewport Width: 1400
@@ -13,40 +13,40 @@
  * Text Domain: g2rd
  */
 ?>
-<!-- wp:group {"metadata":{"name":"G2RD Hero"},"className":"is-style-primary","style":{"spacing":{"padding":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group is-style-primary" style="padding-top:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--s)"><!-- wp:columns {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","left":"var:preset|spacing|xs","right":"var:preset|spacing|xs"}}}} -->
-    <div class="wp-block-columns" style="padding-top:var(--wp--preset--spacing--xs);padding-right:var(--wp--preset--spacing--xs);padding-bottom:var(--wp--preset--spacing--xs);padding-left:var(--wp--preset--spacing--xs)"><!-- wp:column {"width":"55%"} -->
-        <div class="wp-block-column" style="flex-basis:55%"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|secondary"}}}},"textColor":"secondary","fontSize":"l"} -->
-            <p class="has-secondary-color has-text-color has-link-color has-l-font-size">Besoin d'un site Internet ?</p>
+<!-- wp:group {"metadata":{"name":"G2RD Hero"},"className":"is-style-primary","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-primary" style="padding-top:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"padding":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|s","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}}} -->
+    <div class="wp-block-columns are-vertically-aligned-center" style="padding-top:var(--wp--preset--spacing--s);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--s);padding-left:var(--wp--preset--spacing--s)"><!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
+        <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.06em","textTransform":"uppercase"},"elements":{"link":{"color":{"text":"var:preset|color|secondary"}}}},"textColor":"secondary","fontSize":"s"} -->
+            <p class="has-secondary-color has-text-color has-link-color has-s-font-size" style="font-weight:600;letter-spacing:0.06em;text-transform:uppercase">Besoin d'un site Internet ?</p>
             <!-- /wp:paragraph -->
 
-            <!-- wp:heading -->
-            <h2 class="wp-block-heading">G2RD <img class="wp-image-22" style="width: 50px;" src="http://g2rd.fr/wp-content/themes/G2RD-theme/assets/img/g2rd-wordpress.png" alt="G2RD WordPress"><br>L'agence <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-secondary-color">WordPress</mark></h2>
+            <!-- wp:heading {"textColor":"white","style":{"typography":{"fontWeight":"800","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"var:preset|spacing|xs"}}}} -->
+            <h2 class="wp-block-heading has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--xs);font-weight:800;letter-spacing:-0.02em">G2RD,<br>L'agence <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">WordPress</mark></h2>
             <!-- /wp:heading -->
 
-            <!-- wp:paragraph -->
-            <p>De la conception de votre marque à la réalisation d'un site sur mesure avec WordPress, G2RD c'est une équipe de passionnés à votre écoute avec plus de 5 ans d'expérience.</p>
+            <!-- wp:paragraph {"textColor":"white","style":{"typography":{"lineHeight":"1.7"},"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
+            <p class="has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);line-height:1.7">De la conception de votre marque à la réalisation d'un site sur mesure avec WordPress, G2RD c'est une équipe de passionnés à votre écoute avec plus de 5 ans d'expérience.</p>
             <!-- /wp:paragraph -->
 
-            <!-- wp:buttons -->
-            <div class="wp-block-buttons"><!-- wp:button -->
-                <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Prendre rendez-vous</a></div>
+            <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|m"},"blockGap":"1rem"},"layout":{"type":"flex","flexWrap":"wrap"}}} -->
+            <div class="wp-block-buttons"><!-- wp:button {"style":{"typography":{"fontWeight":"700"}}} -->
+                <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" style="font-weight:700">Prendre rendez-vous</a></div>
                 <!-- /wp:button -->
 
-                <!-- wp:button {"textColor":"white","className":"is-style-transparent","style":{"elements":{"link":{"color":{"text":"var:preset|color|white"}}}}} -->
-                <div class="wp-block-button is-style-transparent"><a class="wp-block-button__link has-white-color has-text-color has-link-color wp-element-button">Nos services</a></div>
+                <!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 40%, transparent)","width":"1px"}}} -->
+                <div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-color:color-mix(in srgb, var(--wp--preset--color--white) 40%, transparent);border-width:1px">Nos services</a></div>
                 <!-- /wp:button -->
             </div>
             <!-- /wp:buttons -->
 
-            <!-- wp:separator -->
-            <hr class="wp-block-separator has-alpha-channel-opacity" />
+            <!-- wp:separator {"backgroundColor":"blue-soft","className":"is-style-wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}}} -->
+            <hr class="wp-block-separator has-text-color has-blue-soft-color has-alpha-channel-opacity has-blue-soft-background-color has-background is-style-wide" style="margin-top:var(--wp--preset--spacing--m);margin-bottom:var(--wp--preset--spacing--m)" />
             <!-- /wp:separator -->
 
             <!-- wp:columns {"verticalAlignment":"center"} -->
             <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
-                <div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"fontSize":"s"} -->
-                    <p class="has-s-font-size">Retrouvez nous sur les réseaux sociaux :</p>
+                <div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"textColor":"white","fontSize":"s"} -->
+                    <p class="has-white-color has-text-color has-s-font-size">Retrouvez-nous sur les réseaux sociaux :</p>
                     <!-- /wp:paragraph -->
                 </div>
                 <!-- /wp:column -->
@@ -69,21 +69,10 @@
         </div>
         <!-- /wp:column -->
 
-        <!-- wp:column {"width":"45%"} -->
-        <div class="wp-block-column" style="flex-basis:45%"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"is-style-rounded"} -->
-            <figure class="wp-block-image size-full is-style-rounded"><img /></figure>
+        <!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
+        <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|l"},"shadow":"var:preset|shadow|magic-xl"}} -->
+            <figure class="wp-block-image size-full has-custom-border" style="border-radius:var(--wp--custom--radius--l);box-shadow:var(--wp--preset--shadow--magic-xl)"><img alt="Réalisation web G2RD" /></figure>
             <!-- /wp:image -->
-
-            <!-- wp:gallery {"linkTo":"none"} -->
-            <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-                <figure class="wp-block-image size-large"><img /></figure>
-                <!-- /wp:image -->
-
-                <!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"is-style-rounded"} -->
-                <figure class="wp-block-image size-large is-style-rounded"><img /></figure>
-                <!-- /wp:image -->
-            </figure>
-            <!-- /wp:gallery -->
         </div>
         <!-- /wp:column -->
     </div>
