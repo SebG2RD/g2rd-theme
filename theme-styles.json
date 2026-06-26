@@ -147,7 +147,7 @@
               "radius": "var:custom|radius|s"
             },
             "color": {
-              "background": "var:preset|color|white",
+              "background": "transparent",
               "text": "var:preset|color|primary"
             },
             "spacing": {

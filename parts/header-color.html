@@ -10,14 +10,16 @@
   </figure>
   <!-- /wp:image -->
 
-  <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"center"}} /-->
+  <!-- wp:navigation {"textColor":"white","layout":{"type":"flex","justifyContent":"center"}} /-->
 
-  <!-- wp:buttons -->
+  <!-- wp:buttons {"style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
   <div class="wp-block-buttons">
-    <!-- wp:button -->
-    <div class="wp-block-button">
-      <a class="wp-block-button__link wp-element-button" href="/contact">Nous contacter</a>
-    </div>
+    <!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 35%, transparent)","width":"1px"}}} -->
+    <div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-color:color-mix(in srgb, var(--wp--preset--color--white) 35%, transparent);border-width:1px" href="https://g2rd.fr/account/">Se connecter</a></div>
+    <!-- /wp:button -->
+
+    <!-- wp:button {"backgroundColor":"secondary","textColor":"primary","style":{"typography":{"fontWeight":"700"}}} -->
+    <div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="font-weight:700" href="https://g2rd.fr/contact/">Contact →</a></div>
     <!-- /wp:button -->
   </div>
   <!-- /wp:buttons -->
