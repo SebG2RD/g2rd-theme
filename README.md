@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.22.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.23.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,15 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.23.0**
+
+- **Refonte design — alignement wp-manager** : palette recalée sur le SaaS `wp-manager.g2rd.fr` (navy `#0f172a`, lime `#a3e635`, dégradé magenta-violet) + slugs sémantiques `border` / `surface` / `success` / `warning` / `danger`.
+- **Variations de styles** (FSE, tokens uniquement, zéro CSS) : `core/group` → Section sombre, Carte, Carte sombre, Carte action (dégradé) ; `core/button` → Action (dégradé), Ghost, Outline.
+- **Composants modernisés** : hero (pill, titre avec mot-clé surligné lime, double CTA, stats, halo radial), **headers (×2)** et **footer** avec boutons « Se connecter » (→ `g2rd.fr/account/`) et « Contact » (→ `g2rd.fr/contact/`), nouveaux patterns « bandeau de chiffres » et « cartes statistiques ».
+- **Animations** : hover lift sur cartes/boutons, halo radial des sections sombres (`color-mix` sur tokens), respect de `prefers-reduced-motion`.
+- **RGAA** : lime en aplat uniquement, dégradé d'action assombri pour contraste AA du texte blanc, liens en pink-600 (AA), tout en `var(--wp--…)` / `color-mix`.
+- **Docs** : `DESIGN_AUDIT.md` (extraction + mapping FSE) et `CHANGELOG_DESIGN.md`.
 
 ### **1.22.0**
 
