@@ -21,12 +21,12 @@
         {
           "name": "Navy",
           "slug": "primary",
-          "color": "#0a0e27"
+          "color": "#0f172a"
         },
         {
           "name": "Lime",
           "slug": "secondary",
-          "color": "#b9ff56"
+          "color": "#a3e635"
         },
         {
           "name": "Blanc",
@@ -36,81 +36,106 @@
         {
           "name": "Navy profond",
           "slug": "blue-dark",
-          "color": "#060a1a"
+          "color": "#020617"
         },
         {
           "name": "Navy doux",
           "slug": "blue-soft",
-          "color": "#283047"
+          "color": "#1e293b"
         },
         {
           "name": "Gris clair",
           "slug": "cream",
-          "color": "#f5f6fa"
+          "color": "#f8fafc"
         },
         {
           "name": "Texte atténué",
           "slug": "muted",
-          "color": "#5b6472"
+          "color": "#64748b"
         },
         {
-          "name": "Rose",
+          "name": "Magenta",
           "slug": "accent",
-          "color": "#f43f5e"
+          "color": "#ec4899"
         },
         {
           "name": "Violet",
           "slug": "accent-2",
-          "color": "#8b5cf6"
+          "color": "#a855f7"
+        },
+        {
+          "name": "Bordure",
+          "slug": "border",
+          "color": "#e2e8f0"
+        },
+        {
+          "name": "Surface",
+          "slug": "surface",
+          "color": "#f1f5f9"
+        },
+        {
+          "name": "Succès",
+          "slug": "success",
+          "color": "#22c55e"
+        },
+        {
+          "name": "Avertissement",
+          "slug": "warning",
+          "color": "#f59e0b"
+        },
+        {
+          "name": "Danger",
+          "slug": "danger",
+          "color": "#ef4444"
         }
       ],
       "gradients": [
         {
-          "name": "Bleu nuit dégradé",
+          "name": "Navy dégradé",
           "slug": "blue",
-          "gradient": "linear-gradient(90deg, #0a0e27 0%, #f5f6fa 100%)"
+          "gradient": "linear-gradient(90deg, #0f172a 0%, #f8fafc 100%)"
         },
         {
           "name": "Lime dégradé",
           "slug": "beige",
-          "gradient": "linear-gradient(90deg, #b9ff56 0%, #f5f6fa 100%)"
+          "gradient": "linear-gradient(90deg, #a3e635 0%, #f8fafc 100%)"
         },
         {
           "name": "Navy lime",
           "slug": "bleubeige",
-          "gradient": "linear-gradient(135deg, #0a0e27 0%, #b9ff56 100%)"
+          "gradient": "linear-gradient(135deg, #0f172a 0%, #a3e635 100%)"
         },
         {
-          "name": "Secondaire rose-violet",
+          "name": "Action (magenta-violet)",
           "slug": "secondary",
-          "gradient": "linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%)"
+          "gradient": "linear-gradient(135deg, #ec4899 0%, #a855f7 100%)"
         },
         {
           "name": "Section sombre",
           "slug": "magic-dark",
-          "gradient": "linear-gradient(135deg, #060a1a 0%, #0a0e27 58%, #05060f 100%)"
+          "gradient": "linear-gradient(135deg, #020617 0%, #0f172a 58%, #020617 100%)"
         },
         {
           "name": "Section claire",
           "slug": "magic-light",
-          "gradient": "linear-gradient(180deg, #ffffff 0%, #f5f6fa 100%)"
+          "gradient": "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)"
         }
       ],
       "duotone": [
         {
           "name": "Navy lime",
           "slug": "blue",
-          "colors": ["#0a0e27", "#b9ff56"]
+          "colors": ["#0f172a", "#a3e635"]
         },
         {
-          "name": "Rose violet",
+          "name": "Magenta violet",
           "slug": "pink",
-          "colors": ["#f43f5e", "#8b5cf6"]
+          "colors": ["#ec4899", "#a855f7"]
         },
         {
           "name": "Navy lime clair",
           "slug": "green",
-          "colors": ["#0a0e27", "#b9ff56"]
+          "colors": ["#0f172a", "#a3e635"]
         }
       ],
       "link": true,
@@ -368,16 +393,16 @@
         "transition": "0.2s cubic-bezier(0.16, 1, 0.3, 1)"
       },
       "color": {
-        "primaryhover": "#161c3d",
-        "secondaryhover": "#a3e635",
-        "whitehover": "#eef1f5",
-        "accenthover": "#e11d48",
+        "primaryhover": "#1e293b",
+        "secondaryhover": "#84cc16",
+        "whitehover": "#f1f5f9",
+        "accenthover": "#db2777",
         "neutral-50": "#f8fafc",
         "neutral-100": "#f1f5f9",
-        "neutral-200": "#e5e7eb",
-        "neutral-500": "#5b6472",
+        "neutral-200": "#e2e8f0",
+        "neutral-500": "#64748b",
         "neutral-700": "#334155",
-        "neutral-900": "#0a0e27"
+        "neutral-900": "#0f172a"
       }
     },
     "blocks": {
@@ -444,57 +469,57 @@
         {
           "name": "Très légère",
           "slug": "xs",
-          "shadow": "0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)"
+          "shadow": "0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.10)"
         },
         {
           "name": "Douce",
           "slug": "light",
-          "shadow": "0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)"
+          "shadow": "0 1px 3px rgba(15, 23, 42, 0.10), 0 1px 2px rgba(15, 23, 42, 0.06)"
         },
         {
           "name": "Moyenne",
           "slug": "md",
-          "shadow": "0 8px 24px rgba(0, 0, 0, 0.10), 0 3px 8px rgba(0, 0, 0, 0.06)"
+          "shadow": "0 4px 6px -1px rgba(15, 23, 42, 0.10), 0 2px 4px -2px rgba(15, 23, 42, 0.06)"
         },
         {
           "name": "Fine",
           "slug": "neat",
-          "shadow": "0 2px 0 rgba(99, 99, 99, 0.25), 0 4px 12px rgba(99, 99, 99, 0.15)"
+          "shadow": "0 1px 0 rgba(15, 23, 42, 0.04), 0 2px 8px rgba(15, 23, 42, 0.08)"
         },
         {
           "name": "Imposante",
           "slug": "huge",
-          "shadow": "0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06)"
+          "shadow": "0 10px 15px -3px rgba(15, 23, 42, 0.10), 0 4px 6px -4px rgba(15, 23, 42, 0.08)"
         },
         {
           "name": "Élevée",
           "slug": "xl",
-          "shadow": "0 24px 64px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.08)"
+          "shadow": "0 20px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08)"
         },
         {
           "name": "Lueur navy",
           "slug": "primary-glow",
-          "shadow": "0 4px 24px rgba(10, 14, 39, 0.28), 0 2px 8px rgba(10, 14, 39, 0.14)"
+          "shadow": "0 4px 24px rgba(15, 23, 42, 0.28), 0 2px 8px rgba(15, 23, 42, 0.14)"
         },
         {
           "name": "Lueur lime",
           "slug": "secondary-glow",
-          "shadow": "0 10px 15px -3px rgba(185, 255, 86, 0.20), 0 4px 6px -4px rgba(185, 255, 86, 0.20)"
+          "shadow": "0 10px 15px -3px rgba(163, 230, 53, 0.25), 0 4px 6px -4px rgba(163, 230, 53, 0.20)"
         },
         {
-          "name": "Lueur rose-violet",
+          "name": "Lueur magenta-violet",
           "slug": "accent-glow",
-          "shadow": "0 10px 15px -3px rgba(244, 63, 94, 0.25), 0 4px 6px -4px rgba(139, 92, 246, 0.20)"
+          "shadow": "0 10px 15px -3px rgba(236, 72, 153, 0.25), 0 4px 6px -4px rgba(168, 85, 247, 0.22)"
         },
         {
           "name": "Magic — Carte",
           "slug": "magic",
-          "shadow": "0 28px 90px rgba(0, 0, 0, 0.28)"
+          "shadow": "0 24px 60px -12px rgba(15, 23, 42, 0.25)"
         },
         {
           "name": "Magic — Carte XL",
           "slug": "magic-xl",
-          "shadow": "0 34px 110px rgba(10, 14, 39, 0.20)"
+          "shadow": "0 32px 80px -16px rgba(15, 23, 42, 0.22)"
         }
       ]
     }
