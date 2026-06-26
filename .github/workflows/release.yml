@@ -137,6 +137,11 @@ jobs:
             --exclude=".gitignore" \
             --exclude=".gitattributes" \
             --exclude="CLAUDE.md" \
+            --exclude="*.md" \
+            --exclude="*.config.js" \
+            --exclude=".editorconfig" \
+            --exclude=".vscode" \
+            --exclude=".idea" \
             . dist/g2rd-theme/
 
           cd dist

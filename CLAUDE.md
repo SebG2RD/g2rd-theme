@@ -410,6 +410,20 @@ CSS conditionnel chargé uniquement sur les pages utilisant les styles de bloc c
 - **Tokens** : `blue-dark`, `blue-soft`, `cream`, `muted` dans `theme-settings.json` ; gradients `magic-dark`/`magic-light` ; shadows `magic`/`magic-xl`
 - **Principe** : ne jamais enqueuer `g2rd-magic-page` directement — laisser WordPress le charger via `style_handle`
 
+## Design system « WP Manager » (v1.23.0+)
+
+Charte alignée sur le SaaS `wp-manager.g2rd.fr` (échelle Tailwind), 100 % FSE / tokens.
+
+- **Palette** (`theme-settings.json`) : `primary` navy `#0f172a`, `secondary` lime `#a3e635`, `accent` magenta `#ec4899`, `accent-2` violet `#a855f7`, `white`, `cream` `#f8fafc`, `muted` `#64748b`, `blue-dark` `#020617`, `blue-soft` `#1e293b` + slugs sémantiques `border` `#e2e8f0`, `surface` `#f1f5f9`, `success`, `warning`, `danger`.
+- **Dégradé « action »** : slug `secondary` = `#db2777 → #9333ea` (assombri pour contraste **AA** du texte blanc).
+- **Variations de styles** (enregistrées dans `class-block-styles.php` › `registerSectionStyles()`, **stylées uniquement en `theme.json`**, zéro CSS) :
+  - `core/group` : `is-style-section-dark`, `is-style-card`, `is-style-card-dark`, `is-style-card-action`.
+  - `core/button` : `is-style-action` (dégradé), `is-style-ghost`, `is-style-outline` (fond transparent).
+- **Animations** : section dédiée dans `style.css` (hover lift cartes/boutons, halo radial des sections sombres via `color-mix`) — **exception CSS globale justifiée** (`:hover`/`transform` impossibles en theme.json), `var(--wp--…)` uniquement, respect de `prefers-reduced-motion`.
+- **Patterns modèle** : `section-hero.php` (modernisé), `section-stats-band.php`, `cards-manager-stats.php`.
+- **RGAA (impératif)** : le **lime est un aplat** (fond de bouton/badge avec texte navy) — **jamais en texte sur fond clair** ; texte blanc uniquement sur le **dégradé assombri** ou sur navy ; liens en `accenthover` `#db2777` (AA). Vérifier chaque combinaison à la construction.
+- **Docs design** : `DESIGN_AUDIT.md` (extraction + mapping FSE) et `CHANGELOG_DESIGN.md` (exclus du ZIP de prod).
+
 ## CI / Qualité PHP
 
 ### auto-tag.yml

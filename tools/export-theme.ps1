@@ -15,9 +15,10 @@ $excludedFileNames = @(
     'package.json', 'package-lock.json', 'webpack.config.js',
     'skills-lock.json', 'CLAUDE.md', '.gitignore', '.gitattributes',
     'export-theme.ps1', 'composer.json', 'composer.lock',
-    'phpcs.xml.dist', 'phpcs-security.xml'
+    'phpcs.xml.dist', 'phpcs-security.xml', 'phpcs-wp-report.xml',
+    'phpunit.xml.dist', '.editorconfig'
 )
-$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor')
+$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache')
 
 $files   = Get-ChildItem -Path $source -Recurse -File
 $total   = $files.Count
@@ -43,10 +44,12 @@ foreach ($file in $files) {
     # Exclure les fichiers de dev par nom
     if ($excludedFileNames -contains $file.Name) { $skipped++; continue }
 
-    # Exclure les source maps, scripts shell et logs
+    # Exclure les source maps, scripts shell, logs, docs markdown et fichiers de config
     if ($file.Extension -eq '.map') { $skipped++; continue }
     if ($file.Extension -eq '.sh')  { $skipped++; continue }
     if ($file.Extension -eq '.log') { $skipped++; continue }
+    if ($file.Extension -eq '.md')  { $skipped++; continue }
+    if ($file.Name -like '*.config.js') { $skipped++; continue }
 
     # Copier le fichier en preservant l'arborescence
     $target    = Join-Path $dest $rel
