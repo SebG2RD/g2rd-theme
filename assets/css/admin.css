@@ -96,8 +96,8 @@
    Les valeurs réelles sont injectées dynamiquement par ThemeAdmin::outputAdminColorVars()
    via wp_add_inline_style sur admin_head (priorité 20), qui écrase ces définitions. */
 :root {
-  --primary-color: #2f425d;
-  --secondary-color: #d4a373;
+  --primary-color: #0a0e27;
+  --secondary-color: #f43f5e;
   --text-light: #f0f0f0;
   --text-dark: #1d2327;
   --menu-highlight-color: var(--secondary-color);

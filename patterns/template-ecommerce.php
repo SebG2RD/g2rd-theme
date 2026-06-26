@@ -33,8 +33,8 @@
 				<!-- wp:button {"backgroundColor":"secondary","textColor":"primary","style":{"typography":{"fontWeight":"700","fontSize":"1.05rem"},"border":{"radius":"4px"}}} -->
 				<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="border-radius:4px;font-weight:700;font-size:1.05rem">Voir les offres →</a></div>
 				<!-- /wp:button -->
-				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"rgba(250,250,250,0.6)","radius":"4px","width":"1px"}}} -->
-				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:rgba(250,250,250,0.6)">Notre catalogue</a></div>
+				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)","radius":"4px","width":"1px"}}} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)">Notre catalogue</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -56,8 +56,8 @@
 <!-- /wp:group -->
 
 <!-- Réassurance e-commerce -->
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"#F5F4F2"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull" style="padding:var(--wp--preset--spacing--m);background-color:#F5F4F2">
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"var(--wp--preset--color--cream)"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull" style="padding:var(--wp--preset--spacing--m);background-color:var(--wp--preset--color--cream)">
 	<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"var:preset|spacing|s"}}}} -->
 	<div class="wp-block-columns">
 		<!-- wp:column {"verticalAlignment":"center"} -->
@@ -128,11 +128,11 @@
 <!-- Produits / FilterableGrid -->
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-	<!-- wp:paragraph {"align":"center","textColor":"secondary","style":{"typography":{"fontWeight":"600","letterSpacing":"0.12em","textTransform":"uppercase"}},"fontSize":"s"} -->
-	<p class="has-text-align-center has-secondary-color has-text-color has-s-font-size" style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Boutique</p>
+	<!-- wp:paragraph {"align":"center","textColor":"accent","style":{"typography":{"fontWeight":"600","letterSpacing":"0.12em","textTransform":"uppercase"}},"fontSize":"s"} -->
+	<p class="has-text-align-center has-accent-color has-text-color has-s-font-size" style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Boutique</p>
 	<!-- /wp:paragraph -->
 	<!-- wp:heading {"textAlign":"center","level":2,"textColor":"primary","style":{"typography":{"fontSize":"clamp(1.8rem, 3vw, 2.8rem)","fontWeight":"800"},"spacing":{"margin":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|l"}}}} -->
-	<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin-top:var(--wp--preset--spacing--xs);margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.8rem, 3vw, 2.8rem);font-weight:800">Nos <mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-secondary-color">produits vedettes</mark></h2>
+	<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin-top:var(--wp--preset--spacing--xs);margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.8rem, 3vw, 2.8rem);font-weight:800">Nos <mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-accent-color">produits vedettes</mark></h2>
 	<!-- /wp:heading -->
 	<!-- wp:pattern {"slug":"g2rd-theme/card-G2RD"} /-->
 </div>

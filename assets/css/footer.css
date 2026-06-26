@@ -10,8 +10,8 @@
   background:
     radial-gradient(circle at 15% 15%, rgba(212, 163, 115, 0.16), transparent 30%),
     radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.08), transparent 26%),
-    linear-gradient(135deg, #172233 0%, #2f435e 58%, #111827 100%) !important;
-  color: #fafafa;
+    linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--blue-soft) 58%, #111827 100%) !important;
+  color: var(--wp--preset--color--white);
   border-top: 1px solid rgba(212, 163, 115, 0.24);
 }
 
@@ -73,7 +73,7 @@
 
 .g2rd-footer-title {
   margin-bottom: 1.25rem !important;
-  color: #d4a373 !important;
+  color: var(--wp--preset--color--secondary) !important;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -129,7 +129,7 @@
   background:
     radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
-  color: #fafafa !important;
+  color: var(--wp--preset--color--white) !important;
   border: 1px solid rgba(212, 163, 115, 0.42);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
@@ -142,16 +142,16 @@
   height: 1.05rem;
   border-radius: 999px;
   background:
-    radial-gradient(circle at 50% 34%, #fafafa 0 18%, transparent 19%),
-    radial-gradient(circle at 50% 82%, #fafafa 0 34%, transparent 35%),
-    linear-gradient(135deg, #d4a373, #f1d0ad);
+    radial-gradient(circle at 50% 34%, var(--wp--preset--color--white) 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 82%, var(--wp--preset--color--white) 0 34%, transparent 35%),
+    linear-gradient(135deg, var(--wp--preset--color--secondary), #f1d0ad);
   box-shadow: 0 0 18px rgba(212, 163, 115, 0.55);
 }
 
 .g2rd-footer-contact .wp-block-button__link {
-  background: #d4a373 !important;
+  background: var(--wp--preset--color--secondary) !important;
   color: #111827 !important;
-  border: 1px solid #d4a373;
+  border: 1px solid var(--wp--preset--color--secondary);
   box-shadow: 0 14px 38px rgba(212, 163, 115, 0.22);
 }
 
@@ -170,12 +170,12 @@
 }
 
 .g2rd-footer-contact-list a {
-  color: #fafafa !important;
+  color: var(--wp--preset--color--white) !important;
   text-decoration: none;
 }
 
 .g2rd-footer-contact-list a:hover {
-  color: #d4a373 !important;
+  color: var(--wp--preset--color--secondary) !important;
 }
 
 .g2rd-footer-separator {
@@ -198,13 +198,13 @@
 }
 
 .g2rd-footer-bottom a {
-  color: #fafafa !important;
+  color: var(--wp--preset--color--white) !important;
   text-decoration: none;
   font-weight: 700;
 }
 
 .g2rd-footer-bottom a:hover {
-  color: #d4a373 !important;
+  color: var(--wp--preset--color--secondary) !important;
 }
 
 .g2rd-footer-modern .wp-block-social-links {
@@ -215,7 +215,7 @@
   border: 1px solid rgba(212, 163, 115, 0.34);
   border-radius: 999px !important;
   background: rgba(255, 255, 255, 0.10) !important;
-  color: #fafafa !important;
+  color: var(--wp--preset--color--white) !important;
   box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
   transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
 }
@@ -227,7 +227,7 @@
 }
 
 .g2rd-footer-modern .wp-social-link svg {
-  fill: #fafafa !important;
+  fill: var(--wp--preset--color--white) !important;
 }
 
 /* --------------------------------------------------------------------------

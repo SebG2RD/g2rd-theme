@@ -6,7 +6,7 @@
 /* ── Variables ──────────────────────────────────────────────────────────────── */
 .g2rd-options-wrap {
     --g2rd-blue:      #2271b1;
-    --g2rd-navy:      #2F425D;
+    --g2rd-navy:      #0a0e27;
     --g2rd-blue-lt:   #f0f6fc;
     --g2rd-blue-mid:  #c5d9ed;
     --g2rd-border:    #dcdcde;
@@ -445,7 +445,7 @@ label.g2rd-cpt-field > span:first-child {
 .g2rd-icon-input { flex: 1; }
 
 .g2rd-cpt-taxonomy {
-    background: #fafafa;
+    background: #ffffff;
     border: 1px solid #e8eaec;
     border-radius: 4px;
     padding: 12px 14px;

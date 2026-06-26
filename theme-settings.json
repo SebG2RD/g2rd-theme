@@ -19,83 +19,98 @@
       "custom": false,
       "palette": [
         {
-          "name": "Bleu profond",
+          "name": "Navy",
           "slug": "primary",
-          "color": "#2F425D"
+          "color": "#0a0e27"
         },
         {
-          "name": "Beige doré",
+          "name": "Lime",
           "slug": "secondary",
-          "color": "#D4A373"
+          "color": "#b9ff56"
         },
         {
-          "name": "Blanc éclatant",
+          "name": "Blanc",
           "slug": "white",
-          "color": "#FAFAFA"
+          "color": "#ffffff"
         },
         {
-          "name": "Bleu sombre",
+          "name": "Navy profond",
           "slug": "blue-dark",
-          "color": "#172233"
+          "color": "#060a1a"
         },
         {
-          "name": "Bleu doux",
+          "name": "Navy doux",
           "slug": "blue-soft",
-          "color": "#3c5473"
+          "color": "#283047"
         },
         {
-          "name": "Crème",
+          "name": "Gris clair",
           "slug": "cream",
-          "color": "#f7f2ea"
+          "color": "#f5f6fa"
         },
         {
           "name": "Texte atténué",
           "slug": "muted",
-          "color": "#686F7D"
+          "color": "#5b6472"
+        },
+        {
+          "name": "Rose",
+          "slug": "accent",
+          "color": "#f43f5e"
+        },
+        {
+          "name": "Violet",
+          "slug": "accent-2",
+          "color": "#8b5cf6"
         }
       ],
       "gradients": [
         {
-          "name": "Bleu dégradé",
+          "name": "Bleu nuit dégradé",
           "slug": "blue",
-          "gradient": "linear-gradient(90deg, #2f425d 0%, #fafafa 100%)"
+          "gradient": "linear-gradient(90deg, #0a0e27 0%, #f5f6fa 100%)"
         },
         {
-          "name": "Beige dégradé",
+          "name": "Lime dégradé",
           "slug": "beige",
-          "gradient": "linear-gradient(90deg, #d4a373 0%, #fafafa 100%)"
+          "gradient": "linear-gradient(90deg, #b9ff56 0%, #f5f6fa 100%)"
         },
         {
-          "name": "Bleu beige",
+          "name": "Navy lime",
           "slug": "bleubeige",
-          "gradient": "linear-gradient(135deg, #2f425d 0%, #d4a373 100%)"
+          "gradient": "linear-gradient(135deg, #0a0e27 0%, #b9ff56 100%)"
+        },
+        {
+          "name": "Secondaire rose-violet",
+          "slug": "secondary",
+          "gradient": "linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%)"
         },
         {
           "name": "Section sombre",
           "slug": "magic-dark",
-          "gradient": "linear-gradient(135deg, #172233 0%, #2f435e 58%, #111827 100%)"
+          "gradient": "linear-gradient(135deg, #060a1a 0%, #0a0e27 58%, #05060f 100%)"
         },
         {
           "name": "Section claire",
           "slug": "magic-light",
-          "gradient": "linear-gradient(180deg, #ffffff 0%, #f7f2ea 100%)"
+          "gradient": "linear-gradient(180deg, #ffffff 0%, #f5f6fa 100%)"
         }
       ],
       "duotone": [
         {
-          "name": "Bleu",
+          "name": "Navy lime",
           "slug": "blue",
-          "colors": ["#2f425d", "#d4a373"]
+          "colors": ["#0a0e27", "#b9ff56"]
         },
         {
-          "name": "Rose",
+          "name": "Rose violet",
           "slug": "pink",
-          "colors": ["#d4a373", "#fafafa"]
+          "colors": ["#f43f5e", "#8b5cf6"]
         },
         {
-          "name": "Vert",
+          "name": "Navy lime clair",
           "slug": "green",
-          "colors": ["#2f425d", "#d4a373"]
+          "colors": ["#0a0e27", "#b9ff56"]
         }
       ],
       "link": true,
@@ -336,11 +351,11 @@
         "large": 1.8
       },
       "radius": {
-        "xs": "2px",
-        "s": "4px",
-        "m": "10px",
-        "l": "20px",
-        "xl": "32px",
+        "xs": "4px",
+        "s": "8px",
+        "m": "12px",
+        "l": "16px",
+        "xl": "24px",
         "full": "999px"
       },
       "button": {
@@ -350,18 +365,19 @@
         "padding-h": "1.5rem",
         "padding-v": "0.75rem",
         "font-weight": 600,
-        "transition": "0.2s ease"
+        "transition": "0.2s cubic-bezier(0.16, 1, 0.3, 1)"
       },
       "color": {
-        "primaryhover": "#4B6A95",
-        "secondaryhover": "#8C5C2B",
-        "whitehover": "#CCCCCC",
-        "neutral-50": "#F8FAFC",
-        "neutral-100": "#F1F5F9",
-        "neutral-200": "#E2E8F0",
-        "neutral-500": "#607086",
+        "primaryhover": "#161c3d",
+        "secondaryhover": "#a3e635",
+        "whitehover": "#eef1f5",
+        "accenthover": "#e11d48",
+        "neutral-50": "#f8fafc",
+        "neutral-100": "#f1f5f9",
+        "neutral-200": "#e5e7eb",
+        "neutral-500": "#5b6472",
         "neutral-700": "#334155",
-        "neutral-900": "#0F172A"
+        "neutral-900": "#0a0e27"
       }
     },
     "blocks": {
@@ -456,14 +472,19 @@
           "shadow": "0 24px 64px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.08)"
         },
         {
-          "name": "Lueur principale",
+          "name": "Lueur navy",
           "slug": "primary-glow",
-          "shadow": "0 4px 24px rgba(47, 66, 93, 0.28), 0 2px 8px rgba(47, 66, 93, 0.14)"
+          "shadow": "0 4px 24px rgba(10, 14, 39, 0.28), 0 2px 8px rgba(10, 14, 39, 0.14)"
         },
         {
-          "name": "Lueur secondaire",
+          "name": "Lueur lime",
           "slug": "secondary-glow",
-          "shadow": "0 4px 24px rgba(212, 163, 115, 0.32), 0 2px 8px rgba(212, 163, 115, 0.18)"
+          "shadow": "0 10px 15px -3px rgba(185, 255, 86, 0.20), 0 4px 6px -4px rgba(185, 255, 86, 0.20)"
+        },
+        {
+          "name": "Lueur rose-violet",
+          "slug": "accent-glow",
+          "shadow": "0 10px 15px -3px rgba(244, 63, 94, 0.25), 0 4px 6px -4px rgba(139, 92, 246, 0.20)"
         },
         {
           "name": "Magic — Carte",
@@ -473,7 +494,7 @@
         {
           "name": "Magic — Carte XL",
           "slug": "magic-xl",
-          "shadow": "0 34px 110px rgba(47, 67, 94, 0.20)"
+          "shadow": "0 34px 110px rgba(10, 14, 39, 0.20)"
         }
       ]
     }

@@ -13,7 +13,7 @@
 .g2rd-onboarding__header h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: #2F425D;
+  color: #0a0e27;
   margin-bottom: 0.5rem;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .g2rd-onboarding__step.done::after {
-  background: #D4A373;
+  background: #f43f5e;
 }
 
 .g2rd-onboarding__step-num {
@@ -70,12 +70,12 @@
 }
 
 .g2rd-onboarding__step.active .g2rd-onboarding__step-num {
-  background: #2F425D;
+  background: #0a0e27;
   color: #fff;
 }
 
 .g2rd-onboarding__step.done .g2rd-onboarding__step-num {
-  background: #D4A373;
+  background: #f43f5e;
   color: #fff;
 }
 
@@ -86,11 +86,11 @@
 }
 
 .g2rd-onboarding__step.active .g2rd-onboarding__step-label {
-  color: #2F425D;
+  color: #0a0e27;
 }
 
 .g2rd-onboarding__step.done .g2rd-onboarding__step-label {
-  color: #D4A373;
+  color: #f43f5e;
 }
 
 /* Contenu */
@@ -102,7 +102,7 @@
 }
 
 .g2rd-onboarding__content h2 {
-  color: #2F425D;
+  color: #0a0e27;
   font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
@@ -136,7 +136,7 @@
 }
 
 .g2rd-sector-card:hover {
-  border-color: #2F425D;
+  border-color: #0a0e27;
 }
 
 .g2rd-sector-card input[type="radio"] {
@@ -144,7 +144,7 @@
 }
 
 .g2rd-sector-card:has(input:checked) {
-  border-color: #2F425D;
+  border-color: #0a0e27;
   background: rgba(47, 66, 93, 0.05);
 }
 
@@ -156,7 +156,7 @@
 .g2rd-sector-card__label {
   font-weight: 700;
   font-size: 0.9rem;
-  color: #2F425D;
+  color: #0a0e27;
 }
 
 .g2rd-sector-card__desc {
@@ -194,7 +194,7 @@
 }
 
 .g2rd-color-swatch:has(input:checked) .g2rd-color-swatch__preview {
-  border-color: #D4A373;
+  border-color: #f43f5e;
   transform: scale(1.15);
 }
 
@@ -230,7 +230,7 @@
 .g2rd-page-preview strong {
   display: block;
   font-weight: 700;
-  color: #2F425D;
+  color: #0a0e27;
 }
 
 .g2rd-page-preview small {
@@ -269,8 +269,8 @@
 
 /* Bouton hero override */
 .g2rd-onboarding .button-primary.button-hero {
-  background: #2F425D;
-  border-color: #2F425D;
+  background: #0a0e27;
+  border-color: #0a0e27;
   padding: 0.7rem 2rem;
   font-size: 1rem;
   font-weight: 600;

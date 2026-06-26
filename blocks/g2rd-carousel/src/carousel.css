@@ -50,7 +50,7 @@
 
 .carousel-title p {
   font-size: 1.1rem;
-  color: var(--wp--preset--color--secondary, #d4a373);
+  color: var(--wp--preset--color--secondary, #b9ff56);
   margin: 0;
 }
 
@@ -209,7 +209,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, var(--wp--preset--color--primary, #2f425d) 0%, var(--wp--preset--color--secondary, #d4a373) 100%);
+  background: linear-gradient(135deg, var(--wp--preset--color--primary, #0a0e27) 0%, var(--wp--preset--color--secondary, #b9ff56) 100%);
   border-radius: 50%;
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -272,22 +272,22 @@
 /* Couleurs personnalisées pour les boutons */
 .has-primary-color .swiper-button-prev,
 .has-primary-color .swiper-button-next {
-  background: var(--wp--preset--color--primary, #2f425d);
+  background: var(--wp--preset--color--primary, #0a0e27);
 }
 
 .has-secondary-color .swiper-button-prev,
 .has-secondary-color .swiper-button-next {
-  background: var(--wp--preset--color--secondary, #d4a373);
+  background: var(--wp--preset--color--secondary, #b9ff56);
 }
 
 .has-primary-background-color .swiper-button-prev,
 .has-primary-background-color .swiper-button-next {
-  background: var(--wp--preset--color--primary, #2f425d);
+  background: var(--wp--preset--color--primary, #0a0e27);
 }
 
 .has-secondary-background-color .swiper-button-prev,
 .has-secondary-background-color .swiper-button-next {
-  background: var(--wp--preset--color--secondary, #d4a373);
+  background: var(--wp--preset--color--secondary, #b9ff56);
 }
 
 /* Pagination */
@@ -309,7 +309,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--wp--preset--color--primary, #2f425d);
+  background: var(--wp--preset--color--primary, #0a0e27);
   transform: scale(1.2);
 }
 
@@ -750,7 +750,7 @@
 .g2rd-carousel-preview .carousel-nav-next {
   width: 40px;
   height: 40px;
-  background: var(--wp--preset--color--primary, #2f425d);
+  background: var(--wp--preset--color--primary, #0a0e27);
   color: white;
   border: none;
   border-radius: 50%;
@@ -776,7 +776,7 @@
 }
 
 .g2rd-carousel-preview .pagination-dot.active {
-  background: var(--wp--preset--color--primary, #2f425d);
+  background: var(--wp--preset--color--primary, #0a0e27);
 }
 
 /* Styles pour les anciennes versions de Swiper */
@@ -825,7 +825,7 @@
 }
 
 .carousel-image-link:focus {
-  outline: 2px solid var(--wp--preset--color--primary, #2f425d);
+  outline: 2px solid var(--wp--preset--color--primary, #0a0e27);
   outline-offset: 2px;
 }
 

@@ -187,7 +187,7 @@ blockquote.g2rd-testimonial__card {
 }
 
 .g2rd-testimonial--google .g2rd-testimonial__card .g2rd-testimonial__stars {
-  color: var( --g2rd-t-star, #D4A373 );
+  color: var( --g2rd-t-star, #b9ff56 );
 }
 
 /* Squelettes de chargement */
@@ -385,7 +385,7 @@ blockquote.g2rd-testimonial__card {
 }
 
 .g2rd-testimonial--google .g2rd-testimonial__card.is-featured {
-  border: 2px solid var( --g2rd-t-accent, var( --wp--preset--color--secondary, #D4A373 ) ) !important;
+  border: 2px solid var( --g2rd-t-accent, var( --wp--preset--color--secondary, #b9ff56 ) ) !important;
 }
 
 @media ( max-width: 640px ) {

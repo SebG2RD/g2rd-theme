@@ -1,10 +1,10 @@
 /* ── Bloc Résumé GEO ──────────────────────────────────────────────────── */
 
 .wp-block-g2rd-geo-summary {
-	border-right: 4px solid var(--wp--preset--color--primary, #2f425d);
+	border-right: 4px solid var(--wp--preset--color--primary, #0a0e27);
 	background: linear-gradient(-135deg,
-		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 4%, #fff) 0%,
-		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 9%, #fff) 100%);
+		color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 4%, #fff) 0%,
+		color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 9%, #fff) 100%);
 	border-radius: 8px 0 0 8px;
 	padding: 18px 20px;
 	margin: 1.5em 0;
@@ -30,7 +30,7 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	color: var(--wp--preset--color--primary, #2f425d);
+	color: var(--wp--preset--color--primary, #0a0e27);
 	flex: 1;
 }
 
@@ -40,7 +40,7 @@
 	letter-spacing: 0.1em;
 	padding: 2px 6px;
 	border-radius: 4px;
-	background: var(--wp--preset--color--primary, #2f425d);
+	background: var(--wp--preset--color--primary, #0a0e27);
 	color: var(--wp--preset--color--white, #fff);
 	text-transform: uppercase;
 }
@@ -79,7 +79,7 @@
 }
 
 .geo-summary__bullet {
-	color: var(--wp--preset--color--primary, #2f425d);
+	color: var(--wp--preset--color--primary, #0a0e27);
 	flex-shrink: 0;
 	font-size: 10px;
 	margin-top: 3px;
@@ -94,7 +94,7 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	color: var(--wp--preset--color--primary, #2f425d);
+	color: var(--wp--preset--color--primary, #0a0e27);
 	padding: 0;
 	height: auto;
 	flex: 1;

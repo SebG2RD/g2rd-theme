@@ -135,7 +135,7 @@
    ────────────────────────────────────────────── */
 
 :focus-visible {
-  outline: 2px solid var(--wp--preset--color--secondary, #D4A373);
+  outline: 2px solid var(--wp--preset--color--secondary, #b9ff56);
   outline-offset: 3px;
   border-radius: 3px;
 }

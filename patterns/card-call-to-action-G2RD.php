@@ -52,7 +52,7 @@
                 <!-- /wp:column -->
 
                 <!-- wp:column {"verticalAlignment":"center"} -->
-                <div class="wp-block-column is-vertically-aligned-center"><!-- wp:social-links {"iconColor":"primary","iconColorValue":"#2F425D","iconBackgroundColor":"white","iconBackgroundColorValue":"#FAFAFA"} -->
+                <div class="wp-block-column is-vertically-aligned-center"><!-- wp:social-links {"iconColor":"primary","iconColorValue":"var(--wp--preset--color--primary)","iconBackgroundColor":"white","iconBackgroundColorValue":"var(--wp--preset--color--white)"} -->
                     <ul class="wp-block-social-links has-icon-color has-icon-background-color"><!-- wp:social-link {"url":"https://www.facebook.com/g2rdweb","service":"facebook"} /-->
 
                         <!-- wp:social-link {"url":"https://www.linkedin.com/company/g2rd-developpeur-web/","service":"linkedin"} /-->

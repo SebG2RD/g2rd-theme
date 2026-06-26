@@ -67,7 +67,7 @@
 	transition: border-color 0.2s ease, background 0.2s ease;
 }
 .g2rd-pin-scroll-editor__placeholder-btn:hover {
-	border-color: var(--wp--preset--color--primary, #2f425d);
+	border-color: var(--wp--preset--color--primary, #0a0e27);
 	background: rgba(47, 66, 93, 0.04);
 }
 .g2rd-pin-scroll-editor__placeholder-btn strong {

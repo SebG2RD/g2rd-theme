@@ -30,7 +30,7 @@
 	letter-spacing: 0.1em;
 	padding: 2px 6px;
 	border-radius: 4px;
-	background: var(--wp--preset--color--primary, #2f425d);
+	background: var(--wp--preset--color--primary, #0a0e27);
 	color: var(--wp--preset--color--white, #fff);
 	text-transform: uppercase;
 }
@@ -70,7 +70,7 @@
 }
 
 .geo-faq__question:hover {
-	background: color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 5%, #fff);
+	background: color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 5%, #fff);
 }
 
 .geo-faq__question::-webkit-details-marker {
@@ -89,11 +89,11 @@
 }
 
 .geo-faq__details[open] {
-	border-left: 3px solid var(--wp--preset--color--primary, #2f425d);
+	border-left: 3px solid var(--wp--preset--color--primary, #0a0e27);
 }
 
 .geo-faq__details[open] > .geo-faq__question {
-	background: color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 5%, #fff);
+	background: color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 5%, #fff);
 	border-bottom: 1px solid #e2e8f0;
 }
 
@@ -147,8 +147,8 @@
 .geo-faq__item-num {
 	font-size: 12px;
 	font-weight: 700;
-	color: var(--wp--preset--color--primary, #2f425d);
-	background: color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 8%, #fff);
+	color: var(--wp--preset--color--primary, #0a0e27);
+	background: color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 8%, #fff);
 	padding: 2px 8px;
 	border-radius: 4px;
 }

@@ -251,18 +251,18 @@
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container-close,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container-open,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container-close {
-	color: #fafafa;
+	color: var(--wp--preset--color--white);
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open {
-	background: linear-gradient(135deg, #172233 0%, #2f435e 100%) !important;
-	color: #fafafa !important;
+	background: linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--blue-soft) 100%) !important;
+	color: var(--wp--preset--color--white) !important;
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
-	color: #fafafa !important;
+	color: var(--wp--preset--color--white) !important;
 }
 
 .dark-mode-active .g2rd-header-light-account .wp-block-button__link,
@@ -270,15 +270,15 @@
 	background:
 		radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
 		linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
-	color: #fafafa !important;
+	color: var(--wp--preset--color--white) !important;
 	border-color: rgba(212, 163, 115, 0.42);
 }
 
 .dark-mode-active .g2rd-header-light-contact .wp-block-button__link,
 [data-theme="dark"] .g2rd-header-light-contact .wp-block-button__link {
-	background: #d4a373 !important;
+	background: var(--wp--preset--color--secondary) !important;
 	color: #111827 !important;
-	border-color: #d4a373;
+	border-color: var(--wp--preset--color--secondary);
 }
 
 /* =========================================================
@@ -530,8 +530,8 @@
 [data-theme="dark"] .wp-block-g2rd-geo-summary {
 	background: linear-gradient(
 		135deg,
-		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 12%, #121212) 0%,
-		color-mix(in srgb, var(--wp--preset--color--primary, #2f425d) 18%, #121212) 100%
+		color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 12%, #121212) 0%,
+		color-mix(in srgb, var(--wp--preset--color--primary, #0a0e27) 18%, #121212) 100%
 	);
 }
 
@@ -546,7 +546,7 @@
 }
 
 /* =========================================================
-   Texte couleur primary (#2F425D) sur surfaces sombres — 1.83:1 FAIL
+   Texte couleur primary (var(--wp--preset--color--primary)) sur surfaces sombres — 1.83:1 FAIL
    Surcharge ciblée des éléments qui utilisent primary comme couleur de texte
    ========================================================= */
 
@@ -563,7 +563,7 @@
 .dark-mode-active .geo-summary__bullet,
 [data-theme="dark"] .geo-summary__tagline,
 [data-theme="dark"] .geo-summary__bullet {
-	color: var(--wp--preset--color--secondary, #d4a373);
+	color: var(--wp--preset--color--secondary, #b9ff56);
 }
 
 /* =========================================================
@@ -572,9 +572,9 @@
 
 .dark-mode-active .g2rd-faq,
 [data-theme="dark"] .g2rd-faq {
-	--g2rd-faq-border: var(--wp--preset--color--secondary, #d4a373);
+	--g2rd-faq-border: var(--wp--preset--color--secondary, #b9ff56);
 	--g2rd-faq-question-color: #e8e8e8;
-	--g2rd-faq-icon-color: var(--wp--preset--color--secondary, #d4a373);
+	--g2rd-faq-icon-color: var(--wp--preset--color--secondary, #b9ff56);
 }
 
 /* =========================================================
@@ -609,5 +609,5 @@
 
 .dark-mode-active :focus-visible,
 [data-theme="dark"] :focus-visible {
-	outline-color: var(--wp--preset--color--secondary, #d4a373);
+	outline-color: var(--wp--preset--color--secondary, #b9ff56);
 }

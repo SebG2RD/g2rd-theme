@@ -1,5 +1,5 @@
 /* ── Éléments produit (WooCommerce, SureCart, FluentCart) ── */
-.g2rd-fg__price{color:var(--wp--preset--color--primary,#2f425d);font-size:1.1rem;font-weight:700;margin:4px 0}
+.g2rd-fg__price{color:var(--wp--preset--color--primary,#0a0e27);font-size:1.1rem;font-weight:700;margin:4px 0}
 .g2rd-fg__price del{color:#9ca3af;font-size:.85em;font-weight:400;margin-right:4px}
 .g2rd-fg__stars{color:#f59e0b;font-size:1rem;letter-spacing:1px}
 .g2rd-fg__star--half{opacity:.6}
@@ -22,7 +22,7 @@
 .g2rd-fg__nav{align-items:center;display:flex;flex-wrap:wrap;gap:.5rem}
 .g2rd-fg__page-btn{background:hsla(0,0%,100%,.9);border:1px solid rgba(15,23,42,.18);border-radius:999px;color:inherit;cursor:pointer;font-size:.9rem;font-weight:500;padding:.45rem .85rem;transition:all .15s ease}
 .g2rd-fg__page-btn:hover{border-color:currentColor}
-.g2rd-fg__page-btn.is-active{background:var(--wp--preset--color--primary,#2f425d);border-color:var(--wp--preset--color--primary,#2f425d);color:#fff;cursor:default}
+.g2rd-fg__page-btn.is-active{background:var(--wp--preset--color--primary,#0a0e27);border-color:var(--wp--preset--color--primary,#0a0e27);color:#fff;cursor:default}
 .g2rd-fg__total{color:#9ca3af;font-size:.85rem;margin-left:auto}
 .g2rd-filter-grid__price-skeleton{background:#e8eaed;border-radius:4px;height:1.1rem;margin-top:4px;width:5rem}
 /* ── */

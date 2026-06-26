@@ -18,7 +18,7 @@
 <p class="has-base-color has-text-color has-medium-font-size" style="font-style:normal;font-weight:600">Contactez-nous</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"base","iconColorValue":"#fff","iconBackgroundColor":{},"className":"is-style-default","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|small"}}},"layout":{"type":"flex"}} -->
+<!-- wp:social-links {"iconColor":"base","iconColorValue":"var(--wp--preset--color--white)","iconBackgroundColor":{},"className":"is-style-default","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|small","left":"var:preset|spacing|small"}}},"layout":{"type":"flex"}} -->
 <ul class="wp-block-social-links has-icon-color is-style-default"><!-- wp:social-link {"url":"https://twitter.com","service":"twitter"} /-->
 
 <!-- wp:social-link {"url":"https://facebook.com","service":"facebook"} /-->

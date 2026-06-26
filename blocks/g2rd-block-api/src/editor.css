@@ -1,7 +1,7 @@
 /* G2RD Block API — Styles éditeur uniquement */
 
 .g2rd-block-api-editor {
-	border: 2px dashed var(--wp--preset--color--primary, #2f425d);
+	border: 2px dashed var(--wp--preset--color--primary, #0a0e27);
 	border-radius: 8px;
 	padding: 16px;
 	background: #f8fafc;
@@ -19,7 +19,7 @@
 
 .g2rd-block-api-badge {
 	display: inline-block;
-	background: var(--wp--preset--color--primary, #2f425d);
+	background: var(--wp--preset--color--primary, #0a0e27);
 	color: var(--wp--preset--color--white, #fff);
 	font-size: 11px;
 	font-weight: 600;

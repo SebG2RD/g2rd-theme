@@ -25,7 +25,7 @@
 <p class="has-text-align-center">Rejoignez nous et suivez l'actualité sur les réseaux sociaux</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:social-links {"iconColor":"white","iconColorValue":"#FAFAFA","openInNewTab":true,"size":"has-huge-icon-size","className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:social-links {"iconColor":"white","iconColorValue":"var(--wp--preset--color--white)","openInNewTab":true,"size":"has-huge-icon-size","className":"is-style-logos-only","layout":{"type":"flex","justifyContent":"center"}} -->
 <ul class="wp-block-social-links has-huge-icon-size has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"https://www.facebook.com/g2rdweb/","service":"facebook"} /-->
 
 <!-- wp:social-link {"url":"https://www.linkedin.com/company/g2rd-d%C3%A9veloppeur-web/","service":"linkedin"} /-->

@@ -43,7 +43,7 @@
 }
 
 .g2rd-seo-score__text {
-  fill: #2F425D;
+  fill: var(--wp--preset--color--primary);
   font-size: 10px;
   font-weight: 700;
   text-anchor: middle;

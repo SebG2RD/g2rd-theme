@@ -77,13 +77,15 @@
       "h1": {
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
-          "fontSize": "var:preset|font-size|xl"
+          "fontSize": "var:preset|font-size|xl",
+          "fontWeight": "var:custom|font-weight|bold"
         }
       },
       "h2": {
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
-          "fontSize": "var:preset|font-size|l"
+          "fontSize": "var:preset|font-size|l",
+          "fontWeight": "var:custom|font-weight|bold"
         }
       },
       "h3": {
@@ -112,27 +114,27 @@
       },
       "link": {
         "color": {
-          "text": "var:preset|color|secondary"
+          "text": "var:preset|color|accent"
         }
       },
       "caption": {
         "color": {
-          "text": "var:preset|color|grey-text-alt"
+          "text": "var:preset|color|muted"
         },
         "typography": {
           "fontSize": "var:preset|font-size|s"
         }
       },
       "button": {
-        "css": "transition: .3s ease-in all;",
+        "css": "transition: .2s cubic-bezier(0.16, 1, 0.3, 1) all;",
         "border": {
           "radius": "var:custom|radius|m",
           "width": "0"
         },
-        "shadow": "var:preset|shadow|huge",
+        "shadow": "var:preset|shadow|secondary-glow",
         "color": {
-          "background": "var:preset|color|primary",
-          "text": "var:preset|color|white"
+          "background": "var:preset|color|secondary",
+          "text": "var:preset|color|primary"
         },
         "spacing": {
           "padding": {
@@ -144,13 +146,13 @@
         },
         "typography": {
           "fontSize": "var:preset|font-size|m",
-          "fontWeight": "var:custom|font-weight|bold"
+          "fontWeight": "var:custom|font-weight|semibold"
         },
         ":hover": {
           "shadow": "var:preset|shadow|neat",
           "color": {
-            "background": "var:custom|color|primaryhover",
-            "text": "var:preset|color|white"
+            "background": "var:custom|color|secondaryhover",
+            "text": "var:preset|color|primary"
           }
         }
       }

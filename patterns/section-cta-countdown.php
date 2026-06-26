@@ -30,7 +30,7 @@
 		<!-- /wp:paragraph -->
 
 		<!-- Compte à rebours G2RD -->
-		<!-- wp:g2rd/countdown {"endDate":"2025-12-31T23:59:59","title":"L'offre expire dans :","showDays":true,"showHours":true,"showMinutes":true,"showSeconds":true,"numberColor":"#D4A373","labelColor":"#FAFAFA","separatorColor":"rgba(250,250,250,0.3)","style":{"spacing":{"margin":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}}} /-->
+		<!-- wp:g2rd/countdown {"endDate":"2025-12-31T23:59:59","title":"L'offre expire dans :","showDays":true,"showHours":true,"showMinutes":true,"showSeconds":true,"numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","separatorColor":"color-mix(in srgb, var(--wp--preset--color--white) 30%, transparent)","style":{"spacing":{"margin":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}}} /-->
 
 		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|m"},"blockGap":"1rem"}}} -->
 		<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--m)">
@@ -39,8 +39,8 @@
 			<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="border-radius:4px;font-weight:700;font-size:1.1rem;padding:1rem 2.5rem">Je profite de l'offre →</a></div>
 			<!-- /wp:button -->
 
-			<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"rgba(250,250,250,0.5)","radius":"4px","width":"1px"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","right":"2rem","left":"2rem"}}}} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:rgba(250,250,250,0.5);padding:1rem 2rem">📞 Parler à un expert</a></div>
+			<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 50%, transparent)","radius":"4px","width":"1px"},"spacing":{"padding":{"top":"1rem","bottom":"1rem","right":"2rem","left":"2rem"}}}} -->
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:color-mix(in srgb, var(--wp--preset--color--white) 50%, transparent);padding:1rem 2rem">📞 Parler à un expert</a></div>
 			<!-- /wp:button -->
 
 		</div>

@@ -1,4 +1,4 @@
-<!-- wp:template-part {"slug":"header-color","theme":"g2rd-theme","area":"header"} /-->
+<!-- wp:template-part {"slug":"header-color","area":"header"} /-->
 <!-- wp:group {"tagName":"main","align":"full","layout":{"type":"constrained"}} -->
 <main class="wp-block-group alignfull has-global-padding">
 
@@ -6,14 +6,14 @@
 <!-- wp:cover {"minHeight":520,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
 <div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:520px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Portfolio — Réalisations web</p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Portfolio — Réalisations web</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:query-title {"type":"archive","textAlign":"center","style":{"typography":{"fontSize":"clamp(2.5rem,5vw,4.25rem)","fontWeight":"800","lineHeight":"1.1"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} /-->
+<!-- wp:query-title {"type":"archive","textAlign":"center","style":{"typography":{"fontSize":"clamp(2.5rem,5vw,4.25rem)","fontWeight":"800","lineHeight":"1.1"},"color":{"text":"var(--wp--preset--color--white)"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} /-->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.125rem","lineHeight":"1.75","fontWeight":"300"},"color":{"text":"rgba(255,255,255,0.7)"}}} -->
-<p class="has-text-align-center has-text-color" style="color:rgba(255,255,255,0.7);font-size:1.125rem;font-weight:300;line-height:1.75">Sites web réalisés par G2RD dans cette catégorie — vitrines, e-commerce et refontes.</p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"1.125rem","lineHeight":"1.75","fontWeight":"300"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent)"}}} -->
+<p class="has-text-align-center has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent);font-size:1.125rem;font-weight:300;line-height:1.75">Sites web réalisés par G2RD dans cette catégorie — vitrines, e-commerce et refontes.</p>
 <!-- /wp:paragraph -->
 
 </div></div>
@@ -26,14 +26,14 @@
 <div class="wp-block-query alignwide">
 
 <!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|m"}},"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:group {"className":"portfolio g2rd-clickable-article","style":{"border":{"radius":"1rem"},"color":{"background":"#FAFAFA"},"spacing":{"padding":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
-<div class="wp-block-group portfolio g2rd-clickable-article has-background" style="border-radius:1rem;background-color:#FAFAFA;padding-top:0;padding-bottom:0">
+<!-- wp:group {"className":"portfolio g2rd-clickable-article","style":{"border":{"radius":"1rem"},"color":{"background":"var(--wp--preset--color--white)"},"spacing":{"padding":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
+<div class="wp-block-group portfolio g2rd-clickable-article has-background" style="border-radius:1rem;background-color:var(--wp--preset--color--white);padding-top:0;padding-bottom:0">
 <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}}}} /-->
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|s","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--xs);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--s);padding-left:var(--wp--preset--spacing--s)">
-<!-- wp:post-terms {"term":"type-projets","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
-<!-- wp:post-title {"level":3,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.3"},"color":{"text":"#2F425D"},"spacing":{"margin":{"bottom":"0.25rem"}}}} /-->
-<!-- wp:post-date {"style":{"typography":{"fontSize":"0.8125rem"},"color":{"text":"rgba(47,66,93,0.5)"}}} /-->
+<!-- wp:post-terms {"term":"type-projets","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
+<!-- wp:post-title {"level":3,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.3"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"bottom":"0.25rem"}}}} /-->
+<!-- wp:post-date {"style":{"typography":{"fontSize":"0.8125rem"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 50%, transparent)"}}} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -58,15 +58,15 @@
 
 <!-- wp:cover {"minHeight":360,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
 <div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"#D4A373"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:#D4A373;margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Votre projet web</p>
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
+<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Votre projet web</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2"},"color":{"text":"#FAFAFA"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:#FAFAFA;margin-top:0;margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;line-height:1.2">Votre site web, notre prochain projet&nbsp;?</h2>
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2"},"color":{"text":"var(--wp--preset--color--white)"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--white);margin-top:0;margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;line-height:1.2">Votre site web, notre prochain projet&nbsp;?</h2>
 <!-- /wp:heading -->
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"1rem"}}} -->
-<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"#D4A373","text":"#2F425D"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:#2F425D;background-color:#D4A373;padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Discuter de mon projet →</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"var(--wp--preset--color--accent)","text":"var(--wp--preset--color--primary)"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--accent);padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Discuter de mon projet →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 </div></div>
@@ -75,4 +75,4 @@
 
 </main>
 <!-- /wp:group -->
-<!-- wp:template-part {"slug":"footer","theme":"g2rd-theme","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","area":"footer"} /-->

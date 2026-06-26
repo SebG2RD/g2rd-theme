@@ -253,7 +253,7 @@
 
 /* Accessibility */
 .g2rd-counter:focus-within {
-  outline: 2px solid var(--wp--preset--color--primary, #2f425d);
+  outline: 2px solid var(--wp--preset--color--primary, #0a0e27);
   outline-offset: 2px;
 }
 

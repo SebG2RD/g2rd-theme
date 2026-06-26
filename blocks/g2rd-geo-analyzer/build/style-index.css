@@ -292,7 +292,7 @@
 	padding: 6px 8px;
 	background: #f8fafc;
 	border-radius: 4px;
-	border-left: 3px solid var(--wp--preset--color--primary, #2f425d);
+	border-left: 3px solid var(--wp--preset--color--primary, #0a0e27);
 }
 
 .g2rd-geo__blocks-list strong {
@@ -315,13 +315,13 @@
 	font-weight: 600;
 	padding: 0;
 	height: auto;
-	color: var(--wp--preset--color--primary, #2f425d);
+	color: var(--wp--preset--color--primary, #0a0e27);
 	text-decoration: none;
 	align-self: flex-start;
 }
 
 .g2rd-geo__rec-insert.components-button:hover {
-	color: var(--wp--preset--color--secondary, #d4a373);
+	color: var(--wp--preset--color--secondary, #b9ff56);
 	text-decoration: underline;
 }
 

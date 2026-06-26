@@ -1,0 +1,698 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "title": "G2RD Style",
+    "settings": {
+        "useRootPaddingAwareAlignments": true,
+        "layout": {
+            "contentSize": "960px",
+            "wideSize": "1440px",
+            "allowCustomContentAndWideSize": true,
+            "allowEditing": true
+        },
+        "appearanceTools": true,
+        "color": {
+            "defaultDuotone": false,
+            "customDuotone": false,
+            "defaultGradients": false,
+            "customGradient": false,
+            "defaultPalette": false,
+            "custom": false,
+            "palette": [
+                {
+                    "name": "Navy",
+                    "slug": "primary",
+                    "color": "#0a0e27"
+                },
+                {
+                    "name": "Lime",
+                    "slug": "secondary",
+                    "color": "#b9ff56"
+                },
+                {
+                    "name": "Blanc",
+                    "slug": "white",
+                    "color": "#ffffff"
+                },
+                {
+                    "name": "Navy profond",
+                    "slug": "blue-dark",
+                    "color": "#060a1a"
+                },
+                {
+                    "name": "Navy doux",
+                    "slug": "blue-soft",
+                    "color": "#283047"
+                },
+                {
+                    "name": "Gris clair",
+                    "slug": "cream",
+                    "color": "#f5f6fa"
+                },
+                {
+                    "name": "Texte atténué",
+                    "slug": "muted",
+                    "color": "#5b6472"
+                },
+                {
+                    "name": "Rose",
+                    "slug": "accent",
+                    "color": "#f43f5e"
+                },
+                {
+                    "name": "Violet",
+                    "slug": "accent-2",
+                    "color": "#8b5cf6"
+                }
+            ],
+            "gradients": [
+                {
+                    "name": "Bleu nuit dégradé",
+                    "slug": "blue",
+                    "gradient": "linear-gradient(90deg, #0a0e27 0%, #f5f6fa 100%)"
+                },
+                {
+                    "name": "Lime dégradé",
+                    "slug": "beige",
+                    "gradient": "linear-gradient(90deg, #b9ff56 0%, #f5f6fa 100%)"
+                },
+                {
+                    "name": "Navy lime",
+                    "slug": "bleubeige",
+                    "gradient": "linear-gradient(135deg, #0a0e27 0%, #b9ff56 100%)"
+                },
+                {
+                    "name": "Secondaire rose-violet",
+                    "slug": "secondary",
+                    "gradient": "linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%)"
+                },
+                {
+                    "name": "Section sombre",
+                    "slug": "magic-dark",
+                    "gradient": "linear-gradient(135deg, #060a1a 0%, #0a0e27 58%, #05060f 100%)"
+                },
+                {
+                    "name": "Section claire",
+                    "slug": "magic-light",
+                    "gradient": "linear-gradient(180deg, #ffffff 0%, #f5f6fa 100%)"
+                }
+            ],
+            "duotone": [
+                {
+                    "name": "Navy lime",
+                    "slug": "blue",
+                    "colors": [
+                        "#0a0e27",
+                        "#b9ff56"
+                    ]
+                },
+                {
+                    "name": "Rose violet",
+                    "slug": "pink",
+                    "colors": [
+                        "#f43f5e",
+                        "#8b5cf6"
+                    ]
+                },
+                {
+                    "name": "Navy lime clair",
+                    "slug": "green",
+                    "colors": [
+                        "#0a0e27",
+                        "#b9ff56"
+                    ]
+                }
+            ],
+            "link": true,
+            "text": true,
+            "background": true,
+            "caption": true,
+            "button": true,
+            "heading": true
+        },
+        "spacing": {
+            "blockGap": true,
+            "customSpacingSize": false,
+            "defaultSpacingSizes": false,
+            "margin": false,
+            "padding": true,
+            "units": [
+                "%",
+                "em",
+                "rem",
+                "vh",
+                "vw"
+            ],
+            "spacingSizes": [
+                {
+                    "name": "Très petit",
+                    "size": "1rem",
+                    "slug": "xs"
+                },
+                {
+                    "name": "Petit",
+                    "size": "1.6rem",
+                    "slug": "s"
+                },
+                {
+                    "name": "Moyen",
+                    "size": "3.2rem",
+                    "slug": "m"
+                },
+                {
+                    "name": "Grand",
+                    "size": "4.8rem",
+                    "slug": "l"
+                },
+                {
+                    "name": "Très grand",
+                    "size": "6.4rem",
+                    "slug": "xl"
+                }
+            ],
+            "spacingScale": []
+        },
+        "typography": {
+            "customFontSize": true,
+            "defaultFontSizes": true,
+            "dropCap": true,
+            "fontStyle": true,
+            "fontWeight": true,
+            "letterSpacing": true,
+            "lineHeight": true,
+            "textAlign": true,
+            "textColumns": true,
+            "textDecoration": true,
+            "textTransform": true,
+            "writingMode": true,
+            "fontFamilies": [
+                {
+                    "fontFamily": "Rubik",
+                    "name": "Rubik",
+                    "slug": "rubik",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Rubik",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/Rubik-Regular.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "'Quantum', sans-serif",
+                    "name": "Quantum",
+                    "slug": "Quantum",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Quantum",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/Quantum.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "DM Serif Display",
+                    "name": "DM Serif Display",
+                    "slug": "dm-serif-display",
+                    "fontFace": [
+                        {
+                            "fontFamily": "DM Serif Display",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/DMSerifDisplay-Regular.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "'Audiowide', sans-serif",
+                    "name": "Audiowide",
+                    "slug": "audiowide",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Audiowide",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/audiowide.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "Inter, sans-serif",
+                    "name": "Inter",
+                    "slug": "inter",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Inter",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/Inter_28pt-Regular.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "Plus Jakarta Sans, sans-serif",
+                    "name": "Plus Jakarta Sans",
+                    "slug": "plus-jakarta-sans",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Plus Jakarta Sans",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/PlusJakartaSans-Regular.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "Acme, sans-serif",
+                    "name": "Acme",
+                    "slug": "acme",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Acme",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/Acme-Regular.woff2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "Borel, cursive",
+                    "name": "Borel",
+                    "slug": "borel",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Borel",
+                            "fontDisplay": "swap",
+                            "fontStretch": "normal",
+                            "fontStyle": "normal",
+                            "fontWeight": "400",
+                            "src": [
+                                "file:./assets/fonts/Borel-Regular.woff2"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "fontSizes": [
+                {
+                    "name": "Petit",
+                    "size": "0.88rem",
+                    "slug": "s",
+                    "fluid": {
+                        "min": "0.55rem",
+                        "max": "0.88rem"
+                    }
+                },
+                {
+                    "name": "Moyen",
+                    "size": "1.125rem",
+                    "slug": "m",
+                    "fluid": {
+                        "min": "1rem",
+                        "max": "1.125rem"
+                    }
+                },
+                {
+                    "name": "Grand",
+                    "size": "1.4rem",
+                    "slug": "l",
+                    "fluid": {
+                        "min": "1.125rem",
+                        "max": "1.4rem"
+                    }
+                },
+                {
+                    "name": "Très Grand",
+                    "size": "3rem",
+                    "slug": "xl",
+                    "fluid": {
+                        "min": "1.5rem",
+                        "max": "3rem"
+                    }
+                },
+                {
+                    "name": "Énorme",
+                    "size": "4rem",
+                    "slug": "xxl",
+                    "fluid": {
+                        "min": "2rem",
+                        "max": "4rem"
+                    }
+                }
+            ]
+        },
+        "custom": {
+            "fontWeight": {
+                "regular": 400,
+                "semibold": 600,
+                "bold": 700
+            },
+            "lineHeight": {
+                "narrow": 1.2,
+                "regular": 1.5,
+                "large": 1.8
+            },
+            "radius": {
+                "xs": "4px",
+                "s": "8px",
+                "m": "12px",
+                "l": "16px",
+                "xl": "24px",
+                "full": "999px"
+            },
+            "button": {
+                "radius": "10px",
+                "radius-pill": "999px",
+                "radius-square": "4px",
+                "padding-h": "1.5rem",
+                "padding-v": "0.75rem",
+                "font-weight": 600,
+                "transition": "0.2s cubic-bezier(0.16, 1, 0.3, 1)"
+            },
+            "color": {
+                "primaryhover": "#161c3d",
+                "secondaryhover": "#a3e635",
+                "whitehover": "#eef1f5",
+                "accenthover": "#e11d48",
+                "neutral-50": "#f8fafc",
+                "neutral-100": "#f1f5f9",
+                "neutral-200": "#e5e7eb",
+                "neutral-500": "#5b6472",
+                "neutral-700": "#334155",
+                "neutral-900": "#0a0e27"
+            }
+        },
+        "blocks": {
+            "core/group": {
+                "layout": {
+                    "allowEditing": true,
+                    "allowCustomContentAndWideSize": true
+                },
+                "spacing": {
+                    "padding": true,
+                    "margin": true
+                }
+            },
+            "core/row": {
+                "layout": {
+                    "allowEditing": true,
+                    "allowCustomContentAndWideSize": true
+                }
+            },
+            "core/image": {
+                "lightbox": {
+                    "enabled": true,
+                    "allowEditing": true
+                }
+            },
+            "g2rd/countdown": {
+                "color": {
+                    "background": true,
+                    "text": true
+                },
+                "spacing": {
+                    "margin": true,
+                    "padding": true
+                },
+                "typography": {
+                    "fontSize": true,
+                    "fontFamily": true,
+                    "fontWeight": true,
+                    "lineHeight": true
+                },
+                "border": {
+                    "color": true,
+                    "radius": true,
+                    "style": true,
+                    "width": true
+                },
+                "shadow": true
+            }
+        },
+        "border": {
+            "color": true,
+            "radius": true,
+            "style": true,
+            "width": true
+        },
+        "background": {
+            "backgroundImage": true,
+            "backgroundSize": true
+        },
+        "dimensions": {
+            "defaultAspectRatios": true,
+            "aspectRatio": true,
+            "minHeight": true
+        },
+        "position": {
+            "sticky": true
+        },
+        "shadow": {
+            "defaultPresets": false,
+            "presets": [
+                {
+                    "name": "Très légère",
+                    "slug": "xs",
+                    "shadow": "0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)"
+                },
+                {
+                    "name": "Douce",
+                    "slug": "light",
+                    "shadow": "0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)"
+                },
+                {
+                    "name": "Moyenne",
+                    "slug": "md",
+                    "shadow": "0 8px 24px rgba(0, 0, 0, 0.10), 0 3px 8px rgba(0, 0, 0, 0.06)"
+                },
+                {
+                    "name": "Fine",
+                    "slug": "neat",
+                    "shadow": "0 2px 0 rgba(99, 99, 99, 0.25), 0 4px 12px rgba(99, 99, 99, 0.15)"
+                },
+                {
+                    "name": "Imposante",
+                    "slug": "huge",
+                    "shadow": "0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06)"
+                },
+                {
+                    "name": "Élevée",
+                    "slug": "xl",
+                    "shadow": "0 24px 64px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.08)"
+                },
+                {
+                    "name": "Lueur navy",
+                    "slug": "primary-glow",
+                    "shadow": "0 4px 24px rgba(10, 14, 39, 0.28), 0 2px 8px rgba(10, 14, 39, 0.14)"
+                },
+                {
+                    "name": "Lueur lime",
+                    "slug": "secondary-glow",
+                    "shadow": "0 10px 15px -3px rgba(185, 255, 86, 0.20), 0 4px 6px -4px rgba(185, 255, 86, 0.20)"
+                },
+                {
+                    "name": "Lueur rose-violet",
+                    "slug": "accent-glow",
+                    "shadow": "0 10px 15px -3px rgba(244, 63, 94, 0.25), 0 4px 6px -4px rgba(139, 92, 246, 0.20)"
+                },
+                {
+                    "name": "Magic — Carte",
+                    "slug": "magic",
+                    "shadow": "0 28px 90px rgba(0, 0, 0, 0.28)"
+                },
+                {
+                    "name": "Magic — Carte XL",
+                    "slug": "magic-xl",
+                    "shadow": "0 34px 110px rgba(10, 14, 39, 0.20)"
+                }
+            ]
+        }
+    },
+    "styles": {
+        "blocks": {
+            "core/group": {
+                "spacing": {
+                    "margin": {
+                        "top": "0 !important"
+                    }
+                }
+            },
+            "core/template-part": {
+                "spacing": {
+                    "margin": {
+                        "top": "0 !important"
+                    }
+                }
+            },
+            "core/image": {
+                "border": {
+                    "radius": "var:custom|radius|s"
+                }
+            },
+            "g2rd/countdown": {
+                "color": {
+                    "background": "var(--wp--preset--color--white)",
+                    "text": "var(--wp--preset--color--primary)"
+                },
+                "spacing": {
+                    "margin": {
+                        "top": "var(--wp--preset--spacing--m)",
+                        "bottom": "var(--wp--preset--spacing--m)"
+                    },
+                    "padding": {
+                        "top": "var(--wp--preset--spacing--s)",
+                        "bottom": "var(--wp--preset--spacing--s)",
+                        "left": "var(--wp--preset--spacing--s)",
+                        "right": "var(--wp--preset--spacing--s)"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var(--wp--preset--font-size--m)",
+                    "fontFamily": "var(--wp--preset--font-family--inter)",
+                    "fontWeight": "400",
+                    "lineHeight": "1.5"
+                },
+                "border": {
+                    "radius": "var(--wp--custom--radius--m)",
+                    "width": "1px",
+                    "style": "solid",
+                    "color": "var(--wp--preset--color--secondary)"
+                },
+                "shadow": "var(--wp--preset--shadow--light)"
+            }
+        },
+        "color": {
+            "text": "var:preset|color|primary",
+            "background": "var:preset|color|white"
+        },
+        "spacing": {
+            "blockGap": "var:preset|spacing|s",
+            "padding": {
+                "top": "0",
+                "right": "var:preset|spacing|s",
+                "bottom": "0",
+                "left": "var:preset|spacing|s"
+            }
+        },
+        "typography": {
+            "fontFamily": "var(--wp--preset--font-family--inter)",
+            "fontSize": "var:preset|font-size|m",
+            "fontWeight": "var:custom|font-weight|regular",
+            "lineHeight": "var:custom|line-height|regular"
+        },
+        "elements": {
+            "h1": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
+                    "fontSize": "var:preset|font-size|xl",
+                    "fontWeight": "var:custom|font-weight|bold"
+                }
+            },
+            "h2": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
+                    "fontSize": "var:preset|font-size|l",
+                    "fontWeight": "var:custom|font-weight|bold"
+                }
+            },
+            "h3": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--inter)",
+                    "fontSize": "var:preset|font-size|m"
+                }
+            },
+            "h4": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--inter)",
+                    "fontSize": "var:preset|font-size|s"
+                }
+            },
+            "h5": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--inter)",
+                    "fontSize": "var:preset|font-size|xs"
+                }
+            },
+            "h6": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--inter)",
+                    "fontSize": "var:preset|font-size|xs"
+                }
+            },
+            "link": {
+                "color": {
+                    "text": "var:preset|color|accent"
+                }
+            },
+            "caption": {
+                "color": {
+                    "text": "var:preset|color|muted"
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|s"
+                }
+            },
+            "button": {
+                "css": "transition: .2s cubic-bezier(0.16, 1, 0.3, 1) all;",
+                "border": {
+                    "radius": "var:custom|radius|m",
+                    "width": "0"
+                },
+                "shadow": "var:preset|shadow|secondary-glow",
+                "color": {
+                    "background": "var:preset|color|secondary",
+                    "text": "var:preset|color|primary"
+                },
+                "spacing": {
+                    "padding": {
+                        "top": "var:preset|spacing|xs",
+                        "right": "var:preset|spacing|xs",
+                        "bottom": "var:preset|spacing|xs",
+                        "left": "var:preset|spacing|xs"
+                    }
+                },
+                "typography": {
+                    "fontSize": "var:preset|font-size|m",
+                    "fontWeight": "var:custom|font-weight|semibold"
+                },
+                ":hover": {
+                    "shadow": "var:preset|shadow|neat",
+                    "color": {
+                        "background": "var:custom|color|secondaryhover",
+                        "text": "var:preset|color|primary"
+                    }
+                }
+            }
+        }
+    }
+}

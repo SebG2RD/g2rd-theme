@@ -18,8 +18,8 @@
 }
 
 .g2rd-device-btn.is-active {
-	background: var(--wp--preset--color--primary, #2f425d);
-	border-color: var(--wp--preset--color--primary, #2f425d);
+	background: var(--wp--preset--color--primary, #0a0e27);
+	border-color: var(--wp--preset--color--primary, #0a0e27);
 }
 
 /* Label de contrôle */

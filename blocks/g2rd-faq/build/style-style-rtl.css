@@ -3,7 +3,7 @@
 /* ─── Tokens internes ─── */
 
 .g2rd-faq {
-  --_accent:   var(--g2rd-faq-border, var(--wp--preset--color--primary, #2f425d));
+  --_accent:   var(--g2rd-faq-border, var(--wp--preset--color--primary, #0a0e27));
   --_sep:      var(--g2rd-faq-separator, color-mix(in srgb, var(--_accent) 16%, transparent));
   --_hover-bg: color-mix(in srgb, var(--_accent) 4%, transparent);
   --_open-bg:  color-mix(in srgb, var(--_accent) 6%, transparent);

@@ -19,7 +19,7 @@
 
 /* ── Carte ── */
 .g2rd-dynamic-content__card {
-  background: var(--g2rd-dc-bg, var(--wp--preset--color--white, #fafafa));
+  background: var(--g2rd-dc-bg, var(--wp--preset--color--white, #ffffff));
   border: 1px solid rgba(12, 31, 46, 0.06);
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@
 }
 
 .g2rd-dynamic-content__category {
-  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #0a0e27));
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -74,7 +74,7 @@
 }
 
 .g2rd-dynamic-content__title {
-  color: var(--g2rd-dc-text, var(--wp--preset--color--primary, #2f425d));
+  color: var(--g2rd-dc-text, var(--wp--preset--color--primary, #0a0e27));
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.4;
@@ -87,7 +87,7 @@
 }
 
 .g2rd-dynamic-content__title a:hover {
-  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+  color: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #0a0e27));
 }
 
 .g2rd-dynamic-content__excerpt {
@@ -108,7 +108,7 @@
 }
 
 .g2rd-dynamic-content__readmore {
-  background: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #2f425d));
+  background: var(--g2rd-dc-accent, var(--wp--preset--color--primary, #0a0e27));
   border-radius: 4px;
   color: var(--wp--preset--color--white, #fff) !important;
   display: inline-block;

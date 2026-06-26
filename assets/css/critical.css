@@ -47,7 +47,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 999;
-  background: linear-gradient(135deg, #172233 0%, #2f435e 100%);
+  background: linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--blue-soft) 100%);
   border-bottom: 1px solid rgba(212, 163, 115, 0.2);
   backdrop-filter: blur(18px);
 }

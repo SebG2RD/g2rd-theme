@@ -28,7 +28,7 @@
 			<h1 class="wp-block-heading has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--xs);font-size:clamp(2.2rem, 4.5vw, 3.8rem);line-height:1.1;font-weight:800">Votre agence web pour</h1>
 			<!-- /wp:heading -->
 
-			<!-- wp:g2rd/typed {"strings":["créer votre site vitrine","booster votre SEO","lancer votre boutique","développer votre marque"],"typeSpeed":60,"backSpeed":40,"loop":true,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}},"typography":{"fontSize":"clamp(2.2rem, 4.5vw, 3.8rem)","fontWeight":"800","color":"#D4A373"}}} /-->
+			<!-- wp:g2rd/typed {"strings":["créer votre site vitrine","booster votre SEO","lancer votre boutique","développer votre marque"],"typeSpeed":60,"backSpeed":40,"loop":true,"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}},"typography":{"fontSize":"clamp(2.2rem, 4.5vw, 3.8rem)","fontWeight":"800","color":"var(--wp--preset--color--secondary)"}}} /-->
 
 			<!-- wp:paragraph {"textColor":"white","style":{"typography":{"lineHeight":"1.75","fontSize":"1.1rem"},"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
 			<p class="has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);font-size:1.1rem;line-height:1.75">De la conception à la mise en ligne, G2RD conçoit des sites WordPress performants qui génèrent de vrais résultats.</p>
@@ -41,8 +41,8 @@
 				<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="border-radius:4px;font-weight:700">Démarrer mon projet</a></div>
 				<!-- /wp:button -->
 
-				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"rgba(250,250,250,0.6)","radius":"4px","width":"1px"}}} -->
-				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:rgba(250,250,250,0.6)">Voir nos réalisations</a></div>
+				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)","radius":"4px","width":"1px"}}} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)">Voir nos réalisations</a></div>
 				<!-- /wp:button -->
 
 			</div>
@@ -58,19 +58,19 @@
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":150,"suffix":"+","label":"Sites livrés","numberColor":"#D4A373","labelColor":"#FAFAFA","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2000} /-->
+					<!-- wp:g2rd/counter {"number":150,"suffix":"+","label":"Sites livrés","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2000} /-->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":5,"suffix":" ans","label":"D'expérience","numberColor":"#D4A373","labelColor":"#FAFAFA","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":1500} /-->
+					<!-- wp:g2rd/counter {"number":5,"suffix":" ans","label":"D'expérience","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":1500} /-->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":98,"suffix":"%","label":"Clients satisfaits","numberColor":"#D4A373","labelColor":"#FAFAFA","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2500} /-->
+					<!-- wp:g2rd/counter {"number":98,"suffix":"%","label":"Clients satisfaits","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2500} /-->
 				</div>
 				<!-- /wp:column -->
 

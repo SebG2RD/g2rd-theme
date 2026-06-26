@@ -37,8 +37,8 @@
 			<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--m)">
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"rgba(212,163,115,0.3)","width":"1px"}},"layout":{"type":"constrained"}} -->
-					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid rgba(212,163,115,0.3)">
+					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)","width":"1px"}},"layout":{"type":"constrained"}} -->
+					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)">
 						<!-- wp:paragraph {"align":"center","textColor":"secondary","style":{"typography":{"fontWeight":"700","fontSize":"0.9rem"}}} --><p class="has-text-align-center has-secondary-color has-text-color" style="font-weight:700;font-size:0.9rem">✓ Certifié RGE</p><!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
@@ -46,8 +46,8 @@
 				<!-- /wp:column -->
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"rgba(212,163,115,0.3)","width":"1px"}},"layout":{"type":"constrained"}} -->
-					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid rgba(212,163,115,0.3)">
+					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)","width":"1px"}},"layout":{"type":"constrained"}} -->
+					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)">
 						<!-- wp:paragraph {"align":"center","textColor":"secondary","style":{"typography":{"fontWeight":"700","fontSize":"0.9rem"}}} --><p class="has-text-align-center has-secondary-color has-text-color" style="font-weight:700;font-size:0.9rem">✓ Décennale</p><!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
@@ -55,8 +55,8 @@
 				<!-- /wp:column -->
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"rgba(212,163,115,0.3)","width":"1px"}},"layout":{"type":"constrained"}} -->
-					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid rgba(212,163,115,0.3)">
+					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","right":"var:preset|spacing|xs","left":"var:preset|spacing|xs"}},"border":{"radius":"6px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)","width":"1px"}},"layout":{"type":"constrained"}} -->
+					<div class="wp-block-group" style="padding:var(--wp--preset--spacing--xs);border-radius:6px;border:1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 30%, transparent)">
 						<!-- wp:paragraph {"align":"center","textColor":"secondary","style":{"typography":{"fontWeight":"700","fontSize":"0.9rem"}}} --><p class="has-text-align-center has-secondary-color has-text-color" style="font-weight:700;font-size:0.9rem">✓ Devis 24h</p><!-- /wp:paragraph -->
 					</div>
 					<!-- /wp:group -->
@@ -70,8 +70,8 @@
 				<!-- wp:button {"backgroundColor":"secondary","textColor":"primary","style":{"typography":{"fontWeight":"700"},"border":{"radius":"4px"}}} -->
 				<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="border-radius:4px;font-weight:700">Demander un devis gratuit</a></div>
 				<!-- /wp:button -->
-				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"rgba(250,250,250,0.6)","radius":"4px","width":"1px"}}} -->
-				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:rgba(250,250,250,0.6)">📞 Appeler directement</a></div>
+				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)","radius":"4px","width":"1px"}}} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)">📞 Appeler directement</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
@@ -97,8 +97,8 @@
 <!-- wp:pattern {"slug":"g2rd-theme/section-services"} /-->
 
 <!-- Zone d'intervention -->
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"#F5F4F2"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m);background-color:#F5F4F2">
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"var(--wp--preset--color--cream)"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m);background-color:var(--wp--preset--color--cream)">
 
 	<!-- wp:heading {"textAlign":"center","level":2,"textColor":"primary","style":{"typography":{"fontSize":"clamp(1.8rem, 3vw, 2.8rem)","fontWeight":"800"}}} -->
 	<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="font-size:clamp(1.8rem, 3vw, 2.8rem);font-weight:800">Zone d'intervention</h2>
