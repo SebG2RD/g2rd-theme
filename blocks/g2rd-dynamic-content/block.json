@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "database",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Affiche une grille de contenus dynamiques (articles, CPT…) filtrables par catégorie, date, auteur. Personnalisable selon les paramètres du thème.",
     "keywords": ["query", "articles", "grille", "dynamique", "archive", "posts", "boucle"],

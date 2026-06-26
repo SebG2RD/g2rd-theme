@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "chart-bar",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Graphiques interactifs : barres horizontales/verticales, cercle, courbes, aires et barres empilées.",
     "keywords": ["chart", "graphique", "barres", "cercle", "courbe", "statistiques", "données"],

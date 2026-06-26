@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "id-alt",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Bloc carte avec icône ou image, titre, sous-titre, description, séparateur et bouton CTA.",
     "keywords": ["card", "carte", "info", "icone"],

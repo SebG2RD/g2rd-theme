@@ -589,3 +589,75 @@ ul {
     width: 100% !important;
   }
 }
+
+/* ==========================================================================
+   WP MANAGER — Animations de composants (GLOBAL, tokens uniquement)
+   Exception CSS justifiée : :hover + transform ne sont pas exprimables en
+   theme.json. Variables --wp--… exclusivement, aucune valeur en dur, aucune
+   règle par page. Respecte prefers-reduced-motion (RGAA).
+   ========================================================================== */
+
+.wp-block-group.is-style-card,
+.wp-block-group.is-style-card-dark,
+.wp-block-group.is-style-card-action {
+  transition:
+    transform var(--transition-standard),
+    box-shadow var(--transition-standard);
+}
+
+.wp-block-group.is-style-card:hover,
+.wp-block-group.is-style-card-dark:hover,
+.wp-block-group.is-style-card-action:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--wp--preset--shadow--xl);
+  will-change: transform;
+}
+
+/* Bouton : micro-élévation au survol (la transition est posée par theme.json) */
+.wp-block-button__link:hover {
+  transform: translateY(-1px);
+  will-change: transform;
+}
+
+/* Halo signature des sections sombres (rappel du fond login wp-manager) */
+.wp-block-group.is-style-section-dark,
+.wp-block-group.is-style-card-dark {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.wp-block-group.is-style-section-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 85% 12%,
+      color-mix(in srgb, var(--wp--preset--color--accent-2) 22%, transparent),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 12% 88%,
+      color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent),
+      transparent 40%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-group.is-style-card,
+  .wp-block-group.is-style-card-dark,
+  .wp-block-group.is-style-card-action,
+  .wp-block-button__link {
+    transition: none;
+  }
+
+  .wp-block-group.is-style-card:hover,
+  .wp-block-group.is-style-card-dark:hover,
+  .wp-block-group.is-style-card-action:hover,
+  .wp-block-button__link:hover {
+    transform: none;
+  }
+}

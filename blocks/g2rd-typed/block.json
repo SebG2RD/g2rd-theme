@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "text",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Bloc de texte animé avec effet de frappe utilisant Typed.js",
   "keywords": ["typed", "animation", "text", "typing", "effect"],

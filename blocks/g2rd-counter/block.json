@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "chart-bar",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Bloc compteur animé avec différents styles et options de personnalisation.",
   "keywords": ["counter", "number", "animation", "statistics"],

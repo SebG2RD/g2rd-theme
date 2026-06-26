@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "info",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "A customizable info block with image/icon, title and description",
   "supports": {

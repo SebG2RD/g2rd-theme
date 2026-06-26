@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "title": "G2RD Block API",
   "category": "g2rd-blocks",
-  "icon": { "src": "rest-api", "foreground": "#FAFAFA", "background": "#2F425D" },
+  "icon": { "src": "rest-api", "foreground": "#ffffff", "background": "#0f172a" },
   "description": "Connectez vos blocs à une API externe. Supporte les connecteurs côté serveur (proxy WP) et côté client (fetch JS), avec chargement Ajax, mode chat et streaming.",
   "keywords": ["api", "rest", "fetch", "dynamique", "données", "externe", "json"],
   "supports": {

@@ -6,7 +6,7 @@
   "title": "Conteneur G2RD",
   "category": "g2rd-blocks",
   "description": "Bloc conteneur responsive : layouts Flex, Grille, Contraint et Flux avec espacement, fond, bordure et animation par appareil.",
-  "icon": { "src": "layout", "foreground": "#FAFAFA", "background": "#2F425D" },
+  "icon": { "src": "layout", "foreground": "#ffffff", "background": "#0f172a" },
   "textdomain": "g2rd",
   "render": "file:./render.php",
   "supports": {

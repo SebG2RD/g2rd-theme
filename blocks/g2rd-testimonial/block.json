@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "format-quote",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Bloc témoignage client avec notation étoiles, citation, auteur et avatar.",
   "keywords": ["témoignage", "avis", "client", "review", "testimonial", "étoiles"],

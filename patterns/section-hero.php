@@ -2,52 +2,53 @@
 /**
  * Title: Section Hero
  * Slug: g2rd-theme/section-hero
- * Description: Section hero pleine largeur — titre accrocheur, description, double CTA et indicateurs de confiance
+ * Description: Hero sombre façon SaaS — pill, titre avec mot surligné, double CTA, stats et visuel. Structure inspirée de wp-manager.
  * Categories: banner, featured
- * Keywords: hero, banner, cta, accueil, conversion
+ * Keywords: hero, banner, cta, accueil, conversion, dashboard
  * Viewport Width: 1400
  * Block Types: core/group
  * Inserter: true
  * Text Domain: g2rd
  */
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-section-dark has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
 
 	<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|l"}}}} -->
 	<div class="wp-block-columns are-vertically-aligned-center">
 
-		<!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
-		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
+		<!-- wp:column {"verticalAlignment":"center","width":"56%"} -->
+		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:56%">
 
-			<!-- wp:paragraph {"textColor":"secondary","style":{"typography":{"fontWeight":"600","letterSpacing":"0.12em","textTransform":"uppercase"}},"fontSize":"s"} -->
-			<p class="has-secondary-color has-text-color has-s-font-size" style="font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Agence web WordPress</p>
+			<!-- Pill eyebrow -->
+			<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"white","fontSize":"s"} -->
+			<p class="has-white-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-secondary-color">●</mark>&nbsp; Agence web WordPress</p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:heading {"level":1,"textColor":"white","style":{"typography":{"lineHeight":"1.1","fontWeight":"800","fontSize":"clamp(2.2rem, 4.5vw, 3.8rem)"},"spacing":{"margin":{"top":"var:preset|spacing|xs"}}}} -->
-			<h1 class="wp-block-heading has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--xs);font-size:clamp(2.2rem, 4.5vw, 3.8rem);line-height:1.1;font-weight:800">Votre site web,<br><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-secondary-color">conçu pour convertir</mark></h1>
+			<!-- wp:heading {"level":1,"textColor":"white","style":{"typography":{"lineHeight":"1.08","fontWeight":"800","fontSize":"clamp(2.4rem, 5vw, 4rem)","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
+			<h1 class="wp-block-heading has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);font-size:clamp(2.4rem, 5vw, 4rem);font-weight:800;letter-spacing:-0.02em;line-height:1.08">Votre site web,<br>conçu pour <mark style="background-color:rgba(0,0,0,0);border-bottom:0.18em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">convertir.</mark></h1>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"textColor":"white","style":{"typography":{"lineHeight":"1.75","fontSize":"1.1rem"},"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
-			<p class="has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);font-size:1.1rem;line-height:1.75">De la conception de votre identité visuelle à la réalisation de votre site WordPress sur mesure. Une expertise de plus de 5 ans au service de votre croissance.</p>
+			<!-- wp:paragraph {"textColor":"white","style":{"typography":{"lineHeight":"1.75","fontSize":"1.15rem"},"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
+			<p class="has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);font-size:1.15rem;line-height:1.75">De la conception de votre identité visuelle à la réalisation de votre site WordPress sur mesure. Une expertise de plus de 5 ans au service de votre croissance.</p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|m"},"blockGap":"1rem"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 			<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--m)">
 
-				<!-- wp:button {"backgroundColor":"secondary","textColor":"primary","style":{"typography":{"fontWeight":"700"},"border":{"radius":"4px"}}} -->
-				<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="border-radius:4px;font-weight:700">Démarrer mon projet</a></div>
+				<!-- wp:button {"backgroundColor":"secondary","textColor":"primary","style":{"typography":{"fontWeight":"700"}}} -->
+				<div class="wp-block-button"><a class="wp-block-button__link has-secondary-background-color has-primary-color has-background has-text-color wp-element-button" style="font-weight:700">Démarrer mon projet →</a></div>
 				<!-- /wp:button -->
 
-				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)","radius":"4px","width":"1px"}}} -->
-				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-radius:4px;border-width:1px;border-color:color-mix(in srgb, var(--wp--preset--color--white) 60%, transparent)">Voir nos réalisations</a></div>
+				<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 35%, transparent)","width":"1px"}}} -->
+				<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color wp-element-button" style="border-color:color-mix(in srgb, var(--wp--preset--color--white) 35%, transparent);border-width:1px">Voir nos réalisations</a></div>
 				<!-- /wp:button -->
 
 			</div>
 			<!-- /wp:buttons -->
 
-			<!-- wp:separator {"opacity":"css","backgroundColor":"secondary","style":{"spacing":{"margin":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|m"}}}} -->
-			<hr class="wp-block-separator has-text-color has-secondary-color has-secondary-background-color has-background has-css-opacity" style="margin-top:var(--wp--preset--spacing--l);margin-bottom:var(--wp--preset--spacing--m)" />
+			<!-- wp:separator {"backgroundColor":"blue-soft","style":{"spacing":{"margin":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|m"}}}} -->
+			<hr class="wp-block-separator has-text-color has-blue-soft-color has-alpha-channel-opacity has-blue-soft-background-color has-background" style="margin-top:var(--wp--preset--spacing--l);margin-bottom:var(--wp--preset--spacing--m)" />
 			<!-- /wp:separator -->
 
 			<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"var:preset|spacing|m"}}}} -->
@@ -55,34 +56,22 @@
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.2rem","fontWeight":"800","lineHeight":"1"}}} -->
-					<h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.2rem;font-weight:800;line-height:1">150+</h3>
-					<!-- /wp:heading -->
-					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"letterSpacing":"0.02em"}}} -->
-					<p class="has-white-color has-text-color has-s-font-size" style="letter-spacing:0.02em">Sites livrés</p>
-					<!-- /wp:paragraph -->
+					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">150+</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Sites livrés</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.2rem","fontWeight":"800","lineHeight":"1"}}} -->
-					<h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.2rem;font-weight:800;line-height:1">5 ans</h3>
-					<!-- /wp:heading -->
-					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"letterSpacing":"0.02em"}}} -->
-					<p class="has-white-color has-text-color has-s-font-size" style="letter-spacing:0.02em">D'expérience</p>
-					<!-- /wp:paragraph -->
+					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">5 ans</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">D'expérience</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.2rem","fontWeight":"800","lineHeight":"1"}}} -->
-					<h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.2rem;font-weight:800;line-height:1">98%</h3>
-					<!-- /wp:heading -->
-					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"letterSpacing":"0.02em"}}} -->
-					<p class="has-white-color has-text-color has-s-font-size" style="letter-spacing:0.02em">Clients satisfaits</p>
-					<!-- /wp:paragraph -->
+					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">98%</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Clients satisfaits</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->
 
@@ -92,11 +81,11 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
-		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
+		<!-- wp:column {"verticalAlignment":"center","width":"44%"} -->
+		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:44%">
 
-			<!-- wp:image {"sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"1rem"},"filter":{"duotone":"unset"}}} -->
-			<figure class="wp-block-image size-large" style="border-radius:1rem"><img alt="G2RD Agence Web — site sur mesure" /></figure>
+			<!-- wp:image {"sizeSlug":"large","linkDestination":"none","style":{"border":{"radius":"var:custom|radius|l"},"shadow":"var:preset|shadow|magic-xl"}} -->
+			<figure class="wp-block-image size-large has-custom-border" style="border-radius:var(--wp--custom--radius--l);box-shadow:var(--wp--preset--shadow--magic-xl)"><img alt="Aperçu d'un site web réalisé par G2RD Agence Web" /></figure>
 			<!-- /wp:image -->
 
 		</div>

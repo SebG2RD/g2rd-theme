@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "money",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Tableau de prix moderne et configurable avec intégration WooCommerce, SureCart et FluentCart.",
     "keywords": ["pricing", "price", "tableau", "prix", "tarif", "forfait", "plan"],

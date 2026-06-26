@@ -52,6 +52,7 @@ class BlockStyles {
     public function register_hooks(): void {
         \add_action('init', [$this, 'registerBlockStyles']);
         \add_action('init', [$this, 'registerMagicStyles']);
+        \add_action('init', [$this, 'registerSectionStyles']);
         \add_action('switch_theme', [$this, 'clearStylesCache']);
         \add_action('wp_enqueue_scripts', [$this, 'enqueueBlockStyles']);
     }
@@ -141,6 +142,36 @@ class BlockStyles {
                 'style_handle' => 'g2rd-magic-page',
             ]
         );
+    }
+
+    /**
+     * Variations de styles « WP Manager » (sections et cartes).
+     *
+     * Ces variations ne portent PAS de CSS : leur habillage est défini
+     * exclusivement dans theme.json → styles.blocks.<bloc>.variations.<nom>
+     * (FSE-first, tokens uniquement). On se contente de les déclarer pour
+     * qu'elles apparaissent dans le sélecteur de l'éditeur.
+     *
+     * @since 1.23.0
+     */
+    public function registerSectionStyles(): void {
+        $group_variations = [
+            'section-dark' => \__( 'Section sombre', 'g2rd' ),
+            'card'         => \__( 'Carte', 'g2rd' ),
+            'card-dark'    => \__( 'Carte sombre', 'g2rd' ),
+            'card-action'  => \__( 'Carte action', 'g2rd' ),
+        ];
+        foreach ( $group_variations as $name => $label ) {
+            \register_block_style( 'core/group', [ 'name' => $name, 'label' => $label ] );
+        }
+
+        $button_variations = [
+            'action' => \__( 'Action (dégradé)', 'g2rd' ),
+            'ghost'  => \__( 'Ghost', 'g2rd' ),
+        ];
+        foreach ( $button_variations as $name => $label ) {
+            \register_block_style( 'core/button', [ 'name' => $name, 'label' => $label ] );
+        }
     }
 
     /**

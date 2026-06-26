@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "grid-view",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Affiche une grille dynamique de contenus avec onglets de filtrage par type, recherche instantanée et pagination.",
     "keywords": [
