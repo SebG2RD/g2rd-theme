@@ -215,13 +215,13 @@
 .dark-mode-active .g2rd-site-header-light,
 [data-theme="dark"] .g2rd-site-header-light {
 	background:
-		linear-gradient(135deg, rgba(23, 34, 51, 0.94) 0%, rgba(47, 67, 94, 0.94) 100%);
-	border-bottom-color: rgba(212, 163, 115, 0.22);
+		linear-gradient(135deg, color-mix(in srgb, var(--wp--preset--color--blue-dark) 94%, transparent) 0%, color-mix(in srgb, var(--wp--preset--color--primary) 94%, transparent) 100%);
+	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent);
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation-item__content,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation-item__content {
-	color: rgba(250, 250, 250, 0.86) !important;
+	color: color-mix(in srgb, var(--wp--preset--color--white) 86%, transparent) !important;
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation-item__content:hover,
@@ -233,18 +233,18 @@
 .dark-mode-active .g2rd-site-header-light .current-menu-item > .wp-block-navigation-item__content,
 [data-theme="dark"] .g2rd-site-header-light .current-menu-item > .wp-block-navigation-item__content {
 	color: #ffffff !important;
-	background: rgba(212, 163, 115, 0.18);
+	background: color-mix(in srgb, var(--wp--preset--color--secondary) 18%, transparent);
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__submenu-container,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__submenu-container {
-	background: rgba(23, 34, 51, 0.96) !important;
-	border-color: rgba(212, 163, 115, 0.22) !important;
+	background: color-mix(in srgb, var(--wp--preset--color--blue-dark) 96%, transparent) !important;
+	border-color: color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent) !important;
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__submenu-container .wp-block-navigation-item__content,
 [data-theme="dark"] .g2rd-site-header-light .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-	color: rgba(250, 250, 250, 0.86) !important;
+	color: color-mix(in srgb, var(--wp--preset--color--white) 86%, transparent) !important;
 }
 
 .dark-mode-active .g2rd-site-header-light .wp-block-navigation__responsive-container-open,
@@ -268,10 +268,10 @@
 .dark-mode-active .g2rd-header-light-account .wp-block-button__link,
 [data-theme="dark"] .g2rd-header-light-account .wp-block-button__link {
 	background:
-		radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
+		radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--wp--preset--color--secondary) 24%, transparent), transparent 34%),
 		linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
 	color: var(--wp--preset--color--white) !important;
-	border-color: rgba(212, 163, 115, 0.42);
+	border-color: color-mix(in srgb, var(--wp--preset--color--secondary) 42%, transparent);
 }
 
 .dark-mode-active .g2rd-header-light-contact .wp-block-button__link,

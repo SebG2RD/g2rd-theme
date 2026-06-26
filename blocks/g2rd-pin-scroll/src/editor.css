@@ -18,7 +18,7 @@
 	position: absolute;
 	top: 16px;
 	left: 16px;
-	background: rgba(47, 66, 93, 0.92);
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 92%, transparent);
 	color: #fff;
 	padding: 6px 14px;
 	border-radius: 999px;
@@ -74,7 +74,7 @@
 
 .g2rd-pin-scroll-editor__placeholder-btn:hover {
 	border-color: var(--wp--preset--color--primary, #0a0e27);
-	background: rgba(47, 66, 93, 0.04);
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 4%, transparent);
 }
 
 .g2rd-pin-scroll-editor__placeholder-btn strong {

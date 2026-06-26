@@ -151,8 +151,8 @@ html:has(body.a11y-grayscale) {
   inset: 0 0 auto 0;
   height: 80px;
   top: var(--a11y-mask-top, 200px);
-  background: rgba(47, 66, 93, 0.12);
-  border: 2px solid rgba(47, 66, 93, 0.3);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
+  border: 2px solid color-mix(in srgb, var(--wp--preset--color--primary) 30%, transparent);
   border-radius: 4px;
   pointer-events: none;
   z-index: 99998;
@@ -200,7 +200,7 @@ html:has(body.a11y-grayscale) {
   border-radius: 50%;
   width: 52px;
   height: 52px;
-  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.22);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +219,7 @@ html:has(body.a11y-grayscale) {
 .a11y-float-btn:hover,
 .a11y-float-btn:focus-visible {
   background: var(--wp--custom--color--primaryhover, #1e3a5f);
-  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.28);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--wp--preset--color--primary) 28%, transparent);
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
@@ -237,7 +237,7 @@ html:has(body.a11y-grayscale) {
   border-radius: 50%;
   width: 52px;
   height: 52px;
-  box-shadow: 0 4px 16px rgba(47, 66, 93, 0.22);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,7 +259,7 @@ html:has(body.a11y-grayscale) {
 .a11y-scroll-top:hover,
 .a11y-scroll-top:focus-visible {
   background: var(--wp--custom--color--primaryhover, #1e3a5f);
-  box-shadow: 0 8px 32px rgba(47, 66, 93, 0.28);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--wp--preset--color--primary) 28%, transparent);
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
@@ -277,8 +277,8 @@ html:has(body.a11y-grayscale) {
   background: var(--wp--preset--color--white, #fff);
   border-radius: 16px;
   box-shadow:
-    0 8px 32px rgba(47, 66, 93, 0.18),
-    0 2px 6px rgba(47, 66, 93, 0.08);
+    0 8px 32px color-mix(in srgb, var(--wp--preset--color--primary) 18%, transparent),
+    0 2px 6px color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);
   font-family: var(--wp--preset--font-family--inter, system-ui, sans-serif);
   font-size: 14px;
   opacity: 0;
@@ -301,7 +301,7 @@ html:has(body.a11y-grayscale) {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px 12px;
-  border-bottom: 1px solid rgba(47, 66, 93, 0.1);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
   flex-shrink: 0;
 }
 
@@ -334,7 +334,7 @@ html:has(body.a11y-grayscale) {
 
 .a11y-panel__close:hover,
 .a11y-panel__close:focus-visible {
-  background: rgba(47, 66, 93, 0.08);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);
   outline: none;
 }
 
@@ -349,7 +349,7 @@ html:has(body.a11y-grayscale) {
 .a11y-section {
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(47, 66, 93, 0.08);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);
 }
 
 .a11y-section:last-of-type {
@@ -362,7 +362,7 @@ html:has(body.a11y-grayscale) {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(47, 66, 93, 0.5);
+  color: color-mix(in srgb, var(--wp--preset--color--primary) 50%, transparent);
   margin: 0 0 8px 2px;
   line-height: 1;
 }
@@ -409,7 +409,7 @@ html:has(body.a11y-grayscale) {
   width: 100%;
   padding: 8px 10px;
   margin-bottom: 4px;
-  background: rgba(47, 66, 93, 0.04);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 4%, transparent);
   border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
@@ -426,8 +426,8 @@ html:has(body.a11y-grayscale) {
 
 .a11y-btn:hover,
 .a11y-btn:focus-visible {
-  background: rgba(47, 66, 93, 0.1);
-  border-color: rgba(47, 66, 93, 0.2);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
+  border-color: color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent);
   outline: none;
 }
 
@@ -483,8 +483,8 @@ html:has(body.a11y-grayscale) {
   flex: 1;
   min-width: 80px;
   padding: 7px 6px;
-  background: rgba(47, 66, 93, 0.06);
-  border: 1px solid rgba(47, 66, 93, 0.12);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
   border-radius: 8px;
   font-size: 12px;
   font-weight: 500;
@@ -497,8 +497,8 @@ html:has(body.a11y-grayscale) {
 
 .a11y-preset:hover,
 .a11y-preset:focus-visible {
-  background: rgba(47, 66, 93, 0.12);
-  border-color: rgba(47, 66, 93, 0.25);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
   outline: none;
 }
 
@@ -509,10 +509,10 @@ html:has(body.a11y-grayscale) {
   width: 100%;
   padding: 8px;
   background: none;
-  border: 1px solid rgba(47, 66, 93, 0.2);
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent);
   border-radius: 8px;
   font-size: 12px;
-  color: rgba(47, 66, 93, 0.6);
+  color: color-mix(in srgb, var(--wp--preset--color--primary) 60%, transparent);
   cursor: pointer;
   text-align: center;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -522,8 +522,8 @@ html:has(body.a11y-grayscale) {
 
 .a11y-reset:hover,
 .a11y-reset:focus-visible {
-  background: rgba(47, 66, 93, 0.06);
-  border-color: rgba(47, 66, 93, 0.35);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 6%, transparent);
+  border-color: color-mix(in srgb, var(--wp--preset--color--primary) 35%, transparent);
   color: var(--wp--preset--color--primary, #0a0e27);
   outline: none;
 }

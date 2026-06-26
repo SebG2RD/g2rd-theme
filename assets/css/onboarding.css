@@ -145,7 +145,7 @@
 
 .g2rd-sector-card:has(input:checked) {
   border-color: #0a0e27;
-  background: rgba(47, 66, 93, 0.05);
+  background: rgba(10,14,39, 0.05);
 }
 
 .g2rd-sector-card__icon {

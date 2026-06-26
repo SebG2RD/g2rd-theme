@@ -48,7 +48,7 @@ img {
   top: 0;
   z-index: 999;
   background: linear-gradient(135deg, var(--wp--preset--color--blue-dark) 0%, var(--wp--preset--color--blue-soft) 100%);
-  border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 20%, transparent);
   backdrop-filter: blur(18px);
 }
 
@@ -78,7 +78,7 @@ img {
   top: 0;
   z-index: 999;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 248, 242, 0.94) 100%);
-  border-bottom: 1px solid rgba(47, 67, 94, 0.1);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
   backdrop-filter: blur(18px);
 }
 

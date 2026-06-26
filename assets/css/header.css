@@ -14,8 +14,8 @@
   z-index: 999;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 248, 242, 0.94) 100%);
-  border-bottom: 1px solid rgba(47, 67, 94, 0.10);
-  box-shadow: 0 18px 55px rgba(47, 67, 94, 0.12);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
+  box-shadow: 0 18px 55px color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
   backdrop-filter: blur(18px);
 }
 
@@ -49,7 +49,7 @@
   position: relative;
   padding: 0.65rem 0.85rem;
   border-radius: 999px;
-  color: rgba(47, 67, 94, 0.88) !important;
+  color: color-mix(in srgb, var(--wp--preset--color--primary) 88%, transparent) !important;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
@@ -57,7 +57,7 @@
 
 .g2rd-site-header-light .wp-block-navigation-item__content:hover {
   color: var(--wp--preset--color--blue-soft) !important;
-  background: rgba(47, 67, 94, 0.08);
+  background: color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);
   transform: translateY(-1px);
 }
 
@@ -65,7 +65,7 @@
 .g2rd-site-header-light .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .g2rd-site-header-light .wp-block-navigation-link.current-menu-item > .wp-block-navigation-item__content {
   color: var(--wp--preset--color--blue-soft) !important;
-  background: rgba(212, 163, 115, 0.18);
+  background: color-mix(in srgb, var(--wp--preset--color--secondary) 18%, transparent);
 }
 
 .g2rd-site-header-light__actions {
@@ -89,13 +89,13 @@
   align-items: center;
   gap: 0.58rem;
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.22), transparent 34%),
-    linear-gradient(135deg, rgba(47, 67, 94, 0.08), rgba(47, 67, 94, 0.03)) !important;
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent), color-mix(in srgb, var(--wp--preset--color--primary) 3%, transparent)) !important;
   color: var(--wp--preset--color--blue-soft) !important;
-  border: 1px solid rgba(212, 163, 115, 0.45);
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 14px 38px rgba(47, 67, 94, 0.10);
+    0 14px 38px color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
   backdrop-filter: blur(16px);
 }
 
@@ -109,7 +109,7 @@
     radial-gradient(circle at 50% 34%, #ffffff 0 18%, transparent 19%),
     radial-gradient(circle at 50% 82%, #ffffff 0 34%, transparent 35%),
     linear-gradient(135deg, var(--wp--preset--color--blue-soft), var(--wp--preset--color--secondary));
-  box-shadow: 0 0 18px rgba(212, 163, 115, 0.45);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent);
 }
 
 .g2rd-header-light-account .wp-block-button__link::after {
@@ -124,10 +124,10 @@
 }
 
 .g2rd-header-light-account .wp-block-button__link:hover {
-  border-color: rgba(212, 163, 115, 0.75);
+  border-color: color-mix(in srgb, var(--wp--preset--color--secondary) 75%, transparent);
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.32), transparent 34%),
-    linear-gradient(135deg, rgba(47, 67, 94, 0.10), rgba(47, 67, 94, 0.04)) !important;
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--wp--preset--color--secondary) 32%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), color-mix(in srgb, var(--wp--preset--color--primary) 4%, transparent)) !important;
 }
 
 .g2rd-header-light-account .wp-block-button__link:hover::after {
@@ -138,7 +138,7 @@
   background: var(--wp--preset--color--blue-soft) !important;
   color: var(--wp--preset--color--white) !important;
   border: 1px solid var(--wp--preset--color--blue-soft);
-  box-shadow: 0 14px 38px rgba(47, 67, 94, 0.20);
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent);
 }
 
 .g2rd-header-light-contact .wp-block-button__link:hover {
@@ -149,15 +149,15 @@
 
 .g2rd-site-header-light__actions .wp-block-button__link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 45px rgba(47, 67, 94, 0.18);
+  box-shadow: 0 18px 45px color-mix(in srgb, var(--wp--preset--color--primary) 18%, transparent);
 }
 
 .g2rd-site-header-light .wp-block-navigation__submenu-container {
   padding: 0.6rem;
-  border: 1px solid rgba(212, 163, 115, 0.28) !important;
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 28%, transparent) !important;
   border-radius: 20px !important;
   background: rgba(255, 255, 255, 0.98) !important;
-  box-shadow: 0 24px 70px rgba(47, 67, 94, 0.18);
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--wp--preset--color--primary) 18%, transparent);
   backdrop-filter: blur(18px);
 }
 
@@ -193,8 +193,8 @@
   top: 0;
   z-index: 999;
   background:
-    linear-gradient(135deg, rgba(23, 34, 51, 0.94) 0%, rgba(47, 67, 94, 0.94) 100%);
-  border-bottom: 1px solid rgba(212, 163, 115, 0.22);
+    linear-gradient(135deg, color-mix(in srgb, var(--wp--preset--color--blue-dark) 94%, transparent) 0%, color-mix(in srgb, var(--wp--preset--color--primary) 94%, transparent) 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent);
   box-shadow: 0 18px 55px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(18px);
 }
@@ -229,7 +229,7 @@
   position: relative;
   padding: 0.65rem 0.85rem;
   border-radius: 999px;
-  color: rgba(250, 250, 250, 0.86) !important;
+  color: color-mix(in srgb, var(--wp--preset--color--white) 86%, transparent) !important;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
@@ -245,7 +245,7 @@
 .g2rd-site-header .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content,
 .g2rd-site-header .wp-block-navigation-link.current-menu-item > .wp-block-navigation-item__content {
   color: #ffffff !important;
-  background: rgba(212, 163, 115, 0.18);
+  background: color-mix(in srgb, var(--wp--preset--color--secondary) 18%, transparent);
 }
 
 .g2rd-site-header__actions {
@@ -269,10 +269,10 @@
   align-items: center;
   gap: 0.58rem;
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.24), transparent 34%),
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--wp--preset--color--secondary) 24%, transparent), transparent 34%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
   color: var(--wp--preset--color--white) !important;
-  border: 1px solid rgba(212, 163, 115, 0.42);
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 42%, transparent);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
     0 16px 42px rgba(0, 0, 0, 0.18);
@@ -289,7 +289,7 @@
     radial-gradient(circle at 50% 34%, var(--wp--preset--color--white) 0 18%, transparent 19%),
     radial-gradient(circle at 50% 82%, var(--wp--preset--color--white) 0 34%, transparent 35%),
     linear-gradient(135deg, var(--wp--preset--color--secondary), #f1d0ad);
-  box-shadow: 0 0 18px rgba(212, 163, 115, 0.55);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--wp--preset--color--secondary) 55%, transparent);
 }
 
 .g2rd-header-account .wp-block-button__link::after {
@@ -304,9 +304,9 @@
 }
 
 .g2rd-header-account .wp-block-button__link:hover {
-  border-color: rgba(212, 163, 115, 0.75);
+  border-color: color-mix(in srgb, var(--wp--preset--color--secondary) 75%, transparent);
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 163, 115, 0.34), transparent 34%),
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--wp--preset--color--secondary) 34%, transparent), transparent 34%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.08)) !important;
 }
 
@@ -318,7 +318,7 @@
   background: var(--wp--preset--color--secondary) !important;
   color: #111827 !important;
   border: 1px solid var(--wp--preset--color--secondary);
-  box-shadow: 0 14px 38px rgba(212, 163, 115, 0.22);
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent);
 }
 
 .g2rd-header-contact .wp-block-button__link:hover {
@@ -332,15 +332,15 @@
 
 .g2rd-site-header .wp-block-navigation__submenu-container {
   padding: 0.6rem;
-  border: 1px solid rgba(212, 163, 115, 0.22) !important;
+  border: 1px solid color-mix(in srgb, var(--wp--preset--color--secondary) 22%, transparent) !important;
   border-radius: 20px !important;
-  background: rgba(23, 34, 51, 0.96) !important;
+  background: color-mix(in srgb, var(--wp--preset--color--blue-dark) 96%, transparent) !important;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(18px);
 }
 
 .g2rd-site-header .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-  color: rgba(250, 250, 250, 0.86) !important;
+  color: color-mix(in srgb, var(--wp--preset--color--white) 86%, transparent) !important;
 }
 
 .g2rd-site-header .wp-block-navigation__responsive-container-open,

@@ -12,9 +12,9 @@
 /* Fallback pour navigateurs sans color-mix */
 @supports not (color: color-mix(in srgb, red 50%, blue)) {
   .g2rd-faq {
-    --_sep:      rgba(47, 66, 93, 0.16);
-    --_hover-bg: rgba(47, 66, 93, 0.04);
-    --_open-bg:  rgba(47, 66, 93, 0.06);
+    --_sep:      color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent);
+    --_hover-bg: color-mix(in srgb, var(--wp--preset--color--primary) 4%, transparent);
+    --_open-bg:  color-mix(in srgb, var(--wp--preset--color--primary) 6%, transparent);
   }
 }
 
