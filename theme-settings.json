@@ -108,7 +108,7 @@
         {
           "name": "Action (magenta-violet)",
           "slug": "secondary",
-          "gradient": "linear-gradient(135deg, #ec4899 0%, #a855f7 100%)"
+          "gradient": "linear-gradient(135deg, #db2777 0%, #9333ea 100%)"
         },
         {
           "name": "Section sombre",
