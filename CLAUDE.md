@@ -420,7 +420,8 @@ Charte alignée sur le SaaS `wp-manager.g2rd.fr` (échelle Tailwind), 100 % FSE 
   - `core/group` : `is-style-section-dark`, `is-style-card`, `is-style-card-dark`, `is-style-card-action`.
   - `core/button` : `is-style-action` (dégradé), `is-style-ghost`, `is-style-outline` (fond transparent).
 - **Animations** : section dédiée dans `style.css` (hover lift cartes/boutons, halo radial des sections sombres via `color-mix`) — **exception CSS globale justifiée** (`:hover`/`transform` impossibles en theme.json), `var(--wp--…)` uniquement, respect de `prefers-reduced-motion`.
-- **Patterns modèle** : `section-hero.php` (modernisé), `section-stats-band.php`, `cards-manager-stats.php`.
+- **Globe géodésique filaire** (rappel du fond wp-manager) : SVG icosphère `assets/img/wire-globe.svg` (généré, traits blancs sur transparent) utilisé en **`mask`** sur `.is-style-section-dark.g2rd-globe-bg::after` → la couleur suit le token `secondary` (lime) du style actif. Décoratif (`z-index:-1`, `pointer-events:none`), rotation lente 90 s, désactivé en `prefers-reduced-motion`. Activer en ajoutant la classe `g2rd-globe-bg` à un groupe `is-style-section-dark` (par défaut sur `section-hero.php`).
+- **Patterns** : tous les `section-*` et `card-*` sont modernisés au modèle (pill eyebrow lime, titres à soulignement lime, cartes `is-style-card`, CTA sombres + bouton `is-style-action`). Anciens slugs périmés (`main`, `base`, `tertiary`, `main-accent`, `border-dark`, `spacing|large/medium/small`) purgés.
 - **RGAA (impératif)** : le **lime est un aplat** (fond de bouton/badge avec texte navy) — **jamais en texte sur fond clair** ; texte blanc uniquement sur le **dégradé assombri** ou sur navy ; liens en `accenthover` `#db2777` (AA). Vérifier chaque combinaison à la construction.
 - **Docs design** : `DESIGN_AUDIT.md` (extraction + mapping FSE) et `CHANGELOG_DESIGN.md` (exclus du ZIP de prod).
 
