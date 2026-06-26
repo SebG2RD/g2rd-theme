@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "video-alt2",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Séquence d'images synchronisée au défilement — effet Apple pin scroll avec animation image par image.",
   "keywords": ["pin", "scroll", "sequence", "animation", "apple", "parallax", "cinématique"],

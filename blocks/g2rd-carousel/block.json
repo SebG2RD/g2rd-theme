@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "slides",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "A customizable image carousel with Swiper.js",
   "supports": {

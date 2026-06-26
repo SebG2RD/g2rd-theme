@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "admin-home",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Bloc hero conversion premium — background image/couleur, titre accrocheur, double CTA et social proof intégré.",
   "keywords": ["hero", "banner", "conversion", "landing", "cta", "accueil"],

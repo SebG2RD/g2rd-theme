@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "editor-ul",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "FAQ optimisée pour les IA (GEO). Génère automatiquement le schema.org FAQPage pour améliorer la reprise du contenu par les moteurs IA.",
     "keywords": ["faq", "geo", "questions", "réponses", "schema", "ia"],

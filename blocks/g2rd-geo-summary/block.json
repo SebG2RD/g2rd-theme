@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "text-page",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Bloc résumé optimisé pour les IA (GEO). Présente un TL;DR et des points clés que les moteurs IA peuvent facilement extraire.",
     "keywords": ["résumé", "geo", "ia", "summary", "tldr", "points clés"],

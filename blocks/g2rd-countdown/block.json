@@ -8,8 +8,8 @@
   "description": "Compte à rebours personnalisable jusqu'à une date cible.",
   "icon": {
     "src": "clock",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "supports": {
     "html": false,

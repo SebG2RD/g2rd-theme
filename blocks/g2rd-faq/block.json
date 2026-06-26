@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "editor-ul",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Bloc FAQ accordéon — mode standard ou optimisé SEO/GEO (schema.org FAQPage + JSON-LD).",
     "keywords": ["faq", "accordéon", "accordion", "questions", "réponses", "schema", "geo", "seo"],

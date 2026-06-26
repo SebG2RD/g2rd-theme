@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "superhero",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Wrapper d'effets modernes : presets perspective, hover et animations d'apparition sur le bloc ou ses enfants.",
   "keywords": ["effects", "hover", "animation", "perspective", "interaction"],

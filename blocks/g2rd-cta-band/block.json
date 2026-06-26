@@ -7,8 +7,8 @@
   "category": "g2rd-blocks",
   "icon": {
     "src": "megaphone",
-    "foreground": "#FAFAFA",
-    "background": "#2F425D"
+    "foreground": "#ffffff",
+    "background": "#0f172a"
   },
   "description": "Bandeau Call-to-Action pleine largeur — titre fort, description, un ou deux boutons et note de réassurance.",
   "keywords": ["cta", "call to action", "bouton", "conversion", "bandeau"],

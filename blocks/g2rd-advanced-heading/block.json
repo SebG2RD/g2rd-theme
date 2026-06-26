@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
         "src": "heading",
-        "foreground": "#FAFAFA",
-        "background": "#2F425D"
+        "foreground": "#ffffff",
+        "background": "#0f172a"
     },
     "description": "Titre animé avec effets de transition de mots, mise en évidence, éléments décoratifs, ombres 3D et masque image.",
     "keywords": ["titre", "heading", "animation", "sliding", "highlight", "avancé"],

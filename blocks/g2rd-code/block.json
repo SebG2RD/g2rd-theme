@@ -7,8 +7,8 @@
     "category": "g2rd-blocks",
     "icon": {
       "src": "media-code",
-      "foreground": "#FAFAFA",
-      "background": "#2F425D"
+      "foreground": "#ffffff",
+      "background": "#0f172a"
     },
     "description": "Bloc de coloration syntaxique avec highlight.js. Éditez votre code en direct avec 0 JS en frontend.",
     "keywords": [
