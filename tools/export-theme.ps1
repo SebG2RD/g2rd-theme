@@ -18,7 +18,7 @@ $excludedFileNames = @(
     'phpcs.xml.dist', 'phpcs-security.xml', 'phpcs-wp-report.xml',
     'phpunit.xml.dist', '.editorconfig'
 )
-$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache')
+$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache', 'Gutenberg')
 
 $files   = Get-ChildItem -Path $source -Recurse -File
 $total   = $files.Count
