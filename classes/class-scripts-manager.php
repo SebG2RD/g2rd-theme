@@ -286,22 +286,141 @@ class ScriptsManager {
     }
 
     /**
-     * Enqueue conditionnel de magic-page.css sur les pages utilisant la classe g2rd-magic-page.
+     * Enqueue conditionnel de magic-page.css sur les pages/templates utilisant le
+     * design system Magic Page.
      *
-     * Complète le chargement via style_handle (block styles) pour les pages
-     * qui utilisent g2rd-magic-page comme className sans avoir de bloc style magic actif.
+     * Le chargement via style_handle de register_block_style() n'est pas fiable :
+     * il s'exécute au rendu du bloc (après wp_head), or les styles enqueués si
+     * tardivement ne sont pas imprimés → section blanche sur le front. On détecte
+     * donc l'usage en amont (hook wp, avant wp_head) à partir des classes réelles
+     * du design system, dans le contenu du post ET dans le template de bloc résolu.
      *
      * @since 1.7.3.3
      * @return void
      */
     public function conditionalMagicPageStyle(): void {
-        if ( ! \is_singular() ) {
+        if ( \is_admin() ) {
             return;
         }
-        $post = \get_post();
-        if ( $post && \str_contains( $post->post_content, 'g2rd-magic-page' ) ) {
+
+        $needles = [
+            'g2rd-magic-page',
+            'g2rd-magic-section',
+            'g2rd-magic-dark',
+            'g2rd-magic-light',
+            'is-style-magic-dark',
+            'is-style-magic-light',
+            'is-style-neomorphic',
+            'is-style-soft-pressed',
+        ];
+
+        // 1) Contenu du post/page/CPT singulier.
+        if ( \is_singular() ) {
+            $post = \get_post();
+            if ( $post instanceof \WP_Post && $this->stringContainsAny( (string) $post->post_content, $needles ) ) {
+                \wp_enqueue_style( 'g2rd-magic-page' );
+                return;
+            }
+        }
+
+        // 2) Template de bloc FSE résolu pour la requête (archives, singles via template, etc.).
+        $template_content = $this->currentBlockTemplateContent();
+        if ( '' !== $template_content && $this->stringContainsAny( $template_content, $needles ) ) {
             \wp_enqueue_style( 'g2rd-magic-page' );
         }
+    }
+
+    /**
+     * Indique si la chaîne contient au moins une des sous-chaînes fournies.
+     *
+     * @since 1.24.0
+     * @param string   $haystack Chaîne à analyser.
+     * @param string[] $needles  Sous-chaînes recherchées.
+     * @return bool
+     */
+    private function stringContainsAny( string $haystack, array $needles ): bool {
+        if ( '' === $haystack ) {
+            return false;
+        }
+        foreach ( $needles as $needle ) {
+            if ( \str_contains( $haystack, $needle ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Récupère le contenu du template de bloc FSE qui sera rendu pour la requête
+     * courante (best-effort, basé sur la hiérarchie de templates WordPress).
+     *
+     * @since 1.24.0
+     * @return string Contenu HTML du template, ou '' si introuvable.
+     */
+    private function currentBlockTemplateContent(): string {
+        if ( ! \function_exists( 'wp_is_block_theme' ) || ! \wp_is_block_theme() || ! \function_exists( 'get_block_template' ) ) {
+            return '';
+        }
+
+        $slugs = [];
+
+        if ( \is_404() ) {
+            $slugs[] = '404';
+        }
+        if ( \is_search() ) {
+            $slugs[] = 'search';
+        }
+        if ( \is_front_page() ) {
+            $slugs[] = 'front-page';
+        }
+        if ( \is_home() ) {
+            $slugs[] = 'home';
+        }
+        if ( \is_singular() ) {
+            $post = \get_post();
+            if ( $post instanceof \WP_Post ) {
+                $custom = \get_page_template_slug( $post );
+                if ( '' !== (string) $custom ) {
+                    $slugs[] = $custom;
+                }
+                $slugs[] = 'single-' . $post->post_type . '-' . $post->post_name;
+                $slugs[] = 'single-' . $post->post_type;
+                if ( 'page' === $post->post_type ) {
+                    $slugs[] = 'page-' . $post->post_name;
+                    $slugs[] = 'page';
+                }
+                $slugs[] = 'single';
+                $slugs[] = 'singular';
+            }
+        }
+        if ( \is_archive() ) {
+            if ( \is_post_type_archive() ) {
+                $post_type = \get_query_var( 'post_type' );
+                if ( \is_array( $post_type ) ) {
+                    $post_type = \reset( $post_type );
+                }
+                if ( '' !== (string) $post_type ) {
+                    $slugs[] = 'archive-' . $post_type;
+                }
+            }
+            $term = \get_queried_object();
+            if ( $term instanceof \WP_Term ) {
+                $slugs[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug;
+                $slugs[] = 'taxonomy-' . $term->taxonomy;
+            }
+            $slugs[] = 'archive';
+        }
+        $slugs[] = 'index';
+
+        $stylesheet = \get_stylesheet();
+        foreach ( \array_unique( $slugs ) as $slug ) {
+            $template = \get_block_template( $stylesheet . '//' . $slug, 'wp_template' );
+            if ( $template && ! empty( $template->content ) ) {
+                return (string) $template->content;
+            }
+        }
+
+        return '';
     }
 
     /**
