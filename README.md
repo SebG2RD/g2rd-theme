@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.23.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,15 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.0**
+
+- **WP Manager — généralisation** : les 19 templates FSE (archives, singles, `page-*`, `home`, `search`, `taxonomy`) alignés sur la charte — covers `bleubeige` → sections sombres `is-style-section-dark` + globe, pill eyebrows lime, cartes `is-style-card`, boutons `is-style-action` / `is-style-outline`, liens `accenthover` (AA).
+- **Section wp-manager** : nouveau pattern réutilisable `section-wp-manager.php` (mock dashboard 100 % natif + CTA vers `wp-manager.g2rd.fr`), inséré avant la FAQ de l'accueil.
+- **Globe géodésique filaire** : SVG icosphère `assets/img/wire-globe.svg` en fond des sections `.is-style-section-dark.g2rd-globe-bg` (couleur pilotée par le token lime, rotation lente, `prefers-reduced-motion`).
+- **Patterns** : sections (services, cta, témoignages, faq…) et cartes (box, info-box, contact, details, présentation…) modernisées ; slugs périmés purgés (`tertiary`, `main`, `base`, `main-accent`, `border-dark`, `spacing|large/medium/small`).
+- **Contenus Gutenberg** : dossier `Gutenberg/` (15 pages + template single, prêts à coller) — exclu du ZIP de production.
+- **Fix** : FAQ + JSON-LD `FAQPage` dupliqués retirés (le bloc `g2rd/faq` génère déjà son schéma), zéro CSS personnalisé dans les pages, zéro couleur en dur.
 
 ### **1.23.0**
 
