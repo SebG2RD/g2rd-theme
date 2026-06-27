@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.1**
+
+- **Fix Magic Page (front)** : `magic-page.css` est désormais chargé sur le front pour les sections `is-style-magic-dark` / `is-style-magic-light` (et les boutons `neomorphic` / `soft-pressed`), y compris quand elles vivent dans un **template FSE**. La détection couvre tous les marqueurs du design system (plus seulement la chaîne `g2rd-magic-page`) et résout le template de bloc courant — corrige le **fond blanc** des sections Magic sur le front (le chargement via `style_handle` au rendu n'était pas imprimé dans le `<head>`).
 
 ### **1.24.0**
 
