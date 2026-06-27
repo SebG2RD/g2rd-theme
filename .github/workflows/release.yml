@@ -116,6 +116,7 @@ jobs:
             --exclude="vendor" \
             --exclude="dist" \
             --exclude="docs" \
+            --exclude="Gutenberg" \
             --exclude="tools" \
             --exclude="tests" \
             --exclude="phpunit.xml.dist" \

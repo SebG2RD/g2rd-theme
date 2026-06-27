@@ -11,8 +11,8 @@
  * Text Domain: g2rd
  */
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-section-dark has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark g2rd-globe-bg","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-section-dark g2rd-globe-bg has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
 
 	<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|l"}}}} -->
 	<div class="wp-block-columns are-vertically-aligned-center">

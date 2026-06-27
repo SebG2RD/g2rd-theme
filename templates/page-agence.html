@@ -3,8 +3,8 @@
 <main class="wp-block-group alignfull has-global-padding">
 
 
-<!-- wp:cover {"minHeight":600,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
-<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:600px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark g2rd-globe-bg","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-section-dark g2rd-globe-bg has-primary-background-color has-white-color has-background has-text-color" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
 
 <!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|xl"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center">
@@ -12,25 +12,27 @@
 <!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%">
 
-<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">G2RD — Agence web Normandie</p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0","margin":{"bottom":"var:preset|spacing|s"}}},"layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--s)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"white","fontSize":"s"} -->
+<p class="has-white-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-secondary-color">●</mark>&nbsp; G2RD — Agence web Normandie</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"level":1,"style":{"typography":{"fontSize":"clamp(2.5rem,5vw,4.25rem)","fontWeight":"800","lineHeight":"1.1"},"color":{"text":"var(--wp--preset--color--white)"},"spacing":{"margin":{"top":"0","bottom":"1.75rem"}}}} -->
-<h1 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--white);margin-top:0;margin-bottom:1.75rem;font-size:clamp(2.5rem,5vw,4.25rem);font-weight:800;line-height:1.1">L'agence web qui fait la différence</h1>
+<!-- wp:heading {"level":1,"textColor":"white","style":{"typography":{"fontSize":"clamp(2.5rem,5vw,4.25rem)","fontWeight":"800","lineHeight":"1.1","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}}}} -->
+<h1 class="wp-block-heading has-white-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--s);font-size:clamp(2.5rem,5vw,4.25rem);font-weight:800;letter-spacing:-0.02em;line-height:1.1">L'agence web qui fait la <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">différence</mark></h1>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"1.125rem","lineHeight":"1.75","fontWeight":"300"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--white) 75%, transparent)"},"spacing":{"margin":{"bottom":"2.5rem"}}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--white) 75%, transparent);margin-bottom:2.5rem;font-size:1.125rem;font-weight:300;line-height:1.75">Nous créons des sites web performants, beaux et rentables pour les TPE, PME et indépendants. De la stratégie à la mise en ligne, nous sommes à vos côtés.</p>
+<!-- wp:paragraph {"textColor":"white","style":{"typography":{"fontSize":"1.125rem","lineHeight":"1.75"},"spacing":{"margin":{"bottom":"var:preset|spacing|m"}}}} -->
+<p class="has-white-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--m);font-size:1.125rem;line-height:1.75">Nous créons des sites web performants, beaux et rentables pour les TPE, PME et indépendants. De la stratégie à la mise en ligne, nous sommes à vos côtés.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:buttons {"style":{"spacing":{"blockGap":"1rem"}}} -->
-<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"var(--wp--preset--color--white)","text":"var(--wp--preset--color--primary)"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--white);padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Démarrer un projet →</a></div>
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"1rem","margin":{"top":"var:preset|spacing|m"}}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--m)"><!-- wp:button {"className":"is-style-action","style":{"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
+<div class="wp-block-button is-style-action"><a class="wp-block-button__link has-custom-font-size wp-element-button" href="/contact/" style="padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Démarrer un projet →</a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-outline","style":{"color":{"text":"var(--wp--preset--color--white)"},"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 30%, transparent)","width":"2px","radius":"8px"},"typography":{"fontWeight":"500","fontSize":"0.9375rem"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"32px","right":"32px"}}}} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color has-border-color wp-element-button" href="/portfolio/" style="border-color:color-mix(in srgb, var(--wp--preset--color--white) 30%, transparent);border-width:2px;border-radius:8px;color:var(--wp--preset--color--white);padding-top:14px;padding-right:32px;padding-bottom:14px;padding-left:32px;font-size:0.9375rem;font-weight:500">Voir nos réalisations</a></div>
+<!-- wp:button {"className":"is-style-outline","textColor":"white","style":{"border":{"color":"color-mix(in srgb, var(--wp--preset--color--white) 40%, transparent)","width":"1px"},"typography":{"fontWeight":"600","fontSize":"0.9375rem"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"32px","right":"32px"}}}} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-text-color has-custom-font-size wp-element-button" href="/portfolio/" style="border-color:color-mix(in srgb, var(--wp--preset--color--white) 40%, transparent);border-width:1px;padding-top:14px;padding-right:32px;padding-bottom:14px;padding-left:32px;font-size:0.9375rem;font-weight:600">Voir nos réalisations</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
@@ -48,18 +50,18 @@
 </div>
 <!-- /wp:columns -->
 
-</div></div>
-<!-- /wp:cover -->
+</div>
+<!-- /wp:group -->
 
-<!-- wp:group {"align":"full","style":{"color":{"background":"var(--wp--preset--color--primary)"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-background" style="background-color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m)">
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-section-dark has-primary-background-color has-white-color has-background has-text-color" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m)">
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|l"}}}} -->
 <div class="wp-block-columns alignwide">
 
 <!-- wp:column {"textAlign":"center"} -->
 <div class="wp-block-column" style="text-align:center">
-<!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontSize":"clamp(2rem,4vw,3rem)","fontWeight":"800","lineHeight":"1"},"color":{"text":"var(--wp--preset--color--secondary)"},"spacing":{"margin":{"top":"0","bottom":"0.25rem"}}}} -->
-<h3 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--secondary);margin-top:0;margin-bottom:0.25rem;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1">+50</h3>
+<!-- wp:heading {"textAlign":"center","level":3,"textColor":"secondary","style":{"typography":{"fontSize":"clamp(2rem,4vw,3rem)","fontWeight":"800","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"0.25rem"}}}} -->
+<h3 class="wp-block-heading has-text-align-center has-secondary-color has-text-color" style="margin-top:0;margin-bottom:0.25rem;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1">+50</h3>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.875rem","fontWeight":"500"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent)"}}} -->
 <p class="has-text-align-center has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--white) 70%, transparent);font-size:0.875rem;font-weight:500">Sites livrés</p>
@@ -108,12 +110,14 @@
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"4px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600;letter-spacing:4px;text-transform:uppercase">Notre ADN</p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0","margin":{"bottom":"var:preset|spacing|s"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--s)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"primary","fontSize":"s"} -->
+<p class="has-primary-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-accent-color">●</mark>&nbsp; Notre ADN</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800">Ce en quoi nous croyons</h2>
+<!-- wp:heading {"textAlign":"center","level":2,"textColor":"primary","style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.02em">Ce en quoi nous <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">croyons</mark></h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|m"}}}} -->
@@ -121,16 +125,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"border":{"radius":"1rem","color":"color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent)","width":"1px","style":"solid"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="border-radius:1rem;border:1px solid color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"bottom":"var:preset|spacing|s"}}}} -->
-<p style="margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">🎯</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}}}} -->
+<p style="margin-top:0;margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">🎯</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Orientés résultats</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Orientés résultats</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent);font-size:0.9375rem;line-height:1.7">Un site web n'est beau que s'il convertit. Chaque décision de design est guidée par vos objectifs business.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Un site web n'est beau que s'il convertit. Chaque décision de design est guidée par vos objectifs business.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -139,16 +143,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"border":{"radius":"1rem","color":"color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent)","width":"1px","style":"solid"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="border-radius:1rem;border:1px solid color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"bottom":"var:preset|spacing|s"}}}} -->
-<p style="margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">🤝</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}}}} -->
+<p style="margin-top:0;margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">🤝</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Transparence totale</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Transparence totale</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent);font-size:0.9375rem;line-height:1.7">Pas de surprise. Prix clairs, délais respectés, communication régulière. Vous savez toujours où en est votre projet.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Pas de surprise. Prix clairs, délais respectés, communication régulière. Vous savez toujours où en est votre projet.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -157,16 +161,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"border":{"radius":"1rem","color":"color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent)","width":"1px","style":"solid"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="border-radius:1rem;border:1px solid color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"bottom":"var:preset|spacing|s"}}}} -->
-<p style="margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">⚡</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"2.5rem","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|s"}}}} -->
+<p style="margin-top:0;margin-bottom:var(--wp--preset--spacing--s);font-size:2.5rem;line-height:1">⚡</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Réactivité permanente</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.1875rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.75rem;font-size:1.1875rem;font-weight:700">Réactivité permanente</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 75%, transparent);font-size:0.9375rem;line-height:1.7">Besoin d'une modification ? On répond sous 24h. Votre site évolue avec votre activité, sans vous faire attendre.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Besoin d'une modification ? On répond sous 24h. Votre site évolue avec votre activité, sans vous faire attendre.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -182,12 +186,14 @@
 <!-- wp:group {"align":"full","style":{"color":{"background":"var(--wp--preset--color--cream)"},"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-background" style="background-color:var(--wp--preset--color--cream);margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"4px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600;letter-spacing:4px;text-transform:uppercase">Comment on travaille</p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0","margin":{"bottom":"var:preset|spacing|s"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--s)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"primary","fontSize":"s"} -->
+<p class="has-primary-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-accent-color">●</mark>&nbsp; Comment on travaille</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800">Notre méthode en 4 étapes</h2>
+<!-- wp:heading {"textAlign":"center","level":2,"textColor":"primary","style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.02em">Notre méthode en 4 <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">étapes</mark></h2>
 <!-- /wp:heading -->
 
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|m"}}}} -->
@@ -195,16 +201,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"color":{"background":"var(--wp--preset--color--white)"},"border":{"radius":"1rem"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="background-color:var(--wp--preset--color--white);border-radius:1rem;padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 01</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--custom--color--accenthover)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<p class="has-text-color" style="color:var(--wp--custom--color--accenthover);margin-top:0;margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 01</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Analyse & Stratégie</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Analyse & Stratégie</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent);font-size:0.9375rem;line-height:1.7">Nous étudions votre marché, vos concurrents et vos objectifs pour définir la meilleure approche.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Nous étudions votre marché, vos concurrents et vos objectifs pour définir la meilleure approche.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -213,16 +219,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"color":{"background":"var(--wp--preset--color--white)"},"border":{"radius":"1rem"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="background-color:var(--wp--preset--color--white);border-radius:1rem;padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 02</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--custom--color--accenthover)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<p class="has-text-color" style="color:var(--wp--custom--color--accenthover);margin-top:0;margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 02</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Conception & Design</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Conception & Design</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent);font-size:0.9375rem;line-height:1.7">Maquettes sur mesure validées ensemble avant tout développement. Votre avis guide chaque choix.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Maquettes sur mesure validées ensemble avant tout développement. Votre avis guide chaque choix.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -231,16 +237,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"color":{"background":"var(--wp--preset--color--white)"},"border":{"radius":"1rem"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="background-color:var(--wp--preset--color--white);border-radius:1rem;padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 03</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--custom--color--accenthover)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<p class="has-text-color" style="color:var(--wp--custom--color--accenthover);margin-top:0;margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 03</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Développement</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Développement</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent);font-size:0.9375rem;line-height:1.7">Intégration WordPress avec les meilleures pratiques SEO, performance et sécurité.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Intégration WordPress avec les meilleures pratiques SEO, performance et sécurité.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -249,16 +255,16 @@
 
 <!-- wp:column -->
 <div class="wp-block-column">
-<!-- wp:group {"style":{"color":{"background":"var(--wp--preset--color--white)"},"border":{"radius":"1rem"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","left":"var:preset|spacing|m","right":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-background" style="background-color:var(--wp--preset--color--white);border-radius:1rem;padding-top:var(--wp--preset--spacing--m);padding-right:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)">
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 04</p>
+<!-- wp:group {"className":"is-style-card","layout":{"type":"constrained"}} -->
+<div class="wp-block-group is-style-card">
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--custom--color--accenthover)"},"spacing":{"margin":{"top":"0","bottom":"0.75rem"}}}} -->
+<p class="has-text-color" style="color:var(--wp--custom--color--accenthover);margin-top:0;margin-bottom:0.75rem;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase">Étape 04</p>
 <!-- /wp:paragraph -->
-<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
-<h3 class="wp-block-heading has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Formation & Suivi</h3>
+<!-- wp:heading {"level":3,"textColor":"primary","style":{"typography":{"fontSize":"1.125rem","fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0.625rem"}}}} -->
+<h3 class="wp-block-heading has-primary-color has-text-color" style="margin-top:0;margin-bottom:0.625rem;font-size:1.125rem;font-weight:700">Formation & Suivi</h3>
 <!-- /wp:heading -->
-<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"color":{"text":"color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent)"}}} -->
-<p class="has-text-color" style="color:color-mix(in srgb, var(--wp--preset--color--primary) 70%, transparent);font-size:0.9375rem;line-height:1.7">Nous vous formons à l'utilisation du site et restons disponibles après la mise en ligne.</p>
+<!-- wp:paragraph {"textColor":"muted","style":{"typography":{"fontSize":"0.9375rem","lineHeight":"1.7"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+<p class="has-muted-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.9375rem;line-height:1.7">Nous vous formons à l'utilisation du site et restons disponibles après la mise en ligne.</p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
@@ -274,24 +280,26 @@
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl)">
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"4px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.75rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:0.75rem;font-size:0.8125rem;font-weight:600;letter-spacing:4px;text-transform:uppercase">Portfolio</p>
-<!-- /wp:paragraph -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"0","margin":{"bottom":"var:preset|spacing|s"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--s)"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"primary","fontSize":"s"} -->
+<p class="has-primary-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 45%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 14%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-accent-color">●</mark>&nbsp; Portfolio</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
 
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800"},"color":{"text":"var(--wp--preset--color--primary)"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--primary);margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800">Quelques-unes de nos réalisations</h2>
+<!-- wp:heading {"textAlign":"center","level":2,"textColor":"primary","style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.5rem)","fontWeight":"800","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|l"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.02em">Quelques-unes de nos <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">réalisations</mark></h2>
 <!-- /wp:heading -->
 
 <!-- wp:query {"queryId":20,"query":{"perPage":3,"pages":0,"offset":0,"postType":"site_web","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"align":"wide"} -->
 <div class="wp-block-query alignwide">
 <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:group {"className":"portfolio g2rd-clickable-article","style":{"border":{"radius":"1rem"},"color":{"background":"var(--wp--preset--color--white)"},"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|s"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
-<div class="wp-block-group portfolio g2rd-clickable-article has-background" style="border-radius:1rem;background-color:var(--wp--preset--color--white);padding-top:0;padding-bottom:var(--wp--preset--spacing--s)">
-<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":{"topLeft":"1rem","topRight":"1rem","bottomLeft":"0","bottomRight":"0"}}}} /-->
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|xs","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--xs);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--xs);padding-left:var(--wp--preset--spacing--s)">
-<!-- wp:post-terms {"term":"type-projets","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
-<!-- wp:post-title {"level":3,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.3"},"color":{"text":"var(--wp--preset--color--primary)"}}} /-->
+<!-- wp:group {"className":"portfolio g2rd-clickable-article is-style-card","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained"},"clickableArticles":true} -->
+<div class="wp-block-group portfolio g2rd-clickable-article is-style-card" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":{"topLeft":"var:custom|radius|l","topRight":"var:custom|radius|l","bottomLeft":"0","bottomRight":"0"}}}} /-->
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|s","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--s);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--s);padding-left:var(--wp--preset--spacing--s)">
+<!-- wp:post-terms {"term":"type-projets","style":{"typography":{"fontSize":"0.75rem","fontWeight":"700","letterSpacing":"2px","textTransform":"uppercase"},"color":{"text":"var(--wp--custom--color--accenthover)"},"elements":{"link":{"color":{"text":"var(--wp--custom--color--accenthover)"}}},"spacing":{"margin":{"bottom":"0.4rem"}}}} /-->
+<!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontSize":"1.0625rem","fontWeight":"700","lineHeight":"1.3"},"color":{"text":"var(--wp--preset--color--primary)"},"elements":{"link":{"color":{"text":"var(--wp--preset--color--primary)"}}}}} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -302,29 +310,33 @@
 <!-- /wp:query -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|l"}}}} -->
-<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--l)"><!-- wp:button {"style":{"color":{"background":"var(--wp--preset--color--primary)","text":"var(--wp--preset--color--white)"},"typography":{"fontWeight":"600","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"32px","right":"32px"}}}} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/portfolio/" style="border-radius:8px;color:var(--wp--preset--color--white);background-color:var(--wp--preset--color--primary);padding-top:14px;padding-right:32px;padding-bottom:14px;padding-left:32px;font-size:0.9375rem;font-weight:600">Voir tout le portfolio →</a></div>
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--l)"><!-- wp:button {"className":"is-style-action","style":{"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"32px","right":"32px"}}}} -->
+<div class="wp-block-button is-style-action"><a class="wp-block-button__link has-custom-font-size wp-element-button" href="/portfolio/" style="padding-top:14px;padding-right:32px;padding-bottom:14px;padding-left:32px;font-size:0.9375rem;font-weight:700">Voir tout le portfolio →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
 </div>
 <!-- /wp:group -->
 
-<!-- wp:cover {"minHeight":360,"minHeightUnit":"px","gradient":"bleubeige","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl"},"margin":{"top":"0","bottom":"0"}}}} -->
-<div class="wp-block-cover alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient has-bleubeige-gradient-background"></span><div class="wp-block-cover__inner-container">
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontWeight":"600","letterSpacing":"5px","fontSize":"0.8125rem","textTransform":"uppercase"},"color":{"text":"var(--wp--preset--color--accent)"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
-<p class="has-text-align-center has-text-color" style="color:var(--wp--preset--color--accent);margin-bottom:1.25rem;font-size:0.8125rem;font-weight:600;letter-spacing:5px;text-transform:uppercase">Votre projet web</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2"},"color":{"text":"var(--wp--preset--color--white)"},"spacing":{"margin":{"top":"0","bottom":"1.5rem"}}}} -->
-<h2 class="wp-block-heading has-text-align-center has-text-color" style="color:var(--wp--preset--color--white);margin-top:0;margin-bottom:1.5rem;font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;line-height:1.2">Prêt à travailler avec nous&nbsp;?</h2>
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","className":"is-style-section-dark g2rd-globe-bg","style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xl","right":"var:preset|spacing|m","left":"var:preset|spacing|m"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-section-dark g2rd-globe-bg has-primary-background-color has-white-color has-background has-text-color" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xl);padding-right:var(--wp--preset--spacing--m);padding-left:var(--wp--preset--spacing--m)"><!-- wp:group {"layout":{"type":"constrained","contentSize":"680px"}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.1em","textTransform":"uppercase"},"border":{"radius":"999px","width":"1px","color":"color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent)"},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent)"},"spacing":{"padding":{"top":"0.4rem","bottom":"0.4rem","left":"0.9rem","right":"0.9rem"}}},"textColor":"white","fontSize":"s"} -->
+<p class="has-white-color has-text-color has-s-font-size" style="border-color:color-mix(in srgb, var(--wp--preset--color--secondary) 40%, transparent);border-width:1px;border-radius:999px;background-color:color-mix(in srgb, var(--wp--preset--color--secondary) 12%, transparent);padding-top:0.4rem;padding-right:0.9rem;padding-bottom:0.4rem;padding-left:0.9rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase"><mark style="background-color:rgba(0,0,0,0)" class="has-inline-color has-secondary-color">●</mark>&nbsp; Votre projet web</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+<!-- wp:heading {"textAlign":"center","level":2,"textColor":"white","style":{"typography":{"fontSize":"clamp(1.75rem,3vw,2.75rem)","fontWeight":"800","lineHeight":"1.2","letterSpacing":"-0.02em"},"spacing":{"margin":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|m"}}}} -->
+<h2 class="wp-block-heading has-text-align-center has-white-color has-text-color" style="margin-top:var(--wp--preset--spacing--s);margin-bottom:var(--wp--preset--spacing--m);font-size:clamp(1.75rem,3vw,2.75rem);font-weight:800;letter-spacing:-0.02em;line-height:1.2">Prêt à travailler <mark style="background-color:rgba(0,0,0,0);border-bottom:0.16em solid var(--wp--preset--color--secondary)" class="has-inline-color has-secondary-color">avec nous</mark>&nbsp;?</h2>
 <!-- /wp:heading -->
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"blockGap":"1rem"}}} -->
-<div class="wp-block-buttons"><!-- wp:button {"style":{"color":{"background":"var(--wp--preset--color--accent)","text":"var(--wp--preset--color--primary)"},"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"border":{"radius":"8px"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background wp-element-button" href="/contact/" style="border-radius:8px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--accent);padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Démarrer mon projet →</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-action","style":{"typography":{"fontWeight":"700","fontSize":"0.9375rem"},"spacing":{"padding":{"top":"16px","bottom":"16px","left":"36px","right":"36px"}}}} -->
+<div class="wp-block-button is-style-action"><a class="wp-block-button__link has-custom-font-size wp-element-button" href="/contact/" style="padding-top:16px;padding-right:36px;padding-bottom:16px;padding-left:36px;font-size:0.9375rem;font-weight:700">Démarrer mon projet →</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
-</div></div>
-<!-- /wp:cover -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
 
 
 </main>
