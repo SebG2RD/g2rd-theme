@@ -94,7 +94,10 @@
         "ctaBorderStyle":    { "type": "string", "default": "" },
         "ctaBorderColor":    { "type": "string", "default": "" },
         "ctaBorderRadius":   { "type": "string", "default": "" },
-        "ctaButtonStyle":    { "type": "string", "default": "" }
+        "ctaButtonStyle":    { "type": "string", "default": "" },
+        "titleAlign":        { "type": "string", "default": "" },
+        "excerptAlign":      { "type": "string", "default": "" },
+        "ctaAlign":          { "type": "string", "default": "" }
     },
     "example": {
         "attributes": {

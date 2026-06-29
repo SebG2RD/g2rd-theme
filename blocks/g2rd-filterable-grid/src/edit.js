@@ -165,6 +165,16 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     cardTitleFontSize,
     excerptFontSize,
     ctaButtonStyle,
+    ctaBgColor,
+    ctaTextColor,
+    ctaHoverBgColor,
+    ctaHoverTextColor,
+    ctaPaddingY,
+    ctaPaddingX,
+    ctaBorderRadius,
+    titleAlign,
+    excerptAlign,
+    ctaAlign,
   } = attributes;
 
   // Générer un blockId unique à la création
@@ -191,9 +201,26 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   if (imageObjectFit && imageObjectFit !== "cover") {
     customStyle["--g2rd-fg-img-fit"] = imageObjectFit;
   }
+  // CTA — couleurs, espacement, forme (consommés sous .is-cta-colored / .is-cta-boxed)
+  if (ctaBgColor)        customStyle["--g2rd-fg-cta-bg"]          = ctaBgColor;
+  if (ctaTextColor)      customStyle["--g2rd-fg-cta-color"]       = ctaTextColor;
+  if (ctaHoverBgColor)   customStyle["--g2rd-fg-cta-hover-bg"]    = ctaHoverBgColor;
+  if (ctaHoverTextColor) customStyle["--g2rd-fg-cta-hover-color"] = ctaHoverTextColor;
+  if (ctaPaddingY)       customStyle["--g2rd-fg-cta-pad-y"]       = ctaPaddingY;
+  if (ctaPaddingX)       customStyle["--g2rd-fg-cta-pad-x"]       = ctaPaddingX;
+  if (ctaBorderRadius)   customStyle["--g2rd-fg-cta-radius"]      = ctaBorderRadius;
+  // Alignements (titre, extrait, bouton)
+  if (titleAlign)        customStyle["--g2rd-fg-title-align"]     = titleAlign;
+  if (excerptAlign)      customStyle["--g2rd-fg-excerpt-align"]   = excerptAlign;
+  if (ctaAlign)          customStyle["--g2rd-fg-cta-align"]       = ctaAlign;
+
+  // Classes-portes : n'activent les overrides que lorsque l'utilisateur les règle,
+  // afin de préserver le style de bouton natif par défaut.
+  const isCtaColored = !!(ctaBgColor || ctaTextColor || ctaHoverBgColor || ctaHoverTextColor);
+  const isCtaBoxed   = !!(ctaPaddingY || ctaPaddingX || ctaBorderRadius);
 
   const blockProps = useBlockProps({
-    className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
+    className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}${isCtaColored ? " is-cta-colored" : ""}${isCtaBoxed ? " is-cta-boxed" : ""}`,
     style: Object.keys(customStyle).length ? customStyle : undefined,
   });
 
@@ -425,9 +452,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           ) }
         </PanelBody>
 
-        {/* ── Couleurs des cartes ── */}
+        {/* ── Couleurs des cartes & du bouton ── */}
         <PanelColorSettings
-          title={ __("Couleurs des cartes", "g2rd") }
+          title={ __("Couleurs des cartes & du bouton", "g2rd") }
           initialOpen={ false }
           colorSettings={ [
             {
@@ -444,6 +471,26 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               value:    excerptColor,
               onChange: (v) => setAttributes({ excerptColor: v || "" }),
               label:    __("Couleur de l'extrait", "g2rd"),
+            },
+            {
+              value:    ctaBgColor,
+              onChange: (v) => setAttributes({ ctaBgColor: v || "" }),
+              label:    __("Bouton — fond", "g2rd"),
+            },
+            {
+              value:    ctaTextColor,
+              onChange: (v) => setAttributes({ ctaTextColor: v || "" }),
+              label:    __("Bouton — texte", "g2rd"),
+            },
+            {
+              value:    ctaHoverBgColor,
+              onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),
+              label:    __("Bouton — fond (survol)", "g2rd"),
+            },
+            {
+              value:    ctaHoverTextColor,
+              onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }),
+              label:    __("Bouton — texte (survol)", "g2rd"),
             },
           ] }
         />
@@ -544,6 +591,62 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               help={ __("Reprend les designs des boutons natifs WordPress pour rester cohérent avec le site.", "g2rd") }
             />
           ) }
+          { (linkType === "read-more" || hasProductType) && (
+            <>
+              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+                label={ __("Alignement du bouton", "g2rd") }
+                value={ ctaAlign }
+                options={ [
+                  { label: __("Par défaut (gauche)", "g2rd"), value: "" },
+                  { label: __("Gauche", "g2rd"),  value: "flex-start" },
+                  { label: __("Centre", "g2rd"),  value: "center" },
+                  { label: __("Droite", "g2rd"),  value: "flex-end" },
+                ] }
+                onChange={ (v) => setAttributes({ ctaAlign: v }) }
+              />
+              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+                label={ __("Bouton — padding vertical (ex. 0.6rem)", "g2rd") }
+                value={ ctaPaddingY }
+                onChange={ (v) => setAttributes({ ctaPaddingY: v }) }
+              />
+              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+                label={ __("Bouton — padding horizontal (ex. 1.2rem)", "g2rd") }
+                value={ ctaPaddingX }
+                onChange={ (v) => setAttributes({ ctaPaddingX: v }) }
+              />
+              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
+                label={ __("Bouton — rayon des angles (ex. 8px)", "g2rd") }
+                value={ ctaBorderRadius }
+                onChange={ (v) => setAttributes({ ctaBorderRadius: v }) }
+              />
+            </>
+          ) }
+        </PanelBody>
+
+        {/* ── Alignement des textes ── */}
+        <PanelBody title={ __("Alignement des textes", "g2rd") } initialOpen={ false }>
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Titre", "g2rd") }
+            value={ titleAlign }
+            options={ [
+              { label: __("Par défaut", "g2rd"), value: "" },
+              { label: __("Gauche", "g2rd"),     value: "left" },
+              { label: __("Centre", "g2rd"),     value: "center" },
+              { label: __("Droite", "g2rd"),     value: "right" },
+            ] }
+            onChange={ (v) => setAttributes({ titleAlign: v }) }
+          />
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __("Description / extrait", "g2rd") }
+            value={ excerptAlign }
+            options={ [
+              { label: __("Par défaut", "g2rd"), value: "" },
+              { label: __("Gauche", "g2rd"),     value: "left" },
+              { label: __("Centre", "g2rd"),     value: "center" },
+              { label: __("Droite", "g2rd"),     value: "right" },
+            ] }
+            onChange={ (v) => setAttributes({ excerptAlign: v }) }
+          />
         </PanelBody>
 
         {/* ── Tri ── */}

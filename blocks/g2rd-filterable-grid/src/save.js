@@ -50,10 +50,18 @@ export default function Save({ attributes }) {
     ctaBorderColor,
     ctaBorderRadius,
     ctaButtonStyle,
+    titleAlign,
+    excerptAlign,
+    ctaAlign,
   } = attributes;
 
+  // Classes-portes : n'activent les overrides du bouton que lorsqu'ils sont réglés,
+  // pour préserver le style de bouton natif par défaut (parité avec edit.js).
+  const isCtaColored = !!(ctaBgColor || ctaTextColor || ctaHoverBgColor || ctaHoverTextColor);
+  const isCtaBoxed   = !!(ctaPaddingY || ctaPaddingX || ctaBorderRadius);
+
   const blockProps = useBlockProps.save({
-    className: `g2rd-filter-grid${showUnderline === false ? " no-text-underline" : ""}`,
+    className: `g2rd-filter-grid${showUnderline === false ? " no-text-underline" : ""}${isCtaColored ? " is-cta-colored" : ""}${isCtaBoxed ? " is-cta-boxed" : ""}`,
     "data-post-types":   JSON.stringify(selectedPostTypes),
     "data-per-page":     String(postsPerPage),
     "data-show-search":  String(showSearch),
@@ -101,6 +109,9 @@ export default function Save({ attributes }) {
   if (ctaBorderStyle)  cssVars["--g2rd-fg-cta-border-style"] = ctaBorderStyle;
   if (ctaBorderColor)  cssVars["--g2rd-fg-cta-border-color"] = ctaBorderColor;
   if (ctaBorderRadius) cssVars["--g2rd-fg-cta-radius"]       = ctaBorderRadius;
+  if (titleAlign)      cssVars["--g2rd-fg-title-align"]      = titleAlign;
+  if (excerptAlign)    cssVars["--g2rd-fg-excerpt-align"]    = excerptAlign;
+  if (ctaAlign)        cssVars["--g2rd-fg-cta-align"]        = ctaAlign;
 
   if (Object.keys(cssVars).length) {
     blockProps.style = { ...(blockProps.style || {}), ...cssVars };
