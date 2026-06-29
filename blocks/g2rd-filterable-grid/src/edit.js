@@ -12,9 +12,27 @@ import {
   TextControl,
   Spinner,
   Notice,
+  __experimentalUnitControl as UnitControl,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+  __experimentalBorderControl as BorderControl,
 } from "@wordpress/components";
 import { useEffect, useState, useMemo } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
+
+/** Options d'alignement de texte (segmented control natif). */
+const TEXT_ALIGNS = [
+  { value: "left", label: "Gauche" },
+  { value: "center", label: "Centre" },
+  { value: "right", label: "Droite" },
+];
+
+/** Options d'alignement du bouton CTA (flex). */
+const CTA_ALIGNS = [
+  { value: "flex-start", label: "Gauche" },
+  { value: "center", label: "Centre" },
+  { value: "flex-end", label: "Droite" },
+];
 
 const RATIO_MAP = {
   "auto":     "58%",
@@ -46,7 +64,7 @@ const SOURCE_LABELS = {
  * @param {Object} props.opts   - Options d'affichage (cardDisplay, linkType, etc.)
  * @param {Object} props.colors - Couleurs personnalisées (titleColor, cardTextColor, excerptColor)
  */
-function CardPreview({ item, opts, colors, fontSizes }) {
+function CardPreview({ item, opts, colors, fontSizes, cta, aligns }) {
   const {
     cardDisplay   = "summary",
     linkType      = "title",
@@ -58,6 +76,7 @@ function CardPreview({ item, opts, colors, fontSizes }) {
   } = opts;
   const { titleColor, cardTextColor, excerptColor } = colors;
   const { cardTitleFontSize, excerptFontSize } = fontSizes || {};
+  const { titleAlign, excerptAlign } = aligns || {};
 
   const firstTax  = Object.values(item.terms || {})[0];
   const firstTerm = firstTax?.[0];
@@ -70,6 +89,21 @@ function CardPreview({ item, opts, colors, fontSizes }) {
   const isFullCard   = linkType === "full-card";
   const Wrapper      = isFullCard ? "a" : "div";
   const wrapperProps = isFullCard ? { href: item.link } : {};
+
+  // Styles inline du bouton CTA → aperçu en temps réel dans le BO.
+  const c = cta || {};
+  const ctaDivStyle  = c.align ? { alignSelf: c.align } : {};
+  const ctaLinkStyle = {};
+  if (c.bg)     ctaLinkStyle.backgroundColor = c.bg;
+  if (c.color)  ctaLinkStyle.color = c.color;
+  if (c.padY)   { ctaLinkStyle.paddingTop = c.padY; ctaLinkStyle.paddingBottom = c.padY; }
+  if (c.padX)   { ctaLinkStyle.paddingLeft = c.padX; ctaLinkStyle.paddingRight = c.padX; }
+  if (c.radius) ctaLinkStyle.borderRadius = c.radius;
+  if (c.borderWidth) {
+    ctaLinkStyle.borderStyle = c.borderStyle || "solid";
+    ctaLinkStyle.borderWidth = c.borderWidth;
+    ctaLinkStyle.borderColor = c.borderColor || "currentColor";
+  }
 
   return (
     <Wrapper
@@ -88,7 +122,7 @@ function CardPreview({ item, opts, colors, fontSizes }) {
         ) }
         <h3
           className="g2rd-fg__title"
-          style={ { ...(titleColor ? { color: titleColor } : {}), ...(cardTitleFontSize ? { fontSize: cardTitleFontSize } : {}) } }
+          style={ { ...(titleColor ? { color: titleColor } : {}), ...(cardTitleFontSize ? { fontSize: cardTitleFontSize } : {}), ...(titleAlign ? { textAlign: titleAlign } : {}) } }
         >
           { linkType === "title"
             ? <a href={ item.link } onClick={ (e) => e.preventDefault() }>{ item.title }</a>
@@ -98,7 +132,7 @@ function CardPreview({ item, opts, colors, fontSizes }) {
         { cardDisplay !== "compact" && excerpt && (
           <p
             className="g2rd-fg__excerpt"
-            style={ { ...(excerptColor ? { color: excerptColor } : {}), ...(excerptFontSize ? { fontSize: excerptFontSize } : {}) } }
+            style={ { ...(excerptColor ? { color: excerptColor } : {}), ...(excerptFontSize ? { fontSize: excerptFontSize } : {}), ...(excerptAlign ? { textAlign: excerptAlign } : {}) } }
           >
             { excerpt }
           </p>
@@ -109,10 +143,14 @@ function CardPreview({ item, opts, colors, fontSizes }) {
           ) }
         </div>
         { linkType === "read-more" && (
-          <div className={ `wp-block-button g2rd-fg__cta${ ctaButtonStyle ? ` is-style-${ ctaButtonStyle }` : "" }` }>
+          <div
+            className={ `wp-block-button g2rd-fg__cta${ ctaButtonStyle ? ` is-style-${ ctaButtonStyle }` : "" }` }
+            style={ ctaDivStyle }
+          >
             <a
               href={ item.link }
               className="wp-block-button__link wp-element-button"
+              style={ ctaLinkStyle }
               onClick={ (e) => e.preventDefault() }
             >
               { readMoreText }
@@ -172,6 +210,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     ctaPaddingY,
     ctaPaddingX,
     ctaBorderRadius,
+    ctaBorderWidth,
+    ctaBorderStyle,
+    ctaBorderColor,
     titleAlign,
     excerptAlign,
     ctaAlign,
@@ -201,26 +242,11 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   if (imageObjectFit && imageObjectFit !== "cover") {
     customStyle["--g2rd-fg-img-fit"] = imageObjectFit;
   }
-  // CTA — couleurs, espacement, forme (consommés sous .is-cta-colored / .is-cta-boxed)
-  if (ctaBgColor)        customStyle["--g2rd-fg-cta-bg"]          = ctaBgColor;
-  if (ctaTextColor)      customStyle["--g2rd-fg-cta-color"]       = ctaTextColor;
-  if (ctaHoverBgColor)   customStyle["--g2rd-fg-cta-hover-bg"]    = ctaHoverBgColor;
-  if (ctaHoverTextColor) customStyle["--g2rd-fg-cta-hover-color"] = ctaHoverTextColor;
-  if (ctaPaddingY)       customStyle["--g2rd-fg-cta-pad-y"]       = ctaPaddingY;
-  if (ctaPaddingX)       customStyle["--g2rd-fg-cta-pad-x"]       = ctaPaddingX;
-  if (ctaBorderRadius)   customStyle["--g2rd-fg-cta-radius"]      = ctaBorderRadius;
-  // Alignements (titre, extrait, bouton)
-  if (titleAlign)        customStyle["--g2rd-fg-title-align"]     = titleAlign;
-  if (excerptAlign)      customStyle["--g2rd-fg-excerpt-align"]   = excerptAlign;
-  if (ctaAlign)          customStyle["--g2rd-fg-cta-align"]       = ctaAlign;
-
-  // Classes-portes : n'activent les overrides que lorsque l'utilisateur les règle,
-  // afin de préserver le style de bouton natif par défaut.
-  const isCtaColored = !!(ctaBgColor || ctaTextColor || ctaHoverBgColor || ctaHoverTextColor);
-  const isCtaBoxed   = !!(ctaPaddingY || ctaPaddingX || ctaBorderRadius);
+  // Le bouton CTA et les alignements sont rendus en inline par CardPreview
+  // (aperçu temps réel) ; les variables CSS du front sont posées par save.js.
 
   const blockProps = useBlockProps({
-    className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}${isCtaColored ? " is-cta-colored" : ""}${isCtaBoxed ? " is-cta-boxed" : ""}`,
+    className: `g2rd-filter-grid g2rd-filter-grid--editor${showUnderline === false ? " no-text-underline" : ""}`,
     style: Object.keys(customStyle).length ? customStyle : undefined,
   });
 
@@ -327,6 +353,24 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     () => ( { cardTitleFontSize, excerptFontSize } ),
     [ cardTitleFontSize, excerptFontSize ]
   );
+  const cardCta = useMemo(
+    () => ( {
+      bg:          ctaBgColor,
+      color:       ctaTextColor,
+      padY:        ctaPaddingY,
+      padX:        ctaPaddingX,
+      radius:      ctaBorderRadius,
+      align:       ctaAlign,
+      borderWidth: ctaBorderWidth,
+      borderStyle: ctaBorderStyle,
+      borderColor: ctaBorderColor,
+    } ),
+    [ ctaBgColor, ctaTextColor, ctaPaddingY, ctaPaddingX, ctaBorderRadius, ctaAlign, ctaBorderWidth, ctaBorderStyle, ctaBorderColor ]
+  );
+  const cardAligns = useMemo(
+    () => ( { titleAlign, excerptAlign } ),
+    [ titleAlign, excerptAlign ]
+  );
 
   // Squelettes affichés pendant le chargement ou si aucun post
   const skeletons = Array.from({ length: Math.min(postsPerPage, 6) });
@@ -347,6 +391,104 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           },
         ] }
       />
+
+      {/* ══ Onglet STYLES (couleurs, dimensions, bordure, alignements) ══ */}
+      <InspectorControls group="styles">
+        <PanelColorSettings
+          title={ __("Couleurs des cartes & du bouton", "g2rd") }
+          initialOpen={ false }
+          colorSettings={ [
+            { value: titleColor,        onChange: (v) => setAttributes({ titleColor: v || "" }),        label: __("Couleur du titre", "g2rd") },
+            { value: cardTextColor,     onChange: (v) => setAttributes({ cardTextColor: v || "" }),     label: __("Couleur du texte", "g2rd") },
+            { value: excerptColor,      onChange: (v) => setAttributes({ excerptColor: v || "" }),      label: __("Couleur de l'extrait", "g2rd") },
+            { value: ctaBgColor,        onChange: (v) => setAttributes({ ctaBgColor: v || "" }),        label: __("Bouton — fond", "g2rd") },
+            { value: ctaTextColor,      onChange: (v) => setAttributes({ ctaTextColor: v || "" }),      label: __("Bouton — texte", "g2rd") },
+            { value: ctaHoverBgColor,   onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),   label: __("Bouton — fond (survol)", "g2rd") },
+            { value: ctaHoverTextColor, onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }), label: __("Bouton — texte (survol)", "g2rd") },
+          ] }
+        />
+
+        { (linkType === "read-more" || hasProductType) && (
+          <PanelBody title={ __("Bouton CTA", "g2rd") } initialOpen={ false }>
+            <ToggleGroupControl
+              label={ __("Alignement du bouton", "g2rd") }
+              isBlock
+              value={ ctaAlign }
+              onChange={ (v) => setAttributes({ ctaAlign: v || "" }) }
+            >
+              { CTA_ALIGNS.map((a) => (
+                <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+              )) }
+            </ToggleGroupControl>
+            <UnitControl __next40pxDefaultSize
+              label={ __("Padding vertical", "g2rd") }
+              value={ ctaPaddingY }
+              onChange={ (v) => setAttributes({ ctaPaddingY: v || "" }) }
+              units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
+            />
+            <UnitControl __next40pxDefaultSize
+              label={ __("Padding horizontal", "g2rd") }
+              value={ ctaPaddingX }
+              onChange={ (v) => setAttributes({ ctaPaddingX: v || "" }) }
+              units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
+            />
+            <UnitControl __next40pxDefaultSize
+              label={ __("Rayon des angles", "g2rd") }
+              value={ ctaBorderRadius }
+              onChange={ (v) => setAttributes({ ctaBorderRadius: v || "" }) }
+              units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" }, { value: "%", label: "%" } ] }
+            />
+            <ToggleControl
+              label={ __("Bordure", "g2rd") }
+              checked={ !!ctaBorderWidth }
+              onChange={ (on) =>
+                on
+                  ? setAttributes({ ctaBorderWidth: "1px", ctaBorderStyle: ctaBorderStyle || "solid" })
+                  : setAttributes({ ctaBorderWidth: "", ctaBorderStyle: "", ctaBorderColor: "" })
+              }
+              __nextHasNoMarginBottom
+            />
+            { !!ctaBorderWidth && (
+              <BorderControl __next40pxDefaultSize
+                label={ __("Style de bordure", "g2rd") }
+                value={ { color: ctaBorderColor || undefined, style: ctaBorderStyle || "solid", width: ctaBorderWidth || "1px" } }
+                onChange={ (b) =>
+                  setAttributes({
+                    ctaBorderColor: ( b && b.color ) || "",
+                    ctaBorderStyle: ( b && b.style ) || "solid",
+                    ctaBorderWidth: ( b && b.width ) || "",
+                  })
+                }
+                enableStyle
+              />
+            ) }
+          </PanelBody>
+        ) }
+
+        <PanelBody title={ __("Alignement des textes", "g2rd") } initialOpen={ false }>
+          <ToggleGroupControl
+            label={ __("Titre", "g2rd") }
+            isBlock
+            value={ titleAlign }
+            onChange={ (v) => setAttributes({ titleAlign: v || "" }) }
+          >
+            { TEXT_ALIGNS.map((a) => (
+              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+            )) }
+          </ToggleGroupControl>
+          <ToggleGroupControl
+            label={ __("Description / extrait", "g2rd") }
+            isBlock
+            value={ excerptAlign }
+            onChange={ (v) => setAttributes({ excerptAlign: v || "" }) }
+          >
+            { TEXT_ALIGNS.map((a) => (
+              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+            )) }
+          </ToggleGroupControl>
+        </PanelBody>
+      </InspectorControls>
+
       <InspectorControls>
         {/* ── Types de contenu ── */}
         <PanelBody title={ __("Types de contenu", "g2rd") } initialOpen={ true }>
@@ -452,49 +594,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           ) }
         </PanelBody>
 
-        {/* ── Couleurs des cartes & du bouton ── */}
-        <PanelColorSettings
-          title={ __("Couleurs des cartes & du bouton", "g2rd") }
-          initialOpen={ false }
-          colorSettings={ [
-            {
-              value:    titleColor,
-              onChange: (v) => setAttributes({ titleColor: v || "" }),
-              label:    __("Couleur du titre", "g2rd"),
-            },
-            {
-              value:    cardTextColor,
-              onChange: (v) => setAttributes({ cardTextColor: v || "" }),
-              label:    __("Couleur du texte", "g2rd"),
-            },
-            {
-              value:    excerptColor,
-              onChange: (v) => setAttributes({ excerptColor: v || "" }),
-              label:    __("Couleur de l'extrait", "g2rd"),
-            },
-            {
-              value:    ctaBgColor,
-              onChange: (v) => setAttributes({ ctaBgColor: v || "" }),
-              label:    __("Bouton — fond", "g2rd"),
-            },
-            {
-              value:    ctaTextColor,
-              onChange: (v) => setAttributes({ ctaTextColor: v || "" }),
-              label:    __("Bouton — texte", "g2rd"),
-            },
-            {
-              value:    ctaHoverBgColor,
-              onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),
-              label:    __("Bouton — fond (survol)", "g2rd"),
-            },
-            {
-              value:    ctaHoverTextColor,
-              onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }),
-              label:    __("Bouton — texte (survol)", "g2rd"),
-            },
-          ] }
-        />
-
         {/* ── Image des cartes ── */}
         <PanelBody title={ __("Image des cartes", "g2rd") } initialOpen={ false }>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
@@ -591,62 +690,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               help={ __("Reprend les designs des boutons natifs WordPress pour rester cohérent avec le site.", "g2rd") }
             />
           ) }
-          { (linkType === "read-more" || hasProductType) && (
-            <>
-              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={ __("Alignement du bouton", "g2rd") }
-                value={ ctaAlign }
-                options={ [
-                  { label: __("Par défaut (gauche)", "g2rd"), value: "" },
-                  { label: __("Gauche", "g2rd"),  value: "flex-start" },
-                  { label: __("Centre", "g2rd"),  value: "center" },
-                  { label: __("Droite", "g2rd"),  value: "flex-end" },
-                ] }
-                onChange={ (v) => setAttributes({ ctaAlign: v }) }
-              />
-              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={ __("Bouton — padding vertical (ex. 0.6rem)", "g2rd") }
-                value={ ctaPaddingY }
-                onChange={ (v) => setAttributes({ ctaPaddingY: v }) }
-              />
-              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={ __("Bouton — padding horizontal (ex. 1.2rem)", "g2rd") }
-                value={ ctaPaddingX }
-                onChange={ (v) => setAttributes({ ctaPaddingX: v }) }
-              />
-              <TextControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={ __("Bouton — rayon des angles (ex. 8px)", "g2rd") }
-                value={ ctaBorderRadius }
-                onChange={ (v) => setAttributes({ ctaBorderRadius: v }) }
-              />
-            </>
-          ) }
-        </PanelBody>
-
-        {/* ── Alignement des textes ── */}
-        <PanelBody title={ __("Alignement des textes", "g2rd") } initialOpen={ false }>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Titre", "g2rd") }
-            value={ titleAlign }
-            options={ [
-              { label: __("Par défaut", "g2rd"), value: "" },
-              { label: __("Gauche", "g2rd"),     value: "left" },
-              { label: __("Centre", "g2rd"),     value: "center" },
-              { label: __("Droite", "g2rd"),     value: "right" },
-            ] }
-            onChange={ (v) => setAttributes({ titleAlign: v }) }
-          />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={ __("Description / extrait", "g2rd") }
-            value={ excerptAlign }
-            options={ [
-              { label: __("Par défaut", "g2rd"), value: "" },
-              { label: __("Gauche", "g2rd"),     value: "left" },
-              { label: __("Centre", "g2rd"),     value: "center" },
-              { label: __("Droite", "g2rd"),     value: "right" },
-            ] }
-            onChange={ (v) => setAttributes({ excerptAlign: v }) }
-          />
         </PanelBody>
 
         {/* ── Tri ── */}
@@ -722,6 +765,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                   opts={ cardOpts }
                   colors={ cardColors }
                   fontSizes={ cardFontSizes }
+                  cta={ cardCta }
+                  aligns={ cardAligns }
                 />
               ))
           }

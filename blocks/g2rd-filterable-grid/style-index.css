@@ -36,3 +36,5 @@
 .g2rd-filter-grid.is-cta-colored .g2rd-fg__cta .wp-block-button__link:hover{background-color:var(--g2rd-fg-cta-hover-bg,var(--g2rd-fg-cta-bg,var(--wp--preset--color--primary)));color:var(--g2rd-fg-cta-hover-color,var(--g2rd-fg-cta-color,var(--wp--preset--color--white)))}
 /* ── Bouton CTA : espacement & forme (actifs uniquement si réglés) ── */
 .g2rd-filter-grid.is-cta-boxed .g2rd-fg__cta .wp-block-button__link{padding:var(--g2rd-fg-cta-pad-y,.55rem) var(--g2rd-fg-cta-pad-x,1.1rem);border-radius:var(--g2rd-fg-cta-radius,.5rem)}
+/* ── Bouton CTA : bordure (active uniquement si réglée, façon bouton natif) ── */
+.g2rd-filter-grid.is-cta-bordered .g2rd-fg__cta .wp-block-button__link{border-width:var(--g2rd-fg-cta-border-width,1px);border-style:var(--g2rd-fg-cta-border-style,solid);border-color:var(--g2rd-fg-cta-border-color,currentColor)}

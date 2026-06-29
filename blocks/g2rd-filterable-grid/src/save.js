@@ -57,11 +57,12 @@ export default function Save({ attributes }) {
 
   // Classes-portes : n'activent les overrides du bouton que lorsqu'ils sont réglés,
   // pour préserver le style de bouton natif par défaut (parité avec edit.js).
-  const isCtaColored = !!(ctaBgColor || ctaTextColor || ctaHoverBgColor || ctaHoverTextColor);
-  const isCtaBoxed   = !!(ctaPaddingY || ctaPaddingX || ctaBorderRadius);
+  const isCtaColored  = !!(ctaBgColor || ctaTextColor || ctaHoverBgColor || ctaHoverTextColor);
+  const isCtaBoxed    = !!(ctaPaddingY || ctaPaddingX || ctaBorderRadius);
+  const isCtaBordered = !!ctaBorderWidth;
 
   const blockProps = useBlockProps.save({
-    className: `g2rd-filter-grid${showUnderline === false ? " no-text-underline" : ""}${isCtaColored ? " is-cta-colored" : ""}${isCtaBoxed ? " is-cta-boxed" : ""}`,
+    className: `g2rd-filter-grid${showUnderline === false ? " no-text-underline" : ""}${isCtaColored ? " is-cta-colored" : ""}${isCtaBoxed ? " is-cta-boxed" : ""}${isCtaBordered ? " is-cta-bordered" : ""}`,
     "data-post-types":   JSON.stringify(selectedPostTypes),
     "data-per-page":     String(postsPerPage),
     "data-show-search":  String(showSearch),
