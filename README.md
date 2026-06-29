@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.2**
+
+- **Animation globe** : le globe filaire devient une fonctionnalité activable / désactivable depuis la page d'options (activée par défaut), avec choix de la **position** (centre / droite / gauche / haut / bas) par section depuis la sidebar de l'éditeur, et **aperçu en direct dans l'éditeur WordPress** (CSS chargé aussi dans le canvas). CSS extrait de `style.css` vers `assets/css/globe.css`.
+- **Grille filtrable** : nouveaux réglages du **bouton CTA** (couleur fond / texte + survol, padding, rayon, alignement) et **alignement des textes** (titre, description) depuis l'inspecteur — les overrides ne s'activent que s'ils sont réglés (style de bouton natif préservé par défaut).
 
 ### **1.24.1**
 
