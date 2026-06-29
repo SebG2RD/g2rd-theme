@@ -646,41 +646,11 @@ ul {
     );
 }
 
-/* Globe géodésique filaire — fond signature du hero (rappel wp-manager).
-   SVG masqué → la couleur suit le token lime du style actif. Décoratif. */
-.wp-block-group.is-style-section-dark.g2rd-globe-bg::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  top: -18%;
-  left: 50%;
-  width: min(72vw, 720px);
-  aspect-ratio: 1;
-  translate: -50% 0;
-  background-color: color-mix(
-    in srgb,
-    var(--wp--preset--color--secondary) 60%,
-    transparent
-  );
-  -webkit-mask: url("assets/img/wire-globe.svg") center / contain no-repeat;
-  mask: url("assets/img/wire-globe.svg") center / contain no-repeat;
-  opacity: 0.45;
-  transform-origin: center;
-  animation: g2rd-globe-spin 90s linear infinite;
-}
-
-@keyframes g2rd-globe-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Globe géodésique filaire (fond signature du hero) : extrait dans
+   assets/css/globe.css — chargé front + canvas éditeur par GlobeEffect,
+   activable par bloc (sidebar) et désactivable depuis la page d'options. */
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-group.is-style-section-dark.g2rd-globe-bg::after {
-    animation: none;
-  }
-
   .wp-block-group.is-style-card,
   .wp-block-group.is-style-card-dark,
   .wp-block-group.is-style-card-action,

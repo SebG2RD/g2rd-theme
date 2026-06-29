@@ -165,6 +165,9 @@ function bootstrap_theme(): void
     if ( ThemeOptions::isFeatureEnabled( 'particles_effect' ) ) {
         $classes[] = ParticlesEffect::class;
     }
+    if ( ThemeOptions::isFeatureEnabled( 'globe_effect' ) ) {
+        $classes[] = GlobeEffect::class;
+    }
     if ( ThemeOptions::isFeatureEnabled( 'glass_effect' ) ) {
         $classes[] = GlassEffect::class;
     }

@@ -98,6 +98,10 @@ class ThemeOptions {
             'label'       => 'Effet particules',
             'description' => 'Ajoute un effet de particules animées sur les blocs groupe.',
         ],
+        'globe_effect' => [
+            'label'       => 'Animation globe filaire',
+            'description' => 'Active le globe géodésique animé (fond signature) sur les blocs groupe — réglable depuis la sidebar (activation + position). Idéal sur les sections sombres.',
+        ],
         'glass_effect' => [
             'label'       => 'Effet glassmorphism',
             'description' => 'Active l\'option glassmorphism dans l\'éditeur de blocs.',

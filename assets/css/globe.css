@@ -1,0 +1,97 @@
+/* ==========================================================================
+   G2RD — Animation Globe géodésique filaire (fond signature wp-manager)
+   Chargé sur le FRONT et dans le CANVAS de l'éditeur (enqueue_block_assets)
+   pour un aperçu live dans le BO. Activable par bloc (attribut globeEffect)
+   ou via la classe utilitaire `g2rd-globe-bg`. Position réglable.
+
+   SVG masqué → la couleur suit le token lime du style actif. Décoratif.
+   Tokens --wp--… exclusivement, aucune valeur de couleur en dur.
+   Respecte prefers-reduced-motion (RGAA).
+   ========================================================================== */
+
+/* Contexte de positionnement autonome : le globe fonctionne sur n'importe quel
+   groupe (pas seulement is-style-section-dark, qui pose déjà ces propriétés). */
+.wp-block-group.g2rd-globe-bg {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.wp-block-group.g2rd-globe-bg::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(72vw, 720px);
+  aspect-ratio: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--wp--preset--color--secondary) 60%,
+    transparent
+  );
+  -webkit-mask: url("../img/wire-globe.svg") center / contain no-repeat;
+  mask: url("../img/wire-globe.svg") center / contain no-repeat;
+  opacity: 0.45;
+  transform-origin: center;
+  animation: g2rd-globe-spin 90s linear infinite;
+
+  /* Position par défaut = centre haut (comportement historique du hero). */
+  top: -18%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+/* ── Positions (classe utilitaire ou attribut globePosition) ─────────────── */
+
+/* Centre (explicite) — identique au défaut. */
+.wp-block-group.g2rd-globe-bg.is-globe-center::after {
+  top: -18%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  translate: -50% 0;
+}
+
+.wp-block-group.g2rd-globe-bg.is-globe-right::after {
+  top: 50%;
+  left: auto;
+  right: -12%;
+  bottom: auto;
+  translate: 0 -50%;
+}
+
+.wp-block-group.g2rd-globe-bg.is-globe-left::after {
+  top: 50%;
+  left: -12%;
+  right: auto;
+  bottom: auto;
+  translate: 0 -50%;
+}
+
+.wp-block-group.g2rd-globe-bg.is-globe-top::after {
+  top: -35%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  translate: -50% 0;
+}
+
+.wp-block-group.g2rd-globe-bg.is-globe-bottom::after {
+  top: auto;
+  left: 50%;
+  right: auto;
+  bottom: -35%;
+  translate: -50% 0;
+}
+
+@keyframes g2rd-globe-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-group.g2rd-globe-bg::after {
+    animation: none;
+  }
+}
