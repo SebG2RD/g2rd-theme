@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.3**
+
+- **Globe — positionnement précis** : les positions droite / gauche / haut / bas sont recentrées (le globe reste entièrement visible, plus de découpe), et un réglage fin est ajouté dans la sidebar — décalage horizontal / vertical (px) et taille — avec aperçu en direct dans le BO et sur le front.
+- **Grille filtrable — CTA façon natif WordPress** : les réglages du bouton (couleurs, padding, rayon, bordure, alignements titre / extrait / bouton) passent dans l'onglet **Styles** avec des composants natifs (`UnitControl`, `ToggleGroupControl`). Nouvelle **bordure activable** (largeur + couleur + style, `BorderControl`). Aperçu **temps réel** dans l'éditeur (rendu inline).
 
 ### **1.24.2**
 
