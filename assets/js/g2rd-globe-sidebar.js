@@ -20,7 +20,8 @@
     const { createHigherOrderComponent } = wp.compose;
     const { Fragment, createElement } = wp.element;
     const { InspectorControls } = wp.blockEditor;
-    const { PanelBody, ToggleControl, SelectControl } = wp.components;
+    const { PanelBody, ToggleControl, SelectControl, RangeControl } =
+      wp.components;
     const { addFilter } = wp.hooks;
 
     const POSITIONS = [
@@ -49,6 +50,18 @@
             type: "string",
             default: "center",
           },
+          globeOffsetX: {
+            type: "number",
+            default: 0,
+          },
+          globeOffsetY: {
+            type: "number",
+            default: 0,
+          },
+          globeSize: {
+            type: "number",
+            default: 0,
+          },
         });
       }
 
@@ -65,7 +78,8 @@
         }
 
         const { attributes, setAttributes } = props;
-        const { globeEffect, globePosition } = attributes;
+        const { globeEffect, globePosition, globeOffsetX, globeOffsetY, globeSize } =
+          attributes;
 
         return createElement(
           Fragment,
@@ -91,17 +105,58 @@
                 __nextHasNoMarginBottom: true,
               }),
               globeEffect &&
-                createElement(SelectControl, {
-                  label: __("Position du globe", "g2rd"),
-                  value: globePosition || "center",
-                  options: POSITIONS,
-                  onChange: (value) => setAttributes({ globePosition: value }),
-                  help: __(
-                    "Position du globe dans la section. Idéal sur un fond sombre.",
-                    "g2rd"
-                  ),
-                  __nextHasNoMarginBottom: true,
-                })
+                createElement(
+                  Fragment,
+                  null,
+                  createElement(SelectControl, {
+                    label: __("Position du globe", "g2rd"),
+                    value: globePosition || "center",
+                    options: POSITIONS,
+                    onChange: (value) => setAttributes({ globePosition: value }),
+                    help: __(
+                      "Point d'ancrage du globe. Affinez ensuite avec les décalages.",
+                      "g2rd"
+                    ),
+                    __nextHasNoMarginBottom: true,
+                  }),
+                  createElement(RangeControl, {
+                    label: __("Décalage horizontal (px)", "g2rd"),
+                    value: globeOffsetX || 0,
+                    onChange: (value) =>
+                      setAttributes({ globeOffsetX: value || 0 }),
+                    min: -500,
+                    max: 500,
+                    step: 10,
+                    allowReset: true,
+                    __nextHasNoMarginBottom: true,
+                  }),
+                  createElement(RangeControl, {
+                    label: __("Décalage vertical (px)", "g2rd"),
+                    value: globeOffsetY || 0,
+                    onChange: (value) =>
+                      setAttributes({ globeOffsetY: value || 0 }),
+                    min: -500,
+                    max: 500,
+                    step: 10,
+                    allowReset: true,
+                    __nextHasNoMarginBottom: true,
+                  }),
+                  createElement(RangeControl, {
+                    label: __("Taille du globe (px, 0 = auto)", "g2rd"),
+                    value: globeSize || 0,
+                    onChange: (value) =>
+                      setAttributes({ globeSize: value || 0 }),
+                    min: 0,
+                    max: 1000,
+                    step: 20,
+                    allowReset: true,
+                    help: __(
+                      "0 = taille automatique responsive. Réduisez pour éviter que le globe ne déborde.",
+                      "g2rd"
+                    ),
+                    __nextHasNoMarginBottom: true,
+                  })
+                )
             )
           )
         );
@@ -125,9 +180,24 @@
           ? `${props.className} ${extra}`
           : extra;
 
+        // CSS vars de réglage fin → aperçu live dans le canvas éditeur.
+        const styleVars = {};
+        if (attributes.globeOffsetX)
+          styleVars["--g2rd-globe-dx"] = `${attributes.globeOffsetX}px`;
+        if (attributes.globeOffsetY)
+          styleVars["--g2rd-globe-dy"] = `${attributes.globeOffsetY}px`;
+        if (attributes.globeSize)
+          styleVars["--g2rd-globe-size"] = `${attributes.globeSize}px`;
+
+        const wrapperProps = Object.keys(styleVars).length
+          ? Object.assign({}, props.wrapperProps, {
+              style: Object.assign({}, props.wrapperProps?.style, styleVars),
+            })
+          : props.wrapperProps;
+
         return createElement(
           BlockListBlock,
-          Object.assign({}, props, { className })
+          Object.assign({}, props, { className, wrapperProps })
         );
       };
     }, "withGlobeClasses");

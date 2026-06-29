@@ -113,7 +113,8 @@ class GlobeEffect {
 	}
 
 	/**
-	 * Injecte les classes du globe sur le bloc groupe au rendu (parité front).
+	 * Injecte les classes et les variables de position du globe sur le bloc
+	 * groupe au rendu (parité front avec l'aperçu éditeur).
 	 *
 	 * @param string               $block_content Le HTML rendu du bloc.
 	 * @param array<string, mixed> $block         Les données du bloc (nom, attributs).
@@ -136,12 +137,40 @@ class GlobeEffect {
 
 		$classes = 'g2rd-globe-bg is-globe-' . $position;
 
-		// Injecte dans le premier attribut class="…" (le wrapper du groupe).
-		return (string) \preg_replace(
+		// Réglage fin : décalage et taille en pixels, bornés et entiers.
+		$style = '';
+		$dx    = isset( $block['attrs']['globeOffsetX'] ) ? (int) $block['attrs']['globeOffsetX'] : 0;
+		$dy    = isset( $block['attrs']['globeOffsetY'] ) ? (int) $block['attrs']['globeOffsetY'] : 0;
+		$size  = isset( $block['attrs']['globeSize'] ) ? (int) $block['attrs']['globeSize'] : 0;
+		if ( 0 !== $dx ) {
+			$style .= '--g2rd-globe-dx:' . \max( -500, \min( 500, $dx ) ) . 'px;';
+		}
+		if ( 0 !== $dy ) {
+			$style .= '--g2rd-globe-dy:' . \max( -500, \min( 500, $dy ) ) . 'px;';
+		}
+		if ( 0 !== $size ) {
+			$style .= '--g2rd-globe-size:' . \max( 0, \min( 1000, $size ) ) . 'px;';
+		}
+
+		// Injecte les classes dans le premier attribut class="…" (wrapper du groupe).
+		$block_content = (string) \preg_replace(
 			'/class="/',
 			'class="' . \esc_attr( $classes ) . ' ',
 			$block_content,
 			1
 		);
+
+		// Injecte les variables CSS dans le premier attribut style="…" (le wrapper
+		// des sections du globe porte toujours un style de padding).
+		if ( '' !== $style ) {
+			$block_content = (string) \preg_replace(
+				'/style="/',
+				'style="' . \esc_attr( $style ),
+				$block_content,
+				1
+			);
+		}
+
+		return $block_content;
 	}
 }
