@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.3** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.4** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.4**
+
+- **Fix activation du globe** : l'animation globe est désormais pilotée par la classe `g2rd-globe-bg` (source unique de vérité). Décocher le toggle de la sidebar **retire réellement le globe** — y compris sur les sections dont la classe provient d'un pattern/template (l'ancien attribut ne supprimait pas la classe manuelle).
+- **Globe — UX** : le panneau « Animation globe » n'apparaît que sur les sections sombres (`is-style-section-dark`) ; la position devient une classe `is-globe-{position}` ; le réglage fin (décalage/taille) est conservé avec aperçu temps réel.
+- **Globe — simplification** : suppression de l'interrupteur global dans la page d'options (activation par section uniquement) et nettoyage de l'ancien attribut `globeEffect`.
 
 ### **1.24.3**
 
