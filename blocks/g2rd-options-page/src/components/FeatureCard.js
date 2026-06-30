@@ -31,7 +31,6 @@ function getIcon( key ) {
 	const icons = {
 		gsap_animations:          'video-alt3',
 		particles_effect:         'star-filled',
-		globe_effect:             'admin-site-alt3',
 		glass_effect:             'admin-appearance',
 		clickable_articles:       'admin-links',
 		accessibility:            'universal',

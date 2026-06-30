@@ -2,12 +2,16 @@
  * G2RD Globe Sidebar Control
  *
  * Ajoute un contrôle dans la sidebar de l'éditeur Gutenberg (onglet Réglages)
- * pour activer le globe filaire animé sur les blocs de type group et choisir
- * sa position (centre / droite / gauche / haut / bas).
+ * pour activer le globe filaire animé sur les blocs de type group, choisir sa
+ * position et l'affiner (décalage + taille).
  *
- * Le globe est rendu en CSS pur (assets/css/globe.css, chargé aussi dans le
- * canvas). Le filtre editor.BlockListBlock applique la classe au bloc dans
- * l'éditeur → aperçu live dans le BO, identique au front.
+ * Activation et position = CLASSES (`g2rd-globe-bg`, `is-globe-{position}`)
+ * posées directement sur le bloc → source unique de vérité : le toggle reflète
+ * et pilote la classe, qu'elle ait été ajoutée par le contrôle ou par un
+ * pattern/template. Décocher retire réellement le globe (front + éditeur).
+ *
+ * Décalage / taille = attributs (réglage fin) appliqués en variables CSS, en
+ * aperçu live dans le canvas (BlockListBlock) et sur le front (render_block).
  */
 (function (wp) {
   if (!wp) {
@@ -24,6 +28,9 @@
       wp.components;
     const { addFilter } = wp.hooks;
 
+    const GLOBE_CLASS = "g2rd-globe-bg";
+    const POS_PREFIX = "is-globe-";
+
     const POSITIONS = [
       { label: __("Centre", "g2rd"), value: "center" },
       { label: __("Droite", "g2rd"), value: "right" },
@@ -32,39 +39,29 @@
       { label: __("Bas", "g2rd"), value: "bottom" },
     ];
 
+    /** Découpe une chaîne de classes en tableau filtré. */
+    function classList(className) {
+      return (className || "").split(/\s+/).filter(Boolean);
+    }
+
+    function isPosClass(c) {
+      return c.indexOf(POS_PREFIX) === 0;
+    }
+
     /**
-     * Déclare les attributs personnalisés sur les blocs de type group.
+     * Déclare les attributs de réglage fin sur les blocs de type group.
      */
     function addGlobeAttributes(settings, name) {
       if (name !== "core/group") {
         return settings;
       }
-
       if (settings.attributes) {
         settings.attributes = Object.assign({}, settings.attributes, {
-          globeEffect: {
-            type: "boolean",
-            default: false,
-          },
-          globePosition: {
-            type: "string",
-            default: "center",
-          },
-          globeOffsetX: {
-            type: "number",
-            default: 0,
-          },
-          globeOffsetY: {
-            type: "number",
-            default: 0,
-          },
-          globeSize: {
-            type: "number",
-            default: 0,
-          },
+          globeOffsetX: { type: "number", default: 0 },
+          globeOffsetY: { type: "number", default: 0 },
+          globeSize: { type: "number", default: 0 },
         });
       }
-
       return settings;
     }
 
@@ -78,8 +75,49 @@
         }
 
         const { attributes, setAttributes } = props;
-        const { globeEffect, globePosition, globeOffsetX, globeOffsetY, globeSize } =
-          attributes;
+        const { className, globeOffsetX, globeOffsetY, globeSize } = attributes;
+
+        const classes = classList(className);
+        const hasGlobe = classes.indexOf(GLOBE_CLASS) !== -1;
+
+        // Portée : sections sombres uniquement. Règle « OU » : on affiche aussi
+        // le panneau si un globe est déjà présent, pour qu'il reste désactivable
+        // même si le style sombre a été retiré après coup.
+        const isDarkSection = classes.indexOf("is-style-section-dark") !== -1;
+        if (!isDarkSection && !hasGlobe) {
+          return createElement(BlockEdit, props);
+        }
+
+        const posClass = classes.find(isPosClass);
+        const position = posClass ? posClass.slice(POS_PREFIX.length) : "center";
+
+        const writeClasses = (list) =>
+          setAttributes({ className: list.join(" ") || undefined });
+
+        const toggleGlobe = (on) => {
+          // Retire d'abord toute trace de globe (activation + position).
+          const base = classes.filter(
+            (c) => c !== GLOBE_CLASS && !isPosClass(c)
+          );
+          if (on) {
+            base.push(GLOBE_CLASS, POS_PREFIX + "center");
+            writeClasses(base);
+          } else {
+            // Désactivation complète : classes + réglages fins remis à zéro.
+            setAttributes({
+              className: base.join(" ") || undefined,
+              globeOffsetX: 0,
+              globeOffsetY: 0,
+              globeSize: 0,
+            });
+          }
+        };
+
+        const setPosition = (pos) => {
+          const base = classes.filter((c) => !isPosClass(c));
+          base.push(POS_PREFIX + (pos || "center"));
+          writeClasses(base);
+        };
 
         return createElement(
           Fragment,
@@ -97,22 +135,22 @@
               },
               createElement(ToggleControl, {
                 label: __("Activer le globe filaire", "g2rd"),
-                help: globeEffect
+                help: hasGlobe
                   ? __("Globe activé sur cette section", "g2rd")
                   : __("Globe désactivé", "g2rd"),
-                checked: !!globeEffect,
-                onChange: (value) => setAttributes({ globeEffect: value }),
+                checked: hasGlobe,
+                onChange: toggleGlobe,
                 __nextHasNoMarginBottom: true,
               }),
-              globeEffect &&
+              hasGlobe &&
                 createElement(
                   Fragment,
                   null,
                   createElement(SelectControl, {
                     label: __("Position du globe", "g2rd"),
-                    value: globePosition || "center",
+                    value: position,
                     options: POSITIONS,
-                    onChange: (value) => setAttributes({ globePosition: value }),
+                    onChange: setPosition,
                     help: __(
                       "Point d'ancrage du globe. Affinez ensuite avec les décalages.",
                       "g2rd"
@@ -164,23 +202,19 @@
     }, "withGlobeControl");
 
     /**
-     * Applique les classes du globe au bloc dans l'éditeur (aperçu live).
+     * Injecte les variables CSS de décalage/taille dans le canvas (aperçu live).
+     * L'activation et la position sont rendues nativement via la classe du bloc.
      */
-    const withGlobeClasses = createHigherOrderComponent((BlockListBlock) => {
+    const withGlobeVars = createHigherOrderComponent((BlockListBlock) => {
       return (props) => {
         const { block, attributes } = props;
-
-        if (!block || block.name !== "core/group" || !attributes?.globeEffect) {
+        if (!block || block.name !== "core/group" || !attributes) {
+          return createElement(BlockListBlock, props);
+        }
+        if (classList(attributes.className).indexOf(GLOBE_CLASS) === -1) {
           return createElement(BlockListBlock, props);
         }
 
-        const position = attributes.globePosition || "center";
-        const extra = `g2rd-globe-bg is-globe-${position}`;
-        const className = props.className
-          ? `${props.className} ${extra}`
-          : extra;
-
-        // CSS vars de réglage fin → aperçu live dans le canvas éditeur.
         const styleVars = {};
         if (attributes.globeOffsetX)
           styleVars["--g2rd-globe-dx"] = `${attributes.globeOffsetX}px`;
@@ -189,18 +223,23 @@
         if (attributes.globeSize)
           styleVars["--g2rd-globe-size"] = `${attributes.globeSize}px`;
 
-        const wrapperProps = Object.keys(styleVars).length
-          ? Object.assign({}, props.wrapperProps, {
-              style: Object.assign({}, props.wrapperProps?.style, styleVars),
-            })
-          : props.wrapperProps;
+        if (!Object.keys(styleVars).length) {
+          return createElement(BlockListBlock, props);
+        }
 
+        const wrapperProps = Object.assign({}, props.wrapperProps, {
+          style: Object.assign(
+            {},
+            props.wrapperProps && props.wrapperProps.style,
+            styleVars
+          ),
+        });
         return createElement(
           BlockListBlock,
-          Object.assign({}, props, { className, wrapperProps })
+          Object.assign({}, props, { wrapperProps })
         );
       };
-    }, "withGlobeClasses");
+    }, "withGlobeVars");
 
     addFilter(
       "blocks.registerBlockType",
@@ -219,7 +258,7 @@
     addFilter(
       "editor.BlockListBlock",
       "g2rd/globe-effect-preview",
-      withGlobeClasses,
+      withGlobeVars,
       9
     );
   } catch (e) {
