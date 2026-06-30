@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.4** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.5** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.5**
+
+- **Fix portfolio** : le bouton « Visiter le site » de `single-portfolio.html` pointe enfin vers l'URL du projet. Enregistrement de la source de block binding `g2rd/portfolio-link` (lit le champ `_portfolio_link` du CPT portfolio) et câblage du bouton du template sur ce binding — un champ meta protégé ne peut être lu ni par un shortcode ni par `core/post-meta`, d'où la source custom.
 
 ### **1.24.4**
 
