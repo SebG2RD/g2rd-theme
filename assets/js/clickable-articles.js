@@ -23,12 +23,17 @@ function initClickableArticles() {
     }
     block.dataset.g2rdInit = "clickable";
 
-    // Trouver le premier lien dans les enfants directs du bloc
+    // Trouver le premier lien parmi les enfants directs du bloc.
+    // Un enfant direct peut ÊTRE un lien (ex. bloc core/read-more → <a>) ou en
+    // contenir un (ex. image/titre en isLink → <figure><a> / <h3><a>).
+    // querySelector("a") ne matche que les descendants : on teste donc aussi
+    // si l'enfant lui-même est un <a>.
     const directChildren = block.children;
     let link = null;
 
     for (let i = 0; i < directChildren.length; i++) {
-      const foundLink = directChildren[i].querySelector("a");
+      const child = directChildren[i];
+      const foundLink = child.tagName === "A" ? child : child.querySelector("a");
       if (foundLink) {
         link = foundLink;
         break;

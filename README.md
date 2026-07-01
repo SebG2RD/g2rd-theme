@@ -130,6 +130,7 @@ g2rd-theme/
 ### **1.24.6**
 
 - **Template prestations** : refonte « content-first » de `single-prestations.html` — suppression du hero sombre en haut (le contenu démarre directement sous le header, plus d'espace blanc), ajout d'une navigation article précédent/suivant, conservation des sections « D'autres services » et CTA « Prêts à travailler ensemble ».
+- **Fix articles cliquables** : la détection du lien dans une carte cliquable prend désormais en compte un lien qui est un **enfant direct** du groupe (bloc `read-more`), et plus seulement un lien imbriqué dans un enfant. Rétablit le clic sur les cartes (prestations, portfolio, articles…) dont le lien provient du bloc « Lire la suite ».
 
 ### **1.24.5**
 
