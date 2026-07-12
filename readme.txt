@@ -4,7 +4,7 @@ Tags: full-site-editing, editor-style, block-styles, wide-blocks, custom-colors,
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.24.6
+Stable tag: 1.24.7
 License: EUPL-1.2
 License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 

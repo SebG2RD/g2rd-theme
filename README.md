@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.6** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.7** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.7**
+
+- **Variation de style « Bela Vista »** : nouvelle variation FSE (`styles/bela-vista.json`) — charte pétrole & ciel, typographies Poppins + Dancing Script, boutons pilule. Sélectionnable dans l'éditeur de site.
 
 ### **1.24.6**
 
