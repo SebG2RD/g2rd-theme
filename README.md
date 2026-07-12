@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.7** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.8** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.8**
+
+- **Fix Conteneur G2RD** : correction des layouts **Grille** et **Flex** dont les blocs enfants s'empilaient au lieu de se répartir en colonnes / en ligne. Cause : un double conteneur (wrapper de `save()` + wrapper de `render.php`) et l'imbrication des `InnerBlocks` dans l'éditeur. Le layout s'applique désormais directement aux enfants (`useInnerBlocksProps` + `save()` nu), avec déprécation et déballage compat pour le contenu déjà enregistré.
+- **Variation Bela Vista** : enrichie — polices `@font-face` (Poppins, Dancing Script), presets d'ombres, variation de bouton « outline », spacings alignés sur le thème et feuille `styles.css` d'helpers de mise en page.
 
 ### **1.24.7**
 
