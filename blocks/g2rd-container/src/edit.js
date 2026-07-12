@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import {
 	useBlockProps,
+	useInnerBlocksProps,
 	InspectorControls,
 	InnerBlocks,
 	MediaUpload,
@@ -201,6 +202,16 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		className: `g2rd-container g2rd-container--${ layoutType }`,
 		style:     buildEditorStyle( attributes ),
 	} );
+
+	// useInnerBlocksProps applique le layout (grille/flex) DIRECTEMENT sur le
+	// conteneur des blocs enfants → ils deviennent de vrais items de grille/flex
+	// (sinon <InnerBlocks> les imbrique 2 niveaux plus bas et ils s'empilent).
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		orientation: layoutType === 'flex' && flexDirection === 'column' ? 'vertical' : 'horizontal',
+		renderAppender: InnerBlocks.ButtonBlockAppender,
+	} );
+
+	const Tag = htmlTag || 'div';
 
 	// Helper : set un attribut responsive selon l'appareil actif
 	const setResponsive = ( base, value ) => {
@@ -653,12 +664,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				</TabPanel>
 			</InspectorControls>
 
-			<div { ...blockProps }>
-				<InnerBlocks
-					orientation={ flexDirection === 'column' ? 'vertical' : 'horizontal' }
-					renderAppender={ InnerBlocks.ButtonBlockAppender }
-				/>
-			</div>
+			<Tag { ...innerBlocksProps } />
 		</>
 	);
 }

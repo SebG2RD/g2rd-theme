@@ -265,6 +265,22 @@ if ( 'none' !== $animation ) {
 	$anim_attrs .= ' data-g2rd-animate-easing="' . \esc_attr( $anim_easing ) . '"';
 }
 
+// ─── Compat : déballe l'ancien wrapper de save() ──────────────────────────────
+// Les blocs enregistrés avant le correctif du double wrapper sérialisaient les
+// InnerBlocks dans un <div class="wp-block-g2rd-container"> supplémentaire, ce qui
+// empêchait la grille/flex de s'appliquer aux enfants. On le retire au rendu pour
+// que le contenu existant s'affiche correctement sans réenregistrement.
+// (La classe wp-block-g2rd-container n'est produite que par l'ancien save() ;
+// render.php utilise la classe g2rd-container → aucun risque de faux positif.)
+$trimmed_content = \trim( $content );
+if ( 0 === \strpos( $trimmed_content, '<div class="wp-block-g2rd-container' ) ) {
+	$open_end   = \strpos( $trimmed_content, '>' );
+	$close_last = \strrpos( $trimmed_content, '</div>' );
+	if ( false !== $open_end && false !== $close_last && $close_last > $open_end ) {
+		$content = \substr( $trimmed_content, $open_end + 1, $close_last - $open_end - 1 );
+	}
+}
+
 $css = g2rd_container_build_css( $block_id, $attributes );
 
 printf(
