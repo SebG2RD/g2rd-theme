@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.10** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.11** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.11**
+
+- **Variation Bela Vista** : mise en charte du **formulaire FluentForm** (`.bv-form .fluentform` — labels, champs, focus, checkbox, bouton d'envoi pétrole en pilule, messages succès / erreur) et du **bloc carte** (`.bv-acc .g2rd-map`, coins arrondis). Couleurs 100 % issues de la palette de la variation.
 
 ### **1.24.10**
 
