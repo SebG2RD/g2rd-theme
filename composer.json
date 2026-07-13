@@ -28,7 +28,7 @@
     }
   },
   "extra": {
-    "g2rd_theme_version": "1.24.11"
+    "g2rd_theme_version": "1.24.12"
   },
   "config": {
     "optimize-autoloader": true,

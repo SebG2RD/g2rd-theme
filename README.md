@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.11** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.12** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.12**
+
+- **Conteneur G2RD — Position collante (sticky)** : nouveau panneau **« Position collante »** (onglet *Mise en page*, sous *Dimensions*) permettant de rendre le bloc collant au défilement — il suit le contenu et reste visible dans sa colonne (ex. sommaire latéral), puis s'arrête à la fin de la colonne. Toggle d'activation + **décalage haut** réglable (px/rem/em). Appliqué en aperçu éditeur et en CSS front (`position:sticky`, `align-self:flex-start`), prioritaire sur le `position:relative` de l'overlay.
 
 ### **1.24.11**
 
