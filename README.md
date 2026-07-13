@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.8** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.9** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.9**
+
+- **Variation Bela Vista** : finalisation du style bouton — plus d'ombre au repos, ombre `bela` uniquement au survol (bouton plein et variation « outline ») ; variation outline complète (fond transparent, bordure pétrole pilule, padding / typo alignés). Nouveaux helpers `styles.css` : formulaire (`.bv-form`, `.bv-field`, `.bv-consent`, bouton pleine largeur), légendes (`.bv-legend`), plan (`.bv-plan`), grille 2 colonnes responsive (`.bv-grid2`), titre à mot manuscrit (`.bv-title-script`).
 
 ### **1.24.8**
 
