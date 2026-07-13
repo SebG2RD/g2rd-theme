@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.9** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.10** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.10**
+
+- **Fix Conteneur G2RD (animations)** : les conteneurs avec une animation d'entrée (`fadeInUp`…) restaient **invisibles sur le front** — le CSS les masque (`opacity:0`) en attendant la classe `.g2rd-animated`, mais le script chargé de la poser était absent (aucun `viewScript`). Ajout de `view.js` (`IntersectionObserver` : révèle à l'entrée dans le viewport, applique durée/délai/easing ; repli immédiat en `prefers-reduced-motion`) et déclaration du `viewScript` dans `block.json`.
 
 ### **1.24.9**
 
