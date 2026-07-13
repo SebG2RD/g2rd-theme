@@ -48,6 +48,9 @@
     "minHeight":           { "type": "string",  "default": "" },
     "width":               { "type": "string",  "default": "" },
 
+    "sticky":              { "type": "boolean", "default": false },
+    "stickyTop":           { "type": "string",  "default": "24px" },
+
     "paddingTop":          { "type": "string",  "default": "" },
     "paddingRight":        { "type": "string",  "default": "" },
     "paddingBottom":       { "type": "string",  "default": "" },

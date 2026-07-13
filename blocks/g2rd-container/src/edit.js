@@ -105,6 +105,7 @@ function buildEditorStyle( attrs ) {
 	const { layoutType, flexDirection, flexJustify, flexAlign, flexWrap, flexGap,
 		gridColumns, gridGap, constrainedWidth, paddingTop, paddingRight,
 		paddingBottom, paddingLeft, marginTop, marginBottom, minHeight, width,
+		sticky, stickyTop,
 		bgType, bgColor, bgGradient, bgImageUrl, bgImageSize, bgImagePosition,
 		bgImageRepeat, borderRadius, borderWidth, borderStyle, borderColor, overflow } = attrs;
 
@@ -148,6 +149,16 @@ function buildEditorStyle( attrs ) {
 	}
 	if ( overflow && overflow !== 'visible' ) s.overflow = overflow;
 
+	// Position collante : suit le contenu au scroll (ex. sommaire latéral).
+	// align-self:flex-start évite l'étirement si le parent est en flex/grille
+	// (sinon l'élément remplit toute la hauteur et ne peut pas coller).
+	if ( sticky ) {
+		s.position  = 'sticky';
+		s.top       = stickyTop || '24px';
+		s.alignSelf = 'flex-start';
+		s.zIndex    = 2;
+	}
+
 	switch ( bgType ) {
 		case 'color':    if ( bgColor    ) s.backgroundColor = bgColor;    break;
 		case 'gradient': if ( bgGradient ) s.background      = bgGradient; break;
@@ -177,6 +188,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		gridColumns, gridColumnsTablet, gridColumnsMobile,
 		gridGap, gridGapTablet, gridGapMobile,
 		constrainedWidth, minHeight, width,
+		sticky, stickyTop,
 		paddingTop, paddingRight, paddingBottom, paddingLeft,
 		paddingTopTablet, paddingRightTablet, paddingBottomTablet, paddingLeftTablet,
 		paddingTopMobile, paddingRightMobile, paddingBottomMobile, paddingLeftMobile,
@@ -348,6 +360,26 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					onChange={ ( v ) => setAttributes( { minHeight: v } ) }
 					units={ [ { value: 'px', label: 'px' }, { value: 'vh', label: 'vh' }, { value: 'em', label: 'em' } ] }
 				/>
+			</PanelBody>
+
+			{ /* Position collante (sticky) — suit le contenu au scroll */ }
+			<PanelBody title={ __( 'Position collante', 'g2rd' ) } initialOpen={ false }>
+				<ToggleControl
+					label={ __( 'Rendre collant (sticky)', 'g2rd' ) }
+					help={ __( 'Le bloc suit le contenu au défilement et reste visible dans sa colonne (ex. sommaire latéral).', 'g2rd' ) }
+					checked={ !! sticky }
+					onChange={ ( v ) => setAttributes( { sticky: v } ) }
+					__nextHasNoMarginBottom={ true }
+				/>
+				{ sticky && (
+					<UnitControl
+						label={ __( 'Décalage haut', 'g2rd' ) }
+						value={ stickyTop }
+						onChange={ ( v ) => setAttributes( { stickyTop: v } ) }
+						units={ [ { value: 'px', label: 'px' }, { value: 'rem', label: 'rem' }, { value: 'em', label: 'em' } ] }
+						help={ __( 'Distance depuis le haut de la fenêtre à laquelle le bloc se fige.', 'g2rd' ) }
+					/>
+				) }
 			</PanelBody>
 		</>
 	);

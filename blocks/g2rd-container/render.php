@@ -143,8 +143,18 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 			$rules[] = 'overflow:' . $ov;
 		}
 
-		// ── Position relative si overlay ou border-radius ─────────────────────────
-		if ( ! empty( $attributes['borderRadius'] ) || ! empty( $attributes['bgOverlay'] ) ) {
+		// ── Position collante / relative ──────────────────────────────────────────
+		// La position sticky prime : le bloc suit le contenu au scroll (ex. sommaire
+		// latéral) et s'arrête en fin de colonne. Étant une valeur positionnée, elle
+		// établit aussi le contexte de l'overlay ::before → pas de position:relative
+		// en plus. align-self:flex-start évite l'étirement dans un parent flex/grille.
+		if ( ! empty( $attributes['sticky'] ) ) {
+			$stick_top = \sanitize_text_field( $attributes['stickyTop'] ?? '24px' );
+			$rules[]   = 'position:sticky';
+			$rules[]   = 'top:' . ( '' !== $stick_top ? $stick_top : '24px' );
+			$rules[]   = 'align-self:flex-start';
+			$rules[]   = 'z-index:2';
+		} elseif ( ! empty( $attributes['borderRadius'] ) || ! empty( $attributes['bgOverlay'] ) ) {
 			$rules[] = 'position:relative';
 		}
 
