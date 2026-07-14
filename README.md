@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.12** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.13** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.13**
+
+- **Variation Bela Vista** : ajout du token de couleur **`green-soft`** (`#EAF3EE`) à la palette et de nouveaux helpers CSS — `.bv-anchors` (ancres pilule scrollables), `.bv-toc` (sommaire collant), `.bv-doc` (mise en forme document légal : titres, listes, liens), `.bv-step` / `.bv-num`, `.bv-idcard`, `.bv-resbar` et `.g2rd-breadcrumb`. JSON validé, toutes les références `var(--wp--preset--…)` résolvent.
 
 ### **1.24.12**
 
