@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.13** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.14** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.14**
+
+- **Variation Bela Vista** : header responsive — items de navigation et `.bv-tel` (téléphone) en `white-space:nowrap`, et media query `max-width:1180px` réduisant `font-size`/`gap` de la navigation. Garde le header enrichi (logo + menu + téléphone + bouton) sur une seule ligne, puis le réduit proprement avant le passage en menu mobile.
 
 ### **1.24.13**
 
