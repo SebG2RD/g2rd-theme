@@ -129,7 +129,7 @@ g2rd-theme/
 
 ### **1.24.14**
 
-- **Variation Bela Vista** : header responsive — items de navigation et `.bv-tel` (téléphone) en `white-space:nowrap`, et media query `max-width:1180px` réduisant `font-size`/`gap` de la navigation. Garde le header enrichi (logo + menu + téléphone + bouton) sur une seule ligne, puis le réduit proprement avant le passage en menu mobile.
+- **Variation Bela Vista** : header responsive — items de navigation et `.bv-tel` (téléphone) en `white-space:nowrap`, et media query `max-width:1180px` réduisant `font-size`/`gap` de la navigation. Garde le header enrichi (logo + menu + téléphone + bouton) sur une seule ligne, puis le réduit proprement avant le passage en menu mobile. Barre d'annonce et rangée de navigation (`.bv-promo.alignwide` / nouvelle classe `.bv-nav-row.alignwide`) élargies à `max-width:1560px`.
 
 ### **1.24.13**
 
