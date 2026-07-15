@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.14** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.15** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.15**
+
+- **Accessibilité — deux options indépendantes** : le bouton « retour en haut » est désormais une fonctionnalité distincte du panneau d'accessibilité (nouvelle feature `back_to_top`, activée par défaut). On peut activer l'un sans l'autre depuis l'onglet *Éditeur*.
+- **Couleur des boutons flottants** : nouveau réglage pour choisir la couleur des boutons « accessibilité » et « retour en haut » dans la palette du thème (stockée en slug → `var(--wp--preset--color--slug)`, suit la variation de style active). Section « Couleur des boutons flottants » dans l'onglet *Éditeur*.
+- **Fix panneau d'accessibilité** : le panneau apparaissait en bas du document (au lieu d'être collé au bouton) lorsqu'un ancêtre était transformé (`transform`/`filter`/`will-change`). Bouton et panneau sont désormais solidaires dans un conteneur fixe `.a11y-widget`, le panneau étant ancré au-dessus du bouton. Ajout de fallbacks `--primary`/`--white` pour les variations sans ces slugs.
 
 ### **1.24.14**
 
