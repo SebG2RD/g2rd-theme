@@ -34,6 +34,7 @@ function getIcon( key ) {
 		glass_effect:             'admin-appearance',
 		clickable_articles:       'admin-links',
 		accessibility:            'universal',
+		back_to_top:              'arrow-up-alt2',
 		dark_mode:                'visibility',
 		enable_ai:                'rest-api',
 		patterns_require_license: 'lock',

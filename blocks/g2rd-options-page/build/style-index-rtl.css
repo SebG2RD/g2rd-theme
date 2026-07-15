@@ -464,6 +464,21 @@
 	border-color: var(--g2rd-gold);
 	box-shadow: 0 0 0 2px rgba( 184, 146, 74, 0.25 );
 }
+/* Pastille « couleur par défaut du thème » (valeur vide) */
+.g2rd-swatch--default {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--g2rd-surface, #f1f5f9);
+	border-color: var(--g2rd-border, #e2e8f0);
+	color: var(--g2rd-text-mid, #64748b);
+}
+.g2rd-swatch--default .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+}
 /* ── Features grid ────────────────────────────────────────────── */
 .g2rd-features-grid {
 	display: grid;

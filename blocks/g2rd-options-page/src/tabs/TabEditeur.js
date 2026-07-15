@@ -1,6 +1,7 @@
 import { useCallback } from '@wordpress/element';
 import { ToggleControl } from '@wordpress/components';
 import { FeatureCard } from '../components/FeatureCard';
+import { ColorSlugPicker } from '../components/ColorSlugPicker';
 
 const { features: featureDefs, blocks: blockDefs, licensed } = window.G2RDOptionsData || {};
 
@@ -8,10 +9,12 @@ const { features: featureDefs, blocks: blockDefs, licensed } = window.G2RDOption
 const LICENSE_REQUIRED_FEATURES = [ 'pin_scroll' ];
 const EMPTY_FEATURES = {};
 const EMPTY_BLOCKS   = [];
+const EMPTY_COLORS   = {};
 
 export function TabEditeur( { settings, update } ) {
 	const features       = settings.features       || EMPTY_FEATURES;
 	const disabledBlocks = settings.disabledBlocks || EMPTY_BLOCKS;
+	const colors         = settings.colors         || EMPTY_COLORS;
 
 	const toggleBlock = useCallback( ( blockName, disabled ) => {
 		const next = disabled
@@ -42,6 +45,29 @@ export function TabEditeur( { settings, update } ) {
 							locked={ ! licensed && LICENSE_REQUIRED_FEATURES.includes( key ) }
 						/>
 					) ) }
+				</div>
+			</section>
+
+			<section className="g2rd-section">
+				<h2 className="g2rd-section__title">
+					<span className="dashicons dashicons-art"></span>
+					Couleur des boutons flottants
+				</h2>
+				<p className="g2rd-section__desc">
+					Couleur des boutons « accessibilité » et « retour en haut », choisie
+					dans la palette du thème. « Défaut » utilise la couleur primaire du thème.
+				</p>
+				<div className="g2rd-color-grid">
+					<ColorSlugPicker
+						label="Bouton d'accessibilité"
+						value={ colors.a11y_btn || '' }
+						onChange={ ( slug ) => update( [ 'colors', 'a11y_btn' ], slug ) }
+					/>
+					<ColorSlugPicker
+						label="Bouton retour en haut"
+						value={ colors.top_btn || '' }
+						onChange={ ( slug ) => update( [ 'colors', 'top_btn' ], slug ) }
+					/>
 				</div>
 			</section>
 

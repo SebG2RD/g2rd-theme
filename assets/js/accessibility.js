@@ -238,7 +238,8 @@
     liveRegion.className = "a11y-live";
     panel.appendChild(liveRegion);
 
-    document.body.appendChild(panel);
+    // Ajouté au wrapper .a11y-widget par setupPanel (pas directement au body),
+    // pour rester solidaire du bouton même sous un ancêtre transformé.
     return panel;
   }
 
@@ -318,7 +319,7 @@
         '<circle cx="12" cy="4" r="2" fill="currentColor"/>' +
         '<path d="M16 8H8l-2 6h3l-1 6h8l-1-6h3l-2-6z" fill="currentColor"/>' +
       "</svg>";
-    document.body.appendChild(btn);
+    // Ajouté au wrapper .a11y-widget par setupPanel.
     return btn;
   }
 
@@ -377,8 +378,18 @@
   // ─── Setup du panneau ─────────────────────────────────────────────────────────
 
   function setupPanel() {
+    // Conteneur fixe unique : le bouton et le panneau y vivent ensemble, donc
+    // le panneau reste ancré au bouton même si un ancêtre du body est transformé
+    // (transform/filter/will-change capturent sinon le position:fixed du panneau).
+    var wrapper = document.createElement("div");
+    wrapper.className = "a11y-widget";
+
     var panel = createPanel();
     var floatBtn = createFloatingButton();
+
+    wrapper.appendChild(floatBtn);
+    wrapper.appendChild(panel);
+    document.body.appendChild(wrapper);
 
     function openPanel() {
       panel.classList.add("is-open");
@@ -443,28 +454,38 @@
   function init() {
     if (document.body.classList.contains("wp-admin")) return;
 
-    handleKeyboardNavigation();
-    setupKeyboardShortcuts();
-    handleReducedMotion();
+    // Flags posés par le thème : quels éléments créer. Défaut : les deux (repli
+    // si la config n'est pas injectée, ex. ancien cache).
+    var cfg = window.g2rdA11yConfig || { panel: true, backToTop: true };
 
-    loadState();
+    // ── Panneau d'accessibilité ────────────────────────────────────────────────
+    if (cfg.panel) {
+      handleKeyboardNavigation();
+      setupKeyboardShortcuts();
+      handleReducedMotion();
 
-    var panel = setupPanel();
-    var lvlEl = panel.querySelector(".a11y-text-level");
-    if (lvlEl) lvlEl.textContent = getLevelLabel();
-    applyState(panel);
+      loadState();
 
-    var scrollBtn = createScrollToTopButton();
-    var ticking = false;
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        window.requestAnimationFrame(function () {
-          scrollBtn.hidden = window.scrollY <= 200;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+      var panel = setupPanel();
+      var lvlEl = panel.querySelector(".a11y-text-level");
+      if (lvlEl) lvlEl.textContent = getLevelLabel();
+      applyState(panel);
+    }
+
+    // ── Bouton retour en haut ──────────────────────────────────────────────────
+    if (cfg.backToTop) {
+      var scrollBtn = createScrollToTopButton();
+      var ticking = false;
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            scrollBtn.hidden = window.scrollY <= 200;
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
   }
 
   if (document.readyState === "loading") {

@@ -150,8 +150,12 @@ class ThemeSetup {
         // Styles principaux avec version du thème
         \wp_enqueue_style('main', \get_stylesheet_uri(), [], $this->theme_version);
 
-        // Panneau d'accessibilité — conditionnel selon les options du thème
-        if ( \G2RD\ThemeOptions::isFeatureEnabled( 'accessibility' ) ) {
+        // Panneau d'accessibilité + bouton retour en haut — features indépendantes.
+        // Le CSS/JS est chargé si au moins l'une des deux est activée ; le script
+        // crée ensuite le panneau et/ou le bouton selon les flags g2rdA11yConfig.
+        $a11y_panel  = \G2RD\ThemeOptions::isFeatureEnabled( 'accessibility' );
+        $back_to_top = \G2RD\ThemeOptions::isFeatureEnabled( 'back_to_top' );
+        if ( $a11y_panel || $back_to_top ) {
             \wp_enqueue_style(
                 'g2rd-accessibility',
                 \get_template_directory_uri() . '/assets/css/accessibility.css',
@@ -168,10 +172,34 @@ class ThemeSetup {
             );
             \wp_script_add_data( 'g2rd-accessibility', 'strategy', 'defer' );
 
+            // Flags (types réels via JSON) indiquant quels éléments créer.
+            \wp_add_inline_script(
+                'g2rd-accessibility',
+                'window.g2rdA11yConfig=' . \wp_json_encode( [
+                    'panel'     => (bool) $a11y_panel,
+                    'backToTop' => (bool) $back_to_top,
+                ] ) . ';',
+                'before'
+            );
+
             \wp_localize_script( 'g2rd-accessibility', 'g2rdData', [
                 'ajaxUrl' => \admin_url( 'admin-ajax.php' ),
                 'nonce'   => \wp_create_nonce( 'g2rd-nonce' ),
             ] );
+
+            // Couleur des boutons flottants : variables CSS depuis les slugs de
+            // palette choisis dans les options (vide = couleur par défaut du thème).
+            $btn_colors = \G2RD\ThemeOptions::getFrontButtonColors();
+            $btn_vars   = '';
+            if ( '' !== $btn_colors['a11y_btn'] ) {
+                $btn_vars .= '--g2rd-a11y-accent:var(--wp--preset--color--' . $btn_colors['a11y_btn'] . ');';
+            }
+            if ( '' !== $btn_colors['top_btn'] ) {
+                $btn_vars .= '--g2rd-top-accent:var(--wp--preset--color--' . $btn_colors['top_btn'] . ');';
+            }
+            if ( '' !== $btn_vars ) {
+                \wp_add_inline_style( 'g2rd-accessibility', ':root{' . $btn_vars . '}' );
+            }
         }
     }
 

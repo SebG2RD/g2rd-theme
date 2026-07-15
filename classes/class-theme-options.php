@@ -89,6 +89,16 @@ class ThemeOptions {
         'btn_text_hover' => 'white',
     ];
 
+    /**
+     * Slugs de palette pour la couleur des boutons flottants du front
+     * (panneau d'accessibilité, retour en haut). '' = couleur par défaut du thème.
+     * Stockés dans OPTION_COLORS, sortis en var(--wp--preset--color--{slug}).
+     */
+    private const FRONT_BTN_COLOR_SLUGS = [
+        'a11y_btn' => '',
+        'top_btn'  => '',
+    ];
+
     private const FEATURES = [
         'gsap_animations' => [
             'label'       => 'Animations GSAP',
@@ -109,6 +119,10 @@ class ThemeOptions {
         'accessibility' => [
             'label'       => 'Panneau d\'accessibilité',
             'description' => 'Ajoute un bouton flottant donnant accès aux options d\'accessibilité (taille du texte, contraste, animations, etc.).',
+        ],
+        'back_to_top' => [
+            'label'       => 'Bouton retour en haut',
+            'description' => 'Ajoute un bouton flottant « remonter en haut de la page » qui apparaît au défilement. Indépendant du panneau d\'accessibilité.',
         ],
         'dark_mode' => [
             'label'       => 'Mode sombre (Dark Mode)',
@@ -184,6 +198,22 @@ class ThemeOptions {
             return (bool) $features[ $key ];
         }
         return self::FEATURE_DEFAULTS[ $key ] ?? true;
+    }
+
+    /**
+     * Retourne les slugs de palette choisis pour la couleur des boutons
+     * flottants du front (panneau d'accessibilité, retour en haut).
+     * Valeur '' = couleur par défaut du thème.
+     *
+     * @return array<string, string> ['a11y_btn' => slug, 'top_btn' => slug]
+     */
+    public static function getFrontButtonColors(): array {
+        $colors = (array) \get_option( self::OPTION_COLORS, [] );
+        $out    = [];
+        foreach ( \array_keys( self::FRONT_BTN_COLOR_SLUGS ) as $slot ) {
+            $out[ $slot ] = \sanitize_html_class( (string) ( $colors[ $slot ] ?? '' ) );
+        }
+        return $out;
     }
 
     /**
@@ -417,6 +447,13 @@ class ThemeOptions {
                 ? $submitted
                 : self::DEFAULT_COLOR_SLUGS[ $slot ];
         }
+        // Couleurs des boutons flottants du front : slug valide OU '' (défaut thème).
+        foreach ( \array_keys( self::FRONT_BTN_COLOR_SLUGS ) as $slot ) {
+            $submitted       = \sanitize_text_field( (string) ( $colors_raw[ $slot ] ?? '' ) );
+            $colors[ $slot ] = ( '' === $submitted || \in_array( $submitted, $valid_slugs, true ) )
+                ? $submitted
+                : '';
+        }
         \update_option( self::OPTION_COLORS, $colors );
 
         // --- CPTs ---
@@ -491,10 +528,29 @@ class ThemeOptions {
 
     /** Retourne toutes les options actuelles sous forme normalisée. */
     private function get_current_settings(): array {
+        // Fonctionnalités : fusionne les valeurs sauvegardées avec les défauts
+        // effectifs (défaut ON sauf FEATURE_DEFAULTS) afin que les toggles React
+        // reflètent l'état réel, y compris pour une feature jamais sauvegardée.
+        $saved_features = (array) \get_option( self::OPTION_FEATURES, [] );
+        $features       = [];
+        foreach ( \array_keys( self::FEATURES ) as $key ) {
+            $features[ $key ] = \array_key_exists( $key, $saved_features )
+                ? (int) ( ! empty( $saved_features[ $key ] ) )
+                : (int) ( self::FEATURE_DEFAULTS[ $key ] ?? true );
+        }
+
+        // Couleurs : garantit la présence des slots boutons flottants du front.
+        $colors = (array) \get_option( self::OPTION_COLORS, self::DEFAULT_COLOR_SLUGS );
+        foreach ( \array_keys( self::FRONT_BTN_COLOR_SLUGS ) as $slot ) {
+            if ( ! \array_key_exists( $slot, $colors ) ) {
+                $colors[ $slot ] = self::FRONT_BTN_COLOR_SLUGS[ $slot ];
+            }
+        }
+
         return [
-            'features'       => (array) \get_option( self::OPTION_FEATURES, [] ),
+            'features'       => $features,
             'disabledBlocks' => (array) \get_option( self::OPTION_BLOCKS, [] ),
-            'colors'         => (array) \get_option( self::OPTION_COLORS, self::DEFAULT_COLOR_SLUGS ),
+            'colors'         => $colors,
             'cpts'           => (array) \get_option( self::OPTION_CPTS, [] ),
             'comingSoon'     => (array) \get_option( self::OPTION_COMING_SOON, [ 'enabled' => false, 'page_id' => 0 ] ),
             'businessType'   => (string) \get_option( 'g2rd_business_type', '' ),

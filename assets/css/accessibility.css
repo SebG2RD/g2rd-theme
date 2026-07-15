@@ -96,7 +96,7 @@
   color: #fff !important;
 }
 
-.a11y-high-contrast *:not(script):not(style):not(.a11y-panel):not(.a11y-panel *):not(.a11y-float-btn):not(.a11y-scroll-top) {
+.a11y-high-contrast *:not(script):not(style):not(.a11y-widget):not(.a11y-panel):not(.a11y-panel *):not(.a11y-float-btn):not(.a11y-scroll-top) {
   background-color: #000 !important;
   color: #fff !important;
   border-color: #fff !important;
@@ -189,18 +189,28 @@ html:has(body.a11y-grayscale) {
 
 /* ─── Bouton flottant ────────────────────────────────────────────────────────── */
 
-.a11y-float-btn {
+/* Conteneur fixe unique (bouton + panneau) — les deux restent solidaires même
+   sous un ancêtre transformé (transform/filter/will-change capturent sinon le
+   position:fixed du panneau et l'envoient en bas du document). */
+.a11y-widget {
   position: fixed;
   bottom: 32px;
   left: 32px;
   z-index: 10000;
-  background: var(--wp--preset--color--primary);
-  color: var(--wp--preset--color--white);
+}
+
+.a11y-float-btn {
+  /* Couleur pilotée par les options du thème (slug de palette) → var CSS.
+     Repli : couleur primaire du thème, puis navy neutre. */
+  --_accent: var(--g2rd-a11y-accent, var(--wp--preset--color--primary, #0f172a));
+  position: relative;
+  background: var(--_accent);
+  color: var(--wp--preset--color--white, #fff);
   border: none;
   border-radius: 50%;
   width: 52px;
   height: 52px;
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--_accent) 22%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,8 +228,8 @@ html:has(body.a11y-grayscale) {
 
 .a11y-float-btn:hover,
 .a11y-float-btn:focus-visible {
-  background: var(--wp--custom--color--primaryhover, #1e3a5f);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--wp--preset--color--primary) 28%, transparent);
+  background: color-mix(in srgb, var(--_accent) 85%, #000);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--_accent) 28%, transparent);
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
@@ -227,17 +237,20 @@ html:has(body.a11y-grayscale) {
 /* ─── Scroll to top ──────────────────────────────────────────────────────────── */
 
 .a11y-scroll-top {
+  /* Couleur pilotée par les options du thème (slug de palette) → var CSS.
+     Repli : couleur primaire du thème, puis navy neutre. */
+  --_accent: var(--g2rd-top-accent, var(--wp--preset--color--primary, #0f172a));
   position: fixed;
   bottom: 32px;
   right: 32px;
   z-index: 10000;
-  background: var(--wp--preset--color--primary);
-  color: var(--wp--preset--color--white);
+  background: var(--_accent);
+  color: var(--wp--preset--color--white, #fff);
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   width: 52px;
   height: 52px;
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--wp--preset--color--primary) 22%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--_accent) 22%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,8 +271,8 @@ html:has(body.a11y-grayscale) {
 
 .a11y-scroll-top:hover,
 .a11y-scroll-top:focus-visible {
-  background: var(--wp--custom--color--primaryhover, #1e3a5f);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--wp--preset--color--primary) 28%, transparent);
+  background: color-mix(in srgb, var(--_accent) 85%, #000);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--_accent) 28%, transparent);
   outline: 3px solid #fff;
   outline-offset: 2px;
 }
@@ -267,10 +280,12 @@ html:has(body.a11y-grayscale) {
 /* ─── Panneau d'accessibilité ────────────────────────────────────────────────── */
 
 .a11y-panel {
-  position: fixed;
-  bottom: 96px;
-  left: 16px;
-  z-index: 9999;
+  /* Ancré au-dessus du bouton, dans le wrapper .a11y-widget (position:fixed).
+     Reste donc collé au bouton quel que soit le contexte de positionnement. */
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  z-index: 1;
   width: 300px;
   max-width: calc(100vw - 32px);
   max-height: calc(100vh - 120px);
@@ -531,18 +546,15 @@ html:has(body.a11y-grayscale) {
 /* ─── Mobile ─────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 480px) {
-  .a11y-panel {
-    left: 8px;
-    right: 8px;
-    width: auto;
-    max-width: none;
-    bottom: 80px;
-    max-height: calc(100vh - 100px);
-  }
-
-  .a11y-float-btn {
+  .a11y-widget {
     bottom: 16px;
     left: 16px;
+  }
+
+  .a11y-panel {
+    width: calc(100vw - 32px);
+    max-width: none;
+    max-height: calc(100vh - 100px);
   }
 
   .a11y-scroll-top {
