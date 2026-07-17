@@ -94,14 +94,16 @@ export default function Edit({ attributes, setAttributes }) {
       </BlockControls>
 
       <InspectorControls>
-        <PanelBody title={__("Textes animés", "g2rd")} initialOpen={true}>
+        {/* Onglet « Réglages » › Contenu : textes animés + texte avant / après */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
+          <p className="g2rd-control-label">{__("Textes animés", "g2rd")}</p>
           <TextareaControl
             label={__("Ajouter un nouveau texte", "g2rd")}
             value={newString}
             onChange={setNewString}
             placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}
             __nextHasNoMarginBottom
-placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
+          />
           <Button
             variant="primary"
             onClick={addString}
@@ -142,9 +144,8 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
               </div>
             ))}
           </div>
-        </PanelBody>
 
-        <PanelBody title={__("Texte avant/après", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Texte avant / après", "g2rd")}</p>
           <TextControl
             label={__("Texte avant l'animation", "g2rd")}
             value={textBefore}
@@ -163,10 +164,9 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
           />
         </PanelBody>
 
-        <PanelBody
-          title={__("Paramètres d'animation", "g2rd")}
-          initialOpen={false}
-        >
+        {/* Onglet « Réglages » › Comportement : animation, curseur et options avancées */}
+        <PanelBody title={__("Comportement", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Animation", "g2rd")}</p>
           <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Vitesse de frappe", "g2rd")}
             value={typeSpeed}
@@ -218,9 +218,8 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             checked={shuffle}
             onChange={() => setAttributes({ shuffle: !shuffle })}
           />
-        </PanelBody>
 
-        <PanelBody title={__("Curseur", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Curseur", "g2rd")}</p>
           <ToggleControl
             label={__("Afficher le curseur", "g2rd")}
             checked={showCursor}
@@ -234,9 +233,8 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
             __nextHasNoMarginBottom
             disabled={!showCursor}
           />
-        </PanelBody>
 
-        <PanelBody title={__("Options avancées", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Options avancées", "g2rd")}</p>
           <ToggleControl
             label={__("Effacement intelligent", "g2rd")}
             checked={smartBackspace}
@@ -280,8 +278,12 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
           />
         </PanelBody>
 
+      </InspectorControls>
+
+      {/* Onglet « Styles » : couleurs personnalisées (distinctes du support natif). */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           initialOpen={false}
           colorSettings={[
             {
@@ -289,6 +291,12 @@ placeholder={__("Entrez un nouveau texte à animer...", "g2rd")}/>
               onChange: (value) => setAttributes({ textColor: value || "inherit" }),
               label: __("Couleur du texte", "g2rd"),
             },
+          ]}
+        />
+        <PanelColorSettings
+          title={__("Arrière-plan", "g2rd")}
+          initialOpen={false}
+          colorSettings={[
             {
               value: backgroundColor !== "transparent" ? backgroundColor : undefined,
               onChange: (value) => setAttributes({ backgroundColor: value || "transparent" }),
