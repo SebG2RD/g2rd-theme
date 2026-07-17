@@ -13,9 +13,34 @@
 
 // ─── Helpers (définis avant le rendu pour éviter les appels avant déclaration) ─
 
+if ( ! function_exists( 'g2rd_css_value' ) ) :
+	/**
+	 * Assainit une valeur CSS provenant des attributs du bloc.
+	 *
+	 * sanitize_text_field() retire les balises mais laisse passer { } ; @ : de quoi
+	 * fermer la déclaration en cours et injecter des règles arbitraires dans le
+	 * <style> du bloc. Un Auteur/Contributeur n'ayant pas la capacité
+	 * unfiltered_html, ce serait un contournement de KSES. Toute valeur contenant
+	 * un caractère de structure CSS est donc refusée plutôt que réécrite.
+	 *
+	 * Les valeurs légitimes (12px, 100%, calc(100% - 1rem), rgba(0,0,0,.5),
+	 * linear-gradient(...), var(--wp--preset--color--x)) passent sans modification.
+	 *
+	 * @param mixed $value Valeur brute issue des attributs du bloc.
+	 * @return string Valeur sûre, ou '' si refusée.
+	 */
+	function g2rd_css_value( $value ): string {
+		$value = \sanitize_text_field( (string) $value );
+		if ( '' === $value || \preg_match( '/[{};<>@\\\\]/', $value ) ) {
+			return '';
+		}
+		return $value;
+	}
+endif;
+
 if ( ! function_exists( 'g2rd_add_css_prop' ) ) :
 	/**
-	 * Ajoute une propriété CSS à un tableau de règles si la valeur est non vide.
+	 * Ajoute une propriété CSS à un tableau de règles si la valeur est sûre et non vide.
 	 *
 	 * @param array  $rules    Tableau de règles CSS modifié par référence.
 	 * @param string $property Propriété CSS.
@@ -23,7 +48,7 @@ if ( ! function_exists( 'g2rd_add_css_prop' ) ) :
 	 * @return void
 	 */
 	function g2rd_add_css_prop( array &$rules, string $property, string $value ): void {
-		$value = \sanitize_text_field( $value );
+		$value = g2rd_css_value( $value );
 		if ( '' !== $value ) {
 			$rules[] = $property . ':' . $value;
 		}
@@ -78,7 +103,7 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 
 		// ── Contraint (max-width centré) ──────────────────────────────────────────
 		if ( 'constrained' === $layout ) {
-			$cw = \sanitize_text_field( $attributes['constrainedWidth'] ?? '1200px' );
+			$cw = g2rd_css_value( $attributes['constrainedWidth'] ?? '1200px' );
 			if ( $cw ) {
 				$rules[] = 'max-width:' . $cw;
 				$rules[] = 'margin-left:auto';
@@ -105,7 +130,7 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 				g2rd_add_css_prop( $rules, 'background-color', $attributes['bgColor'] ?? '' );
 				break;
 			case 'gradient':
-				$grad = \sanitize_text_field( $attributes['bgGradient'] ?? '' );
+				$grad = g2rd_css_value( $attributes['bgGradient'] ?? '' );
 				if ( $grad ) {
 					$rules[] = 'background:' . $grad;
 				}
@@ -122,7 +147,10 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 		}
 		// Overlay via ::before
 		if ( ! empty( $attributes['bgOverlay'] ) ) {
-			$overlay_color = \sanitize_text_field( $attributes['bgOverlayColor'] ?? 'rgba(0,0,0,0.5)' );
+			$overlay_color = g2rd_css_value( $attributes['bgOverlayColor'] ?? '' );
+			if ( '' === $overlay_color ) {
+				$overlay_color = 'rgba(0,0,0,0.5)';
+			}
 			$media['overlay'] = $sel . '{position:relative}' .
 				$sel . '::before{content:"";position:absolute;inset:0;background:' . $overlay_color . ';pointer-events:none;z-index:0}' .
 				$sel . '>*{position:relative;z-index:1}';
@@ -130,16 +158,21 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 
 		// ── Bordure ───────────────────────────────────────────────────────────────
 		g2rd_add_css_prop( $rules, 'border-radius', $attributes['borderRadius'] ?? '' );
-		$bw    = \sanitize_text_field( $attributes['borderWidth'] ?? '' );
-		$bs    = \sanitize_text_field( $attributes['borderStyle'] ?? 'solid' );
-		$bc    = \sanitize_text_field( $attributes['borderColor'] ?? '' );
+		$bw = g2rd_css_value( $attributes['borderWidth'] ?? '' );
+		$bc = g2rd_css_value( $attributes['borderColor'] ?? '' );
+		// borderStyle est une énumération de l'éditeur : liste blanche plutôt que filtre.
+		$bs = \sanitize_text_field( (string) ( $attributes['borderStyle'] ?? 'solid' ) );
+		if ( ! \in_array( $bs, [ 'solid', 'dashed', 'dotted', 'double' ], true ) ) {
+			$bs = 'solid';
+		}
 		if ( $bw && $bc ) {
 			$rules[] = 'border:' . $bw . ' ' . $bs . ' ' . $bc;
 		}
 
 		// ── Overflow ──────────────────────────────────────────────────────────────
-		$ov = \sanitize_text_field( $attributes['overflow'] ?? 'visible' );
-		if ( 'visible' !== $ov ) {
+		// Énumération de l'éditeur : liste blanche.
+		$ov = \sanitize_text_field( (string) ( $attributes['overflow'] ?? 'visible' ) );
+		if ( \in_array( $ov, [ 'hidden', 'auto' ], true ) ) {
 			$rules[] = 'overflow:' . $ov;
 		}
 
@@ -149,7 +182,7 @@ if ( ! function_exists( 'g2rd_container_build_css' ) ) :
 		// établit aussi le contexte de l'overlay ::before → pas de position:relative
 		// en plus. align-self:flex-start évite l'étirement dans un parent flex/grille.
 		if ( ! empty( $attributes['sticky'] ) ) {
-			$stick_top = \sanitize_text_field( $attributes['stickyTop'] ?? '24px' );
+			$stick_top = g2rd_css_value( $attributes['stickyTop'] ?? '' );
 			$rules[]   = 'position:sticky';
 			$rules[]   = 'top:' . ( '' !== $stick_top ? $stick_top : '24px' );
 			$rules[]   = 'align-self:flex-start';
@@ -299,6 +332,6 @@ printf(
 	\esc_attr( $block_id ),
 	\esc_attr( \implode( ' ', $classes ) ),
 	$anim_attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — attributs pré-échappés
-	$css ? '<style>' . $css . '</style>' : '', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — CSS généré et validé
+	$css ? '<style>' . $css . '</style>' : '', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — CSS : chaque valeur issue des attributs passe par g2rd_css_value() (refuse { } ; @ < > \) ou une liste blanche ; sélecteurs et propriétés sont internes
 	$content // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — HTML des InnerBlocks
 );
