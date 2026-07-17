@@ -236,19 +236,36 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	return (
 		<>
-			<TypographySizePanel
-				elements={ [
-					{
-						label:    __( "Libellés", "g2rd" ),
-						value:    labelFontSize,
-						onChange: ( v ) => setAttributes( { labelFontSize: v ?? "" } ),
-					},
-				] }
-			/>
-
+			{ /* ── Onglet « Réglages » ─────────────────────────────────── */ }
 			<InspectorControls>
 
-				{ /* Type de graphique */ }
+				{ /* Contenu : titre et éléments affichés sur le graphique */ }
+				<PanelBody title={ __( "Contenu", "g2rd" ) } initialOpen={ true }>
+					<TextControl
+						label={ __( "Titre du graphique", "g2rd" ) }
+						value={ chartTitle }
+						onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
+					<ToggleControl
+						label={ __( "Afficher la légende", "g2rd" ) }
+						checked={ showLegend }
+						onChange={ ( v ) => setAttributes( { showLegend: v } ) }
+						__nextHasNoMarginBottom
+					/>
+					<ToggleControl
+						label={ __( "Afficher la grille", "g2rd" ) }
+						checked={ showGrid }
+						onChange={ ( v ) => setAttributes( { showGrid: v } ) }
+						__nextHasNoMarginBottom
+					/>
+				</PanelBody>
+
+				{ /* ── Panneaux de domaine (config métier du graphique) —
+				     placés APRÈS les panneaux du vocabulaire, cf. standard ── */ }
+
+				{ /* Type de graphique et ses paramètres de forme */ }
 				<PanelBody title={ __( "Type de graphique", "g2rd" ) } initialOpen={ true }>
 					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Type", "g2rd" ) }
@@ -264,23 +281,25 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 						onChange={ ( v ) => setAttributes( { chartType: v } ) }
 					/>
-					<TextControl
-						label={ __( "Titre du graphique", "g2rd" ) }
-						value={ chartTitle }
-						onChange={ ( v ) => setAttributes( { chartTitle: v } ) }
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-					/>
-					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={ __( "Hauteur (px)", "g2rd" ) }
-						value={ chartHeight }
-						onChange={ ( v ) => setAttributes( { chartHeight: v } ) }
-						min={ 150 } max={ 700 }
-						__nextHasNoMarginBottom
-					/>
+					{ ( chartType === "line" || chartType === "area" ) && (
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+							label={ __( "Courbure de la ligne (%)", "g2rd" ) }
+							value={ tension }
+							onChange={ ( v ) => setAttributes( { tension: v } ) }
+							min={ 0 } max={ 100 }
+						/>
+					) }
+					{ chartType === "bar-horizontal-spec" && (
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+							label={ __( "Valeur maximale (specs)", "g2rd" ) }
+							value={ specMaxValue }
+							onChange={ ( v ) => setAttributes( { specMaxValue: v } ) }
+							min={ 10 } max={ 1000 }
+						/>
+					) }
 				</PanelBody>
 
-				{ /* Données */ }
+				{ /* Données : étiquettes */ }
 				<PanelBody title={ __( "Étiquettes (axe X / catégories)", "g2rd" ) } initialOpen={ true }>
 					<TextareaControl
 						label={ __( "Une étiquette par ligne", "g2rd" ) }
@@ -291,7 +310,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 
-				{ /* Datasets */ }
+				{ /* Données : séries */ }
 				<PanelBody title={ __( "Séries de données", "g2rd" ) } initialOpen={ true }>
 					{ datasets.map( ( ds, dsIdx ) => (
 						<div key={ dsIdx } style={ { border: "1px solid #e0e0e0", borderRadius: "4px", padding: "10px", marginBottom: "10px" } }>
@@ -341,26 +360,13 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
-				{ /* Options d'affichage */ }
-				<PanelBody title={ __( "Options d'affichage", "g2rd" ) } initialOpen={ false }>
-					<ToggleControl label={ __( "Afficher la légende", "g2rd" ) }  checked={ showLegend }  onChange={ ( v ) => setAttributes( { showLegend: v } ) }  __nextHasNoMarginBottom />
-					<ToggleControl label={ __( "Afficher la grille", "g2rd" ) }   checked={ showGrid }    onChange={ ( v ) => setAttributes( { showGrid: v } ) }    __nextHasNoMarginBottom />
-					{ ( chartType === "bar" || chartType === "stacked" ) && (
-						<>
-							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Arrondi des barres (px)", "g2rd" ) } value={ borderRadius } onChange={ ( v ) => setAttributes( { borderRadius: v } ) } min={ 0 } max={ 20 } __nextHasNoMarginBottom />
-						</>
-					) }
-					{ ( chartType === "line" || chartType === "area" ) && (
-						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Courbure de la ligne (%)", "g2rd" ) } value={ tension } onChange={ ( v ) => setAttributes( { tension: v } ) } min={ 0 } max={ 100 } __nextHasNoMarginBottom />
-					) }
-					{ chartType === "bar-horizontal-spec" && (
-						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Valeur maximale (specs)", "g2rd" ) } value={ specMaxValue } onChange={ ( v ) => setAttributes( { specMaxValue: v } ) } min={ 10 } max={ 1000 } __nextHasNoMarginBottom />
-					) }
-				</PanelBody>
+			</InspectorControls>
 
-				{ /* Couleurs */ }
+			{ /* ── Onglet « Styles » ───────────────────────────────────── */ }
+			<InspectorControls group="styles">
+				{ /* Couleur : étiquettes et grille */ }
 				<PanelColorSettings
-					title={ __( "Couleurs", "g2rd" ) }
+					title={ __( "Couleur", "g2rd" ) }
 					initialOpen={ false }
 					colorSettings={ [
 						{
@@ -373,6 +379,13 @@ export default function Edit( { attributes, setAttributes } ) {
 							onChange: ( v ) => setAttributes( { gridColor: v } ),
 							label: __( "Grille", "g2rd" ),
 						},
+					] }
+				/>
+				{ /* Arrière-plan : fond du bloc */ }
+				<PanelColorSettings
+					title={ __( "Arrière-plan", "g2rd" ) }
+					initialOpen={ false }
+					colorSettings={ [
 						{
 							value: backgroundColor,
 							onChange: ( v ) => setAttributes( { backgroundColor: v } ),
@@ -380,7 +393,40 @@ export default function Edit( { attributes, setAttributes } ) {
 						},
 					] }
 				/>
+			</InspectorControls>
 
+			{ /* Typographie (panneau partagé, rendu dans group="styles") */ }
+			<TypographySizePanel
+				elements={ [
+					{
+						label:    __( "Libellés", "g2rd" ),
+						value:    labelFontSize,
+						onChange: ( v ) => setAttributes( { labelFontSize: v ?? "" } ),
+					},
+				] }
+			/>
+
+			<InspectorControls group="styles">
+				{ /* Dimensions : hauteur du graphique */ }
+				<PanelBody title={ __( "Dimensions", "g2rd" ) } initialOpen={ false }>
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={ __( "Hauteur (px)", "g2rd" ) }
+						value={ chartHeight }
+						onChange={ ( v ) => setAttributes( { chartHeight: v } ) }
+						min={ 150 } max={ 700 }
+					/>
+				</PanelBody>
+				{ /* Bordure : arrondi des barres (uniquement pour les types à barres) */ }
+				{ ( chartType === "bar" || chartType === "stacked" ) && (
+					<PanelBody title={ __( "Bordure", "g2rd" ) } initialOpen={ false }>
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+							label={ __( "Arrondi des barres (px)", "g2rd" ) }
+							value={ borderRadius }
+							onChange={ ( v ) => setAttributes( { borderRadius: v } ) }
+							min={ 0 } max={ 20 }
+						/>
+					</PanelBody>
+				) }
 			</InspectorControls>
 
 			{ /* ──────────── Rendu éditeur ──────────── */ }
