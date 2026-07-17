@@ -13,7 +13,6 @@ import {
 import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
-  SelectControl,
   RangeControl,
   TextControl,
   ToggleControl,
@@ -22,6 +21,8 @@ import {
   MenuGroup,
   MenuItem,
   __experimentalNumberControl as NumberControl,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 
 const iconCategories = {
@@ -328,48 +329,10 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
-      <TypographySizePanel
-        elements={ [
-          {
-            label: __( 'Chiffre', 'g2rd' ),
-            value: numberFontSize,
-            onChange: ( v ) => setAttributes( { numberFontSize: v } ),
-          },
-          {
-            label: __( 'Titre', 'g2rd' ),
-            value: titleFontSize,
-            onChange: ( v ) => setAttributes( { titleFontSize: v } ),
-          },
-        ] }
-      />
+      {/* ── Onglet « Réglages » ─────────────────────────────────────────── */}
       <InspectorControls>
-        <PanelBody title={__("Général", "g2rd")} initialOpen={true}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Disposition", "g2rd")}
-            value={layout}
-            options={[
-              { label: __("Chiffre", "g2rd"), value: "number" },
-              { label: __("Cercle", "g2rd"),  value: "circle" },
-              { label: __("Barre", "g2rd"),   value: "bar" },
-            ]}
-            onChange={(value) => setAttributes({ layout: value })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Alignement", "g2rd")}
-            value={alignment}
-            options={[
-              { label: __("Gauche", "g2rd"),  value: "left" },
-              { label: __("Centre", "g2rd"),  value: "center" },
-              { label: __("Droite", "g2rd"),  value: "right" },
-            ]}
-            onChange={(value) => setAttributes({ alignment: value })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-
+        {/* Contenu : valeurs, formatage et média affiché */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
           <NumberControl
             label={__("Nombre de départ", "g2rd")}
             value={startingNumber}
@@ -386,7 +349,7 @@ export default function Edit({ attributes, setAttributes }) {
             }
           />
 
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+          <RangeControl
             label={__("Décimales", "g2rd")}
             value={decimalPlaces}
             onChange={(value) => setAttributes({ decimalPlaces: value })}
@@ -402,8 +365,6 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => setAttributes({ numberPrefix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
           />
 
           <TextControl
@@ -412,36 +373,32 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => setAttributes({ numberSuffix: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
           />
 
-          <NumberControl
-            label={__("Durée de l'animation (ms)", "g2rd")}
-            value={animationDuration}
-            onChange={(value) =>
-              setAttributes({ animationDuration: parseFloat(value) || 2000 })
-            }
-            min={500}
-            max={10000}
-            step={100}
-          />
-
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          {/* Choix parmi 3 → ToggleGroupControl (même attribut et mêmes
+              valeurs que l'ancien SelectControl) */}
+          <ToggleGroupControl
             label={__("Séparateur de milliers", "g2rd")}
             value={thousands}
-            options={[
-              { label: __("Virgule", "g2rd"), value: "comma" },
-              { label: __("Espace", "g2rd"),  value: "space" },
-              { label: __("Aucun", "g2rd"),   value: "none" },
-            ]}
             onChange={(value) => setAttributes({ thousands: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
-        </PanelBody>
+          >
+            <ToggleGroupControlOption
+              value="comma"
+              label={__("Virgule", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="space"
+              label={__("Espace", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="none"
+              label={__("Aucun", "g2rd")}
+            />
+          </ToggleGroupControl>
 
-        <PanelBody title={__("Icône / Image", "g2rd")} initialOpen={false}>
           <ToggleControl
             label={__("Activer icône/image", "g2rd")}
             checked={enableIcon}
@@ -451,55 +408,28 @@ export default function Edit({ attributes, setAttributes }) {
 
           {enableIcon && (
             <>
-              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={__("Position", "g2rd")}
-                value={iconPosition}
-                options={[
-                  { label: __("Haut", "g2rd"),   value: "top" },
-                  { label: __("Bas", "g2rd"),    value: "bottom" },
-                  { label: __("Gauche", "g2rd"), value: "left" },
-                  { label: __("Droite", "g2rd"), value: "right" },
-                ]}
-                onChange={(value) => setAttributes({ iconPosition: value })}
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-
-              <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+              {/* Choix parmi 2 → ToggleGroupControl */}
+              <ToggleGroupControl
                 label={__("Type de média", "g2rd")}
                 value={mediaType}
-                options={[
-                  { label: __("Icône", "g2rd"), value: "icon" },
-                  { label: __("Image", "g2rd"), value: "image" },
-                ]}
                 onChange={(value) => setAttributes({ mediaType: value })}
+                isBlock
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
-              />
-
-              {mediaType === "icon" && (
-                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-                  label={__("Taille de l'icône (px)", "g2rd")}
-                  value={iconSize}
-                  onChange={(value) => setAttributes({ iconSize: value })}
-                  min={16}
-                  max={128}
-                  __next40pxDefaultSize
-                  __nextHasNoMarginBottom
+              >
+                <ToggleGroupControlOption
+                  value="icon"
+                  label={__("Icône", "g2rd")}
                 />
-              )}
-              {mediaType === "image" && (
-                <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-                  label={__("Taille de l'image (px)", "g2rd")}
-                  value={imageSize}
-                  onChange={(value) => setAttributes({ imageSize: value })}
-                  min={16}
-                  max={256}
-                  __next40pxDefaultSize
-                  __nextHasNoMarginBottom
+                <ToggleGroupControlOption
+                  value="image"
+                  label={__("Image", "g2rd")}
                 />
-              )}
+              </ToggleGroupControl>
 
+              {/* Sélecteur d'icône : DropdownMenu conservé (plus de 40 icônes
+                  avec aperçu visuel par catégorie — un SelectControl perdrait
+                  l'aperçu des dashicons) */}
               {mediaType === "icon" && (
                 <DropdownMenu
                   icon={
@@ -567,30 +497,90 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
-        <PanelBody title={__("Nombre", "g2rd")} initialOpen={false}>
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Marge droite du préfixe", "g2rd")}
-            value={prefixRightMargin}
-            onChange={(value) => setAttributes({ prefixRightMargin: value })}
-            min={0}
-            max={50}
+        {/* Mise en page : disposition, alignement, position du média */}
+        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
+          {/* Choix parmi 3 → ToggleGroupControl */}
+          <ToggleGroupControl
+            label={__("Disposition", "g2rd")}
+            value={layout}
+            onChange={(value) => setAttributes({ layout: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption
+              value="number"
+              label={__("Chiffre", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="circle"
+              label={__("Cercle", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="bar"
+              label={__("Barre", "g2rd")}
+            />
+          </ToggleGroupControl>
 
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Marge gauche du suffixe", "g2rd")}
-            value={suffixLeftMargin}
-            onChange={(value) => setAttributes({ suffixLeftMargin: value })}
-            min={0}
-            max={50}
+          {/* Choix parmi 3 → ToggleGroupControl */}
+          <ToggleGroupControl
+            label={__("Alignement", "g2rd")}
+            value={alignment}
+            onChange={(value) => setAttributes({ alignment: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption
+              value="left"
+              label={__("Gauche", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="center"
+              label={__("Centre", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="right"
+              label={__("Droite", "g2rd")}
+            />
+          </ToggleGroupControl>
+
+          {/* Choix parmi 4 → ToggleGroupControl */}
+          {enableIcon && (
+            <ToggleGroupControl
+              label={__("Position de l'icône/image", "g2rd")}
+              value={iconPosition}
+              onChange={(value) => setAttributes({ iconPosition: value })}
+              isBlock
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            >
+              <ToggleGroupControlOption
+                value="top"
+                label={__("Haut", "g2rd")}
+              />
+              <ToggleGroupControlOption
+                value="bottom"
+                label={__("Bas", "g2rd")}
+              />
+              <ToggleGroupControlOption
+                value="left"
+                label={__("Gauche", "g2rd")}
+              />
+              <ToggleGroupControlOption
+                value="right"
+                label={__("Droite", "g2rd")}
+              />
+            </ToggleGroupControl>
+          )}
         </PanelBody>
+      </InspectorControls>
 
+      {/* ── Onglet « Styles » ───────────────────────────────────────────── */}
+      <InspectorControls group="styles">
+        {/* Couleur : nombre, titre, icône */}
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           colorSettings={[
             {
               value: numberColor,
@@ -611,6 +601,12 @@ export default function Edit({ attributes, setAttributes }) {
                   },
                 ]
               : []),
+          ]}
+        />
+        {/* Arrière-plan : fond du bloc */}
+        <PanelColorSettings
+          title={__("Arrière-plan", "g2rd")}
+          colorSettings={[
             {
               value: backgroundColor,
               onChange: (value) => setAttributes({ backgroundColor: value }),
@@ -618,6 +614,88 @@ export default function Edit({ attributes, setAttributes }) {
             },
           ]}
         />
+      </InspectorControls>
+
+      {/* Typographie (panneau partagé, rendu dans group="styles") */}
+      <TypographySizePanel
+        elements={ [
+          {
+            label: __( 'Chiffre', 'g2rd' ),
+            value: numberFontSize,
+            onChange: ( v ) => setAttributes( { numberFontSize: v } ),
+          },
+          {
+            label: __( 'Titre', 'g2rd' ),
+            value: titleFontSize,
+            onChange: ( v ) => setAttributes( { titleFontSize: v } ),
+          },
+        ] }
+      />
+
+      <InspectorControls group="styles">
+        {/* Dimensions : marges du préfixe/suffixe et taille du média */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl
+            label={__("Marge droite du préfixe", "g2rd")}
+            value={prefixRightMargin}
+            onChange={(value) => setAttributes({ prefixRightMargin: value })}
+            min={0}
+            max={50}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+
+          <RangeControl
+            label={__("Marge gauche du suffixe", "g2rd")}
+            value={suffixLeftMargin}
+            onChange={(value) => setAttributes({ suffixLeftMargin: value })}
+            min={0}
+            max={50}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+
+          {enableIcon && mediaType === "icon" && (
+            <RangeControl
+              label={__("Taille de l'icône (px)", "g2rd")}
+              value={iconSize}
+              onChange={(value) => setAttributes({ iconSize: value })}
+              min={16}
+              max={128}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+          {enableIcon && mediaType === "image" && (
+            <RangeControl
+              label={__("Taille de l'image (px)", "g2rd")}
+              value={imageSize}
+              onChange={(value) => setAttributes({ imageSize: value })}
+              min={16}
+              max={256}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+        </PanelBody>
+
+        {/* Animation : durée du comptage */}
+        <PanelBody title={__("Animation", "g2rd")} initialOpen={false}>
+          {/* Nombre borné → RangeControl (mêmes bornes que l'ancien
+              NumberControl, même fallback à 2000) */}
+          <RangeControl
+            label={__("Durée de l'animation (ms)", "g2rd")}
+            value={animationDuration}
+            onChange={(value) =>
+              setAttributes({ animationDuration: parseFloat(value) || 2000 })
+            }
+            min={500}
+            max={10000}
+            step={100}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
       </InspectorControls>
 
       <div {...blockProps}>{renderContent()}</div>
