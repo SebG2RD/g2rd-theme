@@ -2,6 +2,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import {
 	useBlockProps,
 	InspectorControls,
+	PanelColorSettings,
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
@@ -12,7 +13,7 @@ import {
 	RangeControl,
 	ToggleControl,
 	SelectControl,
-	ColorPicker,
+	__experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import './editor.css';
@@ -110,7 +111,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					) }
 				</PanelBody>
 
-				<PanelBody title={ __( 'Animation', 'g2rd' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Comportement', 'g2rd' ) } initialOpen={ false }>
 					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Distance de défilement (px)', 'g2rd' ) }
 						value={ scrollDistance }
@@ -160,26 +161,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							/>
 						</>
 					) }
-					<TextControl
-						label={ __( 'Hauteur minimale', 'g2rd' ) }
-						value={ minHeight }
-						onChange={ ( v ) => setAttributes( { minHeight: v } ) }
-						placeholder="100vh"
-						style={ { marginTop: '8px' } }
-						help={ __( 'Ex : 100vh, 600px. Zone visible pendant le pin.', 'g2rd' ) }
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-					/>
-					<div style={ { marginTop: '12px' } }>
-						<label style={ { display: 'block', marginBottom: '6px', fontSize: '11px', fontWeight: '500', color: '#1e1e1e' } }>
-							{ __( 'Couleur de fond', 'g2rd' ) }
-						</label>
-						<ColorPicker
-							color={ backgroundColor }
-							onChange={ ( v ) => setAttributes( { backgroundColor: v } ) }
-							enableAlpha={ false }
-						/>
-					</div>
 				</PanelBody>
 
 				<PanelBody title={ __( 'Texte superposé', 'g2rd' ) } initialOpen={ false }>
@@ -242,20 +223,32 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								style={ { marginTop: '8px' } }
 								__nextHasNoMarginBottom
 							/>
-							<div style={ { marginTop: '12px' } }>
-								<label style={ { display: 'block', marginBottom: '6px', fontSize: '11px', fontWeight: '500', color: '#1e1e1e' } }>
-									{ __( 'Couleur du texte', 'g2rd' ) }
-								</label>
-								<ColorPicker
-									color={ overlayTextColor }
-									onChange={ ( v ) => setAttributes( { overlayTextColor: v } ) }
-									enableAlpha={ false }
-								/>
-							</div>
 						</>
 					) }
 				</PanelBody>
 
+			</InspectorControls>
+
+			{/* ── Onglet « Styles » ── */}
+			<InspectorControls group="styles">
+				<PanelColorSettings
+					title={ __( 'Couleur', 'g2rd' ) }
+					colorSettings={ [
+						{ value: backgroundColor, onChange: ( v ) => setAttributes( { backgroundColor: v } ), label: __( 'Couleur de fond', 'g2rd' ) },
+						{ value: overlayTextColor, onChange: ( v ) => setAttributes( { overlayTextColor: v } ), label: __( 'Couleur du texte superposé', 'g2rd' ) },
+					] }
+				/>
+				{/* Dimensions = hauteur minimale de la zone épinglée. */}
+				<PanelBody title={ __( 'Dimensions', 'g2rd' ) } initialOpen={ false }>
+					<UnitControl
+						label={ __( 'Hauteur minimale', 'g2rd' ) }
+						value={ minHeight }
+						onChange={ ( v ) => setAttributes( { minHeight: v } ) }
+						units={ [ { value: 'px', label: 'px' }, { value: 'vh', label: 'vh' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
+						help={ __( 'Ex : 100vh, 600px. Zone visible pendant le pin.', 'g2rd' ) }
+						__next40pxDefaultSize
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div { ...blockProps }>
