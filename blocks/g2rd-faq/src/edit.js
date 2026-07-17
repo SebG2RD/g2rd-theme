@@ -3,13 +3,13 @@ import { useBlockProps, InspectorControls, PanelColorSettings } from "@wordpress
 import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import {
   PanelBody,
-  SelectControl,
   RangeControl,
   ToggleControl,
   TextControl,
   TextareaControl,
   Button,
-  ButtonGroup,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 import { useState, useCallback, useEffect } from "@wordpress/element";
 import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
@@ -149,27 +149,10 @@ export default function Edit({ attributes, setAttributes }) {
           },
         ]}
       />
+      {/* ── Onglet « Réglages » ── */}
       <InspectorControls>
-        <PanelBody title={__("Optimisation SEO / GEO", "g2rd")} initialOpen={false}>
-          <ToggleControl
-            label={__("Activer le mode GEO", "g2rd")}
-            help={
-              optimizeForGEO
-                ? __("Schema FAQPage JSON-LD actif — questions indexables par les IA.", "g2rd")
-                : __("Génère un schema.org FAQPage + JSON-LD pour les moteurs et les IA.", "g2rd")
-            }
-            checked={!!optimizeForGEO}
-            onChange={(v) => setAttributes({ optimizeForGEO: v })}
-            __nextHasNoMarginBottom
-          />
-          {optimizeForGEO && (
-            <p style={{ marginTop: "8px", fontSize: "12px", color: "#3c434a" }}>
-              {"✓ Microdata schema.org + JSON-LD FAQPage générés côté serveur."}
-            </p>
-          )}
-        </PanelBody>
-
-        <PanelBody title={__("En-tête", "g2rd")} initialOpen={false}>
+        {/* En-tête optionnel = contenu affiché au-dessus de la FAQ. */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={false}>
           <ToggleControl
             label={__("Afficher un en-tête", "g2rd")}
             help={showHeader
@@ -214,32 +197,44 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(v) => setAttributes({ allowMultiple: v })}
             __nextHasNoMarginBottom
           />
-          <p style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", marginBottom: "8px", color: "#1e1e1e" }}>
-            {__("Type d'icône", "g2rd")}
-          </p>
-          <ButtonGroup style={{ marginBottom: "16px", display: "flex" }}>
+          {/* Choix parmi 3 → ToggleGroupControl natif (remplace le ButtonGroup maison :
+              même attribut « iconType », mêmes valeurs). */}
+          <ToggleGroupControl
+            label={__("Type d'icône", "g2rd")}
+            value={iconType}
+            onChange={(value) => setAttributes({ iconType: value })}
+            isBlock
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          >
             {ICON_OPTIONS.map(({ value, label }) => (
-              <Button
-                key={value}
-                variant={iconType === value ? "primary" : "secondary"}
-                onClick={() => setAttributes({ iconType: value })}
-                __next40pxDefaultSize
-              >
-                {label}
-              </Button>
+              <ToggleGroupControlOption key={value} value={value} label={label} />
             ))}
-          </ButtonGroup>
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Rayon des coins (px)", "g2rd")}
-            value={borderRadius}
-            onChange={(v) => setAttributes({ borderRadius: v })}
-            min={0}
-            max={24}
+          </ToggleGroupControl>
+          {/* Mode GEO = comportement SEO (schema.org / JSON-LD généré côté serveur). */}
+          <ToggleControl
+            label={__("Activer le mode GEO", "g2rd")}
+            help={
+              optimizeForGEO
+                ? __("Schema FAQPage JSON-LD actif — questions indexables par les IA.", "g2rd")
+                : __("Génère un schema.org FAQPage + JSON-LD pour les moteurs et les IA.", "g2rd")
+            }
+            checked={!!optimizeForGEO}
+            onChange={(v) => setAttributes({ optimizeForGEO: v })}
+            __nextHasNoMarginBottom
           />
+          {optimizeForGEO && (
+            <p style={{ marginTop: "8px", fontSize: "12px", color: "#3c434a" }}>
+              {"✓ Microdata schema.org + JSON-LD FAQPage générés côté serveur."}
+            </p>
+          )}
         </PanelBody>
+      </InspectorControls>
 
+      {/* ── Onglet « Styles » ── */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           colorSettings={[
             { value: questionColor, onChange: (v) => setAttributes({ questionColor: v || "" }), label: __("Couleur des questions", "g2rd") },
             { value: answerColor, onChange: (v) => setAttributes({ answerColor: v || "" }), label: __("Couleur des réponses", "g2rd") },
@@ -249,6 +244,17 @@ export default function Edit({ attributes, setAttributes }) {
             { value: separatorColor, onChange: (v) => setAttributes({ separatorColor: v || "" }), label: __("Couleur des séparateurs", "g2rd") },
           ]}
         />
+
+        {/* Rayon des coins → rubrique Bordure. */}
+        <PanelBody title={__("Bordure", "g2rd")} initialOpen={false}>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Rayon des coins (px)", "g2rd")}
+            value={borderRadius}
+            onChange={(v) => setAttributes({ borderRadius: v })}
+            min={0}
+            max={24}
+          />
+        </PanelBody>
       </InspectorControls>
       <G2RDAiInspectorPanel blockType="g2rd/faq" attributes={attributes} setAttributes={setAttributes} />
 
