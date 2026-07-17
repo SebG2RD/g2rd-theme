@@ -15,6 +15,8 @@ import {
 	Button,
 	Notice,
 	Spinner,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useState, useEffect, useRef } from '@wordpress/element';
 
@@ -176,20 +178,23 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 
 				{ /* --- Connecteur API --- */ }
 				<PanelBody title={ __( 'Connecteur API', 'g2rd' ) } initialOpen={ true }>
-					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+					{ /* Choix parmi 2 → ToggleGroupControl natif (remplace un SelectControl). */ }
+					<ToggleGroupControl
 						label={ __( 'Type de connecteur', 'g2rd' ) }
 						value={ connectorType }
-						options={ [
-							{ label: __( 'Côté client (JS fetch)', 'g2rd' ), value: 'client' },
-							{ label: __( 'Côté serveur (proxy WP)', 'g2rd' ), value: 'server' },
-						] }
 						onChange={ ( value ) => setAttributes( { connectorType: value } ) }
+						isBlock
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						help={
 							connectorType === 'client'
 								? __( 'Exécuté dans le navigateur. Les clés API sont visibles.', 'g2rd' )
 								: __( 'Exécuté sur le serveur. Les clés API restent privées.', 'g2rd' )
 						}
-					/>
+					>
+						<ToggleGroupControlOption value="client" label={ __( 'Côté client', 'g2rd' ) } />
+						<ToggleGroupControlOption value="server" label={ __( 'Côté serveur', 'g2rd' ) } />
+					</ToggleGroupControl>
 					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Méthode HTTP', 'g2rd' ) }
 						value={ apiMethod }
