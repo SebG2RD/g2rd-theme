@@ -10,6 +10,9 @@ import {
   DateTimePicker,
   ToggleControl,
   SelectControl,
+  RangeControl,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 import { TypographySizePanel } from "../../shared/TypographySizePanel";
 import { useState, useEffect } from "@wordpress/element";
@@ -115,27 +118,10 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
-      <TypographySizePanel
-        elements={[
-          {
-            label: __("Taille des valeurs", "g2rd"),
-            value: valueFontSize,
-            onChange: (value) => setAttributes({ valueFontSize: value || "" }),
-          },
-          {
-            label: __("Taille des étiquettes", "g2rd"),
-            value: labelFontSize,
-            onChange: (value) => setAttributes({ labelFontSize: value || "" }),
-          },
-        ]}
-      />
+      {/* ── Onglet « Réglages » ─────────────────────────────────────────── */}
       <InspectorControls>
-        <PanelBody title={__("Paramètres du minuteur", "g2rd")}>
-          <DateTimePicker
-            currentDate={endDate}
-            onChange={(date) => setAttributes({ endDate: format("c", date) })}
-            is12Hour={true}
-          />
+        {/* Contenu : titre, date de fin et unités affichées */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
           <TextControl
             label={__("Titre", "g2rd")}
             value={title}
@@ -143,12 +129,13 @@ export default function Edit({ attributes, setAttributes }) {
             onChange={(value) => setAttributes({ title: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
           />
-        </PanelBody>
-
-        <PanelBody title={__("Unités affichées", "g2rd")}>
+          <p className="g2rd-control-label">{__("Date de fin", "g2rd")}</p>
+          <DateTimePicker
+            currentDate={endDate}
+            onChange={(date) => setAttributes({ endDate: format("c", date) })}
+            is12Hour={true}
+          />
           <ToggleControl
             label={__("Afficher les années", "g2rd")}
             checked={showYears}
@@ -187,30 +174,32 @@ export default function Edit({ attributes, setAttributes }) {
           />
         </PanelBody>
 
-        <PanelColorSettings
-          title={__("Couleur", "g2rd")}
-          colorSettings={[
-            {
-              value: itemBackground,
-              onChange: (value) => setAttributes({ itemBackground: value }),
-              label: __("Fond des items", "g2rd"),
-            },
-          ]}
-        />
-
-        <PanelBody title={__("Apparence", "g2rd")}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+        {/* Mise en page : disposition des items */}
+        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
+          {/* Choix parmi 2 → ToggleGroupControl (même attribut et mêmes
+              valeurs que l'ancien SelectControl) */}
+          <ToggleGroupControl
             label={__("Disposition", "g2rd")}
             value={layout}
-            options={[
-              { label: __("Ligne (horizontal)", "g2rd"), value: "row" },
-              { label: __("Colonne (vertical)", "g2rd"), value: "column" },
-            ]}
             onChange={(value) => setAttributes({ layout: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          >
+            <ToggleGroupControlOption
+              value="row"
+              label={__("Ligne", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="column"
+              label={__("Colonne", "g2rd")}
+            />
+          </ToggleGroupControl>
+        </PanelBody>
+
+        {/* Comportement : préréglage visuel du minuteur (spécifique au bloc) */}
+        <PanelBody title={__("Comportement", "g2rd")} initialOpen={false}>
+          <SelectControl
             label={__("Style du minuteur", "g2rd")}
             value={timerStyle}
             options={[
@@ -225,7 +214,85 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+        </PanelBody>
+      </InspectorControls>
+
+      {/* ── Onglet « Styles » ───────────────────────────────────────────── */}
+      <InspectorControls group="styles">
+        {/* Arrière-plan : fond des items */}
+        <PanelColorSettings
+          title={__("Arrière-plan", "g2rd")}
+          colorSettings={[
+            {
+              value: itemBackground,
+              onChange: (value) => setAttributes({ itemBackground: value }),
+              label: __("Fond des items", "g2rd"),
+            },
+          ]}
+        />
+      </InspectorControls>
+
+      {/* Typographie (panneau partagé, rendu dans group="styles") */}
+      <TypographySizePanel
+        elements={[
+          {
+            label: __("Taille des valeurs", "g2rd"),
+            value: valueFontSize,
+            onChange: (value) => setAttributes({ valueFontSize: value || "" }),
+          },
+          {
+            label: __("Taille des étiquettes", "g2rd"),
+            value: labelFontSize,
+            onChange: (value) => setAttributes({ labelFontSize: value || "" }),
+          },
+        ]}
+      />
+
+      <InspectorControls group="styles">
+        {/* Dimensions : espacement et marge intérieure des items.
+            Les attributs stockent une chaîne « Npx » : on conserve le
+            RangeControl (nombre borné) pour garantir le même format. */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl
+            label={__("Espacement entre les items", "g2rd")}
+            value={parseInt(itemSpacing)}
+            onChange={(value) => setAttributes({ itemSpacing: `${value}px` })}
+            min={0}
+            max={50}
+            step={1}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <RangeControl
+            label={__("Marge intérieure des items", "g2rd")}
+            value={parseInt(itemPadding)}
+            onChange={(value) => setAttributes({ itemPadding: `${value}px` })}
+            min={5}
+            max={50}
+            step={1}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Bordure : arrondi des items */}
+        <PanelBody title={__("Bordure", "g2rd")} initialOpen={false}>
+          <RangeControl
+            label={__("Arrondi des coins", "g2rd")}
+            value={parseInt(itemBorderRadius)}
+            onChange={(value) =>
+              setAttributes({ itemBorderRadius: `${value}px` })
+            }
+            min={0}
+            max={20}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Animation : effet et vitesse */}
+        <PanelBody title={__("Animation", "g2rd")} initialOpen={false}>
+          <SelectControl
             label={__("Animation", "g2rd")}
             value={animation}
             options={[
@@ -239,51 +306,32 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          {/* Choix parmi 3 → ToggleGroupControl (même attribut et mêmes
+              valeurs que l'ancien SelectControl) */}
+          <ToggleGroupControl
             label={__("Vitesse d'animation", "g2rd")}
             value={animationSpeed}
-            options={[
-              { label: __("Lent", "g2rd"),   value: "slow" },
-              { label: __("Normal", "g2rd"), value: "normal" },
-              { label: __("Rapide", "g2rd"), value: "fast" },
-            ]}
             onChange={(value) => setAttributes({ animationSpeed: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Espacement", "g2rd")}
-            value={parseInt(itemSpacing)}
-            onChange={(value) => setAttributes({ itemSpacing: `${value}px` })}
-            min={0}
-            max={50}
-            step={1}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Rembourrage", "g2rd")}
-            value={parseInt(itemPadding)}
-            onChange={(value) => setAttributes({ itemPadding: `${value}px` })}
-            min={5}
-            max={50}
-            step={1}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Arrondi des coins", "g2rd")}
-            value={parseInt(itemBorderRadius)}
-            onChange={(value) =>
-              setAttributes({ itemBorderRadius: `${value}px` })
-            }
-            min={0}
-            max={20}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption
+              value="slow"
+              label={__("Lent", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="normal"
+              label={__("Normal", "g2rd")}
+            />
+            <ToggleGroupControlOption
+              value="fast"
+              label={__("Rapide", "g2rd")}
+            />
+          </ToggleGroupControl>
         </PanelBody>
       </InspectorControls>
+
       <div {...blockProps}>
         {title && <h2 className="countdown-title">{title}</h2>}
         <div
