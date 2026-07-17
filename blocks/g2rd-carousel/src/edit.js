@@ -14,8 +14,10 @@ import {
   ToggleControl,
   RangeControl,
   SelectControl,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
-import { useState, useCallback } from "@wordpress/element";
+import { useCallback } from "@wordpress/element";
 import PostSelector from "../../shared/PostSelector";
 
 export default function Edit({ attributes, setAttributes }) {
@@ -78,34 +80,153 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
-      <TypographySizePanel
-        elements={[
-          {
-            label: __("Taille du titre", "g2rd"),
-            value: titleFontSize,
-            onChange: (value) => setAttributes({ titleFontSize: value || "" }),
-          },
-          {
-            label: __("Taille de la description", "g2rd"),
-            value: descriptionFontSize,
-            onChange: (value) => setAttributes({ descriptionFontSize: value || "" }),
-          },
-        ]}
-      />
+      {/* ── Onglet « Réglages » ─────────────────────────────────────────── */}
       <InspectorControls>
-        <PanelBody title={__("Content Selection", "g2rd-carousel")}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Content Type", "g2rd-carousel")}
+        {/* Contenu : textes et éléments affichés */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
+          <TextControl
+            label={__("Titre", "g2rd")}
+            value={title}
+            onChange={(value) => setAttributes({ title: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextareaControl
+            label={__("Description", "g2rd")}
+            value={description}
+            onChange={(value) => setAttributes({ description: value })}
+            __nextHasNoMarginBottom
+          />
+          <ToggleControl
+            label={__("Afficher le badge", "g2rd")}
+            checked={showBadge}
+            onChange={() => setAttributes({ showBadge: !showBadge })}
+            __nextHasNoMarginBottom
+          />
+          {showBadge && (
+            <TextControl
+              label={__("Texte du badge", "g2rd")}
+              value={badgeText}
+              onChange={(value) => setAttributes({ badgeText: value })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+          <ToggleControl
+            label={__("Afficher les légendes", "g2rd")}
+            checked={showCaptions}
+            onChange={() => setAttributes({ showCaptions: !showCaptions })}
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Mise en page : disposition des diapositives */}
+        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
+          {/* Choix parmi 4 → ToggleGroupControl (même attribut et mêmes
+              valeurs que l'ancien SelectControl) */}
+          <ToggleGroupControl
+            label={__("Diapositives visibles", "g2rd")}
+            value={visibleSlides.toString()}
+            onChange={(value) =>
+              setAttributes({ visibleSlides: parseInt(value) })
+            }
+            isBlock
+            help={__("Nombre de diapositives visibles à la fois", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          >
+            <ToggleGroupControlOption value="1" label="1" />
+            <ToggleGroupControlOption value="3" label="3" />
+            <ToggleGroupControlOption value="5" label="5" />
+            <ToggleGroupControlOption value="7" label="7" />
+          </ToggleGroupControl>
+          <RangeControl
+            label={__("Espace entre les diapositives", "g2rd")}
+            value={spaceBetween}
+            onChange={(value) => setAttributes({ spaceBetween: value })}
+            min={0}
+            max={100}
+            step={10}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <ToggleControl
+            label={__("Diapositives centrées", "g2rd")}
+            checked={centeredSlides}
+            onChange={() => setAttributes({ centeredSlides: !centeredSlides })}
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Comportement : lecture automatique et interactions */}
+        <PanelBody title={__("Comportement", "g2rd")} initialOpen={false}>
+          <RangeControl
+            label={__("Délai de lecture automatique (ms)", "g2rd")}
+            value={autoplayDelay}
+            onChange={(value) => setAttributes({ autoplayDelay: value })}
+            min={1000}
+            max={10000}
+            step={500}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          {autoplayDelay > 0 && (
+            <ToggleControl
+              label={__("Afficher le bouton pause", "g2rd")}
+              help={__(
+                "RGAA 13.2 — requis pour les animations continues > 5 s",
+                "g2rd"
+              )}
+              checked={showPauseButton === true}
+              onChange={(v) => setAttributes({ showPauseButton: v })}
+              __nextHasNoMarginBottom
+            />
+          )}
+          <ToggleControl
+            label={__("Lecture en boucle", "g2rd")}
+            checked={loop}
+            onChange={() => setAttributes({ loop: !loop })}
+            __nextHasNoMarginBottom
+          />
+          <ToggleControl
+            label={__("Curseur de saisie (grab)", "g2rd")}
+            checked={grabCursor}
+            onChange={() => setAttributes({ grabCursor: !grabCursor })}
+            __nextHasNoMarginBottom
+          />
+          <ToggleControl
+            label={__("Afficher la navigation", "g2rd")}
+            checked={showNavigation}
+            onChange={() => setAttributes({ showNavigation: !showNavigation })}
+            __nextHasNoMarginBottom
+          />
+          <ToggleControl
+            label={__("Afficher la pagination", "g2rd")}
+            checked={showPagination}
+            onChange={() => setAttributes({ showPagination: !showPagination })}
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Source de données : origine des diapositives */}
+        <PanelBody title={__("Source de données", "g2rd")} initialOpen={false}>
+          <SelectControl
+            label={__("Type de contenu", "g2rd")}
             value={currentContentType}
             options={[
-              { label: __("Images", "g2rd-carousel"), value: "images" },
-              { label: __("Posts", "g2rd-carousel"), value: "posts" },
-              { label: __("Pages", "g2rd-carousel"), value: "pages" },
-              { label: __("Portfolio", "g2rd-carousel"), value: "portfolio" },
-              { label: __("Prestations", "g2rd-carousel"), value: "prestations" },
-              { label: __("Qui sommes-nous", "g2rd-carousel"), value: "qui-sommes-nous" },
+              { label: __("Images", "g2rd"), value: "images" },
+              { label: __("Articles", "g2rd"), value: "posts" },
+              { label: __("Pages", "g2rd"), value: "pages" },
+              { label: __("Portfolio", "g2rd"), value: "portfolio" },
+              { label: __("Prestations", "g2rd"), value: "prestations" },
+              {
+                label: __("Qui sommes-nous", "g2rd"),
+                value: "qui-sommes-nous",
+              },
             ]}
             onChange={(value) => setAttributes({ contentType: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           {currentContentType === "images" && (
@@ -123,8 +244,8 @@ export default function Edit({ attributes, setAttributes }) {
                     className="editor-post-featured-image__toggle"
                   >
                     {images.length === 0
-                      ? __("Select Images", "g2rd-carousel")
-                      : __("Replace Images", "g2rd-carousel")}
+                      ? __("Sélectionner des images", "g2rd")
+                      : __("Remplacer les images", "g2rd")}
                   </Button>
                 )}
               />
@@ -139,178 +260,118 @@ export default function Edit({ attributes, setAttributes }) {
             />
           )}
         </PanelBody>
+      </InspectorControls>
 
-        <PanelBody title={__("Carousel Settings", "g2rd-carousel")}>
-          <TextControl
-            label={__("Title", "g2rd-carousel")}
-            value={title}
-            onChange={(value) => setAttributes({ title: value })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <TextareaControl
-            label={__("Description", "g2rd-carousel")}
-            value={description}
-            onChange={(value) => setAttributes({ description: value })}
-            __nextHasNoMarginBottom
-          />
-          <ToggleControl
-            label={__("Show Badge", "g2rd-carousel")}
-            checked={showBadge}
-            onChange={() => setAttributes({ showBadge: !showBadge })}
-          />
-          {showBadge && (
-            <TextControl
-              label={__("Badge Text", "g2rd-carousel")}
-              value={badgeText}
-              onChange={(value) => setAttributes({ badgeText: value })}
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-            />
-          )}
-          <ToggleControl
-            label={__("Show Captions", "g2rd-carousel")}
-            checked={showCaptions}
-            onChange={() => setAttributes({ showCaptions: !showCaptions })}
-          />
-          <ToggleControl
-            label={__("Show Box Shadow", "g2rd-carousel")}
-            checked={showBoxShadow}
-            onChange={() => setAttributes({ showBoxShadow: !showBoxShadow })}
-            help={__(
-              "Add shadow effect around the carousel images",
-              "g2rd-carousel"
-            )}
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Height (px)", "g2rd-carousel")}
+      {/* ── Onglet « Styles » ───────────────────────────────────────────── */}
+      {/* Typographie (panneau partagé, rendu dans group="styles") */}
+      <TypographySizePanel
+        elements={[
+          {
+            label: __("Taille du titre", "g2rd"),
+            value: titleFontSize,
+            onChange: (value) => setAttributes({ titleFontSize: value || "" }),
+          },
+          {
+            label: __("Taille de la description", "g2rd"),
+            value: descriptionFontSize,
+            onChange: (value) =>
+              setAttributes({ descriptionFontSize: value || "" }),
+          },
+        ]}
+      />
+      <InspectorControls group="styles">
+        {/* Dimensions : hauteur du carrousel */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl
+            label={__("Hauteur (px)", "g2rd")}
             value={height}
             onChange={(value) => setAttributes({ height: value })}
             min={200}
             max={800}
             step={50}
-            help={__(
-              "Set the height of the carousel container",
-              "g2rd-carousel"
-            )}
+            help={__("Hauteur du conteneur du carrousel", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
-        <PanelBody title={__("Animation Settings", "g2rd-carousel")}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Effect", "g2rd-carousel")}
+        {/* Ombre : portée des diapositives */}
+        <PanelBody title={__("Ombre", "g2rd")} initialOpen={false}>
+          <ToggleControl
+            label={__("Afficher une ombre", "g2rd")}
+            checked={showBoxShadow}
+            onChange={() => setAttributes({ showBoxShadow: !showBoxShadow })}
+            help={__(
+              "Ajoute une ombre autour des images du carrousel",
+              "g2rd"
+            )}
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Animation : effet de transition entre diapositives */}
+        <PanelBody title={__("Animation", "g2rd")} initialOpen={false}>
+          <SelectControl
+            label={__("Effet de transition", "g2rd")}
             value={effect}
             options={[
-              { label: __("Coverflow", "g2rd-carousel"), value: "coverflow" },
-              { label: __("Slide", "g2rd-carousel"), value: "slide" },
-              { label: __("Fade", "g2rd-carousel"), value: "fade" },
-              { label: __("Cube", "g2rd-carousel"), value: "cube" },
-              { label: __("Flip", "g2rd-carousel"), value: "flip" },
+              { label: __("Coverflow", "g2rd"), value: "coverflow" },
+              { label: __("Glissement (slide)", "g2rd"), value: "slide" },
+              { label: __("Fondu (fade)", "g2rd"), value: "fade" },
+              { label: __("Cube", "g2rd"), value: "cube" },
+              { label: __("Retournement (flip)", "g2rd"), value: "flip" },
             ]}
             onChange={(value) => setAttributes({ effect: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Visible Slides", "g2rd-carousel")}
-            value={visibleSlides.toString()}
-            options={[
-              { label: __("1 slide", "g2rd-carousel"), value: "1" },
-              { label: __("3 slides", "g2rd-carousel"), value: "3" },
-              { label: __("5 slides", "g2rd-carousel"), value: "5" },
-              { label: __("7 slides", "g2rd-carousel"), value: "7" },
-            ]}
-            onChange={(value) =>
-              setAttributes({ visibleSlides: parseInt(value) })
-            }
-            help={__("Number of slides visible at once", "g2rd-carousel")}
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Autoplay Delay (ms)", "g2rd-carousel")}
-            value={autoplayDelay}
-            onChange={(value) => setAttributes({ autoplayDelay: value })}
-            min={1000}
-            max={10000}
-            step={500}
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Space Between", "g2rd-carousel")}
-            value={spaceBetween}
-            onChange={(value) => setAttributes({ spaceBetween: value })}
-            min={0}
-            max={100}
-            step={10}
-          />
-          <ToggleControl
-            label={__("Show Pagination", "g2rd-carousel")}
-            checked={showPagination}
-            onChange={() => setAttributes({ showPagination: !showPagination })}
-          />
-          <ToggleControl
-            label={__("Show Navigation", "g2rd-carousel")}
-            checked={showNavigation}
-            onChange={() => setAttributes({ showNavigation: !showNavigation })}
-          />
-          <ToggleControl
-            label={__("Centered Slides", "g2rd-carousel")}
-            checked={centeredSlides}
-            onChange={() => setAttributes({ centeredSlides: !centeredSlides })}
-          />
-          <ToggleControl
-            label={__("Loop", "g2rd-carousel")}
-            checked={loop}
-            onChange={() => setAttributes({ loop: !loop })}
-          />
-          <ToggleControl
-            label={__("Grab Cursor", "g2rd-carousel")}
-            checked={grabCursor}
-            onChange={() => setAttributes({ grabCursor: !grabCursor })}
-          />
-          { autoplayDelay > 0 && (
-            <ToggleControl
-              label={__("Afficher le bouton pause", "g2rd")}
-              help={__("RGAA 13.2 — requis pour les animations continues > 5 s", "g2rd")}
-              checked={showPauseButton === true}
-              onChange={(v) => setAttributes({ showPauseButton: v })}
-              __nextHasNoMarginBottom
-            />
-          ) }
+          {effect === "coverflow" && (
+            <>
+              <RangeControl
+                label={__("Rotation", "g2rd")}
+                value={coverflowRotate}
+                onChange={(value) => setAttributes({ coverflowRotate: value })}
+                min={0}
+                max={100}
+                step={1}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+              <RangeControl
+                label={__("Étirement", "g2rd")}
+                value={coverflowStretch}
+                onChange={(value) => setAttributes({ coverflowStretch: value })}
+                min={0}
+                max={100}
+                step={1}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+              <RangeControl
+                label={__("Profondeur", "g2rd")}
+                value={coverflowDepth}
+                onChange={(value) => setAttributes({ coverflowDepth: value })}
+                min={0}
+                max={500}
+                step={10}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+              <RangeControl
+                label={__("Modificateur", "g2rd")}
+                value={coverflowModifier}
+                onChange={(value) =>
+                  setAttributes({ coverflowModifier: value })
+                }
+                min={0}
+                max={5}
+                step={0.1}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            </>
+          )}
         </PanelBody>
-
-        {effect === "coverflow" && (
-          <PanelBody title={__("Coverflow Settings", "g2rd-carousel")}>
-            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-              label={__("Rotate", "g2rd-carousel")}
-              value={coverflowRotate}
-              onChange={(value) => setAttributes({ coverflowRotate: value })}
-              min={0}
-              max={100}
-              step={1}
-            />
-            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-              label={__("Stretch", "g2rd-carousel")}
-              value={coverflowStretch}
-              onChange={(value) => setAttributes({ coverflowStretch: value })}
-              min={0}
-              max={100}
-              step={1}
-            />
-            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-              label={__("Depth", "g2rd-carousel")}
-              value={coverflowDepth}
-              onChange={(value) => setAttributes({ coverflowDepth: value })}
-              min={0}
-              max={500}
-              step={10}
-            />
-            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-              label={__("Modifier", "g2rd-carousel")}
-              value={coverflowModifier}
-              onChange={(value) => setAttributes({ coverflowModifier: value })}
-              min={0}
-              max={5}
-              step={0.1}
-            />
-          </PanelBody>
-        )}
       </InspectorControls>
 
       <div {...blockProps}>
