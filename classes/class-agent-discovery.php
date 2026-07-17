@@ -101,6 +101,9 @@ class AgentDiscovery {
 			case '/.well-known/mcp/server-card.json':
 				$this->outputMcpServerCard();
 				break;
+			case '/auth.md':
+				$this->outputAuthMd();
+				break;
 		}
 	}
 
@@ -286,6 +289,114 @@ class AgentDiscovery {
 		if ( 'HEAD' !== $method ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- application/json, pas HTML
 			echo \wp_json_encode( $card, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+		}
+
+		exit;
+	}
+
+	// -------------------------------------------------------------------------
+	// auth.md — découverte de l'authentification par les agents
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Sert /auth.md : décrit aux agents comment s'authentifier sur ce site.
+	 *
+	 * Document volontairement « self-contained » : le site n'opère aucun serveur
+	 * d'autorisation OAuth 2.0 / OIDC et n'offre aucun enregistrement self-service.
+	 * Aucun bloc agent_auth/register_uri n'est donc publié — la spec ne l'impose
+	 * que lorsque des métadonnées d'Authorization Server existent. On documente à
+	 * la place le provisioning réel (jeton Bearer délivré manuellement par l'admin).
+	 *
+	 * La section MCP n'est émise que si la fonctionnalité enable_ai est active :
+	 * sinon l'endpoint n'existe pas et le document ne doit pas le prétendre.
+	 *
+	 * @return void
+	 */
+	private function outputAuthMd(): void {
+		$method = \strtoupper( \sanitize_text_field( \wp_unslash( $_SERVER['REQUEST_METHOD'] ?? 'GET' ) ) );
+
+		if ( ! \in_array( $method, [ 'GET', 'HEAD' ], true ) ) {
+			\status_header( 405 );
+			\header( 'Allow: GET, HEAD' );
+			exit;
+		}
+
+		$home = \esc_url_raw( \home_url() );
+		$name = \wp_strip_all_tags( (string) \get_bloginfo( 'name' ) );
+
+		$md  = "# auth.md\n\n";
+		$md .= '- **Resource**: `' . $home . "`\n";
+		$md .= '- **Service**: ' . $name . "\n";
+		$md .= "- **Audience**: AI agents and automated clients accessing this site's APIs.\n\n";
+
+		$md .= "This document is self-contained. This site does **not** operate an OAuth 2.0 or\n";
+		$md .= "OpenID Connect authorization server, and does **not** offer self-service agent\n";
+		$md .= "registration. No `agent_auth` / `register_uri` block is published because no\n";
+		$md .= "Authorization Server metadata exists for this resource.\n\n";
+
+		$md .= "## Public endpoints — no authentication required\n\n";
+		$md .= "These read-only endpoints are open and require no credentials:\n\n";
+		$md .= '- `GET ' . $home . "/wp-json/wp/v2/search` — search pages, posts and content\n";
+		$md .= '- `GET ' . $home . "/wp-json/wp/v2/posts` — blog posts and articles\n";
+		$md .= '- `GET ' . $home . "/wp-json/wp/v2/pages` — site pages\n";
+		$md .= '- `GET ' . $home . "/wp-json/g2rd/v1/google-reviews` — cached Google reviews\n\n";
+		$md .= "Machine-readable catalogues:\n\n";
+		$md .= '- `' . $home . "/.well-known/api-catalog` (RFC 9727)\n";
+		$md .= '- `' . $home . "/.well-known/mcp/server-card.json`\n";
+		$md .= '- `' . $home . "/.well-known/agent-skills/index.json`\n\n";
+
+		if ( ThemeOptions::isFeatureEnabled( 'enable_ai' ) ) {
+			$md .= "## Authenticated API — MCP (JSON-RPC 2.0)\n\n";
+			$md .= '- **Endpoint**: `POST ' . $home . "/wp-json/g2rd/v1/mcp`\n";
+			$md .= "- **Protocol**: Model Context Protocol, version `2024-11-05` (JSON-RPC 2.0)\n\n";
+
+			$md .= "### Credential type\n\n";
+			$md .= "Bearer token, sent in the HTTP `Authorization` header:\n\n";
+			$md .= "```\nAuthorization: Bearer <token>\n```\n\n";
+			$md .= "`initialize` may be called without a token. All other methods require one.\n\n";
+
+			$md .= "### Scopes\n\n";
+			$md .= "- `read_only` — `tools/list` and read tools.\n";
+			$md .= "- `editor` — write tools. Write operations are **not applied immediately**:\n";
+			$md .= "  they are queued for explicit approval by a site administrator.\n\n";
+
+			$md .= "### How to obtain a credential\n\n";
+			$md .= "Tokens are **issued manually by a site administrator** from the WordPress\n";
+			$md .= "admin. There is no self-service registration endpoint and no dynamic client\n";
+			$md .= "registration. To request access, contact the site administrator through the\n";
+			$md .= 'contact channels published on ' . $home . ".\n\n";
+
+			$md .= "### Revocation\n\n";
+			$md .= "Tokens are revoked by the site administrator from the WordPress admin.\n";
+			$md .= "A revoked token stops working immediately.\n\n";
+		} else {
+			$md .= "## Authenticated API\n\n";
+			$md .= "This site currently exposes **no authenticated agent API**. Only the public\n";
+			$md .= "read-only endpoints listed above are available.\n\n";
+		}
+
+		$md .= "## Not supported\n\n";
+		$md .= "- OAuth 2.0 / OpenID Connect authorization server (no `issuer`,\n";
+		$md .= "  `authorization_endpoint`, `token_endpoint` or `jwks_uri`).\n";
+		$md .= "- OAuth Protected Resource Metadata (RFC 9728) — there is no authorization\n";
+		$md .= "  server to list.\n";
+		$md .= "- Dynamic or self-service agent registration.\n";
+
+		/**
+		 * Permet de personnaliser le contenu de /auth.md.
+		 *
+		 * @param string $md Contenu Markdown généré.
+		 */
+		$md = (string) \apply_filters( 'g2rd_auth_md', $md );
+
+		\status_header( 200 );
+		\header( 'Content-Type: text/markdown; charset=UTF-8' );
+		\header( 'Cache-Control: public, max-age=3600' );
+		\header( 'Access-Control-Allow-Origin: *' );
+
+		if ( 'HEAD' !== $method ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- text/markdown, pas HTML ; URLs et nom du site déjà assainis
+			echo $md;
 		}
 
 		exit;

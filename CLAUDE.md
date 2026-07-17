@@ -132,7 +132,7 @@ g2rd-theme/
 │   ├── class-theme-setup.php
 │   │
 │   ├── — Module MCP (serveur JSON-RPC 2.0) —
-│   ├── class-mcp-server.php                   # Endpoint POST /g2rd/mcp/v1 — dispatch JSON-RPC
+│   ├── class-mcp-server.php                   # Endpoint POST /g2rd/v1/mcp — dispatch JSON-RPC
 │   ├── class-mcp-abilities.php                # Outils MCP enregistrés (tools/list, tools/call)
 │   ├── class-mcp-admin-api.php                # REST endpoints admin MCP (/g2rd/v1/mcp-*)
 │   ├── class-mcp-anomaly-detector.php         # Détection d'anomalies comportementales dans l'audit log
@@ -320,7 +320,7 @@ Serveur JSON-RPC 2.0 natif exposant les CPTs et la configuration du thème à de
 
 ### Architecture
 
-- **Endpoint** : `POST /wp-json/g2rd/mcp/v1` — dispatch JSON-RPC via `McpServer`
+- **Endpoint** : `POST /wp-json/g2rd/v1/mcp` — dispatch JSON-RPC via `McpServer`
 - **Auth** : Bearer token validé par `McpSecurityGate` — jamais de session WP
 - **Tokens** : gérés par `McpTokenManager` (création, révocation, purge immédiate en BD)
 - **Chiffrement** : `McpEncryption` — AES-256-GCM pour l'audit log et les tokens
