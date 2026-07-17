@@ -11,6 +11,14 @@ updates:
       wordpress-packages:
         patterns:
           - "@wordpress/*"
+    # Les montées MAJEURES de l'outillage de build ne passent pas par Dependabot.
+    # Contexte : le bump auto-mergé @wordpress/scripts 32.6.0 → 33.0.0 a dupliqué
+    # webpack (copie imbriquée + copie racine) et cassé le build de tous les
+    # workspaces, rouge sur main. Une majeure de la chaîne de build doit être faite
+    # manuellement, avec migration et tests. Les patchs/mineures restent automatiques.
+    ignore:
+      - dependency-name: "@wordpress/scripts"
+        update-types: ["version-update:semver-major"]
 
   # Mises à jour des dépendances Composer (PHP)
   - package-ecosystem: "composer"
