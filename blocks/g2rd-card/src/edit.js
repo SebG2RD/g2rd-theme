@@ -18,7 +18,6 @@ import {
   ToggleControl,
   TextControl,
   Button,
-  ButtonGroup,
 } from "@wordpress/components";
 import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
@@ -218,39 +217,77 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      {/* Onglet « Styles » */}
       <InspectorControls group="styles">
-        <PanelBody title={__("Espacement des éléments", "g2rd")} initialOpen={false}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Alignement des éléments (align-items)", "g2rd")}
-            value={alignItems}
-            options={[
-              { label: __("Par défaut (auto)", "g2rd"), value: "" },
-              { label: __("Début (flex-start)", "g2rd"), value: "flex-start" },
-              { label: __("Centre (center)", "g2rd"), value: "center" },
-              { label: __("Fin (flex-end)", "g2rd"), value: "flex-end" },
-              { label: __("Étirer (stretch)", "g2rd"), value: "stretch" },
+        {/* Arrière-plan : fond de la carte */}
+        <PanelBody title={__("Arrière-plan", "g2rd")} initialOpen={false}>
+          <PanelColorSettings
+            title={__("Couleur de fond", "g2rd")}
+            colorSettings={[
+              { value: backgroundColor, onChange: (v) => setAttributes({ backgroundColor: v || "" }), label: __("Fond de la carte", "g2rd") },
             ]}
-            onChange={(v) => setAttributes({ alignItems: v })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
           />
-          <TextControl
-            label={__("Écart média / contenu", "g2rd")}
-            value={mediaGap}
-            onChange={(v) => setAttributes({ mediaGap: v })}
-            placeholder="16px"
-            help={__("Gap entre l'icône/image et le texte (ex : 12px, 1rem).", "g2rd")}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <TextControl
-            label={__("Écart entre éléments du contenu", "g2rd")}
-            value={contentGap}
-            onChange={(v) => setAttributes({ contentGap: v })}
-            placeholder="8px"
-            help={__("Espace entre titre, sous-titre, description (ex : 4px, 0.5rem).", "g2rd")}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
+        </PanelBody>
+
+        {/* Couleur : icône, textes, séparateur et bouton */}
+        <PanelColorSettings
+          title={__("Couleur", "g2rd")}
+          colorSettings={[
+            ...(mediaType === "icon"
+              ? [
+                  { value: iconColor, onChange: (v) => setAttributes({ iconColor: v || "" }), label: __("Couleur de l'icône", "g2rd") },
+                  { value: iconBgColor, onChange: (v) => setAttributes({ iconBgColor: v || "" }), label: __("Fond de l'icône", "g2rd") },
+                ]
+              : []),
+            { value: headingColor, onChange: (v) => setAttributes({ headingColor: v || "" }), label: __("Couleur du titre", "g2rd") },
+            ...(showSubHeading
+              ? [{ value: subHeadingColor, onChange: (v) => setAttributes({ subHeadingColor: v || "" }), label: __("Couleur du sous-titre", "g2rd") }]
+              : []),
+            ...(showDescription
+              ? [{ value: descriptionColor, onChange: (v) => setAttributes({ descriptionColor: v || "" }), label: __("Couleur de la description", "g2rd") }]
+              : []),
+            ...(showSeparator
+              ? [{ value: separatorColor, onChange: (v) => setAttributes({ separatorColor: v || "" }), label: __("Couleur du séparateur", "g2rd") }]
+              : []),
+            ...(linkMode === "cta"
+              ? [
+                  { value: ctaBgColor, onChange: (v) => setAttributes({ ctaBgColor: v || "" }), label: __("Couleur du bouton (fond)", "g2rd") },
+                  { value: ctaTextColor, onChange: (v) => setAttributes({ ctaTextColor: v || "" }), label: __("Couleur du bouton (texte)", "g2rd") },
+                ]
+              : []),
+          ]}
+        />
+
+        {/* Dimensions : rembourrage interne de la carte */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <p className="components-base-control__label">{__("Rembourrage", "g2rd")}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+            {[
+              ["paddingTop", __("Haut", "g2rd")],
+              ["paddingRight", __("Droite", "g2rd")],
+              ["paddingBottom", __("Bas", "g2rd")],
+              ["paddingLeft", __("Gauche", "g2rd")],
+            ].map(([key, label]) => (
+              <TextControl
+                key={key}
+                label={label}
+                value={attributes[key]}
+                onChange={(v) => setAttributes({ [key]: v })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            ))}
+          </div>
+        </PanelBody>
+
+        {/* Bordure : rayon des coins de la carte */}
+        <PanelBody title={__("Bordure", "g2rd")} initialOpen={false}>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Rayon des coins de la carte (px)", "g2rd")}
+            value={borderRadius}
+            onChange={(v) => setAttributes({ borderRadius: v })}
+            min={0}
+            max={40}
           />
         </PanelBody>
       </InspectorControls>
@@ -281,9 +318,11 @@ export default function Edit({ attributes, setAttributes }) {
         />
       </BlockControls>
 
+      {/* Onglet « Réglages » */}
       <InspectorControls>
-        {/* --- Média --- */}
-        <PanelBody title={__("Média", "g2rd")} initialOpen={true}>
+        {/* Contenu : média + affichage des éléments de la carte */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
+          <p className="g2rd-control-label">{__("Média", "g2rd")}</p>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de média", "g2rd")}
             value={mediaType}
@@ -376,10 +415,8 @@ export default function Edit({ attributes, setAttributes }) {
               {__("L'alignement du média en haut suit l'alignement du texte (barre d'outils).", "g2rd")}
             </p>
           )}
-        </PanelBody>
 
-        {/* --- Contenu --- */}
-        <PanelBody title={__("Contenu", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Affichage", "g2rd")}</p>
           <ToggleControl
             label={__("Afficher le sous-titre", "g2rd")}
             checked={showSubHeading}
@@ -421,8 +458,44 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
-        {/* --- Lien --- */}
-        <PanelBody title={__("Lien", "g2rd")} initialOpen={false}>
+        {/* Mise en page : alignement des éléments et espacements de flux */}
+        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Alignement des éléments (align-items)", "g2rd")}
+            value={alignItems}
+            options={[
+              { label: __("Par défaut (auto)", "g2rd"), value: "" },
+              { label: __("Début (flex-start)", "g2rd"), value: "flex-start" },
+              { label: __("Centre (center)", "g2rd"), value: "center" },
+              { label: __("Fin (flex-end)", "g2rd"), value: "flex-end" },
+              { label: __("Étirer (stretch)", "g2rd"), value: "stretch" },
+            ]}
+            onChange={(v) => setAttributes({ alignItems: v })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Écart média / contenu", "g2rd")}
+            value={mediaGap}
+            onChange={(v) => setAttributes({ mediaGap: v })}
+            placeholder="16px"
+            help={__("Gap entre l'icône/image et le texte (ex : 12px, 1rem).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Écart entre éléments du contenu", "g2rd")}
+            value={contentGap}
+            onChange={(v) => setAttributes({ contentGap: v })}
+            placeholder="8px"
+            help={__("Espace entre titre, sous-titre, description (ex : 4px, 0.5rem).", "g2rd")}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+
+        {/* Comportement : configuration du lien (bouton CTA / carte cliquable) */}
+        <PanelBody title={__("Comportement", "g2rd")} initialOpen={false}>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Mode de lien", "g2rd")}
             value={linkMode}
@@ -487,65 +560,6 @@ export default function Edit({ attributes, setAttributes }) {
             </p>
           )}
         </PanelBody>
-
-        {/* --- Espacement & Bordures --- */}
-        <PanelBody title={__("Espacement & Bordures", "g2rd")} initialOpen={false}>
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Rayon des coins de la carte (px)", "g2rd")}
-            value={borderRadius}
-            onChange={(v) => setAttributes({ borderRadius: v })}
-            min={0}
-            max={40}
-          />
-          <p className="components-base-control__label">{__("Rembourrage", "g2rd")}</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-            {[
-              ["paddingTop", __("Haut", "g2rd")],
-              ["paddingRight", __("Droite", "g2rd")],
-              ["paddingBottom", __("Bas", "g2rd")],
-              ["paddingLeft", __("Gauche", "g2rd")],
-            ].map(([key, label]) => (
-              <TextControl
-                key={key}
-                label={label}
-                value={attributes[key]}
-                onChange={(v) => setAttributes({ [key]: v })}
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-            ))}
-          </div>
-        </PanelBody>
-
-        {/* --- Couleurs --- */}
-        <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
-          colorSettings={[
-            ...(mediaType === "icon"
-              ? [
-                  { value: iconColor, onChange: (v) => setAttributes({ iconColor: v || "" }), label: __("Couleur de l'icône", "g2rd") },
-                  { value: iconBgColor, onChange: (v) => setAttributes({ iconBgColor: v || "" }), label: __("Fond de l'icône", "g2rd") },
-                ]
-              : []),
-            { value: headingColor, onChange: (v) => setAttributes({ headingColor: v || "" }), label: __("Couleur du titre", "g2rd") },
-            ...(showSubHeading
-              ? [{ value: subHeadingColor, onChange: (v) => setAttributes({ subHeadingColor: v || "" }), label: __("Couleur du sous-titre", "g2rd") }]
-              : []),
-            ...(showDescription
-              ? [{ value: descriptionColor, onChange: (v) => setAttributes({ descriptionColor: v || "" }), label: __("Couleur de la description", "g2rd") }]
-              : []),
-            ...(showSeparator
-              ? [{ value: separatorColor, onChange: (v) => setAttributes({ separatorColor: v || "" }), label: __("Couleur du séparateur", "g2rd") }]
-              : []),
-            ...(linkMode === "cta"
-              ? [
-                  { value: ctaBgColor, onChange: (v) => setAttributes({ ctaBgColor: v || "" }), label: __("Couleur du bouton (fond)", "g2rd") },
-                  { value: ctaTextColor, onChange: (v) => setAttributes({ ctaTextColor: v || "" }), label: __("Couleur du bouton (texte)", "g2rd") },
-                ]
-              : []),
-            { value: backgroundColor, onChange: (v) => setAttributes({ backgroundColor: v || "" }), label: __("Fond de la carte", "g2rd") },
-          ]}
-        />
       </InspectorControls>
       <G2RDAiInspectorPanel blockType="g2rd/card" attributes={attributes} setAttributes={setAttributes} />
 
