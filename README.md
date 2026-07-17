@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.16** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.25.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.25.0**
+
+- **Uniformisation de l'interface des blocs** : les 20 blocs G2RD partagent désormais la même organisation de l'inspecteur — onglets natifs de WordPress (Réglages / Styles / Avancé), vocabulaire de panneaux commun (`Dimensions`, `Arrière-plan`, `Couleur`, `Bordure`, `Animation`…) et contrôles natifs (`ToggleGroupControl` à la place des boutons maison). Chaque réglage se retrouve au même endroit d'un bloc à l'autre. Le `TabPanel` maison du Conteneur est remplacé par les onglets natifs. **Rendu front strictement identique** : seul l'inspecteur change, `save.js` / `render.php` / `block.json` restent inchangés.
+- **Sécurité (Conteneur G2RD)** : blocage d'une injection CSS possible via les attributs du bloc. `sanitize_text_field()` laissait passer `{ } ; @`, permettant à un contributeur de fermer la déclaration et d'injecter des règles CSS arbitraires dans le `<style>` du bloc. Les valeurs de style sont désormais filtrées (`g2rd_css_value()`), les énumérations validées par liste blanche.
+- **Outillage / CI** : `@wordpress/scripts` monté en `33.0.0` (override `webpack ^5.108.1` pour éviter la duplication d'instance) ; protection de la branche `main` exigeant les status checks avant fusion ; Dependabot bridé sur les montées majeures de la chaîne de build.
 
 ### **1.24.16**
 
