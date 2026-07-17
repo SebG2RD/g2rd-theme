@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.24.15** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.24.16** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.24.16**
+
+- **Agent Discovery — `/auth.md`** : le thème sert désormais `/auth.md` à la racine (spec auth.md), décrivant aux agents IA comment s'authentifier. Document *self-contained* et honnête : endpoints publics sans authentification, et — si `enable_ai` est actif — API MCP sur `POST /wp-json/g2rd/v1/mcp` par jeton **Bearer délivré manuellement par l'admin** (scopes `read_only`/`editor`, écritures en file d'approbation). Aucun bloc `agent_auth`/`register_uri` n'est publié : le site n'opère pas de serveur d'autorisation OAuth 2.0/OIDC et la spec ne l'impose que dans ce cas. Filtre `g2rd_auth_md` pour personnalisation.
+- **Correction de documentation** : `CLAUDE.md` indiquait l'endpoint MCP `/wp-json/g2rd/mcp/v1` alors que la route réelle est `/wp-json/g2rd/v1/mcp`.
 
 ### **1.24.15**
 
