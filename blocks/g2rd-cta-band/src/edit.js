@@ -11,8 +11,8 @@ import {
   TextControl,
   ToggleControl,
   RangeControl,
-  Button,
-  ButtonGroup,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 import { G2RDAiInspectorPanel } from '../../shared/ai/G2RDAiInspectorPanel';
 
@@ -51,8 +51,9 @@ export default function Edit({ attributes, setAttributes }) {
           },
         ] }
       />
+      {/* ── Onglet « Réglages » ── */}
       <InspectorControls>
-        <PanelBody title={__("Liens & options", "g2rd")} initialOpen>
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen>
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={ctaUrl}
@@ -94,39 +95,27 @@ export default function Edit({ attributes, setAttributes }) {
           />
         </PanelBody>
 
+        {/* Choix parmi 2 → ToggleGroupControl natif (remplace le ButtonGroup maison :
+            même attribut « alignment », mêmes valeurs). */}
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
-          <p style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", marginBottom: "8px", color: "#1e1e1e" }}>
-            {__("Alignement", "g2rd")}
-          </p>
-          <ButtonGroup style={{ marginBottom: "16px", display: "flex" }}>
-            {[
-              { value: "left",   label: __("Gauche", "g2rd") },
-              { value: "center", label: __("Centré", "g2rd") },
-            ].map(({ value, label }) => (
-              <Button
-                key={value}
-                variant={alignment === value ? "primary" : "secondary"}
-                onClick={() => setAttributes({ alignment: value })}
-                __next40pxDefaultSize
-              >
-                {label}
-              </Button>
-            ))}
-          </ButtonGroup>
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Espacement vertical (px)", "g2rd")}
-            value={paddingVertical}
-            onChange={(v) => setAttributes({ paddingVertical: v })}
-            min={20}
-            max={160}
-            step={8}
+          <ToggleGroupControl
+            label={__("Alignement", "g2rd")}
+            value={alignment}
+            onChange={(v) => setAttributes({ alignment: v })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption value="left" label={__("Gauche", "g2rd")} />
+            <ToggleGroupControlOption value="center" label={__("Centré", "g2rd")} />
+          </ToggleGroupControl>
         </PanelBody>
+      </InspectorControls>
 
+      {/* ── Onglet « Styles » ── */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           initialOpen={false}
           colorSettings={[
             {
@@ -156,6 +145,20 @@ export default function Edit({ attributes, setAttributes }) {
             },
           ]}
         />
+
+        {/* Dimensions = marge intérieure (padding vertical du bandeau). */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Espacement vertical (px)", "g2rd")}
+            value={paddingVertical}
+            onChange={(v) => setAttributes({ paddingVertical: v })}
+            min={20}
+            max={160}
+            step={8}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
       </InspectorControls>
       <G2RDAiInspectorPanel blockType="g2rd/cta-band" attributes={attributes} setAttributes={setAttributes} />
 
