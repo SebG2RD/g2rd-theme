@@ -427,6 +427,14 @@ Charte alignée sur le SaaS `wp-manager.g2rd.fr` (échelle Tailwind), 100 % FSE 
 
 ## CI / Qualité PHP
 
+### Branch protection de `main`
+
+`main` est protégé (depuis 2026-07-17) avec **required status checks** : `WordPress checks` (build) et `PHPCS WordPress Standards`. Une PR au rouge ne peut plus être fusionnée — c'est précisément ce qui manquait quand un bump majeur `@wordpress/scripts` 33.0.0 au CI rouge a été auto-mergé par Dependabot et a cassé le build de `main`.
+
+- **`enforce_admins` est volontairement à `false`** : le process de release pousse **directement sur `main`** (commits `chore:` puis `release:`), les admins doivent donc pouvoir bypasser les checks. Ne pas l'activer sans revoir tout le process de release.
+- Ne **jamais** exiger un check conditionnel (`Symfony checks`, `Angular checks`, `Playwright E2E`…) : il est skippé sur ce projet et bloquerait les PR indéfiniment.
+- Les bumps **majeurs** de `@wordpress/scripts` sont ignorés par Dependabot (`.github/dependabot.yml`) — une montée majeure de la chaîne de build se fait à la main, avec migration et tests.
+
 ### auto-tag.yml
 
 Déclenché à chaque push sur `main`. Détecte les messages de commit préfixés `release:`, lit la version dans `style.css`, crée le tag `vX.Y.Z` et déclenche `release.yml` en chaîne.
