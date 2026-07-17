@@ -90,6 +90,7 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      {/* Onglet « Réglages » : configuration des effets du wrapper */}
       <InspectorControls>
         {!licensed && (
           <PanelBody title={__("Licence", "g2rd")} initialOpen>
@@ -101,8 +102,12 @@ export default function Edit({ attributes, setAttributes }) {
             </Notice>
           </PanelBody>
         )}
-        <PanelBody title={__("Effets de perspective", "g2rd")} initialOpen>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+
+        {/* Comportement : perspective, survol et animation d'apparition regroupés
+            (le bloc est un wrapper d'effets → toute sa config vit ici). */}
+        <PanelBody title={__("Comportement", "g2rd")} initialOpen>
+          <p className="g2rd-control-label">{__("Perspective", "g2rd")}</p>
+          <SelectControl
             label={__("Preset perspective", "g2rd")}
             value={perspectivePreset}
             options={PERSPECTIVE_OPTIONS}
@@ -110,10 +115,9 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-        </PanelBody>
 
-        <PanelBody title={__("Effets hover", "g2rd")} initialOpen={false}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          <p className="g2rd-control-label">{__("Survol (hover)", "g2rd")}</p>
+          <SelectControl
             label={__("Preset hover", "g2rd")}
             value={hoverPreset}
             options={HOVER_OPTIONS}
@@ -121,10 +125,9 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-        </PanelBody>
 
-        <PanelBody title={__("Animation", "g2rd")} initialOpen={false}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          <p className="g2rd-control-label">{__("Animation d'apparition", "g2rd")}</p>
+          <SelectControl
             label={__("Preset animation", "g2rd")}
             value={animationPreset}
             options={ANIMATION_OPTIONS}
@@ -142,7 +145,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           {animationPreset !== "none" && (
             <>
-              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+              <RangeControl
                 label={__("Stagger delay (ms)", "g2rd")}
                 value={staggerDelay}
                 onChange={(value) => setAttributes({ staggerDelay: value || 0 })}
@@ -171,9 +174,12 @@ export default function Edit({ attributes, setAttributes }) {
             </>
           )}
         </PanelBody>
+      </InspectorControls>
 
-        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+      {/* Onglet « Styles » › Dimensions */}
+      <InspectorControls group="styles">
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl
             label={__("Hauteur minimale (px)", "g2rd")}
             value={minHeight}
             onChange={(value) => setAttributes({ minHeight: value || 0 })}
