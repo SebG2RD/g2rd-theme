@@ -377,6 +377,26 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
   return (
     <>
+      {/* ══ Onglet STYLES — vocabulaire WordPress : Couleur · Typographie · Dimensions · Bordure ══ */}
+
+      {/* ── Couleur ── */}
+      <InspectorControls group="styles">
+        <PanelColorSettings
+          title={ __("Couleur", "g2rd") }
+          initialOpen={ false }
+          colorSettings={ [
+            { value: titleColor,        onChange: (v) => setAttributes({ titleColor: v || "" }),        label: __("Couleur du titre", "g2rd") },
+            { value: cardTextColor,     onChange: (v) => setAttributes({ cardTextColor: v || "" }),     label: __("Couleur du texte", "g2rd") },
+            { value: excerptColor,      onChange: (v) => setAttributes({ excerptColor: v || "" }),      label: __("Couleur de l'extrait", "g2rd") },
+            { value: ctaBgColor,        onChange: (v) => setAttributes({ ctaBgColor: v || "" }),        label: __("Bouton — fond", "g2rd") },
+            { value: ctaTextColor,      onChange: (v) => setAttributes({ ctaTextColor: v || "" }),      label: __("Bouton — texte", "g2rd") },
+            { value: ctaHoverBgColor,   onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),   label: __("Bouton — fond (survol)", "g2rd") },
+            { value: ctaHoverTextColor, onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }), label: __("Bouton — texte (survol)", "g2rd") },
+          ] }
+        />
+      </InspectorControls>
+
+      {/* ── Typographie (tailles de police) : le composant partagé rend son propre InspectorControls group="styles" ── */}
       <TypographySizePanel
         elements={ [
           {
@@ -392,46 +412,59 @@ export default function Edit({ attributes, setAttributes, clientId }) {
         ] }
       />
 
-      {/* ══ Onglet STYLES (couleurs, dimensions, bordure, alignements) ══ */}
+      {/* ── Dimensions (alignements des textes + du bouton, espacement du bouton) & Bordure ── */}
       <InspectorControls group="styles">
-        <PanelColorSettings
-          title={ __("Couleurs des cartes & du bouton", "g2rd") }
-          initialOpen={ false }
-          colorSettings={ [
-            { value: titleColor,        onChange: (v) => setAttributes({ titleColor: v || "" }),        label: __("Couleur du titre", "g2rd") },
-            { value: cardTextColor,     onChange: (v) => setAttributes({ cardTextColor: v || "" }),     label: __("Couleur du texte", "g2rd") },
-            { value: excerptColor,      onChange: (v) => setAttributes({ excerptColor: v || "" }),      label: __("Couleur de l'extrait", "g2rd") },
-            { value: ctaBgColor,        onChange: (v) => setAttributes({ ctaBgColor: v || "" }),        label: __("Bouton — fond", "g2rd") },
-            { value: ctaTextColor,      onChange: (v) => setAttributes({ ctaTextColor: v || "" }),      label: __("Bouton — texte", "g2rd") },
-            { value: ctaHoverBgColor,   onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),   label: __("Bouton — fond (survol)", "g2rd") },
-            { value: ctaHoverTextColor, onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }), label: __("Bouton — texte (survol)", "g2rd") },
-          ] }
-        />
+        <PanelBody title={ __("Dimensions", "g2rd") } initialOpen={ false }>
+          <ToggleGroupControl
+            label={ __("Titre", "g2rd") }
+            isBlock
+            value={ titleAlign }
+            onChange={ (v) => setAttributes({ titleAlign: v || "" }) }
+          >
+            { TEXT_ALIGNS.map((a) => (
+              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+            )) }
+          </ToggleGroupControl>
+          <ToggleGroupControl
+            label={ __("Description / extrait", "g2rd") }
+            isBlock
+            value={ excerptAlign }
+            onChange={ (v) => setAttributes({ excerptAlign: v || "" }) }
+          >
+            { TEXT_ALIGNS.map((a) => (
+              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+            )) }
+          </ToggleGroupControl>
+          { (linkType === "read-more" || hasProductType) && (
+            <>
+              <ToggleGroupControl
+                label={ __("Alignement du bouton", "g2rd") }
+                isBlock
+                value={ ctaAlign }
+                onChange={ (v) => setAttributes({ ctaAlign: v || "" }) }
+              >
+                { CTA_ALIGNS.map((a) => (
+                  <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
+                )) }
+              </ToggleGroupControl>
+              <UnitControl __next40pxDefaultSize
+                label={ __("Padding vertical", "g2rd") }
+                value={ ctaPaddingY }
+                onChange={ (v) => setAttributes({ ctaPaddingY: v || "" }) }
+                units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
+              />
+              <UnitControl __next40pxDefaultSize
+                label={ __("Padding horizontal", "g2rd") }
+                value={ ctaPaddingX }
+                onChange={ (v) => setAttributes({ ctaPaddingX: v || "" }) }
+                units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
+              />
+            </>
+          ) }
+        </PanelBody>
 
         { (linkType === "read-more" || hasProductType) && (
-          <PanelBody title={ __("Bouton CTA", "g2rd") } initialOpen={ false }>
-            <ToggleGroupControl
-              label={ __("Alignement du bouton", "g2rd") }
-              isBlock
-              value={ ctaAlign }
-              onChange={ (v) => setAttributes({ ctaAlign: v || "" }) }
-            >
-              { CTA_ALIGNS.map((a) => (
-                <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
-              )) }
-            </ToggleGroupControl>
-            <UnitControl __next40pxDefaultSize
-              label={ __("Padding vertical", "g2rd") }
-              value={ ctaPaddingY }
-              onChange={ (v) => setAttributes({ ctaPaddingY: v || "" }) }
-              units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
-            />
-            <UnitControl __next40pxDefaultSize
-              label={ __("Padding horizontal", "g2rd") }
-              value={ ctaPaddingX }
-              onChange={ (v) => setAttributes({ ctaPaddingX: v || "" }) }
-              units={ [ { value: "px", label: "px" }, { value: "em", label: "em" }, { value: "rem", label: "rem" } ] }
-            />
+          <PanelBody title={ __("Bordure", "g2rd") } initialOpen={ false }>
             <UnitControl __next40pxDefaultSize
               label={ __("Rayon des angles", "g2rd") }
               value={ ctaBorderRadius }
@@ -464,29 +497,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             ) }
           </PanelBody>
         ) }
-
-        <PanelBody title={ __("Alignement des textes", "g2rd") } initialOpen={ false }>
-          <ToggleGroupControl
-            label={ __("Titre", "g2rd") }
-            isBlock
-            value={ titleAlign }
-            onChange={ (v) => setAttributes({ titleAlign: v || "" }) }
-          >
-            { TEXT_ALIGNS.map((a) => (
-              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
-            )) }
-          </ToggleGroupControl>
-          <ToggleGroupControl
-            label={ __("Description / extrait", "g2rd") }
-            isBlock
-            value={ excerptAlign }
-            onChange={ (v) => setAttributes({ excerptAlign: v || "" }) }
-          >
-            { TEXT_ALIGNS.map((a) => (
-              <ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
-            )) }
-          </ToggleGroupControl>
-        </PanelBody>
       </InspectorControls>
 
       <InspectorControls>
