@@ -73,8 +73,11 @@ export default function Edit({ attributes, setAttributes }) {
           },
         ]}
       />
+      {/* Onglet « Réglages » */}
       <InspectorControls>
-        <PanelBody title={__("Titre principal", "g2rd")} initialOpen>
+        {/* Contenu : titre principal + boutons d'appel à l'action */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen>
+          <p className="g2rd-control-label">{__("Titre", "g2rd")}</p>
           <TextareaControl
             label={__("Titre (HTML autorisé)", "g2rd")}
             value={heading}
@@ -83,9 +86,8 @@ export default function Edit({ attributes, setAttributes }) {
             help={__("Utilisez <mark> pour colorer un mot. Les autres champs sont éditables directement sur le bloc.", "g2rd")}
             rows={3}
           />
-        </PanelBody>
 
-        <PanelBody title={__("Boutons CTA", "g2rd")} initialOpen={false}>
+          <p className="g2rd-control-label">{__("Boutons d'appel à l'action", "g2rd")}</p>
           <TextControl
             label={__("URL bouton principal", "g2rd")}
             value={ctaPrimaryUrl}
@@ -138,6 +140,7 @@ export default function Edit({ attributes, setAttributes }) {
           />
         </PanelBody>
 
+        {/* Mise en page : alignement du contenu */}
         <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Alignement du contenu", "g2rd")}
@@ -150,28 +153,12 @@ export default function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Hauteur minimale (px)", "g2rd")}
-            value={minHeight}
-            onChange={(val) => setAttributes({ minHeight: val })}
-            min={300}
-            max={1000}
-            step={20}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Espacement vertical (px)", "g2rd")}
-            value={paddingVertical}
-            onChange={(val) => setAttributes({ paddingVertical: val })}
-            min={20}
-            max={160}
-            step={8}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
         </PanelBody>
+      </InspectorControls>
 
+      {/* Onglet « Styles » */}
+      <InspectorControls group="styles">
+        {/* Arrière-plan : type de fond, image, overlay et couleurs de fond */}
         <PanelBody title={__("Arrière-plan", "g2rd")} initialOpen={false}>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de fond", "g2rd")}
@@ -220,22 +207,37 @@ export default function Edit({ attributes, setAttributes }) {
               />
             </>
           )}
+          {backgroundType === "color" && (
+            <PanelColorSettings
+              title={__("Couleur de fond", "g2rd")}
+              colorSettings={[
+                {
+                  value: backgroundColor,
+                  onChange: (v) => setAttributes({ backgroundColor: v }),
+                  label: __("Fond", "g2rd"),
+                },
+              ]}
+            />
+          )}
+          {backgroundType === "image" && (
+            <PanelColorSettings
+              title={__("Couleur de l'overlay", "g2rd")}
+              colorSettings={[
+                {
+                  value: overlayColor,
+                  onChange: (v) => setAttributes({ overlayColor: v }),
+                  label: __("Couleur de l'overlay", "g2rd"),
+                },
+              ]}
+            />
+          )}
         </PanelBody>
 
+        {/* Couleur : couleurs de texte + bouton principal */}
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           initialOpen={false}
           colorSettings={[
-            ...(backgroundType === "color" ? [{
-              value: backgroundColor,
-              onChange: (v) => setAttributes({ backgroundColor: v }),
-              label: __("Fond", "g2rd"),
-            }] : []),
-            ...(backgroundType === "image" ? [{
-              value: overlayColor,
-              onChange: (v) => setAttributes({ overlayColor: v }),
-              label: __("Couleur de l'overlay", "g2rd"),
-            }] : []),
             {
               value: headingColor,
               onChange: (v) => setAttributes({ headingColor: v }),
@@ -263,6 +265,30 @@ export default function Edit({ attributes, setAttributes }) {
             },
           ]}
         />
+
+        {/* Dimensions : hauteur minimale + espacement vertical */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Hauteur minimale (px)", "g2rd")}
+            value={minHeight}
+            onChange={(val) => setAttributes({ minHeight: val })}
+            min={300}
+            max={1000}
+            step={20}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Espacement vertical (px)", "g2rd")}
+            value={paddingVertical}
+            onChange={(val) => setAttributes({ paddingVertical: val })}
+            min={20}
+            max={160}
+            step={8}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
       </InspectorControls>
       <G2RDAiInspectorPanel blockType="g2rd/hero" attributes={attributes} setAttributes={setAttributes} />
 
