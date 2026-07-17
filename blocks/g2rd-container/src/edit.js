@@ -14,10 +14,10 @@ import {
 	RangeControl,
 	ToggleControl,
 	Button,
-	ButtonGroup,
 	TextControl,
-	TabPanel,
 	__experimentalUnitControl as UnitControl,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 
@@ -30,20 +30,28 @@ const LAYOUT_TYPES = [
 	{ value: 'flow',        label: __( 'Flux',      'g2rd' ) },
 ];
 
+// 6 valeurs : au-delà de 4 options, le natif utilise un SelectControl.
 const FLEX_JUSTIFY = [
-	{ value: 'flex-start',    label: '⇤',  title: __( 'Début', 'g2rd' ) },
-	{ value: 'center',        label: '↔',  title: __( 'Centre', 'g2rd' ) },
-	{ value: 'flex-end',      label: '⇥',  title: __( 'Fin', 'g2rd' ) },
-	{ value: 'space-between', label: '⟺',  title: __( 'Espace entre', 'g2rd' ) },
-	{ value: 'space-evenly',  label: '⟸⟹', title: __( 'Espace égal', 'g2rd' ) },
-	{ value: 'stretch',       label: '↹',  title: __( 'Étirer', 'g2rd' ) },
+	{ value: 'flex-start',    label: __( 'Début', 'g2rd' ) },
+	{ value: 'center',        label: __( 'Centre', 'g2rd' ) },
+	{ value: 'flex-end',      label: __( 'Fin', 'g2rd' ) },
+	{ value: 'space-between', label: __( 'Espace entre', 'g2rd' ) },
+	{ value: 'space-evenly',  label: __( 'Espace égal', 'g2rd' ) },
+	{ value: 'stretch',       label: __( 'Étirer', 'g2rd' ) },
 ];
 
+// 4 valeurs : ToggleGroupControl.
 const FLEX_ALIGN = [
-	{ value: 'flex-start', label: '↑', title: __( 'Début', 'g2rd' ) },
-	{ value: 'center',     label: '⊕', title: __( 'Centre', 'g2rd' ) },
-	{ value: 'flex-end',   label: '↓', title: __( 'Fin', 'g2rd' ) },
-	{ value: 'stretch',    label: '⤢', title: __( 'Étirer', 'g2rd' ) },
+	{ value: 'flex-start', label: __( 'Début', 'g2rd' ) },
+	{ value: 'center',     label: __( 'Centre', 'g2rd' ) },
+	{ value: 'flex-end',   label: __( 'Fin', 'g2rd' ) },
+	{ value: 'stretch',    label: __( 'Étirer', 'g2rd' ) },
+];
+
+const DEVICES = [
+	{ value: 'desktop', label: __( 'Bureau', 'g2rd' ) },
+	{ value: 'tablet',  label: __( 'Tablette', 'g2rd' ) },
+	{ value: 'mobile',  label: __( 'Mobile', 'g2rd' ) },
 ];
 
 const HTML_TAGS = [
@@ -69,21 +77,26 @@ const ANIMATIONS = [
 
 // ─── Selecteur d'appareil ─────────────────────────────────────────────────────
 
+/**
+ * Sélecteur d'appareil pour les réglages responsives.
+ *
+ * Choix parmi 3 → ToggleGroupControl natif (remplace des boutons emoji maison :
+ * même état `device`, même comportement, widget natif de WordPress).
+ */
 function DeviceSwitcher( { value, onChange } ) {
 	return (
-		<div className="g2rd-device-switcher">
-			{ [ 'desktop', 'tablet', 'mobile' ].map( ( d ) => (
-				<button
-					key={ d }
-					className={ `g2rd-device-btn ${ value === d ? 'is-active' : '' }` }
-					onClick={ () => onChange( d ) }
-					title={ d }
-					type="button"
-				>
-					{ d === 'desktop' ? '🖥' : d === 'tablet' ? '📱' : '📲' }
-				</button>
+		<ToggleGroupControl
+			label={ __( 'Appareil', 'g2rd' ) }
+			value={ value }
+			onChange={ onChange }
+			isBlock
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+		>
+			{ DEVICES.map( ( d ) => (
+				<ToggleGroupControlOption key={ d.value } value={ d.value } label={ d.label } />
 			) ) }
-		</div>
+		</ToggleGroupControl>
 	);
 }
 
@@ -231,90 +244,80 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	};
 	const getResponsive = ( base ) => attributes[ getAttrKey( base, device ) ] ?? '';
 
-	// ── Rendu du panneau Mise en page ──────────────────────────────────────────
-	const LayoutPanel = (
-		<>
-			{ /* Sélecteur de type de layout */ }
-			<PanelBody title={ __( 'Type de layout', 'g2rd' ) } initialOpen={ true }>
-				<ButtonGroup className="g2rd-layout-type-group">
-					{ LAYOUT_TYPES.map( ( t ) => (
-						<Button
-							key={ t.value }
-							variant={ layoutType === t.value ? 'primary' : 'secondary' }
-							onClick={ () => setAttributes( { layoutType: t.value } ) }
-						>
-							{ t.label }
-						</Button>
-					) ) }
-				</ButtonGroup>
-			</PanelBody>
+	// ── Onglet « Réglages » › Mise en page ─────────────────────────────────────
+	const MiseEnPagePanel = (
+		<PanelBody title={ __( 'Mise en page', 'g2rd' ) } initialOpen={ true }>
+			<ToggleGroupControl
+				label={ __( 'Type de disposition', 'g2rd' ) }
+				value={ layoutType }
+				onChange={ ( v ) => setAttributes( { layoutType: v } ) }
+				isBlock
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			>
+				{ LAYOUT_TYPES.map( ( t ) => (
+					<ToggleGroupControlOption key={ t.value } value={ t.value } label={ t.label } />
+				) ) }
+			</ToggleGroupControl>
 
-			{ /* Contrôles Flex */ }
+			{ ( layoutType === 'flex' || layoutType === 'grid' ) && (
+				<DeviceSwitcher value={ device } onChange={ setDevice } />
+			) }
+
 			{ layoutType === 'flex' && (
-				<PanelBody title={ __( 'Flex', 'g2rd' ) } initialOpen={ true }>
-					<DeviceSwitcher value={ device } onChange={ setDevice } />
+				<>
+					<ToggleGroupControl
+						label={ __( 'Direction', 'g2rd' ) }
+						value={ getResponsive( 'flexDirection' ) }
+						onChange={ ( v ) => setResponsive( 'flexDirection', v ) }
+						isBlock
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					>
+						<ToggleGroupControlOption value="row" label={ __( 'Ligne', 'g2rd' ) } />
+						<ToggleGroupControlOption value="column" label={ __( 'Colonne', 'g2rd' ) } />
+					</ToggleGroupControl>
 
-					<p className="g2rd-control-label">{ __( 'Direction', 'g2rd' ) }</p>
-					<ButtonGroup>
-						{ [ { value: 'row', label: '→' }, { value: 'column', label: '↓' } ].map( ( d ) => (
-							<Button
-								key={ d.value }
-								variant={ getResponsive( 'flexDirection' ) === d.value ? 'primary' : 'secondary' }
-								onClick={ () => setResponsive( 'flexDirection', d.value ) }
-							>
-								{ d.label }
-							</Button>
-						) ) }
-					</ButtonGroup>
+					<SelectControl
+						label={ __( 'Justification', 'g2rd' ) }
+						value={ getResponsive( 'flexJustify' ) }
+						options={ FLEX_JUSTIFY }
+						onChange={ ( v ) => setResponsive( 'flexJustify', v ) }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					/>
 
-					<p className="g2rd-control-label">{ __( 'Justification', 'g2rd' ) }</p>
-					<ButtonGroup>
-						{ FLEX_JUSTIFY.map( ( j ) => (
-							<Button
-								key={ j.value }
-								variant={ getResponsive( 'flexJustify' ) === j.value ? 'primary' : 'secondary' }
-								onClick={ () => setResponsive( 'flexJustify', j.value ) }
-								title={ j.title }
-							>
-								{ j.label }
-							</Button>
-						) ) }
-					</ButtonGroup>
-
-					<p className="g2rd-control-label">{ __( 'Alignement', 'g2rd' ) }</p>
-					<ButtonGroup>
+					<ToggleGroupControl
+						label={ __( 'Alignement', 'g2rd' ) }
+						value={ getResponsive( 'flexAlign' ) }
+						onChange={ ( v ) => setResponsive( 'flexAlign', v ) }
+						isBlock
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+					>
 						{ FLEX_ALIGN.map( ( a ) => (
-							<Button
-								key={ a.value }
-								variant={ getResponsive( 'flexAlign' ) === a.value ? 'primary' : 'secondary' }
-								onClick={ () => setResponsive( 'flexAlign', a.value ) }
-								title={ a.title }
-							>
-								{ a.label }
-							</Button>
+							<ToggleGroupControlOption key={ a.value } value={ a.value } label={ a.label } />
 						) ) }
-					</ButtonGroup>
+					</ToggleGroupControl>
 
 					<ToggleControl
-						label={ __( 'Passage sur plusieurs lignes (wrap)', 'g2rd' ) }
+						label={ __( 'Passage sur plusieurs lignes', 'g2rd' ) }
 						checked={ !! attributes[ getAttrKey( 'flexWrap', device ) ] }
 						onChange={ ( v ) => setResponsive( 'flexWrap', v ) }
 						__nextHasNoMarginBottom={ true }
 					/>
 					<UnitControl
-						label={ __( 'Espacement (gap)', 'g2rd' ) }
+						label={ __( 'Espacement entre les blocs', 'g2rd' ) }
 						value={ getResponsive( 'flexGap' ) || flexGap }
 						onChange={ ( v ) => setResponsive( 'flexGap', v ) }
 						units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
 					/>
-				</PanelBody>
+				</>
 			) }
 
-			{ /* Contrôles Grille */ }
 			{ layoutType === 'grid' && (
-				<PanelBody title={ __( 'Grille', 'g2rd' ) } initialOpen={ true }>
-					<DeviceSwitcher value={ device } onChange={ setDevice } />
-					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+				<>
+					<RangeControl
 						label={ __( 'Colonnes', 'g2rd' ) }
 						value={ device === 'mobile' ? gridColumnsMobile : device === 'tablet' ? gridColumnsTablet : gridColumns }
 						onChange={ ( v ) => {
@@ -322,103 +325,101 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							setAttributes( { [ key ]: v } );
 						} }
 						min={ 1 } max={ 12 }
-						__next40pxDefaultSize={ true }
-						__nextHasNoMarginBottom={ true }
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 					/>
 					<UnitControl
-						label={ __( 'Espacement (gap)', 'g2rd' ) }
+						label={ __( 'Espacement entre les blocs', 'g2rd' ) }
 						value={ getResponsive( 'gridGap' ) || gridGap }
 						onChange={ ( v ) => setResponsive( 'gridGap', v ) }
 						units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' } ] }
 					/>
-				</PanelBody>
+				</>
 			) }
 
-			{ /* Contraint */ }
 			{ layoutType === 'constrained' && (
-				<PanelBody title={ __( 'Largeur maximale', 'g2rd' ) } initialOpen={ true }>
-					<UnitControl
-						label={ __( 'Max-width du conteneur', 'g2rd' ) }
-						value={ constrainedWidth }
-						onChange={ ( v ) => setAttributes( { constrainedWidth: v } ) }
-						units={ [ { value: 'px', label: 'px' }, { value: '%', label: '%' }, { value: 'vw', label: 'vw' } ] }
-					/>
-				</PanelBody>
-			) }
-
-			{ /* Dimensions */ }
-			<PanelBody title={ __( 'Dimensions', 'g2rd' ) } initialOpen={ false }>
 				<UnitControl
-					label={ __( 'Largeur', 'g2rd' ) }
-					value={ width }
-					onChange={ ( v ) => setAttributes( { width: v } ) }
+					label={ __( 'Largeur maximale', 'g2rd' ) }
+					value={ constrainedWidth }
+					onChange={ ( v ) => setAttributes( { constrainedWidth: v } ) }
 					units={ [ { value: 'px', label: 'px' }, { value: '%', label: '%' }, { value: 'vw', label: 'vw' } ] }
 				/>
-				<UnitControl
-					label={ __( 'Hauteur minimale', 'g2rd' ) }
-					value={ minHeight }
-					onChange={ ( v ) => setAttributes( { minHeight: v } ) }
-					units={ [ { value: 'px', label: 'px' }, { value: 'vh', label: 'vh' }, { value: 'em', label: 'em' } ] }
-				/>
-			</PanelBody>
-
-			{ /* Position collante (sticky) — suit le contenu au scroll */ }
-			<PanelBody title={ __( 'Position collante', 'g2rd' ) } initialOpen={ false }>
-				<ToggleControl
-					label={ __( 'Rendre collant (sticky)', 'g2rd' ) }
-					help={ __( 'Le bloc suit le contenu au défilement et reste visible dans sa colonne (ex. sommaire latéral).', 'g2rd' ) }
-					checked={ !! sticky }
-					onChange={ ( v ) => setAttributes( { sticky: v } ) }
-					__nextHasNoMarginBottom={ true }
-				/>
-				{ sticky && (
-					<UnitControl
-						label={ __( 'Décalage haut', 'g2rd' ) }
-						value={ stickyTop }
-						onChange={ ( v ) => setAttributes( { stickyTop: v } ) }
-						units={ [ { value: 'px', label: 'px' }, { value: 'rem', label: 'rem' }, { value: 'em', label: 'em' } ] }
-						help={ __( 'Distance depuis le haut de la fenêtre à laquelle le bloc se fige.', 'g2rd' ) }
-					/>
-				) }
-			</PanelBody>
-		</>
+			) }
+		</PanelBody>
 	);
 
-	// ── Rendu du panneau Style ─────────────────────────────────────────────────
-	const StylePanel = (
-		<>
-			{ /* Espacement */ }
-			<PanelBody title={ __( 'Espacement', 'g2rd' ) } initialOpen={ true }>
-				<DeviceSwitcher value={ device } onChange={ setDevice } />
-				<p className="g2rd-control-label">{ __( 'Padding', 'g2rd' ) }</p>
-				<div className="g2rd-spacing-grid">
-					{ [ 'Top', 'Right', 'Bottom', 'Left' ].map( ( side ) => (
-						<UnitControl
-							key={ side }
-							label={ side }
-							value={ getResponsive( 'padding' + side ) || attributes[ 'padding' + side ] }
-							onChange={ ( v ) => setResponsive( 'padding' + side, v ) }
-							units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' }, { value: '%', label: '%' } ] }
-						/>
-					) ) }
-				</div>
-				<p className="g2rd-control-label">{ __( 'Marge', 'g2rd' ) }</p>
+	// ── Onglet « Réglages » › Comportement ─────────────────────────────────────
+	const ComportementPanel = (
+		<PanelBody title={ __( 'Comportement', 'g2rd' ) } initialOpen={ false }>
+			<ToggleControl
+				label={ __( 'Rendre collant (sticky)', 'g2rd' ) }
+				help={ __( 'Le bloc suit le contenu au défilement et reste visible dans sa colonne (ex. sommaire latéral).', 'g2rd' ) }
+				checked={ !! sticky }
+				onChange={ ( v ) => setAttributes( { sticky: v } ) }
+				__nextHasNoMarginBottom={ true }
+			/>
+			{ sticky && (
 				<UnitControl
-					label={ __( 'Haut', 'g2rd' ) }
-					value={ marginTop }
-					onChange={ ( v ) => setAttributes( { marginTop: v } ) }
-					units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
+					label={ __( 'Décalage haut', 'g2rd' ) }
+					value={ stickyTop }
+					onChange={ ( v ) => setAttributes( { stickyTop: v } ) }
+					units={ [ { value: 'px', label: 'px' }, { value: 'rem', label: 'rem' }, { value: 'em', label: 'em' } ] }
+					help={ __( 'Distance depuis le haut de la fenêtre à laquelle le bloc se fige.', 'g2rd' ) }
 				/>
-				<UnitControl
-					label={ __( 'Bas', 'g2rd' ) }
-					value={ marginBottom }
-					onChange={ ( v ) => setAttributes( { marginBottom: v } ) }
-					units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
-				/>
-			</PanelBody>
+			) }
+		</PanelBody>
+	);
 
-			{ /* Fond */ }
-			<PanelBody title={ __( 'Fond', 'g2rd' ) } initialOpen={ false }>
+	// ── Onglet « Styles » › Dimensions ─────────────────────────────────────────
+	// WordPress regroupe marge intérieure/extérieure, largeur et hauteur sous
+	// « Dimensions » — on suit le natif plutôt que d'inventer « Espacement ».
+	const DimensionsPanel = (
+		<PanelBody title={ __( 'Dimensions', 'g2rd' ) } initialOpen={ true }>
+			<DeviceSwitcher value={ device } onChange={ setDevice } />
+			<p className="g2rd-control-label">{ __( 'Marge intérieure', 'g2rd' ) }</p>
+			<div className="g2rd-spacing-grid">
+				{ [ 'Top', 'Right', 'Bottom', 'Left' ].map( ( side ) => (
+					<UnitControl
+						key={ side }
+						label={ side }
+						value={ getResponsive( 'padding' + side ) || attributes[ 'padding' + side ] }
+						onChange={ ( v ) => setResponsive( 'padding' + side, v ) }
+						units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' }, { value: '%', label: '%' } ] }
+					/>
+				) ) }
+			</div>
+			<p className="g2rd-control-label">{ __( 'Marge extérieure', 'g2rd' ) }</p>
+			<UnitControl
+				label={ __( 'Haut', 'g2rd' ) }
+				value={ marginTop }
+				onChange={ ( v ) => setAttributes( { marginTop: v } ) }
+				units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
+			/>
+			<UnitControl
+				label={ __( 'Bas', 'g2rd' ) }
+				value={ marginBottom }
+				onChange={ ( v ) => setAttributes( { marginBottom: v } ) }
+				units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: 'rem', label: 'rem' } ] }
+			/>
+			<UnitControl
+				label={ __( 'Largeur', 'g2rd' ) }
+				value={ width }
+				onChange={ ( v ) => setAttributes( { width: v } ) }
+				units={ [ { value: 'px', label: 'px' }, { value: '%', label: '%' }, { value: 'vw', label: 'vw' } ] }
+			/>
+			<UnitControl
+				label={ __( 'Hauteur minimale', 'g2rd' ) }
+				value={ minHeight }
+				onChange={ ( v ) => setAttributes( { minHeight: v } ) }
+				units={ [ { value: 'px', label: 'px' }, { value: 'vh', label: 'vh' }, { value: 'em', label: 'em' } ] }
+			/>
+		</PanelBody>
+	);
+
+	// ── Onglet « Styles » › Arrière-plan ───────────────────────────────────────
+	const ArrierePlanPanel = (
+		<>
+			<PanelBody title={ __( 'Arrière-plan', 'g2rd' ) } initialOpen={ false }>
 				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 					label={ __( 'Type de fond', 'g2rd' ) }
 					value={ bgType }
@@ -523,14 +524,18 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				) }
 			</PanelBody>
 
-			{ /* Bordure */ }
-			<PanelBody title={ __( 'Bordure', 'g2rd' ) } initialOpen={ false }>
-				<UnitControl
-					label={ __( 'Rayon des coins', 'g2rd' ) }
-					value={ borderRadius }
-					onChange={ ( v ) => setAttributes( { borderRadius: v } ) }
-					units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: '%', label: '%' } ] }
-				/>
+		</>
+	);
+
+	// ── Onglet « Styles » › Bordure ────────────────────────────────────────────
+	const BordurePanel = (
+		<PanelBody title={ __( 'Bordure', 'g2rd' ) } initialOpen={ false }>
+			<UnitControl
+				label={ __( 'Rayon des coins', 'g2rd' ) }
+				value={ borderRadius }
+				onChange={ ( v ) => setAttributes( { borderRadius: v } ) }
+				units={ [ { value: 'px', label: 'px' }, { value: 'em', label: 'em' }, { value: '%', label: '%' } ] }
+			/>
 				<UnitControl
 					label={ __( 'Épaisseur', 'g2rd' ) }
 					value={ borderWidth }
@@ -575,26 +580,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					__nextHasNoMarginBottom={ true }
 				/>
 			</PanelBody>
-		</>
 	);
 
-	// ── Rendu du panneau Avancé ────────────────────────────────────────────────
-	const AdvancedPanel = (
-		<>
-			{ /* Balise HTML */ }
-			<PanelBody title={ __( 'Balise HTML', 'g2rd' ) } initialOpen={ true }>
-				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-					label={ __( 'Élément HTML', 'g2rd' ) }
-					value={ htmlTag }
-					options={ HTML_TAGS }
-					onChange={ ( v ) => setAttributes( { htmlTag: v } ) }
-					__next40pxDefaultSize={ true }
-					__nextHasNoMarginBottom={ true }
-				/>
-			</PanelBody>
-
-			{ /* Visibilité responsive */ }
-			<PanelBody title={ __( 'Visibilité', 'g2rd' ) } initialOpen={ false }>
+	// ── Onglet « Réglages » › Visibilité ───────────────────────────────────────
+	const VisibilitePanel = (
+		<PanelBody title={ __( 'Visibilité', 'g2rd' ) } initialOpen={ false }>
 				<ToggleControl
 					label={ __( 'Masquer sur mobile (≤ 768 px)', 'g2rd' ) }
 					checked={ hideOnMobile }
@@ -613,18 +603,20 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					onChange={ ( v ) => setAttributes( { hideOnDesktop: v } ) }
 					__nextHasNoMarginBottom={ true }
 				/>
-			</PanelBody>
+		</PanelBody>
+	);
 
-			{ /* Animation d'entrée */ }
-			<PanelBody title={ __( "Animation d'entrée", 'g2rd' ) } initialOpen={ false }>
-				<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-					label={ __( 'Animation', 'g2rd' ) }
-					value={ animation }
-					options={ ANIMATIONS }
-					onChange={ ( v ) => setAttributes( { animation: v } ) }
-					__next40pxDefaultSize={ true }
-					__nextHasNoMarginBottom={ true }
-				/>
+	// ── Onglet « Styles » › Animation ──────────────────────────────────────────
+	const AnimationPanel = (
+		<PanelBody title={ __( 'Animation', 'g2rd' ) } initialOpen={ false }>
+			<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+				label={ __( 'Animation', 'g2rd' ) }
+				value={ animation }
+				options={ ANIMATIONS }
+				onChange={ ( v ) => setAttributes( { animation: v } ) }
+				__next40pxDefaultSize={ true }
+				__nextHasNoMarginBottom={ true }
+			/>
 				{ animation !== 'none' && (
 					<>
 						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
@@ -659,41 +651,58 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						/>
 					</>
 				) }
-			</PanelBody>
+		</PanelBody>
+	);
 
-			{ /* Classe CSS personnalisée */ }
-			<PanelBody title={ __( 'CSS personnalisé', 'g2rd' ) } initialOpen={ false }>
-				<TextControl
-					label={ __( 'Classe CSS', 'g2rd' ) }
-					value={ customCSSClass }
-					onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					placeholder="ma-classe"
-					__next40pxDefaultSize={ true }
-					__nextHasNoMarginBottom={ true }
-				/>
-			</PanelBody>
+	// ── Onglet « Avancé » (natif) ──────────────────────────────────────────────
+	// WordPress y place nativement le sélecteur d'élément HTML et le champ de
+	// classe CSS : on s'y range au lieu d'inventer des panneaux séparés.
+	//
+	// customCSSClass est CONSERVÉ : c'est un attribut G2RD appliqué par render.php,
+	// distinct du champ natif « Classe(s) CSS additionnelle(s) » qui écrit dans
+	// `className`. Le supprimer ferait perdre l'édition de valeurs existantes.
+	const AvancePanel = (
+		<>
+			<SelectControl
+				label={ __( 'Élément HTML', 'g2rd' ) }
+				value={ htmlTag }
+				options={ HTML_TAGS }
+				onChange={ ( v ) => setAttributes( { htmlTag: v } ) }
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			/>
+			<TextControl
+				label={ __( 'Classe CSS G2RD', 'g2rd' ) }
+				help={ __( 'Classe appliquée par le thème, en plus des classes CSS additionnelles de WordPress.', 'g2rd' ) }
+				value={ customCSSClass }
+				onChange={ ( v ) => setAttributes( { customCSSClass: v } ) }
+				placeholder="ma-classe"
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+			/>
 		</>
 	);
 
 	// ── Rendu final ───────────────────────────────────────────────────────────
+	// Onglets natifs de WordPress (Réglages / Styles / Avancé) : plus de TabPanel
+	// maison. L'ordre des panneaux suit le vocabulaire partagé de la spec.
 	return (
 		<>
 			<InspectorControls>
-				<TabPanel
-					tabs={ [
-						{ name: 'layout',   title: __( 'Mise en page', 'g2rd' ) },
-						{ name: 'style',    title: __( 'Style',        'g2rd' ) },
-						{ name: 'advanced', title: __( 'Avancé',       'g2rd' ) },
-					] }
-				>
-					{ ( tab ) => {
-						if ( tab.name === 'layout'   ) return LayoutPanel;
-						if ( tab.name === 'style'    ) return StylePanel;
-						return AdvancedPanel;
-					} }
-				</TabPanel>
+				{ MiseEnPagePanel }
+				{ ComportementPanel }
+				{ VisibilitePanel }
+			</InspectorControls>
+
+			<InspectorControls group="styles">
+				{ ArrierePlanPanel }
+				{ DimensionsPanel }
+				{ BordurePanel }
+				{ AnimationPanel }
+			</InspectorControls>
+
+			<InspectorControls group="advanced">
+				{ AvancePanel }
 			</InspectorControls>
 
 			<Tag { ...innerBlocksProps } />
