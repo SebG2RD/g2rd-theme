@@ -314,8 +314,8 @@ export default function Edit( { attributes, setAttributes } ) {
 			{/* ── Contrôles sidebar ────────────────────────────────────────── */}
 			<InspectorControls>
 
-				{/* Paramètres globaux */}
-				<PanelBody title={ __( 'Paramètres globaux', 'g2rd' ) } initialOpen={ true }>
+				{/* Disposition générale */}
+				<PanelBody title={ __( 'Mise en page', 'g2rd' ) } initialOpen={ true }>
 
 					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( 'Design', 'g2rd' ) }
@@ -340,18 +340,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						} }
 					/>
 
-					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={ __( 'Border radius (px)', 'g2rd' ) }
-						value={ borderRadius }
-						min={0} max={32}
-						onChange={ val => setAttributes( { borderRadius: val } ) }
-					/>
+				</PanelBody>
 
-					<ToggleControl
-						label={ __( 'Ombre (box-shadow)', 'g2rd' ) }
-						checked={ showBoxShadow }
-						onChange={ val => setAttributes( { showBoxShadow: val } ) }
-					/>
+				{/* Réglages mineurs spécifiques → Comportement */}
+				<PanelBody title={ __( 'Comportement', 'g2rd' ) } initialOpen={ false }>
 
 					<ToggleControl
 						label={ __( 'Agrandir la colonne vedette', 'g2rd' ) }
@@ -370,31 +362,8 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				</PanelBody>
 
-				{/* Couleurs */}
-				<PanelColorSettings
-					title={ __( 'Couleurs', 'g2rd' ) }
-					initialOpen={ false }
-					colorSettings={ [
-						{
-							value: globalAccentColor,
-							onChange: val => setAttributes( { globalAccentColor: val } ),
-							label: __( 'Couleur principale (accent)', 'g2rd' ),
-						},
-						{
-							value: globalTextColor,
-							onChange: val => setAttributes( { globalTextColor: val } ),
-							label: __( 'Couleur du texte', 'g2rd' ),
-						},
-						{
-							value: globalBgColor,
-							onChange: val => setAttributes( { globalBgColor: val } ),
-							label: __( 'Couleur de fond', 'g2rd' ),
-						},
-					] }
-				/>
-
 				{/* Visibilité des éléments */}
-				<PanelBody title={ __( 'Éléments visibles', 'g2rd' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Visibilité', 'g2rd' ) } initialOpen={ false }>
 					{ [
 						[ 'showBadge',       __( 'Badge', 'g2rd' ) ],
 						[ 'showTitle',       __( 'Titre', 'g2rd' ) ],
@@ -575,6 +544,50 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
+			</InspectorControls>
+
+			{/* ── Onglet « Styles » ── */}
+			<InspectorControls group="styles">
+				<PanelColorSettings
+					title={ __( 'Couleur', 'g2rd' ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: globalAccentColor,
+							onChange: val => setAttributes( { globalAccentColor: val } ),
+							label: __( 'Couleur principale (accent)', 'g2rd' ),
+						},
+						{
+							value: globalTextColor,
+							onChange: val => setAttributes( { globalTextColor: val } ),
+							label: __( 'Couleur du texte', 'g2rd' ),
+						},
+						{
+							value: globalBgColor,
+							onChange: val => setAttributes( { globalBgColor: val } ),
+							label: __( 'Couleur de fond', 'g2rd' ),
+						},
+					] }
+				/>
+
+				{/* Rayon des coins → Bordure */}
+				<PanelBody title={ __( 'Bordure', 'g2rd' ) } initialOpen={ false }>
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={ __( 'Border radius (px)', 'g2rd' ) }
+						value={ borderRadius }
+						min={0} max={32}
+						onChange={ val => setAttributes( { borderRadius: val } ) }
+					/>
+				</PanelBody>
+
+				{/* Ombre (box-shadow) → Ombre */}
+				<PanelBody title={ __( 'Ombre', 'g2rd' ) } initialOpen={ false }>
+					<ToggleControl
+						label={ __( 'Ombre (box-shadow)', 'g2rd' ) }
+						checked={ showBoxShadow }
+						onChange={ val => setAttributes( { showBoxShadow: val } ) }
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<G2RDAiInspectorPanel blockType="g2rd/pricing-table" attributes={attributes} setAttributes={setAttributes} />
 
