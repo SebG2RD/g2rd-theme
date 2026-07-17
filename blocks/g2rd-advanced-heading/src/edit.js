@@ -271,6 +271,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			/>
 
 			{ /* ──────────── Contrôles inspecteur ──────────── */ }
+			{ /* Onglet « Réglages » */ }
 			<InspectorControls>
 
 				{ /* Contenu */ }
@@ -312,32 +313,97 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 				</PanelBody>
 
-				{ /* Animation */ }
-				<PanelBody title={ __( "Animation", "g2rd" ) } initialOpen={ false }>
-					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={ __( "Effet d'animation", "g2rd" ) }
-						value={ animationEffect }
-						options={ [
-							{ label: __( "Glissement vertical (Sliding)",  "g2rd" ), value: "sliding"  },
-							{ label: __( "Poussée horizontale (Pushing)",   "g2rd" ), value: "pushing"  },
-							{ label: __( "Révélation (Loader)",            "g2rd" ), value: "loader"   },
-							{ label: __( "Rotation 3D (Rotation)",         "g2rd" ), value: "rotation" },
-							{ label: __( "Zoom (Zoom)",                    "g2rd" ), value: "zoom"     },
-						] }
-						onChange={ ( v ) => setAttributes( { animationEffect: v } ) }
-					/>
-					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={ __( "Durée par mot (ms)", "g2rd" ) }
-						value={ animationSpeed }
-						onChange={ ( v ) => setAttributes( { animationSpeed: v } ) }
-						min={ 500 } max={ 8000 } step={ 100 }
+				{ /* Comportement : traitements spécifiques du texte animé */ }
+				<PanelBody title={ __( "Comportement", "g2rd" ) } initialOpen={ false }>
+					<p className="g2rd-control-label">{ __( "Mise en évidence", "g2rd" ) }</p>
+					<ToggleControl
+						label={ __( "Mettre en évidence les mots animés", "g2rd" ) }
+						checked={ highlightEnabled }
+						onChange={ ( v ) => setAttributes( { highlightEnabled: v } ) }
 						__nextHasNoMarginBottom
 					/>
+					{ highlightEnabled && (
+						<>
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond", "g2rd" ) }</p>
+							<ColorPalette value={ highlightBgColor } onChange={ ( v ) => setAttributes( { highlightBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Texte", "g2rd" ) }</p>
+							<ColorPalette value={ highlightTextColor } onChange={ ( v ) => setAttributes( { highlightTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Padding horizontal (px)", "g2rd" ) } value={ highlightPadding }      onChange={ ( v ) => setAttributes( { highlightPadding: v } ) }      min={ 0 } max={ 40 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Arrondi (px)", "g2rd" ) }            value={ highlightBorderRadius } onChange={ ( v ) => setAttributes( { highlightBorderRadius: v } ) } min={ 0 } max={ 50 } __nextHasNoMarginBottom />
+						</>
+					) }
+					<p className="g2rd-control-label">{ __( "Élément décoratif", "g2rd" ) }</p>
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={ __( "Type de décoration", "g2rd" ) }
+						value={ decoratorType }
+						options={ [
+							{ label: __( "Aucun",                  "g2rd" ), value: "none"   },
+							{ label: __( "Soulignement zigzag",    "g2rd" ), value: "zigzag" },
+							{ label: __( "Soulignement / bordure", "g2rd" ), value: "border" },
+							{ label: __( "Cercle autour du texte", "g2rd" ), value: "circle" },
+							{ label: __( "Badge numéroté",         "g2rd" ), value: "number" },
+						] }
+						onChange={ ( v ) => setAttributes( { decoratorType: v } ) }
+					/>
+					{ decoratorType !== "none" && (
+						<>
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur de la décoration", "g2rd" ) }</p>
+							<ColorPalette value={ decoratorColor } onChange={ ( v ) => setAttributes( { decoratorColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+						</>
+					) }
+					{ ( decoratorType === "zigzag" || decoratorType === "border" || decoratorType === "circle" ) && (
+						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Épaisseur (px)", "g2rd" ) } value={ decoratorSize } onChange={ ( v ) => setAttributes( { decoratorSize: v } ) } min={ 1 } max={ 10 } __nextHasNoMarginBottom />
+					) }
+					{ decoratorType === "number" && (
+						<>
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Numéro affiché", "g2rd" ) } value={ numberValue } onChange={ ( v ) => setAttributes( { numberValue: v } ) } min={ 0 } max={ 99 } __nextHasNoMarginBottom />
+							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Taille du badge (px)", "g2rd" ) } value={ numberSize } onChange={ ( v ) => setAttributes( { numberSize: v } ) } min={ 24 } max={ 120 } __nextHasNoMarginBottom />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond du badge", "g2rd" ) }</p>
+							<ColorPalette value={ numberBgColor } onChange={ ( v ) => setAttributes( { numberBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur du numéro", "g2rd" ) }</p>
+							<ColorPalette value={ numberTextColor } onChange={ ( v ) => setAttributes( { numberTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
+						</>
+					) }
+					<p className="g2rd-control-label">{ __( "Masque image (clip-path)", "g2rd" ) }</p>
+					<ToggleControl
+						label={ __( "Appliquer un masque image sur les mots animés", "g2rd" ) }
+						checked={ clipMaskEnabled }
+						onChange={ ( v ) => setAttributes( { clipMaskEnabled: v } ) }
+						__nextHasNoMarginBottom
+					/>
+					{ clipMaskEnabled && (
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ ( media ) => setAttributes( { clipMaskUrl: media.url, clipMaskId: media.id } ) }
+								allowedTypes={ [ "image" ] }
+								value={ clipMaskId }
+								render={ ( { open } ) => (
+									<div style={ { marginTop: "8px" } }>
+										{ clipMaskUrl && (
+											<img src={ clipMaskUrl } alt="" style={ { width: "100%", height: "56px", objectFit: "cover", borderRadius: "4px", marginBottom: "8px" } } />
+										) }
+										<Button variant="secondary" size="small" onClick={ open }>
+											{ clipMaskUrl ? __( "Changer l'image", "g2rd" ) : __( "Choisir une image", "g2rd" ) }
+										</Button>
+										{ clipMaskUrl && (
+											<Button isDestructive size="small" style={ { marginLeft: "8px" } } onClick={ () => setAttributes( { clipMaskUrl: "", clipMaskId: 0 } ) }>
+												{ __( "Supprimer", "g2rd" ) }
+											</Button>
+										) }
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
+					) }
 				</PanelBody>
+			</InspectorControls>
 
-				{ /* Typographie & Couleurs */ }
+			{ /* Onglet « Styles » */ }
+			<InspectorControls group="styles">
+
+				{ /* Couleur */ }
 				<PanelColorSettings
-					title={ __( "Couleurs", "g2rd" ) }
+					title={ __( "Couleur", "g2rd" ) }
 					initialOpen={ false }
 					colorSettings={ [
 						{
@@ -352,6 +418,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						},
 					] }
 				/>
+
 				<PanelBody title={ __( "Typographie", "g2rd" ) } initialOpen={ false }>
 					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={ __( "Graisse — mots animés", "g2rd" ) }
@@ -389,102 +456,35 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 
-				{ /* Mise en évidence */ }
-				<PanelBody title={ __( "Mise en évidence", "g2rd" ) } initialOpen={ false }>
-					<ToggleControl
-						label={ __( "Mettre en évidence les mots animés", "g2rd" ) }
-						checked={ highlightEnabled }
-						onChange={ ( v ) => setAttributes( { highlightEnabled: v } ) }
-						__nextHasNoMarginBottom
-					/>
-					{ highlightEnabled && (
-						<>
-							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond", "g2rd" ) }</p>
-							<ColorPalette value={ highlightBgColor } onChange={ ( v ) => setAttributes( { highlightBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Texte", "g2rd" ) }</p>
-							<ColorPalette value={ highlightTextColor } onChange={ ( v ) => setAttributes( { highlightTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Padding horizontal (px)", "g2rd" ) } value={ highlightPadding }      onChange={ ( v ) => setAttributes( { highlightPadding: v } ) }      min={ 0 } max={ 40 } __nextHasNoMarginBottom />
-							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Arrondi (px)", "g2rd" ) }            value={ highlightBorderRadius } onChange={ ( v ) => setAttributes( { highlightBorderRadius: v } ) } min={ 0 } max={ 50 } __nextHasNoMarginBottom />
-						</>
-					) }
-				</PanelBody>
-
-				{ /* Élément décoratif */ }
-				<PanelBody title={ __( "Élément décoratif", "g2rd" ) } initialOpen={ false }>
-					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={ __( "Type de décoration", "g2rd" ) }
-						value={ decoratorType }
-						options={ [
-							{ label: __( "Aucun",                  "g2rd" ), value: "none"   },
-							{ label: __( "Soulignement zigzag",    "g2rd" ), value: "zigzag" },
-							{ label: __( "Soulignement / bordure", "g2rd" ), value: "border" },
-							{ label: __( "Cercle autour du texte", "g2rd" ), value: "circle" },
-							{ label: __( "Badge numéroté",         "g2rd" ), value: "number" },
-						] }
-						onChange={ ( v ) => setAttributes( { decoratorType: v } ) }
-					/>
-					{ decoratorType !== "none" && (
-						<>
-							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur de la décoration", "g2rd" ) }</p>
-							<ColorPalette value={ decoratorColor } onChange={ ( v ) => setAttributes( { decoratorColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-						</>
-					) }
-					{ ( decoratorType === "zigzag" || decoratorType === "border" || decoratorType === "circle" ) && (
-						<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Épaisseur (px)", "g2rd" ) } value={ decoratorSize } onChange={ ( v ) => setAttributes( { decoratorSize: v } ) } min={ 1 } max={ 10 } __nextHasNoMarginBottom />
-					) }
-					{ decoratorType === "number" && (
-						<>
-							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Numéro affiché", "g2rd" ) } value={ numberValue } onChange={ ( v ) => setAttributes( { numberValue: v } ) } min={ 0 } max={ 99 } __nextHasNoMarginBottom />
-							<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom label={ __( "Taille du badge (px)", "g2rd" ) } value={ numberSize } onChange={ ( v ) => setAttributes( { numberSize: v } ) } min={ 24 } max={ 120 } __nextHasNoMarginBottom />
-							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Fond du badge", "g2rd" ) }</p>
-							<ColorPalette value={ numberBgColor } onChange={ ( v ) => setAttributes( { numberBgColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-							<p style={{ fontSize: "11px", fontWeight: 600, margin: "8px 0 4px", textTransform: "uppercase" }}>{ __( "Couleur du numéro", "g2rd" ) }</p>
-							<ColorPalette value={ numberTextColor } onChange={ ( v ) => setAttributes( { numberTextColor: v || "" } ) } clearable __experimentalIsRenderedInSidebar />
-						</>
-					) }
-				</PanelBody>
-
-				{ /* Ombres 3D */ }
-				<PanelBody title={ __( "Ombres de texte (3D)", "g2rd" ) } initialOpen={ false }>
+				{ /* Ombre */ }
+				<PanelBody title={ __( "Ombre", "g2rd" ) } initialOpen={ false }>
 					<ShadowRow index={ 1 } attrs={ attributes } set={ setAttributes } />
 					<ShadowRow index={ 2 } attrs={ attributes } set={ setAttributes } />
 					<ShadowRow index={ 3 } attrs={ attributes } set={ setAttributes } />
 				</PanelBody>
 
-				{ /* Masque image */ }
-				<PanelBody title={ __( "Masque image (clip-path)", "g2rd" ) } initialOpen={ false }>
-					<ToggleControl
-						label={ __( "Appliquer un masque image sur les mots animés", "g2rd" ) }
-						checked={ clipMaskEnabled }
-						onChange={ ( v ) => setAttributes( { clipMaskEnabled: v } ) }
+				{ /* Animation */ }
+				<PanelBody title={ __( "Animation", "g2rd" ) } initialOpen={ false }>
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={ __( "Effet d'animation", "g2rd" ) }
+						value={ animationEffect }
+						options={ [
+							{ label: __( "Glissement vertical (Sliding)",  "g2rd" ), value: "sliding"  },
+							{ label: __( "Poussée horizontale (Pushing)",   "g2rd" ), value: "pushing"  },
+							{ label: __( "Révélation (Loader)",            "g2rd" ), value: "loader"   },
+							{ label: __( "Rotation 3D (Rotation)",         "g2rd" ), value: "rotation" },
+							{ label: __( "Zoom (Zoom)",                    "g2rd" ), value: "zoom"     },
+						] }
+						onChange={ ( v ) => setAttributes( { animationEffect: v } ) }
+					/>
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={ __( "Durée par mot (ms)", "g2rd" ) }
+						value={ animationSpeed }
+						onChange={ ( v ) => setAttributes( { animationSpeed: v } ) }
+						min={ 500 } max={ 8000 } step={ 100 }
 						__nextHasNoMarginBottom
 					/>
-					{ clipMaskEnabled && (
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ ( media ) => setAttributes( { clipMaskUrl: media.url, clipMaskId: media.id } ) }
-								allowedTypes={ [ "image" ] }
-								value={ clipMaskId }
-								render={ ( { open } ) => (
-									<div style={ { marginTop: "8px" } }>
-										{ clipMaskUrl && (
-											<img src={ clipMaskUrl } alt="" style={ { width: "100%", height: "56px", objectFit: "cover", borderRadius: "4px", marginBottom: "8px" } } />
-										) }
-										<Button variant="secondary" size="small" onClick={ open }>
-											{ clipMaskUrl ? __( "Changer l'image", "g2rd" ) : __( "Choisir une image", "g2rd" ) }
-										</Button>
-										{ clipMaskUrl && (
-											<Button isDestructive size="small" style={ { marginLeft: "8px" } } onClick={ () => setAttributes( { clipMaskUrl: "", clipMaskId: 0 } ) }>
-												{ __( "Supprimer", "g2rd" ) }
-											</Button>
-										) }
-									</div>
-								) }
-							/>
-						</MediaUploadCheck>
-					) }
 				</PanelBody>
-
 			</InspectorControls>
 
 			{ /* ──────────── Toolbar ──────────── */ }
