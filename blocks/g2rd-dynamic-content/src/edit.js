@@ -6,6 +6,8 @@ import {
   RangeControl,
   ToggleControl,
   TextControl,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 
@@ -59,9 +61,10 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
+      {/* ── Onglet « Réglages » ── */}
       <InspectorControls>
-        {/* ── Source ── */}
-        <PanelBody title={__("Source de contenu", "g2rd")} initialOpen={true}>
+        {/* Source de données = source + requête (bloc dynamique). */}
+        <PanelBody title={__("Source de données", "g2rd")} initialOpen={true}>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Type de contenu", "g2rd")}
             value={postType}
@@ -81,10 +84,6 @@ export default function Edit({ attributes, setAttributes }) {
             options={categories}
             onChange={(v) => setAttributes({ categoryId: parseInt(v, 10) })}
           />
-        </PanelBody>
-
-        {/* ── Tri ── */}
-        <PanelBody title={__("Ordre et tri", "g2rd")} initialOpen={false}>
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Trier par", "g2rd")}
             value={orderby}
@@ -97,6 +96,7 @@ export default function Edit({ attributes, setAttributes }) {
             ]}
             onChange={(v) => setAttributes({ orderby: v })}
           />
+          {/* 2 options mais libellés descriptifs longs → SelectControl (lisibilité). */}
           <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
             label={__("Ordre", "g2rd")}
             value={order}
@@ -117,34 +117,24 @@ export default function Edit({ attributes, setAttributes }) {
             min={1}
             max={6}
           />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+          {/* Choix parmi 4 valeurs courtes → ToggleGroupControl natif. */}
+          <ToggleGroupControl
             label={__("Ratio de l'image", "g2rd")}
             value={imageRatio}
-            options={[
-              { label: "16/9",  value: "16/9" },
-              { label: "4/3",   value: "4/3" },
-              { label: "1/1 (carré)", value: "1/1" },
-              { label: "3/2",   value: "3/2" },
-            ]}
             onChange={(v) => setAttributes({ imageRatio: v })}
-          />
-          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Rayon des cartes (px)", "g2rd")}
-            value={cardRadius}
-            onChange={(v) => setAttributes({ cardRadius: v })}
-            min={0}
-            max={24}
-          />
-          <ToggleControl
-            label={__("Ombre portée", "g2rd")}
-            checked={cardShadow}
-            onChange={(v) => setAttributes({ cardShadow: v })}
+            isBlock
+            __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption value="16/9" label="16/9" />
+            <ToggleGroupControlOption value="4/3" label="4/3" />
+            <ToggleGroupControlOption value="1/1" label="1/1" />
+            <ToggleGroupControlOption value="3/2" label="3/2" />
+          </ToggleGroupControl>
         </PanelBody>
 
-        {/* ── Éléments à afficher ── */}
-        <PanelBody title={__("Éléments affichés", "g2rd")} initialOpen={false}>
+        {/* ── Contenu affiché ── */}
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={false}>
           {[
             ["showImage",    __("Image mise en avant", "g2rd")],
             ["showTitle",    __("Titre", "g2rd")],
@@ -172,16 +162,39 @@ export default function Edit({ attributes, setAttributes }) {
             />
           )}
         </PanelBody>
+      </InspectorControls>
 
-        {/* ── Couleurs ── */}
+      {/* ── Onglet « Styles » ── */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           colorSettings={[
             { value: accentColor,     onChange: (v) => setAttributes({ accentColor: v || "" }),     label: __("Couleur d'accentuation", "g2rd") },
             { value: textColor,       onChange: (v) => setAttributes({ textColor: v || "" }),       label: __("Couleur du texte", "g2rd") },
             { value: backgroundColor, onChange: (v) => setAttributes({ backgroundColor: v || "" }), label: __("Couleur de fond des cartes", "g2rd") },
           ]}
         />
+
+        {/* Rayon des cartes = coins arrondis → rubrique Bordure. */}
+        <PanelBody title={__("Bordure", "g2rd")} initialOpen={false}>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Rayon des cartes (px)", "g2rd")}
+            value={cardRadius}
+            onChange={(v) => setAttributes({ cardRadius: v })}
+            min={0}
+            max={24}
+          />
+        </PanelBody>
+
+        {/* Ombre portée des cartes → rubrique Ombre. */}
+        <PanelBody title={__("Ombre", "g2rd")} initialOpen={false}>
+          <ToggleControl
+            label={__("Ombre portée", "g2rd")}
+            checked={cardShadow}
+            onChange={(v) => setAttributes({ cardShadow: v })}
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
       </InspectorControls>
 
       {/* ── Prévisualisation éditeur ── */}
