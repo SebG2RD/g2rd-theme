@@ -16,6 +16,8 @@ import {
   TextControl,
   Spinner,
   Notice,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
 import { useState, useEffect } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
@@ -305,8 +307,8 @@ export default function Edit( { attributes, setAttributes } ) {
       />
       <InspectorControls>
 
-        { /* ── Panneau Avis Google ── */ }
-        <PanelBody title={ __( "Avis Google Business", "g2rd" ) } initialOpen={ false }>
+        { /* ── Source de données : avis Google Business (config métier) ── */ }
+        <PanelBody title={ __( "Source de données", "g2rd" ) } initialOpen={ false }>
           <ToggleControl
             label={ __( "Afficher les avis Google", "g2rd" ) }
             help={
@@ -505,46 +507,27 @@ export default function Edit( { attributes, setAttributes } ) {
         { /* ── Panneaux manuels (masqués en mode Google) ── */ }
         { ! googleMode && (
           <>
-            <PanelBody title={ __( "Notation & Mise en page", "g2rd" ) } initialOpen>
+            <PanelBody title={ __( "Mise en page", "g2rd" ) } initialOpen>
               <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
                 label={ __( "Nombre d'étoiles", "g2rd" ) }
                 value={ rating }
                 onChange={ ( val ) => setAttributes( { rating: val } ) }
                 min={ 1 } max={ 5 }
               />
-              <div style={ { marginTop: 8 } }>
-                <p style={ { marginBottom: 6, fontSize: 13, fontWeight: 500 } }>{ __( "Style", "g2rd" ) }</p>
-                <div style={ { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 } }>
-                  { [
-                    { value: "card",    label: "Carte" },
-                    { value: "simple",  label: "Simple" },
-                    { value: "minimal", label: "Minimal" },
-                  ].map( ( { value, label } ) => {
-                    const active = layout === value;
-                    return (
-                      <button
-                        key={ value }
-                        type="button"
-                        onClick={ () => setAttributes( { layout: value } ) }
-                        style={ pickerBtn( active ) }
-                      >
-                        { label }
-                      </button>
-                    );
-                  } ) }
-                </div>
-              </div>
-              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={ __( "Rayon de bordure (px)", "g2rd" ) }
-                value={ borderRadius }
-                onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
-                min={ 0 } max={ 32 }
-              />
-              <ToggleControl
-                label={ __( "Ombre portée", "g2rd" ) }
-                checked={ hasShadow }
-                onChange={ ( val ) => setAttributes( { hasShadow: val } ) }
-              />
+              {/* Choix parmi 3 valeurs courtes → ToggleGroupControl natif
+                  (remplace les boutons maison : même attribut « layout », mêmes valeurs). */}
+              <ToggleGroupControl
+                label={ __( "Style", "g2rd" ) }
+                value={ layout }
+                onChange={ ( value ) => setAttributes( { layout: value } ) }
+                isBlock
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              >
+                <ToggleGroupControlOption value="card" label={ __( "Carte", "g2rd" ) } />
+                <ToggleGroupControlOption value="simple" label={ __( "Simple", "g2rd" ) } />
+                <ToggleGroupControlOption value="minimal" label={ __( "Minimal", "g2rd" ) } />
+              </ToggleGroupControl>
             </PanelBody>
 
             <PanelBody title={ __( "Avatar", "g2rd" ) } initialOpen={ false }>
@@ -586,9 +569,12 @@ export default function Edit( { attributes, setAttributes } ) {
           </>
         ) }
 
-        { /* ── Couleurs (mode manuel ET Google) ── */ }
+      </InspectorControls>
+
+      {/* ── Onglet « Styles » (couleurs + bordure + ombre, mode manuel ET Google) ── */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={ __( "Couleurs", "g2rd" ) }
+          title={ __( "Couleur", "g2rd" ) }
           initialOpen={ false }
           colorSettings={ [
             { value: backgroundColor, onChange: ( v ) => setAttributes( { backgroundColor: v || "" } ), label: __( "Fond", "g2rd" ) },
@@ -600,6 +586,23 @@ export default function Edit( { attributes, setAttributes } ) {
           ] }
         />
 
+        <PanelBody title={ __( "Bordure", "g2rd" ) } initialOpen={ false }>
+          <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={ __( "Rayon de bordure (px)", "g2rd" ) }
+            value={ borderRadius }
+            onChange={ ( val ) => setAttributes( { borderRadius: val } ) }
+            min={ 0 } max={ 32 }
+          />
+        </PanelBody>
+
+        <PanelBody title={ __( "Ombre", "g2rd" ) } initialOpen={ false }>
+          <ToggleControl
+            label={ __( "Ombre portée", "g2rd" ) }
+            checked={ hasShadow }
+            onChange={ ( val ) => setAttributes( { hasShadow: val } ) }
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
       </InspectorControls>
       <G2RDAiInspectorPanel blockType="g2rd/testimonial" attributes={attributes} setAttributes={setAttributes} />
 
