@@ -89,8 +89,10 @@ export default function Edit({ attributes, setAttributes }) {
 				/>
 			</BlockControls>
 
+			{/* ── Onglet « Réglages » ───────────────────────────────────── */}
 			<InspectorControls>
-				<PanelBody title={__('Fichier et langue', 'g2rd')} initialOpen>
+				{/* Contenu : fichier, langage et code source */}
+				<PanelBody title={__('Contenu', 'g2rd')} initialOpen>
 					<TextControl
 						label={__('Nom du fichier (optionnel)', 'g2rd')}
 						value={file}
@@ -108,21 +110,17 @@ export default function Edit({ attributes, setAttributes }) {
 						options={languageOptions}
 						onChange={(v) => setAttributes({ language: v })}
 					/>
-					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={__('Thème coloration', 'g2rd')}
-						value={theme}
-						options={HLJS_THEMES}
-						onChange={(v) => setAttributes({ theme: v })}
+					<TextareaControl
+						label={__('Code source', 'g2rd')}
+						value={source}
+						onChange={(v) => setAttributes({ source: v })}
+						__nextHasNoMarginBottom
+						rows={12}
 					/>
 				</PanelBody>
-				<PanelBody title={__('Mise en forme', 'g2rd')}>
-					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-						label={__('Taille de police (px)', 'g2rd')}
-						value={fontSize}
-						onChange={(v) => setAttributes({ fontSize: v ?? 14 })}
-						min={10}
-						max={24}
-					/>
+
+				{/* Comportement : numérotation et retour à la ligne */}
+				<PanelBody title={__('Comportement', 'g2rd')} initialOpen={false}>
 					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
 						label={__('Numéro de la première ligne', 'g2rd')}
 						value={startLine}
@@ -134,23 +132,37 @@ export default function Edit({ attributes, setAttributes }) {
 						label={__('Afficher les numéros de ligne', 'g2rd')}
 						checked={showLines}
 						onChange={(v) => setAttributes({ showLines: v })}
+						__nextHasNoMarginBottom
 					/>
 					<ToggleControl
 						label={__('Retour à la ligne dans le code', 'g2rd')}
 						checked={wrapLines}
 						onChange={(v) => setAttributes({ wrapLines: v })}
+						__nextHasNoMarginBottom
 					/>
 				</PanelBody>
-				<PanelBody
-					title={__('Code source', 'g2rd')}
-					initialOpen={false}
-				>
-					<TextareaControl
-						label={__('Coller ou modifier ici', 'g2rd')}
-						value={source}
-						onChange={(v) => setAttributes({ source: v })}
-						__nextHasNoMarginBottom
-						rows={12}
+			</InspectorControls>
+
+			{/* ── Onglet « Styles » ─────────────────────────────────────── */}
+			<InspectorControls group="styles">
+				{/* Couleur : thème de coloration syntaxique (choix de 5+ → SelectControl) */}
+				<PanelBody title={__('Couleur', 'g2rd')} initialOpen>
+					<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={__('Thème coloration', 'g2rd')}
+						value={theme}
+						options={HLJS_THEMES}
+						onChange={(v) => setAttributes({ theme: v })}
+					/>
+				</PanelBody>
+
+				{/* Typographie : taille du code */}
+				<PanelBody title={__('Typographie', 'g2rd')} initialOpen={false}>
+					<RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+						label={__('Taille de police (px)', 'g2rd')}
+						value={fontSize}
+						onChange={(v) => setAttributes({ fontSize: v ?? 14 })}
+						min={10}
+						max={24}
 					/>
 				</PanelBody>
 			</InspectorControls>
