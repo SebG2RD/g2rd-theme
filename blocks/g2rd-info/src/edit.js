@@ -20,6 +20,9 @@ import {
   MenuItem,
   ToolbarGroup,
   ToolbarDropdownMenu,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+  __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 
 const STYLE_PRESETS = [
@@ -351,67 +354,58 @@ export default function Edit({ attributes, setAttributes }) {
         </ToolbarGroup>
       </BlockControls>
 
+      {/* ── Onglet « Réglages » ── */}
       <InspectorControls>
-        <PanelBody title={__("Média", "g2rd")} initialOpen={true}>
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+        <PanelBody title={__("Contenu", "g2rd")} initialOpen={true}>
+          {/* Choix parmi 2 → ToggleGroupControl natif (même attribut « mediaType »,
+              mêmes valeurs). */}
+          <ToggleGroupControl
             label={__("Type de média", "g2rd")}
             value={mediaType}
-            options={[
-              { label: __("Icône", "g2rd"), value: "icon" },
-              { label: __("Image", "g2rd"), value: "image" },
-            ]}
             onChange={(value) => setAttributes({ mediaType: value })}
+            isBlock
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-          />
+          >
+            <ToggleGroupControlOption value="icon" label={__("Icône", "g2rd")} />
+            <ToggleGroupControlOption value="image" label={__("Image", "g2rd")} />
+          </ToggleGroupControl>
           {mediaType === "icon" && (
-            <>
-              <DropdownMenu
-                icon={
-                  icon ? (
-                    <span className={`dashicons ${icon}`}></span>
-                  ) : (
-                    "admin-customizer"
-                  )
-                }
-                label={__("Icône", "g2rd")}
-                toggleProps={{ variant: "secondary" }}
-              >
-                {({ onClose }) => (
-                  <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-                    {Object.entries(iconCategories).map(([category, icons]) => (
-                      <MenuGroup key={category} label={category}>
-                        {icons.map((iconData) => (
-                          <MenuItem
-                            key={iconData.value}
-                            icon={
-                              <span className={`dashicons ${iconData.value}`}></span>
-                            }
-                            isSelected={icon === iconData.value}
-                            onClick={() => {
-                              setAttributes({ icon: iconData.value });
-                              onClose();
-                            }}
-                          >
-                            {iconData.label}
-                          </MenuItem>
-                        ))}
-                      </MenuGroup>
-                    ))}
-                  </div>
-                )}
-              </DropdownMenu>
-              <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
-                label={__("Taille de l'icône", "g2rd")}
-                value={iconSize}
-                onChange={(value) => setAttributes({ iconSize: value })}
-                min={16}
-                max={128}
-                step={1}
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-            </>
+            <DropdownMenu
+              icon={
+                icon ? (
+                  <span className={`dashicons ${icon}`}></span>
+                ) : (
+                  "admin-customizer"
+                )
+              }
+              label={__("Icône", "g2rd")}
+              toggleProps={{ variant: "secondary" }}
+            >
+              {({ onClose }) => (
+                <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+                  {Object.entries(iconCategories).map(([category, icons]) => (
+                    <MenuGroup key={category} label={category}>
+                      {icons.map((iconData) => (
+                        <MenuItem
+                          key={iconData.value}
+                          icon={
+                            <span className={`dashicons ${iconData.value}`}></span>
+                          }
+                          isSelected={icon === iconData.value}
+                          onClick={() => {
+                            setAttributes({ icon: iconData.value });
+                            onClose();
+                          }}
+                        >
+                          {iconData.label}
+                        </MenuItem>
+                      ))}
+                    </MenuGroup>
+                  ))}
+                </div>
+              )}
+            </DropdownMenu>
           )}
           {mediaType === "image" && (
             <>
@@ -449,8 +443,24 @@ export default function Edit({ attributes, setAttributes }) {
             </>
           )}
         </PanelBody>
+
+        {/* 4 options aux libellés descriptifs longs → SelectControl (lisibilité). */}
+        <PanelBody title={__("Mise en page", "g2rd")} initialOpen={false}>
+          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+            label={__("Disposition", "g2rd")}
+            value={layout}
+            options={layoutOptions}
+            onChange={(value) => setAttributes({ layout: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+        </PanelBody>
+      </InspectorControls>
+
+      {/* ── Onglet « Styles » ── */}
+      <InspectorControls group="styles">
         <PanelColorSettings
-          title={__("Couleurs", "g2rd")}
+          title={__("Couleur", "g2rd")}
           colorSettings={[
             {
               value: backgroundColor,
@@ -478,25 +488,33 @@ export default function Edit({ attributes, setAttributes }) {
               : []),
           ]}
         />
-        <PanelBody title={__("Disposition", "g2rd")} initialOpen={false}>
-          <TextControl
+
+        {/* Dimensions = espacement (gap) + taille de l'icône. */}
+        <PanelBody title={__("Dimensions", "g2rd")} initialOpen={false}>
+          <UnitControl
             label={__("Espacement entre l'icône et le texte (gap)", "g2rd")}
             value={gap}
             onChange={(value) => setAttributes({ gap: value })}
+            units={[
+              { value: "px", label: "px" },
+              { value: "em", label: "em" },
+              { value: "rem", label: "rem" },
+              { value: "%", label: "%" },
+            ]}
             __next40pxDefaultSize
-            __nextHasNoMarginBottom
-            help={__("Exemple : 8px, 1rem, 2em...", "g2rd")}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
           />
-          <SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
-            label={__("Disposition", "g2rd")}
-            value={layout}
-            options={layoutOptions}
-            onChange={(value) => setAttributes({ layout: value })}
-            __next40pxDefaultSize
-            __nextHasNoMarginBottom
-          />
+          {mediaType === "icon" && (
+            <RangeControl __next40pxDefaultSize __nextHasNoMarginBottom
+              label={__("Taille de l'icône", "g2rd")}
+              value={iconSize}
+              onChange={(value) => setAttributes({ iconSize: value })}
+              min={16}
+              max={128}
+              step={1}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
         </PanelBody>
       </InspectorControls>
       <div {...blockProps}>
