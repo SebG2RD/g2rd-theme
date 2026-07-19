@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.3**
+
+- **Fix — champs membre (Qui sommes-nous) enfin affichés** : la section « Le profil » (Expérience, Soft skills, Méthodologie, Objectif, Stack technique) ne s'affichait pas sur les pages membre. Cause : en FSE, le template n'est **pas** rendu dans une boucle `the_post()`, donc le garde `in_the_loop()` du filtre `the_content` renvoyait toujours `false`. Corrigé : garde basé sur `get_queried_object_id()` (fiable pour un singular) + drapeau anti-double-rendu. Rendu 100 % PHP, **indépendant du template** → ne peut plus être perdu lors d'un ré-enregistrement dans l'éditeur de site.
+- **Nettoyage** : suppression du code mort devenu inutile (5 shortcodes membre `[experience_dev]`/`[soft_skills]`/… + la source de *block binding* `g2rd/member-meta`) — 0 référence, remplacés par le rendu `the_content`. Les shortcodes et le binding **portfolio** sont conservés (toujours utilisés).
+- **Fix** : référence morte `var(--wp--preset--color--border)` → `var(--wp--custom--color--border)` dans le rendu de la section membre (suite au déplacement de `border` en 1.26.2).
 
 ### **1.26.2**
 

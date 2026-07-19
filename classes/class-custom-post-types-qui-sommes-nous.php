@@ -46,11 +46,25 @@ class CPT_QuiSommesNous {
      * @return string
      */
     public function appendMemberProfile( $content ) {
-        if ( ! \is_singular( 'qui-sommes-nous' ) || ! \in_the_loop() || ! \is_main_query() ) {
+        if ( ! \is_singular( 'qui-sommes-nous' ) ) {
             return $content;
         }
 
-        $post_id    = \get_the_ID();
+        // En FSE, le template n'est pas rendu dans une boucle the_post() : in_the_loop()
+        // renverrait false et masquerait la section (et get_the_ID() n'est pas fiable ici,
+        // car le bloc core/post-content lit le contenu via un postId de contexte sans
+        // setup_postdata). On s'appuie donc sur l'objet interrogé, avec un drapeau pour
+        // n'ajouter la section qu'une seule fois. is_singular() suffit à écarter les boucles
+        // secondaires : $wp_query y est remplacé, donc is_singular('qui-sommes-nous') y est faux.
+        static $done = false;
+        if ( $done ) {
+            return $content;
+        }
+        $post_id = \get_queried_object_id();
+        if ( ! $post_id ) {
+            return $content;
+        }
+
         $experience = \get_post_meta( $post_id, '_experience_dev', true );
         $soft       = \get_post_meta( $post_id, '_soft_skills', true );
         $metho      = \get_post_meta( $post_id, '_methodologie', true );
@@ -95,13 +109,14 @@ class CPT_QuiSommesNous {
             }
         }
 
-        $section = '<div class="g2rd-member-profile" style="margin-top:var(--wp--preset--spacing--xl);padding-top:var(--wp--preset--spacing--l);border-top:1px solid var(--wp--preset--color--border)">'
+        $section = '<div class="g2rd-member-profile" style="margin-top:var(--wp--preset--spacing--xl);padding-top:var(--wp--preset--spacing--l);border-top:1px solid var(--wp--custom--color--border)">'
             . '<p class="has-s-font-size" style="display:inline-block;border-radius:999px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--secondary);padding:.4rem .9rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 var(--wp--preset--spacing--s)">' . \esc_html__( 'Le profil', 'g2rd' ) . '</p>'
             . '<h2 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-.02em">' . \esc_html__( 'Parcours & méthode', 'g2rd' ) . '</h2>'
             . '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:var(--wp--preset--spacing--m)">' . $cards . '</div>'
             . $icons_row
             . '</div>';
 
+        $done = true;
         return $content . $section;
     }
 
