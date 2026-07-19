@@ -87,7 +87,7 @@ $wrapper_attrs = get_block_wrapper_attributes([
 				>
 					<span class="g2rd-share-buttons__icon">
 						<?php if ($icon) : ?>
-							<svg viewBox="0 0 24 24" width="<?php echo (int) $icon_size; ?>" height="<?php echo (int) $icon_size; ?>" aria-hidden focusable="false">
+							<svg viewBox="0 0 24 24" width="<?php echo (int) $icon_size; ?>" height="<?php echo (int) $icon_size; ?>" aria-hidden="true" focusable="false">
 								<?php echo $icon; ?>
 							</svg>
 						<?php endif; ?>

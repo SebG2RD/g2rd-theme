@@ -57,12 +57,22 @@
                 {
                     "name": "Rose",
                     "slug": "accent",
-                    "color": "#f43f5e"
+                    "color": "#e11d48"
                 },
                 {
                     "name": "Violet",
                     "slug": "accent-2",
                     "color": "#8b5cf6"
+                },
+                {
+                    "name": "Bordure",
+                    "slug": "border",
+                    "color": "#e2e8f0"
+                },
+                {
+                    "name": "Surface",
+                    "slug": "surface",
+                    "color": "#f1f5f9"
                 }
             ],
             "gradients": [

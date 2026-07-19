@@ -27,6 +27,7 @@ export function TabConfiguration( { settings, update } ) {
 	const [ showKey,        setShowKey        ] = useState( false );
 	const [ clearingCache,  setClearingCache  ] = useState( false );
 	const [ clearMsg,       setClearMsg       ] = useState( '' );
+	const [ placeId,        setPlaceId        ] = useState( '' );
 
 	return (
 		<div className="g2rd-tab-content">
@@ -109,6 +110,7 @@ export function TabConfiguration( { settings, update } ) {
 				<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'stretch' } }>
 					<input
 						type={ showKey ? 'text' : 'password' }
+						aria-label="Clé API Google Maps (Places)"
 						value={ apiKeyInput }
 						onChange={ ( e ) => {
 							setApiKeyInput( e.target.value );
@@ -140,7 +142,9 @@ export function TabConfiguration( { settings, update } ) {
 					<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'center' } }>
 						<input
 							type="text"
-							id="g2rd-clear-cache-input"
+							aria-label="Place ID Google (ChIJ…)"
+							value={ placeId }
+							onChange={ ( e ) => setPlaceId( e.target.value ) }
 							placeholder="Place ID (ChIJ…)"
 							style={ { padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontSize: 13, flex: 1 } }
 						/>
@@ -148,12 +152,11 @@ export function TabConfiguration( { settings, update } ) {
 							type="button"
 							disabled={ clearingCache }
 							onClick={ () => {
-								const el = document.getElementById( 'g2rd-clear-cache-input' );
-								const placeId = el ? el.value.trim() : '';
-								if ( ! placeId ) return;
+								const id = placeId.trim();
+									if ( ! id ) return;
 								setClearingCache( true );
 								setClearMsg( '' );
-								fetch( ( googleReviewsClearUrl || '' ) + '?place_id=' + encodeURIComponent( placeId ), {
+								fetch( ( googleReviewsClearUrl || '' ) + '?place_id=' + encodeURIComponent( id ), {
 									method: 'DELETE',
 									headers: { 'X-WP-Nonce': nonce || '' },
 								} )

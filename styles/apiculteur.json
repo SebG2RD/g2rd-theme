@@ -39,6 +39,26 @@
           "name": "Lin chaud",
           "slug": "white",
           "color": "#FDFAF3"
+        },
+        {
+          "name": "Bordure",
+          "slug": "border",
+          "color": "#E8DEC9"
+        },
+        {
+          "name": "Surface",
+          "slug": "surface",
+          "color": "#F5EEDF"
+        },
+        {
+          "name": "Texte atténué",
+          "slug": "muted",
+          "color": "#7A6A52"
+        },
+        {
+          "name": "Crème",
+          "slug": "cream",
+          "color": "#F7F1E6"
         }
       ],
       "gradients": [
@@ -51,6 +71,30 @@
           "name": "Dégradé sombre",
           "slug": "dark-gradient",
           "gradient": "linear-gradient(160deg, #1C1208 0%, #3A2510 100%)"
+        },
+        {
+          "name": "Dégradé action",
+          "slug": "secondary",
+          "gradient": "linear-gradient(135deg, #9A6413 0%, #7A4E0F 100%)"
+        }
+      ]
+    },
+    "shadow": {
+      "presets": [
+        {
+          "name": "Légère",
+          "slug": "light",
+          "shadow": "0 4px 16px rgba(28,18,8,0.08)"
+        },
+        {
+          "name": "Forte",
+          "slug": "huge",
+          "shadow": "0 20px 50px rgba(28,18,8,0.18)"
+        },
+        {
+          "name": "Halo accent",
+          "slug": "accent-glow",
+          "shadow": "0 10px 30px rgba(201,145,31,0.35)"
         }
       ]
     },
@@ -93,6 +137,16 @@
               "src": ["https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2"]
             }
           ]
+        },
+        {
+          "fontFamily": "Poppins, system-ui, sans-serif",
+          "name": "Inter (Poppins)",
+          "slug": "inter"
+        },
+        {
+          "fontFamily": "Poppins, system-ui, sans-serif",
+          "name": "Plus Jakarta (Poppins)",
+          "slug": "plus-jakarta-sans"
         }
       ],
       "fontSizes": [

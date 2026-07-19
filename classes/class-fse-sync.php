@@ -47,6 +47,30 @@ class FseSync {
 		\add_action( 'admin_init', [ $this, 'sync_fse_once' ] );
 		\add_action( 'admin_init', [ $this, 'recreate_fse_templates' ], 20 );
 		\add_action( 'admin_init', [ $this, 'maybe_flush_rewrite_rules' ], 30 );
+		\add_filter( 'render_block_data', [ $this, 'normalize_template_part_theme' ] );
+	}
+
+	/**
+	 * Neutralise l'attribut `theme` des blocs core/template-part au rendu.
+	 *
+	 * L'éditeur de site ré-injecte « "theme":"<slug>" » dans les références de
+	 * template-part à chaque sauvegarde. Si le nom du dossier du thème diffère
+	 * de ce slug (ZIP renommé, install différente…), la résolution échoue avec
+	 * « Le template part a été supprimé ou n'est pas disponible ». En retirant
+	 * l'attribut au rendu, WordPress résout toujours le part depuis le thème
+	 * ACTIF — quel que soit le nom du dossier et même après une re-sauvegarde.
+	 * S'applique aux templates du filesystem ET aux versions personnalisées en BDD.
+	 *
+	 * @param array $parsed_block Bloc analysé (avant rendu).
+	 * @return array
+	 */
+	public function normalize_template_part_theme( $parsed_block ) {
+		if ( is_array( $parsed_block )
+			&& isset( $parsed_block['blockName'], $parsed_block['attrs']['theme'] )
+			&& 'core/template-part' === $parsed_block['blockName'] ) {
+			unset( $parsed_block['attrs']['theme'] );
+		}
+		return $parsed_block;
 	}
 
 	/**

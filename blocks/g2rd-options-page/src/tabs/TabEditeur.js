@@ -96,6 +96,8 @@ export function TabEditeur( { settings, update } ) {
 								<span className={ `dashicons dashicons-${ icon }` }></span>
 								<span className="g2rd-block-item__title">{ title }</span>
 								<ToggleControl
+									label={ `Activer le bloc ${ title }` }
+									hideLabelFromVision
 									checked={ ! isDisabled }
 									onChange={ ( val ) => toggleBlock( name, ! val ) }
 									disabled={ ! licensed }

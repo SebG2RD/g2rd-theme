@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.25.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,17 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.0**
+
+- **Accessibilité des blocs (RGAA/WCAG)** : autoplay des carrousels/sliders **pausable au clavier** (WCAG 2.2.2) + module `Swiper.A11y` (aria-roledescription, live region) ; respect de **`prefers-reduced-motion`** sur carrousel, slider, countdown, effect-kits et particules (animations neutralisées, éléments toujours visibles).
+- **Couleurs 100 % tokens dans les templates** : conversion de **toutes** les couleurs codées en dur (ancienne palette navy/tan) vers `var(--wp--preset--color--…)` dans l'ensemble des templates — le rendu suit désormais la variation de style active. Contraste `accent` aligné AA (`#e11d48`).
+- **Import header/footer fiabilisé** : nouveau filtre `FseSync::normalize_template_part_theme()` qui neutralise l'attribut `theme` des `core/template-part` au rendu → plus d'erreur « template part supprimé ou non disponible », même après une re-sauvegarde dans l'éditeur de site (fichier **et** BDD).
+- **Design-system** : tokens `border`/`surface`, gradient `secondary` et alias structurels ajoutés aux variations `g2rd-style`, `apiculteur` et `bela-vista` (cartes, boutons `outline`/`action` et sections sombres corrects sur chaque style).
+- **Page d'options (BO)** : accessibilité corrigée (labels sur tous les interrupteurs et champs, `<h1>`, état React au lieu de lecture DOM), polices **Inter self-hostées** (fin de l'`@import` Google Fonts — perf + RGPD), suppression de code mort (`SaveBar.js`).
+- **i18n** : correction du textdomain `wrb` → `g2rd` sur 19 blocs (365 chaînes) — libellés d'éditeur enfin traduisibles.
+- **Performance** : exclusions LiteSpeed pour `gsap-animation.js` et `carousel-frontend.js` (données localisées non réordonnées).
+- **Correctifs** : template `single` (groupe non fermé), header/footer (`is-style-primary` inexistant → attributs FSE réels), `single-prestations` (attribut `theme`), style de bouton « Alternatif » (contraste blanc→navy sur lime), `template-vtc` (clé `style` dupliquée), attributs `alt`/`aria` manquants (sidebar, share-buttons, geo-faq).
 
 ### **1.25.1**
 

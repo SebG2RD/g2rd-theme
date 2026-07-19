@@ -429,12 +429,14 @@ function initializeCarousels() {
         preInitModules.push(Swiper.Pagination);
       if (Swiper.EffectCoverflow) preInitModules.push(Swiper.EffectCoverflow);
       if (Swiper.Grid) preInitModules.push(Swiper.Grid);
+      if (Swiper.A11y) preInitModules.push(Swiper.A11y);
       const modulesForSwiper = preInitModules;
 
       // Initialiser Swiper
       try {
         const swiperConfig = {
           modules: modulesForSwiper,
+          a11y: { enabled: true },
           effect: window.innerWidth < 768 ? "slide" : finalConfig.effect,
           speed: window.innerWidth < 768 ? 0 : 800, // Pas d'animation sur mobile
           easing: "ease-out",
@@ -502,6 +504,16 @@ function initializeCarousels() {
         const reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
         if ( reducedMotion && swiper.autoplay ) {
           swiper.autoplay.stop();
+        }
+
+        // WCAG 2.2.2 — pause de l'autoplay au focus clavier (parité avec le survol souris)
+        if ( swiper.autoplay && finalConfig.autoplayDelay && ! reducedMotion ) {
+          swiperContainer.addEventListener( 'focusin', function () {
+            if ( swiper.autoplay && swiper.autoplay.stop ) swiper.autoplay.stop();
+          } );
+          swiperContainer.addEventListener( 'focusout', function () {
+            if ( swiper.autoplay && swiper.autoplay.start ) swiper.autoplay.start();
+          } );
         }
 
         // RGAA 13.2 — bouton pause accessible si activé dans le BO

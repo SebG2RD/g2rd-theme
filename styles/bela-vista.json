@@ -26,7 +26,12 @@
 				{ "slug": "base", "name": "Blanc", "color": "#FFFFFF" },
 				{ "slug": "coral", "name": "Corail (accent fiscal)", "color": "#E4572E" },
 				{ "slug": "green", "name": "Vert (au vert)", "color": "#3F7D5A" },
-				{ "slug": "green-soft", "name": "Vert doux", "color": "#EAF3EE" }
+				{ "slug": "green-soft", "name": "Vert doux", "color": "#EAF3EE" },
+				{ "slug": "primary", "name": "Primary (pétrole)", "color": "#005078" },
+				{ "slug": "secondary", "name": "Secondary (ciel)", "color": "#C6E7FA" },
+				{ "slug": "white", "name": "Blanc", "color": "#FFFFFF" },
+				{ "slug": "border", "name": "Bordure", "color": "#D9E6EE" },
+				{ "slug": "surface", "name": "Surface", "color": "#E8F4FB" }
 			],
 			"gradients": [
 				{
@@ -43,6 +48,11 @@
 					"slug": "map-soft",
 					"name": "Fond carte",
 					"gradient": "linear-gradient(135deg, #E8F4FB 0%, #FFFFFF 100%)"
+				},
+				{
+					"slug": "secondary",
+					"name": "Dégradé action",
+					"gradient": "linear-gradient(135deg, #005078 0%, #003A56 100%)"
 				}
 			]
 		},

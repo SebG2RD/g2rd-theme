@@ -13,6 +13,8 @@ export function CPTPanel( { cptKey, label, icon, settings, defaults, onChange } 
 				<span className={ `dashicons dashicons-${ icon }` }></span>
 				<strong>{ label }</strong>
 				<ToggleControl
+					label={ `Activer ${ label }` }
+					hideLabelFromVision
 					checked={ !! get( 'enabled' ) }
 					onChange={ ( val ) => set( 'enabled', val ) }
 					__nextHasNoMarginBottom

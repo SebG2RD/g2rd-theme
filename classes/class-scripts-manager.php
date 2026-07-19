@@ -82,6 +82,8 @@ class ScriptsManager {
         $excludes[] = 'accessibility.js';
         $excludes[] = 'fluent-cart';
         $excludes[] = 'clickable-articles.js';
+        $excludes[] = 'gsap-animation.js';
+        $excludes[] = 'carousel-frontend.js';
         return $excludes;
     }
 

@@ -164,7 +164,7 @@ export function App() {
 				<div className="g2rd-header__brand">
 					<span className="g2rd-header__logo">G2RD</span>
 					<div className="g2rd-header__meta">
-						<span className="g2rd-header__title">Options du thème</span>
+						<h1 className="g2rd-header__title">Options du thème</h1>
 						<span className="g2rd-header__version">v{ version }</span>
 					</div>
 				</div>

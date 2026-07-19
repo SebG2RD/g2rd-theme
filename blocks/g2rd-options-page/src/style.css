@@ -1,8 +1,8 @@
 /* =============================================================
    G2RD Options — Light Command Center
-   Outfit (Google Fonts) + JetBrains Mono
+   Inter (self-hostée, assets/fonts/) + mono système
+   @font-face injecté par ThemeOptions::enqueueAssets() (URL du thème)
    ============================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ── Tokens ───────────────────────────────────────────────────── */
 .g2rd-app {
@@ -23,8 +23,8 @@
 	--g2rd-green:       #16a34a;
 	--g2rd-amber:       #d97706;
 	--g2rd-radius:      10px;
-	--g2rd-font:        'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-	--g2rd-mono:        'JetBrains Mono', ui-monospace, monospace;
+	--g2rd-font:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	--g2rd-mono:        ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* ── App shell ────────────────────────────────────────────────── */

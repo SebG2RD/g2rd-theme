@@ -44,8 +44,8 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 	<?php /* Titre accessible */ ?>
-	<div class="geo-faq__header" aria-hidden="true">
-		<span class="geo-faq__header-icon">❓</span>
+	<div class="geo-faq__header">
+		<span class="geo-faq__header-icon" aria-hidden="true">❓</span>
 		<span class="geo-faq__header-title">Questions fréquentes</span>
 	</div>
 

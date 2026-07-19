@@ -142,7 +142,7 @@
 
 		function startAutoplay() {
 			stopAutoplay();
-			if ( autoplay ) {
+			if ( autoplay && ! window.matchMedia( "(prefers-reduced-motion: reduce)" ).matches ) {
 				autoplayTimer = window.setInterval( () => {
 					goTo( currentIndex + 1 );
 				}, autoplayInterval );
@@ -177,6 +177,12 @@
 		if ( pauseOnHover ) {
 			el.addEventListener( "mouseenter", stopAutoplay );
 			el.addEventListener( "mouseleave", startAutoplay );
+		}
+
+		/* WCAG 2.2.2 — pause de l'autoplay au focus clavier (indépendant de pauseOnHover) */
+		if ( autoplay ) {
+			el.addEventListener( "focusin", stopAutoplay );
+			el.addEventListener( "focusout", startAutoplay );
 		}
 
 		// Appliquer les classes et la mise en page selon l'effet

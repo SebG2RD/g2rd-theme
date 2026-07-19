@@ -7,7 +7,7 @@
   "styles": {
     "color": {
       "background": "var:custom|color|secondaryhover",
-      "text": "var:preset|color|white"
+      "text": "var:preset|color|primary"
     }
   }
 }

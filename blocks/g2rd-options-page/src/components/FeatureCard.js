@@ -17,6 +17,8 @@ export function FeatureCard( { featureKey, definition, value, onChange, locked }
 				</div>
 				<p className="g2rd-feature-card__desc">{ description }</p>
 				<ToggleControl
+					label={ label }
+					hideLabelFromVision
 					checked={ !! value }
 					onChange={ onChange }
 					disabled={ locked }

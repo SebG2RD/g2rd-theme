@@ -142,3 +142,21 @@
   display: inline-block;
 }
 
+/* RGAA 13.1 / WCAG 2.3.3 — respecter prefers-reduced-motion.
+   On force l'état révélé (opacity:1) pour éviter tout élément bloqué invisible. */
+
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-effect-kits *,
+  .g2rd-effect-kits.is-apply-children > *,
+  .g2rd-effect-kits.is-apply-self {
+    transition: none !important;
+    animation: none !important;
+  }
+  .g2rd-ek-anim {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+

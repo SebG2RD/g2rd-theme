@@ -339,6 +339,13 @@ class ThemeOptions {
                 [ 'wp-components', 'dashicons' ],
                 (string) \filemtime( $css_path )
             );
+
+            // Police Inter self-hostée (remplace l'@import Google Fonts — perf + RGPD).
+            $inter_url = $dir_uri . '/assets/fonts/Inter_28pt-Regular.woff2';
+            \wp_add_inline_style(
+                'g2rd-options-page',
+                '@font-face{font-family:"Inter";font-style:normal;font-weight:300 800;font-display:swap;src:url("' . \esc_url( $inter_url ) . '") format("woff2");}'
+            );
         }
 
         \wp_enqueue_media();

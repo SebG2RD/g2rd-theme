@@ -1,10 +1,11 @@
-@import url(https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap);
-
 /* =============================================================
    G2RD Options — Light Command Center
-   Outfit (Google Fonts) + JetBrains Mono
+   Inter (self-hostée, assets/fonts/) + mono système
+   @font-face injecté par ThemeOptions::enqueueAssets() (URL du thème)
    ============================================================= */
+
 /* ── Tokens ───────────────────────────────────────────────────── */
+
 .g2rd-app {
 	--g2rd-bg:          #f0f2f5;
 	--g2rd-nav:         #ffffff;
@@ -23,10 +24,12 @@
 	--g2rd-green:       #16a34a;
 	--g2rd-amber:       #d97706;
 	--g2rd-radius:      10px;
-	--g2rd-font:        'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-	--g2rd-mono:        'JetBrains Mono', ui-monospace, monospace;
+	--g2rd-font:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	--g2rd-mono:        ui-monospace, SFMono-Regular, Menlo, monospace;
 }
+
 /* ── App shell ────────────────────────────────────────────────── */
+
 .g2rd-app {
 	display: flex;
 	flex-direction: column;
@@ -36,7 +39,9 @@
 	color: var(--g2rd-text);
 	font-family: var(--g2rd-font);
 }
+
 /* ── Header ────────────────────────────────────────────────────── */
+
 .g2rd-header {
 	display: flex;
 	align-items: center;
@@ -52,7 +57,9 @@
 	z-index: 100;
 	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.05 );
 }
+
 /* Ligne décorative or en bas du header */
+
 .g2rd-header::after {
 	content: "";
 	position: absolute;
@@ -62,11 +69,13 @@
 	height: 2px;
 	background: linear-gradient( 90deg, var(--g2rd-gold), transparent );
 }
+
 .g2rd-header__brand {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 }
+
 .g2rd-header__logo {
 	display: inline-flex;
 	align-items: center;
@@ -83,11 +92,13 @@
 	font-family: var(--g2rd-font);
 	box-shadow: 0 2px 8px var(--g2rd-gold-glow);
 }
+
 .g2rd-header__meta {
 	display: flex;
 	flex-direction: column;
 	gap: 1px;
 }
+
 .g2rd-header__title {
 	font-size: 14px;
 	font-weight: 600;
@@ -95,23 +106,28 @@
 	line-height: 1.2;
 	letter-spacing: -0.01em;
 }
+
 .g2rd-header__version {
 	font-size: 10px;
 	color: var(--g2rd-text-dim);
 	font-family: var(--g2rd-mono);
 	line-height: 1;
 }
+
 .g2rd-header__actions {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 }
+
 .g2rd-header__save {
 	display: flex;
 	align-items: center;
 	gap: 6px;
 }
+
 /* Surcharge boutons WP dans le header */
+
 .g2rd-header__save .components-button.is-primary {
 	background: var(--g2rd-gold) !important;
 	color: #fff !important;
@@ -120,27 +136,35 @@
 	font-weight: 600;
 	font-size: 12px;
 }
+
 .g2rd-header__save .components-button.is-primary:hover {
 	background: #a07d3a !important;
 	box-shadow: 0 2px 10px var(--g2rd-gold-glow) !important;
 }
+
 .g2rd-header__save .components-button.is-tertiary {
 	color: var(--g2rd-text-mid) !important;
 	font-family: var(--g2rd-font);
 	font-size: 12px;
 }
+
 /* ── Notice ────────────────────────────────────────────────────── */
+
 .g2rd-notice {
 	margin: 0 !important;
 	border-radius: 0 !important;
 }
+
 /* ── Body ─────────────────────────────────────────────────────── */
+
 .g2rd-body {
 	display: flex;
 	flex: 1;
 	min-height: 0;
 }
+
 /* ── Sidebar nav ──────────────────────────────────────────────── */
+
 .g2rd-nav {
 	width: 210px;
 	flex-shrink: 0;
@@ -151,13 +175,16 @@
 	overflow-y: auto;
 	border-right: 1px solid var(--g2rd-border);
 }
+
 .g2rd-nav__group {
 	padding: 0 0 16px;
 }
+
 .g2rd-nav__group + .g2rd-nav__group {
 	border-top: 1px solid var(--g2rd-border-soft);
 	padding-top: 16px;
 }
+
 .g2rd-nav__group-label {
 	display: flex;
 	align-items: center;
@@ -170,12 +197,14 @@
 	color: var(--g2rd-text-dim);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-nav__group-label::after {
 	content: "";
 	flex: 1;
 	height: 1px;
 	background: var(--g2rd-border);
 }
+
 .g2rd-nav__item {
 	display: flex;
 	align-items: center;
@@ -195,6 +224,7 @@
 	line-height: 1.3;
 	position: relative;
 }
+
 .g2rd-nav__item .dashicons {
 	font-size: 14px;
 	width: 14px;
@@ -203,23 +233,29 @@
 	opacity: 0.45;
 	transition: opacity 0.15s, color 0.15s;
 }
+
 .g2rd-nav__item:hover {
 	background: var(--g2rd-surface-2);
 	color: var(--g2rd-text);
 }
+
 .g2rd-nav__item:hover .dashicons {
 	opacity: 0.7;
 }
+
 .g2rd-nav__item--active {
 	border-left-color: var(--g2rd-gold);
 	background: var(--g2rd-gold-dim);
 	color: #8a6b2a;
 }
+
 .g2rd-nav__item--active .dashicons {
 	opacity: 1;
 	color: var(--g2rd-gold);
 }
+
 /* Dot indicateur actif */
+
 .g2rd-nav__item--active::before {
 	content: "";
 	position: absolute;
@@ -231,7 +267,9 @@
 	background: var(--g2rd-gold);
 	border-radius: 0 2px 2px 0;
 }
+
 /* ── Main content ─────────────────────────────────────────────── */
+
 .g2rd-main {
 	flex: 1;
 	min-width: 0;
@@ -241,6 +279,7 @@
 	background: var(--g2rd-bg);
 	gap: 0;
 }
+
 .g2rd-main__heading {
 	display: flex;
 	align-items: center;
@@ -249,6 +288,7 @@
 	margin-bottom: 24px;
 	border-bottom: 1px solid var(--g2rd-border);
 }
+
 .g2rd-main__heading .dashicons {
 	font-size: 16px;
 	width: 16px;
@@ -256,6 +296,7 @@
 	color: var(--g2rd-gold);
 	flex-shrink: 0;
 }
+
 .g2rd-main__heading h2 {
 	margin: 0;
 	font-size: 15px;
@@ -264,7 +305,9 @@
 	font-family: var(--g2rd-font);
 	letter-spacing: -0.02em;
 }
+
 /* Animation d'entrée sur changement d'onglet */
+
 @keyframes g2rd-fade-in {
 	from {
 		opacity: 0;
@@ -275,11 +318,14 @@
 		transform: translateY( 0 );
 	}
 }
+
 .g2rd-main__content {
 	flex: 1;
 	animation: g2rd-fade-in 0.22s ease both;
 }
+
 /* ── Pill (licence badge) ─────────────────────────────────────── */
+
 .g2rd-pill {
 	display: inline-flex;
 	align-items: center;
@@ -293,27 +339,33 @@
 	white-space: nowrap;
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-pill .dashicons {
 	font-size: 13px;
 	width: 13px;
 	height: 13px;
 }
+
 .g2rd-pill--ok {
 	background: rgba( 22, 163, 74, 0.08 );
 	color: #16a34a;
 	border: 1px solid rgba( 22, 163, 74, 0.2 );
 }
+
 .g2rd-pill--warn {
 	background: rgba( 217, 119, 6, 0.08 );
 	color: var(--g2rd-amber);
 	border: 1px solid rgba( 217, 119, 6, 0.2 );
 }
+
 /* ── Sections ─────────────────────────────────────────────────── */
+
 .g2rd-tab-content {
 	display: flex;
 	flex-direction: column;
 	gap: 28px;
 }
+
 .g2rd-section__title {
 	display: flex;
 	align-items: center;
@@ -328,19 +380,23 @@
 	letter-spacing: 0.02em;
 	text-transform: uppercase;
 }
+
 .g2rd-section__title .dashicons {
 	color: var(--g2rd-gold);
 	font-size: 14px;
 	width: 14px;
 	height: 14px;
 }
+
 .g2rd-section__desc {
 	font-size: 12.5px;
 	color: var(--g2rd-text-mid);
 	margin: 0 0 16px;
 	line-height: 1.55;
 }
+
 /* ── Cards ─────────────────────────────────────────────────────── */
+
 .g2rd-card {
 	background: var(--g2rd-surface);
 	border: 1px solid var(--g2rd-border);
@@ -351,11 +407,14 @@
 	gap: 12px;
 	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
 }
+
 .g2rd-indent {
 	padding-left: 20px;
 	border-left: 2px solid var(--g2rd-border);
 }
+
 /* ── Badges ────────────────────────────────────────────────────── */
+
 .g2rd-badge {
 	display: inline-flex;
 	align-items: center;
@@ -368,28 +427,34 @@
 	letter-spacing: 0.6px;
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-badge--active {
 	background: rgba( 22, 163, 74, 0.08 );
 	color: #16a34a;
 	border: 1px solid rgba( 22, 163, 74, 0.2 );
 }
+
 .g2rd-badge--inactive {
 	background: rgba( 217, 119, 6, 0.08 );
 	color: var(--g2rd-amber);
 	border: 1px solid rgba( 217, 119, 6, 0.2 );
 }
+
 .g2rd-badge--lock {
 	background: rgba( 0, 0, 0, 0.05 );
 	color: var(--g2rd-text-dim);
 	font-size: 10px;
 	margin-left: 8px;
 }
+
 /* ── Business type grid ───────────────────────────────────────── */
+
 .g2rd-business-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 170px, 1fr ) );
 	gap: 10px;
 }
+
 .g2rd-business-card {
 	display: flex;
 	flex-direction: column;
@@ -404,36 +469,44 @@
 	transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
 }
+
 .g2rd-business-card:hover {
 	border-color: rgba( 184, 146, 74, 0.4 );
 	box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.07 );
 }
+
 .g2rd-business-card--active {
 	border-color: var(--g2rd-gold);
 	background: var(--g2rd-gold-dim);
 }
+
 .g2rd-business-card .dashicons {
 	font-size: 18px;
 	width: 18px;
 	height: 18px;
 	color: var(--g2rd-gold);
 }
+
 .g2rd-business-card strong {
 	font-size: 12.5px;
 	font-weight: 600;
 	color: var(--g2rd-text);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-business-card__desc {
 	font-size: 11px;
 	color: var(--g2rd-text-dim);
 }
+
 /* ── Color slots ──────────────────────────────────────────────── */
+
 .g2rd-colors-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
 	gap: 16px;
 }
+
 .g2rd-color-slot__label {
 	display: block;
 	font-size: 11px;
@@ -443,11 +516,13 @@
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 }
+
 .g2rd-color-slot__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
+
 .g2rd-swatch {
 	width: 26px;
 	height: 26px;
@@ -457,14 +532,18 @@
 	transition: transform 0.1s, border-color 0.15s;
 	padding: 0;
 }
+
 .g2rd-swatch:hover {
 	transform: scale( 1.18 );
 }
+
 .g2rd-swatch--active {
 	border-color: var(--g2rd-gold);
 	box-shadow: 0 0 0 2px rgba( 184, 146, 74, 0.25 );
 }
+
 /* Pastille « couleur par défaut du thème » (valeur vide) */
+
 .g2rd-swatch--default {
 	display: inline-flex;
 	align-items: center;
@@ -473,18 +552,22 @@
 	border-color: var(--g2rd-border, #e2e8f0);
 	color: var(--g2rd-text-mid, #64748b);
 }
+
 .g2rd-swatch--default .dashicons {
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
 	line-height: 16px;
 }
+
 /* ── Features grid ────────────────────────────────────────────── */
+
 .g2rd-features-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 280px, 1fr ) );
 	gap: 10px;
 }
+
 .g2rd-feature-card {
 	display: flex;
 	gap: 14px;
@@ -495,38 +578,46 @@
 	transition: border-color 0.15s, box-shadow 0.15s;
 	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
 }
+
 .g2rd-feature-card:hover {
 	border-color: rgba( 184, 146, 74, 0.3 );
 	box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.07 );
 }
+
 .g2rd-feature-card--locked {
 	opacity: 0.5;
 }
+
 .g2rd-feature-card__icon {
 	flex-shrink: 0;
 }
+
 .g2rd-feature-card__icon .dashicons {
 	font-size: 20px;
 	width: 20px;
 	height: 20px;
 	color: var(--g2rd-gold);
 }
+
 .g2rd-feature-card__body {
 	flex: 1;
 	min-width: 0;
 }
+
 .g2rd-feature-card__header {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 4px;
 }
+
 .g2rd-feature-card__label {
 	font-size: 13px;
 	font-weight: 600;
 	color: var(--g2rd-text);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-feature-card__badge {
 	font-size: 9.5px;
 	font-weight: 700;
@@ -536,18 +627,22 @@
 	padding: 2px 6px;
 	border-radius: 4px;
 }
+
 .g2rd-feature-card__desc {
 	font-size: 11.5px;
 	color: var(--g2rd-text-mid);
 	margin: 0 0 10px;
 	line-height: 1.5;
 }
+
 /* ── Blocks grid ──────────────────────────────────────────────── */
+
 .g2rd-blocks-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
 	gap: 6px;
 }
+
 .g2rd-block-item {
 	display: flex;
 	align-items: center;
@@ -558,12 +653,15 @@
 	border-radius: 6px;
 	transition: opacity 0.15s;
 }
+
 .g2rd-block-item--off {
 	opacity: 0.35;
 }
+
 .g2rd-block-item--locked {
 	cursor: not-allowed;
 }
+
 .g2rd-block-item .dashicons {
 	flex-shrink: 0;
 	font-size: 14px;
@@ -571,6 +669,7 @@
 	height: 14px;
 	color: var(--g2rd-gold);
 }
+
 .g2rd-block-item__title {
 	flex: 1;
 	font-size: 12px;
@@ -578,12 +677,15 @@
 	color: var(--g2rd-text);
 	font-family: var(--g2rd-font);
 }
+
 /* ── CPT list ─────────────────────────────────────────────────── */
+
 .g2rd-cpt-list {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
+
 .g2rd-cpt-panel {
 	background: var(--g2rd-surface);
 	border: 1px solid var(--g2rd-border);
@@ -592,21 +694,25 @@
 	transition: opacity 0.15s;
 	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
 }
+
 .g2rd-cpt-panel--disabled {
 	opacity: 0.5;
 }
+
 .g2rd-cpt-panel__header {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	padding: 12px 16px;
 }
+
 .g2rd-cpt-panel__header .dashicons {
 	color: var(--g2rd-gold);
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
 }
+
 .g2rd-cpt-panel__header strong {
 	flex: 1;
 	font-size: 13px;
@@ -614,9 +720,11 @@
 	color: var(--g2rd-text);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-cpt-panel__toggle {
 	margin-left: auto;
 }
+
 .g2rd-cpt-panel__fields {
 	padding: 16px;
 	border-top: 1px solid var(--g2rd-border);
@@ -625,65 +733,81 @@
 	flex-direction: column;
 	gap: 12px;
 }
+
 .g2rd-cpt-panel__row {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 12px;
 }
+
 .g2rd-cpt-panel__toggles {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
 }
+
 /* ── Save bar (masquée — save dans le header) ─────────────────── */
+
 .g2rd-save-bar {
 	display: none;
 }
+
 /* ── Login layout ─────────────────────────────────────────────── */
+
 .g2rd-login-layout {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 24px;
 	align-items: start;
 }
+
 .g2rd-login-options {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
+
 .g2rd-login-preview-col .g2rd-section--sticky {
 	position: sticky;
 	top: 88px;
 }
+
 /* ── Login preview ────────────────────────────────────────────── */
+
 .g2rd-login-preview {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
+
 .g2rd-login-preview__hint {
 	font-size: 11px;
 	color: var(--g2rd-text-dim);
 	margin: 0;
 	text-align: center;
 }
+
 /* ── Color input ──────────────────────────────────────────────── */
+
 .g2rd-color-input {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
+
 .g2rd-color-input__label {
 	font-size: 12px;
 	font-weight: 500;
 	color: var(--g2rd-text-mid);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-color-input__row {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
+
 .g2rd-color-input__picker {
 	width: 34px;
 	height: 34px;
@@ -694,6 +818,7 @@
 	flex-shrink: 0;
 	background: var(--g2rd-surface);
 }
+
 .g2rd-color-input__text {
 	flex: 1;
 	height: 34px;
@@ -705,21 +830,26 @@
 	font-family: var(--g2rd-mono);
 	color: var(--g2rd-text);
 }
+
 .g2rd-color-input__text:focus {
 	outline: none;
 	border-color: rgba( 184, 146, 74, 0.5 );
 	box-shadow: 0 0 0 3px var(--g2rd-gold-dim);
 }
+
 .g2rd-color-input__text:focus-visible {
 	outline: 2px solid var(--g2rd-gold);
 	outline-offset: 2px;
 }
+
 .g2rd-color-input__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
+
 /* ── Color group label ────────────────────────────────────────── */
+
 .g2rd-color-group-label {
 	font-size: 10px;
 	font-weight: 700;
@@ -729,24 +859,30 @@
 	margin: 16px 0 8px;
 	font-family: var(--g2rd-font);
 }
+
 /* ── Color grid ───────────────────────────────────────────────── */
+
 .g2rd-color-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 16px;
 }
+
 /* ── Media picker ─────────────────────────────────────────────── */
+
 .g2rd-media-picker {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
+
 .g2rd-media-picker__label {
 	font-size: 12px;
 	font-weight: 500;
 	color: var(--g2rd-text-mid);
 	font-family: var(--g2rd-font);
 }
+
 .g2rd-media-picker__preview {
 	width: 100%;
 	max-height: 120px;
@@ -754,49 +890,62 @@
 	border-radius: 6px;
 	border: 1px solid var(--g2rd-border);
 }
+
 .g2rd-media-picker__preview img {
 	width: 100%;
 	height: 120px;
 	object-fit: cover;
 	display: block;
 }
+
 .g2rd-media-picker__actions {
 	display: flex;
 	gap: 8px;
 	flex-wrap: wrap;
 }
+
 .g2rd-media-picker__hint {
 	font-size: 11px;
 	color: var(--g2rd-text-dim);
 	margin: 0;
 }
+
 /* ── WP components — font family + focus gold ─────────────────── */
+
 .g2rd-app .components-base-control__label,
 .g2rd-app .components-input-control__label {
 	font-family: var(--g2rd-font) !important;
 	font-size: 12px !important;
 }
+
 .g2rd-app .components-text-control__input:focus,
 .g2rd-app .components-select-control__input:focus {
 	border-color: var(--g2rd-gold) !important;
 	box-shadow: 0 0 0 1px var(--g2rd-gold) !important;
 }
+
 .g2rd-app .components-toggle-control .components-form-toggle.is-checked .components-form-toggle__track {
 	background: var(--g2rd-gold) !important;
 }
+
 .g2rd-app .components-button.is-primary {
 	font-family: var(--g2rd-font) !important;
 }
+
 .g2rd-app .components-button.is-destructive {
 	font-family: var(--g2rd-font) !important;
 }
+
 /* ── MCP tabs ─────────────────────────────────────────────────── */
+
 .g2rd-mcp-tab {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 }
+
 /* Style mono pour les tokens et valeurs techniques */
+
 .g2rd-app code,
 .g2rd-app .g2rd-token-value {
 	font-family: var(--g2rd-mono) !important;
@@ -807,16 +956,20 @@
 	color: #8a6b2a;
 	border: 1px solid var(--g2rd-border);
 }
+
 /* ── Responsive ───────────────────────────────────────────────── */
+
 @media ( max-width: 1200px ) {
 	.g2rd-nav { width: 185px; }
 }
+
 @media ( max-width: 960px ) {
 	.g2rd-login-layout { grid-template-columns: 1fr; }
 	.g2rd-color-grid { grid-template-columns: 1fr; }
 	.g2rd-nav { width: 160px; }
 	.g2rd-nav__item { font-size: 12px; padding: 7px 12px; }
 }
+
 @media ( max-width: 782px ) {
 	.g2rd-app { margin-left: 0; }
 
