@@ -10,7 +10,7 @@ export default function Save({ attributes }) {
     titleFontSize, textFontSize,
   } = attributes;
 
-  const bg = customBg || "#2F425D";
+  const bg = customBg || "var(--wp--preset--color--primary)";
 
   const blockProps = useBlockProps.save({
     className: `g2rd-cta-band alignfull`,

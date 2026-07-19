@@ -63,23 +63,23 @@
     },
     "customBg": {
       "type": "string",
-      "default": "#2F425D"
+      "default": "var(--wp--preset--color--primary)"
     },
     "titleColor": {
       "type": "string",
-      "default": "#FAFAFA"
+      "default": "var(--wp--preset--color--white)"
     },
     "textColor": {
       "type": "string",
-      "default": "#FAFAFA"
+      "default": "var(--wp--preset--color--white)"
     },
     "ctaBg": {
       "type": "string",
-      "default": "#D4A373"
+      "default": "var(--wp--preset--color--secondary)"
     },
     "ctaColor": {
       "type": "string",
-      "default": "#2F425D"
+      "default": "var(--wp--preset--color--primary)"
     },
     "alignment": {
       "type": "string",

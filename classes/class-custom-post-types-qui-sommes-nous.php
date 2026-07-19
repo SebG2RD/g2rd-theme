@@ -30,6 +30,79 @@ class CPT_QuiSommesNous {
         add_action('init', [$this, 'registerPostMeta']);
         add_action('add_meta_boxes', [$this, 'addMetaBox']);
         add_action('save_post_qui-sommes-nous', [$this, 'saveMeta']);
+        add_filter('the_content', [$this, 'appendMemberProfile']);
+    }
+
+    /**
+     * Ajoute la section « Le profil » (Expérience, Soft skills, Méthodologie,
+     * Objectif, Stack technique) après le contenu, sur les pages membre.
+     *
+     * Approche robuste via le filtre the_content : indépendante du markup du
+     * template → survit aux ré-enregistrements dans l'éditeur de site (là où la
+     * précédente section en block bindings était perdue).
+     *
+     * @since 1.26.1
+     * @param string $content Contenu du post.
+     * @return string
+     */
+    public function appendMemberProfile( $content ) {
+        if ( ! \is_singular( 'qui-sommes-nous' ) || ! \in_the_loop() || ! \is_main_query() ) {
+            return $content;
+        }
+
+        $post_id    = \get_the_ID();
+        $experience = \get_post_meta( $post_id, '_experience_dev', true );
+        $soft       = \get_post_meta( $post_id, '_soft_skills', true );
+        $metho      = \get_post_meta( $post_id, '_methodologie', true );
+        $objectif   = \get_post_meta( $post_id, '_objectif', true );
+        $icones     = \get_post_meta( $post_id, '_icones_images', true );
+
+        $fields = [
+            [ \__( 'Expérience en développement', 'g2rd' ), $experience ],
+            [ \__( 'Soft skills', 'g2rd' ),                 $soft ],
+            [ \__( 'Méthodologie', 'g2rd' ),                $metho ],
+            [ \__( 'Objectif', 'g2rd' ),                    $objectif ],
+        ];
+
+        $has_icones = \is_array( $icones ) && ! empty( $icones );
+        $has_field  = $experience || $soft || $metho || $objectif;
+        if ( ! $has_field && ! $has_icones ) {
+            return $content;
+        }
+
+        $cards = '';
+        foreach ( $fields as $field ) {
+            if ( empty( $field[1] ) ) {
+                continue;
+            }
+            $cards .= '<div class="wp-block-group is-style-card" style="padding:var(--wp--preset--spacing--l)">'
+                . '<h3 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 .6rem;font-size:1.125rem;font-weight:700">' . \esc_html( $field[0] ) . '</h3>'
+                . '<p class="has-muted-color has-text-color" style="margin:0;line-height:1.7">' . \wp_kses_post( $field[1] ) . '</p>'
+                . '</div>';
+        }
+
+        $icons_row = '';
+        if ( $has_icones ) {
+            $imgs = '';
+            foreach ( $icones as $url ) {
+                if ( ! empty( $url ) ) {
+                    $imgs .= '<img src="' . \esc_url( $url ) . '" alt="" width="48" height="48" loading="lazy" style="height:48px;width:auto" />';
+                }
+            }
+            if ( $imgs ) {
+                $icons_row = '<h3 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin:var(--wp--preset--spacing--m) 0 var(--wp--preset--spacing--s);font-size:.8125rem;font-weight:700;letter-spacing:3px;text-transform:uppercase">' . \esc_html__( 'Stack technique', 'g2rd' ) . '</h3>'
+                    . '<div style="display:flex;flex-wrap:wrap;gap:var(--wp--preset--spacing--s, 1rem);justify-content:center;align-items:center">' . $imgs . '</div>';
+            }
+        }
+
+        $section = '<div class="g2rd-member-profile" style="margin-top:var(--wp--preset--spacing--xl);padding-top:var(--wp--preset--spacing--l);border-top:1px solid var(--wp--preset--color--border)">'
+            . '<p class="has-s-font-size" style="display:inline-block;border-radius:999px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--secondary);padding:.4rem .9rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 var(--wp--preset--spacing--s)">' . \esc_html__( 'Le profil', 'g2rd' ) . '</p>'
+            . '<h2 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-.02em">' . \esc_html__( 'Parcours & méthode', 'g2rd' ) . '</h2>'
+            . '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:var(--wp--preset--spacing--m)">' . $cards . '</div>'
+            . $icons_row
+            . '</div>';
+
+        return $content . $section;
     }
 
     /**

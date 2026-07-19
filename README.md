@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.1**
+
+- **Fix — champs membre (Qui sommes-nous)** : la section « Le profil » (Expérience, Soft skills, Méthodologie, Objectif, Stack technique) est désormais rendue en PHP (filtre `the_content`) après le contenu sur les pages membre — approche robuste indépendante du markup du template, qui **survit aux ré-enregistrements dans l'éditeur de site** (l'ancienne section en *block bindings* était perdue à chaque sauvegarde). Couleurs 100 % tokens → suit le style actif.
+- **Bloc CTA Band** : couleurs par défaut migrées vers les tokens du thème (`primary`/`white`/`secondary`) avec **déprécation** — les blocs existants restent valides puis migrent en douceur à la ré-édition.
+- **Nettoyage** : retrait de ~130 lignes de code mort dans `class-block-styles.php` (chargement de styles jamais exécuté + cache inerte).
 
 ### **1.26.0**
 
