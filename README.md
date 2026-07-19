@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.3** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.4** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.4**
+
+- **Style — section « Le profil » (pages membre)** : le rendu PHP de la section injectée après le contenu (Expérience, Soft skills, Méthodologie, Objectif, Stack technique) est réaligné sur le design des pages membre. Bande pleine largeur crème, pill « Le profil » identique à la pill de page (lime pleine + puce ●), titre centré à soulignement lime, cartes `is-style-card` avec libellé en label majuscule et valeur en `primary` (contraste 17:1 au lieu du `muted` 4.56:1). Cohérence visuelle totale avec le reste de la page.
 
 ### **1.26.3**
 

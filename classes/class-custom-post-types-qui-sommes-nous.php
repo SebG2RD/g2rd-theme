@@ -90,8 +90,8 @@ class CPT_QuiSommesNous {
                 continue;
             }
             $cards .= '<div class="wp-block-group is-style-card" style="padding:var(--wp--preset--spacing--l)">'
-                . '<h3 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 .6rem;font-size:1.125rem;font-weight:700">' . \esc_html( $field[0] ) . '</h3>'
-                . '<p class="has-muted-color has-text-color" style="margin:0;line-height:1.7">' . \wp_kses_post( $field[1] ) . '</p>'
+                . '<h3 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 .5rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase">' . \esc_html( $field[0] ) . '</h3>'
+                . '<p class="has-primary-color has-text-color" style="margin:0;line-height:1.75">' . \wp_kses_post( $field[1] ) . '</p>'
                 . '</div>';
         }
 
@@ -104,16 +104,20 @@ class CPT_QuiSommesNous {
                 }
             }
             if ( $imgs ) {
-                $icons_row = '<h3 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin:var(--wp--preset--spacing--m) 0 var(--wp--preset--spacing--s);font-size:.8125rem;font-weight:700;letter-spacing:3px;text-transform:uppercase">' . \esc_html__( 'Stack technique', 'g2rd' ) . '</h3>'
+                $icons_row = '<h3 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin:var(--wp--preset--spacing--l) 0 var(--wp--preset--spacing--s);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase">' . \esc_html__( 'Stack technique', 'g2rd' ) . '</h3>'
                     . '<div style="display:flex;flex-wrap:wrap;gap:var(--wp--preset--spacing--s, 1rem);justify-content:center;align-items:center">' . $imgs . '</div>';
             }
         }
 
-        $section = '<div class="g2rd-member-profile" style="margin-top:var(--wp--preset--spacing--xl);padding-top:var(--wp--preset--spacing--l);border-top:1px solid var(--wp--custom--color--border)">'
-            . '<p class="has-s-font-size" style="display:inline-block;border-radius:999px;color:var(--wp--preset--color--primary);background-color:var(--wp--preset--color--secondary);padding:.4rem .9rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 var(--wp--preset--spacing--s)">' . \esc_html__( 'Le profil', 'g2rd' ) . '</p>'
-            . '<h2 class="wp-block-heading has-primary-color has-text-color" style="margin:0 0 var(--wp--preset--spacing--l);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-.02em">' . \esc_html__( 'Parcours & méthode', 'g2rd' ) . '</h2>'
-            . '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:var(--wp--preset--spacing--m)">' . $cards . '</div>'
+        $section = '<div class="g2rd-member-profile alignfull has-cream-background-color has-background" style="margin-top:var(--wp--preset--spacing--xl);padding:var(--wp--preset--spacing--xl) var(--wp--preset--spacing--m)">'
+            . '<div style="max-width:960px;margin-inline:auto">'
+            . '<div style="text-align:center;margin-bottom:var(--wp--preset--spacing--l)">'
+            . '<p class="has-primary-color has-text-color has-background has-s-font-size" style="display:inline-block;border-radius:999px;background-color:var(--wp--preset--color--secondary);padding:.4rem .9rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0"><mark style="background-color:rgba(0,0,0,0)">●</mark>&nbsp; ' . \esc_html__( 'Le profil', 'g2rd' ) . '</p>'
+            . '<h2 class="wp-block-heading has-text-align-center has-primary-color has-text-color" style="margin:var(--wp--preset--spacing--s) 0 0;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-.02em">' . \esc_html__( 'Parcours &', 'g2rd' ) . ' <mark class="has-inline-color has-primary-color" style="background-color:rgba(0,0,0,0);border-bottom:.18em solid var(--wp--preset--color--secondary)">' . \esc_html__( 'méthode', 'g2rd' ) . '</mark></h2>'
+            . '</div>'
+            . '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(22rem,1fr));gap:var(--wp--preset--spacing--m)">' . $cards . '</div>'
             . $icons_row
+            . '</div>'
             . '</div>';
 
         $done = true;
