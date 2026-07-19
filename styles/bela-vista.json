@@ -30,7 +30,6 @@
 				{ "slug": "primary", "name": "Primary (pétrole)", "color": "#005078" },
 				{ "slug": "secondary", "name": "Secondary (ciel)", "color": "#C6E7FA" },
 				{ "slug": "white", "name": "Blanc", "color": "#FFFFFF" },
-				{ "slug": "border", "name": "Bordure", "color": "#D9E6EE" },
 				{ "slug": "surface", "name": "Surface", "color": "#E8F4FB" }
 			],
 			"gradients": [

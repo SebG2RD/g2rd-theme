@@ -36,7 +36,7 @@
               "background": "var:preset|color|white"
             },
             "border": {
-              "color": "var:preset|color|border",
+              "color": "var:custom|color|border",
               "width": "1px",
               "radius": "var:custom|radius|l"
             },
@@ -142,7 +142,7 @@
         "variations": {
           "outline": {
             "border": {
-              "color": "var:preset|color|border",
+              "color": "var:custom|color|border",
               "width": "1px",
               "radius": "var:custom|radius|s"
             },
@@ -192,7 +192,7 @@
       },
       "core/separator": {
         "color": {
-          "text": "var:preset|color|border"
+          "text": "var:custom|color|border"
         }
       },
       "core/quote": {
@@ -228,7 +228,7 @@
       },
       "core/table": {
         "border": {
-          "color": "var:preset|color|border",
+          "color": "var:custom|color|border",
           "width": "1px",
           "radius": "var:custom|radius|m"
         }

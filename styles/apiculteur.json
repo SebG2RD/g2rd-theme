@@ -41,11 +41,6 @@
           "color": "#FDFAF3"
         },
         {
-          "name": "Bordure",
-          "slug": "border",
-          "color": "#E8DEC9"
-        },
-        {
           "name": "Surface",
           "slug": "surface",
           "color": "#F5EEDF"

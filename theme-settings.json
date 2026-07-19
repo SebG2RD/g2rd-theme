@@ -64,11 +64,6 @@
           "color": "#a855f7"
         },
         {
-          "name": "Bordure",
-          "slug": "border",
-          "color": "#e2e8f0"
-        },
-        {
           "name": "Surface",
           "slug": "surface",
           "color": "#f1f5f9"
@@ -397,6 +392,7 @@
         "secondaryhover": "#84cc16",
         "whitehover": "#f1f5f9",
         "accenthover": "#db2777",
+        "border": "#e2e8f0",
         "neutral-50": "#f8fafc",
         "neutral-100": "#f1f5f9",
         "neutral-200": "#e2e8f0",

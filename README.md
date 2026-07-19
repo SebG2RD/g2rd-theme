@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.2**
+
+- **Fix — collision `.has-border-color`** : le slug `border` de la palette générait automatiquement l'utilitaire WordPress `.has-border-color { color: … !important }`, qui **écrasait la couleur du texte** de tout bloc doté d'une couleur de bordure nommée (sur toutes les variations de style, dont *Bela Vista*). `border` est déplacé de la palette vers `settings.custom.color` (socle, hérité par toutes les variations) → WordPress ne génère plus l'utilitaire fautif. Les 20 références migrées de `var(--wp--preset--color--border)` vers `var(--wp--custom--color--border)` (même valeur `#e2e8f0`) : les bordures des cartes (`is-style-card`, etc.) restent identiques.
+- **Note** : `surface` reste en palette (aucune collision). Aucun changement visuel des bordures, uniquement suppression de l'écrasement parasite de couleur de texte.
 
 ### **1.26.1**
 
