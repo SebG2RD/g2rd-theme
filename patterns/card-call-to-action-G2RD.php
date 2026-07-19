@@ -13,8 +13,8 @@
  * Text Domain: g2rd
  */
 ?>
-<!-- wp:group {"metadata":{"name":"G2RD Hero"},"className":"is-style-primary","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group is-style-primary" style="padding-top:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"padding":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|s","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}}} -->
+<!-- wp:group {"metadata":{"name":"G2RD Hero"},"backgroundColor":"primary","textColor":"white","style":{"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--m);padding-bottom:var(--wp--preset--spacing--m)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"padding":{"top":"var:preset|spacing|s","bottom":"var:preset|spacing|s","left":"var:preset|spacing|s","right":"var:preset|spacing|s"}}}} -->
     <div class="wp-block-columns are-vertically-aligned-center" style="padding-top:var(--wp--preset--spacing--s);padding-right:var(--wp--preset--spacing--s);padding-bottom:var(--wp--preset--spacing--s);padding-left:var(--wp--preset--spacing--s)"><!-- wp:column {"verticalAlignment":"center","width":"55%"} -->
         <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:55%"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","letterSpacing":"0.06em","textTransform":"uppercase"},"elements":{"link":{"color":{"text":"var:preset|color|secondary"}}}},"textColor":"secondary","fontSize":"s"} -->
             <p class="has-secondary-color has-text-color has-link-color has-s-font-size" style="font-weight:600;letter-spacing:0.06em;text-transform:uppercase">Besoin d'un site Internet ?</p>

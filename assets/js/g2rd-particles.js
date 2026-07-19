@@ -22,7 +22,7 @@ function isPageSpeedOrLighthouse() {
   );
 }
 
-if (!isPageSpeedOrLighthouse()) {
+if (!isPageSpeedOrLighthouse() && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.addEventListener("DOMContentLoaded", function () {
     // Récupérer tous les éléments avec l'attribut data-particles="true"
     const elements = document.querySelectorAll("[data-particles='true']");

@@ -16,8 +16,8 @@
  * @since 1.0.0
  */
 ?>
-<!-- wp:group {"align":"full","className":"is-style-primary","style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-primary" style="padding-top:var(--wp--preset--spacing--l);padding-bottom:var(--wp--preset--spacing--l)"><!-- wp:heading {"textAlign":"center"} -->
+<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-primary-background-color has-white-color has-background has-text-color" style="padding-top:var(--wp--preset--spacing--l);padding-bottom:var(--wp--preset--spacing--l)"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Suivez nous</h2>
 <!-- /wp:heading -->
 

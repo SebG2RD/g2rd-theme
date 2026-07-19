@@ -55,7 +55,7 @@
 
 		<!-- wp:column {"verticalAlignment":"center","width":"45%"} -->
 		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%">
-			<!-- wp:group {"style":{"border":{"radius":"12px"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}}},"style":{"color":{"background":"color-mix(in srgb, var(--wp--preset--color--white) 8%, transparent)"}},"layout":{"type":"constrained"}} -->
+			<!-- wp:group {"style":{"border":{"radius":"12px"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--white) 8%, transparent)"}},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-group" style="border-radius:12px;padding:var(--wp--preset--spacing--m);background-color:color-mix(in srgb, var(--wp--preset--color--white) 8%, transparent)">
 				<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"1.1rem","fontWeight":"700"}}} -->
 				<h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:1.1rem;font-weight:700">Réserver une course</h3>
