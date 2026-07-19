@@ -61,6 +61,18 @@ class Shortcode {
                     'uses_context'       => ['postId'],
                 ]
             );
+
+            // Block binding : champs texte du membre « Qui sommes-nous »
+            // (single-qui-sommes-nous.html → paragraphes natifs liés à la source
+            // g2rd/member-meta, args.key = experience_dev|soft_skills|methodologie|objectif).
+            register_block_bindings_source(
+                'g2rd/member-meta',
+                [
+                    'label'              => __('Champ membre (Qui sommes-nous)', 'g2rd'),
+                    'get_value_callback' => [$this, 'getMemberMetaValue'],
+                    'uses_context'       => ['postId'],
+                ]
+            );
         }
     }
 
@@ -94,6 +106,45 @@ class Shortcode {
         }
 
         return esc_url($link);
+    }
+
+    /**
+     * Valeur du block binding g2rd/member-meta : un champ texte du membre courant.
+     *
+     * Le paramètre args.key (sans le préfixe underscore) est restreint à une liste
+     * blanche puis lu depuis la méta protégée `_{key}` du post (contexte postId, avec
+     * repli sur le post courant). Renvoie null si le champ est vide ou la clé inconnue
+     * → le paragraphe conserve son contenu d'origine plutôt qu'un vide.
+     *
+     * @since 1.25.2
+     * @param array          $source_args    Arguments du binding (clé du champ).
+     * @param \WP_Block|null $block_instance Instance du bloc (fournit le contexte postId).
+     * @return string|null
+     */
+    public function getMemberMetaValue($source_args, $block_instance = null) {
+        if (empty($source_args['key'])) {
+            return null;
+        }
+        $allowed = ['experience_dev', 'soft_skills', 'methodologie', 'objectif'];
+        $key     = \sanitize_key($source_args['key']);
+        if (!\in_array($key, $allowed, true)) {
+            return null;
+        }
+        $post_id = 0;
+        if (is_object($block_instance) && isset($block_instance->context['postId'])) {
+            $post_id = (int) $block_instance->context['postId'];
+        }
+        if (!$post_id) {
+            $post_id = (int) get_the_ID();
+        }
+        if (!$post_id) {
+            return null;
+        }
+        $value = get_post_meta($post_id, '_' . $key, true);
+        if ($value === '' || $value === false) {
+            return null;
+        }
+        return wp_kses_post($value);
     }
 
     // === Shortcodes Portfolio ===
@@ -275,16 +326,13 @@ class Shortcode {
         if (empty($images) || !is_array($images)) {
             return 'Aucune icône spécifiée';
         }
-        $output = '';
+        $output = '<div class="g2rd-member-icones" style="display:flex;flex-wrap:wrap;gap:var(--wp--preset--spacing--s, 1rem);justify-content:center;align-items:center">';
         foreach ($images as $image) {
             if (!empty($image)) {
-                $output .= '<div class="wp-block-image">';
-                $output .= '<figure class="aligncenter">';
-                $output .= '<img src="' . esc_url($image) . '" alt="Icône" class="wp-image-icon" />';
-                $output .= '</figure>';
-                $output .= '</div>';
+                $output .= '<img src="' . esc_url($image) . '" alt="" width="48" height="48" loading="lazy" class="g2rd-member-icone" style="height:48px;width:auto" />';
             }
         }
+        $output .= '</div>';
         return $output;
     }
 

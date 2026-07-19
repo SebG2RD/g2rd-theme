@@ -130,6 +130,8 @@ g2rd-theme/
 ### **1.25.1**
 
 - **Nettoyage de `style.css`** : retrait de ~284 lignes de CSS legacy **mort** — TranslatePress (`.trp-*`), cookies SeoPress (`.seopress-*`), template produit FluentCart (`.g2rd-product-*`, orphelin : plus aucun template ne l'émet), `.resize-img`, `.ti-widget`. Fichier allégé de 666 → 397 lignes. `.img-h-100` **conservée** (utilisée par les patterns `grid-portfolio` et `post-grid`). **Aucun impact visuel** : uniquement du code mort — vérifié par diff règle-à-règle, aucune règle partagée modifiée, les variations de style (bela-vista, apiculteur…) sont strictement inchangées. Première étape de l'isolation « chacun son style » : le CSS spécifique à chaque projet migrera ensuite vers sa variation `styles/*.json`.
+- **Champs membre FSE (Qui sommes-nous)** : nouvelle source de *block binding* `g2rd/member-meta` — les champs Expérience, Soft skills, Méthodologie et Objectif s'affichent désormais via des paragraphes natifs liés (valeur réelle visible dans l'éditeur de site **et** en front, principe FSE). Section « Le profil » restaurée et harmonisée dans `single-qui-sommes-nous.html` (pill lime en aplat, cartes `is-style-card`) — ces champs avaient disparu du template lors de la refonte 1.8.0. Icônes affichées en rangée via le shortcode `[icones_images]` amélioré.
+- **Template produit FluentCart** : nouveau modèle `single-fluent-products.html` (fil d'Ariane, galerie, prix, ajout au panier, description) pour la fiche produit FluentCart.
 
 ### **1.25.0**
 
