@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.25.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.25.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.25.1**
+
+- **Nettoyage de `style.css`** : retrait de ~284 lignes de CSS legacy **mort** — TranslatePress (`.trp-*`), cookies SeoPress (`.seopress-*`), template produit FluentCart (`.g2rd-product-*`, orphelin : plus aucun template ne l'émet), `.resize-img`, `.ti-widget`. Fichier allégé de 666 → 397 lignes. `.img-h-100` **conservée** (utilisée par les patterns `grid-portfolio` et `post-grid`). **Aucun impact visuel** : uniquement du code mort — vérifié par diff règle-à-règle, aucune règle partagée modifiée, les variations de style (bela-vista, apiculteur…) sont strictement inchangées. Première étape de l'isolation « chacun son style » : le CSS spécifique à chaque projet migrera ensuite vers sa variation `styles/*.json`.
 
 ### **1.25.0**
 
