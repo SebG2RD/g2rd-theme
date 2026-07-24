@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.4** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.26.5** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.26.5**
+
+- **Sécurité — 12 alertes Dependabot corrigées, retour à 0** : mise à jour de 11 paquets de la chaîne de build (`svgo`, `immutable`, `brace-expansion`, `linkify-it`, `postcss`, `fast-uri`, `js-yaml`, `shell-quote`, `webpack-dev-server`, `nanoid`, `body-parser`). Tous en scope `development` : le thème n'ayant aucune dépendance npm en runtime (`dependencies: {}`), aucun de ces paquets n'est livré sur les sites. Correctifs appliqués dans les ranges semver existants — `@wordpress/scripts` reste en **33.0.0**, aucune rétrogradation de la chaîne de build.
+- **Style — nouveau screenshot du thème**.
+- **Chore — map d'autoload Composer régénérée** : ajout de `G2RD\GlobeEffect` et `G2RD\ThemeDownload`, déjà présentes dans le dépôt mais absentes de la map.
 
 ### **1.26.4**
 
