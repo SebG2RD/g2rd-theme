@@ -21,7 +21,6 @@
 }
 
 /* Jauge SVG */
-
 .g2rd-geo__gauge {
 	display: flex;
 	flex-direction: column;
@@ -37,7 +36,6 @@
 }
 
 /* Barre de progression globale */
-
 .g2rd-geo__global-bar-track {
 	width: 100%;
 	height: 6px;
@@ -53,7 +51,6 @@
 }
 
 /* Bouton rafraîchir */
-
 .g2rd-geo__refresh-btn.components-button {
 	font-size: 11px;
 	color: #94a3b8;
@@ -114,7 +111,6 @@
 }
 
 /* Bouton en-tête du critère */
-
 .g2rd-geo__criterion-header.components-button {
 	display: flex;
 	align-items: center;
@@ -174,7 +170,6 @@
 }
 
 /* Mini barre de progression */
-
 .g2rd-geo__criterion-bar-track {
 	height: 3px;
 	background: #f1f5f9;
@@ -210,9 +205,7 @@
 }
 
 .g2rd-geo__detail--ok      { background: #f0fdf4; color: #166534; }
-
 .g2rd-geo__detail--warning { background: #fffbeb; color: #92400e; }
-
 .g2rd-geo__detail--error   { background: #fef2f2; color: #991b1b; }
 
 .g2rd-geo__detail-icon {
@@ -302,7 +295,6 @@
 }
 
 /* ── Recommandations avec bouton d'insertion ─────────────────────── */
-
 .g2rd-geo__rec-body {
 	display: flex;
 	flex-direction: column;
@@ -326,7 +318,6 @@
 }
 
 /* ── Ligne méta (type de page + domaine) ────────────────────────── */
-
 .g2rd-geo__meta-row {
 	display: flex;
 	flex-wrap: wrap;
@@ -336,7 +327,6 @@
 }
 
 /* ── Badge type de page ──────────────────────────────────────────── */
-
 .g2rd-geo__page-type {
 	display: inline-flex;
 	align-items: center;
@@ -355,7 +345,6 @@
 }
 
 /* ── Badge domaine métier ────────────────────────────────────────── */
-
 .g2rd-geo__domain-badge {
 	display: inline-flex;
 	align-items: center;
@@ -371,7 +360,6 @@
 }
 
 /* ── Badges priorité dans les recommandations ────────────────────── */
-
 .g2rd-geo__rec-priority {
 	display: block;
 	font-size: 10px;
@@ -382,20 +370,16 @@
 }
 
 .g2rd-geo__rec-priority--high   { color: #dc2626; }
-
 .g2rd-geo__rec-priority--medium { color: #d97706; }
-
 .g2rd-geo__rec-priority--low    { color: #6b7280; }
 
 /* ── Indicateur priorité dans les détails (CriterionCard) ───────── */
-
 .g2rd-geo__detail-priority {
 	font-size: 10px;
 	margin-left: 2px;
 }
 
 /* ── Panel suggestions IA ────────────────────────────────────────── */
-
 .g2rd-geo__suggestion {
 	margin-bottom: 14px;
 }

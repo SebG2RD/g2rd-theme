@@ -3,6 +3,7 @@
 	cursor: default;
 	border-radius: 4px;
 }
+
 .g2rd-pin-scroll-editor__preview {
 	display: block;
 	width: 100%;
@@ -12,6 +13,7 @@
 	inset: 0;
 	opacity: 0.75;
 }
+
 .g2rd-pin-scroll-editor__badge {
 	position: absolute;
 	top: 16px;
@@ -26,11 +28,13 @@
 	gap: 6px;
 	z-index: 10;
 }
+
 .g2rd-pin-scroll-editor__badge .dashicons {
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
 }
+
 .g2rd-pin-scroll-editor__overlay-preview {
 	position: absolute;
 	right: 50%;
@@ -42,6 +46,7 @@
 	z-index: 5;
 	pointer-events: none;
 }
+
 .g2rd-pin-scroll-editor__placeholder {
 	display: flex;
 	align-items: center;
@@ -50,6 +55,7 @@
 	width: 100%;
 	padding: 16px;
 }
+
 .g2rd-pin-scroll-editor__placeholder-btn {
 	display: flex;
 	flex-direction: column;
@@ -65,14 +71,17 @@
 	width: 100%;
 	transition: border-color 0.2s ease, background 0.2s ease;
 }
+
 .g2rd-pin-scroll-editor__placeholder-btn:hover {
 	border-color: var(--wp--preset--color--primary, #0a0e27);
 	background: color-mix(in srgb, var(--wp--preset--color--primary) 4%, transparent);
 }
+
 .g2rd-pin-scroll-editor__placeholder-btn strong {
 	font-size: 18px;
 	color: #333;
 }
+
 .g2rd-pin-scroll-editor__placeholder-btn small {
 	font-size: 12px;
 	color: #888;

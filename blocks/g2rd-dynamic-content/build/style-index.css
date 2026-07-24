@@ -18,7 +18,6 @@
 }
 
 /* ── Carte ── */
-
 .g2rd-dynamic-content__card {
   background: var(--g2rd-dc-bg, var(--wp--preset--color--white, #ffffff));
   border: 1px solid rgba(12, 31, 46, 0.06);
@@ -38,7 +37,6 @@
 }
 
 /* ── Image ── */
-
 .g2rd-dynamic-content__image {
   display: block;
   overflow: hidden;
@@ -58,7 +56,6 @@
 }
 
 /* ── Corps ── */
-
 .g2rd-dynamic-content__body {
   display: flex;
   flex-direction: column;
@@ -128,7 +125,6 @@
 }
 
 /* ── Squelettes éditeur ── */
-
 .g2rd-dynamic-content__card.is-skeleton .g2rd-dynamic-content__image {
   background: linear-gradient(90deg, #e8eaed 25%, #f0f2f5 50%, #e8eaed 75%);
   background-size: 200% 100%;
@@ -147,23 +143,17 @@
 }
 
 .g2rd-dynamic-content__skeleton--badge { width: 4rem; }
-
 .g2rd-dynamic-content__skeleton--title { height: 1rem; width: 80%; }
-
 .g2rd-dynamic-content__skeleton--text  { height: 0.65rem; width: 95%; }
-
 .g2rd-dynamic-content__skeleton--meta  { width: 50%; }
-
 .g2rd-dynamic-content__skeleton--btn   { border-radius: 4px; height: 1.8rem; width: 7rem; }
 
 /* ── Responsive ── */
-
 @media (max-width: 768px) {
   .g2rd-dynamic-content__grid {
     grid-template-columns: 1fr !important;
   }
 }
-
 @media (min-width: 769px) and (max-width: 1024px) {
   .g2rd-dynamic-content__grid[style*="repeat(3"],
   .g2rd-dynamic-content__grid[style*="repeat(4"],

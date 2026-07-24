@@ -4,6 +4,7 @@
 	width: 100%;
 	overflow: hidden;
 }
+
 /* Canvas mode */
 .g2rd-pin-scroll__canvas {
 	display: block;
@@ -13,6 +14,7 @@
 	position: absolute;
 	inset: 0;
 }
+
 /* Image mode */
 .g2rd-pin-scroll__frame {
 	display: block;
@@ -22,6 +24,7 @@
 	position: absolute;
 	inset: 0;
 }
+
 /* Texte superposé — opacité gérée par GSAP */
 .g2rd-pin-scroll__overlay {
 	position: absolute;
@@ -35,6 +38,7 @@
 	z-index: 2;
 	pointer-events: none;
 }
+
 .g2rd-pin-scroll__overlay span {
 	max-width: 800px;
 	line-height: 1.2;

@@ -80,7 +80,6 @@ blockquote.g2rd-testimonial__card {
 }
 
 /* ── Mode Google Reviews ──────────────────────────────────────────────── */
-
 .g2rd-testimonial--google {
   background: transparent !important;
   box-shadow: none !important;
@@ -144,7 +143,6 @@ blockquote.g2rd-testimonial__card {
 }
 
 /* Carte individuelle d'avis */
-
 .g2rd-testimonial--google .g2rd-testimonial__card {
   background: var( --g2rd-t-bg, #fff );
   border-radius: var( --g2rd-t-radius, 8px );
@@ -189,7 +187,6 @@ blockquote.g2rd-testimonial__card {
 }
 
 /* Squelettes de chargement */
-
 .g2rd-testimonial--google .g2rd-testimonial__google-header.is-skeleton,
 .g2rd-testimonial--google .g2rd-testimonial__card.is-skeleton {
   background: linear-gradient( 90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75% );
@@ -213,7 +210,6 @@ blockquote.g2rd-testimonial__card {
 }
 
 /* ── Variant minimal */
-
 .g2rd-testimonial--minimal {
   border-left: 4px solid currentColor;
   padding-left: 1.5rem !important;
@@ -315,7 +311,6 @@ blockquote.g2rd-testimonial__card {
 }
 
 .g2rd-testimonial__nav-prev { left: -1.25rem; }
-
 .g2rd-testimonial__nav-next { right: -1.25rem; }
 
 /* ── Styles de cartes ────────────────────────────────────────────────────── */

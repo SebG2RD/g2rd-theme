@@ -189,7 +189,6 @@
 }
 
 /* RGAA 13.1 / WCAG 2.3.3 — respecter prefers-reduced-motion */
-
 @media (prefers-reduced-motion: reduce) {
   .g2rd-countdown,
   .g2rd-countdown * {

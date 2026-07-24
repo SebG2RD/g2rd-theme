@@ -1,7 +1,6 @@
 /* ── G2RD FAQ — Design "Editorial Accordion" ── */
 
 /* ─── Tokens internes ─── */
-
 .g2rd-faq {
   --_accent:   var(--g2rd-faq-border, var(--wp--preset--color--primary, #0a0e27));
   --_sep:      var(--g2rd-faq-separator, color-mix(in srgb, var(--_accent) 16%, transparent));
@@ -11,7 +10,6 @@
 }
 
 /* Fallback pour navigateurs sans color-mix */
-
 @supports not (color: color-mix(in srgb, red 50%, blue)) {
   .g2rd-faq {
     --_sep:      color-mix(in srgb, var(--wp--preset--color--primary) 16%, transparent);
@@ -21,7 +19,6 @@
 }
 
 /* ─── Liste ─── */
-
 .g2rd-faq__list {
   border-top: 1.5px solid var(--_sep);
   display: flex;
@@ -30,7 +27,6 @@
 }
 
 /* ─── Item ─── */
-
 .g2rd-faq__item {
   background: var(--g2rd-faq-bg, transparent);
   border: none;
@@ -43,7 +39,6 @@
 }
 
 /* Barre accent gauche — scaleY animé à l'ouverture */
-
 .g2rd-faq__item::after {
   background: var(--_accent);
   bottom: 0;
@@ -68,7 +63,6 @@
 }
 
 /* ─── Bouton question (grid 3 colonnes : numéro | texte | icône) ─── */
-
 .g2rd-faq__question {
   align-items: center;
   background: transparent;
@@ -87,7 +81,6 @@
 }
 
 /* Numéro counter — colonne gauche via ::before */
-
 .g2rd-faq__question::before {
   color: var(--_accent);
   content: counter(g2rd-faq-n, decimal-leading-zero);
@@ -114,7 +107,6 @@
 }
 
 /* ─── Texte de la question ─── */
-
 .g2rd-faq__question-text {
   font-size: 1.0625rem;
   font-weight: 600;
@@ -125,7 +117,6 @@
 }
 
 /* ─── Icône — cercle avec fill animé ─── */
-
 .g2rd-faq__icon {
   align-items: center;
   background: transparent;
@@ -164,7 +155,6 @@
 }
 
 /* ─── Réponse — animation CSS grid-template-rows ─── */
-
 .g2rd-faq__answer {
   display: grid;
   grid-template-rows: 0fr;
@@ -180,7 +170,6 @@
 }
 
 /* Alignement du texte réponse sous la colonne "texte question" */
-
 .g2rd-faq__answer-inner > * {
   border-top: none;
   color: var(--g2rd-faq-answer-color, inherit);
@@ -201,21 +190,17 @@
 /* ─── Mode GEO : <details> / <summary> ─── */
 
 /* Masquer le marqueur natif dans tous les navigateurs */
-
 .g2rd-faq--geo .g2rd-faq__question {
   list-style: none;           /* Firefox */
 }
-
 .g2rd-faq--geo .g2rd-faq__question::marker {
   content: none;              /* Standard (Chrome 86+, Firefox 68+) */
 }
-
 .g2rd-faq--geo .g2rd-faq__question::-webkit-details-marker {
   display: none;              /* Safari / Chrome ancien */
 }
 
 /* Annule animation grid (mode natif details) */
-
 .g2rd-faq--geo .g2rd-faq__answer {
   display: block;
   grid-template-rows: unset;
@@ -227,7 +212,6 @@
 }
 
 /* Fade-in réponse GEO à l'ouverture */
-
 .g2rd-faq--geo .g2rd-faq__answer-inner > * {
   opacity: 0;
   transform: translateY(-5px);
@@ -240,7 +224,6 @@
 }
 
 /* ─── En-tête optionnel ─── */
-
 .g2rd-faq__header {
   align-items: center;
   border-bottom: 2px solid var(--_accent);
@@ -275,7 +258,6 @@
 }
 
 /* ─── Responsive ─── */
-
 @media (max-width: 640px) {
   .g2rd-faq__question {
     gap: 0 13px;
@@ -293,7 +275,6 @@
 }
 
 /* ─── Éditeur Gutenberg ─── */
-
 .g2rd-faq__question-input {
   min-width: 0;
 }

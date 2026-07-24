@@ -11,7 +11,6 @@
 
 /* Position du média — la variable --g2rd-card-align fixe le défaut,
    l'inline style du bloc la surcharge quand l'utilisateur la modifie */
-
 .g2rd-card--icon-top {
   flex-direction: column;
   --g2rd-card-align: center;
@@ -28,13 +27,11 @@
 }
 
 /* Wrapper icône */
-
 .g2rd-card__icon-wrap {
   flex-shrink: 0;
 }
 
 /* Image */
-
 .g2rd-card__image-wrap {
   flex-shrink: 0;
 }
@@ -45,7 +42,6 @@
 }
 
 /* Contenu */
-
 .g2rd-card__content {
   display: flex;
   flex-direction: column;
@@ -87,7 +83,6 @@
 }
 
 /* Bouton CTA */
-
 .g2rd-card__cta {
   margin-top: 4px;
 }
@@ -115,23 +110,16 @@
 }
 
 /* Alignements globaux */
-
 .g2rd-card--align-left   .g2rd-card__content { text-align: right; }
-
 .g2rd-card--align-center .g2rd-card__content { text-align: center; }
-
 .g2rd-card--align-right  .g2rd-card__content { text-align: left; }
 
 /* Alignement icône/image en position haut selon l'alignement du texte */
-
 .g2rd-card--align-left.g2rd-card--icon-top   { --g2rd-card-align: flex-start; }
-
 .g2rd-card--align-center.g2rd-card--icon-top { --g2rd-card-align: center; }
-
 .g2rd-card--align-right.g2rd-card--icon-top  { --g2rd-card-align: flex-end; }
 
 /* Overlay lien global (linkMode: card) */
-
 .g2rd-card__overlay-link {
   display: block;
   position: absolute;

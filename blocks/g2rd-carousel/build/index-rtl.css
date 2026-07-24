@@ -10,7 +10,6 @@
 }
 
 /* Header Styles */
-
 .carousel-header {
   position: relative;
   margin-bottom: 30px;
@@ -56,7 +55,6 @@
 }
 
 /* Container Styles */
-
 .carousel-container {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
@@ -67,7 +65,6 @@
 }
 
 /* Swiper Styles - Version moderne */
-
 .swiper {
   width: 100%;
   padding-bottom: 50px;
@@ -178,7 +175,6 @@
 }
 
 /* Navigation Buttons */
-
 .swiper-button-prev,
 .swiper-button-next {
   width: 50px;
@@ -274,7 +270,6 @@
 }
 
 /* Couleurs personnalisées pour les boutons */
-
 .has-primary-color .swiper-button-prev,
 .has-primary-color .swiper-button-next {
   background: var(--wp--preset--color--primary, #0a0e27);
@@ -296,7 +291,6 @@
 }
 
 /* Pagination */
-
 .swiper-pagination {
   position: absolute;
   bottom: 10px;
@@ -320,7 +314,6 @@
 }
 
 /* Effets 3D et Coverflow */
-
 .swiper-3d .swiper-slide-shadow-left,
 .swiper-3d .swiper-slide-shadow-right {
   background-image: linear-gradient(
@@ -339,7 +332,6 @@
 }
 
 /* Responsive pour différents nombres de slides */
-
 .swiper[data-slides-per-view="1"] .swiper-slide {
   width: 100% !important;
 }
@@ -357,7 +349,6 @@
 }
 
 /* Effet Coverflow amélioré */
-
 .swiper-effect-coverflow .swiper-slide-active {
   transform: scale(1.1) translateZ(0) !important;
   z-index: 2;
@@ -385,7 +376,6 @@
 }
 
 /* Alignement WordPress */
-
 .wp-block-g2rd-carousel.alignwide {
   max-width: 1200px;
   margin-right: auto;
@@ -423,7 +413,6 @@
 }
 
 /* Responsive Styles - Améliorés */
-
 @media (max-width: 1200px) {
   .g2rd-carousel {
     max-width: 100%;
@@ -726,7 +715,6 @@
 }
 
 /* Editor Preview Styles */
-
 .g2rd-carousel-preview {
   border: 2px dashed #ddd;
   border-radius: 12px;
@@ -792,7 +780,6 @@
 }
 
 /* Styles pour les anciennes versions de Swiper */
-
 .swiper-container {
   width: 100%;
   height: 100%;
@@ -806,7 +793,6 @@
 }
 
 /* Effets spécifiques */
-
 .swiper-effect-slide .swiper-slide {
   transition: transform 0.3s ease;
 }
@@ -825,7 +811,6 @@
 }
 
 /* Styles pour les liens d'images */
-
 .carousel-image-link {
   display: block;
   width: 100%;
@@ -845,7 +830,6 @@
 }
 
 /* Assurer que l'image dans le lien occupe tout l'espace */
-
 .carousel-image-link .carousel-image {
   width: 100%;
   height: 100%;
@@ -936,7 +920,6 @@
 }
 
 /* ── Bouton pause autoplay (RGAA 13.2) ───────────────────────────────────── */
-
 .g2rd-carousel__pause {
   position: absolute;
   top: 0.5rem;
@@ -962,7 +945,6 @@
 }
 
 /* ── Préférence de réduction de mouvement (RGAA 13.1) ────────────────────── */
-
 @media (prefers-reduced-motion: reduce) {
   .swiper-slide,
   .carousel-slide,

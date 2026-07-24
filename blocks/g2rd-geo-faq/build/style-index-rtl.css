@@ -5,7 +5,6 @@
 }
 
 /* En-tête */
-
 .geo-faq__header {
 	display: flex;
 	align-items: center;
@@ -37,7 +36,6 @@
 }
 
 /* Conteneur des items */
-
 .geo-faq__items {
 	display: flex;
 	flex-direction: column;
@@ -45,7 +43,6 @@
 }
 
 /* Item FAQ — accordéon natif CSS */
-
 .geo-faq__item {
 	border: 1px solid #e2e8f0;
 	border-radius: 8px;
@@ -57,7 +54,6 @@
 }
 
 /* Question (balise summary) */
-
 .geo-faq__question {
 	display: flex;
 	align-items: center;
@@ -107,7 +103,6 @@
 }
 
 /* Réponse */
-
 .geo-faq__answer {
 	padding: 12px 18px 16px;
 	background: #fafbfc;

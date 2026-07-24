@@ -28,14 +28,12 @@
    ═══════════════════════════════════════════════════════════════ */
 
 /* Frame */
-
 .g2rd-aim .components-modal__frame {
 	max-width: min(940px, 96vw);
 	width:     min(940px, 96vw);
 }
 
 /* Header */
-
 .g2rd-aim .components-modal__header {
 	padding: 14px 20px;
 }
@@ -49,7 +47,6 @@
 }
 
 /* Content area */
-
 .g2rd-aim .components-modal__content {
 	padding: 0;
 }
@@ -286,7 +283,6 @@
 }
 
 /* Spinner inline dans le bouton générer */
-
 .g2rd-aim__spin {
 	display:          inline-block;
 	width:            14px;
@@ -311,7 +307,6 @@
 }
 
 /* Loading — 3 points pulsants */
-
 .g2rd-aim__loading {
 	display:     flex;
 	align-items: center;
@@ -345,7 +340,6 @@
 }
 
 /* Carte résultat */
-
 .g2rd-aim__result-card {
 	border:        1px solid rgba(245, 158, 11, 0.25);
 	border-radius: var(--g2rd-ai-radius);
@@ -547,7 +541,6 @@
 }
 
 /* Résultat inline dans le panneau */
-
 .g2rd-ai-panel-result {
 	margin-top:    12px;
 	border:        1px solid rgba(245, 158, 11, 0.25);
