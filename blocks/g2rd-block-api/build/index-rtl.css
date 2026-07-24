@@ -57,7 +57,6 @@
 }
 
 /* Lignes en-têtes / mappages dans le panneau latéral */
-
 .g2rd-api-header-row,
 .g2rd-api-mapping-row {
 	display: flex;
@@ -81,7 +80,6 @@
 }
 
 /* Texte d'aide secondaire dans les panneaux */
-
 .g2rd-api-panel-hint {
 	font-size: 12px;
 	color: #6b7280;
@@ -89,20 +87,17 @@
 }
 
 /* Notice d'erreur du test API */
-
 .g2rd-api-test-notice {
 	margin-top: 8px;
 }
 
 /* Label de résultat du test */
-
 .g2rd-api-test-label {
 	font-weight: 600;
 	margin-bottom: 4px;
 }
 
 /* Zone de résultat du test API */
-
 .g2rd-api-test-result {
 	margin-top: 10px;
 }

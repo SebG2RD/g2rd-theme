@@ -43,7 +43,6 @@
 }
 
 /* Styles pour l'éditeur */
-
 .g2rd-typed-editor .typed-text-animated {
   background-color: #f0f0f0;
   padding: 2px 4px;
@@ -52,20 +51,17 @@
 }
 
 /* Styles pour le frontend */
-
 .g2rd-typed .typed-cursor {
   color: inherit;
 }
 
 /* Support pour le fondu */
-
 .typed-fade-out {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
 /* Responsive */
-
 @media (max-width: 768px) {
   .g2rd-typed {
     font-size: 0.9em;
@@ -73,7 +69,6 @@
 }
 
 /* ── Bouton pause (RGAA 13.2) ────────────────────────────────────────────── */
-
 .g2rd-typed__pause {
   position: absolute;
   top: 0.5rem;

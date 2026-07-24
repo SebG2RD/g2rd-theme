@@ -22,7 +22,6 @@
 }
 
 /* Perspective presets */
-
 .gs_style_perspective {
   transform: perspective(1200px) translateZ(0) rotateX(0deg);
   box-shadow: 0 14px 30px color-mix(in srgb, var(--wp--preset--color--contrast) 14%, transparent);
@@ -53,7 +52,6 @@
 }
 
 /* Hover presets */
-
 .gs-twin-on-hover {
   position: relative;
   overflow: hidden;
@@ -108,7 +106,6 @@
 }
 
 /* Animation presets */
-
 .g2rd-ek-anim {
   opacity: 0;
   transition: var(--gs-root-animation-transition);
@@ -144,7 +141,6 @@
 
 /* RGAA 13.1 / WCAG 2.3.3 — respecter prefers-reduced-motion.
    On force l'état révélé (opacity:1) pour éviter tout élément bloqué invisible. */
-
 @media (prefers-reduced-motion: reduce) {
   .g2rd-effect-kits *,
   .g2rd-effect-kits.is-apply-children > *,

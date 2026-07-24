@@ -22,13 +22,11 @@
 }
 
 /* Editor specific overrides */
-
 .editor-styles-wrapper .wp-block-g2rd-counter {
   max-width: none;
 }
 
 /* Preview styles in editor */
-
 .wp-block-g2rd-counter.preview-mode {
   opacity: 0.8;
   pointer-events: none;

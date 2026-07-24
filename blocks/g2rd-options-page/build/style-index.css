@@ -5,7 +5,6 @@
    ============================================================= */
 
 /* ── Tokens ───────────────────────────────────────────────────── */
-
 .g2rd-app {
 	--g2rd-bg:          #f0f2f5;
 	--g2rd-nav:         #ffffff;
@@ -29,7 +28,6 @@
 }
 
 /* ── App shell ────────────────────────────────────────────────── */
-
 .g2rd-app {
 	display: flex;
 	flex-direction: column;
@@ -41,7 +39,6 @@
 }
 
 /* ── Header ────────────────────────────────────────────────────── */
-
 .g2rd-header {
 	display: flex;
 	align-items: center;
@@ -59,7 +56,6 @@
 }
 
 /* Ligne décorative or en bas du header */
-
 .g2rd-header::after {
 	content: "";
 	position: absolute;
@@ -127,7 +123,6 @@
 }
 
 /* Surcharge boutons WP dans le header */
-
 .g2rd-header__save .components-button.is-primary {
 	background: var(--g2rd-gold) !important;
 	color: #fff !important;
@@ -149,14 +144,12 @@
 }
 
 /* ── Notice ────────────────────────────────────────────────────── */
-
 .g2rd-notice {
 	margin: 0 !important;
 	border-radius: 0 !important;
 }
 
 /* ── Body ─────────────────────────────────────────────────────── */
-
 .g2rd-body {
 	display: flex;
 	flex: 1;
@@ -164,7 +157,6 @@
 }
 
 /* ── Sidebar nav ──────────────────────────────────────────────── */
-
 .g2rd-nav {
 	width: 210px;
 	flex-shrink: 0;
@@ -255,7 +247,6 @@
 }
 
 /* Dot indicateur actif */
-
 .g2rd-nav__item--active::before {
 	content: "";
 	position: absolute;
@@ -269,7 +260,6 @@
 }
 
 /* ── Main content ─────────────────────────────────────────────── */
-
 .g2rd-main {
 	flex: 1;
 	min-width: 0;
@@ -307,7 +297,6 @@
 }
 
 /* Animation d'entrée sur changement d'onglet */
-
 @keyframes g2rd-fade-in {
 	from {
 		opacity: 0;
@@ -325,7 +314,6 @@
 }
 
 /* ── Pill (licence badge) ─────────────────────────────────────── */
-
 .g2rd-pill {
 	display: inline-flex;
 	align-items: center;
@@ -359,7 +347,6 @@
 }
 
 /* ── Sections ─────────────────────────────────────────────────── */
-
 .g2rd-tab-content {
 	display: flex;
 	flex-direction: column;
@@ -396,7 +383,6 @@
 }
 
 /* ── Cards ─────────────────────────────────────────────────────── */
-
 .g2rd-card {
 	background: var(--g2rd-surface);
 	border: 1px solid var(--g2rd-border);
@@ -414,7 +400,6 @@
 }
 
 /* ── Badges ────────────────────────────────────────────────────── */
-
 .g2rd-badge {
 	display: inline-flex;
 	align-items: center;
@@ -448,7 +433,6 @@
 }
 
 /* ── Business type grid ───────────────────────────────────────── */
-
 .g2rd-business-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 170px, 1fr ) );
@@ -500,7 +484,6 @@
 }
 
 /* ── Color slots ──────────────────────────────────────────────── */
-
 .g2rd-colors-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
@@ -543,7 +526,6 @@
 }
 
 /* Pastille « couleur par défaut du thème » (valeur vide) */
-
 .g2rd-swatch--default {
 	display: inline-flex;
 	align-items: center;
@@ -561,7 +543,6 @@
 }
 
 /* ── Features grid ────────────────────────────────────────────── */
-
 .g2rd-features-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 280px, 1fr ) );
@@ -636,7 +617,6 @@
 }
 
 /* ── Blocks grid ──────────────────────────────────────────────── */
-
 .g2rd-blocks-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
@@ -679,7 +659,6 @@
 }
 
 /* ── CPT list ─────────────────────────────────────────────────── */
-
 .g2rd-cpt-list {
 	display: flex;
 	flex-direction: column;
@@ -747,13 +726,11 @@
 }
 
 /* ── Save bar (masquée — save dans le header) ─────────────────── */
-
 .g2rd-save-bar {
 	display: none;
 }
 
 /* ── Login layout ─────────────────────────────────────────────── */
-
 .g2rd-login-layout {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -773,7 +750,6 @@
 }
 
 /* ── Login preview ────────────────────────────────────────────── */
-
 .g2rd-login-preview {
 	display: flex;
 	flex-direction: column;
@@ -788,7 +764,6 @@
 }
 
 /* ── Color input ──────────────────────────────────────────────── */
-
 .g2rd-color-input {
 	display: flex;
 	flex-direction: column;
@@ -849,7 +824,6 @@
 }
 
 /* ── Color group label ────────────────────────────────────────── */
-
 .g2rd-color-group-label {
 	font-size: 10px;
 	font-weight: 700;
@@ -861,7 +835,6 @@
 }
 
 /* ── Color grid ───────────────────────────────────────────────── */
-
 .g2rd-color-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -869,7 +842,6 @@
 }
 
 /* ── Media picker ─────────────────────────────────────────────── */
-
 .g2rd-media-picker {
 	display: flex;
 	flex-direction: column;
@@ -911,7 +883,6 @@
 }
 
 /* ── WP components — font family + focus gold ─────────────────── */
-
 .g2rd-app .components-base-control__label,
 .g2rd-app .components-input-control__label {
 	font-family: var(--g2rd-font) !important;
@@ -937,7 +908,6 @@
 }
 
 /* ── MCP tabs ─────────────────────────────────────────────────── */
-
 .g2rd-mcp-tab {
 	display: flex;
 	flex-direction: column;
@@ -945,7 +915,6 @@
 }
 
 /* Style mono pour les tokens et valeurs techniques */
-
 .g2rd-app code,
 .g2rd-app .g2rd-token-value {
 	font-family: var(--g2rd-mono) !important;
@@ -958,7 +927,6 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */
-
 @media ( max-width: 1200px ) {
 	.g2rd-nav { width: 185px; }
 }

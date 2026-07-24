@@ -3,34 +3,29 @@
    ========================================================================== */
 
 /* ── Conteneur principal ── */
-
 .g2rd-adv-heading-wrap {
 	position: relative;
 	display:  block;
 }
 
 /* ── Titre ── */
-
 .g2rd-adv-heading {
 	margin:      0;
 	line-height: 1.2;
 }
 
 /* ── Enveloppe des mots animés ── */
-
 .g2rd-adv-heading__animated-outer {
 	display: inline;
 }
 
 /* ── Wrapper interne (géré par JS) ── */
-
 .g2rd-adv-heading__animated-wrap {
 	display:        inline-block;
 	vertical-align: middle;
 }
 
 /* ── Chaque mot ── */
-
 .g2rd-adv-heading__word {
 	display:    block;
 	opacity:    0;
@@ -51,7 +46,6 @@
    ========================================================================== */
 
 /* ── Zigzag ── */
-
 .has-decorator--zigzag {
 	-webkit-text-decoration:           underline wavy;
 	        text-decoration:           underline wavy;
@@ -61,14 +55,12 @@
 }
 
 /* ── Soulignement / bordure ── */
-
 .has-decorator--border {
 	border-bottom:  var( --g2rd-dec-size, 3px ) solid var( --g2rd-dec-color, currentColor );
 	padding-bottom: 2px;
 }
 
 /* ── Cercle autour du texte ── */
-
 .has-decorator--circle {
 	outline:        var( --g2rd-dec-size, 3px ) solid var( --g2rd-dec-color, currentColor );
 	outline-offset: 6px;
@@ -79,7 +71,6 @@
 }
 
 /* ── Badge numéroté ── */
-
 .g2rd-adv-heading__number-badge {
 	display:          inline-flex;
 	align-items:      center;
