@@ -493,14 +493,44 @@ class McpPluginSettings {
 		switch ( $definition['type'] ) {
 
 			case 'boolean':
-				if ( \is_string( $value ) ) {
-					$lower = \strtolower( \trim( $value ) );
-					$value = \in_array( $lower, [ '1', 'true', 'yes', 'on' ], true );
+				if ( \is_bool( $value ) ) {
+					return [
+						'ok'    => true,
+						'value' => $value,
+					];
 				}
 
+				// The tool schema allows arrays (post type lists need them), so a
+				// list sent to a toggle by mistake would reach here. A blanket
+				// (bool) cast turns any non-empty array into true and would flip
+				// the setting on. Refuse anything that is not plainly boolean.
+				if ( ! \is_scalar( $value ) ) {
+					return [
+						'ok'    => false,
+						'error' => 'Expected a boolean value, got a non-scalar.',
+					];
+				}
+
+				$lower = \strtolower( \trim( (string) $value ) );
+
+				if ( \in_array( $lower, [ '1', 'true', 'yes', 'on' ], true ) ) {
+					return [
+						'ok'    => true,
+						'value' => true,
+					];
+				}
+
+				if ( \in_array( $lower, [ '0', 'false', 'no', 'off', '' ], true ) ) {
+					return [
+						'ok'    => true,
+						'value' => false,
+					];
+				}
+
+				// Ambiguous input is refused rather than silently read as false.
 				return [
-					'ok'    => true,
-					'value' => (bool) $value,
+					'ok'    => false,
+					'error' => \sprintf( 'Value "%s" is not a recognised boolean.', $lower ),
 				];
 
 			case 'text':

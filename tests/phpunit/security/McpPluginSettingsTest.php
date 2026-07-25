@@ -409,6 +409,54 @@ final class McpPluginSettingsTest extends TestCase {
 	}
 
 	/**
+	 * An array sent to a boolean toggle is refused, not coerced to true.
+	 *
+	 * The tool schema allows arrays because post type lists need them, so a
+	 * mistargeted list reaches sanitize(). A blanket (bool) cast would turn any
+	 * non-empty array into true and enable the sitemap.
+	 */
+	public function test_array_on_boolean_setting_is_refused(): void {
+		global $g2rd_option_store;
+
+		$result = McpPluginSettings::write( 'seopress', 'news_sitemap_enabled', [ 'post', 'page' ] );
+
+		$this->assertFalse( $result['ok'], 'A list must never silently enable a toggle.' );
+		$this->assertStringContainsString( 'non-scalar', $result['error'] );
+		$this->assertArrayNotHasKey(
+			'seopress_news_enable',
+			$g2rd_option_store[ self::SEOPRESS_OPTION ],
+			'The setting must remain untouched.'
+		);
+	}
+
+	/**
+	 * An unrecognised string is refused rather than read as false.
+	 */
+	public function test_ambiguous_boolean_string_is_refused(): void {
+		$result = McpPluginSettings::write( 'seopress', 'news_sitemap_enabled', 'peut-être' );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertStringContainsString( 'not a recognised boolean', $result['error'] );
+	}
+
+	/**
+	 * The documented boolean spellings still resolve both ways.
+	 */
+	public function test_boolean_string_spellings_are_accepted(): void {
+		foreach ( [ '1', 'true', 'yes', 'on' ] as $truthy ) {
+			$result = McpPluginSettings::write( 'seopress', 'news_sitemap_enabled', $truthy );
+			$this->assertTrue( $result['ok'], "{$truthy} should be accepted." );
+			$this->assertTrue( $result['new'], "{$truthy} should mean true." );
+		}
+
+		foreach ( [ '0', 'false', 'no', 'off' ] as $falsy ) {
+			$result = McpPluginSettings::write( 'seopress', 'news_sitemap_enabled', $falsy );
+			$this->assertTrue( $result['ok'], "{$falsy} should be accepted." );
+			$this->assertFalse( $result['new'], "{$falsy} should mean false." );
+		}
+	}
+
+	/**
 	 * Introspection reports whether a setting can actually take effect.
 	 */
 	public function test_describe_reports_availability(): void {
