@@ -792,6 +792,71 @@ class McpAbilities {
 				],
 			],
 
+			// ── Allowlisted plugin settings ───────────────────────────────────────
+			'g2rd_list-plugin-settings'  => [
+				'name'           => 'g2rd_list-plugin-settings',
+				'description'    => 'Lists every plugin setting this server is allowed to read or write, with its type, allowed values and backing option. Introspection only: never returns current values nor any credential. Use it before calling get-plugin-setting or update-plugin-setting.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'manage_options',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'active_only' => [
+							'type'        => 'boolean',
+							'description' => 'When true, only list plugins currently active on this site. Default false.',
+						],
+					],
+				],
+			],
+			'g2rd_get-plugin-setting'    => [
+				'name'           => 'g2rd_get-plugin-setting',
+				'description'    => 'Reads the current value of one allowlisted plugin setting. Any setting outside the allowlist is refused. Never returns passwords, API keys, tokens or licence data.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'manage_options',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'plugin'  => [
+							'type'        => 'string',
+							'description' => 'Plugin slug.',
+							'enum'        => McpPluginSettings::plugin_slugs(),
+						],
+						'setting' => [
+							'type'        => 'string',
+							'description' => 'Allowlisted setting slug.',
+							'enum'        => McpPluginSettings::setting_slugs(),
+						],
+					],
+					'required'   => [ 'plugin', 'setting' ],
+				],
+			],
+			'g2rd_update-plugin-setting' => [
+				'name'           => 'g2rd_update-plugin-setting',
+				'description'    => 'Updates one allowlisted plugin setting. Only the targeted sub-key changes; every sibling setting of the same option is preserved. Any setting outside the allowlist is refused. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'manage_options',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'plugin'  => [
+							'type'        => 'string',
+							'description' => 'Plugin slug.',
+							'enum'        => McpPluginSettings::plugin_slugs(),
+						],
+						'setting' => [
+							'type'        => 'string',
+							'description' => 'Allowlisted setting slug.',
+							'enum'        => McpPluginSettings::setting_slugs(),
+						],
+						'value'   => [
+							'description' => 'New value. Boolean for toggles, string for text and enum settings, array of post type slugs for post type lists.',
+							'type'        => [ 'string', 'boolean', 'array' ],
+						],
+					],
+					'required'   => [ 'plugin', 'setting', 'value' ],
+				],
+			],
+
 			// ── Media upload ──────────────────────────────────────────────────────
 			'g2rd_upload-media'      => [
 				'name'           => 'g2rd_upload-media',
@@ -1096,6 +1161,10 @@ class McpAbilities {
 				return $this->exec_get_cron_jobs( $gate_result );
 			case 'g2rd_list-menus':
 				return $this->exec_list_menus();
+			case 'g2rd_list-plugin-settings':
+				return $this->exec_list_plugin_settings( $args, $gate_result );
+			case 'g2rd_get-plugin-setting':
+				return $this->exec_get_plugin_setting( $args, $gate_result );
 
 			// ── Write tools (enqueue for confirmation) ─────────────────────────
 			case 'g2rd_create-post':
@@ -1111,6 +1180,7 @@ class McpAbilities {
 			case 'g2rd_deactivate-plugin':
 			case 'g2rd_update-plugin':
 			case 'g2rd_update-option':
+			case 'g2rd_update-plugin-setting':
 			case 'g2rd_flush-cache':
 			case 'g2rd_update-menu-item':
 			case 'g2rd_upload-media':
@@ -2071,6 +2141,70 @@ class McpAbilities {
 		}
 
 		return $this->tool_success( (string) \wp_json_encode( [ 'menus' => $result, 'total' => \count( $result ) ] ) );
+	}
+
+	/**
+	 * Describes the plugin-settings allowlist (tool: g2rd/list-plugin-settings).
+	 *
+	 * Introspection only: returns what may be written, never current values.
+	 *
+	 * @param array<string, mixed> $args        Tool arguments (active_only optional).
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_list_plugin_settings( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'manage_options' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$active_only = ! empty( $args['active_only'] );
+
+		return $this->tool_success(
+			(string) \wp_json_encode(
+				[
+					'plugins' => McpPluginSettings::describe( $active_only ),
+					'note'    => 'Only these settings can be written. Anything else is refused by the allowlist.',
+				]
+			)
+		);
+	}
+
+	/**
+	 * Reads one allowlisted plugin setting (tool: g2rd/get-plugin-setting).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments (plugin, setting).
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_get_plugin_setting( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'manage_options' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$plugin  = \sanitize_key( (string) ( $args['plugin'] ?? '' ) );
+		$setting = \sanitize_key( (string) ( $args['setting'] ?? '' ) );
+
+		$result = McpPluginSettings::read( $plugin, $setting );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		$definition = McpPluginSettings::get_definition( $plugin, $setting );
+
+		return $this->tool_success(
+			(string) \wp_json_encode(
+				[
+					'plugin'  => $plugin,
+					'setting' => $setting,
+					'label'   => $definition['label'] ?? '',
+					'option'  => $definition['option'] ?? '',
+					'value'   => $result['value'],
+				]
+			)
+		);
 	}
 
 	// ── Write tool implementations ────────────────────────────────────────────

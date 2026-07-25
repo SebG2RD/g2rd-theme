@@ -488,6 +488,8 @@ class McpConfirmationQueue {
 				return $this->exec_update_plugin( $arguments );
 			case 'g2rd_update-option':
 				return $this->exec_update_option( $arguments );
+			case 'g2rd_update-plugin-setting':
+				return $this->exec_update_plugin_setting( $arguments );
 			case 'g2rd_flush-cache':
 				return $this->exec_flush_cache();
 			case 'g2rd_update-menu-item':
@@ -1336,6 +1338,136 @@ class McpConfirmationQueue {
 		}
 
 		return \update_option( $key, $value );
+	}
+
+	/**
+	 * Executes g2rd/update-plugin-setting: writes one allowlisted plugin setting.
+	 *
+	 * Delegates all authorization to McpPluginSettings, which refuses anything
+	 * outside its hard-coded allowlist and read-modify-writes array-backed
+	 * options so sibling settings survive untouched.
+	 *
+	 * Records the previous value under g2rd_mcp_plugin_setting_rollback so the
+	 * change can be reverted, and publishes a rich report for the confirmation
+	 * screen. Capability check runs inside the switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments (plugin, setting, value).
+	 * @return bool True on success.
+	 */
+	private function exec_update_plugin_setting( array $args ): bool {
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		$plugin  = \sanitize_key( (string) ( $args['plugin'] ?? '' ) );
+		$setting = \sanitize_key( (string) ( $args['setting'] ?? '' ) );
+		$value   = $args['value'] ?? null;
+
+		$result = McpPluginSettings::write( $plugin, $setting, $value );
+
+		if ( ! ( $result['ok'] ?? false ) ) {
+			\update_option(
+				'g2rd_mcp_last_operation_result',
+				[
+					'operation' => 'update-plugin-setting',
+					'success'   => false,
+					'plugin'    => $plugin,
+					'setting'   => $setting,
+					'error'     => $result['error'] ?? 'Unknown error.',
+					'timestamp' => \current_time( 'mysql', true ),
+				],
+				false
+			);
+
+			return false;
+		}
+
+		// Keep the previous value so the change can be rolled back.
+		\update_option(
+			'g2rd_mcp_plugin_setting_rollback',
+			[
+				'plugin'    => $plugin,
+				'setting'   => $setting,
+				'old_value' => $result['old'],
+				'user_id'   => \get_current_user_id(),
+				'timestamp' => \current_time( 'mysql', true ),
+			],
+			false
+		);
+
+		// Only flush when the value actually moved. A full cache purge plus a
+		// rewrite rebuild is expensive, and an idempotent toggle must not pay it.
+		$changed = $result['old'] !== $result['new'];
+
+		if ( $changed ) {
+			$this->apply_setting_side_effects( (array) ( $result['side_effects'] ?? [] ) );
+		}
+
+		$verify_url = null;
+		if ( ! empty( $result['verify_path'] ) ) {
+			$verify_url = \home_url( (string) $result['verify_path'] );
+		}
+
+		$report = [
+			'operation'    => 'update-plugin-setting',
+			'success'      => true,
+			'plugin'       => $plugin,
+			'setting'      => $setting,
+			'option'       => $result['option'],
+			'path'         => $result['path'],
+			'old_value'    => $result['old'],
+			'new_value'    => $result['new'],
+			'side_effects' => $changed ? $result['side_effects'] : [],
+			'changed'      => $changed,
+			'verify_url'   => $verify_url,
+			'user_id'      => \get_current_user_id(),
+			'timestamp'    => \current_time( 'mysql', true ),
+		];
+
+		\update_option( 'g2rd_mcp_last_operation_result', $report, false );
+
+		$this->audit->log(
+			[
+				'user_id'     => \get_current_user_id(),
+				'method'      => 'tools/call',
+				'ability'     => 'g2rd_update-plugin-setting',
+				'input'       => [
+					'plugin'  => $plugin,
+					'setting' => $setting,
+				],
+				'status'      => 'executed',
+				'http_status' => 200,
+				'message'     => \sprintf(
+					'%s.%s: %s -> %s (option %s)',
+					$plugin,
+					$setting,
+					\wp_json_encode( $result['old'] ),
+					\wp_json_encode( $result['new'] ),
+					$result['option']
+				),
+			]
+		);
+
+		return true;
+	}
+
+	/**
+	 * Applies the side effects declared by a plugin setting after a write.
+	 *
+	 * Rewrite flushing is required for sitemap toggles: SEOPress serves
+	 * /news.xml through a rewrite rule, so the URL 404s until rules are rebuilt.
+	 *
+	 * @param string[] $side_effects Declared side effects.
+	 * @return void
+	 */
+	private function apply_setting_side_effects( array $side_effects ): void {
+		if ( \in_array( 'flush_rewrite', $side_effects, true ) ) {
+			\flush_rewrite_rules( false );
+		}
+
+		if ( \in_array( 'flush_cache', $side_effects, true ) ) {
+			$this->exec_flush_cache();
+		}
 	}
 
 	/**

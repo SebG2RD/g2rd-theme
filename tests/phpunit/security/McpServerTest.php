@@ -229,7 +229,7 @@ final class McpServerTest extends TestCase {
 
 		$tools = $data['result']['tools'];
 		$this->assertIsArray( $tools );
-		$this->assertCount( 39, $tools ); // 19 read-only + 20 write (create-full-post + batch)
+		$this->assertCount( 42, $tools ); // 21 read-only + 21 write (create-full-post, batch, plugin settings)
 
 		// Each tool must expose name, description, inputSchema.
 		foreach ( $tools as $tool ) {

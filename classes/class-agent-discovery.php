@@ -360,6 +360,17 @@ class AgentDiscovery {
 			$md .= "- `editor` — write tools. Write operations are **not applied immediately**:\n";
 			$md .= "  they are queued for explicit approval by a site administrator.\n\n";
 
+			$md .= "### Plugin settings\n\n";
+			$md .= "A small, explicitly allowlisted set of third-party plugin settings can be\n";
+			$md .= "read and written. Anything outside that allowlist is refused — there is no\n";
+			$md .= "tool that writes an arbitrary option. Credentials (passwords, API keys,\n";
+			$md .= "tokens, licence data) are never readable nor writable.\n\n";
+			$md .= "- `g2rd_list-plugin-settings` — enumerate what may be changed (`read_only`).\n";
+			$md .= "- `g2rd_get-plugin-setting` — read one allowlisted setting (`read_only`).\n";
+			$md .= "- `g2rd_update-plugin-setting` — change one allowlisted setting (`editor`,\n";
+			$md .= "  administrator confirmation required). Only the targeted sub-key is written;\n";
+			$md .= "  sibling settings of the same option are preserved.\n\n";
+
 			$md .= "### How to obtain a credential\n\n";
 			$md .= "Tokens are **issued manually by a site administrator** from the WordPress\n";
 			$md .= "admin. There is no self-service registration endpoint and no dynamic client\n";

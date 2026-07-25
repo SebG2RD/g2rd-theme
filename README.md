@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.26.5** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.27.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,16 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.27.0**
+
+- **MCP — réglages de plugins sous liste blanche** : trois nouveaux outils permettent de piloter des réglages de plugins tiers depuis un client MCP, sans jamais autoriser d'écriture arbitraire. `g2rd/list-plugin-settings` (introspection, ne renvoie aucune valeur), `g2rd/get-plugin-setting` (lecture) et `g2rd/update-plugin-setting` (écriture, soumise à la confirmation e-mail administrateur comme toute écriture MCP). Le moteur `McpPluginSettings` est générique : il ne connaît que ce que déclare sa constante `REGISTRY`, et tout ce qui en est absent est refusé.
+- **Périmètre initial** : SEOPress **PRO** (activation du sitemap Google News, nom de publication, types de contenu inclus), Yoast SEO (sitemaps XML, séparateur de titres), WooCommerce (avis produits, codes promo, gestion des stocks). Toutes les clés d'options ont été relevées dans les sources des plugins, jamais devinées.
+- **Détection des paliers payants** : un réglage peut déclarer un prérequis (`requires`) évalué en plus de la présence du plugin. Les réglages Google News vivent dans l'option PRO de SEOPress, or le plugin **gratuit** définit lui aussi `SEOPRESS_VERSION` — sans ce garde-fou, l'écriture aurait réussi en base pendant que SEOPress ignorait la valeur. L'introspection expose le résultat via un drapeau `available`.
+- **Écriture chirurgicale** : les options stockées en tableau sérialisé sont lues, modifiées sur la seule sous-clé ciblée, puis réécrites — les réglages voisins sont préservés. La sanitisation est déclarée par réglage et non déduite, les plugins ne s'accordant pas sur le stockage des booléens (`'1'`/absence, booléen PHP, `'yes'`/`'no'`).
+- **Sécurité** : `manage_options` exigé, scope `editor` requis à l'écriture, refus de toute entrée évoquant un secret (mot de passe, clé d'API, token, sel, licence), valeur précédente conservée pour rollback, et journalisation complète dans l'audit log.
+- **Effets de bord** : purge du cache après écriture, et `flush_rewrite_rules()` pour les réglages de sitemap — sans quoi `/news.xml` renvoie un 404 malgré son activation.
+- **Tests** : 15 tests PHPUnit couvrant le cas nominal, la préservation des clés sœurs, les refus hors liste blanche, l'absence de capacité et le non-contournement de la confirmation.
 
 ### **1.26.5**
 
