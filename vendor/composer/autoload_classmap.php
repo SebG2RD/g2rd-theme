@@ -77,6 +77,7 @@ return array(
     'G2RD\\McpConfirmationQueue' => $baseDir . '/classes/class-mcp-confirmation-queue.php',
     'G2RD\\McpEncryption' => $baseDir . '/classes/class-mcp-encryption.php',
     'G2RD\\McpJsBridge' => $baseDir . '/classes/class-mcp-js-bridge.php',
+    'G2RD\\McpPluginSettings' => $baseDir . '/classes/class-mcp-plugin-settings.php',
     'G2RD\\McpRateLimiter' => $baseDir . '/classes/class-mcp-rate-limiter.php',
     'G2RD\\McpSecurityGate' => $baseDir . '/classes/class-mcp-security-gate.php',
     'G2RD\\McpServer' => $baseDir . '/classes/class-mcp-server.php',

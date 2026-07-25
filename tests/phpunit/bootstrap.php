@@ -51,7 +51,50 @@ if (!function_exists('get_option')) {
 }
 if (!function_exists('update_option')) {
     function update_option($option, $value, $autoload = null) {
+        // Persist for real: McpPluginSettings relies on read-modify-write
+        // semantics, and a no-op stub would make sibling-key tests vacuous.
+        global $g2rd_option_store;
+        $g2rd_option_store[$option] = $value;
         return true;
+    }
+}
+if (!class_exists('WP_User')) {
+    class WP_User {
+        public $ID = 0;
+        public $display_name = '';
+        public $user_login = '';
+        public $user_email = '';
+
+        /** Capability check driven by the $g2rd_user_can global, like current_user_can(). */
+        public function has_cap($capability, ...$args): bool {
+            global $g2rd_user_can;
+            return (bool) $g2rd_user_can;
+        }
+    }
+}
+if (!function_exists('get_post_types')) {
+    function get_post_types($args = [], $output = 'names', $operator = 'and') {
+        return ['post' => 'post', 'page' => 'page', 'portfolio' => 'portfolio'];
+    }
+}
+if (!function_exists('flush_rewrite_rules')) {
+    function flush_rewrite_rules($hard = true) {
+        return null;
+    }
+}
+if (!function_exists('wp_cache_flush')) {
+    function wp_cache_flush() {
+        return true;
+    }
+}
+if (!function_exists('has_action')) {
+    function has_action($hook_name, $callback = false) {
+        return false;
+    }
+}
+if (!function_exists('do_action')) {
+    function do_action($hook_name, ...$arg) {
+        return null;
     }
 }
 if (!function_exists('current_time')) {
@@ -203,7 +246,11 @@ if (!function_exists('get_permalink')) {
 }
 if (!function_exists('get_userdata')) {
     function get_userdata($user_id) {
-        $u               = new stdClass();
+        // Returns a WP_User stub: McpAbilities::check_admin_cap() gates on
+        // `instanceof WP_User`, so a plain stdClass would fail every
+        // capability-protected read tool regardless of $g2rd_user_can.
+        $u               = new WP_User();
+        $u->ID           = (int) $user_id;
         $u->display_name = "User {$user_id}";
         $u->user_login   = "user{$user_id}";
         $u->user_email   = "user{$user_id}@example.com";
