@@ -40,8 +40,13 @@ final class McpPluginSettingsTest extends TestCase {
 		global $g2rd_option_store, $g2rd_user_can;
 
 		// SEOPress must look installed for the engine to serve its settings.
+		// The Google News settings live in the PRO option, so the PRO constant
+		// is required too — the free plugin also defines SEOPRESS_VERSION.
 		if ( ! \defined( 'SEOPRESS_VERSION' ) ) {
 			\define( 'SEOPRESS_VERSION', '10.0.2' );
+		}
+		if ( ! \defined( 'SEOPRESS_PRO_VERSION' ) ) {
+			\define( 'SEOPRESS_PRO_VERSION', '10.0.2' );
 		}
 
 		$g2rd_user_can = true;
@@ -315,8 +320,107 @@ final class McpPluginSettingsTest extends TestCase {
 		$result = McpPluginSettings::write( 'seopress', 'news_publication_name', 'Nouveau nom' );
 		$this->assertSame( 'Nouveau nom', $g2rd_option_store[ self::SEOPRESS_OPTION ]['seopress_news_name'] );
 
-		$this->assertTrue( McpPluginSettings::restore( 'seopress', 'news_publication_name', $result['old'] ) );
+		$restored = McpPluginSettings::restore( 'seopress', 'news_publication_name', $result['old'] );
+
+		$this->assertTrue( $restored['ok'] );
 		$this->assertSame( 'Ancien nom', $g2rd_option_store[ self::SEOPRESS_OPTION ]['seopress_news_name'] );
+	}
+
+	/**
+	 * Rollback returns the side effects it needs, so the caller can flush.
+	 *
+	 * Reverting a sitemap toggle without rebuilding rewrite rules leaves
+	 * /news.xml answering for a sitemap that no longer exists.
+	 */
+	public function test_restore_reports_side_effects_for_the_caller(): void {
+		$result   = McpPluginSettings::write( 'seopress', 'news_sitemap_enabled', true );
+		$restored = McpPluginSettings::restore( 'seopress', 'news_sitemap_enabled', $result['old'] );
+
+		$this->assertTrue( $restored['ok'] );
+		$this->assertContains( 'flush_rewrite', $restored['side_effects'] );
+	}
+
+	/**
+	 * An empty post type list clears the setting instead of being refused —
+	 * otherwise a list can never be emptied, nor rolled back to empty.
+	 */
+	public function test_empty_post_type_list_clears_the_setting(): void {
+		$seed = McpPluginSettings::write( 'seopress', 'news_post_types', [ 'post', 'page' ] );
+		$this->assertSame( [ 'page', 'post' ], $seed['new'] );
+
+		$cleared = McpPluginSettings::write( 'seopress', 'news_post_types', [] );
+
+		$this->assertTrue( $cleared['ok'], 'An empty list must clear the setting, not fail.' );
+		$this->assertSame( [], $cleared['new'] );
+	}
+
+	/**
+	 * A non-empty list of entirely invalid slugs is still refused.
+	 */
+	public function test_all_invalid_post_types_is_still_refused(): void {
+		$result = McpPluginSettings::write( 'seopress', 'news_post_types', [ 'nope', 'also_nope' ] );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertStringContainsString( 'No valid public post type', $result['error'] );
+	}
+
+	/**
+	 * Submission order must not matter: the stored list is rebuilt in map-key
+	 * order, so a strict comparison would report a spurious failure.
+	 */
+	public function test_post_type_order_does_not_break_idempotency(): void {
+		McpPluginSettings::write( 'seopress', 'news_post_types', [ 'post', 'page' ] );
+
+		$again = McpPluginSettings::write( 'seopress', 'news_post_types', [ 'page', 'post' ] );
+
+		$this->assertTrue( $again['ok'], 'Same set in another order must be a no-op, not an error.' );
+		$this->assertSame( $again['old'], $again['new'] );
+	}
+
+	/**
+	 * Internal post types are refused: describe() only advertises public ones,
+	 * and sanitize() must not accept more than what was advertised.
+	 */
+	public function test_internal_post_types_are_not_accepted(): void {
+		$result = McpPluginSettings::write( 'seopress', 'news_post_types', [ 'post', 'revision' ] );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( [ 'post' ], $result['new'], 'Only public post types may be written.' );
+	}
+
+	/**
+	 * The Google News settings declare the PRO requirement.
+	 *
+	 * Asserted declaratively: the free SEOPress plugin also defines
+	 * SEOPRESS_VERSION, and a PHP constant cannot be undefined mid-process to
+	 * exercise the refusal directly. The refusal path itself is covered by
+	 * test_inactive_plugin_is_refused(), which shares the same guard shape.
+	 */
+	public function test_google_news_settings_require_seopress_pro(): void {
+		foreach ( [ 'news_sitemap_enabled', 'news_publication_name', 'news_post_types' ] as $setting ) {
+			$definition = McpPluginSettings::get_definition( 'seopress', $setting );
+
+			$this->assertSame(
+				[ 'constant' => 'SEOPRESS_PRO_VERSION' ],
+				$definition['requires'] ?? null,
+				"{$setting} writes a PRO option and must require the PRO constant."
+			);
+		}
+	}
+
+	/**
+	 * Introspection reports whether a setting can actually take effect.
+	 */
+	public function test_describe_reports_availability(): void {
+		$described = McpPluginSettings::describe( false );
+		$by_plugin = \array_column( $described, null, 'plugin' );
+
+		$news = \array_column( $by_plugin['seopress']['settings'], null, 'setting' );
+		$this->assertTrue( $news['news_sitemap_enabled']['available'] );
+
+		// WooCommerce is allowlisted but its class is not loaded here.
+		$woo = \array_column( $by_plugin['woocommerce']['settings'], null, 'setting' );
+		$this->assertFalse( $woo['enable_reviews']['available'] );
 	}
 
 	// ── Helpers ───────────────────────────────────────────────────────────────

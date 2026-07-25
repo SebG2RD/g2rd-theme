@@ -90,6 +90,9 @@ class McpPluginSettings {
 	 *   bool_format  — one_or_unset | native | yes_no (type=boolean only).
 	 *   values       — allowed values (type=enum only).
 	 *   map_key      — leaf key written under each post type (post_types_map only).
+	 *   requires     — extra probe the setting needs on top of the plugin itself,
+	 *                  e.g. a paid add-on that owns the option. Without it a write
+	 *                  would report success while the plugin ignores the value.
 	 *   side_effects — subset of ['flush_rewrite', 'flush_cache'].
 	 *   verify_path  — site-relative URL worth checking after the write.
 	 *
@@ -109,6 +112,7 @@ class McpPluginSettings {
 					'path'         => [ 'seopress_news_enable' ],
 					'type'         => 'boolean',
 					'bool_format'  => 'one_or_unset',
+					'requires'     => [ 'constant' => 'SEOPRESS_PRO_VERSION' ],
 					'side_effects' => [ 'flush_rewrite', 'flush_cache' ],
 					'verify_path'  => '/news.xml',
 				],
@@ -118,6 +122,7 @@ class McpPluginSettings {
 					'storage'      => self::STORAGE_ARRAY,
 					'path'         => [ 'seopress_news_name' ],
 					'type'         => 'text',
+					'requires'     => [ 'constant' => 'SEOPRESS_PRO_VERSION' ],
 					'side_effects' => [ 'flush_cache' ],
 					'verify_path'  => '/news.xml',
 				],
@@ -128,6 +133,7 @@ class McpPluginSettings {
 					'path'         => [ 'seopress_news_name_post_types_list' ],
 					'type'         => 'post_types_map',
 					'map_key'      => 'include',
+					'requires'     => [ 'constant' => 'SEOPRESS_PRO_VERSION' ],
 					'side_effects' => [ 'flush_rewrite', 'flush_cache' ],
 					'verify_path'  => '/news.xml',
 				],
@@ -250,16 +256,43 @@ class McpPluginSettings {
 	public static function is_plugin_active( string $plugin ): bool {
 		$entry = self::REGISTRY[ $plugin ] ?? null;
 
-		if ( null === $entry ) {
-			return false;
+		return null !== $entry && self::probe( (array) ( $entry['detect'] ?? [] ) );
+	}
+
+	/**
+	 * Reports whether a setting's extra requirement is met.
+	 *
+	 * Some settings live in an option owned by a paid add-on. Writing them on a
+	 * site without that add-on succeeds at the database level while the plugin
+	 * ignores the value entirely — a silent no-op the caller must not see as
+	 * success. SEOPress is the case in point: the Google News settings live in
+	 * `seopress_pro_option_name`, but the free plugin also defines
+	 * SEOPRESS_VERSION, so only SEOPRESS_PRO_VERSION proves the tier.
+	 *
+	 * @param array<string, mixed> $definition Setting definition.
+	 * @return bool True when the setting can actually take effect.
+	 */
+	private static function requirement_met( array $definition ): bool {
+		if ( empty( $definition['requires'] ) ) {
+			return true;
 		}
 
-		if ( isset( $entry['detect']['constant'] ) ) {
-			return \defined( $entry['detect']['constant'] );
+		return self::probe( (array) $definition['requires'] );
+	}
+
+	/**
+	 * Resolves a constant/class presence probe.
+	 *
+	 * @param array<string, string> $probe Probe descriptor.
+	 * @return bool True when the probe resolves.
+	 */
+	private static function probe( array $probe ): bool {
+		if ( isset( $probe['constant'] ) ) {
+			return \defined( $probe['constant'] );
 		}
 
-		if ( isset( $entry['detect']['class'] ) ) {
-			return \class_exists( $entry['detect']['class'] );
+		if ( isset( $probe['class'] ) ) {
+			return \class_exists( $probe['class'] );
 		}
 
 		return false;
@@ -336,6 +369,9 @@ class McpPluginSettings {
 					'storage'     => $definition['storage'],
 					'path'        => $definition['path'],
 					'verify_path' => $definition['verify_path'] ?? null,
+					// False when the setting needs an add-on the site lacks: writing
+					// it would report success while the plugin ignores the value.
+					'available'   => $is_active && self::requirement_met( $definition ),
 				];
 
 				if ( isset( $definition['values'] ) ) {
@@ -347,6 +383,8 @@ class McpPluginSettings {
 				}
 
 				if ( 'post_types_map' === $definition['type'] ) {
+					// Must stay in sync with sanitize(), which intersects against
+					// this very same set.
 					$described['allowed_values'] = \array_values( \get_post_types( [ 'public' => true ] ) );
 				}
 
@@ -385,6 +423,16 @@ class McpPluginSettings {
 			return [
 				'ok'    => false,
 				'error' => \sprintf( 'Plugin "%s" is not active on this site.', $plugin ),
+			];
+		}
+
+		if ( ! self::requirement_met( $definition ) ) {
+			return [
+				'ok'    => false,
+				'error' => \sprintf(
+					'Setting "%s" needs an add-on that is not installed. Writing it would silently have no effect.',
+					$setting
+				),
 			];
 		}
 
@@ -499,20 +547,27 @@ class McpPluginSettings {
 					];
 				}
 
-				$known    = \array_values( \get_post_types() );
-				$filtered = \array_values(
-					\array_intersect(
-						\array_map( 'sanitize_key', \array_map( 'strval', $value ) ),
-						$known
-					)
-				);
+				// Public types only, matching exactly what describe() advertises.
+				// Accepting internal types (revision, nav_menu_item…) would let a
+				// client write entries the introspection never offered.
+				$known    = \array_values( \get_post_types( [ 'public' => true ] ) );
+				$supplied = \array_map( 'sanitize_key', \array_map( 'strval', $value ) );
+				$supplied = \array_values( \array_filter( $supplied, static fn( string $slug ): bool => '' !== $slug ) );
+				$filtered = \array_values( \array_intersect( $supplied, $known ) );
 
-				if ( [] === $filtered ) {
+				// An empty submission is legitimate: it clears the list, and the
+				// rollback path needs it to restore a previously empty setting.
+				if ( [] === $filtered && [] !== $supplied ) {
 					return [
 						'ok'    => false,
-						'error' => 'No valid post type in the submitted list.',
+						'error' => \sprintf(
+							'No valid public post type in the submitted list. Allowed: %s.',
+							\implode( ', ', $known )
+						),
 					];
 				}
+
+				\sort( $filtered );
 
 				return [
 					'ok'    => true,
@@ -556,6 +611,16 @@ class McpPluginSettings {
 			];
 		}
 
+		if ( ! self::requirement_met( $definition ) ) {
+			return [
+				'ok'    => false,
+				'error' => \sprintf(
+					'Setting "%s" needs an add-on that is not installed. Writing it would silently have no effect.',
+					$setting
+				),
+			];
+		}
+
 		$clean = self::sanitize( $definition, $value );
 
 		if ( ! $clean['ok'] ) {
@@ -575,10 +640,11 @@ class McpPluginSettings {
 		}
 
 		if ( ! $saved ) {
-			// update_option() returns false when the stored value is unchanged.
-			$unchanged = self::current_value( $definition ) === $clean['value'];
-
-			if ( ! $unchanged ) {
+			// update_option() returns false when the stored value is unchanged,
+			// which is a success here. Lists are compared as sets: current_value()
+			// rebuilds them in map-key order while the client keeps submission
+			// order, so a strict === would report a spurious failure.
+			if ( ! self::same_value( self::current_value( $definition ), $clean['value'] ) ) {
 				return [
 					'ok'    => false,
 					'error' => 'WordPress refused to persist the option.',
@@ -600,15 +666,34 @@ class McpPluginSettings {
 	/**
 	 * Restores a previously captured value (rollback path).
 	 *
+	 * Returns the same payload as write() — including `side_effects` — because a
+	 * rollback needs the very flushes the original write triggered. Reverting a
+	 * sitemap toggle without flushing rewrite rules leaves /news.xml answering
+	 * for a sitemap that no longer exists.
+	 *
 	 * @param string $plugin  Plugin slug.
 	 * @param string $setting Setting slug.
 	 * @param mixed  $value   Value captured before the write.
-	 * @return bool True on success.
+	 * @return array{ok: bool, error?: string, option?: string, path?: array, old?: mixed, new?: mixed, side_effects?: array, verify_path?: ?string}
 	 */
-	public static function restore( string $plugin, string $setting, $value ): bool {
-		$result = self::write( $plugin, $setting, $value );
+	public static function restore( string $plugin, string $setting, $value ): array {
+		return self::write( $plugin, $setting, $value );
+	}
 
-		return (bool) ( $result['ok'] ?? false );
+	/**
+	 * Compares two stored values, treating lists as unordered sets.
+	 *
+	 * @param mixed $a First value.
+	 * @param mixed $b Second value.
+	 * @return bool True when both represent the same setting value.
+	 */
+	private static function same_value( $a, $b ): bool {
+		if ( \is_array( $a ) && \is_array( $b ) ) {
+			\sort( $a );
+			\sort( $b );
+		}
+
+		return $a === $b;
 	}
 
 	// ── Internals ─────────────────────────────────────────────────────────────

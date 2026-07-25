@@ -34,6 +34,20 @@ Les plugins ne stockent pas leurs réglages de la même façon. Le moteur en sup
 
 Le cas SEOPress est le plus subtil : écrire `''` ne désactive **pas** le réglage, il faut retirer la clé (`uproot()`).
 
+## Le piège des extensions payantes (`requires`)
+
+Un réglage peut vivre dans une option détenue par une **extension payante** du plugin. Écrire cette option sur un site qui n'a que la version gratuite **réussit en base** — et le plugin ignore la valeur. L'agent reçoit un succès, le client ne voit aucun effet.
+
+Cas concret : le sitemap Google News de SEOPress vit dans `seopress_pro_option_name`, mais **le plugin gratuit définit aussi `SEOPRESS_VERSION`**. Seul `SEOPRESS_PRO_VERSION` prouve le palier — c'est d'ailleurs la sonde que SEOPress utilise lui-même (`'HAS_PRO' => defined('SEOPRESS_PRO_VERSION')`).
+
+D'où le champ `requires`, évalué en plus de `detect` :
+
+```php
+'requires' => [ 'constant' => 'SEOPRESS_PRO_VERSION' ],
+```
+
+**Règle** : dès qu'une option porte un nom évoquant un palier (`_pro_`, `_premium_`, `_addon_`), vérifier quelle constante prouve réellement ce palier. `describe()` expose le résultat via le drapeau `available`.
+
 ## Plugins volontairement exclus
 
 | Plugin | Motif |

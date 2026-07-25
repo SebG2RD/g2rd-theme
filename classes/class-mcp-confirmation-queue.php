@@ -1395,7 +1395,13 @@ class McpConfirmationQueue {
 			false
 		);
 
-		$this->apply_setting_side_effects( (array) ( $result['side_effects'] ?? [] ) );
+		// Only flush when the value actually moved. A full cache purge plus a
+		// rewrite rebuild is expensive, and an idempotent toggle must not pay it.
+		$changed = $result['old'] !== $result['new'];
+
+		if ( $changed ) {
+			$this->apply_setting_side_effects( (array) ( $result['side_effects'] ?? [] ) );
+		}
 
 		$verify_url = null;
 		if ( ! empty( $result['verify_path'] ) ) {
@@ -1411,7 +1417,8 @@ class McpConfirmationQueue {
 			'path'         => $result['path'],
 			'old_value'    => $result['old'],
 			'new_value'    => $result['new'],
-			'side_effects' => $result['side_effects'],
+			'side_effects' => $changed ? $result['side_effects'] : [],
+			'changed'      => $changed,
 			'verify_url'   => $verify_url,
 			'user_id'      => \get_current_user_id(),
 			'timestamp'    => \current_time( 'mysql', true ),
