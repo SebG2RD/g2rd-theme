@@ -4,6 +4,19 @@
  */
 
 /**
+ * Nombre de décimales d'un nombre (5.5 → 1, 100 → 0, 5.55 → 2).
+ *
+ * @param {number} n
+ * @return {number}
+ */
+function countDecimals( n ) {
+	if ( ! Number.isFinite( n ) ) return 0;
+	const s = String( n );
+	const dot = s.indexOf( "." );
+	return dot === -1 ? 0 : s.length - dot - 1;
+}
+
+/**
  * Counter Animation Class
  */
 class CounterAnimation {
@@ -18,7 +31,16 @@ class CounterAnimation {
 		// Get data attributes
 		this.startValue = parseFloat( this.element.dataset.start ) || 0;
 		this.endValue = parseFloat( this.element.dataset.end ) || 100;
-		this.decimals = parseInt( this.element.dataset.decimals ) || 0;
+		// Décimales : la valeur explicite (> 0) l'emporte ; sinon on infère depuis les
+		// nombres saisis pour ne pas arrondir (ex. 5.5 → 1 décimale → « 5.5 », pas « 6 »).
+		const explicitDecimals = parseInt( this.element.dataset.decimals ) || 0;
+		this.decimals =
+			explicitDecimals > 0
+				? explicitDecimals
+				: Math.max(
+						countDecimals( this.startValue ),
+						countDecimals( this.endValue )
+				  );
 		this.duration = parseInt( this.element.dataset.duration ) || 2000;
 		this.prefix = this.element.dataset.prefix || "";
 		this.suffix = this.element.dataset.suffix || "";

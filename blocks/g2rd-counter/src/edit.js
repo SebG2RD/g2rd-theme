@@ -92,6 +92,34 @@ const iconCategories = {
   ],
 };
 
+/**
+ * Nombre de décimales d'un nombre (5.5 → 1, 100 → 0, 5.55 → 2).
+ *
+ * @param {number} n
+ * @return {number}
+ */
+function countDecimals(n) {
+  if (!Number.isFinite(n)) return 0;
+  const s = String(n);
+  const dot = s.indexOf(".");
+  return dot === -1 ? 0 : s.length - dot - 1;
+}
+
+/**
+ * Décimales effectives : la valeur explicite (> 0) l'emporte ; sinon on infère
+ * depuis les nombres saisis pour ne pas arrondir (ex. 5.5 → « 5.5 », pas « 6 »).
+ *
+ * @param {number} decimalPlaces
+ * @param {number} start
+ * @param {number} end
+ * @return {number}
+ */
+function effectiveDecimals(decimalPlaces, start, end) {
+  return decimalPlaces > 0
+    ? decimalPlaces
+    : Math.max(countDecimals(start), countDecimals(end));
+}
+
 export default function Edit({ attributes, setAttributes }) {
   const {
     layout,
@@ -169,7 +197,8 @@ export default function Edit({ attributes, setAttributes }) {
   };
 
   const renderNumber = () => {
-    let formattedNumber = endingNumber.toFixed(decimalPlaces);
+    const decimals = effectiveDecimals(decimalPlaces, startingNumber, endingNumber);
+    let formattedNumber = endingNumber.toFixed(decimals);
 
     if (thousands === "comma") {
       formattedNumber = formattedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -336,6 +365,7 @@ export default function Edit({ attributes, setAttributes }) {
           <NumberControl
             label={__("Nombre de départ", "g2rd")}
             value={startingNumber}
+            step="any"
             onChange={(value) =>
               setAttributes({ startingNumber: parseFloat(value) || 0 })
             }
@@ -344,6 +374,7 @@ export default function Edit({ attributes, setAttributes }) {
           <NumberControl
             label={__("Nombre d'arrivée", "g2rd")}
             value={endingNumber}
+            step="any"
             onChange={(value) =>
               setAttributes({ endingNumber: parseFloat(value) || 0 })
             }
@@ -351,6 +382,10 @@ export default function Edit({ attributes, setAttributes }) {
 
           <RangeControl
             label={__("Décimales", "g2rd")}
+            help={__(
+              "0 = automatique (déduit du nombre saisi, ex. 5,5).",
+              "g2rd"
+            )}
             value={decimalPlaces}
             onChange={(value) => setAttributes({ decimalPlaces: value })}
             min={0}

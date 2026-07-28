@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.27.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.27.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.27.1**
+
+- **Fix — bloc Compteur : les décimales ne sont plus arrondies** : avec le réglage « Décimales » laissé à 0 (sa valeur par défaut), un compteur allant jusqu'à `5,5` s'affichait `6`. Le nombre de décimales est désormais déduit des valeurs saisies lorsque le réglage explicite vaut 0 ; une valeur explicite supérieure à 0 continue de primer. Les champs « Nombre de départ » et « Nombre d'arrivée » acceptent enfin les décimales (`step="any"`), et l'aide du curseur précise que 0 signifie « automatique ».
+- **Rétro-compatibilité** : le HTML sauvegardé par le bloc est **inchangé** — aucune invalidation des compteurs existants, aucune migration nécessaire. Les compteurs portant sur des nombres entiers rendent exactement comme avant ; seuls ceux à valeur décimale, précisément ceux qui étaient affectés, changent d'affichage.
 
 ### **1.27.0**
 

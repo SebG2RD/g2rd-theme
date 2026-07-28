@@ -56,6 +56,9 @@ export default function save({ attributes }) {
 
   /**
    * Format number with decimals and thousands separator
+   * Nota : rend le nombre de DÉPART statique (avant animation JS). L'inférence
+   * de décimales de la valeur finale est faite côté front (view.js) pour ne pas
+   * modifier le HTML sauvegardé (compat. validation des blocs existants).
    */
   const formatNumber = (number) => {
     let formatted = number.toFixed(decimalPlaces);
