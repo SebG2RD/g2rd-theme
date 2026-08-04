@@ -231,6 +231,39 @@ final class McpCreateFullPostTest extends TestCase {
 	}
 
 	/**
+	 * Un lot partiellement appliqué est distingué d'un lot sans effet.
+	 *
+	 * Durcir le succès du lot avait créé le défaut inverse : une opération
+	 * réussie et une en échec renvoyaient « false », donc « aucune modification »
+	 * — alors qu'une modification avait bien eu lieu. Un administrateur qui
+	 * relance dupliquerait l'opération déjà passée. Le compte-rendu doit donc
+	 * porter le décompte, pas seulement un booléen.
+	 */
+	public function test_partial_batch_reports_what_was_applied(): void {
+		$ok = $this->call_private(
+			'exec_batch',
+			[
+				[
+					'operations' => [
+						[ 'tool' => 'g2rd_create-category', 'arguments' => [ 'name' => 'Appliquée' ] ],
+						[ 'tool' => 'g2rd_unknown', 'arguments' => [] ],
+					],
+				],
+			]
+		);
+
+		$report = $this->queue->get_last_report();
+
+		// Pas « entièrement réussi »…
+		$this->assertFalse( $ok );
+
+		// …mais le rapport dit clairement qu'une opération a bien été appliquée.
+		$this->assertSame( 1, $report['succeeded'] );
+		$this->assertSame( 1, $report['failed'] );
+		$this->assertTrue( $report['operations'][0]['success'] );
+	}
+
+	/**
 	 * Un lot entièrement valide reste rapporté comme réussi.
 	 *
 	 * Contre-preuve du durcissement : exiger que toutes les opérations passent

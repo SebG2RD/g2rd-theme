@@ -483,14 +483,57 @@ class McpConfirmationQueue {
 			(int) $entry['user_id']
 		);
 
+		/*
+		 * Un lot peut être partiellement appliqué : certaines opérations ont
+		 * modifié le site, d'autres ont échoué. Le rapporter comme un simple
+		 * échec ferait croire que rien n'a eu lieu — et un administrateur qui
+		 * relance dupliquerait les opérations déjà passées. On distingue donc
+		 * trois issues, pas deux.
+		 */
+		$report    = $this->get_last_report();
+		$is_batch  = ! empty( $report['batch'] );
+		$applied   = (int) ( $report['succeeded'] ?? 0 );
+		$failed    = (int) ( $report['failed'] ?? 0 );
+		$partial   = $is_batch && $applied > 0 && $failed > 0;
+
+		$log_input = [
+			'queue_id'     => (int) $entry['id'],
+			'exec_success' => $success,
+		];
+
+		if ( $is_batch ) {
+			$log_input['applied'] = $applied;
+			$log_input['failed']  = $failed;
+			$log_input['outcome'] = $partial ? 'partial' : ( $success ? 'complete' : 'none_applied' );
+		}
+
 		$this->audit->log( [
 			'user_id'      => (int) $entry['user_id'],
 			'token_id'     => (int) $entry['token_id'],
 			'ip_address'   => (string) $entry['ip_address'],
 			'ability_name' => (string) $entry['ability_name'],
-			'decision'     => $success ? 'allowed' : 'denied',
-			'input'        => [ 'queue_id' => (int) $entry['id'], 'exec_success' => $success ],
+			// « denied » signifie refusé par l'administrateur : un lot partiel a
+			// bien été autorisé et exécuté, l'étiqueter ainsi serait faux.
+			'decision'     => ( $success || $partial ) ? 'allowed' : 'denied',
+			'input'        => $log_input,
 		] );
+
+		if ( $is_batch ) {
+			\update_option(
+				'g2rd_mcp_last_operation_result',
+				[
+					'operation'  => 'batch',
+					'success'    => $success,
+					'partial'    => $partial,
+					'applied'    => $applied,
+					'failed'     => $failed,
+					'summary'    => (string) ( $report['summary'] ?? '' ),
+					'operations' => (array) ( $report['operations'] ?? [] ),
+					'timestamp'  => \current_time( 'mysql', true ),
+				],
+				false
+			);
+		}
 
 		return $success;
 	}
@@ -2616,6 +2659,12 @@ class McpConfirmationQueue {
 
 			global $wpdb;
 
+			// Remis à zéro avant l'appel : sans ça, l'erreur d'une requête
+			// antérieure serait attribuée à tort à cette opération-ci.
+			if ( isset( $wpdb ) ) {
+				$wpdb->last_error = '';
+			}
+
 			$ok = $this->dispatch_operation( $tool, $op_args );
 
 			if ( $ok ) {
@@ -2699,7 +2748,9 @@ class McpConfirmationQueue {
 		}
 
 		// Cibles inexistantes — vérifiables sans rien écrire.
-		$target_keys = [ 'post_id', 'product_id', 'attachment_id', 'item_id' ];
+		// media_id inclus : c'est le paramètre de g2rd_update-media, et l'omettre
+		// laissait passer une cible invalide sans contrôle préalable.
+		$target_keys = [ 'post_id', 'product_id', 'attachment_id', 'media_id', 'item_id' ];
 
 		foreach ( $target_keys as $key ) {
 			if ( ! isset( $op_args[ $key ] ) ) {
