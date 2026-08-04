@@ -129,8 +129,11 @@ class McpProducts {
 			$variations = [];
 		}
 
-		if ( $creating && [] === $variations ) {
-			$errors[] = 'variations must contain at least one entry: a product without a priced variation is not purchasable, which is exactly the failure this tool exists to prevent.';
+		// Vide est refusé dès que la clé est fournie, création ou mise à jour :
+		// en update, un tableau vide supprimait tous les tarifs sans en écrire
+		// aucun, laissant un produit non achetable — et l'opération réussissait.
+		if ( ( $creating || \array_key_exists( 'variations', $args ) ) && [] === $variations ) {
+			$errors[] = 'variations must contain at least one entry: a product without a priced variation is not purchasable, which is exactly the failure this tool exists to prevent. Omit the key entirely to leave pricing untouched.';
 		}
 
 		$clean_variations = [];
@@ -215,8 +218,17 @@ class McpProducts {
 		}
 		$price = \absint( $raw_price );
 
-		$compare = $variation['compare_at_price'] ?? 0;
-		$compare = \absint( $compare );
+		// Même contrat que price : absint() sur une décimale la tronquerait en
+		// silence, ce que la promesse « centimes entiers » interdit.
+		$raw_compare = $variation['compare_at_price'] ?? 0;
+		if ( ! \is_int( $raw_compare ) && ! ( \is_string( $raw_compare ) && \ctype_digit( $raw_compare ) ) ) {
+			$errors[] = \sprintf(
+				'%s.compare_at_price must be an integer number of CENTS, not a decimal amount. Received: %s.',
+				$label,
+				\is_scalar( $raw_compare ) ? (string) \wp_json_encode( $raw_compare ) : \gettype( $raw_compare )
+			);
+		}
+		$compare = \absint( $raw_compare );
 
 		$billing_interval = \sanitize_key( (string) ( $variation['billing_interval'] ?? 'month' ) );
 		$interval_count   = \max( 1, \absint( $variation['billing_interval_count'] ?? 1 ) );
@@ -383,23 +395,40 @@ class McpProducts {
 	 * @throws \RuntimeException When FluentCart refuses a write.
 	 * @return void
 	 */
-	private static function write_product_rows( int $post_id, array $data ): void {
+	private static function write_product_rows( int $post_id, array $data, string $effective_title = '' ): void {
 		$detail_model    = '\FluentCart\App\Models\ProductDetail';
 		$variation_model = '\FluentCart\App\Models\ProductVariation';
 
-		$detail = $detail_model::query()->create(
-			[
-				'post_id'          => $post_id,
-				'fulfillment_type' => $data['fulfillment_type'],
-				'variation_type'   => 'simple',
-				'manage_stock'     => $data['manage_stock'] ? 1 : 0,
-				'stock_availability' => 'in-stock',
-			]
-		);
+		$detail_fields = [
+			'fulfillment_type'   => $data['fulfillment_type'],
+			'variation_type'     => 'simple',
+			'manage_stock'       => $data['manage_stock'] ? 1 : 0,
+			'stock_availability' => 'in-stock',
+		];
 
-		if ( ! $detail ) {
-			throw new \RuntimeException( 'FluentCart refused to create the product_details row.' );
+		/*
+		 * Upsert, jamais create() aveugle : sur une mise à jour, créer une seconde
+		 * ligne laisserait deux product_details pour un même produit, et FluentCart
+		 * lirait l'une ou l'autre — donc potentiellement le mauvais
+		 * fulfillment_type ou le mauvais default_variation_id.
+		 */
+		$existing = $detail_model::query()->where( 'post_id', $post_id )->first();
+
+		if ( $existing ) {
+			$detail_model::query()->where( 'post_id', $post_id )->update( $detail_fields );
+		} else {
+			$detail = $detail_model::query()->create(
+				\array_merge( [ 'post_id' => $post_id ], $detail_fields )
+			);
+
+			if ( ! $detail ) {
+				throw new \RuntimeException( 'FluentCart refused to create the product_details row.' );
+			}
 		}
+
+		// Sur une mise à jour sans titre fourni, $data['title'] est vide : sans ce
+		// repli les variations recevraient un variation_title vide.
+		$fallback_title = '' !== $data['title'] ? $data['title'] : $effective_title;
 
 		$default_variation_id = 0;
 		$serial               = 1;
@@ -409,7 +438,7 @@ class McpProducts {
 				[
 					'post_id'          => $post_id,
 					'serial_index'     => $serial,
-					'variation_title'  => '' !== $variation['label'] ? $variation['label'] : $data['title'],
+					'variation_title'  => '' !== $variation['label'] ? $variation['label'] : $fallback_title,
 					'payment_type'     => $variation['payment_type'],
 					'item_price'       => $variation['price'],
 					'compare_price'    => $variation['compare_at_price'],
@@ -582,21 +611,53 @@ class McpProducts {
 			}
 		}
 
+		$variation_model = '\FluentCart\App\Models\ProductVariation';
+		$snapshot        = [];
+
 		try {
 			if ( $replaces_pricing ) {
-				$variation_model = '\FluentCart\App\Models\ProductVariation';
+				/*
+				 * Remplacer un tarif suppose de supprimer puis réécrire. Si la
+				 * réécriture échoue à mi-chemin, le produit se retrouve sans aucun
+				 * tarif — donc non achetable — alors que l'appelant demandait
+				 * seulement une modification. On garde donc une copie des lignes
+				 * existantes pour pouvoir les remettre en place.
+				 */
+				$snapshot = \array_map(
+					static fn( $row ): array => \array_diff_key( (array) $row->getAttributes(), [ 'id' => true ] ),
+					$variation_model::query()->where( 'post_id', $post_id )->get()->all()
+				);
+
 				$variation_model::query()->where( 'post_id', $post_id )->delete();
 
-				self::write_product_rows( $post_id, $data );
+				self::write_product_rows( $post_id, $data, $post->post_title );
 			}
 
 			self::apply_media_and_terms( $post_id, $data );
 		} catch ( \Throwable $e ) {
-			// The post survives here on purpose: it existed before this call, so
-			// deleting it would destroy data the caller never asked to remove.
+			$restored = false;
+
+			if ( [] !== $snapshot ) {
+				try {
+					$variation_model::query()->where( 'post_id', $post_id )->delete();
+
+					foreach ( $snapshot as $row ) {
+						$variation_model::query()->create( $row );
+					}
+
+					$restored = true;
+				} catch ( \Throwable $restore_error ) {
+					$restored = false;
+				}
+			}
+
+			// Le post survit volontairement : il existait avant l'appel, le
+			// supprimer détruirait des données que personne n'a demandé d'effacer.
 			return [
 				'ok'    => false,
-				'error' => 'Product update failed: ' . $e->getMessage() . ' The product post was left in place; its pricing may be incomplete — call g2rd_get-product to inspect it.',
+				'error' => 'Product update failed: ' . $e->getMessage() . ( $restored
+					? ' Previous pricing was restored.'
+					: ' Pricing may be incomplete — call g2rd_get-product to inspect it.' ),
 			];
 		}
 
