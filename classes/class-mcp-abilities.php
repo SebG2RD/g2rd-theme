@@ -1021,6 +1021,281 @@ class McpAbilities {
 				],
 			],
 
+			// ── WooCommerce products ──────────────────────────────────────────────
+			'g2rd_list-woo-products'     => [
+				'name'           => 'g2rd_list-woo-products',
+				'description'    => 'Lists WooCommerce products with name, type, SKU, formatted price, stock state and URL. Requires WooCommerce to be active.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'per_page' => [
+							'type'        => 'integer',
+							'description' => 'Results per page (1-100, default 20).',
+							'minimum'     => 1,
+							'maximum'     => 100,
+						],
+						'page'     => [
+							'type'        => 'integer',
+							'description' => 'Page number (default 1).',
+							'minimum'     => 1,
+						],
+						'status'   => [
+							'type'        => 'string',
+							'description' => 'Post status filter, or "any" (default).',
+						],
+						'search'   => [
+							'type'        => 'string',
+							'description' => 'Free-text search on the product name.',
+						],
+					],
+				],
+			],
+			'g2rd_get-woo-product'       => [
+				'name'           => 'g2rd_get-woo-product',
+				'description'    => 'Returns the full state of a WooCommerce product: prices, stock, dimensions, taxonomy, media, visibility, plus purchasable and on_sale flags. Read this before updating so you only change what you intend to.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'WooCommerce product ID.',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+			'g2rd_create-woo-product'    => [
+				'name'           => 'g2rd_create-woo-product',
+				'description'    => 'Creates a WooCommerce product through the official CRUD classes. PRICES ARE DECIMAL AMOUNTS IN THE SHOP CURRENCY, given as strings: "200.00" means 200 euros. This is the opposite of g2rd_create-product (FluentCart), which expects cents — sending 20000 here would create a 20 000 euro product. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'name'               => [
+							'type'        => 'string',
+							'description' => 'Product name (required).',
+						],
+						'type'               => [
+							'type'        => 'string',
+							'description' => 'Product type.',
+							'enum'        => McpWooProducts::PRODUCT_TYPES,
+						],
+						'status'             => [
+							'type'        => 'string',
+							'description' => 'Post status.',
+							'enum'        => McpWooProducts::STATUSES,
+						],
+						'regular_price'      => [
+							'type'        => 'string',
+							'description' => 'Regular price as a DECIMAL amount in the shop currency, e.g. "19.99" or "200.00". Never a number of cents.',
+						],
+						'sale_price'         => [
+							'type'        => 'string',
+							'description' => 'Sale price, same decimal format. Must be lower than regular_price or WooCommerce ignores it.',
+						],
+						'sku'                => [
+							'type'        => 'string',
+							'description' => 'Stock keeping unit. Must be unique across the shop.',
+						],
+						'description'        => [
+							'type'        => 'string',
+							'description' => 'Long description, HTML allowed.',
+						],
+						'short_description'  => [
+							'type'        => 'string',
+							'description' => 'Short description shown next to the price.',
+						],
+						'slug'               => [
+							'type'        => 'string',
+							'description' => 'URL slug. Defaults to a sanitized name.',
+						],
+						'categories'         => [
+							'type'        => 'array',
+							'description' => 'Product category slugs or term IDs.',
+							'items'       => [ 'type' => 'string' ],
+						],
+						'tags'               => [
+							'type'        => 'array',
+							'description' => 'Product tag slugs or term IDs.',
+							'items'       => [ 'type' => 'string' ],
+						],
+						'image_id'           => [
+							'type'        => 'integer',
+							'description' => 'Attachment ID for the main product image.',
+						],
+						'gallery_image_ids'  => [
+							'type'        => 'array',
+							'description' => 'Attachment IDs for the product gallery.',
+							'items'       => [ 'type' => 'integer' ],
+						],
+						'manage_stock'       => [
+							'type'        => 'boolean',
+							'description' => 'Enable stock management for this product.',
+						],
+						'stock_quantity'     => [
+							'type'        => 'integer',
+							'description' => 'Stock quantity, used when manage_stock is true.',
+						],
+						'stock_status'       => [
+							'type'        => 'string',
+							'description' => 'Stock state when stock is not managed.',
+							'enum'        => McpWooProducts::STOCK_STATUSES,
+						],
+						'backorders'         => [
+							'type'        => 'string',
+							'description' => 'Backorder policy.',
+							'enum'        => McpWooProducts::BACKORDERS,
+						],
+						'virtual'            => [
+							'type'        => 'boolean',
+							'description' => 'Virtual product: no shipping.',
+						],
+						'downloadable'       => [
+							'type'        => 'boolean',
+							'description' => 'Downloadable product.',
+						],
+						'featured'           => [
+							'type'        => 'boolean',
+							'description' => 'Mark as featured.',
+						],
+						'catalog_visibility' => [
+							'type'        => 'string',
+							'description' => 'Where the product appears.',
+							'enum'        => McpWooProducts::VISIBILITIES,
+						],
+						'sold_individually'  => [
+							'type'        => 'boolean',
+							'description' => 'Limit to one per order.',
+						],
+						'reviews_allowed'    => [
+							'type'        => 'boolean',
+							'description' => 'Allow customer reviews.',
+						],
+						'tax_status'         => [
+							'type'        => 'string',
+							'description' => 'Tax handling.',
+							'enum'        => McpWooProducts::TAX_STATUSES,
+						],
+						'tax_class'          => [
+							'type'        => 'string',
+							'description' => 'Tax class slug, empty for the standard rate.',
+						],
+						'weight'             => [
+							'type'        => 'string',
+							'description' => 'Weight in the shop unit.',
+						],
+						'length'             => [
+							'type'        => 'string',
+							'description' => 'Length in the shop unit.',
+						],
+						'width'              => [
+							'type'        => 'string',
+							'description' => 'Width in the shop unit.',
+						],
+						'height'             => [
+							'type'        => 'string',
+							'description' => 'Height in the shop unit.',
+						],
+						'purchase_note'      => [
+							'type'        => 'string',
+							'description' => 'Note sent to the customer after purchase.',
+						],
+						'menu_order'         => [
+							'type'        => 'integer',
+							'description' => 'Sort order in listings.',
+						],
+					],
+					'required'   => [ 'name', 'regular_price' ],
+				],
+			],
+			'g2rd_update-woo-product'    => [
+				'name'           => 'g2rd_update-woo-product',
+				'description'    => 'Updates a WooCommerce product. Accepts the same fields as g2rd_create-woo-product plus product_id; only the fields you supply are written, everything else is left untouched. Prices are DECIMAL amounts, never cents. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id'        => [
+							'type'        => 'integer',
+							'description' => 'WooCommerce product ID to update.',
+							'minimum'     => 1,
+						],
+						'name'              => [
+							'type'        => 'string',
+							'description' => 'New product name.',
+						],
+						'status'            => [
+							'type'        => 'string',
+							'description' => 'New post status.',
+							'enum'        => McpWooProducts::STATUSES,
+						],
+						'regular_price'     => [
+							'type'        => 'string',
+							'description' => 'New regular price as a DECIMAL amount, e.g. "24.90". Never cents.',
+						],
+						'sale_price'        => [
+							'type'        => 'string',
+							'description' => 'New sale price, same decimal format. Must be lower than the regular price.',
+						],
+						'description'       => [
+							'type'        => 'string',
+							'description' => 'New long description, HTML allowed.',
+						],
+						'short_description' => [
+							'type'        => 'string',
+							'description' => 'New short description.',
+						],
+						'sku'               => [
+							'type'        => 'string',
+							'description' => 'New SKU.',
+						],
+						'stock_quantity'    => [
+							'type'        => 'integer',
+							'description' => 'New stock quantity.',
+						],
+						'stock_status'      => [
+							'type'        => 'string',
+							'description' => 'New stock state.',
+							'enum'        => McpWooProducts::STOCK_STATUSES,
+						],
+						'categories'        => [
+							'type'        => 'array',
+							'description' => 'Replacement category slugs or IDs.',
+							'items'       => [ 'type' => 'string' ],
+						],
+						'image_id'          => [
+							'type'        => 'integer',
+							'description' => 'New main image attachment ID.',
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+			'g2rd_delete-woo-product'    => [
+				'name'           => 'g2rd_delete-woo-product',
+				'description'    => 'Moves a WooCommerce product to the trash. Permanent deletion is never performed. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'delete_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'WooCommerce product ID to trash.',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+
 			// ── Allowlisted plugin settings ───────────────────────────────────────
 			'g2rd_list-plugin-settings'  => [
 				'name'           => 'g2rd_list-plugin-settings',
@@ -1400,6 +1675,10 @@ class McpAbilities {
 				return $this->exec_list_products( $args, $gate_result );
 			case 'g2rd_get-product':
 				return $this->exec_get_product( $args, $gate_result );
+			case 'g2rd_list-woo-products':
+				return $this->exec_list_woo_products( $args, $gate_result );
+			case 'g2rd_get-woo-product':
+				return $this->exec_get_woo_product( $args, $gate_result );
 
 			// ── Write tools (enqueue for confirmation) ─────────────────────────
 			case 'g2rd_create-post':
@@ -1418,6 +1697,9 @@ class McpAbilities {
 			case 'g2rd_create-product':
 			case 'g2rd_update-product':
 			case 'g2rd_delete-product':
+			case 'g2rd_create-woo-product':
+			case 'g2rd_update-woo-product':
+			case 'g2rd_delete-woo-product':
 			case 'g2rd_update-plugin-setting':
 			case 'g2rd_flush-cache':
 			case 'g2rd_update-menu-item':
@@ -2562,6 +2844,50 @@ class McpAbilities {
 		}
 
 		$result = McpProducts::get( \absint( $args['product_id'] ?? 0 ) );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result['product'] ) );
+	}
+
+	/**
+	 * Lists WooCommerce products (tool: g2rd/list-woo-products).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_list_woo_products( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpWooProducts::list_products( $args );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result ) );
+	}
+
+	/**
+	 * Returns one WooCommerce product in full (tool: g2rd/get-woo-product).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_get_woo_product( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpWooProducts::get( \absint( $args['product_id'] ?? 0 ) );
 
 		if ( ! $result['ok'] ) {
 			return $this->tool_error( $result['error'] );

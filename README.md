@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.28.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.29.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,18 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.29.0**
+
+- **MCP — contrôle complet des produits WooCommerce** : cinq nouveaux outils, `g2rd_create-woo-product`, `g2rd_update-woo-product`, `g2rd_delete-woo-product` (corbeille uniquement), `g2rd_get-woo-product` et `g2rd_list-woo-products`. Les outils existants sont inchangés.
+- **Toute la fiche produit est pilotable** : nom, slug, description longue et courte, statut, UGS, prix normal et promotionnel, gestion et quantité de stock, réappro, visibilité catalogue, produit virtuel ou téléchargeable, mise en avant, vente à l'unité, avis, TVA et classe de taxe, poids et dimensions, image principale, galerie, catégories, étiquettes, note d'achat et ordre d'affichage.
+- **Passage par les classes CRUD officielles** (`WC_Product_Simple`, `WC_Product_Variable`) et jamais par les métadonnées de publication : les hooks WooCommerce, les tables de recherche et les migrations futures restent valides.
+- **⚠ Les prix WooCommerce sont des montants décimaux**, contrairement aux outils FluentCart qui attendent des centimes : `"200.00"` vaut 200 €. Un agent qui reporterait l'habitude des centimes créerait un produit à 20 000 €. Trois garde-fous : le schéma l'indique explicitement, la validation refuse tout montant mal formé, et l'e-mail de confirmation affiche le prix en toutes lettres — un administrateur voyant « 20 000,00 € » pour un produit à 200 € refuse.
+- **La virgule décimale française est acceptée** (`"19,99"`), puisqu'un agent reprend souvent le prix tel qu'affiché sur le site.
+- **Refus explicites plutôt qu'échecs silencieux** : un prix promotionnel supérieur ou égal au prix normal est rejeté — WooCommerce l'ignorerait et l'opération semblerait réussir sans effet ; un produit simple sans prix est rejeté car il ne pourrait pas être ajouté au panier ; chaque énumération invalide renvoie la liste des valeurs acceptées.
+- **Mise à jour partielle sûre** : seuls les champs réellement fournis sont écrits, un champ omis n'est jamais réinitialisé.
+- **Écriture atomique** : si l'enregistrement échoue en cours de route, le produit partiellement créé est retiré plutôt que de laisser une fiche invendable dans la boutique.
+- **Qualité** : les capacités WooCommerce (`edit_products`, `delete_products`…) sont déclarées dans `phpcs.xml.dist` via la propriété prévue par le sniff, ce qui préserve la détection des vraies fautes de frappe sur les capacités du cœur. Suite complète à **165 tests / 1 076 assertions**.
 
 ### **1.28.0**
 

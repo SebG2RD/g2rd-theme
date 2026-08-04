@@ -208,6 +208,28 @@
 
     </rule>
 
+    <!-- ── Capacités personnalisées de plugins tiers ────────────────────── -->
+    <!--
+        Le sniff ne connaît que les capacités du cœur WordPress. Celles-ci sont
+        enregistrées par WooCommerce sur les rôles administrator et shop_manager
+        et sont utilisées par les outils MCP produit. Les déclarer ici est le
+        mécanisme prévu par le sniff : il évite d'affaiblir la vérification en
+        excluant la règle, qui continue donc d'attraper les vraies fautes de
+        frappe sur les capacités du cœur.
+    -->
+    <rule ref="WordPress.WP.Capabilities">
+        <properties>
+            <property name="custom_capabilities" type="array">
+                <element value="edit_products"/>
+                <element value="delete_products"/>
+                <element value="read_product"/>
+                <element value="edit_others_products"/>
+                <element value="publish_products"/>
+                <element value="manage_woocommerce"/>
+            </property>
+        </properties>
+    </rule>
+
     <!-- ── Désactivation globale (ceinture et bretelles) ────────────────── -->
     <!-- Garantit la suppression quelle que soit la version WPCS/PHPCSExtra  -->
 

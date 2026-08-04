@@ -496,6 +496,12 @@ class McpConfirmationQueue {
 				return $this->exec_update_product( $arguments );
 			case 'g2rd_delete-product':
 				return $this->exec_delete_product( $arguments );
+			case 'g2rd_create-woo-product':
+				return $this->exec_create_woo_product( $arguments );
+			case 'g2rd_update-woo-product':
+				return $this->exec_update_woo_product( $arguments );
+			case 'g2rd_delete-woo-product':
+				return $this->exec_delete_woo_product( $arguments );
 			case 'g2rd_flush-cache':
 				return $this->exec_flush_cache();
 			case 'g2rd_update-menu-item':
@@ -776,6 +782,10 @@ class McpConfirmationQueue {
 
 		if ( 'g2rd_create-product' === $ability_name || 'g2rd_update-product' === $ability_name ) {
 			return $this->format_product_recap( $arguments );
+		}
+
+		if ( 'g2rd_create-woo-product' === $ability_name || 'g2rd_update-woo-product' === $ability_name ) {
+			return $this->format_woo_product_recap( $arguments );
 		}
 
 		return (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
@@ -1616,6 +1626,79 @@ class McpConfirmationQueue {
 	}
 
 	/**
+	 * Executes g2rd/create-woo-product.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_create_woo_product( array $args ): bool {
+		if ( ! \current_user_can( 'edit_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooProducts::create( $args );
+
+		$this->report_product_operation( 'create-woo-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/update-woo-product.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_update_woo_product( array $args ): bool {
+		if ( ! \current_user_can( 'edit_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooProducts::update( $args );
+
+		$this->report_product_operation( 'update-woo-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/delete-woo-product: moves the product to the trash.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_delete_woo_product( array $args ): bool {
+		if ( ! \current_user_can( 'delete_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooProducts::trash( \absint( $args['product_id'] ?? 0 ) );
+
+		$this->report_product_operation( 'delete-woo-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Formats a WooCommerce product payload for the confirmation e-mail.
+	 *
+	 * The formatted price matters more here than anywhere else: WooCommerce
+	 * takes decimal amounts while the FluentCart tools take cents, so an agent
+	 * carrying the wrong habit would price a 200 € product at 20 000 €. Seeing
+	 * the amount spelled out is what lets an administrator catch it.
+	 *
+	 * @param array<string, mixed> $a Tool arguments.
+	 * @return string
+	 */
+	private function format_woo_product_recap( array $a ): string {
+		if ( ! \class_exists( '\G2RD\McpWooProducts' ) ) {
+			return (string) \wp_json_encode( $a, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
+		}
+
+		return McpWooProducts::summarize( $a );
+	}
+
+	/**
 	 * Publishes a product operation result and writes it to the audit log.
 	 *
 	 * @param string               $operation Operation slug.
@@ -1626,13 +1709,21 @@ class McpConfirmationQueue {
 	private function report_product_operation( string $operation, array $args, array $result ): void {
 		$ok = (bool) ( $result['ok'] ?? false );
 
+		// FluentCart décrit ses tarifs dans « variations », WooCommerce dans
+		// « price » : sans ce repli, le prix WooCommerce ne serait pas journalisé.
+		$pricing = (array) ( $result['variations'] ?? [] );
+
+		if ( [] === $pricing && ! empty( $result['price'] ) ) {
+			$pricing = [ (string) $result['price'] ];
+		}
+
 		$report = [
 			'operation'  => $operation,
 			'success'    => $ok,
 			'product_id' => (int) ( $result['product_id'] ?? \absint( $args['product_id'] ?? 0 ) ),
-			'title'      => (string) ( $args['title'] ?? '' ),
+			'title'      => (string) ( $args['title'] ?? ( $args['name'] ?? '' ) ),
 			'url'        => (string) ( $result['url'] ?? '' ),
-			'variations' => (array) ( $result['variations'] ?? [] ),
+			'variations' => $pricing,
 			'user_id'    => \get_current_user_id(),
 			'timestamp'  => \current_time( 'mysql', true ),
 		];
