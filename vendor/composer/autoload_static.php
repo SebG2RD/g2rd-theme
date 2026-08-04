@@ -148,6 +148,7 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'G2RD\\McpEncryption' => __DIR__ . '/../..' . '/classes/class-mcp-encryption.php',
         'G2RD\\McpJsBridge' => __DIR__ . '/../..' . '/classes/class-mcp-js-bridge.php',
         'G2RD\\McpPluginSettings' => __DIR__ . '/../..' . '/classes/class-mcp-plugin-settings.php',
+        'G2RD\\McpProducts' => __DIR__ . '/../..' . '/classes/class-mcp-products.php',
         'G2RD\\McpRateLimiter' => __DIR__ . '/../..' . '/classes/class-mcp-rate-limiter.php',
         'G2RD\\McpSecurityGate' => __DIR__ . '/../..' . '/classes/class-mcp-security-gate.php',
         'G2RD\\McpServer' => __DIR__ . '/../..' . '/classes/class-mcp-server.php',

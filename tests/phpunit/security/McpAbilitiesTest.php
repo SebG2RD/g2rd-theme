@@ -47,12 +47,12 @@ final class McpAbilitiesTest extends TestCase {
 	// ── Test 1 : list_tools structure ─────────────────────────────────────────
 
 	/**
-	 * list_tools() returns exactly 42 tools (21 read-only + 21 write), each with required keys.
+	 * list_tools() returns exactly 48 tools (24 read-only + 24 write), each with required keys.
 	 */
 	public function test_list_tools_returns_five_tools(): void {
 		$tools = $this->abilities->list_tools();
 
-		$this->assertCount( 42, $tools );
+		$this->assertCount( 48, $tools );
 
 		$names = array_column( $tools, 'name' );
 		$this->assertContains( 'g2rd_get-site-info', $names );
@@ -115,9 +115,14 @@ final class McpAbilitiesTest extends TestCase {
 	// ── Test 4 : list-posts ───────────────────────────────────────────────────
 
 	/**
-	 * list-posts with an unknown post type returns isError = true.
+	 * list-posts with an unknown post type says so, and lists the valid slugs.
+	 *
+	 * The message used to read "not accessible", which sent callers hunting for a
+	 * permission problem when the type simply did not exist — and gave no way to
+	 * discover the right slug. In production that led to guessing, and to a post
+	 * created with a non-existent type.
 	 */
-	public function test_list_posts_unknown_post_type_returns_error(): void {
+	public function test_list_posts_unknown_post_type_returns_actionable_error(): void {
 		$result = $this->abilities->call(
 			'g2rd_list-posts',
 			[ 'post_type' => 'nonexistent_type' ],
@@ -125,7 +130,13 @@ final class McpAbilitiesTest extends TestCase {
 		);
 
 		$this->assertTrue( $result['isError'] );
-		$this->assertStringContainsString( 'not accessible', $result['content'][0]['text'] );
+
+		$text = $result['content'][0]['text'];
+		$this->assertStringContainsString( 'Unknown post type', $text );
+		$this->assertStringContainsString( 'nonexistent_type', $text );
+		// The caller must be told what IS valid, and how to list everything.
+		$this->assertStringContainsString( 'post', $text );
+		$this->assertStringContainsString( 'g2rd_list-post-types', $text );
 	}
 
 	/**

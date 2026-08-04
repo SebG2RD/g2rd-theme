@@ -73,8 +73,41 @@ if (!class_exists('WP_User')) {
     }
 }
 if (!function_exists('get_post_types')) {
+    // Honours $output: WordPress returns WP_Post_Type objects for 'objects', and
+    // McpAbilities reads ->publicly_queryable on them. Returning strings in both
+    // cases made the readable-types list silently empty.
     function get_post_types($args = [], $output = 'names', $operator = 'and') {
-        return ['post' => 'post', 'page' => 'page', 'portfolio' => 'portfolio'];
+        $slugs = ['post', 'page', 'portfolio'];
+
+        if ('objects' !== $output) {
+            return array_combine($slugs, $slugs);
+        }
+
+        $objects = [];
+        foreach ($slugs as $slug) {
+            $o                     = new stdClass();
+            $o->name               = $slug;
+            $o->public             = true;
+            $o->publicly_queryable = true;
+            $o->show_in_rest       = true;
+            $o->hierarchical       = ('page' === $slug);
+            $o->labels             = (object) ['name' => ucfirst($slug)];
+            $objects[$slug]        = $o;
+        }
+
+        return $objects;
+    }
+}
+if (!function_exists('post_type_exists')) {
+    // Mirrors the get_post_types() stub above: McpConfirmationQueue validates the
+    // post type before wp_insert_post(), so this must agree with it.
+    function post_type_exists($post_type) {
+        return in_array((string) $post_type, ['post', 'page', 'portfolio'], true);
+    }
+}
+if (!function_exists('taxonomy_exists')) {
+    function taxonomy_exists($taxonomy) {
+        return in_array((string) $taxonomy, ['category', 'post_tag'], true);
     }
 }
 if (!function_exists('flush_rewrite_rules')) {
