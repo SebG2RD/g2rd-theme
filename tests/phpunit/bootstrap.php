@@ -453,6 +453,12 @@ if (!function_exists('wp_kses_post')) {
     }
 }
 
+if (!function_exists('number_format_i18n')) {
+    function number_format_i18n($number, $decimals = 0): string {
+        return number_format((float) $number, (int) $decimals);
+    }
+}
+
 // i18n stub.
 if (!function_exists('__')) {
     function __(string $text, string $domain = 'default'): string {
@@ -468,14 +474,33 @@ $g2rd_wpdb_update_return   = 1;     // rows affected
 $g2rd_wpdb_query_return    = 0;     // rows affected
 
 class G2rdWpdbStub {
-    public int    $insert_id = 0;
-    public array  $inserts   = [];
-    public array  $updates   = [];
-    public string $prefix    = 'wp_';
-    private int   $auto_id   = 1;
+    public int    $insert_id  = 0;
+    public array  $inserts    = [];
+    public array  $updates    = [];
+    public string $prefix     = 'wp_';
+    public string $last_error = '';
+    private int   $auto_id    = 1;
+
+    /**
+     * Byte ceiling simulated for the arguments_enc column, or null for LONGTEXT.
+     *
+     * Mirrors real wpdb behaviour: process_fields() REFUSES a write whose value
+     * strip_invalid_text() had to truncate, so an oversized payload returns
+     * false rather than being silently stored truncated.
+     */
+    public ?int $max_arguments_enc_bytes = null;
 
     public function insert(string $table, array $data, $format = null) {
         global $g2rd_wpdb_insert_return;
+
+        if (
+            null !== $this->max_arguments_enc_bytes
+            && isset($data['arguments_enc'])
+            && strlen((string) $data['arguments_enc']) > $this->max_arguments_enc_bytes
+        ) {
+            return false;
+        }
+
         if ($g2rd_wpdb_insert_return) {
             $this->insert_id = $this->auto_id++;
             $this->inserts[] = ['table' => $table, 'data' => $data];
