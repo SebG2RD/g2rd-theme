@@ -137,7 +137,8 @@ g2rd-theme/
 - **Refus explicites plutôt qu'échecs silencieux** : un prix promotionnel supérieur ou égal au prix normal est rejeté — WooCommerce l'ignorerait et l'opération semblerait réussir sans effet ; un produit simple sans prix est rejeté car il ne pourrait pas être ajouté au panier ; chaque énumération invalide renvoie la liste des valeurs acceptées.
 - **Mise à jour partielle sûre** : seuls les champs réellement fournis sont écrits, un champ omis n'est jamais réinitialisé.
 - **Écriture atomique** : si l'enregistrement échoue en cours de route, le produit partiellement créé est retiré plutôt que de laisser une fiche invendable dans la boutique.
-- **Qualité** : les capacités WooCommerce (`edit_products`, `delete_products`…) sont déclarées dans `phpcs.xml.dist` via la propriété prévue par le sniff, ce qui préserve la détection des vraies fautes de frappe sur les capacités du cœur. Suite complète à **165 tests / 1 076 assertions**.
+- **Qualité** : les capacités WooCommerce (`edit_products`, `delete_products`…) sont déclarées dans `phpcs.xml.dist` via la propriété prévue par le sniff, ce qui préserve la détection des vraies fautes de frappe sur les capacités du cœur. Suite complète à **169 tests / 1 093 assertions**.
+- **MCP — les opérations sur de gros contenus passent enfin** : toute opération dont les arguments dépassaient ~49 Ko de JSON était refusée par un « Failed to enqueue operation », sans e-mail de confirmation. La colonne qui stocke les arguments chiffrés était en `TEXT` (65 535 **octets**) alors qu'elle reçoit du base64, soit ~4/3 du JSON. Elle passe en `LONGTEXT` via une migration idempotente, et un dépassement renvoie désormais une erreur qui nomme la taille reçue et la limite au lieu d'un « réessayez » trompeur sur un échec déterministe. Les échecs d'écriture remontent l'erreur MySQL réelle.
 
 ### **1.28.0**
 
