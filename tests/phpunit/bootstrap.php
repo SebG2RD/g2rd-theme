@@ -408,6 +408,9 @@ if (!function_exists('wp_update_post')) {
         if (isset($postarr['post_title']))   $post->post_title   = $postarr['post_title'];
         if (isset($postarr['post_content'])) $post->post_content = $postarr['post_content'];
         if (isset($postarr['post_excerpt'])) $post->post_excerpt = $postarr['post_excerpt'];
+        // post_status appliqué comme le fait WordPress : sans cela, un test de
+        // fuite de statut entre opérations d'un lot ne prouverait rien.
+        if (isset($postarr['post_status']))  $post->post_status  = $postarr['post_status'];
         $g2rd_post_store[$id] = $post;
         return $id;
     }

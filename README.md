@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.29.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.30.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,16 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.30.0**
+
+- **E-mail de confirmation MCP lisible** : le corps affichait le payload en JSON brut, illisible pour qui n'est pas développeur — or c'est le seul point de contrôle humain avant l'exécution d'une commande distante. L'e-mail présente désormais deux sections : **« Ce qui va être fait »**, un résumé en français champ par champ (titre, statut, catégories, prix…), et **« Contenu exact qui sera écrit »**, le payload reproduit fidèlement.
+- **Fidélité garantie** : le bloc de contenu exact ne subit aucune mise en forme, et l'e-mail est désormais envoyé avec un en-tête `Content-Type: text/plain` explicite. Sans cet en-tête, un plugin SMTP ou une passerelle pouvait interpréter le corps comme du HTML ou du Markdown et réécrire les URL et les balises du payload — l'e-mail affichait alors autre chose que ce qui allait réellement être écrit.
+- **Gros contenus** : au-delà de 4 000 octets, le payload est présenté sous forme d'extrait accompagné de sa **taille exacte et d'une empreinte SHA-256**, plutôt que tronqué silencieusement.
+- **Fix — les échecs dans un lot `g2rd_batch` ne sont plus silencieux** : un lot n'est désormais rapporté comme réussi que si **toutes** ses opérations le sont. L'ancienne règle — succès dès qu'une seule passait — faisait rapporter comme réussi un lot dont une opération avait été perdue, comme cette redirection jamais créée et découverte plusieurs heures plus tard.
+- **Motif d'échec par opération** : chaque opération porte son statut (`success`, `skipped`, `error`), un message lisible et, le cas échéant, l'erreur SQL remontée par `$wpdb->last_error`. Le compte-rendu inclut un résumé du type « 6 opérations réussies, 2 en échec sur 8 ».
+- **Préconditions vérifiées avant exécution** : extension Redirection absente, FluentCart ou WooCommerce manquant, cible inexistante. Ces cas sont détectés en amont et signalés, au lieu d'échouer en silence une fois l'opération confirmée.
+- **Tests** : 4 nouveaux, dont la reproduction exacte du scénario de production — un lot mixte où des opérations passent des articles en brouillon et où la dernière, sans paramètre `status`, doit conserver le sien. Suite complète à **173 tests / 1 106 assertions**.
 
 ### **1.29.1**
 
