@@ -278,6 +278,83 @@ final class McpProductsTest extends TestCase {
 		$this->assertStringContainsString( 'not purchasable', $summary );
 	}
 
+	// ── Régressions relevées en revue ─────────────────────────────────────────
+
+	/**
+	 * Un tableau variations explicitement vide est refusé en mise à jour.
+	 *
+	 * Il passait la validation, supprimait tous les tarifs sans en écrire aucun,
+	 * et l'opération réussissait — produit devenu non achetable en silence.
+	 */
+	public function test_explicit_empty_variations_is_refused_on_update(): void {
+		$result = McpProducts::validate(
+			[
+				'product_id' => 42,
+				'variations' => [],
+			],
+			false
+		);
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertStringContainsString( 'not purchasable', \implode( ' ', $result['errors'] ) );
+	}
+
+	/**
+	 * Omettre la clé variations reste licite : les tarifs sont laissés intacts.
+	 */
+	public function test_omitting_variations_key_is_allowed_on_update(): void {
+		$result = McpProducts::validate( [ 'product_id' => 42, 'title' => 'Nouveau nom' ], false );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( [], $result['data']['variations'] );
+	}
+
+	/**
+	 * compare_at_price respecte le même contrat centimes que price.
+	 *
+	 * Il passait par absint() seul, donc une décimale était tronquée en silence
+	 * alors que price la refusait — contrat annoncé mais pas tenu.
+	 */
+	public function test_decimal_compare_at_price_is_refused(): void {
+		$result = McpProducts::validate(
+			$this->payload(
+				[
+					'variations' => [
+						[
+							'price'            => 20000,
+							'compare_at_price' => 249.99,
+						],
+					],
+				]
+			)
+		);
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertStringContainsString( 'compare_at_price', \implode( ' ', $result['errors'] ) );
+		$this->assertStringContainsString( 'CENTS', \implode( ' ', $result['errors'] ) );
+	}
+
+	/**
+	 * Un compare_at_price entier reste accepté.
+	 */
+	public function test_integer_compare_at_price_is_accepted(): void {
+		$result = McpProducts::validate(
+			$this->payload(
+				[
+					'variations' => [
+						[
+							'price'            => 20000,
+							'compare_at_price' => 24999,
+						],
+					],
+				]
+			)
+		);
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( 24999, $result['data']['variations'][0]['compare_at_price'] );
+	}
+
 	// ── Garde FluentCart ──────────────────────────────────────────────────────
 
 	/**
