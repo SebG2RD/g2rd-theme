@@ -2927,7 +2927,13 @@ class McpAbilities {
 		);
 
 		if ( false === $result ) {
-			return $this->tool_error( 'Failed to enqueue operation. Please retry.' );
+			$reason = $this->queue->get_last_error();
+
+			// "Please retry" is wrong for a payload that is simply too large:
+			// an identical retry fails identically. Report the real cause.
+			return $this->tool_error(
+				'' !== $reason ? $reason : 'Failed to enqueue operation. Please retry.'
+			);
 		}
 
 		$data = [

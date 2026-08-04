@@ -51,9 +51,11 @@ final class McpConfirmationQueueTest extends TestCase {
 		$g2rd_wp_update_post_result = null;
 
 		// Reset wpdb spy state.
-		$wpdb->inserts   = [];
-		$wpdb->updates   = [];
-		$wpdb->insert_id = 0;
+		$wpdb->inserts                 = [];
+		$wpdb->updates                 = [];
+		$wpdb->insert_id               = 0;
+		$wpdb->last_error              = '';
+		$wpdb->max_arguments_enc_bytes = null; // null = LONGTEXT (schema >= 1.1.0).
 
 		$this->crypto = new McpEncryption();
 
@@ -193,6 +195,124 @@ final class McpConfirmationQueueTest extends TestCase {
 		$result = $this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd_create-post', [ 'title' => 'Fail' ] );
 
 		$this->assertFalse( $result );
+	}
+
+	// ── Test 4b : large payloads ──────────────────────────────────────────────
+
+	/**
+	 * A 1 MB payload survives the whole flow: enqueue → email → confirm → execute.
+	 *
+	 * This is the regression guard for the LONGTEXT migration (schema 1.1.0):
+	 * arguments_enc used to be TEXT, whose 65 535-BYTE ceiling rejected any
+	 * operation above ~49 KB of JSON once base64 encryption inflated it by 4/3.
+	 */
+	public function test_enqueue_and_confirm_one_megabyte_payload(): void {
+		global $wpdb, $g2rd_wp_mail_log, $g2rd_wpdb_get_row_return,
+			$g2rd_wpdb_update_return, $g2rd_post_store;
+
+		$content = str_repeat( 'A', 1024 * 1024 );
+
+		$post              = new \WP_Post();
+		$post->ID          = 42;
+		$post->post_type   = 'post';
+		$post->post_title  = 'Large page';
+		$g2rd_post_store[42] = $post;
+
+		// 1. Enqueue.
+		$handles = $this->queue->enqueue(
+			1,
+			1,
+			'127.0.0.1',
+			'g2rd_update-post',
+			[ 'post_id' => 42, 'content' => $content ]
+		);
+
+		$this->assertIsArray( $handles, $this->queue->get_last_error() );
+		$this->assertCount( 1, $wpdb->inserts );
+
+		// The stored ciphertext is larger than the old TEXT column could hold.
+		$stored = (string) $wpdb->inserts[0]['data']['arguments_enc'];
+		$this->assertGreaterThan( 65535, strlen( $stored ) );
+
+		// 2. Email.
+		$this->assertCount( 1, $g2rd_wp_mail_log );
+		$this->assertStringContainsString( $handles['confirm_token'], $g2rd_wp_mail_log[0]['message'] );
+
+		// 3. Confirm — replay the row exactly as it was written.
+		$row                      = $wpdb->inserts[0]['data'];
+		$row['id']                = 7;
+		$g2rd_wpdb_get_row_return = $row;
+		$g2rd_wpdb_update_return  = 1;
+
+		$this->assertTrue( $this->queue->confirm( $handles['confirm_token'] ) );
+
+		// 4. Execution — the post carries the full 1 MB, not a truncated copy.
+		$this->assertSame( $content, $g2rd_post_store[42]->post_content );
+	}
+
+	/**
+	 * The historical failure is reproduced when the column is capped at 65 535 bytes.
+	 *
+	 * Proves the diagnosis: with a TEXT-sized column a 61 KB payload is refused
+	 * by wpdb (insert returns false) and no confirmation email is ever sent.
+	 */
+	public function test_enqueue_fails_on_text_sized_column_and_sends_no_email(): void {
+		global $wpdb, $g2rd_wp_mail_log;
+
+		$wpdb->max_arguments_enc_bytes = 65535; // Pre-1.1.0 TEXT column.
+
+		$result = $this->queue->enqueue(
+			1,
+			1,
+			'127.0.0.1',
+			'g2rd_update-post',
+			[ 'post_id' => 42, 'content' => str_repeat( 'B', 62000 ) ]
+		);
+
+		$this->assertFalse( $result );
+		$this->assertStringContainsString( 'Database insert failed', $this->queue->get_last_error() );
+		$this->assertEmpty( $g2rd_wp_mail_log );
+	}
+
+	/**
+	 * A payload above MAX_ARGUMENTS_BYTES is refused before reaching the database,
+	 * with an error naming both the received size and the limit.
+	 */
+	public function test_enqueue_rejects_oversized_payload_with_explicit_error(): void {
+		global $wpdb, $g2rd_wp_mail_log;
+
+		$result = $this->queue->enqueue(
+			1,
+			1,
+			'127.0.0.1',
+			'g2rd_update-post',
+			[ 'post_id' => 42, 'content' => str_repeat( 'C', 4 * 1024 * 1024 ) ]
+		);
+
+		$this->assertFalse( $result );
+
+		$error = $this->queue->get_last_error();
+		$this->assertStringContainsString( 'too large', $error );
+		$this->assertStringContainsString( number_format_i18n( 3145728 ), $error );
+
+		// Nothing was attempted: no insert, no email.
+		$this->assertCount( 0, $wpdb->inserts );
+		$this->assertEmpty( $g2rd_wp_mail_log );
+	}
+
+	/**
+	 * enqueue() surfaces $wpdb->last_error instead of failing mutely.
+	 */
+	public function test_enqueue_reports_wpdb_last_error(): void {
+		global $wpdb, $g2rd_wpdb_insert_return;
+
+		$g2rd_wpdb_insert_return = false;
+		$wpdb->last_error        = "Data too long for column 'arguments_enc' at row 1";
+
+		$result = $this->queue->enqueue( 1, 1, '127.0.0.1', 'g2rd_update-post', [ 'post_id' => 42 ] );
+
+		$this->assertFalse( $result );
+		$this->assertStringContainsString( "Data too long for column 'arguments_enc'", $this->queue->get_last_error() );
 	}
 
 	// ── Test 5 : confirm (create-post path) ───────────────────────────────────

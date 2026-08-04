@@ -46,6 +46,19 @@ class McpConfirmationQueue {
 	/** @var string Table name suffix (without $wpdb->prefix). */
 	private const TABLE_SUFFIX = 'g2rd_mcp_confirmation_queue';
 
+	/**
+	 * Maximum size, in bytes, of the JSON-encoded arguments accepted by enqueue().
+	 *
+	 * Since schema 1.1.0 the column is LONGTEXT (4 GiB), so it is no longer the
+	 * constraint: this cap exists to fail loudly and early rather than hit
+	 * MySQL's max_allowed_packet (16 MB on a default MariaDB) with an opaque
+	 * error. Encryption base64-encodes its output, so the stored value is roughly
+	 * 4/3 of this figure.
+	 *
+	 * @var int
+	 */
+	private const MAX_ARGUMENTS_BYTES = 3145728; // 3 MiB of JSON ≈ 4 MiB stored.
+
 	/** @var string[] Post statuses allowed for create-post. */
 	private const ALLOWED_STATUSES = [ 'draft', 'pending', 'publish' ];
 
@@ -108,6 +121,17 @@ class McpConfirmationQueue {
 	private ?array $last_report = null;
 
 	/**
+	 * Human-readable reason for the most recent enqueue() failure.
+	 *
+	 * On failure enqueue() returns false, which tells the MCP client nothing
+	 * actionable. Callers read this to report *why* instead of "please retry"
+	 * on a failure that would never succeed on retry.
+	 *
+	 * @var string
+	 */
+	private string $last_error = '';
+
+	/**
 	 * @param McpEncryption $crypto Encryption provider.
 	 * @param McpAuditLog   $audit  Audit log.
 	 */
@@ -128,6 +152,15 @@ class McpConfirmationQueue {
 		return $this->last_report;
 	}
 
+	/**
+	 * Returns why the most recent enqueue() call failed, or '' if none did.
+	 *
+	 * @return string
+	 */
+	public function get_last_error(): string {
+		return $this->last_error;
+	}
+
 	// ── Public API ────────────────────────────────────────────────────────────
 
 	/**
@@ -140,6 +173,7 @@ class McpConfirmationQueue {
 	 * @param array<string, mixed> $arguments    Tool arguments (plain text — encrypted before storage).
 	 * @return array{confirm_token: string, reject_token: string, expires_at: string}|false
 	 *   Confirmation handles on success, false on DB or encryption failure.
+	 *   On failure, get_last_error() explains why.
 	 */
 	public function enqueue(
 		int $user_id,
@@ -150,13 +184,37 @@ class McpConfirmationQueue {
 	): array|false {
 		global $wpdb;
 
-		$confirm_token = $this->generate_token();
-		$reject_token  = $this->generate_token();
-		$now           = \gmdate( 'Y-m-d H:i:s' );
-		$expires_at    = \gmdate( 'Y-m-d H:i:s', \time() + ( self::TTL_MINUTES * 60 ) );
-		$arguments_enc = $this->crypto->encrypt( (string) \wp_json_encode( $arguments ) );
+		$this->last_error = '';
 
-		if ( false === $arguments_enc ) {
+		$confirm_token  = $this->generate_token();
+		$reject_token   = $this->generate_token();
+		$now            = \gmdate( 'Y-m-d H:i:s' );
+		$expires_at     = \gmdate( 'Y-m-d H:i:s', \time() + ( self::TTL_MINUTES * 60 ) );
+		$arguments_json = \wp_json_encode( $arguments );
+
+		if ( ! \is_string( $arguments_json ) ) {
+			$this->last_error = 'Operation arguments could not be JSON-encoded (invalid UTF-8 or unsupported value).';
+			return false;
+		}
+
+		// Checked before encrypting: a payload refused here never reaches MySQL,
+		// so the caller gets the actual size and ceiling instead of a bare false.
+		$arguments_bytes = \strlen( $arguments_json );
+
+		if ( $arguments_bytes > self::MAX_ARGUMENTS_BYTES ) {
+			$this->last_error = \sprintf(
+				'Operation payload too large: %1$s bytes received, %2$s bytes maximum. Split the content into several smaller operations.',
+				\number_format_i18n( $arguments_bytes ),
+				\number_format_i18n( self::MAX_ARGUMENTS_BYTES )
+			);
+			return false;
+		}
+
+		$arguments_enc = $this->crypto->encrypt( $arguments_json );
+
+		// encrypt() returns '' (never false) when OpenSSL fails.
+		if ( '' === $arguments_enc ) {
+			$this->last_error = 'Operation arguments could not be encrypted.';
 			return false;
 		}
 
@@ -180,6 +238,16 @@ class McpConfirmationQueue {
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
 
 		if ( ! $inserted ) {
+			$db_error = isset( $wpdb->last_error ) ? \trim( (string) $wpdb->last_error ) : '';
+
+			$this->last_error = \sprintf(
+				'Database insert failed (%1$s bytes encrypted payload): %2$s',
+				\number_format_i18n( \strlen( $arguments_enc ) ),
+				'' !== $db_error
+					? $db_error
+					: 'no MySQL error reported — wpdb refused the write, which usually means a column is too small for the payload.'
+			);
+
 			return false;
 		}
 
