@@ -792,6 +792,235 @@ class McpAbilities {
 				],
 			],
 
+			// ── Post types & FluentCart products ──────────────────────────────────
+			'g2rd_list-post-types'       => [
+				'name'           => 'g2rd_list-post-types',
+				'description'    => 'Lists every registered post type with its slug, label and whether g2rd_list-posts can read it. Call this before using a post type you are unsure about: g2rd_create-post refuses unknown types, and guessing produces errors.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => new \stdClass(),
+				],
+			],
+			'g2rd_list-products'         => [
+				'name'           => 'g2rd_list-products',
+				'description'    => 'Lists FluentCart products with their ID, title, slug, status and public URL. Requires FluentCart to be active.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'per_page' => [
+							'type'        => 'integer',
+							'description' => 'Results per page (1-100, default 20).',
+							'minimum'     => 1,
+							'maximum'     => 100,
+						],
+						'page'     => [
+							'type'        => 'integer',
+							'description' => 'Page number (default 1).',
+							'minimum'     => 1,
+						],
+						'status'   => [
+							'type'        => 'string',
+							'description' => 'Post status filter, or "any" (default).',
+						],
+						'search'   => [
+							'type'        => 'string',
+							'description' => 'Free-text search on the product title.',
+						],
+					],
+				],
+			],
+			'g2rd_get-product'           => [
+				'name'           => 'g2rd_get-product',
+				'description'    => 'Returns one FluentCart product with its pricing variations, default variation and an is_purchasable flag telling you whether the product has a usable price.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'Product post ID.',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+			'g2rd_create-product'        => [
+				'name'           => 'g2rd_create-product',
+				'description'    => 'Creates a complete, purchasable FluentCart product: the post, its product_details row and its pricing variations, in one atomic operation. Prices are given in CENTS (20000 = 200.00). Requires administrator email confirmation. Use this instead of g2rd_create-post for products.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'title'              => [
+							'type'        => 'string',
+							'description' => 'Product name (required).',
+						],
+						'slug'               => [
+							'type'        => 'string',
+							'description' => 'URL slug. Defaults to a sanitized title.',
+						],
+						'content'            => [
+							'type'        => 'string',
+							'description' => 'Long description, HTML allowed.',
+						],
+						'excerpt'            => [
+							'type'        => 'string',
+							'description' => 'Short description.',
+						],
+						'status'             => [
+							'type'        => 'string',
+							'description' => 'Post status.',
+							'enum'        => McpProducts::STATUSES,
+						],
+						'fulfillment_type'   => [
+							'type'        => 'string',
+							'description' => 'How the product is delivered.',
+							'enum'        => McpProducts::FULFILLMENT_TYPES,
+						],
+						'product_categories' => [
+							'type'        => 'array',
+							'description' => 'Category slugs or term IDs.',
+							'items'       => [ 'type' => 'string' ],
+						],
+						'featured_image_id'  => [
+							'type'        => 'integer',
+							'description' => 'Attachment ID for the featured image.',
+						],
+						'gallery_image_ids'  => [
+							'type'        => 'array',
+							'description' => 'Attachment IDs for the product gallery.',
+							'items'       => [ 'type' => 'integer' ],
+						],
+						'manage_stock'       => [
+							'type'        => 'boolean',
+							'description' => 'Enable stock management on the product.',
+						],
+						'variations'         => [
+							'type'        => 'array',
+							'description' => 'Pricing entries. At least one is required: a product without a priced variation is not purchasable.',
+							'items'       => [
+								'type'       => 'object',
+								'properties' => [
+									'label'                  => [
+										'type'        => 'string',
+										'description' => 'Variation name. Defaults to the product title.',
+									],
+									'payment_type'           => [
+										'type'        => 'string',
+										'description' => 'One-off payment or recurring subscription.',
+										'enum'        => McpProducts::PAYMENT_TYPES,
+									],
+									'price'                  => [
+										'type'        => 'integer',
+										'description' => 'Price in CENTS as an integer. 20000 means 200.00. Decimal values are refused.',
+										'minimum'     => 0,
+									],
+									'compare_at_price'       => [
+										'type'        => 'integer',
+										'description' => 'Struck-through reference price, in cents.',
+										'minimum'     => 0,
+									],
+									'billing_interval'       => [
+										'type'        => 'string',
+										'description' => 'Subscription period unit.',
+										'enum'        => McpProducts::BILLING_INTERVALS,
+									],
+									'billing_interval_count' => [
+										'type'        => 'integer',
+										'description' => 'Number of periods between charges (default 1).',
+										'minimum'     => 1,
+									],
+									'trial_days'             => [
+										'type'        => 'integer',
+										'description' => 'Free trial length in days. 0 = none.',
+										'minimum'     => 0,
+									],
+									'cycles'                 => [
+										'type'        => 'integer',
+										'description' => 'Number of billing cycles. Omit or 0 for unlimited renewal.',
+										'minimum'     => 0,
+									],
+									'stock'                  => [
+										'type'        => 'integer',
+										'description' => 'Stock quantity. Omit entirely for unlimited stock.',
+										'minimum'     => 0,
+									],
+									'is_default'             => [
+										'type'        => 'boolean',
+										'description' => 'Marks the default variation. Exactly one per product; the first is used if none is set.',
+									],
+								],
+								'required'   => [ 'price' ],
+							],
+						],
+					],
+					'required'   => [ 'title', 'variations' ],
+				],
+			],
+			'g2rd_update-product'        => [
+				'name'           => 'g2rd_update-product',
+				'description'    => 'Updates an existing FluentCart product and replaces its pricing variations. Same fields as g2rd_create-product plus product_id. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'Product post ID to update.',
+							'minimum'     => 1,
+						],
+						'title'      => [
+							'type'        => 'string',
+							'description' => 'New product name.',
+						],
+						'content'    => [
+							'type'        => 'string',
+							'description' => 'New long description, HTML allowed.',
+						],
+						'excerpt'    => [
+							'type'        => 'string',
+							'description' => 'New short description.',
+						],
+						'status'     => [
+							'type'        => 'string',
+							'description' => 'New post status.',
+							'enum'        => McpProducts::STATUSES,
+						],
+						'variations' => [
+							'type'        => 'array',
+							'description' => 'Replacement pricing entries. Same shape as g2rd_create-product. Omit to leave pricing untouched.',
+							'items'       => [ 'type' => 'object' ],
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+			'g2rd_delete-product'        => [
+				'name'           => 'g2rd_delete-product',
+				'description'    => 'Moves a FluentCart product to the trash. Permanent deletion is never performed. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'delete_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'Product post ID to trash.',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+
 			// ── Allowlisted plugin settings ───────────────────────────────────────
 			'g2rd_list-plugin-settings'  => [
 				'name'           => 'g2rd_list-plugin-settings',
@@ -1165,6 +1394,12 @@ class McpAbilities {
 				return $this->exec_list_plugin_settings( $args, $gate_result );
 			case 'g2rd_get-plugin-setting':
 				return $this->exec_get_plugin_setting( $args, $gate_result );
+			case 'g2rd_list-post-types':
+				return $this->exec_list_post_types( $gate_result );
+			case 'g2rd_list-products':
+				return $this->exec_list_products( $args, $gate_result );
+			case 'g2rd_get-product':
+				return $this->exec_get_product( $args, $gate_result );
 
 			// ── Write tools (enqueue for confirmation) ─────────────────────────
 			case 'g2rd_create-post':
@@ -1180,6 +1415,9 @@ class McpAbilities {
 			case 'g2rd_deactivate-plugin':
 			case 'g2rd_update-plugin':
 			case 'g2rd_update-option':
+			case 'g2rd_create-product':
+			case 'g2rd_update-product':
+			case 'g2rd_delete-product':
 			case 'g2rd_update-plugin-setting':
 			case 'g2rd_flush-cache':
 			case 'g2rd_update-menu-item':
@@ -1252,9 +1490,31 @@ class McpAbilities {
 			}
 		}
 
+		/*
+		 * Two distinct failures deserve two distinct messages. Returning
+		 * "not accessible" for a type that simply does not exist sends the caller
+		 * hunting for a permission problem, and forces it to guess the real slug.
+		 */
 		$pto = \get_post_type_object( $post_type );
-		if ( null === $pto || ( ! $pto->publicly_queryable && ! $pto->public ) ) {
-			return $this->tool_error( "Post type not accessible: {$post_type}" );
+
+		if ( null === $pto ) {
+			return $this->tool_error(
+				\sprintf(
+					'Unknown post type "%s". Registered and readable types: %s. Use g2rd_list-post-types for the full list.',
+					$post_type,
+					\implode( ', ', $this->readable_post_types() )
+				)
+			);
+		}
+
+		if ( ! $pto->publicly_queryable && ! $pto->public ) {
+			return $this->tool_error(
+				\sprintf(
+					'Post type "%s" exists but is not publicly queryable, so it cannot be listed. Readable types: %s.',
+					$post_type,
+					\implode( ', ', $this->readable_post_types() )
+				)
+			);
 		}
 
 		$query_args = [
@@ -2205,6 +2465,109 @@ class McpAbilities {
 				]
 			)
 		);
+	}
+
+	/**
+	 * Returns the post type slugs list-posts will accept.
+	 *
+	 * @return string[]
+	 */
+	private function readable_post_types(): array {
+		$types = \get_post_types( [], 'objects' );
+		$out   = [];
+
+		foreach ( $types as $slug => $pto ) {
+			if ( $pto->publicly_queryable || $pto->public ) {
+				$out[] = (string) $slug;
+			}
+		}
+
+		\sort( $out );
+
+		return $out;
+	}
+
+	/**
+	 * Lists registered post types (tool: g2rd/list-post-types).
+	 *
+	 * Exists so an agent never has to guess a slug: guessing is what produced an
+	 * orphan post with a non-existent type in production.
+	 *
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_list_post_types( array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$rows = [];
+
+		foreach ( \get_post_types( [], 'objects' ) as $slug => $pto ) {
+			$rows[] = [
+				'slug'               => (string) $slug,
+				'label'              => isset( $pto->labels->name ) ? (string) $pto->labels->name : (string) $slug,
+				'public'             => (bool) $pto->public,
+				'publicly_queryable' => (bool) $pto->publicly_queryable,
+				'show_in_rest'       => (bool) $pto->show_in_rest,
+				'hierarchical'       => (bool) $pto->hierarchical,
+				'readable_by_mcp'    => (bool) ( $pto->publicly_queryable || $pto->public ),
+			];
+		}
+
+		return $this->tool_success(
+			(string) \wp_json_encode(
+				[
+					'post_types' => $rows,
+					'note'       => 'Only types with readable_by_mcp=true can be used with g2rd_list-posts. FluentCart products use "fluent-products" and must be created with g2rd_create-product, not g2rd_create-post.',
+				]
+			)
+		);
+	}
+
+	/**
+	 * Lists FluentCart products (tool: g2rd/list-products).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_list_products( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpProducts::list_products( $args );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result ) );
+	}
+
+	/**
+	 * Returns one FluentCart product with its pricing (tool: g2rd/get-product).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_get_product( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpProducts::get( \absint( $args['product_id'] ?? 0 ) );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result['product'] ) );
 	}
 
 	// ── Write tool implementations ────────────────────────────────────────────

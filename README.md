@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.27.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.28.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,19 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.28.0**
+
+- **MCP — création de produits FluentCart exploitables** : six nouveaux outils, `g2rd_create-product`, `g2rd_update-product`, `g2rd_delete-product` (corbeille uniquement), `g2rd_get-product`, `g2rd_list-products` et `g2rd_list-post-types`. La signature des outils existants est inchangée.
+- **Le problème corrigé** : `g2rd_create-post` n'appelle que `wp_insert_post()`. Or FluentCart stocke le prix, le type de paiement et les variations dans ses propres tables (`fct_product_details`, `fct_product_variations`). Un produit créé ainsi apparaissait dans la liste des articles mais l'écran Pricing ne pouvait rien enregistrer et le produit n'était pas achetable. `g2rd_create-product` écrit désormais le post **et** les lignes `fct_*`, en passant exclusivement par les modèles officiels de FluentCart (`FluentCart\App\Models\ProductDetail`, `ProductVariation`) — aucun SQL brut, les hooks et migrations du plugin restent valides.
+- **Écriture atomique** : si une ligne `fct_*` échoue, le post WordPress est supprimé. Plus de produit orphelin.
+- **Prix en centimes entiers**, contrat strict : `20000` vaut 200,00 €. Une valeur décimale est **refusée** plutôt que tronquée — `199.99` converti en entier donnerait 199 centimes, soit 1,99 € au lieu de 199,99 €, sans la moindre erreur.
+- **Abonnements** : type de paiement, intervalle de facturation, nombre de périodes, jours d'essai, nombre de cycles ou renouvellement illimité, stock limité ou non, variation par défaut.
+- **Fix — validation du type de contenu à l'écriture** : `wp_insert_post()` ne vérifie **pas** qu'un type de contenu est enregistré ; il insérait donc un article orphelin, invisible de tous les écrans d'administration. `g2rd_create-post` valide désormais **avant** d'écrire, et refuse explicitement les produits FluentCart en renvoyant vers l'outil dédié.
+- **Fix — messages d'erreur exploitables** : `g2rd_list-posts` répondait « Post type not accessible » pour un type **inexistant**, orientant vers un faux problème de permissions sans permettre de découvrir le bon identifiant. Il distingue maintenant les deux cas et liste les valeurs valides. `g2rd_list-post-types` évite d'avoir à deviner.
+- **E-mail de confirmation enrichi** : il indique le produit **et les tarifs** qui seront enregistrés, et signale par avance une opération qui serait refusée. Approuver « créer un produit » sans en connaître le prix n'est pas une décision éclairée.
+- **Journalisation** : chaque écriture produit est tracée dans l'audit log (utilisateur, opération, produit, tarifs, résultat).
+- **Tests** : 14 nouveaux tests PHPUnit (contrat centimes, refus explicites, mapping des abonnements, libellés de prix, garde FluentCart absent). Suite complète à 146 tests / 973 assertions.
 
 ### **1.27.1**
 

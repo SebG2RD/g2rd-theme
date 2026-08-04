@@ -490,6 +490,12 @@ class McpConfirmationQueue {
 				return $this->exec_update_option( $arguments );
 			case 'g2rd_update-plugin-setting':
 				return $this->exec_update_plugin_setting( $arguments );
+			case 'g2rd_create-product':
+				return $this->exec_create_product( $arguments );
+			case 'g2rd_update-product':
+				return $this->exec_update_product( $arguments );
+			case 'g2rd_delete-product':
+				return $this->exec_delete_product( $arguments );
 			case 'g2rd_flush-cache':
 				return $this->exec_flush_cache();
 			case 'g2rd_update-menu-item':
@@ -534,11 +540,54 @@ class McpConfirmationQueue {
 			$status = 'draft';
 		}
 
+		$post_type = \sanitize_key( (string) ( $args['post_type'] ?? 'post' ) );
+
+		/*
+		 * wp_insert_post() does NOT validate that the post type is registered:
+		 * it happily stores a row with an unknown post_type, producing an orphan
+		 * invisible to every admin screen. Validate before writing, never after.
+		 */
+		if ( ! \post_type_exists( $post_type ) ) {
+			\update_option(
+				'g2rd_mcp_last_operation_result',
+				[
+					'operation' => 'create-post',
+					'success'   => false,
+					'error'     => \sprintf(
+						'Unknown post type "%s". No post was created. Use g2rd_list-post-types to get the registered types.',
+						$post_type
+					),
+					'timestamp' => \current_time( 'mysql', true ),
+				],
+				false
+			);
+
+			return false;
+		}
+
+		// FluentCart products need rows in the plugin's own tables to be
+		// purchasable. Creating one through create-post yields a product the
+		// admin Pricing screen cannot save — refuse and point to the right tool.
+		if ( \class_exists( '\G2RD\McpProducts' ) && McpProducts::POST_TYPE === $post_type ) {
+			\update_option(
+				'g2rd_mcp_last_operation_result',
+				[
+					'operation' => 'create-post',
+					'success'   => false,
+					'error'     => 'FluentCart products cannot be created with create-post: the pricing rows would be missing and the product would not be purchasable. Use g2rd_create-product instead.',
+					'timestamp' => \current_time( 'mysql', true ),
+				],
+				false
+			);
+
+			return false;
+		}
+
 		$postarr = [
 			'post_title'   => $title,
 			'post_content' => \wp_kses_post( (string) ( $args['content'] ?? '' ) ),
 			'post_status'  => $status,
-			'post_type'    => \sanitize_key( (string) ( $args['post_type'] ?? 'post' ) ),
+			'post_type'    => $post_type,
 			'post_excerpt' => \sanitize_textarea_field( (string) ( $args['excerpt'] ?? '' ) ),
 		];
 
@@ -725,7 +774,64 @@ class McpConfirmationQueue {
 			return $this->format_batch_recap( $arguments );
 		}
 
+		if ( 'g2rd_create-product' === $ability_name || 'g2rd_update-product' === $ability_name ) {
+			return $this->format_product_recap( $arguments );
+		}
+
 		return (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
+	}
+
+	/**
+	 * Formats a product payload as a readable recap for the confirmation email.
+	 *
+	 * The administrator approving the write must see the PRICE, not just a title:
+	 * approving "create a product" without knowing it costs 200 EUR per month is
+	 * not an informed decision.
+	 *
+	 * @param array<string, mixed> $a Tool arguments.
+	 * @return string
+	 */
+	private function format_product_recap( array $a ): string {
+		$lines = [];
+
+		if ( ! empty( $a['product_id'] ) ) {
+			$lines[] = '• Produit ID : ' . \absint( $a['product_id'] );
+		}
+
+		$lines[] = '• Titre : ' . (string) ( $a['title'] ?? '(inchangé)' );
+		$lines[] = '• Statut : ' . (string) ( $a['status'] ?? 'draft' );
+
+		if ( ! empty( $a['fulfillment_type'] ) ) {
+			$lines[] = '• Type de produit : ' . (string) $a['fulfillment_type'];
+		}
+
+		if ( ! \class_exists( '\G2RD\McpProducts' ) ) {
+			return \implode( "\n", $lines );
+		}
+
+		$check = McpProducts::validate( $a, empty( $a['product_id'] ) );
+
+		if ( ! $check['ok'] ) {
+			$lines[] = '';
+			$lines[] = '⚠ Cette opération sera REFUSÉE en l\'état :';
+			foreach ( $check['errors'] as $error ) {
+				$lines[] = '   – ' . $error;
+			}
+
+			return \implode( "\n", $lines );
+		}
+
+		if ( [] !== $check['data']['variations'] ) {
+			$lines[] = '';
+			$lines[] = 'TARIFS qui seront enregistrés :';
+
+			foreach ( $check['data']['variations'] as $variation ) {
+				$lines[] = '   • ' . McpProducts::describe_price( $variation )
+					. ( $variation['is_default'] ? '  [par défaut]' : '' );
+			}
+		}
+
+		return \implode( "\n", $lines );
 	}
 
 	/**
@@ -1449,6 +1555,118 @@ class McpConfirmationQueue {
 		);
 
 		return true;
+	}
+
+	/**
+	 * Executes g2rd/create-product: creates a purchasable FluentCart product.
+	 *
+	 * Delegates to McpProducts, which writes the post and the fct_* rows through
+	 * FluentCart's own models and rolls the post back if any of them fails.
+	 * Capability check runs inside the switched user context.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_create_product( array $args ): bool {
+		if ( ! \current_user_can( 'edit_posts' ) ) {
+			return false;
+		}
+
+		$result = McpProducts::create( $args );
+
+		$this->report_product_operation( 'create-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/update-product: updates a product and its pricing.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_update_product( array $args ): bool {
+		if ( ! \current_user_can( 'edit_posts' ) ) {
+			return false;
+		}
+
+		$result = McpProducts::update( $args );
+
+		$this->report_product_operation( 'update-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/delete-product: moves a product to the trash.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_delete_product( array $args ): bool {
+		if ( ! \current_user_can( 'delete_posts' ) ) {
+			return false;
+		}
+
+		$result = McpProducts::trash( \absint( $args['product_id'] ?? 0 ) );
+
+		$this->report_product_operation( 'delete-product', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Publishes a product operation result and writes it to the audit log.
+	 *
+	 * @param string               $operation Operation slug.
+	 * @param array<string, mixed> $args      Tool arguments.
+	 * @param array<string, mixed> $result    McpProducts result payload.
+	 * @return void
+	 */
+	private function report_product_operation( string $operation, array $args, array $result ): void {
+		$ok = (bool) ( $result['ok'] ?? false );
+
+		$report = [
+			'operation'  => $operation,
+			'success'    => $ok,
+			'product_id' => (int) ( $result['product_id'] ?? \absint( $args['product_id'] ?? 0 ) ),
+			'title'      => (string) ( $args['title'] ?? '' ),
+			'url'        => (string) ( $result['url'] ?? '' ),
+			'variations' => (array) ( $result['variations'] ?? [] ),
+			'user_id'    => \get_current_user_id(),
+			'timestamp'  => \current_time( 'mysql', true ),
+		];
+
+		if ( ! $ok ) {
+			// Errors are returned in full: an agent needs the accepted values to
+			// self-correct, and a silent failure is the worst possible outcome.
+			$report['error']  = (string) ( $result['error'] ?? 'Unknown error.' );
+			$report['errors'] = (array) ( $result['errors'] ?? [] );
+		}
+
+		\update_option( 'g2rd_mcp_last_operation_result', $report, false );
+
+		$this->audit->log(
+			[
+				'user_id'     => \get_current_user_id(),
+				'method'      => 'tools/call',
+				'ability'     => 'g2rd_' . $operation,
+				'input'       => [
+					'title'      => $report['title'],
+					'product_id' => $report['product_id'],
+				],
+				'status'      => $ok ? 'executed' : 'failed',
+				'http_status' => $ok ? 200 : 400,
+				'message'     => $ok
+					? \sprintf(
+						'%s #%d — %s',
+						$operation,
+						$report['product_id'],
+						\implode( ' / ', $report['variations'] )
+					)
+					: \sprintf( '%s refusé : %s', $operation, $report['error'] ),
+			]
+		);
 	}
 
 	/**
