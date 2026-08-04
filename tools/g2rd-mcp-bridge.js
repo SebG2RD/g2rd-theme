@@ -5,23 +5,33 @@
  * Ce script fait le lien entre Claude Desktop (qui communique en JSON-RPC 2.0
  * via stdin/stdout) et le serveur MCP WordPress G2RD (endpoint REST HTTP POST).
  *
- * Configuration dans claude_desktop_config.json :
+ * Configuration dans claude_desktop_config.json — copiez-la depuis l'onglet
+ * « MCP Tokens » de la page d'options du thème, qui la génère déjà remplie.
+ * Le bloc est à FUSIONNER dans l'objet "mcpServers" existant, pas à coller à la
+ * place du fichier.
  *
  *   {
  *     "mcpServers": {
- *       "g2rd": {
- *         "command": "node",
- *         "args": ["C:\\chemin\\vers\\g2rd-theme\\tools\\g2rd-mcp-bridge.js"],
+ *       "g2rd-votre-site": {
+ *         "command": "g2rd-mcp-bridge",
  *         "env": {
- *           "G2RD_MCP_URL":   "https://votre-site.com/wp-json/g2rd/mcp/v1/",
+ *           "G2RD_MCP_URL":   "https://votre-site.com/wp-json/g2rd/v1/mcp",
  *           "G2RD_MCP_TOKEN": "votre-token-mcp-ici"
  *         }
  *       }
  *     }
  *   }
  *
+ * La clé du serveur est dérivée du domaine du site, afin que plusieurs sites
+ * G2RD puissent coexister dans la même configuration sans s'écraser.
+ *
+ * « g2rd-mcp-bridge » suppose que le binaire npm est installé : lancer `npm link`
+ * une fois depuis la racine du thème. À défaut, utiliser "command": "node" avec
+ * le chemin absolu vers ce fichier en argument.
+ *
  * Variables d'environnement :
- *   G2RD_MCP_URL   — URL complète de l'endpoint MCP WordPress (obligatoire)
+ *   G2RD_MCP_URL   — URL complète de l'endpoint MCP WordPress (obligatoire),
+ *                    de la forme https://votre-site.com/wp-json/g2rd/v1/mcp
  *   G2RD_MCP_TOKEN — Bearer token généré depuis les réglages MCP G2RD (obligatoire)
  *
  * @package G2RD

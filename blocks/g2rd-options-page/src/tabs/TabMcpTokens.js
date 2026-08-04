@@ -14,11 +14,69 @@ function formatDate( iso ) {
 	} );
 }
 
+/**
+ * Dérive une clé de serveur MCP propre au site depuis l'URL de l'API REST.
+ *
+ * Sans cela tous les sites partagent la clé « g2rd » : coller le snippet d'un
+ * second site écrase silencieusement la configuration du premier, et les deux
+ * ne peuvent pas coexister dans le même fichier de configuration.
+ *
+ * L'extension de domaine est retirée pour la lisibilité — deux sites homonymes
+ * sur des extensions différentes produiraient donc la même clé.
+ *
+ * @param {string} base URL de base de l'API REST (ex. https://exemple.fr/wp-json/).
+ * @return {string} Clé du type « g2rd-exemple », ou « g2rd » si le domaine est inexploitable.
+ */
+function buildServerKey( base ) {
+	let url;
+
+	try {
+		url = new URL( base );
+	} catch ( e ) {
+		return 'g2rd';
+	}
+
+	const host   = url.hostname.toLowerCase().replace( /^www\./, '' );
+	const labels = host.split( '.' );
+
+	// Retire l'extension, sauf pour une IP (dernier segment numérique) ou un
+	// hostname sans point comme « localhost ».
+	if ( labels.length > 1 && ! /^\d+$/.test( labels[ labels.length - 1 ] ) ) {
+		labels.pop();
+	}
+
+	/*
+	 * Le chemin fait partie de l'identité du site : sur un multisite en
+	 * sous-répertoire, deux sites distincts partagent l'hôte et ne se
+	 * distinguent que par lui. S'en tenir au hostname leur donnerait la même
+	 * clé, donc la collision que cette dérivation doit justement éviter.
+	 */
+	const segments = url.pathname.split( '/' ).filter( Boolean );
+
+	// « wp-json » est commun à tous les sites et n'apporte aucune distinction.
+	if ( segments.length && /^wp-json$/i.test( segments[ segments.length - 1 ] ) ) {
+		segments.pop();
+	}
+
+	// Les domaines accentués arrivent déjà en punycode via URL().
+	const slug = labels
+		.concat( segments )
+		.join( '-' )
+		.toLowerCase()
+		.replace( /[^a-z0-9-]+/g, '-' )
+		.replace( /-{2,}/g, '-' )
+		.replace( /^-+|-+$/g, '' );
+
+	return slug ? `g2rd-${ slug }` : 'g2rd';
+}
+
+const SERVER_KEY = buildServerKey( restBase );
+
 // Config stdio via le bridge npm-linked (g2rd-mcp-bridge doit être installé : npm link depuis le thème).
 function buildClaudeDesktopConfig( token ) {
 	return JSON.stringify( {
 		mcpServers: {
-			g2rd: {
+			[ SERVER_KEY ]: {
 				command: 'g2rd-mcp-bridge',
 				env:     {
 					G2RD_MCP_URL:   MCP_ENDPOINT,
@@ -33,7 +91,7 @@ function buildClaudeDesktopConfig( token ) {
 function buildClaudeCodeConfig( token ) {
 	return JSON.stringify( {
 		mcpServers: {
-			g2rd: {
+			[ SERVER_KEY ]: {
 				type:    'http',
 				url:     MCP_ENDPOINT,
 				headers: {
@@ -96,8 +154,13 @@ function IntegrationCode( { token } ) {
 				<span className="dashicons dashicons-editor-code" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
 				Code d'intégration
 			</h4>
-			<p style={ { margin: '0 0 16px', fontSize: 12, color: '#787c82' } }>
+			<p style={ { margin: '0 0 8px', fontSize: 12, color: '#787c82' } }>
 				Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+				<br />
+				Clé du serveur : <code style={ { fontSize: 12 } }>{ SERVER_KEY }</code> — dérivée du domaine, pour que plusieurs sites G2RD coexistent dans la même configuration.
+			</p>
+			<p style={ { margin: '0 0 16px', fontSize: 12, color: '#787c82' } }>
+				À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
 			</p>
 
 			{ block(
@@ -419,14 +482,13 @@ export function TabMcpTokens() {
 															<br />
 															<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
 														</p>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
-															mcpServers: { g2rd: { url: MCP_ENDPOINT, headers: { Authorization: `Bearer ${ t.token_prefix }…(TOKEN)` } } }
-														}, null, 2 ) }</pre>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ JSON.stringify( {
-															mcpServers: { g2rd: { command: 'npx', args: [ '-y', 'mcp-remote', MCP_ENDPOINT, '--header', `Authorization: Bearer ${ t.token_prefix }…(TOKEN)` ] } }
-														}, null, 2 ) }</pre>
+														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
+															À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
+														</p>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeDesktopConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeCodeConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
 													</div>
 												</td>
 											</tr>
