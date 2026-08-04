@@ -28,18 +28,15 @@ function formatDate( iso ) {
  * @return {string} Clé du type « g2rd-exemple », ou « g2rd » si le domaine est inexploitable.
  */
 function buildServerKey( base ) {
-	let host = '';
+	let url;
 
 	try {
-		// URL() ignore le chemin et le port : une installation en sous-répertoire
-		// (…/blog/wp-json/) ou sur un port explicite donne le même hostname.
-		host = new URL( base ).hostname;
+		url = new URL( base );
 	} catch ( e ) {
 		return 'g2rd';
 	}
 
-	host = host.toLowerCase().replace( /^www\./, '' );
-
+	const host   = url.hostname.toLowerCase().replace( /^www\./, '' );
 	const labels = host.split( '.' );
 
 	// Retire l'extension, sauf pour une IP (dernier segment numérique) ou un
@@ -48,9 +45,24 @@ function buildServerKey( base ) {
 		labels.pop();
 	}
 
+	/*
+	 * Le chemin fait partie de l'identité du site : sur un multisite en
+	 * sous-répertoire, deux sites distincts partagent l'hôte et ne se
+	 * distinguent que par lui. S'en tenir au hostname leur donnerait la même
+	 * clé, donc la collision que cette dérivation doit justement éviter.
+	 */
+	const segments = url.pathname.split( '/' ).filter( Boolean );
+
+	// « wp-json » est commun à tous les sites et n'apporte aucune distinction.
+	if ( segments.length && /^wp-json$/i.test( segments[ segments.length - 1 ] ) ) {
+		segments.pop();
+	}
+
 	// Les domaines accentués arrivent déjà en punycode via URL().
 	const slug = labels
+		.concat( segments )
 		.join( '-' )
+		.toLowerCase()
 		.replace( /[^a-z0-9-]+/g, '-' )
 		.replace( /-{2,}/g, '-' )
 		.replace( /^-+|-+$/g, '' );
