@@ -812,20 +812,30 @@ class McpConfirmationQueue {
 		$subject = \sprintf( \__( '[%s] MCP — Action requiert votre confirmation', 'g2rd' ), $site_name );
 
 		$message = \sprintf(
-			/* translators: 1: user login 2: tool name 3: arguments JSON 4: expiry datetime UTC 5: confirm URL 6: reject URL */
+			/* translators: 1: user login 2: tool name 3: readable recap 4: verbatim payload 5: expiry datetime UTC 6: confirm URL 7: reject URL */
 			\__(
-				"Un agent MCP connecté en tant que %1\$s demande à exécuter l'action suivante :\n\nOutil : %2\$s\nArguments :\n%3\$s\n\nCette demande expire à %4\$s (UTC).\n\n✅ CONFIRMER : %5\$s\n\n❌ REFUSER : %6\$s\n\nSi vous n'êtes pas à l'origine de cette demande, cliquez sur REFUSER immédiatement.",
+				"Un agent MCP connecté en tant que %1\$s demande à exécuter l'action suivante.\n\nOutil : %2\$s\n\n─────────────────────────────────────────\nCE QUI VA ÊTRE FAIT\n─────────────────────────────────────────\n\n%3\$s\n\n─────────────────────────────────────────\nCONTENU EXACT QUI SERA ÉCRIT\n─────────────────────────────────────────\n\nCe bloc est reproduit tel quel, sans aucune mise en forme. Si votre logiciel de messagerie le modifie (liens créés automatiquement, guillemets transformés), c'est un effet d'affichage : c'est bien le texte ci-dessous qui sera écrit.\n\n%4\$s\n\n─────────────────────────────────────────\n\nCette demande expire à %5\$s (UTC).\n\n✅ CONFIRMER : %6\$s\n\n❌ REFUSER : %7\$s\n\nSi vous n'êtes pas à l'origine de cette demande, cliquez sur REFUSER immédiatement.",
 				'g2rd'
 			),
 			$user_login,
 			$ability_name,
 			$args_display,
+			$this->render_payload_verbatim( $arguments ),
 			$expires_at,
 			$confirm_url,
 			$reject_url
 		);
 
-		return (bool) \wp_mail( $admin_email, $subject, $message );
+		/*
+		 * text/plain explicite : sans en-tête, un plugin SMTP ou une passerelle
+		 * peut décider d'interpréter le corps comme du HTML ou du Markdown, et
+		 * réécrire les URL et les balises du payload. Cet e-mail étant le seul
+		 * point de contrôle avant exécution, il doit s'afficher tel qu'il est
+		 * envoyé.
+		 */
+		$headers = [ 'Content-Type: text/plain; charset=UTF-8' ];
+
+		return (bool) \wp_mail( $admin_email, $subject, $message, $headers );
 	}
 
 	/**
@@ -856,7 +866,166 @@ class McpConfirmationQueue {
 			return $this->format_woo_product_recap( $arguments );
 		}
 
-		return (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE );
+		return $this->format_generic_recap( $arguments );
+	}
+
+	/**
+	 * Renders any tool payload as readable French, field by field.
+	 *
+	 * Replaces the pretty-printed JSON that every tool without a dedicated recap
+	 * used to fall back on. JSON is faithful but unreadable: an administrator who
+	 * cannot tell what an operation does cannot meaningfully approve it, which
+	 * defeats the point of asking. The verbatim payload is still shown further
+	 * down the e-mail — see render_payload_verbatim().
+	 *
+	 * @param array<string, mixed> $arguments Tool arguments.
+	 * @return string
+	 */
+	private function format_generic_recap( array $arguments ): string {
+		if ( [] === $arguments ) {
+			return '(aucun paramètre)';
+		}
+
+		$labels = [
+			'post_id'            => 'Article ciblé (ID)',
+			'product_id'         => 'Produit ciblé (ID)',
+			'attachment_id'      => 'Média ciblé (ID)',
+			'item_id'            => 'Élément ciblé (ID)',
+			'title'              => 'Titre',
+			'name'               => 'Nom',
+			'slug'               => 'Slug',
+			'status'             => 'Statut',
+			'post_type'          => 'Type de contenu',
+			'content'            => 'Contenu',
+			'excerpt'            => 'Extrait',
+			'description'        => 'Description',
+			'short_description'  => 'Description courte',
+			'categories'         => 'Catégories',
+			'tags'               => 'Étiquettes',
+			'featured_image_id'  => 'Image à la une (ID)',
+			'image_id'           => 'Image principale (ID)',
+			'gallery_image_ids'  => 'Galerie (IDs)',
+			'meta_key'           => 'Clé de métadonnée',
+			'meta_value'         => 'Valeur de métadonnée',
+			'option_key'         => 'Option WordPress',
+			'option_value'       => 'Nouvelle valeur',
+			'plugin'             => 'Plugin',
+			'setting'            => 'Réglage',
+			'value'              => 'Valeur',
+			'url'                => 'URL',
+			'source_url'         => 'URL source',
+			'target_url'         => 'URL de destination',
+			'alt_text'           => 'Texte alternatif',
+			'caption'            => 'Légende',
+			'regular_price'      => 'Prix normal',
+			'sale_price'         => 'Prix promotionnel',
+			'sku'                => 'UGS',
+			'stock_quantity'     => 'Quantité en stock',
+			'meta_title'         => 'Titre SEO',
+			'meta_description'   => 'Description SEO',
+			'canonical'          => 'URL canonique',
+			'focus_keyword'      => 'Mot-clé principal',
+			'noindex'            => 'Exclu de l’indexation',
+		];
+
+		$lines = [];
+
+		foreach ( $arguments as $key => $value ) {
+			$label   = $labels[ $key ] ?? (string) $key;
+			$lines[] = '• ' . $label . ' : ' . $this->describe_value( $value );
+		}
+
+		return \implode( "\n", $lines );
+	}
+
+	/**
+	 * Describes a single argument value in human terms.
+	 *
+	 * Long strings are summarised by their first line and length: the exact text
+	 * is available verbatim further down, so repeating it here would only bury
+	 * the fields that actually need reading.
+	 *
+	 * @param mixed $value Argument value.
+	 * @return string
+	 */
+	private function describe_value( $value ): string {
+		if ( \is_bool( $value ) ) {
+			return $value ? 'oui' : 'non';
+		}
+
+		if ( null === $value ) {
+			return '(vide)';
+		}
+
+		if ( \is_array( $value ) ) {
+			if ( [] === $value ) {
+				return '(liste vide)';
+			}
+
+			$scalars = \array_filter( $value, 'is_scalar' );
+
+			if ( \count( $scalars ) === \count( $value ) ) {
+				return \implode( ', ', \array_map( 'strval', $value ) );
+			}
+
+			return \sprintf( '%d élément(s)', \count( $value ) );
+		}
+
+		$text   = (string) $value;
+		$length = \mb_strlen( $text );
+
+		if ( $length > 120 ) {
+			$first_line = \trim( (string) \strtok( $text, "\n" ) );
+
+			return \sprintf(
+				'%s… (%s caractères — texte exact plus bas)',
+				\mb_substr( $first_line, 0, 100 ),
+				\number_format_i18n( $length )
+			);
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Renders the payload verbatim, for byte-level verification.
+	 *
+	 * This e-mail is the only human checkpoint before a remote command runs, so
+	 * the administrator must be able to see exactly what will be written — not a
+	 * reformatted approximation. Nothing here is filtered, auto-linked or
+	 * converted; the message is sent as text/plain for the same reason.
+	 *
+	 * Large payloads are excerpted rather than silently truncated: the full byte
+	 * count and a SHA-256 fingerprint let the content be verified against what
+	 * lands in the database.
+	 *
+	 * @param array<string, mixed> $arguments Tool arguments.
+	 * @return string
+	 */
+	private function render_payload_verbatim( array $arguments ): string {
+		$json = (string) \wp_json_encode( $arguments, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES );
+
+		$bytes       = \strlen( $json );
+		$fingerprint = \hash( 'sha256', $json );
+		$excerpt_max = 4000;
+
+		$header = \sprintf(
+			'Taille : %s octets — empreinte SHA-256 : %s',
+			\number_format_i18n( $bytes ),
+			$fingerprint
+		);
+
+		if ( $bytes <= $excerpt_max ) {
+			return $header . "\n\n" . $json;
+		}
+
+		return $header . "\n"
+			. \sprintf(
+				"Extrait des %s premiers octets (contenu tronqué pour l’e-mail, la totalité sera écrite) :\n\n",
+				\number_format_i18n( $excerpt_max )
+			)
+			. \substr( $json, 0, $excerpt_max )
+			. "\n\n[…]";
 	}
 
 	/**
@@ -2406,7 +2575,8 @@ class McpConfirmationQueue {
 
 		$operations = \array_slice( $operations, 0, self::BATCH_MAX_OPS );
 		$results    = [];
-		$any_ok     = false;
+		$succeeded  = 0;
+		$failed     = 0;
 
 		foreach ( $operations as $i => $op ) {
 			$tool    = \is_array( $op ) ? (string) ( $op['tool'] ?? '' ) : '';
@@ -2415,31 +2585,135 @@ class McpConfirmationQueue {
 				: [];
 
 			if ( 'g2rd_batch' === $tool || ! \in_array( $tool, self::BATCH_ALLOWED_TOOLS, true ) ) {
+				++$failed;
 				$results[] = [
 					'index'   => (int) $i,
 					'tool'    => $tool,
+					'status'  => 'error',
 					'success' => false,
 					'error'   => 'tool_not_allowed',
+					'message' => \sprintf( 'L’outil « %s » n’est pas autorisé dans un lot.', $tool ),
 				];
 				continue;
 			}
 
-			$ok        = $this->dispatch_operation( $tool, $op_args );
-			$any_ok    = $any_ok || $ok;
-			$results[] = [
+			// Précondition vérifiée avant exécution : sans cela une opération
+			// impossible échoue en silence et n’est découverte que bien plus tard.
+			$blocker = $this->precondition_failure( $tool, $op_args );
+
+			if ( null !== $blocker ) {
+				++$failed;
+				$results[] = [
+					'index'   => (int) $i,
+					'tool'    => $tool,
+					'status'  => 'skipped',
+					'success' => false,
+					'error'   => 'precondition_failed',
+					'message' => $blocker,
+				];
+				continue;
+			}
+
+			global $wpdb;
+
+			$ok = $this->dispatch_operation( $tool, $op_args );
+
+			if ( $ok ) {
+				++$succeeded;
+				$results[] = [
+					'index'   => (int) $i,
+					'tool'    => $tool,
+					'status'  => 'success',
+					'success' => true,
+				];
+				continue;
+			}
+
+			++$failed;
+			$entry = [
 				'index'   => (int) $i,
 				'tool'    => $tool,
-				'success' => $ok,
+				'status'  => 'error',
+				'success' => false,
+				'error'   => 'execution_failed',
+				'message' => \sprintf( 'L’opération « %s » a échoué à l’exécution.', $tool ),
 			];
+
+			// Remonte l’erreur SQL quand il y en a une : « ça n’a pas marché »
+			// n’est pas exploitable, le message de MySQL l’est.
+			if ( isset( $wpdb ) && ! empty( $wpdb->last_error ) ) {
+				$entry['db_error'] = (string) $wpdb->last_error;
+			}
+
+			$results[] = $entry;
 		}
 
+		/*
+		 * Un lot n’est réussi que si TOUTES ses opérations le sont. L’ancienne
+		 * règle — succès dès qu’une seule passait — faisait rapporter comme
+		 * réussi un lot dont une opération avait été silencieusement perdue.
+		 */
+		$all_ok = 0 === $failed;
+
 		$this->set_report( [
-			'success'    => $any_ok,
+			'success'    => $all_ok,
 			'batch'      => true,
+			'summary'    => \sprintf(
+				'%d opération(s) réussie(s), %d en échec sur %d.',
+				$succeeded,
+				$failed,
+				\count( $results )
+			),
+			'succeeded'  => $succeeded,
+			'failed'     => $failed,
 			'operations' => $results,
 		] );
 
-		return $any_ok;
+		return $all_ok;
+	}
+
+	/**
+	 * Checks a batch operation's preconditions before running it.
+	 *
+	 * Verifiable upfront: a missing plugin, a post that does not exist, an
+	 * invalid attachment. Catching these here means the administrator sees the
+	 * problem in the confirmation e-mail, before approving, instead of
+	 * discovering hours later that one operation quietly did nothing.
+	 *
+	 * @param string               $tool    Tool name.
+	 * @param array<string, mixed> $op_args Operation arguments.
+	 * @return string|null Human-readable blocker, or null when the operation can run.
+	 */
+	private function precondition_failure( string $tool, array $op_args ): ?string {
+		if ( 'g2rd_create-redirection' === $tool && ! \class_exists( 'Red_Item' ) && ! \defined( 'REDIRECTION_VERSION' ) ) {
+			return 'Extension Redirection absente : la redirection ne peut pas être créée.';
+		}
+
+		if ( 'g2rd_create-product' === $tool && \class_exists( '\G2RD\McpProducts' ) && ! McpProducts::is_available() ) {
+			return 'FluentCart absent ou incompatible : le produit ne peut pas être créé.';
+		}
+
+		if ( \in_array( $tool, [ 'g2rd_create-woo-product', 'g2rd_update-woo-product', 'g2rd_delete-woo-product' ], true )
+			&& \class_exists( '\G2RD\McpWooProducts' ) && ! McpWooProducts::is_available() ) {
+			return 'WooCommerce absent : le produit ne peut pas être traité.';
+		}
+
+		// Cibles inexistantes — vérifiables sans rien écrire.
+		$target_keys = [ 'post_id', 'product_id', 'attachment_id', 'item_id' ];
+
+		foreach ( $target_keys as $key ) {
+			if ( ! isset( $op_args[ $key ] ) ) {
+				continue;
+			}
+
+			$id = \absint( $op_args[ $key ] );
+
+			if ( $id <= 0 || ! \get_post( $id ) instanceof \WP_Post ) {
+				return \sprintf( 'La cible %s=%d n’existe pas.', $key, $id );
+			}
+		}
+
+		return null;
 	}
 
 	/**

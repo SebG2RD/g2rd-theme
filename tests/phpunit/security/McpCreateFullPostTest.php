@@ -230,7 +230,134 @@ final class McpCreateFullPostTest extends TestCase {
 		$this->assertSame( 'missing_title', $this->queue->get_last_report()['error'] );
 	}
 
-	/** Batch: sequential dispatch, per-op report, rejection of nested/unknown tools. */
+	/**
+	 * Un lot entièrement valide reste rapporté comme réussi.
+	 *
+	 * Contre-preuve du durcissement : exiger que toutes les opérations passent
+	 * ne doit pas transformer un lot sain en échec.
+	 */
+	public function test_batch_all_valid_is_reported_successful(): void {
+		$ok = $this->call_private(
+			'exec_batch',
+			[
+				[
+					'operations' => [
+						[ 'tool' => 'g2rd_create-category', 'arguments' => [ 'name' => 'Actualités' ] ],
+						[ 'tool' => 'g2rd_create-tag', 'arguments' => [ 'name' => 'Apiculture' ] ],
+					],
+				],
+			]
+		);
+
+		$this->assertTrue( $ok );
+
+		$report = $this->queue->get_last_report();
+		$this->assertSame( 0, $report['failed'] );
+		$this->assertSame( 2, $report['succeeded'] );
+	}
+
+	/**
+	 * Chaque opération en échec porte un motif exploitable.
+	 *
+	 * « success: false » sans explication obligeait à fouiller les journaux ;
+	 * c'est ce qui a laissé une redirection non créée passer inaperçue.
+	 */
+	public function test_failed_operations_carry_a_readable_reason(): void {
+		$this->call_private(
+			'exec_batch',
+			[
+				[
+					'operations' => [
+						[ 'tool' => 'g2rd_unknown', 'arguments' => [] ],
+					],
+				],
+			]
+		);
+
+		$op = $this->queue->get_last_report()['operations'][0];
+
+		$this->assertSame( 'error', $op['status'] );
+		$this->assertArrayHasKey( 'message', $op );
+		$this->assertNotSame( '', $op['message'] );
+	}
+
+	/**
+	 * Le compte-rendu résume l'issue du lot en une phrase.
+	 */
+	public function test_batch_report_carries_a_summary(): void {
+		$this->call_private(
+			'exec_batch',
+			[
+				[
+					'operations' => [
+						[ 'tool' => 'g2rd_create-category', 'arguments' => [ 'name' => 'A' ] ],
+						[ 'tool' => 'g2rd_unknown', 'arguments' => [] ],
+					],
+				],
+			]
+		);
+
+		$report = $this->queue->get_last_report();
+
+		$this->assertStringContainsString( 'échec', $report['summary'] );
+		$this->assertSame( 1, $report['failed'] );
+		$this->assertSame( 1, $report['succeeded'] );
+	}
+
+	/**
+	 * Une opération sans « status » ne modifie jamais le statut du post visé.
+	 *
+	 * Reproduit le scénario de production : un lot mixte où les premières
+	 * opérations passent des posts en draft, et la dernière — sans status —
+	 * ne doit pas en hériter.
+	 */
+	public function test_mixed_batch_does_not_leak_status_between_operations(): void {
+		global $g2rd_post_store;
+
+		foreach ( [ 244, 246, 247, 299 ] as $id ) {
+			$post              = new \WP_Post();
+			$post->ID          = $id;
+			$post->post_status = 'publish';
+			$post->post_type   = 'post';
+			$g2rd_post_store[ $id ] = $post;
+		}
+
+		$this->call_private(
+			'exec_batch',
+			[
+				[
+					'operations' => [
+						[ 'tool' => 'g2rd_update-post', 'arguments' => [ 'post_id' => 244, 'status' => 'draft' ] ],
+						[ 'tool' => 'g2rd_update-post', 'arguments' => [ 'post_id' => 246, 'status' => 'draft' ] ],
+						[ 'tool' => 'g2rd_update-post', 'arguments' => [ 'post_id' => 247, 'status' => 'draft' ] ],
+						// Sans status : le post 299 doit rester publié.
+						[ 'tool' => 'g2rd_update-post', 'arguments' => [ 'post_id' => 299, 'title' => 'Nouveau titre' ] ],
+					],
+				],
+			]
+		);
+
+		// Contre-preuve : le mécanisme fonctionne bien quand status est fourni…
+		$this->assertSame( 'draft', $g2rd_post_store[244]->post_status );
+		$this->assertSame( 'draft', $g2rd_post_store[247]->post_status );
+
+		// …et le post sans status conserve le sien.
+		$this->assertSame(
+			'publish',
+			$g2rd_post_store[299]->post_status,
+			'Le post 299, mis à jour sans status, ne doit pas hériter du draft des opérations précédentes.'
+		);
+		$this->assertSame( 'Nouveau titre', $g2rd_post_store[299]->post_title );
+	}
+
+	/**
+	 * Batch: sequential dispatch, per-op report, rejection of nested/unknown tools.
+	 *
+	 * The batch reports FAILURE here, and that is the point: two of the three
+	 * operations were rejected. The previous rule — success as soon as a single
+	 * operation passed — is what let a batch containing a silently lost
+	 * operation be reported as fully successful in production.
+	 */
 	public function test_batch_dispatch_and_guards(): void {
 		$ok = $this->call_private(
 			'exec_batch',
@@ -245,7 +372,7 @@ final class McpCreateFullPostTest extends TestCase {
 			]
 		);
 
-		$this->assertTrue( $ok );
+		$this->assertFalse( $ok, 'Un lot dont une opération échoue ne peut pas être rapporté comme réussi.' );
 
 		$report = $this->queue->get_last_report();
 		$this->assertTrue( $report['batch'] );
