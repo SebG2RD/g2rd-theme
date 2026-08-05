@@ -94,20 +94,20 @@ export function TabConfiguration( { settings, update } ) {
 					Clé API Places (Google Maps Platform) — utilisée par le bloc Testimonial pour afficher les avis Google Business.
 				</p>
 
-				<div style={ { display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' } }>
+				<div className="g2rd-row g2rd-key-state">
 					{ apiKeySet && ! apiKeyInput && (
-						<span style={ { background: '#dcfce7', color: '#166534', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 } }>
+						<span className="g2rd-tag g2rd-tag--success">
 							✓ Clé configurée
 						</span>
 					) }
 					{ ! apiKeySet && ! apiKeyInput && (
-						<span style={ { background: '#fef9c3', color: '#854d0e', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 } }>
+						<span className="g2rd-tag g2rd-tag--warning">
 							Non configurée
 						</span>
 					) }
 				</div>
 
-				<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'stretch' } }>
+				<div className="g2rd-row g2rd-row--stretch">
 					<input
 						type={ showKey ? 'text' : 'password' }
 						aria-label="Clé API Google Maps (Places)"
@@ -117,36 +117,36 @@ export function TabConfiguration( { settings, update } ) {
 							update( [ 'googleMapsApiKey' ], e.target.value );
 						} }
 						placeholder={ apiKeySet ? '••••••••••••••••••••••••••' : 'Collez la clé fournie par Google Cloud…' }
-						style={ { flex: 1, padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontFamily: 'monospace', fontSize: 13 } }
+						className="g2rd-inline-input"
 					/>
 					<button
 						type="button"
 						onClick={ () => setShowKey( ( v ) => ! v ) }
-						style={ { padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, cursor: 'pointer', background: '#f9f9f9' } }
+						className="g2rd-inline-btn"
 						title={ showKey ? 'Masquer' : 'Afficher' }
 					>
 						<span className={ `dashicons dashicons-${ showKey ? 'hidden' : 'visibility' }` }></span>
 					</button>
 				</div>
-				<p style={ { fontSize: 12, color: '#757575', marginTop: 6 } }>
+				<p className="g2rd-muted g2rd-hint-spaced">
 					Créez votre clé sur{ ' ' }
 					<a href="https://console.cloud.google.com/apis/library/places-backend.googleapis.com" target="_blank" rel="noreferrer">Google Cloud Console</a>
 					{ ' ' }→ activez « Places API » → restreignez la clé à l'IP de votre serveur.
 				</p>
 
-				<div style={ { marginTop: '1rem', borderTop: '1px solid #eee', paddingTop: '1rem' } }>
-					<p style={ { fontWeight: 600, marginBottom: 6, fontSize: 13 } }>Vider le cache des avis</p>
-					<p style={ { fontSize: 12, color: '#757575', marginBottom: 8 } }>
+				<div className="g2rd-subsection">
+					<p className="g2rd-subsection__title">Vider le cache des avis</p>
+					<p className="g2rd-muted g2rd-subsection__desc">
 						Les avis sont mis en cache 12h. Entrez le Place ID pour forcer le rafraîchissement.
 					</p>
-					<div style={ { display: 'flex', gap: '0.5rem', alignItems: 'center' } }>
+					<div className="g2rd-row">
 						<input
 							type="text"
 							aria-label="Place ID Google (ChIJ…)"
 							value={ placeId }
 							onChange={ ( e ) => setPlaceId( e.target.value ) }
 							placeholder="Place ID (ChIJ…)"
-							style={ { padding: '6px 10px', border: '1px solid #ddd', borderRadius: 4, fontSize: 13, flex: 1 } }
+							className="g2rd-inline-input g2rd-inline-input--text"
 						/>
 						<button
 							type="button"
@@ -164,13 +164,13 @@ export function TabConfiguration( { settings, update } ) {
 									.catch( () => setClearMsg( '✗ Erreur réseau.' ) )
 									.finally( () => setClearingCache( false ) );
 							} }
-							style={ { padding: '6px 12px', background: '#2f425d', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 13, opacity: clearingCache ? 0.6 : 1 } }
+							className="g2rd-inline-btn g2rd-inline-btn--primary"
 						>
 							{ clearingCache ? '…' : 'Vider le cache' }
 						</button>
 					</div>
 					{ clearMsg && (
-						<p style={ { fontSize: 12, marginTop: 6, color: clearMsg.startsWith( '✓' ) ? '#166534' : '#991b1b' } }>
+						<p className={ `g2rd-result ${ clearMsg.startsWith( '✓' ) ? 'g2rd-result--ok' : 'g2rd-result--ko' }` }>
 							{ clearMsg }
 						</p>
 					) }

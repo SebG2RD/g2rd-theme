@@ -1,4 +1,5 @@
 import { useMemo } from '@wordpress/element';
+import { LOGIN_DEFAULTS } from './login-defaults';
 
 const { themeUri = '' } = window.G2RDOptionsData || {};
 
@@ -8,20 +9,20 @@ const DEFAULT_LOGO = themeUri
 
 export function LoginPreview( { settings } ) {
 	const {
-		layout        = 'two-columns',
-		panelColor    = '#2f425d',
-		buttonColor   = '#d4a373',
-		buttonTextColor = '#ffffff',
-		linksColor    = '#cccccc',
-		bgType        = 'image',
-		bgColor       = '#1a2a3a',
-		bgImageUrl    = '',
-		logoUrl       = '',
-		welcomeText   = '',
-		borderRadius  = 8,
-		ctaShow       = true,
-		ctaText       = 'Visiter notre site',
-		ctaColor      = '#d4a373',
+		layout          = LOGIN_DEFAULTS.layout,
+		panelColor      = LOGIN_DEFAULTS.panelColor,
+		buttonColor     = LOGIN_DEFAULTS.buttonColor,
+		buttonTextColor = LOGIN_DEFAULTS.buttonTextColor,
+		linksColor      = LOGIN_DEFAULTS.linksColor,
+		bgType          = LOGIN_DEFAULTS.bgType,
+		bgColor         = LOGIN_DEFAULTS.bgColor,
+		bgImageUrl      = LOGIN_DEFAULTS.bgImageUrl,
+		logoUrl         = LOGIN_DEFAULTS.logoUrl,
+		welcomeText     = LOGIN_DEFAULTS.welcomeText,
+		borderRadius    = LOGIN_DEFAULTS.borderRadius,
+		ctaShow         = LOGIN_DEFAULTS.ctaShow,
+		ctaText         = LOGIN_DEFAULTS.ctaText,
+		ctaColor        = LOGIN_DEFAULTS.ctaColor,
 	} = settings || {};
 
 	const isOneCol = layout === 'one-column';
@@ -38,53 +39,54 @@ export function LoginPreview( { settings } ) {
 	}, [ isOneCol, bgType, bgImageUrl, bgColor ] );
 
 	const logo = logoUrl || DEFAULT_LOGO;
-	const r    = `${ borderRadius }px`;
+
+	/*
+	 * Les réglages de l'utilisateur passent par des variables CSS plutôt que
+	 * par un attribut style sur chaque élément : le rayon était recopié cinq
+	 * fois et la couleur de texte deux, si bien qu'un oubli désynchronisait
+	 * l'aperçu du rendu réel. Ces valeurs sont les seules encore en ligne,
+	 * puisqu'elles changent à chaque frappe.
+	 */
+	const previewVars = {
+		'--g2rd-lp-radius':  `${ borderRadius }px`,
+		'--g2rd-lp-button':  buttonColor,
+		'--g2rd-lp-on-button': buttonTextColor,
+		'--g2rd-lp-links':   linksColor,
+		'--g2rd-lp-cta':     ctaColor,
+	};
 
 	return (
 		<div className="g2rd-login-preview">
-			<div
-				className="g2rd-lp-wrap"
-				style={ { display: 'flex', height: '380px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,.25)' } }
-			>
+			<div className="g2rd-lp-wrap" style={ previewVars }>
 				{ ! isOneCol && (
-					<div className="g2rd-lp-image" style={ { flex: 1, ...bgStyle } } />
+					<div className="g2rd-lp-image" style={ bgStyle } />
 				) }
 
 				<div
-					className="g2rd-lp-panel"
-					style={ {
-						width: isOneCol ? '100%' : '45%',
-						background: isOneCol ? undefined : panelColor,
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						padding: '28px',
-						gap: '12px',
-						...( isOneCol ? { ...bgStyle } : {} ),
-					} }
+					className={ `g2rd-lp-panel${ isOneCol ? ' is-one-col' : '' }` }
+					style={ isOneCol ? bgStyle : { background: panelColor } }
 				>
 					{ logo && (
-						<img src={ logo } alt="Logo" style={ { maxWidth: '160px', marginBottom: '8px' } } />
+						<img src={ logo } alt="Logo" className="g2rd-lp-logo" />
 					) }
 					{ welcomeText && (
-						<p style={ { color: '#fff', textAlign: 'center', fontSize: '13px', margin: 0 } }>
+						<p className="g2rd-lp-welcome">
 							{ welcomeText }
 						</p>
 					) }
 
-					<div style={ { width: '100%', background: 'rgba(255,255,255,.08)', borderRadius: r, padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' } }>
-						<div style={ { background: 'rgba(255,255,255,.15)', borderRadius: r, height: '34px' } } />
-						<div style={ { background: 'rgba(255,255,255,.15)', borderRadius: r, height: '34px' } } />
-						<div style={ { background: buttonColor, color: buttonTextColor, borderRadius: r, height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: '13px' } }>
+					<div className="g2rd-lp-form">
+						<div className="g2rd-lp-field" />
+						<div className="g2rd-lp-field" />
+						<div className="g2rd-lp-submit">
 							Se connecter
 						</div>
 					</div>
 
-					<span style={ { fontSize: '11px', color: linksColor } }>Mot de passe oublié ?</span>
+					<span className="g2rd-lp-link">Mot de passe oublié ?</span>
 
 					{ ctaShow && ctaText && (
-						<div style={ { background: ctaColor, color: buttonTextColor, borderRadius: r, padding: '7px 18px', fontSize: '12px', fontWeight: 600 } }>
+						<div className="g2rd-lp-cta">
 							{ ctaText }
 						</div>
 					) }

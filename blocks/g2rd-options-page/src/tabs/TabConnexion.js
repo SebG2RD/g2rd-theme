@@ -3,6 +3,7 @@ import { ToggleControl, SelectControl, TextControl, RangeControl } from '@wordpr
 import { ColorInput } from '../components/ColorInput';
 import { MediaPicker } from '../components/MediaPicker';
 import { LoginPreview } from '../components/LoginPreview';
+import { LOGIN_DEFAULTS } from '../components/login-defaults';
 
 const LAYOUT_OPTIONS = [
 	{ label: 'Deux colonnes (formulaire + image)', value: 'two-columns' },
@@ -79,12 +80,12 @@ export function TabConnexion( { settings, update } ) {
 								<div className="g2rd-color-grid">
 									<ColorInput
 										label="Panneau (fond)"
-										value={ s.panelColor || '#2f425d' }
+										value={ s.panelColor || LOGIN_DEFAULTS.panelColor }
 										onChange={ ( v ) => set( 'panelColor', v ) }
 									/>
 									<ColorInput
 										label="Liens (mot de passe…)"
-										value={ s.linksColor || '#cccccc' }
+										value={ s.linksColor || LOGIN_DEFAULTS.linksColor }
 										onChange={ ( v ) => set( 'linksColor', v ) }
 									/>
 								</div>
@@ -92,22 +93,22 @@ export function TabConnexion( { settings, update } ) {
 								<div className="g2rd-color-grid">
 									<ColorInput
 										label="Fond (normal)"
-										value={ s.buttonColor || '#d4a373' }
+										value={ s.buttonColor || LOGIN_DEFAULTS.buttonColor }
 										onChange={ ( v ) => set( 'buttonColor', v ) }
 									/>
 									<ColorInput
 										label="Texte (normal)"
-										value={ s.buttonTextColor || '#ffffff' }
+										value={ s.buttonTextColor || LOGIN_DEFAULTS.buttonTextColor }
 										onChange={ ( v ) => set( 'buttonTextColor', v ) }
 									/>
 									<ColorInput
 										label="Fond (hover)"
-										value={ s.buttonHoverColor || '#c4935c' }
+										value={ s.buttonHoverColor || LOGIN_DEFAULTS.buttonHoverColor }
 										onChange={ ( v ) => set( 'buttonHoverColor', v ) }
 									/>
 									<ColorInput
 										label="Texte (hover)"
-										value={ s.buttonHoverTextColor || '#ffffff' }
+										value={ s.buttonHoverTextColor || LOGIN_DEFAULTS.buttonHoverTextColor }
 										onChange={ ( v ) => set( 'buttonHoverTextColor', v ) }
 									/>
 								</div>
@@ -131,7 +132,7 @@ export function TabConnexion( { settings, update } ) {
 								) : (
 									<ColorInput
 										label="Couleur de fond"
-										value={ s.bgColor || '#1a2a3a' }
+										value={ s.bgColor || LOGIN_DEFAULTS.bgColor }
 										onChange={ ( v ) => set( 'bgColor', v ) }
 									/>
 								) }
@@ -170,22 +171,22 @@ export function TabConnexion( { settings, update } ) {
 										<div className="g2rd-color-grid">
 											<ColorInput
 												label="Fond (normal)"
-												value={ s.ctaColor || '#d4a373' }
+												value={ s.ctaColor || LOGIN_DEFAULTS.ctaColor }
 												onChange={ ( v ) => set( 'ctaColor', v ) }
 											/>
 											<ColorInput
 												label="Texte (normal)"
-												value={ s.buttonTextColor || '#ffffff' }
+												value={ s.buttonTextColor || LOGIN_DEFAULTS.buttonTextColor }
 												onChange={ ( v ) => set( 'buttonTextColor', v ) }
 											/>
 											<ColorInput
 												label="Fond (hover)"
-												value={ s.ctaHoverColor || '#c4935c' }
+												value={ s.ctaHoverColor || LOGIN_DEFAULTS.ctaHoverColor }
 												onChange={ ( v ) => set( 'ctaHoverColor', v ) }
 											/>
 											<ColorInput
 												label="Texte (hover)"
-												value={ s.ctaHoverTextColor || '#ffffff' }
+												value={ s.ctaHoverTextColor || LOGIN_DEFAULTS.ctaHoverTextColor }
 												onChange={ ( v ) => set( 'ctaHoverTextColor', v ) }
 											/>
 										</div>

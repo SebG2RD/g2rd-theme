@@ -130,7 +130,7 @@ export function TabIA() {
 
 	if ( loading ) {
 		return (
-			<div className="g2rd-tab-content" style={ { padding: '2rem', textAlign: 'center' } }>
+			<div className="g2rd-tab-content g2rd-tab-content--centered">
 				<Spinner />
 			</div>
 		);

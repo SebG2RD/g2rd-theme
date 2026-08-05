@@ -5,10 +5,10 @@ import apiFetch from '@wordpress/api-fetch';
 const { licenseRestUrl, nonce, licenseData: initialData } = window.G2RDOptionsData || {};
 
 const STATUS_CONFIG = {
-	active:   { label: 'Active',   color: '#00a32a', icon: 'dashicons-yes-alt' },
-	expired:  { label: 'Expirée',  color: '#d63638', icon: 'dashicons-clock' },
-	invalid:  { label: 'Invalide', color: '#d63638', icon: 'dashicons-dismiss' },
-	inactive: { label: 'Inactive', color: '#787c82', icon: 'dashicons-warning' },
+	active:   { label: 'Active',   tone: 'ok',      icon: 'dashicons-yes-alt' },
+	expired:  { label: 'Expirée',  tone: 'danger',  icon: 'dashicons-clock' },
+	invalid:  { label: 'Invalide', tone: 'danger',  icon: 'dashicons-dismiss' },
+	inactive: { label: 'Inactive', tone: 'neutral', icon: 'dashicons-warning' },
 };
 
 const initialState = {
@@ -148,14 +148,13 @@ export function TabLicence() {
 						Obtenir une licence →
 					</a>
 				</p>
-				<p style={ { color: '#646970', marginTop: -6, marginBottom: 16, fontSize: 12 } }>
+				<p className="g2rd-muted g2rd-section__footnote">
 					Les licences sont gérées via FluentCart.
 				</p>
 
 				{ notice && (
 					<div
-						className={ `notice notice-${ notice.type } is-dismissible` }
-						style={ { margin: '0 0 16px', padding: '8px 12px' } }
+						className={ `notice notice-${ notice.type } is-dismissible g2rd-notice-inline` }
 					>
 						<p>{ notice.message }</p>
 					</div>
@@ -165,33 +164,32 @@ export function TabLicence() {
 
 					<div className="g2rd-license-status">
 						<span
-							className={ `dashicons ${ badge.icon }` }
-							style={ { color: badge.color, fontSize: 22, width: 22, height: 22 } }
+							className={ `dashicons ${ badge.icon } g2rd-license-state__icon is-${ badge.tone }` }
 						></span>
-						<strong style={ { color: badge.color } }>{ badge.label }</strong>
+						<strong className={ `is-${ badge.tone }` }>{ badge.label }</strong>
 						{ isActive && maskedKey && (
 							<code className="g2rd-license-key">{ maskedKey }</code>
 						) }
 					</div>
 
 					{ isActive && (
-						<table className="widefat g2rd-license-details" style={ { marginBottom: 16 } }>
+						<table className="widefat g2rd-license-details">
 							<tbody>
 								{ licenseInfo.expires_at && (
 									<tr>
-										<td style={ { fontWeight: 600, width: 180 } }>Expiration</td>
+										<td className="is-label">Expiration</td>
 										<td>{ new Date( licenseInfo.expires_at ).toLocaleDateString( 'fr-FR' ) }</td>
 									</tr>
 								) }
 								{ licenseInfo.activations_left !== undefined && (
 									<tr>
-										<td style={ { fontWeight: 600 } }>Activations restantes</td>
+										<td className="is-label">Activations restantes</td>
 										<td>{ licenseInfo.activations_left }</td>
 									</tr>
 								) }
 								{ domain && (
 									<tr>
-										<td style={ { fontWeight: 600 } }>Domaine activé</td>
+										<td className="is-label">Domaine activé</td>
 										<td>{ domain }</td>
 									</tr>
 								) }
@@ -212,14 +210,13 @@ export function TabLicence() {
 								) : (
 									<>
 										<span
-											className="dashicons dashicons-no"
-											style={ { verticalAlign: 'middle', marginTop: -2 } }
+											className="dashicons dashicons-no g2rd-ico g2rd-ico--btn"
 										></span>
 										{ ' ' }Désactiver la licence
 									</>
 								) }
 							</Button>
-							<span style={ { color: '#787c82', fontSize: 12, marginLeft: 8 } }>
+							<span className="g2rd-muted g2rd-inline-note">
 								Cela libérera une activation utilisable sur un autre site.
 							</span>
 						</div>
@@ -240,7 +237,7 @@ export function TabLicence() {
 							>
 								{ isLoading ? <Spinner /> : 'Activer la licence' }
 							</Button>
-							<p style={ { color: '#787c82', fontSize: 12, marginTop: 8 } }>
+							<p className="g2rd-muted g2rd-form-note">
 								Vous trouverez votre clé dans votre espace client G2RD (FluentCart) sur g2rd.fr.
 							</p>
 						</div>

@@ -6,19 +6,16 @@ const { restBase, nonce } = window.G2RDOptionsData || {};
 const API = `${ restBase }g2rd/v1`;
 
 const DECISION_LABELS = {
-	allowed:     { label: 'Autorisé',    color: '#166534', bg: '#dcfce7' },
-	denied:      { label: 'Refusé',      color: '#991b1b', bg: '#fee2e2' },
-	pending:     { label: 'En attente',  color: '#92400e', bg: '#fef3c7' },
-	rolled_back: { label: 'Annulé',      color: '#4b5563', bg: '#f3f4f6' },
+	allowed:     { label: 'Autorisé',   tone: 'success' },
+	denied:      { label: 'Refusé',     tone: 'danger' },
+	pending:     { label: 'En attente', tone: 'warning' },
+	rolled_back: { label: 'Annulé',     tone: 'neutral' },
 };
 
 function DecisionBadge( { decision } ) {
-	const cfg = DECISION_LABELS[ decision ] || { label: decision, color: '#374151', bg: '#f3f4f6' };
+	const cfg = DECISION_LABELS[ decision ] || { label: decision, tone: 'neutral' };
 	return (
-		<span style={ {
-			background: cfg.bg, color: cfg.color,
-			borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
-		} }>
+		<span className={ `g2rd-tag g2rd-tag--${ cfg.tone }` }>
 			{ cfg.label }
 		</span>
 	);
@@ -75,13 +72,15 @@ export function TabMcpAudit() {
 	return (
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
-				<div style={ { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } }>
-					<h2 className="g2rd-section__title" style={ { margin: 0 } }>
+				<div className="g2rd-section__head">
+					<h2 className="g2rd-section__title">
 						<span className="dashicons dashicons-list-view"></span>
 						Journal d'audit MCP
 					</h2>
-					<div style={ { display: 'flex', gap: 12, alignItems: 'center' } }>
+					<div className="g2rd-row g2rd-row--loose">
 						<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
+							label="Filtrer par décision"
+							hideLabelFromVision
 							value={ decision }
 							options={ [
 								{ label: 'Toutes les décisions', value: '' },
@@ -91,10 +90,9 @@ export function TabMcpAudit() {
 								{ label: 'Annulé',      value: 'rolled_back' },
 							] }
 							onChange={ handleDecisionChange }
-							style={ { margin: 0 } }
 						/>
 						<Button variant="secondary" isSmall onClick={ loadEntries } disabled={ isLoading }>
-							<span className="dashicons dashicons-update" style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
+							<span className="dashicons dashicons-update g2rd-ico"></span>
 							Rafraîchir
 						</Button>
 					</div>
@@ -104,20 +102,20 @@ export function TabMcpAudit() {
 				</p>
 
 				{ notice && (
-					<div className={ `notice notice-${ notice.type } is-dismissible` } style={ { margin: '0 0 16px', padding: '8px 12px' } }>
+					<div className={ `notice notice-${ notice.type } is-dismissible g2rd-notice-inline` }>
 						<p>{ notice.message }</p>
 					</div>
 				) }
 
 				{ isLoading ? (
-					<div style={ { textAlign: 'center', padding: 32 } }><Spinner /></div>
+					<div className="g2rd-loading"><Spinner /></div>
 				) : entries.length === 0 ? (
-					<p style={ { color: '#787c82', fontStyle: 'italic' } }>Aucune entrée.</p>
+					<p className="g2rd-muted g2rd-muted--italic">Aucune entrée.</p>
 				) : (
-					<table className="widefat striped" style={ { fontSize: 13 } }>
+					<table className="widefat striped g2rd-table">
 						<thead>
 							<tr>
-								<th style={ { width: 160 } }>Date (UTC)</th>
+								<th className="col-date">Date (UTC)</th>
 								<th>Outil</th>
 								<th>Décision</th>
 								<th>Utilisateur</th>
@@ -127,11 +125,11 @@ export function TabMcpAudit() {
 						<tbody>
 							{ entries.map( ( e ) => (
 								<tr key={ e.id }>
-									<td style={ { color: '#787c82', whiteSpace: 'nowrap' } }>{ formatDate( e.created_at ) }</td>
-									<td><code style={ { fontSize: 12 } }>{ e.ability_name || '—' }</code></td>
+									<td className="is-date">{ formatDate( e.created_at ) }</td>
+									<td><code className="g2rd-code-inline">{ e.ability_name || '—' }</code></td>
 									<td><DecisionBadge decision={ e.decision } /></td>
-									<td style={ { fontSize: 12, color: '#787c82' } }>{ e.user_id ? `#${ e.user_id }` : '—' }</td>
-									<td style={ { fontSize: 12, fontFamily: 'monospace', color: '#787c82' } }>{ e.ip_address || '—' }</td>
+									<td className="is-date">{ e.user_id ? `#${ e.user_id }` : '—' }</td>
+									<td className="is-mono">{ e.ip_address || '—' }</td>
 								</tr>
 							) ) }
 						</tbody>
@@ -140,7 +138,7 @@ export function TabMcpAudit() {
 
 				{ /* ── Pagination ── */ }
 				{ totalPages > 1 && (
-					<div style={ { display: 'flex', gap: 8, alignItems: 'center', marginTop: 16 } }>
+					<div className="g2rd-pagination">
 						<Button
 							variant="secondary" isSmall
 							onClick={ () => setPage( ( p ) => Math.max( 1, p - 1 ) ) }
@@ -148,7 +146,7 @@ export function TabMcpAudit() {
 						>
 							← Précédent
 						</Button>
-						<span style={ { fontSize: 13, color: '#787c82' } }>
+						<span className="g2rd-muted">
 							Page { page } / { totalPages }
 						</span>
 						<Button
