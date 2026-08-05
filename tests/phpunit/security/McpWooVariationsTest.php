@@ -121,6 +121,34 @@ final class McpWooVariationsTest extends TestCase {
 		$this->assertSame( '', $result['data']['sale_price'] );
 	}
 
+	/**
+	 * Vider le prix normal est refusé.
+	 *
+	 * Une variation sans prix normal n'est plus achetable, et un prix normal vide
+	 * neutralisait au passage la comparaison promo/normal : un prix promo
+	 * quelconque serait alors passé sans contrôle.
+	 */
+	public function test_emptying_regular_price_is_refused(): void {
+		$result = McpWooVariations::validate( [ 'regular_price' => '' ] );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertStringContainsString( 'not purchasable', \implode( ' ', $result['errors'] ) );
+	}
+
+	/**
+	 * Le contournement de la vérification promo est bien fermé.
+	 */
+	public function test_emptying_regular_does_not_bypass_the_sale_check(): void {
+		$result = McpWooVariations::validate(
+			[
+				'regular_price' => '',
+				'sale_price'    => '999.00',
+			]
+		);
+
+		$this->assertFalse( $result['ok'] );
+	}
+
 	// ── Mise à jour partielle ─────────────────────────────────────────────────
 
 	/**

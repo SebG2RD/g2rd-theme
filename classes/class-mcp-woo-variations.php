@@ -350,8 +350,19 @@ class McpWooVariations {
 				continue;
 			}
 
-			// Chaîne vide = retirer le prix, ce qui est une intention valide.
 			if ( '' === $args[ $field ] || null === $args[ $field ] ) {
+				/*
+				 * Vider le prix promo est une intention valide. Vider le prix
+				 * NORMAL rendrait la variation non achetable sans le dire, et
+				 * neutraliserait au passage la comparaison promo/normal ci-dessous.
+				 * McpWooProducts ignore déjà un prix normal vide : on refuse ici
+				 * explicitement plutôt que d'ignorer en silence.
+				 */
+				if ( 'regular_price' === $field ) {
+					$errors[] = 'regular_price cannot be emptied: a variation without a regular price is not purchasable. Disable it with enabled=false instead.';
+					continue;
+				}
+
 				$data[ $field ] = '';
 				continue;
 			}
@@ -510,7 +521,7 @@ class McpWooVariations {
 			];
 		}
 
-		$declared = \array_change_key_case( (array) $parent->get_variation_attributes(), \CASE_LOWER );
+		$declared   = \array_change_key_case( (array) $parent->get_variation_attributes(), \CASE_LOWER );
 		$normalised = [];
 
 		foreach ( $attributes as $taxonomy => $value ) {
@@ -528,7 +539,48 @@ class McpWooVariations {
 				];
 			}
 
-			$normalised[ $taxonomy ] = (string) $value;
+			$value = (string) $value;
+
+			/*
+			 * La valeur doit exister parmi les options déclarées. Une coquille
+			 * s'enregistrerait sans erreur et produirait une variation que les
+			 * sélecteurs de la boutique ne peuvent jamais faire correspondre.
+			 */
+			$allowed = \array_map( 'strval', (array) $declared[ $taxonomy ] );
+
+			if ( ! \in_array( $value, $allowed, true ) ) {
+				return [
+					'ok'    => false,
+					'error' => \sprintf(
+						'Value "%s" is not an option of attribute "%s" on product %d. Accepted values: %s.',
+						$value,
+						$taxonomy,
+						$product_id,
+						\implode( ', ', $allowed )
+					),
+				];
+			}
+
+			$normalised[ $taxonomy ] = $value;
+		}
+
+		/*
+		 * Tous les attributs de variation doivent être fournis. WooCommerce
+		 * interprète un attribut absent comme « n'importe quelle valeur », ce qui
+		 * crée une variation chevauchant les autres — et la détection de doublon
+		 * ci-dessous, qui compare des combinaisons complètes, la manquerait.
+		 */
+		$missing = \array_diff( \array_keys( $declared ), \array_keys( $normalised ) );
+
+		if ( [] !== $missing ) {
+			return [
+				'ok'    => false,
+				'error' => \sprintf(
+					'Missing attribute(s): %s. Every variation attribute declared on product %d must be supplied, otherwise WooCommerce treats the missing one as "any value" and the variation overlaps the existing ones.',
+					\implode( ', ', $missing ),
+					$product_id
+				),
+			];
 		}
 
 		if ( null !== self::find_matching_variation( $parent, $normalised ) ) {
@@ -728,8 +780,10 @@ class McpWooVariations {
 			\WC_Product_Variable::sync( $parent_id );
 		}
 
-		\wp_cache_flush();
-
+		// Pas de wp_cache_flush() : vider tout le cache objet du site pour une
+		// variation pénaliserait chaque requête en cours. Les transients ci-dessus
+		// ciblent déjà le produit concerné ; seul le cache PAGE doit suivre, car
+		// il sert encore l'ancienne fourchette de prix.
 		if ( \function_exists( 'rocket_clean_domain' ) ) {
 			\rocket_clean_domain();
 		}
