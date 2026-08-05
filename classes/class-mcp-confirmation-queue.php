@@ -37,8 +37,20 @@ namespace G2RD;
  */
 class McpConfirmationQueue {
 
-	/** @var int Confirmation TTL in minutes. */
-	private const TTL_MINUTES = 15;
+	/**
+	 * Confirmation TTL in minutes.
+	 *
+	 * 15 minutes s'est révélé trop court pour un flux passant par l'e-mail :
+	 * il faut compter la latence de distribution, puis le temps de lire un
+	 * payload et de décider — et l'administrateur n'est pas nécessairement
+	 * devant sa boîte. Une demande expirée oblige l'agent à tout resoumettre.
+	 *
+	 * 60 minutes laisse une marge réaliste tout en gardant la fenêtre bornée :
+	 * un lien de confirmation n'a pas vocation à rester valable une journée.
+	 *
+	 * @var int
+	 */
+	private const TTL_MINUTES = 60;
 
 	/** @var int Token entropy in bytes (produces 64-char hex string). */
 	private const TOKEN_BYTES = 32;

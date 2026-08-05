@@ -236,6 +236,47 @@ final class McpWooProductsTest extends TestCase {
 		$this->assertStringContainsString( 'decimal amount', $summary );
 	}
 
+	// ── Statut : un champ absent ne doit jamais être réécrit ──────────────────
+
+	/**
+	 * Une mise à jour sans statut ne produit aucune clé « status ».
+	 *
+	 * Le défaut : la clé était toujours créée avec « draft » par défaut, et
+	 * apply_fields() la testait avec isset() — donc toujours vrai. Une mise à
+	 * jour ne portant que sur le prix repassait le produit en brouillon et le
+	 * retirait de la boutique, sans que rien ne le signale.
+	 */
+	public function test_update_without_status_does_not_carry_one(): void {
+		$result = McpWooProducts::validate( [ 'regular_price' => '19.99' ], false );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertArrayNotHasKey(
+			'status',
+			$result['data'],
+			'Un statut absent de la requête ne doit jamais apparaître dans les données à écrire.'
+		);
+	}
+
+	/**
+	 * Un statut explicitement fourni en mise à jour est bien conservé.
+	 */
+	public function test_update_with_status_keeps_it(): void {
+		$result = McpWooProducts::validate( [ 'status' => 'publish' ], false );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( 'publish', $result['data']['status'] );
+	}
+
+	/**
+	 * À la création, « draft » reste le défaut voulu.
+	 */
+	public function test_create_defaults_to_draft(): void {
+		$result = McpWooProducts::validate( $this->payload( [ 'status' => null ] ) );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( 'draft', $result['data']['status'] );
+	}
+
 	// ── Garde WooCommerce ─────────────────────────────────────────────────────
 
 	/**
