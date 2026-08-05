@@ -74,7 +74,7 @@
     "npm": ">=8.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.0",
+    "@playwright/test": "^1.62.1",
     "@wordpress/scripts": "^33.0.0",
     "dotenv": "^17.4.2"
   },
