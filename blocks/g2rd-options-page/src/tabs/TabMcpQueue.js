@@ -5,6 +5,21 @@ import apiFetch from '@wordpress/api-fetch';
 const { restBase, nonce } = window.G2RDOptionsData || {};
 const API = `${ restBase }g2rd/v1`;
 
+// Taille du payload en unité lisible : « 61 ko » parle, « 62 464 » non.
+function formatBytes( bytes ) {
+	const n = Number( bytes ) || 0;
+
+	if ( n < 1024 ) {
+		return `${ n } o`;
+	}
+
+	if ( n < 1024 * 1024 ) {
+		return `${ ( n / 1024 ).toFixed( 1 ).replace( '.', ',' ) } ko`;
+	}
+
+	return `${ ( n / ( 1024 * 1024 ) ).toFixed( 2 ).replace( '.', ',' ) } Mo`;
+}
+
 function formatDate( dt ) {
 	if ( ! dt ) return '—';
 	return new Date( dt ).toLocaleString( 'fr-FR', {
@@ -141,12 +156,31 @@ export function TabMcpQueue() {
 												</strong>
 												<span style={ { fontSize: 12, color: '#787c82' } }>— #{ e.id }</span>
 											</div>
+											{ e.target && (
+												<div style={ { fontSize: 13, marginBottom: 6 } }>
+													Cible : <code>{ e.target }</code>
+												</div>
+											) }
 											<div style={ { fontSize: 12, color: '#787c82', display: 'flex', gap: 16, flexWrap: 'wrap' } }>
 												<span>Utilisateur : <strong>#{ e.user_id }</strong></span>
 												<span>IP : <code>{ e.ip_address }</code></span>
 												<span>Soumis le : { formatDate( e.created_at ) }</span>
 												<span>Expire dans : <ExpiryCountdown expiresAt={ e.expires_at } /></span>
+												{ e.payload_bytes > 0 && (
+													<span>Taille : { formatBytes( e.payload_bytes ) }</span>
+												) }
 											</div>
+											{ e.superseded_by && (
+												<div style={ {
+													marginTop: 8, padding: '8px 12px', borderRadius: 4,
+													background: '#fef3c7', border: '1px solid #d97706',
+													fontSize: 12, color: '#92400e',
+												} }>
+													<span className="dashicons dashicons-info-outline" style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+													Une demande plus récente (<strong>#{ e.superseded_by }</strong>) vise la même cible avec le même outil.
+													Les deux restent en attente : confirmer celle-ci appliquera une version antérieure.
+												</div>
+											) }
 										</div>
 										<div style={ { display: 'flex', gap: 8, flexShrink: 0 } }>
 											<Button
