@@ -122,7 +122,7 @@ export function TabMcpQueue() {
 				</div>
 				<p className="g2rd-section__desc">
 					Opérations d'écriture soumises par des agents MCP en attente de votre approbation.
-					Chaque demande expire après 15 minutes.
+					Chaque demande expire après 60 minutes.
 				</p>
 
 				{ notice && (

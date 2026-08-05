@@ -108,13 +108,25 @@ class McpWooProducts {
 			);
 		}
 
-		$data['status'] = \sanitize_key( (string) ( $args['status'] ?? 'draft' ) );
-		if ( ! \in_array( $data['status'], self::STATUSES, true ) ) {
-			$errors[] = \sprintf(
-				'status "%s" is invalid. Accepted values: %s.',
-				$data['status'],
-				\implode( ', ', self::STATUSES )
-			);
+		/*
+		 * La clé n'est créée que si le statut est réellement fourni, ou à la
+		 * création où « draft » est le défaut voulu.
+		 *
+		 * Auparavant elle était toujours créée, et apply_fields() la testait avec
+		 * isset() — donc toujours vrai. Une mise à jour ne portant que sur le prix
+		 * repassait le produit en brouillon et le retirait de la boutique, sans
+		 * que rien ne le signale.
+		 */
+		if ( $creating || isset( $args['status'] ) ) {
+			$data['status'] = \sanitize_key( (string) ( $args['status'] ?? 'draft' ) );
+
+			if ( ! \in_array( $data['status'], self::STATUSES, true ) ) {
+				$errors[] = \sprintf(
+					'status "%s" is invalid. Accepted values: %s.',
+					$data['status'],
+					\implode( ', ', self::STATUSES )
+				);
+			}
 		}
 
 		// ── Prix ──────────────────────────────────────────────────────────────
@@ -278,7 +290,8 @@ class McpWooProducts {
 		}
 
 		$lines[] = '• Nom : ' . ( '' !== $data['name'] ? $data['name'] : '(inchangé)' );
-		$lines[] = '• Type : ' . $data['type'] . ' — Statut : ' . $data['status'];
+		// « inchangé » et non « draft » : le statut n'est écrit que s'il est fourni.
+		$lines[] = '• Type : ' . $data['type'] . ' — Statut : ' . ( $data['status'] ?? '(inchangé)' );
 
 		if ( '' !== $data['regular_price'] ) {
 			$lines[] = '';
@@ -416,7 +429,7 @@ class McpWooProducts {
 		}
 
 		try {
-			self::apply_fields( $product, $data, true );
+			self::apply_fields( $product, $data );
 			$product->save();
 		} catch ( \Throwable $e ) {
 			return [
@@ -439,17 +452,21 @@ class McpWooProducts {
 	 * Every field is optional on update: null means "not supplied", and is
 	 * skipped so a partial payload never wipes existing data.
 	 *
-	 * @param object               $product   WC_Product instance.
-	 * @param array<string, mixed> $data      Validated payload.
-	 * @param bool                 $updating  True when updating an existing product.
+	 * Le drapeau $updating a disparu : la présence d'une clé dans $data suffit
+	 * désormais à décider s'il faut écrire, création ou mise à jour confondues.
+	 *
+	 * @param object               $product WC_Product instance.
+	 * @param array<string, mixed> $data    Validated payload.
 	 * @return void
 	 */
-	private static function apply_fields( $product, array $data, bool $updating = false ): void {
+	private static function apply_fields( $product, array $data ): void {
 		if ( '' !== $data['name'] ) {
 			$product->set_name( $data['name'] );
 		}
 
-		if ( ! $updating || isset( $data['status'] ) ) {
+		// array_key_exists, pas isset : la clé n'est présente que si le statut a
+		// été fourni, ou à la création.
+		if ( \array_key_exists( 'status', $data ) ) {
 			$product->set_status( $data['status'] );
 		}
 
