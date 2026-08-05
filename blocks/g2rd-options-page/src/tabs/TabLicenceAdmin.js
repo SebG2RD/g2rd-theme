@@ -105,8 +105,8 @@ export function TabLicenceAdmin() {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<div style={ { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } }>
-					<h2 className="g2rd-section__title" style={ { margin: 0 } }>
+				<div className="g2rd-section__head">
+					<h2 className="g2rd-section__title">
 						<span className="dashicons dashicons-admin-network"></span>
 						Gestion des licences
 					</h2>
@@ -118,15 +118,7 @@ export function TabLicenceAdmin() {
 						title="Rafraîchir la liste"
 					>
 						<span
-							className="dashicons dashicons-update"
-							style={ {
-								fontSize: 16,
-								width: 16,
-								height: 16,
-								verticalAlign: 'middle',
-								marginRight: 4,
-								animation: isLoading ? 'g2rd-spin 1s linear infinite' : 'none',
-							} }
+							className={ `dashicons dashicons-update g2rd-ico${ isLoading ? ' g2rd-ico--spin' : '' }` }
 						></span>
 						Rafraîchir
 					</Button>
@@ -135,95 +127,88 @@ export function TabLicenceAdmin() {
 					Créez et attribuez les clés de licence à vos clients. Chaque clé est vérifiée
 					lorsque le client l'active dans <strong>Options G2RD → Licence</strong> sur son site.
 				</p>
-				<p style={ { color: '#646970', marginTop: -6, marginBottom: 16, fontSize: 12 } }>
+				<p className="g2rd-muted g2rd-section__footnote">
 					Référence produit : licences gérées via FluentCart.
 				</p>
 
 				{ notice && (
 					<div
-						className={ `notice notice-${ notice.type } is-dismissible` }
-						style={ { margin: '0 0 16px', padding: '8px 12px' } }
+						className={ `notice notice-${ notice.type } is-dismissible g2rd-notice-inline` }
 					>
 						<p>{ notice.message }</p>
 					</div>
 				) }
 
 				{ /* ── Formulaire de création ── */ }
-				<div style={ { background: '#f9f9f9', border: '1px solid #ddd', borderRadius: 6, padding: '20px 24px', marginBottom: 24 } }>
-					<h3 style={ { marginTop: 0, marginBottom: 20, fontSize: 14, fontWeight: 600 } }>Créer une nouvelle licence</h3>
+				<div className="g2rd-panel">
+					<h3 className="g2rd-panel__title">Créer une nouvelle licence</h3>
 
-					<div style={ {
-						display: 'grid',
-						gridTemplateColumns: 'minmax(200px, 2fr) 120px minmax(150px, 1fr) auto',
-						gap: 16,
-						alignItems: 'end',
-					} }>
+					<div className="g2rd-form-grid g2rd-form-grid--licences">
 						<div>
-							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
+							<label className="g2rd-field__label" htmlFor="g2rd-licence-key">
 								Clé personnalisée
 							</label>
 							<input
+								id="g2rd-licence-key"
 								type="text"
 								value={ customKey }
 								onChange={ ( e ) => setCustomKey( e.target.value ) }
 								placeholder="G2RD-XXXXX-XXXXX-XXXXX-XXXXX"
-								className="regular-text"
-								style={ { width: '100%', boxSizing: 'border-box' } }
+								className="regular-text g2rd-field__input"
 							/>
-							<p style={ { margin: '4px 0 0', fontSize: 12, color: '#787c82' } }>
+							<p className="g2rd-field__hint">
 								Laisser vide pour générer automatiquement
 							</p>
 						</div>
 
 						<div>
-							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
+							<label className="g2rd-field__label" htmlFor="g2rd-licence-max">
 								Activations max
 							</label>
 							<input
+								id="g2rd-licence-max"
 								type="number"
 								min={ 1 }
 								max={ 100 }
 								value={ maxActivations }
 								onChange={ ( e ) => setMaxActivations( Math.max( 1, parseInt( e.target.value, 10 ) || 1 ) ) }
-								className="regular-text"
-								style={ { width: '100%', boxSizing: 'border-box' } }
+								className="regular-text g2rd-field__input"
 							/>
-							<p style={ { margin: '4px 0 0', fontSize: 12, color: 'transparent' } }>
+							<p className="g2rd-field__hint g2rd-field__hint--ghost" aria-hidden="true">
 								&nbsp;
 							</p>
 						</div>
 
 						<div>
-							<label style={ { display: 'block', fontWeight: 600, marginBottom: 6, fontSize: 13 } }>
+							<label className="g2rd-field__label" htmlFor="g2rd-licence-expiry">
 								Expiration{ ' ' }
-								<span style={ { fontWeight: 400, color: '#787c82' } }>(optionnel)</span>
+								<span className="g2rd-field__optional">(optionnel)</span>
 							</label>
 							<input
+								id="g2rd-licence-expiry"
 								type="date"
 								value={ expiresAt }
 								onChange={ ( e ) => setExpiresAt( e.target.value ) }
-								className="regular-text"
-								style={ { width: '100%', boxSizing: 'border-box' } }
+								className="regular-text g2rd-field__input"
 							/>
-							<p style={ { margin: '4px 0 0', fontSize: 12, color: 'transparent' } }>
+							<p className="g2rd-field__hint g2rd-field__hint--ghost" aria-hidden="true">
 								&nbsp;
 							</p>
 						</div>
 
-						<div style={ { paddingBottom: 22 } }>
+						<div className="g2rd-field__action g2rd-field__action--offset">
 							<Button
 								variant="primary"
 								onClick={ handleCreate }
 								disabled={ isCreating }
-								style={ { whiteSpace: 'nowrap' } }
+								className="g2rd-nowrap"
 							>
 								{ isCreating ? (
 									<Spinner />
 								) : (
 									<>
 										<span
-											className="dashicons dashicons-plus-alt"
-											style={ { verticalAlign: 'middle', marginTop: -2 } }
+											className="dashicons dashicons-plus-alt g2rd-ico g2rd-ico--btn"
 										></span>
 										{ ' ' }Créer
 									</>
@@ -235,21 +220,21 @@ export function TabLicenceAdmin() {
 
 				{ /* ── Tableau des clés ── */ }
 				{ isLoading ? (
-					<div style={ { textAlign: 'center', padding: 32 } }><Spinner /></div>
+					<div className="g2rd-loading"><Spinner /></div>
 				) : licenses.length === 0 ? (
-					<p style={ { color: '#787c82', fontStyle: 'italic' } }>
+					<p className="g2rd-muted g2rd-muted--italic">
 						Aucune clé de licence enregistrée.
 					</p>
 				) : (
-					<table className="widefat striped">
+					<table className="widefat striped g2rd-table">
 						<thead>
 							<tr>
-								<th style={ { width: '30%' } }>Clé</th>
+								<th className="col-key">Clé</th>
 								<th>Statut</th>
 								<th>Activations</th>
 								<th>Créée le</th>
 								<th>Expiration</th>
-								<th style={ { width: '22%' } }>Domaines actifs</th>
+								<th className="col-domains">Domaines actifs</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -257,77 +242,63 @@ export function TabLicenceAdmin() {
 							{ licenses.map( ( { key, status, max_activations, activations_used, expires_at, created_at, activated_domains, source } ) => (
 								<tr key={ key }>
 									<td>
-										<div style={ { display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' } }>
-											<code style={ { fontSize: 12, wordBreak: 'break-all' } }>{ key }</code>
+										<div className="g2rd-row g2rd-row--tight g2rd-row--wrap">
+											<code className="g2rd-key">{ key }</code>
 											<button
 												type="button"
-												className="button-link"
+												className="button-link g2rd-copy-btn"
 												onClick={ () => copyKey( key ) }
 												title="Copier la clé"
-												style={ { cursor: 'pointer', verticalAlign: 'middle', flexShrink: 0 } }
 											>
-												<span className="dashicons dashicons-clipboard" style={ { fontSize: 16, width: 16, height: 16 } }></span>
+												<span className="dashicons dashicons-clipboard g2rd-ico g2rd-ico--bare"></span>
 											</button>
 										</div>
 										{ source === 'fluentcart' && (
-											<span style={ {
-												background: '#7f54b3',
-												borderRadius: 3,
-												color: '#fff',
-												fontSize: 10,
-												fontWeight: 700,
-												padding: '1px 6px',
-												display: 'inline-block',
-												marginTop: 4,
-												letterSpacing: '0.03em',
-											} }>
+											<span className="g2rd-tag g2rd-tag--vendor">
 												FluentCart
 											</span>
 										) }
 									</td>
 									<td>
-										<span style={ { color: status === 'active' ? '#00a32a' : '#d63638', fontWeight: 600 } }>
+										<span className={ status === 'active' ? 'g2rd-state--ok' : 'g2rd-state--danger' }>
 											{ status === 'active' ? 'Active' : 'Inactive' }
 										</span>
 									</td>
 									<td>
-										<span style={ {
-											fontWeight: 600,
-											color: activations_used >= max_activations ? '#d63638' : 'inherit',
-										} }>
+										<span className={ activations_used >= max_activations ? 'g2rd-state--danger' : 'g2rd-strong' }>
 											{ activations_used }
 										</span>
 										{ ' / ' }{ max_activations }
 									</td>
-									<td style={ { fontSize: 12, color: '#787c82' } }>
+									<td className="is-date">
 										{ formatDate( created_at ) }
 									</td>
 									<td>
 										{ expires_at
 											? new Date( expires_at ).toLocaleDateString( 'fr-FR' )
-											: <span style={ { color: '#787c82' } }>—</span>
+											: <span className="g2rd-dash">—</span>
 										}
 									</td>
-									<td style={ { fontSize: 11 } }>
+									<td className="g2rd-domains">
 										{ activated_domains.length > 0
 											? activated_domains.map( ( d ) => (
-												<div key={ d.url } style={ { marginBottom: 4 } }>
+												<div key={ d.url } className="g2rd-domains__item">
 													<a
 														href={ d.url }
 														target="_blank"
 														rel="noreferrer"
-														style={ { display: 'block', wordBreak: 'break-all' } }
+														className="g2rd-domains__url"
 													>
 														{ d.url }
 													</a>
 													{ d.activated_at && (
-														<span style={ { color: '#9ca3af', display: 'block' } }>
+														<span className="g2rd-domains__date">
 															{ formatDate( d.activated_at ) }
 														</span>
 													) }
 												</div>
 											) )
-											: <em style={ { color: '#787c82' } }>Aucun</em>
+											: <em className="g2rd-dash">Aucun</em>
 										}
 									</td>
 									<td>
@@ -346,14 +317,6 @@ export function TabLicenceAdmin() {
 					</table>
 				) }
 			</section>
-
-			<style>{ `
-				@keyframes g2rd-spin {
-					from { transform: rotate(0deg); }
-					to   { transform: rotate(360deg); }
-				}
-			` }</style>
-
 		</div>
 	);
 }

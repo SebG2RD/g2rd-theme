@@ -763,6 +763,90 @@
 	text-align: center;
 }
 
+/*
+ * Aperçu de la page de connexion. Seules les valeurs pilotées par les
+ * réglages restent en ligne, injectées en variables sur `.g2rd-lp-wrap`.
+ */
+.g2rd-lp-wrap {
+	display: flex;
+	height: 380px;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 8px 32px rgba( 0, 0, 0, 0.25 );
+}
+
+.g2rd-lp-image {
+	flex: 1;
+}
+
+.g2rd-lp-panel {
+	display: flex;
+	width: 45%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 28px;
+	gap: 12px;
+}
+
+.g2rd-lp-panel.is-one-col {
+	width: 100%;
+}
+
+.g2rd-lp-logo {
+	max-width: 160px;
+	margin-bottom: 8px;
+}
+
+.g2rd-lp-welcome {
+	margin: 0;
+	font-size: 13px;
+	text-align: center;
+	color: #fff;
+}
+
+.g2rd-lp-form {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: 10px;
+	padding: 16px;
+	border-radius: var(--g2rd-lp-radius);
+	background: rgba( 255, 255, 255, 0.08 );
+}
+
+.g2rd-lp-field {
+	height: 34px;
+	border-radius: var(--g2rd-lp-radius);
+	background: rgba( 255, 255, 255, 0.15 );
+}
+
+.g2rd-lp-submit {
+	display: flex;
+	height: 36px;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--g2rd-lp-radius);
+	background: var(--g2rd-lp-button);
+	color: var(--g2rd-lp-on-button);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.g2rd-lp-link {
+	font-size: 11px;
+	color: var(--g2rd-lp-links);
+}
+
+.g2rd-lp-cta {
+	padding: 7px 18px;
+	border-radius: var(--g2rd-lp-radius);
+	background: var(--g2rd-lp-cta);
+	color: var(--g2rd-lp-on-button);
+	font-size: 12px;
+	font-weight: 600;
+}
+
 /* ── Color input ──────────────────────────────────────────────── */
 .g2rd-color-input {
 	display: flex;
@@ -983,4 +1067,972 @@
 	.g2rd-business-grid { grid-template-columns: 1fr 1fr; }
 
 	.g2rd-header::after { display: none; }
+}
+
+/* =============================================================
+   Composants transverses
+   -------------------------------------------------------------
+   Ajoutés pour remplacer les styles inline dispersés dans les
+   onglets : 178 attributs style={{}} y réinventaient les mêmes
+   encarts, badges et blocs de code, avec 41 couleurs en dur.
+   Tout passe désormais par les tokens ci-dessus, donc un
+   changement de palette se propage partout.
+   ============================================================= */
+
+/* ── Tokens sémantiques ───────────────────────────────────────── */
+.g2rd-app {
+	--g2rd-success:      #16a34a;
+	--g2rd-success-bg:   rgba( 22, 163, 74, 0.08 );
+	--g2rd-success-text: #166534;
+	--g2rd-warning:      #d97706;
+	--g2rd-warning-bg:   rgba( 217, 119, 6, 0.08 );
+	--g2rd-warning-text: #92400e;
+	--g2rd-danger:       #d63638;
+	--g2rd-danger-bg:    rgba( 214, 54, 56, 0.08 );
+	--g2rd-danger-text:  #a02123;
+	--g2rd-info-bg:      rgba( 37, 99, 235, 0.06 );
+	--g2rd-code-bg:      #1e1e2e;
+	--g2rd-code-text:    #cdd6f4;
+
+	/*
+	 * Tons de texte et d'aplat calculés pour rester au-dessus de 4,5:1 sur
+	 * leur fond. Les couleurs vives (--g2rd-blue, --g2rd-success,
+	 * --g2rd-danger) tombent entre 3,5 et 4,3:1 avec du texte 12–13 px,
+	 * ce qui est sous le seuil AA : elles servent aux bordures et aux
+	 * icônes, jamais de support à du texte.
+	 */
+	--g2rd-info-text:      #1e40af; /* 7,8:1 sur --g2rd-blue-dim */
+	--g2rd-neutral-text:   #4b5563; /* 7,0:1 sur --g2rd-surface-2 */
+	--g2rd-success-strong: #15803d; /* 5,0:1 avec du texte blanc */
+}
+
+/* ── Texte secondaire ─────────────────────────────────────────── */
+/* Remplace 27 occurrences de #787c82 posées à la main. */
+.g2rd-muted {
+	color: var(--g2rd-text-mid);
+	font-size: 12px;
+}
+
+.g2rd-muted--sm {
+	font-size: 11px;
+}
+
+/* ── Encarts d'état ───────────────────────────────────────────── */
+.g2rd-alert {
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 12px 16px;
+	border: 1px solid var(--g2rd-border);
+	border-left-width: 3px;
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-surface-2);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.g2rd-alert--success {
+	border-left-color: var(--g2rd-success);
+	background: var(--g2rd-success-bg);
+	color: var(--g2rd-success-text);
+}
+
+.g2rd-alert--warning {
+	border-left-color: var(--g2rd-warning);
+	background: var(--g2rd-warning-bg);
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-alert--danger {
+	border-left-color: var(--g2rd-danger);
+	background: var(--g2rd-danger-bg);
+	color: var(--g2rd-danger-text);
+}
+
+.g2rd-alert--info {
+	border-left-color: var(--g2rd-blue);
+	background: var(--g2rd-info-bg);
+}
+
+.g2rd-alert__body {
+	flex: 1;
+	min-width: 0;
+}
+
+/* ── Bloc de code ─────────────────────────────────────────────── */
+/* Les snippets MCP : fond sombre, chasse fixe, débordement contenu. */
+.g2rd-code {
+	position: relative;
+	margin: 0;
+	padding: 12px 40px 12px 14px;
+	border-radius: 6px;
+	background: var(--g2rd-code-bg);
+	color: var(--g2rd-code-text);
+	font-family: var(--g2rd-mono);
+	font-size: 12px;
+	line-height: 1.6;
+	white-space: pre;
+	overflow-x: auto;
+}
+
+.g2rd-code__copy {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+
+/* ── État vide ────────────────────────────────────────────────── */
+.g2rd-empty {
+	padding: 40px 20px;
+	text-align: center;
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-empty--ok .dashicons {
+	color: var(--g2rd-success);
+}
+
+.g2rd-empty .dashicons {
+	display: block;
+	width: 32px;
+	height: 32px;
+	margin: 0 auto 8px;
+	font-size: 32px;
+}
+
+.g2rd-empty__title {
+	margin: 0 0 4px;
+	font-weight: 600;
+	color: var(--g2rd-text);
+}
+
+.g2rd-empty__hint {
+	margin: 0;
+	font-size: 12px;
+}
+
+/* ── Ligne de métadonnées ─────────────────────────────────────── */
+/* Utilisée sous chaque entrée : utilisateur, IP, dates, taille. */
+.g2rd-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+	font-size: 12px;
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-meta code {
+	font-size: 11px;
+}
+
+/* ── En-tête de section avec action ───────────────────────────── */
+.g2rd-section__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 8px;
+	flex-wrap: wrap;
+}
+
+/* Le titre porte sa propre marge basse hors de l'en-tête, pas dedans. */
+.g2rd-section__head .g2rd-section__title {
+	margin: 0;
+}
+
+/* ── Compteur ─────────────────────────────────────────────────── */
+.g2rd-count {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 2px 8px;
+	border-radius: 12px;
+	background: var(--g2rd-danger-text);
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+.g2rd-count--quiet {
+	background: var(--g2rd-text-dim);
+}
+
+/* ── Pile verticale ───────────────────────────────────────────── */
+.g2rd-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.g2rd-stack--tight {
+	gap: 8px;
+}
+
+/* ── Chargement centré ────────────────────────────────────────── */
+.g2rd-loading {
+	padding: 32px;
+	text-align: center;
+}
+
+/* ── Étiquettes colorées ──────────────────────────────────────── */
+/*
+ * Un seul composant pour les statuts de token, les portées, les décisions
+ * d'audit et les états de licence : ils partageaient la même forme mais
+ * chacun redéfinissait ses couleurs à la main, d'où des « Actif » verts de
+ * trois verts différents selon l'onglet.
+ */
+.g2rd-tag {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.5;
+	white-space: nowrap;
+}
+
+.g2rd-tag--xs {
+	font-size: 11px;
+}
+
+.g2rd-tag--success {
+	background: var(--g2rd-success-bg);
+	color: var(--g2rd-success-text);
+}
+
+.g2rd-tag--warning {
+	background: var(--g2rd-warning-bg);
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-tag--danger {
+	background: var(--g2rd-danger-bg);
+	color: var(--g2rd-danger-text);
+}
+
+.g2rd-tag--info {
+	background: var(--g2rd-blue-dim);
+	color: var(--g2rd-info-text);
+}
+
+.g2rd-tag--neutral {
+	background: var(--g2rd-surface-2);
+	color: var(--g2rd-neutral-text);
+}
+
+/* Provenance FluentCart — violet de la marque, seule couleur hors palette. */
+.g2rd-tag--vendor {
+	margin-top: 4px;
+	padding: 1px 6px;
+	border-radius: 3px;
+	background: #7f54b3;
+	color: #fff;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+}
+
+/* ── Panneau de formulaire ────────────────────────────────────── */
+.g2rd-panel {
+	margin-bottom: 24px;
+	padding: 20px 24px;
+	border: 1px solid var(--g2rd-border);
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-surface-2);
+}
+
+.g2rd-panel--inline {
+	margin-bottom: 0;
+	padding: 16px 20px;
+}
+
+.g2rd-panel__title {
+	margin: 0 0 20px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.g2rd-panel__lead {
+	margin-bottom: 12px;
+}
+
+/* ── Grilles de formulaire ────────────────────────────────────── */
+/*
+ * Les colonnes tombent en une seule sous 782 px, le point de rupture des
+ * écrans admin WordPress : la grille à quatre colonnes y écrasait les
+ * champs jusqu'à les rendre inutilisables.
+ */
+.g2rd-form-grid {
+	display: grid;
+	gap: 16px;
+	align-items: end;
+}
+
+.g2rd-form-grid--tokens {
+	grid-template-columns: minmax( 200px, 2fr ) 140px 100px auto;
+}
+
+.g2rd-form-grid--licences {
+	grid-template-columns: minmax( 200px, 2fr ) 120px minmax( 150px, 1fr ) auto;
+}
+
+@media ( max-width: 782px ) {
+	.g2rd-form-grid--tokens,
+	.g2rd-form-grid--licences {
+		grid-template-columns: 1fr;
+	}
+
+	/*
+	 * Le décalage aligne le bouton sur des champs voisins ; empilés, ces
+	 * voisins n'existent plus et il ne restait qu'un vide sous le bouton.
+	 */
+	.g2rd-form-grid .g2rd-field__action,
+	.g2rd-form-grid .g2rd-field__action--offset {
+		padding-bottom: 0;
+	}
+}
+
+/* ── Champs bruts (hors composants WordPress) ─────────────────── */
+.g2rd-field__label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.g2rd-field__label .g2rd-field__optional {
+	font-weight: 400;
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-field__input {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.g2rd-field__hint {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: var(--g2rd-text-mid);
+}
+
+/*
+ * Aligne le bas des champs sans texte d'aide sur ceux qui en ont un.
+ * `visibility` plutôt qu'une couleur transparente : le texte factice
+ * reste invisible pour un lecteur d'écran au lieu d'être lu à vide.
+ */
+.g2rd-field__hint--ghost {
+	visibility: hidden;
+}
+
+.g2rd-field__action {
+	padding-bottom: 8px;
+}
+
+.g2rd-field__action--offset {
+	padding-bottom: 22px;
+}
+
+/* ── Rangée flexible ──────────────────────────────────────────── */
+.g2rd-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.g2rd-row--between {
+	justify-content: space-between;
+}
+
+.g2rd-row--top {
+	align-items: flex-start;
+}
+
+.g2rd-row--wrap {
+	flex-wrap: wrap;
+}
+
+.g2rd-row--tight {
+	gap: 6px;
+}
+
+.g2rd-row--loose {
+	gap: 12px;
+}
+
+.g2rd-row--nogrow {
+	flex-shrink: 0;
+}
+
+/* ── Dashicons en ligne ───────────────────────────────────────── */
+/*
+ * Les dashicons arrivent avec une chasse de 20 px qui décale le texte
+ * voisin. Ces tailles étaient recopiées à la main quinze fois.
+ */
+.g2rd-ico {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	vertical-align: middle;
+	margin-right: 4px;
+}
+
+.g2rd-ico--sm {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+
+.g2rd-ico--lg {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+	margin-right: 0;
+}
+
+.g2rd-ico--bare {
+	margin-right: 0;
+}
+
+.g2rd-ico--lead {
+	margin-right: 6px;
+}
+
+/* Décale l'icône dans un bouton pour la caler sur la ligne de base. */
+.g2rd-ico--btn {
+	width: auto;
+	height: auto;
+	font-size: inherit;
+	margin-top: -2px;
+	margin-right: 0;
+	vertical-align: middle;
+}
+
+.g2rd-ico--gap {
+	margin-right: 4px;
+}
+
+.g2rd-ico--spin {
+	animation: g2rd-spin 1s linear infinite;
+}
+
+@keyframes g2rd-spin {
+	from { transform: rotate( 0deg ); }
+	to   { transform: rotate( 360deg ); }
+}
+
+/* ── Notice compacte ──────────────────────────────────────────── */
+.g2rd-notice-inline {
+	margin: 0 0 16px;
+	padding: 8px 12px;
+}
+
+/* ── Demande en attente d'approbation ─────────────────────────── */
+.g2rd-request {
+	padding: 16px 20px;
+	border: 1px solid var(--g2rd-warning);
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-warning-bg);
+}
+
+.g2rd-request__head {
+	margin-bottom: 6px;
+}
+
+.g2rd-request__icon {
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-request__name {
+	font-size: 14px;
+}
+
+.g2rd-request__target {
+	margin-bottom: 6px;
+	font-size: 13px;
+}
+
+.g2rd-request__note {
+	margin-top: 8px;
+	padding: 8px 12px;
+	border: 1px solid var(--g2rd-warning);
+	border-radius: 4px;
+	background: var(--g2rd-warning-bg);
+	font-size: 12px;
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-request__countdown {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-request__countdown--urgent {
+	color: var(--g2rd-danger);
+}
+
+/* ── Secret révélé une seule fois ─────────────────────────────── */
+.g2rd-reveal {
+	margin-bottom: 24px;
+	padding: 16px 20px;
+	border: 1px solid var(--g2rd-success);
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-success-bg);
+}
+
+.g2rd-reveal__title {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--g2rd-success-text);
+}
+
+/*
+ * Teinte plus soutenue que celle de l'encart : au même fond, le token —
+ * la seule chose à copier ici, et qui ne sera plus jamais affichée —
+ * disparaissait dans le bloc qui l'entoure.
+ */
+.g2rd-reveal__value {
+	flex: 1;
+	padding: 6px 10px;
+	border-radius: 4px;
+	border: 1px solid rgba( 22, 163, 74, 0.25 );
+	background: rgba( 22, 163, 74, 0.16 );
+	color: var(--g2rd-success-text);
+	font-size: 13px;
+	word-break: break-all;
+}
+
+.g2rd-reveal__row {
+	margin-bottom: 8px;
+}
+
+.g2rd-reveal__meta {
+	margin: 0 0 4px;
+	font-size: 12px;
+	color: var(--g2rd-success-text);
+}
+
+/* ── Pagination ───────────────────────────────────────────────── */
+.g2rd-pagination {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+/* ── Tableaux ─────────────────────────────────────────────────── */
+.g2rd-table {
+	font-size: 13px;
+}
+
+.g2rd-table tr.is-inactive {
+	opacity: 0.6;
+}
+
+.g2rd-table .is-date {
+	font-size: 12px;
+	color: var(--g2rd-text-mid);
+	white-space: nowrap;
+}
+
+.g2rd-table .is-mono {
+	font-family: var(--g2rd-mono);
+	font-size: 12px;
+	color: var(--g2rd-text-mid);
+}
+
+/* Date encore valable : réduite, mais pas grisée — elle reste une donnée. */
+.g2rd-table .is-compact {
+	font-size: 12px;
+}
+
+.g2rd-table .is-expired {
+	font-size: 12px;
+	color: var(--g2rd-danger);
+}
+
+.g2rd-link-plain.components-button {
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.g2rd-table .col-key { width: 30%; }
+.g2rd-table .col-domains { width: 22%; }
+.g2rd-table .col-date { width: 160px; }
+
+.g2rd-table__config {
+	padding: 0 12px 16px;
+}
+
+/* ── Utilitaires de texte ─────────────────────────────────────── */
+.g2rd-muted--italic {
+	font-style: italic;
+}
+
+.g2rd-nowrap {
+	white-space: nowrap;
+}
+
+.g2rd-state--ok {
+	color: var(--g2rd-success);
+	font-weight: 600;
+}
+
+.g2rd-state--danger {
+	color: var(--g2rd-danger);
+	font-weight: 600;
+}
+
+.g2rd-strong {
+	font-weight: 600;
+}
+
+/* Le code dans un paragraphe secondaire doit suivre sa taille. */
+.g2rd-muted code,
+.g2rd-code-inline {
+	font-size: 12px;
+}
+
+/* ── Bloc de code copiable ────────────────────────────────────── */
+.g2rd-code-wrap {
+	position: relative;
+}
+
+.g2rd-code--spaced {
+	margin-bottom: 16px;
+}
+
+.g2rd-snippet {
+	margin-bottom: 20px;
+}
+
+.g2rd-snippet__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-bottom: 4px;
+}
+
+.g2rd-snippet__label {
+	font-size: 13px;
+}
+
+.g2rd-snippet__caption {
+	margin: 0 0 8px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* Le bouton de copie hérite du fond sombre du bloc, pas du thème admin. */
+.g2rd-code__copy.components-button {
+	padding: 2px 8px;
+	border: none;
+	border-radius: 4px;
+	background: rgba( 255, 255, 255, 0.15 );
+	color: #fff;
+	font-size: 11px;
+	height: auto;
+}
+
+.g2rd-code__copy.components-button:hover:not( :disabled ) {
+	background: rgba( 255, 255, 255, 0.28 );
+	color: #fff;
+}
+
+.g2rd-code__copy.is-copied.components-button,
+.g2rd-code__copy.is-copied.components-button:hover:not( :disabled ) {
+	background: var(--g2rd-success);
+	color: #fff;
+}
+
+/* ── Bouton d'action positive ─────────────────────────────────── */
+/* Confirmer une opération MCP n'est pas une action neutre : elle est verte. */
+.g2rd-btn-confirm.components-button.is-primary {
+	background: var(--g2rd-success-strong);
+	border-color: var(--g2rd-success-strong);
+}
+
+.g2rd-btn-confirm.components-button.is-primary:hover:not( :disabled ) {
+	background: var(--g2rd-success-text);
+	border-color: var(--g2rd-success-text);
+}
+
+/* ── Avis Google : cache et champs bruts ──────────────────────── */
+.g2rd-inline-input {
+	flex: 1;
+	padding: 6px 10px;
+	border: 1px solid var(--g2rd-border);
+	border-radius: 4px;
+	font-family: var(--g2rd-mono);
+	font-size: 13px;
+}
+
+.g2rd-inline-input--text {
+	font-family: inherit;
+}
+
+.g2rd-inline-btn {
+	padding: 6px 10px;
+	border: 1px solid var(--g2rd-border);
+	border-radius: 4px;
+	background: var(--g2rd-surface-2);
+	cursor: pointer;
+}
+
+.g2rd-inline-btn--primary {
+	border: none;
+	background: var(--g2rd-text);
+	color: #fff;
+	padding: 6px 12px;
+	font-size: 13px;
+}
+
+.g2rd-inline-btn:disabled,
+.g2rd-inline-btn--primary:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.g2rd-subsection {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--g2rd-border-soft);
+}
+
+.g2rd-subsection__title {
+	margin-bottom: 6px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.g2rd-subsection__desc {
+	margin-bottom: 8px;
+}
+
+.g2rd-key-state {
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.g2rd-row--stretch {
+	align-items: stretch;
+	gap: 0.5rem;
+}
+
+.g2rd-hint-spaced {
+	margin-top: 6px;
+}
+
+.g2rd-result {
+	margin-top: 6px;
+	font-size: 12px;
+}
+
+.g2rd-result--ok {
+	color: var(--g2rd-success-text);
+}
+
+.g2rd-result--ko {
+	color: var(--g2rd-danger-text);
+}
+
+/* ── Licence : carte d'état ───────────────────────────────────── */
+/*
+ * Ces classes étaient posées dans le JSX depuis l'origine sans qu'aucune
+ * règle ne leur corresponde : la « carte » de licence n'était donc qu'une
+ * suite de blocs empilés, et `is-active` / `is-inactive` ne changeaient rien.
+ */
+.g2rd-license-card {
+	padding: 20px 24px;
+	border: 1px solid var(--g2rd-border);
+	border-left-width: 3px;
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-surface);
+	box-shadow: 0 1px 3px rgba( 0, 0, 0, 0.04 );
+}
+
+.g2rd-license-card.is-active {
+	border-left-color: var(--g2rd-success);
+}
+
+.g2rd-license-card.is-inactive {
+	border-left-color: var(--g2rd-text-dim);
+}
+
+.g2rd-license-status {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 16px;
+}
+
+.g2rd-license-key {
+	padding: 2px 8px;
+	border-radius: 4px;
+	background: var(--g2rd-surface-2);
+	font-size: 12px;
+}
+
+.g2rd-license-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	max-width: 420px;
+}
+
+.g2rd-license-form .components-base-control {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+/* ── Module IA : grilles et clé masquée ───────────────────────── */
+.g2rd-settings-grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 260px, 1fr ) );
+	gap: 16px 24px;
+	align-items: start;
+}
+
+.g2rd-api-key-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.g2rd-api-key-preview {
+	padding: 4px 10px;
+	border-radius: 4px;
+	background: var(--g2rd-surface-2);
+	font-family: var(--g2rd-mono);
+	font-size: 12px;
+}
+
+.g2rd-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-top: 8px;
+}
+
+/* ── Onglet injecté par une extension tierce ──────────────────── */
+.g2rd-external-tab__description {
+	margin: 0 0 12px;
+	font-size: 13px;
+	color: var(--g2rd-text-mid);
+}
+
+/* ── Licence : bandeau d'état ─────────────────────────────────── */
+.g2rd-license-state__icon {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+}
+
+/*
+ * Le ton de l'état porte la couleur, sur l'icône comme sur le libellé :
+ * les deux se désynchronisaient quand seule l'une des deux était mise à jour.
+ */
+.g2rd-license-status .is-ok {
+	color: var(--g2rd-success);
+}
+
+.g2rd-license-status .is-danger {
+	color: var(--g2rd-danger);
+}
+
+.g2rd-license-status .is-neutral {
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-license-details {
+	margin-bottom: 16px;
+}
+
+.g2rd-license-details .is-label {
+	width: 180px;
+	font-weight: 600;
+}
+
+.g2rd-inline-note {
+	margin-left: 8px;
+}
+
+.g2rd-form-note {
+	margin-top: 8px;
+}
+
+/* ── Licences : clés et domaines activés ──────────────────────── */
+.g2rd-section__footnote {
+	margin-top: -6px;
+	margin-bottom: 16px;
+}
+
+.g2rd-key {
+	font-size: 12px;
+	word-break: break-all;
+}
+
+.g2rd-copy-btn {
+	flex-shrink: 0;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.g2rd-dash {
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-domains {
+	font-size: 11px;
+}
+
+.g2rd-domains__item {
+	margin-bottom: 4px;
+}
+
+.g2rd-domains__url {
+	display: block;
+	word-break: break-all;
+}
+
+.g2rd-domains__date {
+	display: block;
+	color: var(--g2rd-text-dim);
+}
+
+/* ── Bloc « code d'intégration » ──────────────────────────────── */
+.g2rd-integration {
+	margin-top: 16px;
+}
+
+.g2rd-integration__title {
+	margin: 0 0 4px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.g2rd-integration__lead {
+	margin-bottom: 8px;
+}
+
+.g2rd-integration__note {
+	margin-bottom: 16px;
+}
+
+/* ── Onglet vide (module désactivé) ───────────────────────────── */
+.g2rd-tab-content--centered {
+	padding: 2rem;
+	text-align: center;
+}
+
+/* ── Accessibilité et mouvement ───────────────────────────────── */
+@media ( prefers-reduced-motion: reduce ) {
+	.g2rd-app * {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
 }

@@ -115,32 +115,17 @@ function IntegrationCode( { token } ) {
 	const codeConfig    = buildClaudeCodeConfig( token );
 
 	const block = ( label, hint, code, key ) => (
-		<div style={ { marginBottom: 20 } }>
-			<div style={ { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 4 } }>
-				<strong style={ { fontSize: 13 } }>{ label }</strong>
-				<span style={ { fontSize: 11, color: '#787c82' } }>{ hint }</span>
+		<div className="g2rd-snippet">
+			<div className="g2rd-snippet__head">
+				<strong className="g2rd-snippet__label">{ label }</strong>
+				<span className="g2rd-muted g2rd-muted--sm">{ hint }</span>
 			</div>
-			<div style={ { position: 'relative' } }>
-				<pre style={ {
-					margin: 0,
-					background: '#1e1e2e',
-					color: '#cdd6f4',
-					padding: '12px 40px 12px 14px',
-					borderRadius: 6,
-					fontSize: 12,
-					lineHeight: 1.6,
-					overflowX: 'auto',
-					whiteSpace: 'pre',
-				} }>{ code }</pre>
+			<div className="g2rd-code-wrap">
+				<pre className="g2rd-code">{ code }</pre>
 				<Button
 					isSmall
+					className={ `g2rd-code__copy${ copiedKey === key ? ' is-copied' : '' }` }
 					onClick={ () => copy( code, key ) }
-					style={ {
-						position: 'absolute', top: 6, right: 6,
-						background: copiedKey === key ? '#22c55e' : 'rgba(255,255,255,0.15)',
-						color: '#fff', border: 'none', borderRadius: 4,
-						padding: '2px 8px', fontSize: 11,
-					} }
 				>
 					{ copiedKey === key ? '✓ Copié' : 'Copier' }
 				</Button>
@@ -149,18 +134,18 @@ function IntegrationCode( { token } ) {
 	);
 
 	return (
-		<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '20px 24px', marginTop: 16 } }>
-			<h4 style={ { margin: '0 0 4px', fontSize: 13, fontWeight: 600 } }>
-				<span className="dashicons dashicons-editor-code" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
+		<div className="g2rd-card g2rd-integration">
+			<h4 className="g2rd-integration__title">
+				<span className="dashicons dashicons-editor-code g2rd-ico g2rd-ico--lead"></span>
 				Code d'intégration
 			</h4>
-			<p style={ { margin: '0 0 8px', fontSize: 12, color: '#787c82' } }>
-				Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+			<p className="g2rd-muted g2rd-integration__lead">
+				Endpoint MCP : <code>{ MCP_ENDPOINT }</code>
 				<br />
-				Clé du serveur : <code style={ { fontSize: 12 } }>{ SERVER_KEY }</code> — dérivée du domaine, pour que plusieurs sites G2RD coexistent dans la même configuration.
+				Clé du serveur : <code>{ SERVER_KEY }</code> — dérivée du domaine, pour que plusieurs sites G2RD coexistent dans la même configuration.
 			</p>
-			<p style={ { margin: '0 0 16px', fontSize: 12, color: '#787c82' } }>
-				À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
+			<p className="g2rd-muted g2rd-integration__note">
+				À fusionner dans l'objet <code>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
 			</p>
 
 			{ block(
@@ -180,17 +165,10 @@ function IntegrationCode( { token } ) {
 }
 
 function TokenStatusBadge( { status } ) {
-	const styles = {
-		active:  { background: '#dcfce7', color: '#166534' },
-		expired: { background: '#fef9c3', color: '#854d0e' },
-		revoked: { background: '#fee2e2', color: '#991b1b' },
-	};
+	const tones  = { active: 'success', expired: 'warning', revoked: 'danger' };
 	const labels = { active: 'Actif', expired: 'Expiré', revoked: 'Révoqué' };
 	return (
-		<span style={ {
-			...( styles[ status ] || styles.revoked ),
-			borderRadius: 4, padding: '2px 8px', fontSize: 11, fontWeight: 600,
-		} }>
+		<span className={ `g2rd-tag g2rd-tag--xs g2rd-tag--${ tones[ status ] || 'danger' }` }>
 			{ labels[ status ] || status }
 		</span>
 	);
@@ -308,19 +286,18 @@ export function TabMcpTokens() {
 	return (
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
-				<div style={ { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } }>
-					<h2 className="g2rd-section__title" style={ { margin: 0 } }>
+				<div className="g2rd-section__head">
+					<h2 className="g2rd-section__title">
 						<span className="dashicons dashicons-shield"></span>
 						Tokens API MCP
 					</h2>
-					<div style={ { display: 'flex', gap: 8 } }>
+					<div className="g2rd-row">
 						<Button variant="secondary" isSmall onClick={ toggleInactive }>
-							<span className={ `dashicons dashicons-${ showInactive ? 'hidden' : 'visibility' }` }
-								style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
+							<span className={ `dashicons dashicons-${ showInactive ? 'hidden' : 'visibility' } g2rd-ico` }></span>
 							{ showInactive ? 'Masquer inactifs' : 'Afficher inactifs' }
 						</Button>
 						<Button variant="secondary" isSmall onClick={ () => loadTokens( showInactive ) } disabled={ isLoading }>
-							<span className="dashicons dashicons-update" style={ { fontSize: 16, width: 16, height: 16, verticalAlign: 'middle', marginRight: 4 } }></span>
+							<span className="dashicons dashicons-update g2rd-ico"></span>
 							Rafraîchir
 						</Button>
 					</div>
@@ -330,26 +307,26 @@ export function TabMcpTokens() {
 				</p>
 
 				{ notice && (
-					<div className={ `notice notice-${ notice.type } is-dismissible` } style={ { margin: '0 0 16px', padding: '8px 12px' } }>
+					<div className={ `notice notice-${ notice.type } is-dismissible g2rd-notice-inline` }>
 						<p>{ notice.message }</p>
 					</div>
 				) }
 
 				{ newToken && (
-					<div style={ { background: '#f0fdf4', border: '1px solid #86efac', borderRadius: 6, padding: '16px 20px', marginBottom: 24 } }>
-						<strong style={ { display: 'block', marginBottom: 8, color: '#166534' } }>
-							<span className="dashicons dashicons-yes-alt" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
+					<div className="g2rd-reveal">
+						<strong className="g2rd-reveal__title">
+							<span className="dashicons dashicons-yes-alt g2rd-ico g2rd-ico--lead"></span>
 							Token créé — copiez-le maintenant, il ne sera plus affiché.
 						</strong>
-						<div style={ { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 } }>
-							<code style={ { flex: 1, wordBreak: 'break-all', background: '#dcfce7', padding: '6px 10px', borderRadius: 4, fontSize: 13 } }>
+						<div className="g2rd-row g2rd-reveal__row">
+							<code className="g2rd-reveal__value">
 								{ newToken.token }
 							</code>
 							<Button variant="secondary" isSmall onClick={ () => copyToken( newToken.token ) }>
-								<span className="dashicons dashicons-clipboard" style={ { fontSize: 16, width: 16, height: 16 } }></span>
+								<span className="dashicons dashicons-clipboard g2rd-ico g2rd-ico--bare"></span>
 							</Button>
 						</div>
-						<p style={ { margin: '0 0 4px', fontSize: 12, color: '#166534' } }>
+						<p className="g2rd-reveal__meta">
 							Portée : <strong>{ newToken.scope }</strong> — Expire le : <strong>{ formatDate( newToken.expires_at ) }</strong>
 						</p>
 						<IntegrationCode token={ newToken.token } />
@@ -357,9 +334,9 @@ export function TabMcpTokens() {
 				) }
 
 				{ /* ── Formulaire de création ── */ }
-				<div style={ { background: '#f9f9f9', border: '1px solid #ddd', borderRadius: 6, padding: '20px 24px', marginBottom: 24 } }>
-					<h3 style={ { marginTop: 0, marginBottom: 20, fontSize: 14, fontWeight: 600 } }>Créer un nouveau token</h3>
-					<div style={ { display: 'grid', gridTemplateColumns: 'minmax(200px, 2fr) 140px 100px auto', gap: 16, alignItems: 'end' } }>
+				<div className="g2rd-panel">
+					<h3 className="g2rd-panel__title">Créer un nouveau token</h3>
+					<div className="g2rd-form-grid g2rd-form-grid--tokens">
 						<div>
 							<TextControl
 								label="Nom du token"
@@ -389,11 +366,11 @@ export function TabMcpTokens() {
 								onChange={ ( v ) => setExpiresIn( Math.min( 365, Math.max( 1, parseInt( v, 10 ) || 30 ) ) ) }
 							/>
 						</div>
-						<div style={ { paddingBottom: 8 } }>
+						<div className="g2rd-field__action">
 							<Button variant="primary" onClick={ handleCreate } disabled={ isCreating }>
 								{ isCreating ? <Spinner /> : (
 									<>
-										<span className="dashicons dashicons-plus-alt" style={ { verticalAlign: 'middle', marginTop: -2 } }></span>
+										<span className="dashicons dashicons-plus-alt g2rd-ico g2rd-ico--btn"></span>
 										{ ' ' }Créer
 									</>
 								) }
@@ -404,13 +381,13 @@ export function TabMcpTokens() {
 
 				{ /* ── Tableau des tokens ── */ }
 				{ isLoading ? (
-					<div style={ { textAlign: 'center', padding: 32 } }><Spinner /></div>
+					<div className="g2rd-loading"><Spinner /></div>
 				) : tokens.length === 0 ? (
-					<p style={ { color: '#787c82', fontStyle: 'italic' } }>
+					<p className="g2rd-muted g2rd-muted--italic">
 						{ showInactive ? 'Aucun token.' : 'Aucun token actif.' }
 					</p>
 				) : (
-					<table className="widefat striped">
+					<table className="widefat striped g2rd-table">
 						<thead>
 							<tr>
 								<th>Nom</th>
@@ -429,21 +406,17 @@ export function TabMcpTokens() {
 								const tokenName  = t.token_name || t.name;
 								return (
 									<Fragment key={ t.id }>
-										<tr style={ isInactive ? { opacity: 0.6 } : {} }>
+										<tr className={ isInactive ? 'is-inactive' : undefined }>
 											<td><strong>{ tokenName }</strong></td>
 											<td><TokenStatusBadge status={ t.status } /></td>
 											<td>
-												<span style={ {
-													background: t.scope === 'editor' ? '#fef3c7' : '#e0f2fe',
-													color: t.scope === 'editor' ? '#92400e' : '#075985',
-													borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600,
-												} }>
+												<span className={ `g2rd-tag g2rd-tag--${ t.scope === 'editor' ? 'warning' : 'info' }` }>
 													{ t.scope === 'editor' ? 'Éditeur' : 'Lecture seule' }
 												</span>
 											</td>
-											<td><code style={ { fontSize: 12 } }>{ t.token_prefix }…</code></td>
-											<td style={ { fontSize: 12, color: '#787c82' } }>{ formatDate( t.created_at ) }</td>
-											<td style={ { fontSize: 12, color: isInactive ? '#d63638' : 'inherit' } }>
+											<td><code className="g2rd-code-inline">{ t.token_prefix }…</code></td>
+											<td className="is-date">{ formatDate( t.created_at ) }</td>
+											<td className={ isInactive ? 'is-expired' : 'is-compact' }>
 												{ formatDate( t.expires_at ) }
 											</td>
 											<td>
@@ -451,11 +424,10 @@ export function TabMcpTokens() {
 													<Button
 														variant="link"
 														isSmall
+														className="g2rd-link-plain"
 														onClick={ () => setExpandedId( expandedId === t.id ? null : t.id ) }
-														style={ { textDecoration: 'none', fontSize: 12 } }
 													>
-														<span className={ `dashicons dashicons-${ expandedId === t.id ? 'arrow-up-alt2' : 'editor-code' }` }
-															style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+														<span className={ `dashicons dashicons-${ expandedId === t.id ? 'arrow-up-alt2' : 'editor-code' } g2rd-ico g2rd-ico--sm` }></span>
 														{ expandedId === t.id ? 'Fermer' : 'Voir config' }
 													</Button>
 												) }
@@ -463,7 +435,7 @@ export function TabMcpTokens() {
 											<td>
 												{ isInactive ? (
 													<Button variant="secondary" isDestructive isSmall onClick={ () => handlePurge( t.id, tokenName ) }>
-														<span className="dashicons dashicons-trash" style={ { fontSize: 14, width: 14, height: 14, verticalAlign: 'middle', marginRight: 4 } }></span>
+														<span className="dashicons dashicons-trash g2rd-ico g2rd-ico--sm"></span>
 														Supprimer
 													</Button>
 												) : (
@@ -475,20 +447,20 @@ export function TabMcpTokens() {
 										</tr>
 										{ expandedId === t.id && ! isInactive && (
 											<tr key={ `${ t.id }-config` }>
-												<td colSpan={ 8 } style={ { padding: '0 12px 16px' } }>
-													<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '16px 20px' } }>
-														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
-															Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
+												<td colSpan={ 8 } className="g2rd-table__config">
+													<div className="g2rd-panel g2rd-panel--inline">
+														<p className="g2rd-muted g2rd-panel__lead">
+															Endpoint MCP : <code>{ MCP_ENDPOINT }</code>
 															<br />
 															<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
 														</p>
-														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
-															À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
+														<p className="g2rd-muted g2rd-panel__lead">
+															À fusionner dans l'objet <code>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
 														</p>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeDesktopConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeCodeConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
+														<p className="g2rd-snippet__caption">Claude Desktop <span className="g2rd-muted">(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre className="g2rd-code g2rd-code--spaced">{ buildClaudeDesktopConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
+														<p className="g2rd-snippet__caption">Claude Code <span className="g2rd-muted">(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre className="g2rd-code">{ buildClaudeCodeConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
 													</div>
 												</td>
 											</tr>
