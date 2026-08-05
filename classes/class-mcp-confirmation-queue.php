@@ -744,6 +744,12 @@ class McpConfirmationQueue {
 				return $this->exec_update_woo_product( $arguments );
 			case 'g2rd_delete-woo-product':
 				return $this->exec_delete_woo_product( $arguments );
+			case 'g2rd_create-woo-variation':
+				return $this->exec_create_woo_variation( $arguments );
+			case 'g2rd_update-woo-variation':
+				return $this->exec_update_woo_variation( $arguments );
+			case 'g2rd_delete-woo-variation':
+				return $this->exec_delete_woo_variation( $arguments );
 			case 'g2rd_flush-cache':
 				return $this->exec_flush_cache();
 			case 'g2rd_update-menu-item':
@@ -2107,6 +2113,116 @@ class McpConfirmationQueue {
 		}
 
 		return McpWooProducts::summarize( $a );
+	}
+
+	/**
+	 * Executes g2rd/create-woo-variation.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_create_woo_variation( array $args ): bool {
+		if ( ! \current_user_can( 'edit_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooVariations::create_variation( $args );
+
+		$this->report_variation_operation( 'create-woo-variation', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/update-woo-variation.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_update_woo_variation( array $args ): bool {
+		if ( ! \current_user_can( 'edit_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooVariations::update_variation( $args );
+
+		$this->report_variation_operation( 'update-woo-variation', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Executes g2rd/delete-woo-variation.
+	 *
+	 * @param array<string, mixed> $args Tool arguments.
+	 * @return bool True on success.
+	 */
+	private function exec_delete_woo_variation( array $args ): bool {
+		if ( ! \current_user_can( 'delete_products' ) ) {
+			return false;
+		}
+
+		$result = McpWooVariations::delete_variation( $args );
+
+		$this->report_variation_operation( 'delete-woo-variation', $args, $result );
+
+		return (bool) ( $result['ok'] ?? false );
+	}
+
+	/**
+	 * Publishes a variation operation result and writes it to the audit log.
+	 *
+	 * @param string               $operation Operation slug.
+	 * @param array<string, mixed> $args      Tool arguments.
+	 * @param array<string, mixed> $result    McpWooVariations result payload.
+	 * @return void
+	 */
+	private function report_variation_operation( string $operation, array $args, array $result ): void {
+		$ok        = (bool) ( $result['ok'] ?? false );
+		$variation = (array) ( $result['variation'] ?? [] );
+
+		$report = [
+			'operation'    => $operation,
+			'success'      => $ok,
+			'variation_id' => (int) ( $variation['variation_id'] ?? \absint( $args['variation_id'] ?? 0 ) ),
+			'parent_id'    => (int) ( $variation['parent_id'] ?? \absint( $args['product_id'] ?? 0 ) ),
+			'user_id'      => \get_current_user_id(),
+			'timestamp'    => \current_time( 'mysql', true ),
+		];
+
+		if ( $ok && [] !== $variation ) {
+			$report['price']  = (string) ( $variation['regular_price'] ?? '' );
+			$report['sku']    = (string) ( $variation['sku'] ?? '' );
+			$report['stock']  = $variation['stock_quantity'] ?? null;
+		}
+
+		if ( ! empty( $result['warning'] ) ) {
+			$report['warning'] = (string) $result['warning'];
+		}
+
+		if ( ! $ok ) {
+			$report['error']  = (string) ( $result['error'] ?? 'Unknown error.' );
+			$report['errors'] = (array) ( $result['errors'] ?? [] );
+		}
+
+		\update_option( 'g2rd_mcp_last_operation_result', $report, false );
+
+		$this->audit->log(
+			[
+				'user_id'     => \get_current_user_id(),
+				'method'      => 'tools/call',
+				'ability'     => 'g2rd_' . $operation,
+				'input'       => [
+					'variation_id' => $report['variation_id'],
+					'parent_id'    => $report['parent_id'],
+				],
+				'status'      => $ok ? 'executed' : 'failed',
+				'http_status' => $ok ? 200 : 400,
+				'message'     => $ok
+					? \sprintf( '%s #%d appliqué', $operation, $report['variation_id'] )
+					: \sprintf( '%s refusé : %s', $operation, $report['error'] ),
+			]
+		);
 	}
 
 	/**
