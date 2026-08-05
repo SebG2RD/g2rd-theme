@@ -118,26 +118,16 @@ function IntegrationCode( { token } ) {
 		<div style={ { marginBottom: 20 } }>
 			<div style={ { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 4 } }>
 				<strong style={ { fontSize: 13 } }>{ label }</strong>
-				<span style={ { fontSize: 11, color: '#787c82' } }>{ hint }</span>
+				<span className="g2rd-muted g2rd-muted--sm">{ hint }</span>
 			</div>
 			<div style={ { position: 'relative' } }>
-				<pre style={ {
-					margin: 0,
-					background: '#1e1e2e',
-					color: '#cdd6f4',
-					padding: '12px 40px 12px 14px',
-					borderRadius: 6,
-					fontSize: 12,
-					lineHeight: 1.6,
-					overflowX: 'auto',
-					whiteSpace: 'pre',
-				} }>{ code }</pre>
+				<pre className="g2rd-code">{ code }</pre>
 				<Button
 					isSmall
+					className="g2rd-code__copy"
 					onClick={ () => copy( code, key ) }
 					style={ {
-						position: 'absolute', top: 6, right: 6,
-						background: copiedKey === key ? '#22c55e' : 'rgba(255,255,255,0.15)',
+						background: copiedKey === key ? 'var(--g2rd-success)' : 'rgba(255,255,255,0.15)',
 						color: '#fff', border: 'none', borderRadius: 4,
 						padding: '2px 8px', fontSize: 11,
 					} }
@@ -149,17 +139,17 @@ function IntegrationCode( { token } ) {
 	);
 
 	return (
-		<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '20px 24px', marginTop: 16 } }>
+		<div className="g2rd-card" style={ { marginTop: 16 } }>
 			<h4 style={ { margin: '0 0 4px', fontSize: 13, fontWeight: 600 } }>
 				<span className="dashicons dashicons-editor-code" style={ { verticalAlign: 'middle', marginRight: 6 } }></span>
 				Code d'intégration
 			</h4>
-			<p style={ { margin: '0 0 8px', fontSize: 12, color: '#787c82' } }>
+			<p className="g2rd-muted" style={ { marginBottom: 8 } }>
 				Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
 				<br />
 				Clé du serveur : <code style={ { fontSize: 12 } }>{ SERVER_KEY }</code> — dérivée du domaine, pour que plusieurs sites G2RD coexistent dans la même configuration.
 			</p>
-			<p style={ { margin: '0 0 16px', fontSize: 12, color: '#787c82' } }>
+			<p className="g2rd-muted" style={ { marginBottom: 16 } }>
 				À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
 			</p>
 
@@ -477,18 +467,18 @@ export function TabMcpTokens() {
 											<tr key={ `${ t.id }-config` }>
 												<td colSpan={ 8 } style={ { padding: '0 12px 16px' } }>
 													<div style={ { background: '#f8f9fa', border: '1px solid #c3c4c7', borderRadius: 6, padding: '16px 20px' } }>
-														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
+														<p className="g2rd-muted" style={ { marginBottom: 12 } }>
 															Endpoint MCP : <code style={ { fontSize: 12 } }>{ MCP_ENDPOINT }</code>
 															<br />
 															<em>Le token complet n'est plus disponible. Utilisez les configs ci-dessous avec le préfixe affiché si vous avez conservé le token.</em>
 														</p>
-														<p style={ { margin: '0 0 12px', fontSize: 12, color: '#787c82' } }>
+														<p className="g2rd-muted" style={ { marginBottom: 12 } }>
 															À fusionner dans l'objet <code style={ { fontSize: 12 } }>mcpServers</code> de votre fichier de configuration : ne remplacez pas le fichier entier, vos autres serveurs MCP seraient perdus.
 														</p>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: '0 0 16px', background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeDesktopConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
-														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span style={ { fontWeight: 400, color: '#787c82' } }>(remplacer VOTRE_TOKEN par votre valeur)</span></p>
-														<pre style={ { margin: 0, background: '#1e1e2e', color: '#cdd6f4', padding: '10px 14px', borderRadius: 6, fontSize: 12, overflowX: 'auto' } }>{ buildClaudeCodeConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Desktop <span className="g2rd-muted">(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre className="g2rd-code" style={ { marginBottom: 16 } }>{ buildClaudeDesktopConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
+														<p style={ { margin: '0 0 8px', fontSize: 12, fontWeight: 600 } }>Claude Code <span className="g2rd-muted">(remplacer VOTRE_TOKEN par votre valeur)</span></p>
+														<pre className="g2rd-code">{ buildClaudeCodeConfig( `${ t.token_prefix }…VOTRE_TOKEN` ) }</pre>
 													</div>
 												</td>
 											</tr>

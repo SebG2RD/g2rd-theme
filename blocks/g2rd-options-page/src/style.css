@@ -984,3 +984,196 @@
 
 	.g2rd-header::after { display: none; }
 }
+
+/* =============================================================
+   Composants transverses
+   -------------------------------------------------------------
+   Ajoutés pour remplacer les styles inline dispersés dans les
+   onglets : 178 attributs style={{}} y réinventaient les mêmes
+   encarts, badges et blocs de code, avec 41 couleurs en dur.
+   Tout passe désormais par les tokens ci-dessus, donc un
+   changement de palette se propage partout.
+   ============================================================= */
+
+/* ── Tokens sémantiques ───────────────────────────────────────── */
+.g2rd-app {
+	--g2rd-success:      #16a34a;
+	--g2rd-success-bg:   rgba( 22, 163, 74, 0.08 );
+	--g2rd-success-text: #166534;
+	--g2rd-warning:      #d97706;
+	--g2rd-warning-bg:   rgba( 217, 119, 6, 0.08 );
+	--g2rd-warning-text: #92400e;
+	--g2rd-danger:       #d63638;
+	--g2rd-danger-bg:    rgba( 214, 54, 56, 0.08 );
+	--g2rd-danger-text:  #a02123;
+	--g2rd-info-bg:      rgba( 37, 99, 235, 0.06 );
+	--g2rd-code-bg:      #1e1e2e;
+	--g2rd-code-text:    #cdd6f4;
+}
+
+/* ── Texte secondaire ─────────────────────────────────────────── */
+/* Remplace 27 occurrences de #787c82 posées à la main. */
+.g2rd-muted {
+	color: var(--g2rd-text-mid);
+	font-size: 12px;
+}
+
+.g2rd-muted--sm {
+	font-size: 11px;
+}
+
+/* ── Encarts d'état ───────────────────────────────────────────── */
+.g2rd-alert {
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 12px 16px;
+	border: 1px solid var(--g2rd-border);
+	border-left-width: 3px;
+	border-radius: var(--g2rd-radius);
+	background: var(--g2rd-surface-2);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.g2rd-alert--success {
+	border-left-color: var(--g2rd-success);
+	background: var(--g2rd-success-bg);
+	color: var(--g2rd-success-text);
+}
+
+.g2rd-alert--warning {
+	border-left-color: var(--g2rd-warning);
+	background: var(--g2rd-warning-bg);
+	color: var(--g2rd-warning-text);
+}
+
+.g2rd-alert--danger {
+	border-left-color: var(--g2rd-danger);
+	background: var(--g2rd-danger-bg);
+	color: var(--g2rd-danger-text);
+}
+
+.g2rd-alert--info {
+	border-left-color: var(--g2rd-blue);
+	background: var(--g2rd-info-bg);
+}
+
+.g2rd-alert__body {
+	flex: 1;
+	min-width: 0;
+}
+
+/* ── Bloc de code ─────────────────────────────────────────────── */
+/* Les snippets MCP : fond sombre, chasse fixe, débordement contenu. */
+.g2rd-code {
+	position: relative;
+	margin: 0;
+	padding: 12px 40px 12px 14px;
+	border-radius: 6px;
+	background: var(--g2rd-code-bg);
+	color: var(--g2rd-code-text);
+	font-family: var(--g2rd-mono);
+	font-size: 12px;
+	line-height: 1.6;
+	white-space: pre;
+	overflow-x: auto;
+}
+
+.g2rd-code__copy {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+
+/* ── État vide ────────────────────────────────────────────────── */
+.g2rd-empty {
+	padding: 40px 20px;
+	text-align: center;
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-empty .dashicons {
+	display: block;
+	width: 32px;
+	height: 32px;
+	margin: 0 auto 8px;
+	font-size: 32px;
+}
+
+.g2rd-empty__title {
+	margin: 0 0 4px;
+	font-weight: 600;
+	color: var(--g2rd-text);
+}
+
+.g2rd-empty__hint {
+	margin: 0;
+	font-size: 12px;
+}
+
+/* ── Ligne de métadonnées ─────────────────────────────────────── */
+/* Utilisée sous chaque entrée : utilisateur, IP, dates, taille. */
+.g2rd-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+	font-size: 12px;
+	color: var(--g2rd-text-mid);
+}
+
+.g2rd-meta code {
+	font-size: 11px;
+}
+
+/* ── En-tête de section avec action ───────────────────────────── */
+.g2rd-section__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 8px;
+	flex-wrap: wrap;
+}
+
+/* ── Compteur ─────────────────────────────────────────────────── */
+.g2rd-count {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 2px 8px;
+	border-radius: 12px;
+	background: var(--g2rd-danger);
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+.g2rd-count--quiet {
+	background: var(--g2rd-text-dim);
+}
+
+/* ── Pile verticale ───────────────────────────────────────────── */
+.g2rd-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.g2rd-stack--tight {
+	gap: 8px;
+}
+
+/* ── Chargement centré ────────────────────────────────────────── */
+.g2rd-loading {
+	padding: 32px;
+	text-align: center;
+}
+
+/* ── Accessibilité et mouvement ───────────────────────────────── */
+@media ( prefers-reduced-motion: reduce ) {
+	.g2rd-app * {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+}

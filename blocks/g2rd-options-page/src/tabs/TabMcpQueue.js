@@ -102,17 +102,12 @@ export function TabMcpQueue() {
 	return (
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
-				<div style={ { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } }>
+				<div className="g2rd-section__head">
 					<h2 className="g2rd-section__title" style={ { margin: 0 } }>
 						<span className="dashicons dashicons-clock"></span>
 						File d'approbation MCP
 						{ total > 0 && (
-							<span style={ {
-								marginLeft: 8, background: '#d63638', color: '#fff',
-								borderRadius: 12, padding: '2px 8px', fontSize: 12, fontWeight: 700,
-							} }>
-								{ total }
-							</span>
+							<span className="g2rd-count">{ total }</span>
 						) }
 					</h2>
 					<Button variant="secondary" isSmall onClick={ loadEntries } disabled={ isLoading }>
@@ -132,14 +127,15 @@ export function TabMcpQueue() {
 				) }
 
 				{ isLoading ? (
-					<div style={ { textAlign: 'center', padding: 32 } }><Spinner /></div>
+					<div className="g2rd-loading"><Spinner /></div>
 				) : entries.length === 0 ? (
-					<div style={ { textAlign: 'center', padding: '40px 0', color: '#787c82' } }>
-						<span className="dashicons dashicons-yes-alt" style={ { fontSize: 32, width: 32, height: 32, display: 'block', margin: '0 auto 8px', color: '#00a32a' } }></span>
-						<p style={ { margin: 0, fontStyle: 'italic' } }>Aucune demande en attente.</p>
+					<div className="g2rd-empty">
+						<span className="dashicons dashicons-yes-alt" style={ { color: 'var(--g2rd-success)' } }></span>
+						<p className="g2rd-empty__title">Aucune demande en attente</p>
+						<p className="g2rd-empty__hint">Les opérations d'écriture soumises par un agent MCP apparaîtront ici.</p>
 					</div>
 				) : (
-					<div style={ { display: 'flex', flexDirection: 'column', gap: 16 } }>
+					<div className="g2rd-stack">
 						{ entries.map( ( e ) => {
 							const isBusy = !! acting[ e.id ];
 							return (
@@ -154,14 +150,14 @@ export function TabMcpQueue() {
 												<strong style={ { fontSize: 14 } }>
 													<code>{ e.ability_name }</code>
 												</strong>
-												<span style={ { fontSize: 12, color: '#787c82' } }>— #{ e.id }</span>
+												<span className="g2rd-muted">— #{ e.id }</span>
 											</div>
 											{ e.target && (
 												<div style={ { fontSize: 13, marginBottom: 6 } }>
 													Cible : <code>{ e.target }</code>
 												</div>
 											) }
-											<div style={ { fontSize: 12, color: '#787c82', display: 'flex', gap: 16, flexWrap: 'wrap' } }>
+											<div className="g2rd-meta">
 												<span>Utilisateur : <strong>#{ e.user_id }</strong></span>
 												<span>IP : <code>{ e.ip_address }</code></span>
 												<span>Soumis le : { formatDate( e.created_at ) }</span>
@@ -227,7 +223,7 @@ export function TabMcpQueue() {
 						>
 							← Précédent
 						</Button>
-						<span style={ { fontSize: 13, color: '#787c82' } }>
+						<span className="g2rd-muted">
 							Page { page } / { totalPages }
 						</span>
 						<Button
