@@ -358,9 +358,15 @@ class McpConfirmationQueue {
 	private function decorate_pending_entries( array $entries ): array {
 		$seen_targets = [];
 
-		// Les lignes arrivent de la plus récente à la plus ancienne : on les
-		// parcourt à l'envers pour que « plus récente » ait un sens.
-		foreach ( \array_reverse( \array_keys( $entries ) ) as $i ) {
+		/*
+		 * Les lignes arrivent déjà de la plus récente à la plus ancienne
+		 * (ORDER BY created_at DESC), et on les parcourt dans cet ordre : la
+		 * première vue pour une cible donnée est donc la plus récente, et c'est
+		 * elle dont l'identifiant doit être signalé sur les lignes ANTÉRIEURES.
+		 * Parcourir à l'envers posait le drapeau sur la ligne récente en
+		 * pointant vers l'ancienne, soit l'inverse de ce que dit l'avertissement.
+		 */
+		foreach ( \array_keys( $entries ) as $i ) {
 			$row     = $entries[ $i ];
 			$payload = $this->decrypt_arguments( (int) ( $row['id'] ?? 0 ) );
 
@@ -381,10 +387,14 @@ class McpConfirmationQueue {
 
 			if ( isset( $seen_targets[ $key ] ) ) {
 				// Une entrée plus récente vise déjà la même cible avec le même
-				// outil : on le signale sans rien annuler.
+				// outil : on le signale sur CETTE ligne, l'antérieure, sans rien
+				// annuler.
 				$entries[ $i ]['superseded_by'] = $seen_targets[ $key ];
+				continue;
 			}
 
+			// Conservée telle quelle : toutes les lignes antérieures pointent
+			// vers la plus récente, pas vers celle qui la précède de peu.
 			$seen_targets[ $key ] = (int) ( $row['id'] ?? 0 );
 		}
 
