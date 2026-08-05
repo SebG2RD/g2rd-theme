@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.31.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.31.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,15 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.31.2**
+
+- **Page d'options entièrement reprise** : les **178 attributs `style` en ligne** dispersés dans les dix onglets réinventaient les mêmes encarts, badges et blocs de code avec **41 couleurs codées en dur**. Un même « Actif » pouvait être vert `#166534` dans les tokens et `#00a32a` dans les licences, et changer la palette imposait de repasser sur chaque fichier. Il en reste **trois**, sur les pastilles de couleur choisies par l'utilisateur, où la valeur *est* la donnée et non du style.
+- **Aucun changement de comportement** : ni logique, ni appel REST, ni état React n'a bougé. Seule la présentation passe par le socle de tokens, qui existait déjà mais était contourné.
+- **Quatre contrastes sous le seuil AA corrigés** — étiquette « info » (4,3:1), étiquette neutre (4,1:1), compteur de file (4,3:1) et bouton **Confirmer** (3,6:1) montent entre 5,0 et 7,8:1. Les couleurs vives servent désormais aux bordures et aux icônes, jamais de support à du texte.
+- **L'aperçu de la page de connexion ne peut plus mentir** : ses valeurs par défaut étaient recopiées dans deux fichiers, si bien qu'un défaut modifié d'un seul côté faisait afficher à l'aperçu autre chose que ce que verrait réellement l'utilisateur en se connectant. Une table partagée les aligne, `LoginCustomizer::DEFAULTS` restant l'autorité à l'enregistrement.
+- **Éléments jamais stylés depuis l'origine** : la carte de licence et les grilles du module IA portaient des classes sans aucune règle correspondante — la « carte » n'était qu'une pile de blocs et `is-active` ne changeait rien. Elles sont habillées.
+- **Formulaires utilisables sur petit écran** : les grilles à quatre colonnes tombent en une seule sous 782 px, le point de rupture des écrans admin WordPress, où elles écrasaient les champs jusqu'à les rendre inexploitables.
 
 ### **1.31.1**
 
