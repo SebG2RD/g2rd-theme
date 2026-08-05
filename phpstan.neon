@@ -11,9 +11,9 @@ parameters:
         maximumNumberOfProcesses: 1
     ignoreErrors:
         # Symboles WooCommerce — pas de stubs installés, usage conditionnel.
-        # WooCommerce est une dépendance de runtime optionnelle : FilterableGrid
-        # et McpWooProducts vérifient sa présence avant tout appel
-        # (McpWooProducts::is_available()), donc l'absence de stubs ne masque
-        # aucun risque réel d'appel sur une classe manquante.
-        - '#Function wc_get_product not found\.#'
-        - '#Instantiated class \\WC_Product_(Simple|Variable) not found\.#'
+        # WooCommerce est une dépendance de runtime optionnelle : FilterableGrid,
+        # McpWooProducts et McpWooVariations vérifient sa présence avant tout
+        # appel (is_available()), donc l'absence de stubs ne masque aucun risque
+        # réel d'appel sur une classe manquante.
+        - '#Function wc_(get_product|delete_product_transients|attribute_label) not found\.#'
+        - '#Instantiated class \\?WC_Product_(Simple|Variable|Variation) not found\.#'

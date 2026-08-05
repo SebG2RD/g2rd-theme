@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.30.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.31.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,18 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.31.0**
+
+- **MCP — pilotage des variations WooCommerce** : cinq nouveaux outils, `g2rd_list-woo-variations`, `g2rd_get-woo-variation`, `g2rd_create-woo-variation`, `g2rd_update-woo-variation` et `g2rd_delete-woo-variation`. Les outils existants sont inchangés.
+- **Le problème corrigé** : sur un produit variable, prix, promo et stock vivent sur les variations et non sur le parent. `g2rd_get-woo-product` renvoyait donc des champs vides et un `price` réduit au plancher de la fourchette. Impossible de savoir quels formats existaient, à quel prix, ni d'en corriger ou d'en retirer un — au point qu'une fiche annonçant « pot de 500 g uniquement, 12 € » cohabitait avec une variation de 250 g toujours achetable à 7 €.
+- **Attributs lisibles** : la sortie donne « 500 g » et pas seulement `pa_poids: 500-g`, tout en conservant le slug pour réécrire.
+- **Stock à deux niveaux explicite** : un champ `stock_source` indique si la quantité vient de la variation, est héritée du parent, ou n'est pas gérée. Un `stock_quantity` nul seul était ambigu.
+- **Prix en chaînes décimales**, contrat strictement identique à `g2rd_update-woo-product` — la méthode de normalisation est partagée plutôt que dupliquée, pour qu'elle ne puisse pas diverger. Aucune conversion en nombre flottant : `"7.10"` et `"7.1"` restent distincts à l'écriture.
+- **Prix promotionnel vérifié contre le prix normal effectif** : celui fourni s'il l'est, sinon celui déjà en base. Sans cela, un prix promo supérieur au prix existant passait et WooCommerce l'ignorait en silence.
+- **Caches invalidés après chaque écriture** : transients du produit parent, recalcul de la fourchette de prix, puis purge du cache page. Sans quoi la boutique continue d'afficher l'ancien prix plancher, ce qui se signale comme un bug sans en être un.
+- **Garde-fous** : la suppression de la dernière variation d'un produit variable est refusée avec la marche à suivre — un produit variable sans variation n'est plus achetable ; il ne reste qu'une variation, c'est signalé sans bloquer. La création refuse un attribut non déclaré sur le parent ou une combinaison déjà existante. Sur un produit simple, la liste renvoie un message explicite plutôt qu'un tableau vide.
+- **Tests** : 11 nouveaux. Suite complète à **185 tests / 1 186 assertions**.
 
 ### **1.30.0**
 

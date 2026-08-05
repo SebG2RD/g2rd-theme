@@ -1296,6 +1296,182 @@ class McpAbilities {
 				],
 			],
 
+			// ── WooCommerce variations ────────────────────────────────────────────
+			'g2rd_list-woo-variations'   => [
+				'name'           => 'g2rd_list-woo-variations',
+				'description'    => 'Lists the variations of a variable WooCommerce product: readable attribute labels (500 g, not pa_poids/500-g), SKU, decimal prices, stock, dimensions, image, and whether each variation is enabled and purchasable. On a product that is not variable, returns an explicit message rather than an empty list. Prices are DECIMAL amounts, never cents.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id' => [
+							'type'        => 'integer',
+							'description' => 'Parent product ID.',
+							'minimum'     => 1,
+						],
+						'page'       => [
+							'type'        => 'integer',
+							'description' => 'Page number (default 1).',
+							'minimum'     => 1,
+						],
+						'per_page'   => [
+							'type'        => 'integer',
+							'description' => 'Results per page (1-100, default 50).',
+							'minimum'     => 1,
+							'maximum'     => 100,
+						],
+					],
+					'required'   => [ 'product_id' ],
+				],
+			],
+			'g2rd_get-woo-variation'     => [
+				'name'           => 'g2rd_get-woo-variation',
+				'description'    => 'Returns one WooCommerce variation with its parent_id, attributes, prices, stock and status. The stock_source field says whether the quantity comes from the variation, is inherited from the parent, or is unmanaged — a null stock_quantity alone is ambiguous.',
+				'required_scope' => 'read_only',
+				'wp_capability'  => 'edit_posts',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'variation_id' => [
+							'type'        => 'integer',
+							'description' => 'Variation ID.',
+							'minimum'     => 1,
+						],
+					],
+					'required'   => [ 'variation_id' ],
+				],
+			],
+			'g2rd_create-woo-variation'  => [
+				'name'           => 'g2rd_create-woo-variation',
+				'description'    => 'Creates a variation on a variable product. Refuses attributes not declared for variations on the parent, and refuses a combination that already exists. Prices are DECIMAL amounts in the shop currency, never cents. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'product_id'     => [
+							'type'        => 'integer',
+							'description' => 'Parent variable product ID.',
+							'minimum'     => 1,
+						],
+						'attributes'     => [
+							'type'        => 'object',
+							'description' => 'Attribute combination, taxonomy to term slug. Must match the variation attributes declared on the parent.',
+						],
+						'regular_price'  => [
+							'type'        => 'string',
+							'description' => 'Regular price as a DECIMAL amount, e.g. 12.00. Never a number of cents.',
+						],
+						'sale_price'     => [
+							'type'        => 'string',
+							'description' => 'Sale price, same decimal format. Must be lower than regular_price.',
+						],
+						'sku'            => [
+							'type'        => 'string',
+							'description' => 'Stock keeping unit.',
+						],
+						'manage_stock'   => [
+							'type'        => 'boolean',
+							'description' => 'Manage stock at variation level rather than inheriting the parent.',
+						],
+						'stock_quantity' => [
+							'type'        => 'integer',
+							'description' => 'Stock quantity, used when manage_stock is true.',
+						],
+						'stock_status'   => [
+							'type'        => 'string',
+							'description' => 'Stock state.',
+							'enum'        => McpWooVariations::STOCK_STATUSES,
+						],
+						'weight'         => [
+							'type'        => 'string',
+							'description' => 'Weight in the shop unit.',
+						],
+						'image_id'       => [
+							'type'        => 'integer',
+							'description' => 'Attachment ID for the variation image.',
+						],
+					],
+					'required'   => [ 'product_id', 'attributes', 'regular_price' ],
+				],
+			],
+			'g2rd_update-woo-variation'  => [
+				'name'           => 'g2rd_update-woo-variation',
+				'description'    => 'Updates a WooCommerce variation. Only the fields you supply are written; a field you omit is never reset. sale_price is refused when it is greater than or equal to the regular price. Prices are DECIMAL amounts, never cents. Returns the variation state after the write. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'edit_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'variation_id'   => [
+							'type'        => 'integer',
+							'description' => 'Variation ID to update.',
+							'minimum'     => 1,
+						],
+						'regular_price'  => [
+							'type'        => 'string',
+							'description' => 'New regular price as a DECIMAL amount, e.g. 12.00. Never cents.',
+						],
+						'sale_price'     => [
+							'type'        => 'string',
+							'description' => 'New sale price, same decimal format. Empty string removes it.',
+						],
+						'sku'            => [
+							'type'        => 'string',
+							'description' => 'New SKU.',
+						],
+						'manage_stock'   => [
+							'type'        => 'boolean',
+							'description' => 'Manage stock at variation level.',
+						],
+						'stock_quantity' => [
+							'type'        => 'integer',
+							'description' => 'New stock quantity.',
+						],
+						'stock_status'   => [
+							'type'        => 'string',
+							'description' => 'New stock state.',
+							'enum'        => McpWooVariations::STOCK_STATUSES,
+						],
+						'weight'         => [
+							'type'        => 'string',
+							'description' => 'New weight.',
+						],
+						'image_id'       => [
+							'type'        => 'integer',
+							'description' => 'New variation image attachment ID.',
+						],
+						'enabled'        => [
+							'type'        => 'boolean',
+							'description' => 'False disables the variation: it stays in the database but is no longer purchasable.',
+						],
+					],
+					'required'   => [ 'variation_id' ],
+				],
+			],
+			'g2rd_delete-woo-variation'  => [
+				'name'           => 'g2rd_delete-woo-variation',
+				'description'    => 'Moves a WooCommerce variation to the trash, or deletes it permanently with force. Refuses to remove the last variation of a variable product, which would leave it unpurchasable. Requires administrator email confirmation.',
+				'required_scope' => 'editor',
+				'wp_capability'  => 'delete_products',
+				'inputSchema'    => [
+					'type'       => 'object',
+					'properties' => [
+						'variation_id' => [
+							'type'        => 'integer',
+							'description' => 'Variation ID to remove.',
+							'minimum'     => 1,
+						],
+						'force'        => [
+							'type'        => 'boolean',
+							'description' => 'True deletes permanently instead of trashing. Default false.',
+						],
+					],
+					'required'   => [ 'variation_id' ],
+				],
+			],
+
 			// ── Allowlisted plugin settings ───────────────────────────────────────
 			'g2rd_list-plugin-settings'  => [
 				'name'           => 'g2rd_list-plugin-settings',
@@ -1679,6 +1855,10 @@ class McpAbilities {
 				return $this->exec_list_woo_products( $args, $gate_result );
 			case 'g2rd_get-woo-product':
 				return $this->exec_get_woo_product( $args, $gate_result );
+			case 'g2rd_list-woo-variations':
+				return $this->exec_list_woo_variations( $args, $gate_result );
+			case 'g2rd_get-woo-variation':
+				return $this->exec_get_woo_variation( $args, $gate_result );
 
 			// ── Write tools (enqueue for confirmation) ─────────────────────────
 			case 'g2rd_create-post':
@@ -1700,6 +1880,9 @@ class McpAbilities {
 			case 'g2rd_create-woo-product':
 			case 'g2rd_update-woo-product':
 			case 'g2rd_delete-woo-product':
+			case 'g2rd_create-woo-variation':
+			case 'g2rd_update-woo-variation':
+			case 'g2rd_delete-woo-variation':
 			case 'g2rd_update-plugin-setting':
 			case 'g2rd_flush-cache':
 			case 'g2rd_update-menu-item':
@@ -2894,6 +3077,50 @@ class McpAbilities {
 		}
 
 		return $this->tool_success( (string) \wp_json_encode( $result['product'] ) );
+	}
+
+	/**
+	 * Lists a variable product's variations (tool: g2rd/list-woo-variations).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_list_woo_variations( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpWooVariations::list_variations( $args );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result ) );
+	}
+
+	/**
+	 * Returns one variation (tool: g2rd/get-woo-variation).
+	 *
+	 * @param array<string, mixed> $args        Tool arguments.
+	 * @param array<string, mixed> $gate_result Authorized gate result.
+	 * @return array<string, mixed>
+	 */
+	private function exec_get_woo_variation( array $args, array $gate_result ): array {
+		$cap_error = $this->check_admin_cap( $gate_result, 'edit_posts' );
+		if ( null !== $cap_error ) {
+			return $cap_error;
+		}
+
+		$result = McpWooVariations::get_variation( \absint( $args['variation_id'] ?? 0 ) );
+
+		if ( ! $result['ok'] ) {
+			return $this->tool_error( $result['error'] );
+		}
+
+		return $this->tool_success( (string) \wp_json_encode( $result['variation'] ) );
 	}
 
 	// ── Write tool implementations ────────────────────────────────────────────

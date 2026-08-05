@@ -229,7 +229,7 @@ final class McpServerTest extends TestCase {
 
 		$tools = $data['result']['tools'];
 		$this->assertIsArray( $tools );
-		$this->assertCount( 53, $tools ); // 26 read-only + 27 write (+ FluentCart & WooCommerce products)
+		$this->assertCount( 58, $tools ); // 28 read-only + 30 write (+ WooCommerce variations)
 
 		// Each tool must expose name, description, inputSchema.
 		foreach ( $tools as $tool ) {

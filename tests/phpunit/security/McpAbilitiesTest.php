@@ -47,12 +47,12 @@ final class McpAbilitiesTest extends TestCase {
 	// ── Test 1 : list_tools structure ─────────────────────────────────────────
 
 	/**
-	 * list_tools() returns exactly 53 tools (26 read-only + 27 write), each with required keys.
+	 * list_tools() returns exactly 58 tools (28 read-only + 30 write), each with required keys.
 	 */
 	public function test_list_tools_returns_five_tools(): void {
 		$tools = $this->abilities->list_tools();
 
-		$this->assertCount( 53, $tools );
+		$this->assertCount( 58, $tools );
 
 		$names = array_column( $tools, 'name' );
 		$this->assertContains( 'g2rd_get-site-info', $names );

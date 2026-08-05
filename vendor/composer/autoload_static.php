@@ -154,6 +154,7 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'G2RD\\McpServer' => __DIR__ . '/../..' . '/classes/class-mcp-server.php',
         'G2RD\\McpTokenManager' => __DIR__ . '/../..' . '/classes/class-mcp-token-manager.php',
         'G2RD\\McpWooProducts' => __DIR__ . '/../..' . '/classes/class-mcp-woo-products.php',
+        'G2RD\\McpWooVariations' => __DIR__ . '/../..' . '/classes/class-mcp-woo-variations.php',
         'G2RD\\Onboarding' => __DIR__ . '/../..' . '/classes/class-onboarding.php',
         'G2RD\\ParticlesEffect' => __DIR__ . '/../..' . '/classes/class-particules-effect.php',
         'G2RD\\PerformanceAudit' => __DIR__ . '/../..' . '/classes/class-performance-audit.php',

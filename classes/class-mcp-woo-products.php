@@ -232,10 +232,13 @@ class McpWooProducts {
 	 * Accepts "19.99", "19,99", 19.99 and 20. Refuses anything else, so a
 	 * malformed amount never reaches the shop silently.
 	 *
+	 * Rendue publique pour que la couche variations applique exactement le même
+	 * contrat, plutôt qu'une copie qui pourrait diverger.
+	 *
 	 * @param mixed $value Incoming price.
 	 * @return string|null Normalised price, or null when unusable.
 	 */
-	private static function normalize_price( $value ): ?string {
+	public static function normalize_price( $value ): ?string {
 		if ( ! \is_scalar( $value ) ) {
 			return null;
 		}

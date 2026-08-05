@@ -84,6 +84,7 @@ return array(
     'G2RD\\McpServer' => $baseDir . '/classes/class-mcp-server.php',
     'G2RD\\McpTokenManager' => $baseDir . '/classes/class-mcp-token-manager.php',
     'G2RD\\McpWooProducts' => $baseDir . '/classes/class-mcp-woo-products.php',
+    'G2RD\\McpWooVariations' => $baseDir . '/classes/class-mcp-woo-variations.php',
     'G2RD\\Onboarding' => $baseDir . '/classes/class-onboarding.php',
     'G2RD\\ParticlesEffect' => $baseDir . '/classes/class-particules-effect.php',
     'G2RD\\PerformanceAudit' => $baseDir . '/classes/class-performance-audit.php',
