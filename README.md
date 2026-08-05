@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.31.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.31.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,14 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.31.1**
+
+- **Un statut absent n'est plus réécrit** : `g2rd_update-woo-product` repassait le produit en **brouillon** dès que le statut n'était pas fourni. La clé `status` était toujours créée avec `draft` par défaut, puis testée avec `isset()` — donc toujours vraie. Une mise à jour ne portant que sur le prix **retirait le produit de la boutique**, sans que rien ne le signale. Le champ n'est désormais écrit que s'il a été explicitement fourni ; `draft` reste le défaut à la création seulement.
+- **Vérification des outils voisins** : `g2rd_update-post` et `g2rd_update-woo-variation` testaient déjà la présence de l'argument et n'étaient pas concernés. `g2rd_update-woo-product` était le seul touché.
+- **Résumé d'e-mail sincère** : le récapitulatif affiche **« (inchangé) »** au lieu d'un `draft` trompeur. Sans cela, l'administrateur approuvait une dépublication en croyant valider un changement de prix — le garde-fou de confirmation présentait une intention qui n'était pas la sienne.
+- **Fenêtre de confirmation portée de 15 à 60 minutes** : quinze minutes doivent couvrir la latence de distribution du courrier, la lecture du payload et la décision — et l'administrateur n'est pas nécessairement devant sa boîte. Une demande expirée oblige l'agent à tout resoumettre, ce qui décourage l'usage même du garde-fou. Soixante minutes reste borné : un lien de confirmation n'a pas vocation à valoir une journée.
+- **Tests** : 3 nouveaux sur le statut. Suite complète à **190 tests / 1 195 assertions**.
 
 ### **1.31.0**
 

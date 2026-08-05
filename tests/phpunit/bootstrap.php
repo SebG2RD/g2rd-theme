@@ -7,7 +7,8 @@ declare(strict_types=1);
 
 $autoload = dirname(__DIR__, 2) . '/vendor/autoload.php';
 if (file_exists($autoload)) {
-    require_once $autoload; // phpcs:ignore WordPress.Files.IncludingFile.NoFileExtension -- Chemin construit dynamiquement, extension .php garantie.
+    // phpcs:ignore WordPress.Files.IncludingFile.NoFileExtension, PHPCS_SecurityAudit.Misc.IncludeMismatch.ErrMiscIncludeMismatchNoExt -- Chemin construit par concaténation littérale ligne 8, l'extension .php est bien présente ; les sniffs ne la voient pas à travers l'affectation.
+    require_once $autoload;
 }
 
 if (!defined('ABSPATH')) {
