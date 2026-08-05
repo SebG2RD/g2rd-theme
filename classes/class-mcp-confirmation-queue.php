@@ -329,11 +329,142 @@ class McpConfirmationQueue {
 		);
 		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
+		$entries = \is_array( $rows ) ? $rows : [];
+
 		return [
-			'entries'     => \is_array( $rows ) ? $rows : [],
+			'entries'     => $this->decorate_pending_entries( $entries ),
 			'total'       => $total,
 			'total_pages' => (int) \ceil( $total / $per_page ),
 		];
+	}
+
+	/**
+	 * Adds target, payload size and supersession hints to pending entries.
+	 *
+	 * The bare row tells an administrator that "an update-post is waiting", which
+	 * is not enough to decide: on which post, how much content, and is a newer
+	 * request already queued for the same target? Answering that required
+	 * decrypting the payload, which only this class can do.
+	 *
+	 * Behaviour on duplicates: STRICT QUEUE. A newer operation on the same target
+	 * never cancels an older one — both stay pending and both must be resolved.
+	 * Auto-superseding would let a caller silently retract an operation an
+	 * administrator was about to inspect, which is the opposite of what this
+	 * queue is for. The newer entry is merely flagged so the order is visible.
+	 *
+	 * @param array<int, array<string, mixed>> $entries Raw rows.
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function decorate_pending_entries( array $entries ): array {
+		$seen_targets = [];
+
+		/*
+		 * Les lignes arrivent déjà de la plus récente à la plus ancienne
+		 * (ORDER BY created_at DESC), et on les parcourt dans cet ordre : la
+		 * première vue pour une cible donnée est donc la plus récente, et c'est
+		 * elle dont l'identifiant doit être signalé sur les lignes ANTÉRIEURES.
+		 * Parcourir à l'envers posait le drapeau sur la ligne récente en
+		 * pointant vers l'ancienne, soit l'inverse de ce que dit l'avertissement.
+		 */
+		foreach ( \array_keys( $entries ) as $i ) {
+			$row     = $entries[ $i ];
+			$payload = $this->decrypt_arguments( (int) ( $row['id'] ?? 0 ) );
+
+			$entries[ $i ]['payload_bytes'] = null === $payload
+				? 0
+				: \strlen( (string) \wp_json_encode( $payload ) );
+
+			$target = null === $payload ? '' : $this->describe_target( $payload );
+
+			$entries[ $i ]['target']        = $target;
+			$entries[ $i ]['superseded_by'] = null;
+
+			if ( '' === $target ) {
+				continue;
+			}
+
+			$key = (string) ( $row['ability_name'] ?? '' ) . '|' . $target;
+
+			if ( isset( $seen_targets[ $key ] ) ) {
+				// Une entrée plus récente vise déjà la même cible avec le même
+				// outil : on le signale sur CETTE ligne, l'antérieure, sans rien
+				// annuler.
+				$entries[ $i ]['superseded_by'] = $seen_targets[ $key ];
+				continue;
+			}
+
+			// Conservée telle quelle : toutes les lignes antérieures pointent
+			// vers la plus récente, pas vers celle qui la précède de peu.
+			$seen_targets[ $key ] = (int) ( $row['id'] ?? 0 );
+		}
+
+		return $entries;
+	}
+
+	/**
+	 * Reads and decrypts one pending entry's arguments.
+	 *
+	 * @param int $id Row primary key.
+	 * @return array<string, mixed>|null Decoded arguments, or null when unreadable.
+	 */
+	private function decrypt_arguments( int $id ): ?array {
+		global $wpdb;
+
+		if ( $id <= 0 ) {
+			return null;
+		}
+
+		$table = $wpdb->prefix . self::TABLE_SUFFIX;
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		$enc = $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table from server constant
+				"SELECT arguments_enc FROM `{$table}` WHERE id = %d",
+				$id
+			)
+		);
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
+		if ( ! \is_string( $enc ) || '' === $enc ) {
+			return null;
+		}
+
+		$plain = $this->crypto->decrypt( $enc );
+
+		if ( ! \is_string( $plain ) || '' === $plain ) {
+			return null;
+		}
+
+		$decoded = \json_decode( $plain, true );
+
+		return \is_array( $decoded ) ? $decoded : null;
+	}
+
+	/**
+	 * Builds a short label identifying what an operation acts on.
+	 *
+	 * @param array<string, mixed> $payload Decrypted arguments.
+	 * @return string Empty when the operation has no identifiable target.
+	 */
+	private function describe_target( array $payload ): string {
+		foreach ( [ 'post_id', 'product_id', 'media_id', 'attachment_id', 'item_id' ] as $key ) {
+			if ( ! empty( $payload[ $key ] ) ) {
+				return $key . '=' . \absint( $payload[ $key ] );
+			}
+		}
+
+		foreach ( [ 'title', 'name', 'option_key', 'setting', 'source_url' ] as $key ) {
+			if ( ! empty( $payload[ $key ] ) && \is_scalar( $payload[ $key ] ) ) {
+				return \mb_substr( (string) $payload[ $key ], 0, 60 );
+			}
+		}
+
+		if ( ! empty( $payload['operations'] ) && \is_array( $payload['operations'] ) ) {
+			return \sprintf( 'lot de %d opération(s)', \count( $payload['operations'] ) );
+		}
+
+		return '';
 	}
 
 	/**
