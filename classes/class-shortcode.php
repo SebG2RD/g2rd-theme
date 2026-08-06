@@ -55,7 +55,32 @@ class Shortcode {
                     'uses_context'       => ['postId'],
                 ]
             );
+
+            // Block binding : année courante, pour les mentions de copyright des
+            // pieds de page. Une année écrite en dur oblige à repasser sur chaque
+            // site tous les 1ers janvier — et se remarque quand on l'oublie.
+            register_block_bindings_source(
+                'g2rd/current-year',
+                [
+                    'label'              => __('Année courante', 'g2rd'),
+                    'get_value_callback' => [$this, 'getCurrentYearValue'],
+                ]
+            );
         }
+    }
+
+    /**
+     * Valeur du block binding g2rd/current-year : l'année en cours.
+     *
+     * Utilise wp_date() et non date() pour suivre le fuseau horaire configuré dans
+     * WordPress : sur un serveur en UTC, un site en heure française afficherait
+     * l'année précédente pendant les deux premières heures du 1er janvier.
+     *
+     * @since 1.32.1
+     * @return string L'année sur quatre chiffres.
+     */
+    public function getCurrentYearValue(): string {
+        return \wp_date('Y');
     }
 
     /**

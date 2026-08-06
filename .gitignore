@@ -40,6 +40,7 @@ pnpm-debug.log*
 # Caches d’outils
 .phpcs-cache
 .phpunit.result.cache
+.phpunit.cache/
 .php-cs-fixer.cache
 .eslintcache
 

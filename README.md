@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.32.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.32.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.32.1**
+
+- **Moovéa** : pied de page et en-tête retravaillés (logo image à la place du logo de site, colophon), pattern d'accueil et variation de style affinés.
+- **Nouvelle source de liaison `g2rd/current-year`** : le pied de page portait `© {{annee}}`, un marqueur qu'aucun mécanisme du thème ne traitait — il se serait affiché tel quel sur le site. La mention de copyright lit désormais l'année réelle. `wp_date()` est utilisé plutôt que `date()` pour suivre le fuseau configuré dans WordPress : sur un serveur en UTC, un site en heure française aurait affiché l'année précédente pendant les deux premières heures du 1er janvier.
+- **`.phpunit.cache/` ignoré** : le répertoire de cache de PHPUnit 10 était suivi par Git, si bien que chaque exécution des tests laissait un fichier modifié dans l'arbre de travail. Seul `.phpunit.result.cache`, son équivalent des versions antérieures, l'était.
 
 ### **1.32.0**
 
