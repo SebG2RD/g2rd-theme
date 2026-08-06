@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.31.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.32.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.32.0**
+
+- **Projet Moovéa** : variation de style `styles/moovea.json` (palette bordeaux / crème / vert d'eau, trois familles typographiques), pattern `moovea-accueil` et trois parties de gabarit — en-tête, pied de page et bandeau fondatrices.
+- **Parties de gabarit déclarées** dans `theme.json` avec leur zone et leur titre. Sans cette déclaration, l'éditeur de site les rangeait en « non catégorisé » et les affichait sous leur nom de fichier, au lieu de les proposer aux emplacements d'en-tête et de pied de page.
 
 ### **1.31.2**
 

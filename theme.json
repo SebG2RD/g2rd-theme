@@ -135,6 +135,21 @@
       "name": "sidebar",
       "title": "Sidebar",
       "area": "uncategorized"
+    },
+    {
+      "area": "header",
+      "name": "moovea-header",
+      "title": "Moovéa — En-tête"
+    },
+    {
+      "area": "footer",
+      "name": "moovea-footer",
+      "title": "Moovéa — Pied de page"
+    },
+    {
+      "name": "moovea-founders-bar",
+      "title": "Moovéa — Bandeau fondatrices",
+      "area": "uncategorized"
     }
   ]
 }
