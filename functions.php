@@ -199,6 +199,10 @@ function bootstrap_theme(): void
     // Assistant d'intégration (onboarding au premier démarrage)
     ( new Onboarding() )->register_hooks();
 
+    // Socle d'accessibilité RGAA — jamais conditionné à une option : le lien
+    // d'évitement doit exister sur toutes les pages de tous les sites.
+    ( new Accessibility() )->register_hooks();
+
     // Aide SEO légère dans l'éditeur Gutenberg
     ( new SEO_Helper() )->register_hooks();
 

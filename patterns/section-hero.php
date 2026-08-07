@@ -56,21 +56,21 @@
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">150+</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1;margin-top:0;margin-bottom:0">150+</p><!-- /wp:paragraph -->
 					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Sites livrés</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">5 ans</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1;margin-top:0;margin-bottom:0">5 ans</p><!-- /wp:paragraph -->
 					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">D'expérience</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
 				<div class="wp-block-column">
-					<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"}}} --><h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1">98%</h3><!-- /wp:heading -->
+					<!-- wp:paragraph {"textColor":"secondary","style":{"typography":{"fontSize":"2.4rem","fontWeight":"800","lineHeight":"1"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} --><p class="has-secondary-color has-text-color" style="font-size:2.4rem;font-weight:800;line-height:1;margin-top:0;margin-bottom:0">98%</p><!-- /wp:paragraph -->
 					<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"typography":{"fontWeight":"600","letterSpacing":"0.08em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0.25rem"}}}} --><p class="has-white-color has-text-color has-s-font-size" style="margin-top:0.25rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Clients satisfaits</p><!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:column -->

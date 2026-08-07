@@ -167,6 +167,39 @@
 		prevBtn?.setAttribute( 'aria-controls', track.id );
 		nextBtn?.setAttribute( 'aria-controls', track.id );
 
+		/*
+		 * Navigation aux flèches (RGAA 7.3). Les boutons précédent/suivant
+		 * rendaient déjà le carrousel utilisable au clavier, mais un composant
+		 * annoncé comme carrousel est attendu manœuvrable aux flèches : sans
+		 * cela, l'internaute qui les essaie croit le composant bloqué.
+		 *
+		 * Le conteneur devient focusable pour recevoir ces touches, et
+		 * aria-roledescription le nomme pour ce qu'il est.
+		 */
+		el.setAttribute( 'aria-roledescription', 'carrousel' );
+		if ( ! el.hasAttribute( 'tabindex' ) ) {
+			el.setAttribute( 'tabindex', '0' );
+		}
+		if ( ! el.hasAttribute( 'aria-label' ) ) {
+			el.setAttribute( 'aria-label', 'Carrousel' );
+		}
+
+		el.addEventListener( 'keydown', function ( event ) {
+			// Ne pas détourner les flèches d'un champ de saisie inséré dans une slide.
+			var tag = event.target.tagName;
+			if ( 'INPUT' === tag || 'TEXTAREA' === tag || 'SELECT' === tag ) {
+				return;
+			}
+
+			if ( 'ArrowLeft' === event.key ) {
+				event.preventDefault();
+				goTo( currentIndex - 1 );
+			} else if ( 'ArrowRight' === event.key ) {
+				event.preventDefault();
+				goTo( currentIndex + 1 );
+			}
+		} );
+
 		/* Région aria-live pour annoncer le changement de slide (RGAA 4.1) */
 		liveRegion = document.createElement( 'div' );
 		liveRegion.setAttribute( 'aria-live', 'polite' );

@@ -57,8 +57,8 @@
 		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:45%">
 			<!-- wp:group {"style":{"border":{"radius":"12px"},"spacing":{"padding":{"top":"var:preset|spacing|m","bottom":"var:preset|spacing|m","right":"var:preset|spacing|m","left":"var:preset|spacing|m"}},"color":{"background":"color-mix(in srgb, var(--wp--preset--color--white) 8%, transparent)"}},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-group" style="border-radius:12px;padding:var(--wp--preset--spacing--m);background-color:color-mix(in srgb, var(--wp--preset--color--white) 8%, transparent)">
-				<!-- wp:heading {"level":3,"textColor":"secondary","style":{"typography":{"fontSize":"1.1rem","fontWeight":"700"}}} -->
-				<h3 class="wp-block-heading has-secondary-color has-text-color" style="font-size:1.1rem;font-weight:700">Réserver une course</h3>
+				<!-- wp:heading {"level":2,"textColor":"secondary","style":{"typography":{"fontSize":"1.1rem","fontWeight":"700"}}} -->
+				<h2 class="wp-block-heading has-secondary-color has-text-color" style="font-size:1.1rem;font-weight:700">Réserver une course</h2>
 				<!-- /wp:heading -->
 				<!-- wp:paragraph {"textColor":"white","fontSize":"s","style":{"spacing":{"margin":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|s"}}}} -->
 				<p class="has-white-color has-text-color has-s-font-size" style="margin-top:var(--wp--preset--spacing--xs);margin-bottom:var(--wp--preset--spacing--s)">Indiquez vos points de départ et d'arrivée pour un devis immédiat.</p>
