@@ -1,13 +1,14 @@
 /**
  * Rendu frontend du bloc Marquee.
  *
- * Accessibilité (RGAA 13.8 / WCAG 2.2.2) : un contenu en mouvement de plus de
- * cinq secondes doit offrir un moyen de l'arrêter. Le bouton de pause est donc
- * créé systématiquement, sans tenir compte de l'attribut `showPauseButton` :
- * ce réglage permettait de retirer un contrôle obligatoire, et il valait
- * `false` par défaut — tout marquee posé sans y penser défilait sans arrêt
- * possible. L'attribut est conservé dans block.json pour ne pas invalider le
- * contenu déjà publié, mais il ne pilote plus l'affichage du bouton.
+ * Le bouton de pause est piloté depuis l'éditeur par le réglage « Afficher le
+ * bouton pause » (attribut `showPauseButton`), masqué par défaut.
+ *
+ * À savoir pour un site visé RGAA : un contenu en mouvement de plus de cinq
+ * secondes doit offrir un moyen de l'arrêter (13.8, WCAG 2.2.2). La pause au
+ * survol ne suffit pas, elle est hors de portée du clavier. Un marquee dont le
+ * bouton reste masqué est donc non conforme sur ce critère — le réglage existe
+ * pour que ce choix se fasse page par page, en connaissance de cause.
  *
  * Le dédoublement du contenu (nécessaire à la boucle) est marqué
  * `aria-hidden` : la copie ne doit pas être lue deux fois.
@@ -81,7 +82,7 @@
 			window.matchMedia &&
 			window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 
-		if ( ! reduced ) {
+		if ( marquee.classList.contains( 'has-pause-button' ) && ! reduced ) {
 			marquee.insertBefore( buildPauseButton( track ), track );
 		}
 	}
