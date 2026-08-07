@@ -297,27 +297,32 @@ class Accessibility {
             return $content;
         }
 
-        // Un ancrage défini par l'utilisateur fait autorité : on ne l'écrase pas,
-        // des liens internes peuvent déjà pointer dessus.
-        if ( ! empty( $block['attrs']['anchor'] ) ) {
-            $this->main_marked = true;
-            return $content;
-        }
-
-        if ( ! \preg_match( '/^(\s*<main\b)([^>]*)(>)/i', $content, $m ) ) {
-            return $content;
-        }
-
-        if ( false !== \stripos( $m[2], ' id=' ) ) {
-            $this->main_marked = true;
+        if ( ! \preg_match( '/^(\s*<main\b[^>]*>)/i', $content, $m ) ) {
             return $content;
         }
 
         $this->main_marked = true;
 
+        /*
+         * La cible est une ancre dédiée insérée en tête du landmark, et non un
+         * identifiant posé sur <main>. Poser l'identifiant échouait dès que
+         * l'auteur avait défini son propre ancrage ou qu'un identifiant existait
+         * déjà : on renonçait alors à marquer, et le lien d'évitement pointait
+         * vers une cible absente — il ne faisait plus rien, précisément pour les
+         * pages les plus travaillées.
+         *
+         * Une ancre séparée n'entre en conflit avec rien et fonctionne dans tous
+         * les cas. `tabindex="-1"` la rend focusable par programme sans l'ajouter
+         * à l'ordre de tabulation.
+         */
+        $anchor = \sprintf(
+            '<span id="%s" tabindex="-1" class="screen-reader-text"></span>',
+            \esc_attr( self::MAIN_ID )
+        );
+
         return \preg_replace(
-            '/^(\s*<main\b)([^>]*)(>)/i',
-            '$1$2 id="' . self::MAIN_ID . '" tabindex="-1"$3',
+            '/^(\s*<main\b[^>]*>)/i',
+            '$1' . $anchor,
             $content,
             1
         );

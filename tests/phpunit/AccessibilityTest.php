@@ -74,6 +74,8 @@ final class AccessibilityTest extends TestCase
         // Sans tabindex, le navigateur défile mais ne déplace pas le focus :
         // la tabulation suivante repartirait du haut de la page.
         self::assertStringContainsString('tabindex="-1"', $out);
+        // L'ancre se place à l'intérieur du landmark, pas avant lui.
+        self::assertMatchesRegularExpression('/<main[^>]*><span id="/', $out);
     }
 
     public function testNonMainGroupsAreLeftAlone(): void
@@ -97,27 +99,29 @@ final class AccessibilityTest extends TestCase
     }
 
     /**
-     * Un ancrage posé par l'utilisateur fait autorité : des liens internes
-     * peuvent déjà pointer dessus, on ne le remplace pas.
+     * Un ancrage défini par l'auteur ne doit plus faire perdre la cible.
+     *
+     * L'identifiant était auparavant posé sur <main> lui-même, et on renonçait
+     * à marquer dès qu'un ancrage existait : le lien d'évitement pointait alors
+     * vers une cible absente, précisément sur les pages les plus travaillées.
      */
-    public function testAuthorAnchorIsPreserved(): void
+    public function testAuthorAnchorStillGetsASkipTarget(): void
     {
-        $html = '<main id="mon-ancre">contenu</main>';
-        $out = $this->renderGroup($html, ['tagName' => 'main', 'anchor' => 'mon-ancre']);
-
-        self::assertSame($html, $out);
-        // Le landmark est considéré comme traité : aucun groupe suivant ne doit
-        // récupérer l'identifiant, sinon le document en compterait deux.
-        self::assertStringNotContainsString(
-            Accessibility::mainId(),
-            $this->renderGroup('<main>suivant</main>', ['tagName' => 'main'])
+        $out = $this->renderGroup(
+            '<main id="mon-ancre">contenu</main>',
+            ['tagName' => 'main', 'anchor' => 'mon-ancre']
         );
+
+        self::assertStringContainsString('id="mon-ancre"', $out);
+        self::assertStringContainsString('id="' . Accessibility::mainId() . '"', $out);
     }
 
-    public function testExistingIdIsNotDuplicated(): void
+    public function testExistingIdOnMainIsPreserved(): void
     {
-        $html = '<main id="deja-la">contenu</main>';
-        self::assertSame($html, $this->renderGroup($html, ['tagName' => 'main']));
+        $out = $this->renderGroup('<main id="deja-la">contenu</main>', ['tagName' => 'main']);
+
+        self::assertStringContainsString('id="deja-la"', $out);
+        self::assertStringContainsString('id="' . Accessibility::mainId() . '"', $out);
     }
 
     public function testFlagResetsBetweenPageRenders(): void

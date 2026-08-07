@@ -12,8 +12,8 @@
  * 2. Le compteur visuel est donc masqué aux technologies d'assistance
  *    (aria-hidden) et doublé d'un résumé en français, annoncé poliment et
  *    seulement quand l'unité la plus significative change (le jour, puis
- *    l'heure, puis la minute). La dernière minute est laissée silencieuse :
- *    l'échéance y est déjà connue et l'annonce n'apporterait rien.
+ *    l'heure, puis la minute). Sous la minute, une formule stable — « Moins
+ *    d'une minute » — évite d'égrener les secondes dans la région live.
  *
  * 3. La fin du compte à rebours est annoncée, c'est le seul moment où
  *    l'information est réellement nouvelle.
@@ -21,18 +21,29 @@
 document.addEventListener("DOMContentLoaded", function () {
   const countdowns = document.querySelectorAll(".g2rd-countdown");
 
-  /** Formate le temps restant en une phrase lisible à voix haute. */
-  function spokenSummary(values, endedMessage) {
-    const parts = [];
-    const units = [
-      ["years", "an", "ans"],
-      ["months", "mois", "mois"],
-      ["days", "jour", "jours"],
-      ["hours", "heure", "heures"],
-      ["minutes", "minute", "minutes"],
-    ];
+  const UNITS = [
+    ["years", "an", "ans"],
+    ["months", "mois", "mois"],
+    ["days", "jour", "jours"],
+    ["hours", "heure", "heures"],
+    ["minutes", "minute", "minutes"],
+  ];
 
-    for (const [key, one, many] of units) {
+  /**
+   * Formate le temps restant en une phrase lisible à voix haute.
+   *
+   * `visible` limite le résumé aux unités réellement affichées : un bloc réglé
+   * sur jours/heures seulement ne doit pas annoncer « Il reste 2 ans » quand
+   * l'écran montre « 730 jours ». Le résumé et l'affichage racontent alors deux
+   * choses différentes du même compte à rebours.
+   */
+  function spokenSummary(values, visible) {
+    const parts = [];
+
+    for (const [key, one, many] of UNITS) {
+      if (visible && visible.indexOf(key) === -1) {
+        continue;
+      }
       const n = values[key];
       if (n > 0) {
         parts.push(n + " " + (n > 1 ? many : one));
@@ -45,7 +56,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (parts.length === 0) {
-      return endedMessage;
+      /*
+       * Aucune unité d'une minute ou plus : il reste des secondes. Renvoyer le
+       * message de fin annoncerait le compte à rebours terminé jusqu'à une
+       * minute avant l'échéance réelle, en contradiction avec l'affichage.
+       *
+       * Les secondes ne sont pas énoncées : elles changeraient la phrase à
+       * chaque tick et la région live parlerait en continu. Une formule stable
+       * dit la même chose sans ce défaut.
+       */
+      return "Moins d'une minute";
     }
 
     return "Il reste " + parts.join(" et ");
@@ -81,6 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Mémorise la dernière phrase annoncée pour n'écrire dans la région live
     // que lorsqu'elle change réellement.
     let lastSpoken = "";
+
+    // Unités effectivement présentes dans le DOM : le résumé ne doit
+    // parler que de ce que l'internaute voit.
+    const visibleUnits = Array.prototype.map.call(
+      countdown.querySelectorAll(".countdown-item[data-unit]"),
+      (item) => item.getAttribute("data-unit")
+    );
 
     function announce(text) {
       if (text !== lastSpoken) {
@@ -150,7 +177,9 @@ document.addEventListener("DOMContentLoaded", function () {
        * entière au moins : le lecteur d'écran annonce donc au rythme de la
        * minute, pas de la seconde.
        */
-      announce(spokenSummary(values, countdown.dataset.endedMessage || "Terminé !"));
+      announce(
+        spokenSummary(values, visibleUnits)
+      );
     }
 
     // Mise à jour initiale
