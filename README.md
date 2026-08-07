@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.33.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.33.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.33.1**
+
+- **Compte à rebours — le temps affiché était faux dès qu'une unité était masquée.** Les années et les mois étaient retranchés qu'on les affiche ou non : une échéance à deux ans réglée sur jours et heures montrait « 0 jour, 2 heures », les 730 jours ayant été absorbés par des unités invisibles. La plus grande unité affichée porte désormais tout ce qui la dépasse — la même échéance affiche « 733 jours, 4 heures ».
+- **La fenêtre modale s'annonce comme un dialogue.** Elle retenait déjà le clavier, déplaçait le focus à l'ouverture et le rendait à la fermeture, mais ne portait ni `role="dialog"` ni `aria-modal` : un lecteur d'écran laissait donc parcourir la page située derrière alors que le clavier y était retenu. Un nom de repli est posé lorsque la modale ne contient aucun titre.
+- **Trois avis de sécurité élevés** sur `js-yaml`, atteint par trois chemins de `@wordpress/scripts`, corrigés par un `override` en version patch plutôt qu'une montée majeure de la chaîne de build.
 
 ### **1.33.0**
 
