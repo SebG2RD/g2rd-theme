@@ -623,6 +623,18 @@ if (!function_exists('esc_html')) {
         return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 }
+if (!function_exists('esc_html__')) {
+    function esc_html__(string $text, string $domain = 'default'): string {
+        return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+}
+if (!function_exists('is_admin')) {
+    // Le front est le contexte par défaut des tests ; un test qui a besoin de
+    // l'admin bascule $GLOBALS['g2rd_test_is_admin'].
+    function is_admin(): bool {
+        return (bool) ($GLOBALS['g2rd_test_is_admin'] ?? false);
+    }
+}
 if (!function_exists('esc_attr')) {
     function esc_attr(string $text): string {
         return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
