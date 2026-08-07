@@ -57,6 +57,28 @@ $wrapper_attrs = get_block_wrapper_attributes([
 $circle_radius = 45;
 $circle_circumference = 2 * M_PI * $circle_radius;
 $circle_dash = ($percent / 100) * $circle_circumference;
+
+/*
+ * Accessibilité (RGAA 1.1) : la progression n'était transmise que par la
+ * largeur de la barre — la piste portait role="presentation" et le
+ * pourcentage affiché était masqué aux technologies d'assistance. Un lecteur
+ * d'écran ne restituait donc que le libellé, sans jamais la valeur.
+ *
+ * L'élément porte désormais role="progressbar" avec ses bornes. aria-valuetext
+ * double aria-valuenow parce qu'un ratio nu (« 3 sur 5 ») se restitue mal :
+ * on annonce « 60 % ». Le pourcentage visible reste aria-hidden pour ne pas
+ * être lu deux fois.
+ */
+$progress_attrs = sprintf(
+	'role="progressbar" aria-valuenow="%1$d" aria-valuemin="0" aria-valuemax="100" aria-valuetext="%2$s"',
+	$percent,
+	esc_attr( sprintf( '%d %%', $percent ) )
+);
+
+// Sans libellé saisi, le rôle a tout de même besoin d'un nom accessible.
+$progress_attrs .= $label !== ''
+	? sprintf( ' aria-label="%s"', esc_attr( $label ) )
+	: sprintf( ' aria-label="%s"', esc_attr__( 'Progression', 'g2rd' ) );
 ?>
 <div <?php echo $wrapper_attrs; ?>>
 	<?php if ($label !== '') : ?>
@@ -65,7 +87,7 @@ $circle_dash = ($percent / 100) * $circle_circumference;
 
 	<?php if ($style_variant === 'bar') : ?>
 		<div class="g2rd-progress-bar__bar-wrap">
-			<div class="g2rd-progress-bar__track" role="presentation">
+			<div class="g2rd-progress-bar__track" <?php echo $progress_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributs construits plus haut : entiers et esc_attr(). ?>>
 				<div
 					class="g2rd-progress-bar__fill"
 					style="width:<?php echo (int) $percent; ?>%"
@@ -80,7 +102,7 @@ $circle_dash = ($percent / 100) * $circle_circumference;
 	<?php endif; ?>
 
 	<?php if ($style_variant === 'circle') : ?>
-		<div class="g2rd-progress-bar__circle-wrap">
+		<div class="g2rd-progress-bar__circle-wrap" <?php echo $progress_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributs construits plus haut : entiers et esc_attr(). ?>>
 			<svg
 				class="g2rd-progress-bar__circle"
 				viewBox="0 0 100 100"
