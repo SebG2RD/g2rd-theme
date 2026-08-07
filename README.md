@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.32.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.33.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,17 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.33.0**
+
+- **Lien d'accès rapide au contenu** (RGAA 12.5) : aucune page n'en proposait. Il est désormais posé en premier élément focusable de toutes les pages, quelle que soit la configuration du site. Sa cible est une ancre dédiée insérée dans le contenu principal, et non un identifiant posé sur celui-ci : un ancrage défini par l'auteur aurait sinon fait pointer le lien vers une cible absente.
+- **Sommaire** (12.3) : activer une entrée déplaçait la vue sans déplacer le focus, si bien qu'au clavier la tabulation suivante repartait du sommaire et non de la section atteinte — le lien paraissait sans effet. Le bloc est aussi identifié comme repère de navigation et nommé.
+- **Compte à rebours** : les chiffres se réécrivaient chaque seconde sans aucun balisage, sans qu'un lecteur d'écran ne signale jamais le changement. Le compteur visuel est masqué aux technologies d'assistance et doublé d'un résumé annoncé au rythme de la minute, jamais de la seconde.
+- **Barre de progression** (1.1) : sa valeur était intégralement perdue — la piste était marquée décorative et le pourcentage masqué. Les deux variantes, barre et cercle, l'exposent désormais.
+- **Carrousel** (7.3) : manœuvrable aux flèches, en plus des boutons.
+- **Contrastes signalés, jamais modifiés** (10.6) : l'administration avertit lorsque des couleurs associées dans le balisage passent sous le seuil AA. Aucune palette n'est touchée — une charte est une décision de marque. Le contrôle se limite aux couples réellement employés : sur la palette du thème, 53 combinaisons théoriques échouent alors qu'aucune n'est effectivement posée.
+- **Titres** (9.1, 9.2) : les chiffres d'un hero (« 150+ », « 98% ») étaient balisés en titres et polluaient le sommaire lu par un lecteur d'écran ; un `h3` précédait le premier `h2`.
+- Aucun `save.js` n'est modifié : rien n'invalide le contenu déjà publié.
 
 ### **1.32.1**
 
