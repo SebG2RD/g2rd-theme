@@ -29,6 +29,79 @@ document.addEventListener("DOMContentLoaded", function () {
     ["minutes", "minute", "minutes"],
   ];
 
+  const MS_DAY = 1000 * 60 * 60 * 24;
+  const MS_HOUR = 1000 * 60 * 60;
+  const MS_MINUTE = 1000 * 60;
+
+  /**
+   * Répartit le temps restant entre les unités réellement affichées.
+   *
+   * Les années et les mois étaient auparavant retranchés que l'auteur les
+   * affiche ou non : un compte à rebours de deux ans réglé sur jours et heures
+   * montrait « 0 jours, 2 heures », les 730 jours ayant été absorbés par des
+   * unités invisibles. La plus grande unité affichée doit au contraire porter
+   * tout ce qui la dépasse.
+   *
+   * Années et mois restent calculés sur le calendrier — leur durée varie — et
+   * ne sont retranchés que s'ils sont montrés.
+   */
+  function computeValues(endDate, distance, visible) {
+    const shows = function (unit) {
+      // Aucune unité repérée (balisage antérieur à data-unit) : tout est montré.
+      return !Array.isArray(visible) || 0 === visible.length
+        ? true
+        : visible.indexOf(unit) !== -1;
+    };
+
+    const now = new Date();
+    const end = new Date(endDate);
+
+    let years = 0;
+    let months = 0;
+    let rest = distance;
+
+    if (shows("years") || shows("months")) {
+      let y = end.getFullYear() - now.getFullYear();
+      let m = end.getMonth() - now.getMonth();
+      if (m < 0) {
+        y--;
+        m += 12;
+      }
+
+      // Sans affichage des années, leur durée bascule dans les mois.
+      if (shows("years")) {
+        years = Math.max(0, y);
+        months = Math.max(0, m);
+      } else {
+        months = Math.max(0, y * 12 + m);
+      }
+
+      const afterCalendar = new Date(now);
+      afterCalendar.setFullYear(afterCalendar.getFullYear() + Math.max(0, y));
+      afterCalendar.setMonth(afterCalendar.getMonth() + Math.max(0, m));
+      rest = Math.max(0, end - afterCalendar);
+    }
+
+    const days = shows("days") ? Math.floor(rest / MS_DAY) : 0;
+    if (shows("days")) {
+      rest -= days * MS_DAY;
+    }
+
+    const hours = shows("hours") ? Math.floor(rest / MS_HOUR) : 0;
+    if (shows("hours")) {
+      rest -= hours * MS_HOUR;
+    }
+
+    const minutes = shows("minutes") ? Math.floor(rest / MS_MINUTE) : 0;
+    if (shows("minutes")) {
+      rest -= minutes * MS_MINUTE;
+    }
+
+    const seconds = Math.floor(rest / 1000);
+
+    return { years, months, days, hours, minutes, seconds };
+  }
+
   /**
    * Formate le temps restant en une phrase lisible à voix haute.
    *
@@ -145,31 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Calculs exacts des unités de temps
-      const nowDate = new Date();
-      const endDateObj = new Date(endDate);
-
-      let years = endDateObj.getFullYear() - nowDate.getFullYear();
-      let months = endDateObj.getMonth() - nowDate.getMonth();
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      // Jours restants après soustraction des mois complets
-      const dateAfterMonths = new Date(nowDate);
-      dateAfterMonths.setFullYear(dateAfterMonths.getFullYear() + years);
-      dateAfterMonths.setMonth(dateAfterMonths.getMonth() + months);
-      const remainingMs = endDateObj - dateAfterMonths;
-      const days = Math.max(0, Math.floor(remainingMs / (1000 * 60 * 60 * 24)));
-
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      const values = { years, months, days, hours, minutes, seconds };
+      const values = computeValues(endDate, distance, visibleUnits);
 
       // Mise à jour via data-unit (indépendant de la langue des labels)
       countdown.querySelectorAll(".countdown-item[data-unit]").forEach((item) => {
