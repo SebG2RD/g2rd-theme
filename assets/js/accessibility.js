@@ -178,9 +178,14 @@
     );
   }
 
+  // Relie le déclencheur au panneau : aria-expanded dit qu'un contenu est
+  // déployé, aria-controls dit lequel.
+  var PANEL_ID = "g2rd-a11y-panel";
+
   function createPanel() {
     var panel = document.createElement("div");
     panel.className = "a11y-panel";
+    panel.id = PANEL_ID;
     panel.setAttribute("role", "region");
     panel.setAttribute("aria-label", "Options d'accessibilité");
 
@@ -314,6 +319,7 @@
     btn.className = "a11y-float-btn";
     btn.setAttribute("aria-label", "Ouvrir le panneau d'accessibilité");
     btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-controls", PANEL_ID);
     btn.innerHTML =
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">' +
         '<circle cx="12" cy="4" r="2" fill="currentColor"/>' +

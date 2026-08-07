@@ -114,12 +114,24 @@
 
 /* ─── Niveaux de gris ────────────────────────────────────────────────────────── */
 
-.a11y-grayscale:not(.a11y-panel):not(.a11y-float-btn):not(.a11y-scroll-top) {
-  filter: grayscale(1);
-}
-
-/* Appliqué sur html pour couvrir toute la page */
-html:has(body.a11y-grayscale) {
+/*
+ * Le filtre porte sur les enfants directs du body, jamais sur `html` ni sur
+ * `body` eux-mêmes.
+ *
+ * Un `filter` fait de l'élément qui le porte le bloc conteneur de ses
+ * descendants en `position: fixed`. Filtrer `html` ou `body` capturait donc le
+ * widget d'accessibilité : ancré à `bottom: 32px`, il se plaçait non plus par
+ * rapport à la fenêtre mais par rapport au document entier, c'est-à-dire tout
+ * en bas de la page. Passer en niveaux de gris faisait ainsi disparaître le
+ * bouton, sans moyen de rouvrir le panneau pour revenir en arrière.
+ *
+ * C'est le piège que documente déjà le commentaire du conteneur fixe plus bas ;
+ * il était résolu pour le panneau, puis réintroduit un niveau au-dessus.
+ *
+ * Le widget reste volontairement en couleur : c'est la commande qui permet de
+ * désactiver le mode, elle doit rester identifiable.
+ */
+body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
   filter: grayscale(1);
 }
 
