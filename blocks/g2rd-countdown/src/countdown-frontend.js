@@ -40,8 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function spokenSummary(values, visible) {
     const parts = [];
 
+    /*
+     * Une liste vide veut dire « aucune unité repérée », pas « aucune unité à
+     * annoncer ». En JavaScript un tableau vide est vrai : tester `visible`
+     * seul écartait donc toutes les unités et figeait le résumé sur « Moins
+     * d'une minute » pendant tout le compte à rebours. Le cas se produit sur
+     * les blocs enregistrés avant l'introduction de `data-unit`.
+     */
+    const restrict = Array.isArray(visible) && visible.length > 0;
+
     for (const [key, one, many] of UNITS) {
-      if (visible && visible.indexOf(key) === -1) {
+      if (restrict && visible.indexOf(key) === -1) {
         continue;
       }
       const n = values[key];
