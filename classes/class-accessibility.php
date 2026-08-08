@@ -265,7 +265,17 @@ class Accessibility {
             . 'outline:3px solid var(--wp--preset--color--accent,#ec4899);outline-offset:2px;}'
             // Le landmark reçoit le focus par programme : il ne doit pas pour
             // autant afficher un contour, l'internaute n'ayant pas tabulé jusqu'à lui.
-            . '#' . self::MAIN_ID . ':focus{outline:none;}';
+            . '#' . self::MAIN_ID . ':focus{outline:none;}'
+
+            /*
+             * Cas de repli : quand <main> porte déjà un identifiant d'auteur, une
+             * ancre est insérée en tête du landmark. Elle devient alors le premier
+             * enfant, et WordPress applique sa marge de bloc au contenu qui suit,
+             * devenu deuxième enfant — une bande blanche sous l'en-tête. La règle
+             * ci-dessous l'annule. La spécificité suffit sans !important : celle de
+             * WordPress passe par :where(), qui ne compte pour rien.
+             */
+            . '.g2rd-skip-anchor + *{margin-block-start:0;}';
 
         \printf( '<style id="g2rd-skip-link-css">%s</style>' . "\n", $css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS littéral construit ci-dessus, sans donnée externe.
     }
@@ -304,25 +314,43 @@ class Accessibility {
         $this->main_marked = true;
 
         /*
-         * La cible est une ancre dédiée insérée en tête du landmark, et non un
-         * identifiant posé sur <main>. Poser l'identifiant échouait dès que
-         * l'auteur avait défini son propre ancrage ou qu'un identifiant existait
-         * déjà : on renonçait alors à marquer, et le lien d'évitement pointait
-         * vers une cible absente — il ne faisait plus rien, précisément pour les
-         * pages les plus travaillées.
+         * L'identifiant et le tabindex sont posés sur <main> lui-même.
          *
-         * Une ancre séparée n'entre en conflit avec rien et fonctionne dans tous
-         * les cas. `tabindex="-1"` la rend focusable par programme sans l'ajouter
+         * Une version antérieure insérait à la place une ancre `<span>` en tête
+         * du landmark. Elle fonctionnait, mais créait un frère de mise en page
+         * supplémentaire : WordPress applique
+         * `:where(.is-layout-constrained) > * { margin-block-start: … }` à tout
+         * enfant qui n'est pas le premier. Le contenu réel, devenu deuxième
+         * enfant, héritait donc d'une marge — une bande blanche sous l'en-tête
+         * sur toutes les pages. Le positionnement absolu de l'ancre n'y changeait
+         * rien : le sélecteur `> *` compte les frères, pas les boîtes.
+         *
+         * Sans élément ajouté, il n'y a plus de frère supplémentaire, donc plus
+         * de marge — sur tous les gabarits et toutes les mises en page.
+         *
+         * `tabindex="-1"` rend le landmark focusable par programme sans l'ajouter
          * à l'ordre de tabulation.
          */
-        $anchor = \sprintf(
-            '<span id="%s" tabindex="-1" class="screen-reader-text"></span>',
-            \esc_attr( self::MAIN_ID )
-        );
+        if ( \preg_match( '/^\s*<main\b[^>]*\sid=/i', $content ) ) {
+            /*
+             * Un identifiant est déjà présent. Le thème ne l'écrase pas — des
+             * liens internes peuvent y pointer — mais il doit tout de même
+             * garantir une cible au lien d'évitement, sinon celui-ci ne mène
+             * nulle part. L'ancre de repli n'est posée que dans ce cas, rare,
+             * et la marge qu'elle induit est neutralisée par la feuille du
+             * lien d'évitement.
+             */
+            return \preg_replace(
+                '/^(\s*<main\b[^>]*>)/i',
+                '$1<span id="' . \esc_attr( self::MAIN_ID ) . '" tabindex="-1" class="screen-reader-text g2rd-skip-anchor"></span>',
+                $content,
+                1
+            );
+        }
 
         return \preg_replace(
-            '/^(\s*<main\b[^>]*>)/i',
-            '$1' . $anchor,
+            '/^(\s*<main\b)([^>]*)(>)/i',
+            '$1$2 id="' . \esc_attr( self::MAIN_ID ) . '" tabindex="-1"$3',
             $content,
             1
         );

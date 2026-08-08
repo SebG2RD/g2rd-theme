@@ -74,8 +74,14 @@ final class AccessibilityTest extends TestCase
         // Sans tabindex, le navigateur défile mais ne déplace pas le focus :
         // la tabulation suivante repartirait du haut de la page.
         self::assertStringContainsString('tabindex="-1"', $out);
-        // L'ancre se place à l'intérieur du landmark, pas avant lui.
-        self::assertMatchesRegularExpression('/<main[^>]*><span id="/', $out);
+        /*
+         * L'identifiant est porté par <main> lui-même, sans élément ajouté.
+         * Un frère supplémentaire ferait du contenu réel le deuxième enfant, et
+         * WordPress lui appliquerait sa marge de bloc — une bande blanche sous
+         * l'en-tête sur toutes les pages.
+         */
+        self::assertMatchesRegularExpression('/<main[^>]*\sid="' . Accessibility::mainId() . '"/', $out);
+        self::assertStringNotContainsString('<span', $out);
     }
 
     public function testNonMainGroupsAreLeftAlone(): void
@@ -116,12 +122,33 @@ final class AccessibilityTest extends TestCase
         self::assertStringContainsString('id="' . Accessibility::mainId() . '"', $out);
     }
 
+    /**
+     * Un identifiant déjà présent n'est pas écrasé — des liens internes peuvent
+     * y pointer — mais le lien d'évitement doit conserver une cible : une ancre
+     * de repli est alors posée, et seulement dans ce cas.
+     */
     public function testExistingIdOnMainIsPreserved(): void
     {
         $out = $this->renderGroup('<main id="deja-la">contenu</main>', ['tagName' => 'main']);
 
         self::assertStringContainsString('id="deja-la"', $out);
         self::assertStringContainsString('id="' . Accessibility::mainId() . '"', $out);
+        self::assertStringContainsString('g2rd-skip-anchor', $out);
+    }
+
+    /**
+     * La marge que l'ancre de repli induirait doit être neutralisée par la
+     * feuille du lien d'évitement, sans quoi le cas de repli réintroduirait la
+     * bande blanche qu'on cherche à supprimer.
+     */
+    public function testFallbackAnchorMarginIsNeutralised(): void
+    {
+        ob_start();
+        $this->a11y->outputSkipLinkStyles();
+        $css = (string) ob_get_clean();
+
+        self::assertStringContainsString('.g2rd-skip-anchor + *', $css);
+        self::assertStringContainsString('margin-block-start:0', $css);
     }
 
     public function testFlagResetsBetweenPageRenders(): void

@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.33.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.33.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.33.2**
+
+- **Bande blanche sous l'en-tête, corrigée.** Le lien d'accès rapide introduit en 1.33.0 posait sa cible dans une balise ajoutée en tête du contenu principal. Ce simple élément suffisait à décaler tout le reste : WordPress applique `margin-block-start` à tout enfant d'une mise en page contrainte qui n'est pas le premier, et le contenu réel, devenu deuxième, héritait de cette marge. Le fait que l'élément soit invisible et hors flux n'y changeait rien — la règle compte les frères, pas les boîtes. La cible est désormais portée par le contenu principal lui-même, sans élément ajouté : plus de marge, sur tous les gabarits et toutes les mises en page.
+- **Les niveaux de gris ne font plus disparaître le panneau d'accessibilité.** Activer ce mode envoyait le bouton flottant tout en bas du document, hors de l'écran, où il restait même après défilement : le panneau devenait impossible à rouvrir, donc le mode impossible à désactiver. En cause, un `filter` CSS posé sur `html` et `body` — un filtre fait de l'élément qui le porte le bloc conteneur de ses descendants en `position: fixed`, si bien que le widget se plaçait par rapport au document entier plutôt qu'à la fenêtre. Le filtre porte désormais sur les enfants directs du `body`. Le widget reste en couleur, étant la commande qui permet de sortir du mode.
+- **Le bouton du panneau annonce ce qu'il commande** : `aria-expanded` signalait qu'un contenu était déployé sans indiquer lequel ; `aria-controls` complète l'information.
+- **PHP_CodeSniffer 3.13.6** — injection de commande via un nom de fichier dans les rapports Gitblame, Hgblame et Svnblame. Dépendance de développement, absente du ZIP de production, et aucun de ces rapports n'est employé : l'exposition côté sites était nulle.
 
 ### **1.33.1**
 
