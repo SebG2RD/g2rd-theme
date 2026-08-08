@@ -362,7 +362,6 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
 .a11y-panel__close:hover,
 .a11y-panel__close:focus-visible {
   background: color-mix(in srgb, var(--wp--preset--color--primary) 8%, transparent);
-  outline: none;
 }
 
 .a11y-panel__body {
@@ -455,7 +454,6 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
 .a11y-btn:focus-visible {
   background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
   border-color: color-mix(in srgb, var(--wp--preset--color--primary) 20%, transparent);
-  outline: none;
 }
 
 .a11y-btn.is-active {
@@ -526,7 +524,6 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
 .a11y-preset:focus-visible {
   background: color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
   border-color: color-mix(in srgb, var(--wp--preset--color--primary) 25%, transparent);
-  outline: none;
 }
 
 /* ─── Réinitialiser ──────────────────────────────────────────────────────────── */
@@ -552,7 +549,6 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
   background: color-mix(in srgb, var(--wp--preset--color--primary) 6%, transparent);
   border-color: color-mix(in srgb, var(--wp--preset--color--primary) 35%, transparent);
   color: var(--wp--preset--color--primary, #0a0e27);
-  outline: none;
 }
 
 /* ─── Mobile ─────────────────────────────────────────────────────────────────── */

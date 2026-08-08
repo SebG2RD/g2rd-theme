@@ -395,3 +395,62 @@ ul {
     transform: none;
   }
 }
+
+/* =============================================================
+   Focus visible — RGAA 10.2
+   -------------------------------------------------------------
+   Le thème ne garantissait aucun style de focus : on s'en
+   remettait à l'anneau natif du navigateur, invisible sur les
+   fonds sombres de la palette (navy, bordeaux). Un focus présent
+   mais indiscernable ne satisfait pas le critère, qui demande un
+   focus *visible*.
+
+   L'anneau est bicolore, et ce n'est pas une précaution de
+   principe : mesure faite sur les treize couleurs de la palette,
+   aucune teinte unique n'atteint 3:1 sur toutes. Navy et blanc
+   sont en revanche complémentaires — chaque fond contraste avec
+   au moins l'un des deux, les treize étant couverts. Le halo
+   clair est donc collé à l'élément, l'anneau sombre à l'extérieur :
+   sur fond clair on voit le sombre, sur fond sombre on voit le
+   clair.
+
+   `:focus-visible` et non `:focus` : un clic souris ne doit pas
+   afficher l'anneau, une tabulation si.
+
+   Les deux teintes passent par des variables pour qu'une charte
+   puisse les remplacer en connaissance de cause — en vérifiant
+   ses propres contrastes.
+   ============================================================= */
+
+:root {
+	--g2rd-focus-ring: #0f172a;
+	--g2rd-focus-halo: #ffffff;
+}
+
+:focus-visible {
+	outline: 3px solid var(--g2rd-focus-ring);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 2px var(--g2rd-focus-halo);
+}
+
+/*
+ * Le contenu principal reçoit le focus par programme depuis le lien
+ * d'évitement. L'internaute n'a pas tabulé jusqu'à lui : lui dessiner un
+ * anneau désignerait toute la page comme l'élément actif.
+ */
+#g2rd-contenu-principal:focus,
+#g2rd-contenu-principal:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
+
+/*
+ * Mode contraste forcé (Windows) : les couleurs d'auteur y sont ignorées.
+ * On rend la main au système, qui dispose de sa propre couleur de focus.
+ */
+@media ( forced-colors: active ) {
+	:focus-visible {
+		outline-color: Highlight;
+		box-shadow: none;
+	}
+}
