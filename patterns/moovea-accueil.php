@@ -14,7 +14,7 @@
 <!-- wp:cover {"url":"/wp-content/uploads/moovea-hero-studio.webp","alt":"Le studio moovéa : femmes en séance sur les reformers devant le mur en dégradé du lever","minHeight":88,"minHeightUnit":"vh","customGradient":"linear-gradient(180deg,rgba(62,19,34,0.5) 0%,rgba(62,19,34,0.15) 40%,rgba(62,19,34,0.82) 100%)","contentPosition":"bottom left","align":"full","className":"mv-hero mv-on-dark","layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left mv-hero mv-on-dark" style="min-height:88vh"><img class="wp-block-cover__image-background" alt="Le studio moovéa : femmes en séance sur les reformers devant le mur en dégradé du lever" src="/wp-content/uploads/moovea-hero-studio.webp" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(180deg,rgba(62,19,34,0.5) 0%,rgba(62,19,34,0.15) 40%,rgba(62,19,34,0.82) 100%)"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph {"textColor":"blush","className":"mv-label","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|s"}}}} -->
-<p class="mv-label has-blush-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--s)">Ouverture mi-septembre 2026 · Place de la République, Montargis</p>
+<p class="mv-label has-blush-color has-text-color" style="margin-bottom:var(--wp--preset--spacing--s)">Ouverture mi-septembre 2026 · 60 place de la République, Montargis</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"textColor":"creme","className":"mv-display"} -->
@@ -157,6 +157,12 @@
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|l"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--l)"><!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/pilates-reformer/">Découvrir le Pilates Reformer</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
 
 <!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|l"},"margin":{"top":"var:preset|spacing|section"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center" style="margin-top:var(--wp--preset--spacing--section)"><!-- wp:column {"verticalAlignment":"center"} -->
@@ -356,7 +362,7 @@
 
 <!-- wp:buttons {"className":"mv-btn-block","style":{"spacing":{"margin":{"top":"var:preset|spacing|s"}}}} -->
 <div class="wp-block-buttons mv-btn-block" style="margin-top:var(--wp--preset--spacing--s)"><!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#founders">Être prévenue</a></div>
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/tarifs/">Voir la grille complète</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
@@ -528,7 +534,13 @@
 
 <!-- wp:paragraph {"textColor":"blush","className":"mv-label","style":{"typography":{"textAlign":"center"}}} -->
 <p class="has-text-align-center mv-label has-blush-color has-text-color">Inès · fondatrice de moovéa</p>
-<!-- /wp:paragraph --></div>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|l"}}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--l)"><!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/ines/">Rencontrer Inès</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"backgroundColor":"blush","align":"full","anchor":"faq","className":"mv-section","layout":{"type":"constrained"}} -->
@@ -538,7 +550,7 @@
 <h2 class="wp-block-heading" style="margin-bottom:var(--wp--preset--spacing--m)">Questions ? <em>Réponses.</em></h2>
 <!-- /wp:heading -->
 
-<!-- wp:g2rd/faq {"items":[{"question":"Faut-il déjà avoir fait du Pilates ?","answer":"Non. On part de là où vous en êtes, et on adapte les ressorts à votre niveau, séance après séance."},{"question":"Je sors d'une grossesse, c'est possible ?","answer":"Oui, après votre rééducation du périnée. On commence par le gainage profond et la respiration, puis on avance à votre rythme."},{"question":"À quelle fréquence venir ?","answer":"Une à deux fois par semaine suffit pour sentir la différence. On cale un rythme qui tient dans votre vie."},{"question":"Qu'est-ce que j'apporte ?","answer":"Une tenue souple et des chaussettes. Le reste vous attend sur place, matcha compris."},{"question":"Où est le studio ?","answer":"Place de la République, à Montargis. À pied depuis le centre, avec du stationnement à proximité."}],"iconType":"plus-minus","questionColor":"#4A1728","answerColor":"#4A1728","iconColor":"#4A1728","backgroundColor":"transparent","separatorColor":"#4A1728","borderRadius":0,"optimizeForGEO":true,"allowMultiple":true} /--></div>
+<!-- wp:g2rd/faq {"items":[{"question":"Faut-il déjà avoir fait du Pilates ?","answer":"Non. On part de là où vous en êtes, et on adapte les ressorts à votre niveau, séance après séance."},{"question":"Je sors d'une grossesse, c'est possible ?","answer":"Oui, après votre rééducation du périnée. On commence par le gainage profond et la respiration, puis on avance à votre rythme."},{"question":"À quelle fréquence venir ?","answer":"Une à deux fois par semaine suffit pour sentir la différence. On cale un rythme qui tient dans votre vie."},{"question":"Qu'est-ce que j'apporte ?","answer":"Une tenue souple et des chaussettes. Le reste vous attend sur place, matcha compris."},{"question":"Où est le studio ?","answer":"60 place de la République, à Montargis. À pied depuis le centre, avec du stationnement à proximité."}],"iconType":"plus-minus","questionColor":"#4A1728","answerColor":"#4A1728","iconColor":"#4A1728","backgroundColor":"transparent","separatorColor":"#4A1728","borderRadius":0,"optimizeForGEO":true,"allowMultiple":true} /--></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
