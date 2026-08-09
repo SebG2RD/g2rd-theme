@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.34.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.35.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,14 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.35.0**
+
+- **Quatre pages Moovéa en patterns** : Le Pilates Reformer (page pilier — mal de dos, post-partum, ménopause), Tarifs (offre Founders et grille complète), Inès (récit de la fondatrice) et Contact (formulaire Fluent Forms, créneaux, accès). L'accueil devient une porte d'entrée plutôt qu'une page unique : trois boutons y renvoient vers la page pilier, la grille tarifaire et la page fondatrice, et le pied de page reçoit un bloc de navigation vers les cinq pages.
+- **Le défilement reste arrêtable au clavier, bouton masqué ou non** (RGAA 13.8) : la pause au survol est hors de portée du clavier, si bien qu'un internaute qui tabulait n'avait aucun moyen d'interrompre un contenu en mouvement quand le bouton était masqué. Le bouton existe désormais dans tous les cas, escamoté tant qu'il n'a pas le focus — technique du lien d'évitement, élément conservé dans l'ordre de tabulation. Le rendu par défaut est inchangé.
+- **Formulaires Fluent Forms habillés dans la variation Moovéa** : les champs, libellés, messages d'erreur et boutons suivent désormais les tokens de la charte, en version pleine page comme en version compacte dans la barre fondatrices — laquelle reçoit son formulaire réel en remplacement de l'emplacement vide.
+- **Correction du pied de page Moovéa** : l'année du copyright repasse par le block binding `g2rd/current-year`. Un placeholder `{{annee}}` s'y était glissé, qu'aucun code du thème ne remplace — il se serait affiché tel quel en production.
+- **Adresse du studio complétée** : « 60 place de la République » sur l'accueil, dans la FAQ et dans le pied de page.
 
 ### **1.34.0**
 
