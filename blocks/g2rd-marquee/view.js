@@ -1,14 +1,19 @@
 /**
  * Rendu frontend du bloc Marquee.
  *
- * Le bouton de pause est piloté depuis l'éditeur par le réglage « Afficher le
- * bouton pause » (attribut `showPauseButton`), masqué par défaut.
+ * Le réglage « Afficher le bouton pause » (attribut `showPauseButton`) commande
+ * la visibilité *permanente* du bouton. Il est désactivé par défaut : à l'écran,
+ * rien ne s'affiche.
  *
- * À savoir pour un site visé RGAA : un contenu en mouvement de plus de cinq
- * secondes doit offrir un moyen de l'arrêter (13.8, WCAG 2.2.2). La pause au
- * survol ne suffit pas, elle est hors de portée du clavier. Un marquee dont le
- * bouton reste masqué est donc non conforme sur ce critère — le réglage existe
- * pour que ce choix se fasse page par page, en connaissance de cause.
+ * Le bouton existe pourtant toujours, mais escamoté tant qu'il n'a pas le focus.
+ * Un contenu en mouvement de plus de cinq secondes doit offrir un moyen de
+ * l'arrêter (RGAA 13.8, WCAG 2.2.2), et la pause au survol n'y suffit pas :
+ * elle est hors de portée du clavier. L'escamotage suit la technique du lien
+ * d'évitement — invisible, mais dans le flux et dans l'ordre de tabulation, donc
+ * révélé à la tabulation puis remasqué.
+ *
+ * Le rendu par défaut est ainsi inchangé, et le critère est satisfait dans les
+ * deux positions du réglage.
  *
  * Le dédoublement du contenu (nécessaire à la boucle) est marqué
  * `aria-hidden` : la copie ne doit pas être lue deux fois.
@@ -82,8 +87,19 @@
 			window.matchMedia &&
 			window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 
-		if ( marquee.classList.contains( 'has-pause-button' ) && ! reduced ) {
-			marquee.insertBefore( buildPauseButton( track ), track );
+		if ( ! reduced ) {
+			var button = buildPauseButton( track );
+
+			/*
+			 * Sans le réglage, le bouton reste escamoté jusqu'au focus : l'écran
+			 * est identique à ce qu'il était, mais la commande demeure atteignable
+			 * au clavier. Avec le réglage, il est visible en permanence.
+			 */
+			if ( ! marquee.classList.contains( 'has-pause-button' ) ) {
+				button.classList.add( 'g2rd-marquee__pause--until-focus' );
+			}
+
+			marquee.insertBefore( button, track );
 		}
 	}
 
