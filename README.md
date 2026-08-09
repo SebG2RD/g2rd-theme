@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.33.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.34.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.34.0**
+
+- **Un style de focus visible, garanti par le thème** (RGAA 10.2) : aucune règle `:focus` n'existait, ni dans `style.css` ni dans `theme.json`. On s'en remettait à l'anneau natif du navigateur, invisible sur les fonds sombres de la palette — un focus présent mais indiscernable ne satisfait pas le critère, qui demande un focus *visible*. L'anneau est bicolore parce que la mesure l'impose : sur les treize couleurs de la palette, aucune teinte unique n'atteint le seuil de 3:1 sur toutes, alors que navy et blanc, complémentaires, les couvrent toutes les treize. Le halo clair porte la visibilité sur fond sombre, l'anneau sombre sur fond clair. Les deux teintes passent par des variables CSS, remplaçables par une charte après vérification de ses propres contrastes.
+- **Le panneau d'accessibilité retrouve son anneau** : quatre règles `:focus-visible` y annulaient le contour pour le remplacer par une teinte à 8–12 % d'opacité, neutralisant la règle globale dans le composant même censé aider.
+- **Le bloc Carte restitue tous ses lieux** (RGAA 1.1) : seul le premier marqueur était décrit, si bien qu'une carte de plusieurs agences n'en annonçait qu'une. Le titre d'un marqueur étant vide par défaut, la description retombait par ailleurs sur un texte générique sans aucune information de localisation dès que l'auteur n'en saisissait pas. Les marqueurs nommés sont désormais listés avec leur description, le repli indique franchement qu'aucun lieu n'a été nommé, et la région reçoit un nom accessible — `aria-describedby` fournit une description, pas un nom.
 
 ### **1.33.2**
 
