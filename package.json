@@ -105,6 +105,7 @@
     "websocket-driver": ">=0.7.5",
     "webpack": "^5.108.1",
     "adm-zip": ">=0.6.0",
+    "@puppeteer/browsers": "^3.2.0",
     "@wordpress/scripts": {
       "copy-webpack-plugin": "^14.0.0",
       "markdownlint-cli": "^0.48.0",
