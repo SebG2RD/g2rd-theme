@@ -314,6 +314,26 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 - Ne pas modifier `theme.json` directement pour les couleurs/typos — éditer `theme-settings.json`
 - Vérifier la compatibilité du JSON après chaque modification des fichiers sources
 
+### Thème enfant : `settings` seulement
+
+Un `theme.json` de thème enfant n'apporte de façon fiable que des **`settings`**.
+
+`BlockEditorAutoload::composeThemeJson()` recompose `settings` + `styles` +
+`variations` puis appelle `WP_Theme_JSON_Data::update_with()`, qui **fusionne**
+(`WP_Theme_JSON::merge()`, `array_replace_recursive` + remplacement des tableaux
+de presets) — il ne remplace pas la couche « theme ». Seuls les `settings` de
+l'enfant sont réinjectés dans la composition, par `mergeChildSettings()` :
+
+- **`settings` de l'enfant** → prioritaires sur `theme-settings.json`. Les listes
+  (`palette`, `fontSizes`…) remplacent intégralement celle du parent ; les objets
+  (`custom`, `layout`…) fusionnent clé par clé.
+- **`styles` de l'enfant** → conservés uniquement sur les chemins **absents** de
+  `theme-styles.json`. Tout chemin en collision est écrasé par le parent.
+
+Pour surcharger un style depuis un enfant, utiliser une **variation de styles**
+(`styles/<projet>.json`) ou le CSS de l'enfant, pas `styles` dans son
+`theme.json`.
+
 ## Module MCP (v1.12.0+)
 
 Serveur JSON-RPC 2.0 natif exposant les CPTs et la configuration du thème à des outils IA compatibles MCP (Claude Desktop, Claude.ai).

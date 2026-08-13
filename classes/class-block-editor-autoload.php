@@ -25,9 +25,12 @@ namespace G2RD;
  */
 class BlockEditorAutoload {
     /**
-     * Clé de cache pour les variations de style
+     * Préfixe des transients du theme.json composé.
+     *
+     * La clé complète y ajoute une empreinte des mtimes des fichiers sources
+     * (voir getThemeJsonCacheKey), d'où la purge par préfixe.
      */
-    private const CACHE_KEY = 'g2rd_style_variations';
+    private const CACHE_PREFIX = 'g2rd_theme_json_';
 
     /**
      * Durée de validité du cache en secondes (24 heures)
@@ -65,7 +68,12 @@ class BlockEditorAutoload {
         \add_filter('wp_theme_json_data_theme', [$this, 'composeThemeJson']);
         \add_action('enqueue_block_editor_assets', [$this, 'enqueueLicenseEditorNotice']);
         \add_action('enqueue_block_editor_assets', [$this, 'localizeEffectKitsEditor'], 15);
-        
+
+        // Changement de thème : les transients composés ne correspondent plus à
+        // rien. Purge ciblée du préfixe, sans vider l'object cache global —
+        // même convention que BlockCategories, BlockPatterns et BlockStylesheets.
+        \add_action('switch_theme', [$this, 'clearThemeJsonTransients']);
+
         // Forcer le rechargement des blocs en mode développement
         if (defined('WP_DEBUG') && WP_DEBUG) {
             \add_action('admin_init', [$this, 'clearBlockCache']);
@@ -271,6 +279,14 @@ class BlockEditorAutoload {
      * Calcule une clé de cache basée sur le mtime des fichiers JSON sources.
      * Le cache s'invalide automatiquement dès qu'un fichier est modifié.
      *
+     * Toute différence suffit — un mtime plus ancien invalide aussi bien qu'un
+     * plus récent — et l'ajout ou la suppression d'un fichier dans styles/
+     * change la longueur de l'empreinte. Deux angles morts subsistent :
+     * un filemtime() en échec se réduit à une chaîne vide (deux fichiers
+     * illisibles donnent alors la même empreinte), et un déploiement qui
+     * restaure des fichiers à l'identique, mtimes compris, réutilise
+     * légitimement le cache précédent.
+     *
      * @since 1.0.0
      * @return string
      */
@@ -291,7 +307,7 @@ class BlockEditorAutoload {
             $mtimes[] = @filemtime($child_dir . '/theme.json');
         }
 
-        return 'g2rd_theme_json_' . md5(implode('_', $mtimes));
+        return self::CACHE_PREFIX . md5(implode('_', $mtimes));
     }
 
     /**
@@ -329,7 +345,17 @@ class BlockEditorAutoload {
             return $theme_json;
         }
 
-        // Fusionner le theme.json du thème enfant s'il existe
+        // Fusionner le theme.json du thème enfant s'il existe.
+        //
+        // Seuls ses `settings` sont réinjectés ici. C'est délibéré : le filtre
+        // wp_theme_json_data_theme reçoit déjà les données de l'enfant (WordPress
+        // lit le theme.json du thème ACTIF, donc celui de l'enfant), et
+        // update_with() fusionne $new_data par-dessus au lieu de remplacer. Sans
+        // cette réinjection, theme-settings.json écraserait les réglages de
+        // l'enfant. En revanche, les `styles` de l'enfant qui touchent un chemin
+        // également défini dans theme-styles.json restent perdants — un thème
+        // enfant n'apporte donc de manière fiable que des settings, ce que
+        // documente CLAUDE.md.
         $child_dir = \get_stylesheet_directory();
         if ($child_dir !== $dir) {
             $child_json = $this->loadJsonFile($child_dir . '/theme.json');
@@ -452,8 +478,34 @@ class BlockEditorAutoload {
      * @return void
      */
     public function clearBlockCache(): void {
-        // Supprimer les transients du theme.json via l'API WordPress
-        // (compatible Redis / Memcached / tout object cache)
+        $this->clearThemeJsonTransients();
+
+        \wp_cache_flush();
+
+        if (function_exists('wp_clean_themes_cache')) {
+            \wp_clean_themes_cache();
+        }
+    }
+
+    /**
+     * Supprime les transients du theme.json composé, et rien d'autre.
+     *
+     * Séparé de clearBlockCache() volontairement : cette méthode-ci est branchée
+     * sur switch_theme, où vider l'object cache global (wp_cache_flush) serait
+     * disproportionné et pénaliserait les sites sous Redis ou Memcached.
+     *
+     * La clé du transient intègre l'empreinte des fichiers sources : la donnée
+     * servie reste donc toujours correcte sans cette purge (voir
+     * getThemeJsonCacheKey). Elle ne fait que retirer les lignes devenues
+     * orphelines, que WordPress ramasserait de toute façon à leur expiration.
+     *
+     * @since 1.36.0
+     * @return void
+     */
+    public function clearThemeJsonTransients(): void {
+        // Suppression via l'API WordPress (compatible object cache externe) ;
+        // seule la liste des clés passe par une requête directe, delete_transient()
+        // ne sachant pas travailler par préfixe.
         global $wpdb;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Suppression de transients par préfixe : delete_transient() ne supporte pas les wildcards, requête directe inévitable.
@@ -461,18 +513,12 @@ class BlockEditorAutoload {
             $wpdb->prepare(
                 "SELECT REPLACE(option_name, '_transient_', '') FROM {$wpdb->options}
                  WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_g2rd_theme_json_') . '%'
+                $wpdb->esc_like('_transient_' . self::CACHE_PREFIX) . '%'
             )
         );
 
         foreach ($transient_keys as $key) {
             \delete_transient($key);
-        }
-
-        \wp_cache_flush();
-
-        if (function_exists('wp_clean_themes_cache')) {
-            \wp_clean_themes_cache();
         }
     }
 }
