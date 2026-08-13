@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.35.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.36.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,18 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.36.0**
+
+- **Trois blocs qui comblent des manques du thème** : `g2rd/timeline` (suite ordonnée, verticale pour un programme heure par heure, horizontale pour un processus — sortie en `<ol>` avec les heures en `<time datetime>`) ; `g2rd/pricing-tiers` (grille tarifaire dont le palier actif se déduit de la date du jour, les paliers écoulés grisés **et** barrés, un bandeau annonçant la bascule) ; `g2rd/route-map` (carte de parcours GPX analysée côté serveur et mise en cache, distance, dénivelé par hystérésis, profil altimétrique en SVG, tracé Leaflet auto-hébergé sur fond OpenStreetMap — sans clé d'API ni cookie tiers).
+- **Les trois blocs suivent la variation de styles active, pas une charte figée** : chaque `var()` se rabat en cascade sur un token garanti par `theme-settings.json`, si bien que le rendu reste correct sous les neuf variations et pas seulement sous celle pour laquelle les blocs avaient été écrits. Aucune valeur hexadécimale en dur, y compris pour la couleur du tracé Leaflet, que `view.js` lit sur les variables CSS.
+- **Variation de styles « L'Aixoise »** : charte Burnt Coral / Purple Heart / Egret, titres Retrofia, texte Montserrat. Les slugs du thème parent sont conservés et remappés — les variations de blocs (`is-style-card`, `is-style-section-dark`, `is-style-action`…) adoptent la charte sans une ligne de CSS supplémentaire. Comme toute variation, elle n'a aucun effet tant qu'elle n'est pas sélectionnée.
+- **Le message d'assistance ne passe plus devant la page d'options** : sans marqueur `wp-header-end`, WordPress déplace les notices derrière le premier `<h1>` de `.wrap` — celui de l'en-tête collant de l'application React, en `z-index: 100`. Les notices débordaient de cet en-tête et recouvraient la navigation. Le marqueur les ancre au-dessus de l'interface.
+- **Contraste corrigé dans « L'Aixoise »** (RGAA 3.2) : les liens de `is-style-card-action` plafonnaient à 2,2:1, le corail sur le dégradé violet. Ils passent en blanc souligné, soit 5,6:1 au point le plus défavorable du dégradé.
+- **Fuseau horaire respecté dans la grille tarifaire** : les dates de palier sont interprétées dans le fuseau du site. Un site réglé sur un fuseau négatif affichait la veille de la date saisie.
+- **Transients du `theme.json` purgés au changement de thème** : la purge n'était branchée que sous `WP_DEBUG`, les lignes restaient en base jusqu'à expiration. La purge ciblée ne vide pas l'object cache global, contrairement au vidage complet réservé au développement.
+- **Sécurité — `extract-zip` retiré de l'arbre de dépendances** (CVE-2026-56876, CVSS 8.1) : extraction d'archive sans validation des liens symboliques. Le paquet est abandonné et aucun correctif ne viendra de l'amont ; `@puppeteer/browsers` 3.x l'ayant remplacé par `modern-tar`, un override supprime la branche entière — 44 paquets en moins. Dépendance de développement, jamais livrée dans le ZIP : les sites n'étaient pas exposés.
+- **Deux pièges de livraison levés** : le classmap Composer ignorait la nouvelle classe `RouteMapSupport` (erreur fatale sur chaque page une fois livrée), et `assets/vendor/leaflet/` tombait sous la règle d'exclusion `vendor` du ZIP de production — Leaflet n'aurait jamais été embarqué.
 
 ### **1.35.0**
 
