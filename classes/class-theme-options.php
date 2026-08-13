@@ -369,6 +369,13 @@ class ThemeOptions {
         if ( ! \current_user_can( 'manage_options' ) ) {
             return;
         }
+
+        // Ancre des notices d'administration. Sans ce marqueur, common.js les
+        // déplace derrière le premier <h1> présent dans .wrap — ici celui de
+        // l'en-tête collant de l'app React (z-index 100, hauteur 56px) : les
+        // notices débordent alors de l'en-tête et se superposent à l'interface.
+        // Le marqueur les fixe au-dessus de l'app, dans le flux normal.
+        echo '<hr class="wp-header-end">';
         echo '<div id="g2rd-options-root" class="wrap"></div>';
     }
 

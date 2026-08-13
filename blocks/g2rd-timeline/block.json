@@ -1,0 +1,102 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/timeline",
+  "version": "1.0.0",
+  "title": "G2RD Timeline",
+  "category": "g2rd-blocks",
+  "icon": { "src": "clock", "foreground": "#ffffff", "background": "#0f172a" },
+  "description": "Suite d'étapes ordonnées accrochées à un axe. Verticale pour un programme heure par heure ou un parcours kilomètre par kilomètre, horizontale pour les étapes d'un processus.",
+  "keywords": [
+    "timeline",
+    "programme",
+    "horaires",
+    "étapes",
+    "parcours",
+    "chronologie",
+    "axe"
+  ],
+  "attributes": {
+    "orientation": {
+      "type": "string",
+      "default": "verticale"
+    },
+    "items": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object"
+      }
+    },
+    "repere": {
+      "type": "string",
+      "default": "heure"
+    },
+    "afficherAxe": {
+      "type": "boolean",
+      "default": true
+    },
+    "afficherNumeros": {
+      "type": "boolean",
+      "default": false
+    },
+    "niveauTitre": {
+      "type": "string",
+      "default": "h3"
+    },
+    "titreAccessible": {
+      "type": "string",
+      "default": ""
+    },
+    "colonnesMobile": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "example": {
+    "attributes": {
+      "orientation": "verticale",
+      "items": [
+        {
+          "repere": "7h30",
+          "titre": "Vous arrivez",
+          "texte": "Le village est déjà ouvert. Vous déposez vos affaires à la consigne.",
+          "fort": false
+        },
+        {
+          "repere": "9h00",
+          "titre": "Vous partez",
+          "texte": "Le départ est donné sur la ligne principale.",
+          "fort": true
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "interactivity": {
+      "clientNavigation": true
+    }
+  },
+  "textdomain": "g2rd",
+  "render": "file:./render.php",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css"
+}

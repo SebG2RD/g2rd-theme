@@ -1,0 +1,191 @@
+/**
+ * Bloc g2rd/timeline — styles de rendu.
+ *
+ * Chargés uniquement sur les pages qui contiennent le bloc (déclaration `style`
+ * dans block.json).
+ *
+ * Toute valeur vient d'un token du theme.json. Les tokens ne sont pas tous
+ * présents dans toutes les variations de styles (une variation qui redéfinit
+ * `palette` ou `fontSizes` remplace la liste du parent, elle ne la complète
+ * pas) : chaque `var()` se rabat donc en cascade sur un token garanti par
+ * theme-settings.json, jamais sur une valeur en dur. Les replis sont regroupés
+ * ici, une seule fois, pour rester lisibles.
+ */
+
+.g2rd-timeline {
+  --g2rd-tl-trait: var(--wp--custom--color--trait, var(--wp--custom--color--border));
+  --g2rd-tl-trait-sombre: var(--wp--custom--color--trait-clair, color-mix(in srgb, var(--wp--preset--color--white) 18%, transparent));
+  --g2rd-tl-marqueur: var(--wp--preset--color--secondary);
+  --g2rd-tl-repere: var(--wp--preset--color--accent, var(--wp--preset--color--secondary));
+  --g2rd-tl-numero: var(--wp--preset--color--accent-2, var(--wp--preset--color--accent, var(--wp--preset--color--secondary)));
+  --g2rd-tl-attenue: var(--wp--preset--color--muted, color-mix(in srgb, currentColor 68%, transparent));
+  --g2rd-tl-clair: var(--wp--preset--color--cream, var(--wp--preset--color--white));
+  --g2rd-tl-etiquette: var(--wp--preset--font-size--xs, var(--wp--preset--font-size--s, 0.8rem));
+  --g2rd-tl-corps: var(--wp--preset--font-size--s, 0.95rem);
+  --g2rd-tl-titre: var(--wp--preset--font-size--m, 1.05rem);
+  --g2rd-tl-vedette: var(--wp--preset--font-size--l, 1.5rem);
+  --g2rd-tl-tracking: var(--wp--custom--tracking--etiquette, 0.12em);
+  --g2rd-tl-interligne: var(--wp--custom--line-height--regular, 1.6);
+  /* Serif d'accent : celui de la variation, sinon celui du thème, sinon rien. */
+  --g2rd-tl-serif: var(--wp--preset--font-family--retrofia, var(--wp--preset--font-family--dm-serif-display, inherit));
+}
+
+.g2rd-timeline__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══ Verticale — programme, parcours ═══════════════════════════════════ */
+
+.g2rd-timeline--verticale .g2rd-timeline__etape {
+  position: relative;
+  padding-inline-start: 1.9rem;
+  padding-block-end: 2rem;
+}
+
+.g2rd-timeline--verticale.g2rd-timeline--axe .g2rd-timeline__etape {
+  border-inline-start: 1px solid var(--g2rd-tl-trait);
+}
+
+.g2rd-timeline--verticale .g2rd-timeline__etape:last-child {
+  padding-block-end: 0;
+  border-inline-start-color: transparent;
+}
+
+/* Le losange d'accent, repris du marqueur de l'axe de page */
+.g2rd-timeline--verticale.g2rd-timeline--axe .g2rd-timeline__etape::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.5rem;
+  inline-size: 9px;
+  block-size: 9px;
+  background: var(--g2rd-tl-marqueur);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.g2rd-timeline--verticale .g2rd-timeline__etape.est-fort::before {
+  inline-size: 13px;
+  block-size: 13px;
+  inset-block-start: 0.35rem;
+}
+
+/* ═══ Horizontale — étapes d'un processus ═══════════════════════════════ */
+
+.g2rd-timeline--horizontale .g2rd-timeline__liste {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 48rem) {
+  .g2rd-timeline--horizontale .g2rd-timeline__liste {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+}
+
+.g2rd-timeline--horizontale .g2rd-timeline__etape {
+  position: relative;
+  padding-block-start: 1.5rem;
+}
+
+.g2rd-timeline--horizontale.g2rd-timeline--axe .g2rd-timeline__etape {
+  border-block-start: 1px solid var(--g2rd-tl-trait);
+}
+
+.g2rd-timeline--horizontale.g2rd-timeline--axe .g2rd-timeline__etape::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 9px;
+  block-size: 9px;
+  background: var(--g2rd-tl-marqueur);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ═══ Contenu ═══════════════════════════════════════════════════════════ */
+
+.g2rd-timeline__numero {
+  display: block;
+  font-family: var(--g2rd-tl-serif);
+  font-size: var(--g2rd-tl-vedette);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--g2rd-tl-numero);
+  margin-block-end: 0.4rem;
+}
+
+.g2rd-timeline__repere {
+  display: block;
+  font-size: var(--g2rd-tl-etiquette);
+  font-weight: 700;
+  letter-spacing: var(--g2rd-tl-tracking);
+  text-transform: uppercase;
+  color: var(--g2rd-tl-repere);
+  margin-block-end: 0.35rem;
+}
+
+.g2rd-timeline__titre {
+  font-size: var(--g2rd-tl-titre);
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.g2rd-timeline__texte {
+  font-size: var(--g2rd-tl-corps);
+  line-height: var(--g2rd-tl-interligne);
+  color: var(--g2rd-tl-attenue);
+  margin: 0.35rem 0 0;
+  max-inline-size: 52ch;
+}
+
+/* Temps fort : le titre passe en serif et grandit. C'est le seul écart de
+   traitement — il signale l'étape qui compte (le départ, l'arrivée). */
+.g2rd-timeline__etape.est-fort .g2rd-timeline__titre {
+  font-family: var(--g2rd-tl-serif);
+  font-size: var(--g2rd-tl-vedette);
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.005em;
+}
+
+.g2rd-timeline__etape.est-fort .g2rd-timeline__repere {
+  color: var(--g2rd-tl-marqueur);
+}
+
+/* ═══ Sur fond sombre ═══════════════════════════════════════════════════ */
+
+.is-style-section-dark .g2rd-timeline__etape,
+.has-blue-dark-background-color .g2rd-timeline__etape {
+  border-color: var(--g2rd-tl-trait-sombre);
+}
+
+.is-style-section-dark .g2rd-timeline__repere,
+.has-blue-dark-background-color .g2rd-timeline__repere {
+  color: var(--g2rd-tl-marqueur);
+}
+
+.is-style-section-dark .g2rd-timeline__texte,
+.has-blue-dark-background-color .g2rd-timeline__texte {
+  color: color-mix(in srgb, var(--g2rd-tl-clair) 82%, transparent);
+}
+
+.is-style-section-dark .g2rd-timeline__numero,
+.has-blue-dark-background-color .g2rd-timeline__numero {
+  color: var(--g2rd-tl-numero);
+}
+
+/* ═══ Impression — le programme doit tenir sur une feuille ══════════════ */
+
+@media print {
+  .g2rd-timeline--horizontale .g2rd-timeline__liste {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .g2rd-timeline__etape {
+    break-inside: avoid;
+  }
+}

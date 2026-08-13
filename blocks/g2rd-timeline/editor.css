@@ -1,0 +1,34 @@
+/**
+ * Bloc g2rd/timeline — styles d'éditeur.
+ * Rendent les champs éditables lisibles sans dénaturer l'aperçu.
+ */
+
+.g2rd-timeline__outils {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-block-start: 0.6rem;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.g2rd-timeline__etape:hover .g2rd-timeline__outils,
+.g2rd-timeline__etape:focus-within .g2rd-timeline__outils {
+  opacity: 1;
+}
+
+.g2rd-timeline__ajouter {
+  margin-block-start: 1rem;
+}
+
+/* Un champ vide doit rester cliquable : sans cette hauteur minimale, un
+   RichText sans contenu se réduit à zéro pixel et devient inatteignable. */
+.g2rd-timeline .block-editor-rich-text__editable:empty::before {
+  min-block-size: 1.2em;
+  display: inline-block;
+}
+
+.g2rd-timeline .g2rd-timeline__repere[data-rich-text-placeholder],
+.g2rd-timeline .g2rd-timeline__titre[data-rich-text-placeholder] {
+  min-inline-size: 6ch;
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/pricing-tiers",
+  "version": "1.0.0",
+  "title": "G2RD Tarifs à paliers datés",
+  "category": "g2rd-blocks",
+  "icon": { "src": "tickets-alt", "foreground": "#ffffff", "background": "#0f172a" },
+  "description": "Grille tarifaire à paliers. Le palier en cours est déterminé automatiquement par la date : les paliers écoulés sont grisés et barrés, le palier actif est mis en avant, et un bandeau annonce la prochaine bascule.",
+  "keywords": [
+    "tarifs",
+    "prix",
+    "paliers",
+    "early",
+    "promotion",
+    "bascule",
+    "inscription"
+  ],
+  "attributes": {
+    "paliers": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object"
+      }
+    },
+    "devise": {
+      "type": "string",
+      "default": "€"
+    },
+    "afficherBandeau": {
+      "type": "boolean",
+      "default": true
+    },
+    "afficherPasses": {
+      "type": "boolean",
+      "default": true
+    },
+    "badgeActif": {
+      "type": "string",
+      "default": "Tarif actuel"
+    },
+    "urlInscription": {
+      "type": "string",
+      "default": "#inscription"
+    },
+    "texteBouton": {
+      "type": "string",
+      "default": "S’inscrire"
+    },
+    "afficherBouton": {
+      "type": "boolean",
+      "default": true
+    },
+    "titreAccessible": {
+      "type": "string",
+      "default": "Grille tarifaire"
+    }
+  },
+  "example": {
+    "attributes": {
+      "paliers": [
+        {
+          "nom": "Early",
+          "prix": "18",
+          "debut": "2026-09-15",
+          "fin": "2026-10-31",
+          "mention": "Le meilleur tarif de l'année"
+        },
+        {
+          "nom": "Normal",
+          "prix": "23",
+          "debut": "2026-11-01",
+          "fin": "2027-01-31",
+          "mention": ""
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "g2rd",
+  "render": "file:./render.php",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css"
+}

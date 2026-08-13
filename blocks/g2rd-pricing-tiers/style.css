@@ -1,0 +1,170 @@
+/**
+ * Bloc g2rd/pricing-tiers — styles de rendu.
+ *
+ * Le contraste entre palier écoulé, palier actif et palier à venir est ce qui
+ * fait le travail de conversion. Il ne repose jamais sur la seule couleur :
+ * l'opacité, le barré et le badge textuel le portent aussi — exigence RGAA.
+ *
+ * Comme pour les autres blocs du thème, chaque `var()` se rabat en cascade sur
+ * un token garanti par theme-settings.json : une variation de styles qui
+ * redéfinit `palette` ou `fontSizes` remplace la liste du parent au lieu de la
+ * compléter, et le bloc doit rester correct sous n'importe laquelle.
+ */
+
+.g2rd-pricing-tiers {
+  --g2rd-pt-trait: var(--wp--custom--color--trait, var(--wp--custom--color--border));
+  --g2rd-pt-trait-sombre: var(--wp--custom--color--trait-clair, color-mix(in srgb, var(--wp--preset--color--white) 18%, transparent));
+  --g2rd-pt-fond: var(--wp--preset--color--white);
+  --g2rd-pt-fond-sombre: var(--wp--preset--color--blue-soft, var(--wp--preset--color--primary));
+  --g2rd-pt-accent: var(--wp--preset--color--accent, var(--wp--preset--color--secondary));
+  --g2rd-pt-attenue: var(--wp--preset--color--muted, color-mix(in srgb, currentColor 68%, transparent));
+  --g2rd-pt-clair: var(--wp--preset--color--cream, var(--wp--preset--color--white));
+  --g2rd-pt-etiquette: var(--wp--preset--font-size--xs, var(--wp--preset--font-size--s, 0.8rem));
+  --g2rd-pt-prix: var(--wp--preset--font-size--xl, var(--wp--preset--font-size--l, 2.4rem));
+  --g2rd-pt-corps: var(--wp--preset--font-size--s, 0.95rem);
+  --g2rd-pt-tracking: var(--wp--custom--tracking--etiquette, 0.12em);
+  --g2rd-pt-rayon: var(--wp--custom--radius--s, 2px);
+  --g2rd-pt-ombre: var(--wp--preset--shadow--accent-glow, none);
+  --g2rd-pt-serif: var(--wp--preset--font-family--retrofia, var(--wp--preset--font-family--dm-serif-display, inherit));
+}
+
+.g2rd-pricing-tiers__grille {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .g2rd-pricing-tiers__grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 60rem) {
+  .g2rd-pricing-tiers__grille {
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  }
+}
+
+.g2rd-pricing-tiers__palier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.4rem;
+  background: var(--g2rd-pt-fond);
+  border: 1px solid var(--g2rd-pt-trait);
+  border-radius: var(--g2rd-pt-rayon);
+}
+
+.g2rd-pricing-tiers__nom {
+  margin: 0;
+  font-size: var(--g2rd-pt-etiquette);
+  font-weight: 700;
+  letter-spacing: var(--g2rd-pt-tracking);
+  text-transform: uppercase;
+  color: var(--g2rd-pt-attenue);
+}
+
+.g2rd-pricing-tiers__prix {
+  margin: 0;
+  font-family: var(--g2rd-pt-serif);
+  font-size: var(--g2rd-pt-prix);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--wp--preset--color--primary);
+}
+
+.g2rd-pricing-tiers__periode,
+.g2rd-pricing-tiers__mention {
+  margin: 0;
+  font-size: var(--g2rd-pt-etiquette);
+  line-height: 1.5;
+  color: var(--g2rd-pt-attenue);
+}
+
+.g2rd-pricing-tiers__mention {
+  color: var(--g2rd-pt-accent);
+  font-weight: 600;
+}
+
+/* ── Palier écoulé : grisé ET barré ─────────────────────────────────────
+   Le barré porte l'information indépendamment de la couleur : une personne
+   qui ne perçoit pas le gris comprend quand même que ce tarif est passé. */
+.g2rd-pricing-tiers__palier--passe {
+  opacity: 0.45;
+  background: transparent;
+}
+
+.g2rd-pricing-tiers__palier--passe .g2rd-pricing-tiers__prix s {
+  text-decoration-thickness: 2px;
+}
+
+/* ── Palier actif : bordure d'accent, badge, ombre ──────────────────── */
+.g2rd-pricing-tiers__palier--actif {
+  border: 2px solid var(--g2rd-pt-accent);
+  box-shadow: var(--g2rd-pt-ombre);
+}
+
+.g2rd-pricing-tiers__badge {
+  position: absolute;
+  inset-block-start: -0.65rem;
+  inset-inline-start: 1.4rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--g2rd-pt-accent);
+  color: var(--wp--preset--color--white);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: var(--g2rd-pt-tracking);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Bandeau de bascule ─────────────────────────────────────────────── */
+.g2rd-pricing-tiers__bascule {
+  margin-block-start: 1.4rem;
+  padding: 0.7rem 0 0.7rem 1rem;
+  border-inline-start: 2px solid var(--wp--preset--color--secondary);
+  font-size: var(--g2rd-pt-corps);
+  line-height: 1.55;
+}
+
+.g2rd-pricing-tiers__action {
+  margin-block-start: 1.6rem;
+}
+
+/* ── Sur fond sombre ────────────────────────────────────────────────── */
+.is-style-section-dark .g2rd-pricing-tiers__palier,
+.has-blue-dark-background-color .g2rd-pricing-tiers__palier {
+  background: var(--g2rd-pt-fond-sombre);
+  border-color: var(--g2rd-pt-trait-sombre);
+}
+
+.is-style-section-dark .g2rd-pricing-tiers__prix,
+.has-blue-dark-background-color .g2rd-pricing-tiers__prix {
+  color: var(--g2rd-pt-clair);
+}
+
+.is-style-section-dark .g2rd-pricing-tiers__mention,
+.has-blue-dark-background-color .g2rd-pricing-tiers__mention {
+  color: var(--wp--preset--color--secondary);
+}
+
+.is-style-section-dark .g2rd-pricing-tiers__nom,
+.is-style-section-dark .g2rd-pricing-tiers__periode,
+.has-blue-dark-background-color .g2rd-pricing-tiers__nom,
+.has-blue-dark-background-color .g2rd-pricing-tiers__periode {
+  color: color-mix(in srgb, var(--g2rd-pt-clair) 72%, transparent);
+}
+
+@media print {
+  .g2rd-pricing-tiers__palier {
+    break-inside: avoid;
+  }
+  .g2rd-pricing-tiers__action {
+    display: none;
+  }
+}

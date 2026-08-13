@@ -164,6 +164,7 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'G2RD\\PerformanceImages' => __DIR__ . '/../..' . '/classes/class-performance-images.php',
         'G2RD\\PinScroll' => __DIR__ . '/../..' . '/classes/class-pin-scroll.php',
         'G2RD\\PortfolioQuery' => __DIR__ . '/../..' . '/classes/class-portfolio-query.php',
+        'G2RD\\RouteMapSupport' => __DIR__ . '/../..' . '/classes/class-route-map-support.php',
         'G2RD\\SEO_Helper' => __DIR__ . '/../..' . '/classes/class-seo-helper.php',
         'G2RD\\ScriptsManager' => __DIR__ . '/../..' . '/classes/class-scripts-manager.php',
         'G2RD\\Shortcode' => __DIR__ . '/../..' . '/classes/class-shortcode.php',

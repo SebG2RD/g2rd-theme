@@ -1,0 +1,236 @@
+/**
+ * Bloc g2rd/route-map — styles de rendu.
+ *
+ * Les couleurs du tracé lui-même sont lues par view.js sur ces mêmes variables :
+ * changer de variation de styles change la couleur de la trace sans toucher au
+ * JavaScript. Comme pour les autres blocs, chaque `var()` se rabat en cascade
+ * sur un token garanti par theme-settings.json.
+ */
+
+.g2rd-route-map {
+  --g2rd-rm-trait: var(--wp--custom--color--trait, var(--wp--custom--color--border));
+  --g2rd-rm-fond: var(--wp--preset--color--surface, var(--wp--preset--color--cream, var(--wp--preset--color--white)));
+  --g2rd-rm-accent: var(--wp--preset--color--accent, var(--wp--preset--color--secondary));
+  --g2rd-rm-accent-2: var(--wp--preset--color--accent-2, var(--wp--preset--color--accent, var(--wp--preset--color--secondary)));
+  --g2rd-rm-danger: var(--wp--preset--color--danger, var(--wp--preset--color--accent, var(--wp--preset--color--secondary)));
+  --g2rd-rm-attenue: var(--wp--preset--color--muted, color-mix(in srgb, currentColor 68%, transparent));
+  --g2rd-rm-clair: var(--wp--preset--color--cream, var(--wp--preset--color--white));
+  --g2rd-rm-etiquette: var(--wp--preset--font-size--xs, var(--wp--preset--font-size--s, 0.8rem));
+  --g2rd-rm-corps: var(--wp--preset--font-size--s, 0.95rem);
+  --g2rd-rm-vedette: var(--wp--preset--font-size--l, 1.5rem);
+  --g2rd-rm-tracking: var(--wp--custom--tracking--etiquette, 0.12em);
+  --g2rd-rm-rayon: var(--wp--custom--radius--s, 2px);
+  --g2rd-rm-ombre: var(--wp--preset--shadow--huge, none);
+  --g2rd-rm-ombre-marqueur: 0 2px 6px color-mix(in srgb, var(--wp--preset--color--primary) 35%, transparent);
+  --g2rd-rm-serif: var(--wp--preset--font-family--retrofia, var(--wp--preset--font-family--dm-serif-display, inherit));
+  /* Couleur de la trace, lue par view.js. */
+  --g2rd-rm-trace: var(--wp--preset--color--secondary);
+  --g2rd-rm-trace-liseret: var(--wp--preset--color--white);
+}
+
+.g2rd-route-map__carte {
+  block-size: var(--g2rd-route-map-hauteur, 460px);
+  inline-size: 100%;
+  background: var(--g2rd-rm-fond);
+  border: 1px solid var(--g2rd-rm-trait);
+  border-radius: var(--g2rd-rm-rayon);
+  z-index: 0; /* garde la carte sous l'en-tête collant */
+}
+
+/* Leaflet impose sa propre typographie : on la ramène dans la charte. */
+.g2rd-route-map__carte .leaflet-container {
+  font-family: inherit;
+  font-size: var(--g2rd-rm-etiquette);
+  background: var(--g2rd-rm-fond);
+}
+
+.g2rd-route-map__carte .leaflet-popup-content-wrapper {
+  border-radius: var(--g2rd-rm-rayon);
+  background: var(--wp--preset--color--white);
+  color: var(--wp--preset--color--primary);
+  box-shadow: var(--g2rd-rm-ombre);
+}
+
+.g2rd-route-map__carte .leaflet-popup-content {
+  font-size: var(--g2rd-rm-corps);
+  line-height: 1.55;
+  margin: 0.85rem 1rem;
+}
+
+.g2rd-route-map__carte .leaflet-popup-content strong {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ── Marqueurs ─────────────────────────────────────────────────────────── */
+
+.g2rd-route-map__depart span {
+  display: block;
+  inline-size: 18px;
+  block-size: 18px;
+  background: var(--g2rd-rm-accent);
+  border: 3px solid var(--wp--preset--color--white);
+  border-radius: 50%;
+  box-shadow: var(--g2rd-rm-ombre-marqueur);
+}
+
+.g2rd-route-map__point span {
+  display: block;
+  inline-size: 14px;
+  block-size: 14px;
+  background: var(--wp--preset--color--secondary);
+  border: 2px solid var(--wp--preset--color--white);
+  transform: rotate(45deg);
+  box-shadow: var(--g2rd-rm-ombre-marqueur);
+}
+
+.g2rd-route-map__point--ravitaillement span {
+  background: var(--g2rd-rm-accent-2);
+}
+
+.g2rd-route-map__point--animation span {
+  background: var(--g2rd-rm-accent);
+}
+
+.g2rd-route-map__point--secours span {
+  background: var(--g2rd-rm-danger);
+}
+
+/* ── Statistiques ──────────────────────────────────────────────────────── */
+
+.g2rd-route-map__stats {
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 40rem) {
+  .g2rd-route-map__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.g2rd-route-map__stats span {
+  display: block;
+  font-size: var(--g2rd-rm-etiquette);
+  font-weight: 600;
+  letter-spacing: var(--g2rd-rm-tracking);
+  text-transform: uppercase;
+  color: var(--g2rd-rm-attenue);
+}
+
+.g2rd-route-map__stats strong {
+  display: block;
+  font-family: var(--g2rd-rm-serif);
+  font-size: var(--g2rd-rm-vedette);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-block-start: 0.3rem;
+}
+
+/* ── Profil altimétrique ───────────────────────────────────────────────── */
+
+.g2rd-route-map__profil {
+  margin: 1.6rem 0 0;
+}
+
+.g2rd-route-map__profil svg {
+  inline-size: 100%;
+  block-size: clamp(90px, 14vw, 150px);
+  display: block;
+  overflow: visible;
+}
+
+.g2rd-route-map__aire {
+  fill: color-mix(in srgb, var(--g2rd-rm-trace) 16%, transparent);
+}
+
+.g2rd-route-map__ligne {
+  fill: none;
+  stroke: var(--g2rd-rm-trace);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.g2rd-route-map__profil figcaption {
+  margin-block-start: 0.55rem;
+  font-size: var(--g2rd-rm-etiquette);
+  color: var(--g2rd-rm-attenue);
+}
+
+/* ── Téléchargements ───────────────────────────────────────────────────── */
+
+.g2rd-route-map__telechargements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-block-start: 1.6rem;
+}
+
+.g2rd-route-map__compat {
+  margin-block-start: 0.7rem;
+  font-size: var(--g2rd-rm-etiquette);
+  color: var(--g2rd-rm-attenue);
+}
+
+/* ── État d'attente et erreurs ─────────────────────────────────────────── */
+
+.g2rd-route-map__attente,
+.g2rd-route-map__noscript,
+.g2rd-route-map__erreur {
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px dashed var(--g2rd-rm-trait);
+  border-radius: var(--g2rd-rm-rayon);
+  background: color-mix(in srgb, var(--g2rd-rm-accent-2) 8%, transparent);
+  font-size: var(--g2rd-rm-corps);
+  line-height: 1.6;
+  color: var(--wp--preset--color--primary);
+}
+
+.g2rd-route-map__erreur {
+  border-color: var(--g2rd-rm-danger);
+  background: color-mix(in srgb, var(--g2rd-rm-danger) 8%, transparent);
+}
+
+/* ── Sur fond sombre ───────────────────────────────────────────────────── */
+
+.is-style-section-dark .g2rd-route-map__stats span,
+.has-blue-dark-background-color .g2rd-route-map__stats span {
+  color: color-mix(in srgb, var(--g2rd-rm-clair) 72%, transparent);
+}
+
+/* ── Impression ────────────────────────────────────────────────────────── */
+
+@media print {
+  .g2rd-route-map__carte,
+  .g2rd-route-map__telechargements {
+    display: none;
+  }
+
+  .g2rd-route-map__profil,
+  .g2rd-route-map__stats {
+    break-inside: avoid;
+  }
+}
+
+/* ── Fiche de contrôle dans l'éditeur ──────────────────────────────────── */
+
+.g2rd-route-map-editeur__resume {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  inline-size: 100%;
+}
+
+.g2rd-route-map-editeur__resume strong {
+  font-weight: 600;
+}

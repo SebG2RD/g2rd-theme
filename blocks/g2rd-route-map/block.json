@@ -1,0 +1,95 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "g2rd/route-map",
+  "version": "1.0.0",
+  "title": "G2RD Carte de parcours GPX",
+  "category": "g2rd-blocks",
+  "icon": { "src": "location-alt", "foreground": "#ffffff", "background": "#0f172a" },
+  "description": "Carte interactive du parcours à partir d'un fichier GPX : tracé, points remarquables, profil altimétrique et liens de téléchargement. Fond OpenStreetMap, sans clé d'API ni cookie tiers.",
+  "keywords": [
+    "carte",
+    "parcours",
+    "gpx",
+    "tracé",
+    "profil",
+    "altimétrie",
+    "leaflet",
+    "openstreetmap"
+  ],
+  "attributes": {
+    "gpxId": {
+      "type": "number",
+      "default": 0
+    },
+    "hauteur": {
+      "type": "number",
+      "default": 460
+    },
+    "zoom": {
+      "type": "number",
+      "default": 15
+    },
+    "afficherProfil": {
+      "type": "boolean",
+      "default": true
+    },
+    "afficherStats": {
+      "type": "boolean",
+      "default": true
+    },
+    "afficherTelechargements": {
+      "type": "boolean",
+      "default": true
+    },
+    "urlKml": {
+      "type": "string",
+      "default": ""
+    },
+    "urlPlanPdf": {
+      "type": "string",
+      "default": ""
+    },
+    "points": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object"
+      }
+    },
+    "titreDepart": {
+      "type": "string",
+      "default": "Départ et arrivée"
+    },
+    "texteDepart": {
+      "type": "string",
+      "default": ""
+    },
+    "etatValidation": {
+      "type": "string",
+      "default": "publie"
+    },
+    "messageAttente": {
+      "type": "string",
+      "default": "Le tracé définitif est en cours de validation. Il sera publié ici dès son approbation."
+    },
+    "titreAccessible": {
+      "type": "string",
+      "default": "Carte du parcours"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "textdomain": "g2rd",
+  "render": "file:./render.php",
+  "editorScript": "file:./index.js",
+  "style": ["leaflet", "file:./style.css"],
+  "viewScript": "file:./view.js"
+}

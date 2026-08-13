@@ -18,7 +18,11 @@ $excludedFileNames = @(
     'phpcs.xml.dist', 'phpcs-security.xml', 'phpcs-wp-report.xml',
     'phpunit.xml.dist', '.editorconfig'
 )
-$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'vendor', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache', 'Gutenberg')
+$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache', 'Gutenberg')
+
+# Exclu a la racine uniquement : le vendor/ de Composer n'est pas embarque, mais
+# assets/vendor/ (Leaflet auto-heberge) doit rester dans le ZIP.
+$excludedRootFolders = @('vendor')
 
 $files   = Get-ChildItem -Path $source -Recurse -File
 $total   = $files.Count
@@ -35,6 +39,8 @@ foreach ($file in $files) {
         if ($excludedFolders -contains $part) { $skip = $true; break }
     }
     if ($skip) { $skipped++; continue }
+
+    if ($excludedRootFolders -contains $parts[0]) { $skipped++; continue }
 
     # Exclure blocks/<Bloc>/src/
     if ($parts.Count -ge 3 -and $parts[0] -eq 'blocks' -and $parts[2] -eq 'src') {

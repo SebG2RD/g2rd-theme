@@ -1,0 +1,55 @@
+/**
+ * Bloc g2rd/pricing-tiers — styles d'éditeur.
+ * L'aperçu est un formulaire, pas un rendu : les champs restent lisibles et
+ * l'état de chaque palier est affiché en clair.
+ */
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier .components-base-control {
+  margin-block-end: 0.5rem;
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier {
+  min-inline-size: 13rem;
+}
+
+/* L'opacité du palier écoulé rendrait les champs illisibles dans l'éditeur :
+   on la remonte, la bordure gauche suffit à signaler l'état. */
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier--passe {
+  opacity: 0.75;
+  border-inline-start: 4px solid var(--g2rd-pt-attenue);
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier--futur {
+  border-inline-start: 4px solid var(--wp--preset--color--accent-2, var(--g2rd-pt-accent));
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier--permanent {
+  border-inline-start: 4px dashed var(--g2rd-pt-trait);
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__etat {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g2rd-pt-accent);
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__palier--passe .g2rd-pricing-tiers__etat {
+  color: var(--g2rd-pt-attenue);
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__outils {
+  display: flex;
+  gap: 0.25rem;
+  margin-block-start: 0.5rem;
+}
+
+.wp-block-g2rd-pricing-tiers .g2rd-pricing-tiers__ajouter {
+  margin-block-start: 1rem;
+}
+
+.wp-block-g2rd-pricing-tiers .components-notice {
+  margin: 0 0 1rem;
+}

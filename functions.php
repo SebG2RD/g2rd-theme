@@ -212,6 +212,11 @@ function bootstrap_theme(): void
     // Avis Google — endpoint REST + cache transient
     GoogleReviews::init();
 
+    // Support du bloc de carte de parcours GPX (Leaflet auto-hébergé + types MIME).
+    // Les types MIME restent conditionnés à add_theme_support( 'g2rd-route-map' ) :
+    // sans cette déclaration, la classe n'a aucun effet observable.
+    ( new RouteMapSupport() )->register_hooks();
+
     // Module GEO Analyzer — scoring Generative Engine Optimization dans l'éditeur
     ( new GeoAnalyzer() )->register_hooks();
 
