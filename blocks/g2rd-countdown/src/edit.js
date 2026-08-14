@@ -40,7 +40,25 @@ export default function Edit({ attributes, setAttributes }) {
     layout,
   } = attributes;
 
-  const blockProps = useBlockProps();
+  /* Parité éditeur/front : mêmes classes et mêmes variables CSS que `save()`,
+     afin que countdown.css pilote seul le rendu dans les deux contextes. */
+  const blockProps = useBlockProps({
+    className: "g2rd-countdown",
+    style: {
+      "--item-spacing": itemSpacing,
+      "--item-padding": itemPadding,
+      "--item-background": itemBackground,
+      "--item-border-radius": itemBorderRadius,
+      ...(valueFontSize ? { "--value-size": valueFontSize } : {}),
+      ...(labelFontSize ? { "--label-size": labelFontSize } : {}),
+      "--animation-duration":
+        animationSpeed === "slow"
+          ? "2s"
+          : animationSpeed === "fast"
+          ? "0.5s"
+          : "1s",
+    },
+  });
   const [timeLeft, setTimeLeft] = useState({
     years: 0,
     months: 0,
@@ -93,25 +111,11 @@ export default function Edit({ attributes, setAttributes }) {
   const renderTimeUnit = (label, value, show) => {
     if (!show) return null;
     return (
-      <div
-        className={`countdown-item ${timerStyle} ${animation}`}
-        style={{
-          minWidth: "80px",
-          padding: itemPadding,
-          margin: `0 ${itemSpacing}`,
-          backgroundColor: itemBackground,
-          borderRadius: itemBorderRadius,
-          textAlign: "center",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          transition: "all 0.3s ease",
-        }}
-      >
-        <div className="countdown-value" style={{ fontSize: valueFontSize || undefined }}>
-          {value}
-        </div>
-        <div className="countdown-label" style={{ fontSize: labelFontSize || undefined }}>
-          {label}
-        </div>
+      /* Aucun style inline : le décor vient de countdown.css, qui lit les
+         variables posées sur le conteneur — exactement comme sur le front. */
+      <div className={`countdown-item ${timerStyle} ${animation}`}>
+        <div className="countdown-value">{value}</div>
+        <div className="countdown-label">{label}</div>
       </div>
     );
   };
@@ -334,16 +338,7 @@ export default function Edit({ attributes, setAttributes }) {
 
       <div {...blockProps}>
         {title && <h2 className="countdown-title">{title}</h2>}
-        <div
-          className={`countdown-container countdown-layout-${layout}`}
-          style={{
-            display: "flex",
-            flexDirection: layout === "column" ? "column" : "row",
-            justifyContent: "center",
-            flexWrap: layout === "column" ? "nowrap" : "wrap",
-            gap: itemSpacing,
-          }}
-        >
+        <div className={`countdown-container countdown-layout-${layout}`}>
           {renderTimeUnit(__("Années", "g2rd"), timeLeft.years.toString().padStart(2, "0"), showYears)}
           {renderTimeUnit(__("Mois", "g2rd"), timeLeft.months.toString().padStart(2, "0"), showMonths)}
           {renderTimeUnit(__("Jours", "g2rd"), timeLeft.days.toString().padStart(2, "0"), showDays)}

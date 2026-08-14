@@ -391,6 +391,10 @@
         "prose": "62ch",
         "chapo": "34ch",
         "titre": "20ch"
+      },
+      "countdown": {
+        "itemShadow": "var(--wp--preset--shadow--xs)",
+        "itemShadowHover": "var(--wp--preset--shadow--md)"
       }
     }
   },
@@ -780,7 +784,6 @@
       },
       "g2rd/countdown": {
         "color": {
-          "background": "var(--wp--preset--color--white)",
           "text": "var(--wp--preset--color--primary)"
         },
         "typography": {
@@ -789,23 +792,10 @@
           "fontWeight": "800",
           "lineHeight": "1.1"
         },
-        "border": {
-          "radius": "var(--wp--custom--radius--s)",
-          "width": "1px",
-          "style": "solid",
-          "color": "var(--wp--custom--color--trait)"
-        },
-        "shadow": "none",
         "spacing": {
           "margin": {
             "top": "var(--wp--preset--spacing--xs)",
             "bottom": "var(--wp--preset--spacing--s)"
-          },
-          "padding": {
-            "top": "var(--wp--preset--spacing--xs)",
-            "bottom": "var(--wp--preset--spacing--xs)",
-            "left": "var(--wp--preset--spacing--xs)",
-            "right": "var(--wp--preset--spacing--xs)"
           }
         }
       },

@@ -425,20 +425,11 @@ class ScriptsManager {
         return '';
     }
 
-    /**
-     * Charge le CSS du bloc countdown uniquement sur les pages qui l'utilisent
+    /*
+     * Nota : pas de mise en file du CSS du compte à rebours ici. Le
+     * `"style": "file:./build/index.css"` de blocks/g2rd-countdown/block.json
+     * suffit — WordPress ne charge la feuille que sur les pages où le bloc est
+     * présent. L'ancien handle `g2rd-countdown-front` doublonnait le même
+     * fichier avec `g2rd-countdown-style-inline-css` dans le <head>.
      */
-    public static function enqueue_g2rd_countdown_css(): void {
-        if ( ! \has_block('g2rd/countdown') ) {
-            return;
-        }
-        $abs  = \get_template_directory() . '/blocks/g2rd-countdown/build/index.css';
-        $uri  = \get_template_directory_uri() . '/blocks/g2rd-countdown/build/index.css';
-        if ( \file_exists($abs) ) {
-            \wp_enqueue_style('g2rd-countdown-front', $uri, [], \filemtime($abs));
-        }
-    }
 }
-
-// Enregistrement du hook pour charger le CSS countdown côté front
-\add_action('wp_enqueue_scripts', [\G2RD\ScriptsManager::class, 'enqueue_g2rd_countdown_css']);

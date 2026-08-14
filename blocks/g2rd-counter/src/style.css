@@ -1,11 +1,35 @@
 /**
- * G2RD Counter Block Styles
- * Styles for the counter block with different layouts and animations
+ * G2RD Counter — feuille de style du bloc (éditeur + front).
+ *
+ * Deux principes :
+ *
+ * 1. Aucune valeur en dur : chaque taille, rayon et couleur passe par une
+ *    variable dont le repli est la valeur historique du bloc. Un site qui n'a
+ *    jamais touché aux réglages rend donc exactement comme avant, et une
+ *    variation de styles peut tout retoucher via
+ *    `settings.custom.counter.*` (→ --wp--custom--counter--*) sans !important.
+ *
+ * 2. L'alignement du bloc pilote réellement le rendu. L'attribut `alignment`
+ *    n'existe dans le HTML sauvegardé que sous forme de `text-align` inline
+ *    sur le conteneur — et le save() ne peut pas changer sans invalider tout
+ *    le contenu existant. La feuille mappe donc text-align → alignement flex
+ *    au lieu de forcer le centrage plus bas dans la cascade.
  */
 
+.g2rd-counter {
+  /* Tailles locales : les media queries ne retouchent que ces variables. */
+  --g2rd-counter-number-size: var(--wp--custom--counter--number-size, 48px);
+  --g2rd-counter-affix-size: var(--wp--custom--counter--affix-size, 24px);
+  --g2rd-counter-title-size: var(--wp--custom--counter--title-size, 18px);
+  --g2rd-counter-circle-number-size: var(
+    --wp--custom--counter--circle-number-size,
+    24px
+  );
+}
+
 .wp-block-g2rd-counter {
-  padding: 20px;
-  border-radius: 8px;
+  padding: var(--wp--custom--counter--padding, 20px);
+  border-radius: var(--wp--custom--radius--s, 8px);
   position: relative;
   overflow: hidden;
 }
@@ -15,7 +39,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--wp--custom--counter--content-gap, 16px);
 }
 
 .g2rd-counter.layout-number .counter-content {
@@ -25,7 +49,6 @@
 .g2rd-counter.layout-circle .counter-content,
 .g2rd-counter.layout-bar .counter-content {
   align-items: center;
-  text-align: center;
 }
 
 /* Horizontal Layout */
@@ -33,14 +56,14 @@
   flex-direction: row !important;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: var(--wp--custom--counter--horizontal-gap, 20px);
 }
 
 .g2rd-counter .counter-text-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--wp--custom--counter--text-gap, 8px);
 }
 
 /* Icon Positioning */
@@ -80,7 +103,7 @@
 }
 
 .g2rd-counter .counter-image {
-  border-radius: 8px;
+  border-radius: var(--wp--custom--radius--s, 8px);
   transition: transform 0.3s ease;
 }
 
@@ -92,13 +115,15 @@
 .g2rd-counter .counter-number-wrapper {
   display: flex;
   align-items: baseline;
+  /* La rangée est en largeur au contenu : c'est `align-items` du parent
+     (.counter-content) qui porte l'alignement — voir la section Alignement. */
   justify-content: center;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: var(--wp--custom--counter--affix-gap, 4px);
 }
 
 .g2rd-counter .counter-number {
-  font-size: 48px;
+  font-size: var(--g2rd-counter-number-size);
   font-weight: bold;
   line-height: 1.2;
   transition: color 0.3s ease;
@@ -106,18 +131,58 @@
 
 .g2rd-counter .counter-prefix,
 .g2rd-counter .counter-suffix {
-  font-size: 24px;
+  font-size: var(--g2rd-counter-affix-size);
   font-weight: 600;
   opacity: 0.8;
 }
 
 /* Title Styles */
 .g2rd-counter .counter-title {
-  font-size: 18px;
+  font-size: var(--g2rd-counter-title-size);
   font-weight: 600;
   margin: 0;
   line-height: 1.4;
-  text-align: center;
+  /* Hérité du conteneur, où le save() pose l'attribut `alignment`. */
+  text-align: inherit;
+}
+
+/* ─── Alignement ────────────────────────────────────────────────────────────
+   Les deux écritures de chaque sélecteur couvrent la sérialisation sans
+   espace (HTML sauvegardé par Gutenberg) et avec espace (attribut style
+   recalculé par le navigateur dans l'éditeur). `center` restant le défaut du
+   bloc, aucune de ces règles ne s'applique au contenu existant non modifié. */
+/* Contenu en colonne (icône en haut/en bas) : l'axe transversal est
+   horizontal, c'est donc align-items qui porte l'alignement. */
+.g2rd-counter[style*="text-align:left"]:not(.icon-left):not(.icon-right) .counter-content,
+.g2rd-counter[style*="text-align: left"]:not(.icon-left):not(.icon-right) .counter-content {
+  align-items: flex-start;
+}
+
+.g2rd-counter[style*="text-align:right"]:not(.icon-left):not(.icon-right) .counter-content,
+.g2rd-counter[style*="text-align: right"]:not(.icon-left):not(.icon-right) .counter-content {
+  align-items: flex-end;
+}
+
+/* Contenu en ligne (icône à gauche/à droite) : l'axe principal est
+   horizontal → justify-content, et le bloc texte s'aligne en interne. */
+.g2rd-counter[style*="text-align:left"]:is(.icon-left, .icon-right) .counter-content,
+.g2rd-counter[style*="text-align: left"]:is(.icon-left, .icon-right) .counter-content {
+  justify-content: flex-start;
+}
+
+.g2rd-counter[style*="text-align:right"]:is(.icon-left, .icon-right) .counter-content,
+.g2rd-counter[style*="text-align: right"]:is(.icon-left, .icon-right) .counter-content {
+  justify-content: flex-end;
+}
+
+.g2rd-counter[style*="text-align:left"] .counter-text-wrapper,
+.g2rd-counter[style*="text-align: left"] .counter-text-wrapper {
+  align-items: flex-start;
+}
+
+.g2rd-counter[style*="text-align:right"] .counter-text-wrapper,
+.g2rd-counter[style*="text-align: right"] .counter-text-wrapper {
+  align-items: flex-end;
 }
 
 /* Circle Layout */
@@ -142,11 +207,11 @@
 }
 
 .g2rd-counter .counter-circle-content .counter-number-wrapper {
-  margin-bottom: 4px;
+  margin-bottom: var(--wp--custom--counter--affix-gap, 4px);
 }
 
 .g2rd-counter .counter-circle-content .counter-number {
-  font-size: 24px;
+  font-size: var(--g2rd-counter-circle-number-size);
 }
 
 .g2rd-counter .counter-circle-progress {
@@ -156,83 +221,87 @@
 /* Bar Layout */
 .g2rd-counter.layout-bar .counter-bar {
   width: 100%;
-  max-width: 300px;
-  height: 40px;
-  background-color: #e6e6e6;
-  border-radius: 20px;
+  max-width: var(--wp--custom--counter--bar-max-width, 300px);
+  height: var(--wp--custom--counter--bar-height, 40px);
+  background-color: var(--wp--preset--color--surface, #e6e6e6);
+  border-radius: var(--wp--custom--radius--full, 20px);
   overflow: hidden;
   position: relative;
 }
 
 .g2rd-counter .counter-bar-fill {
   height: 100%;
-  border-radius: 20px;
+  border-radius: var(--wp--custom--radius--full, 20px);
   position: relative;
   transition: width 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 12px;
+  padding-right: var(--wp--custom--counter--bar-padding, 12px);
 }
 
 .g2rd-counter .counter-bar-content {
-  color: white;
+  color: var(--wp--preset--color--white, #fff);
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--wp--custom--counter--bar-font-size, 14px);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .g2rd-counter .counter-number {
-    font-size: 36px;
-  }
-
-  .g2rd-counter .counter-prefix,
-  .g2rd-counter .counter-suffix {
-    font-size: 18px;
-  }
-
-  .g2rd-counter .counter-title {
-    font-size: 16px;
+  .g2rd-counter {
+    --g2rd-counter-number-size: var(
+      --wp--custom--counter--number-size-tablet,
+      36px
+    );
+    --g2rd-counter-affix-size: var(
+      --wp--custom--counter--affix-size-tablet,
+      18px
+    );
+    --g2rd-counter-title-size: var(
+      --wp--custom--counter--title-size-tablet,
+      16px
+    );
+    --g2rd-counter-circle-number-size: var(
+      --wp--custom--counter--circle-number-size-tablet,
+      18px
+    );
   }
 
   .g2rd-counter .counter-horizontal {
     flex-direction: column !important;
-    gap: 12px;
+    gap: var(--wp--custom--counter--text-gap, 12px);
   }
 
   .g2rd-counter .counter-icon {
-    font-size: 36px !important;
-    width: 36px !important;
-    height: 36px !important;
-  }
-
-  .g2rd-counter .counter-circle-content .counter-number {
-    font-size: 18px;
+    font-size: var(--wp--custom--counter--icon-size-tablet, 36px) !important;
+    width: var(--wp--custom--counter--icon-size-tablet, 36px) !important;
+    height: var(--wp--custom--counter--icon-size-tablet, 36px) !important;
   }
 }
 
 @media (max-width: 480px) {
   .wp-block-g2rd-counter {
-    padding: 16px;
+    padding: var(--wp--custom--counter--padding-mobile, 16px);
   }
 
-  .g2rd-counter .counter-number {
-    font-size: 28px;
-  }
-
-  .g2rd-counter .counter-prefix,
-  .g2rd-counter .counter-suffix {
-    font-size: 14px;
-  }
-
-  .g2rd-counter .counter-title {
-    font-size: 14px;
+  .g2rd-counter {
+    --g2rd-counter-number-size: var(
+      --wp--custom--counter--number-size-mobile,
+      28px
+    );
+    --g2rd-counter-affix-size: var(
+      --wp--custom--counter--affix-size-mobile,
+      14px
+    );
+    --g2rd-counter-title-size: var(
+      --wp--custom--counter--title-size-mobile,
+      14px
+    );
   }
 
   .g2rd-counter .counter-content {
-    gap: 12px;
+    gap: var(--wp--custom--counter--content-gap-mobile, 12px);
   }
 }
 

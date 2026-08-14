@@ -1,25 +1,69 @@
-/* Fichier temporairement vidé pour tester la compilation */
+/**
+ * G2RD Countdown — feuille de style du bloc (éditeur + front).
+ *
+ * Chaque propriété visuelle lit la variable CSS que `save()` pose sur le
+ * conteneur : --item-spacing, --item-padding, --item-background,
+ * --item-border-radius, --value-size, --label-size, --animation-duration.
+ * Repli en cascade : variable du bloc → token du theme.json → valeur
+ * historique du bloc. Les variables du bloc étant toujours écrites par
+ * `save()` (sauf --value-size / --label-size, optionnelles), un site qui n'a
+ * jamais touché aux réglages rend exactement comme avant.
+ *
+ * Les variables --wp--custom--countdown--* laissent une variation de styles
+ * (styles/<projet>.json › settings.custom.countdown) retoucher le décor des
+ * pastilles sans une ligne de CSS ni un seul !important.
+ *
+ * La couleur du texte n'est jamais fixée ici : elle vient du theme.json et
+ * des réglages de couleur du bloc.
+ */
 
 .g2rd-countdown {
+  /* Valeurs locales : les media queries ne retouchent que ces variables. */
+  --g2rd-countdown-gap: var(--item-spacing, var(--wp--preset--spacing--xs, 20px));
+  --g2rd-countdown-item-padding: var(
+    --item-padding,
+    var(--wp--preset--spacing--xs, 15px)
+  );
+  --g2rd-countdown-item-min-width: var(
+    --wp--custom--countdown--item-min-width,
+    80px
+  );
+  --g2rd-countdown-value-size: var(--value-size, 2em);
+  --g2rd-countdown-label-size: var(--label-size, 0.9em);
+
+  /* Colonne : le titre se place AU-DESSUS de la rangée de pastilles — c'est
+     ce que l'éditeur a toujours affiché. En `row`, le <h2 class="countdown-title">
+     était écrasé à gauche par .countdown-container (width:100%), d'où un
+     deuxième écart éditeur/front. Sans titre, le rendu est inchangé : le
+     conteneur est alors l'unique enfant. La rangée elle-même reste gérée par
+     .countdown-container / .countdown-layout-*. */
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  margin: 20px 0;
+  gap: var(--g2rd-countdown-gap);
+  margin: var(--wp--custom--countdown--margin-block, 20px) 0;
 }
 
 .countdown-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f5f5f5;
-  padding: 15px;
-  border-radius: 8px;
-  min-width: 80px;
+  background: var(
+    --item-background,
+    var(--wp--preset--color--surface, #f5f5f5)
+  );
+  padding: var(--g2rd-countdown-item-padding);
+  border-radius: var(
+    --item-border-radius,
+    var(--wp--custom--radius--s, 8px)
+  );
+  min-width: var(--g2rd-countdown-item-min-width);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Neutralisable depuis une variation : settings.custom.countdown.itemShadow */
+  box-shadow: var(
+    --wp--custom--countdown--item-shadow,
+    0 2px 4px rgba(0, 0, 0, 0.1)
+  );
   position: relative;
   overflow: hidden;
 }
@@ -31,7 +75,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 20px;
+  gap: var(--g2rd-countdown-gap);
 }
 
 .countdown-layout-column {
@@ -39,23 +83,17 @@
   flex-wrap: nowrap;
 }
 
-.countdown-layout-column .countdown-item {
-  margin-bottom: 10px;
-}
-
 .countdown-layout-row {
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.countdown-layout-row .countdown-item {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-
 .countdown-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(
+    --wp--custom--countdown--item-shadow-hover,
+    0 4px 8px rgba(0, 0, 0, 0.15)
+  );
 }
 
 @keyframes pulse {
@@ -71,7 +109,7 @@
 }
 
 .countdown-item.pulse {
-  animation: pulse 1s infinite;
+  animation: pulse var(--animation-duration, 1s) infinite;
 }
 
 @keyframes flip {
@@ -84,7 +122,7 @@
 }
 
 .countdown-item.flip .countdown-value {
-  animation: flip 1s ease-in-out;
+  animation: flip var(--animation-duration, 1s) ease-in-out;
   transform-style: preserve-3d;
 }
 
@@ -97,8 +135,9 @@
   }
 }
 
+/* Le fondu a toujours duré la moitié des autres effets : ratio conservé. */
 .countdown-item.fade .countdown-value {
-  animation: fade 0.5s ease-in-out;
+  animation: fade calc(var(--animation-duration, 1s) / 2) ease-in-out;
 }
 
 @keyframes bounce {
@@ -112,42 +151,43 @@
 }
 
 .countdown-item.bounce .countdown-value {
-  animation: bounce 1s ease-in-out;
+  animation: bounce var(--animation-duration, 1s) ease-in-out;
 }
 
 .countdown-value {
-  font-size: 2em;
+  font-size: var(--g2rd-countdown-value-size);
   font-weight: bold;
-  color: #333;
   line-height: 1;
   margin-bottom: 5px;
   transition: all 0.3s ease;
 }
 
+/* Préréglages « style du minuteur » : chaque teinte reste une variable pour
+   qu'une variation puisse la remapper (settings.custom.countdown.*). */
 .countdown-item.digital .countdown-value {
   font-family: "Digital-7", "Courier New", monospace;
-  background: #000;
-  color: #0f0;
+  background: var(--wp--custom--countdown--digital-background, #000);
+  color: var(--wp--custom--countdown--digital-text, #0f0);
   padding: 5px 10px;
-  border-radius: 4px;
-  text-shadow: 0 0 5px #0f0;
+  border-radius: var(--wp--custom--radius--xs, 4px);
+  text-shadow: 0 0 5px var(--wp--custom--countdown--digital-text, #0f0);
 }
 
 .countdown-item.neon .countdown-value {
   font-family: "Arial", sans-serif;
-  color: #fff;
+  color: var(--wp--custom--countdown--neon-text, #fff);
   text-shadow:
-    0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 20px #0ff,
-    0 0 30px #0ff,
-    0 0 40px #0ff;
+    0 0 5px var(--wp--custom--countdown--neon-text, #fff),
+    0 0 10px var(--wp--custom--countdown--neon-text, #fff),
+    0 0 20px var(--wp--custom--countdown--neon-glow, #0ff),
+    0 0 30px var(--wp--custom--countdown--neon-glow, #0ff),
+    0 0 40px var(--wp--custom--countdown--neon-glow, #0ff);
 }
 
 .countdown-item.retro .countdown-value {
   font-family: "Press Start 2P", cursive;
-  color: #ff6b6b;
-  text-shadow: -2px 2px 0 #000;
+  color: var(--wp--custom--countdown--retro-text, #ff6b6b);
+  text-shadow: -2px 2px 0 var(--wp--custom--countdown--retro-shadow, #000);
 }
 
 .countdown-item.minimal .countdown-value {
@@ -163,8 +203,8 @@
 }
 
 .countdown-label {
-  font-size: 0.9em;
-  color: #666;
+  font-size: var(--g2rd-countdown-label-size);
+  color: var(--wp--preset--color--muted, currentColor);
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
@@ -172,20 +212,22 @@
 
 .countdown-item:hover .countdown-label {
   transform: scale(1.1);
-  color: #333;
 }
 
 .countdown-ended {
   text-align: center;
   font-size: 1.2em;
-  color: #ff4444;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--wp--preset--color--danger, #ff4444);
+  padding: var(--wp--preset--spacing--xs, 20px);
+  background: var(--wp--preset--color--white, #fff);
+  border-radius: var(--item-border-radius, var(--wp--custom--radius--s, 8px));
+  box-shadow: var(
+    --wp--custom--countdown--item-shadow,
+    0 2px 4px rgba(0, 0, 0, 0.1)
+  );
   width: 100%;
-  margin: 20px 0;
-  animation: fade 0.5s ease-in-out;
+  margin: var(--wp--custom--countdown--margin-block, 20px) 0;
+  animation: fade calc(var(--animation-duration, 1s) / 2) ease-in-out;
 }
 
 /* RGAA 13.1 / WCAG 2.3.3 — respecter prefers-reduced-motion */
@@ -198,33 +240,33 @@
 
 @media (max-width: 768px) {
   .g2rd-countdown {
-    gap: 10px;
-  }
-  .countdown-item {
-    min-width: 60px;
-    padding: 10px;
-  }
-  .countdown-value {
-    font-size: 1.5em;
-  }
-  .countdown-label {
-    font-size: 0.8em;
+    --g2rd-countdown-gap: var(--wp--custom--countdown--gap-tablet, 10px);
+    --g2rd-countdown-item-padding: var(
+      --wp--custom--countdown--item-padding-tablet,
+      10px
+    );
+    --g2rd-countdown-item-min-width: var(
+      --wp--custom--countdown--item-min-width-tablet,
+      60px
+    );
+    --g2rd-countdown-value-size: var(--wp--custom--countdown--value-size-tablet, 1.5em);
+    --g2rd-countdown-label-size: var(--wp--custom--countdown--label-size-tablet, 0.8em);
   }
 }
 
 @media (max-width: 480px) {
   .g2rd-countdown {
-    gap: 5px;
-  }
-  .countdown-item {
-    min-width: 50px;
-    padding: 8px;
-  }
-  .countdown-value {
-    font-size: 1.2em;
-  }
-  .countdown-label {
-    font-size: 0.7em;
+    --g2rd-countdown-gap: var(--wp--custom--countdown--gap-mobile, 5px);
+    --g2rd-countdown-item-padding: var(
+      --wp--custom--countdown--item-padding-mobile,
+      8px
+    );
+    --g2rd-countdown-item-min-width: var(
+      --wp--custom--countdown--item-min-width-mobile,
+      50px
+    );
+    --g2rd-countdown-value-size: var(--wp--custom--countdown--value-size-mobile, 1.2em);
+    --g2rd-countdown-label-size: var(--wp--custom--countdown--label-size-mobile, 0.7em);
   }
 }
 

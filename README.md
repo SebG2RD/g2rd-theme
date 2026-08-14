@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.36.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.36.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,17 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.36.1**
+
+- **Le compte à rebours rend enfin la même chose dans l'éditeur et sur le front** : `edit.js` ne posait ni la classe `g2rd-countdown` ni les variables CSS sur son conteneur — la feuille du bloc ne s'appliquait donc pas du tout dans l'éditeur, qui redessinait tout en style inline. Les deux contextes partagent désormais les mêmes classes, les mêmes variables et la même feuille.
+- **Les réglages du compte à rebours agissent sur le front** : `countdown.css` écrivait des valeurs en dur et ignorait les variables que son propre `save()` posait. Espacement, marge intérieure, couleur de fond des pastilles, arrondi, taille de la valeur et du libellé, et jusqu'à la vitesse d'animation, ne produisaient aucun effet en dehors de l'éditeur.
+- **Le titre du compte à rebours repasse au-dessus des pastilles** : le conteneur était en `flex-direction: row`, où `.countdown-container{width:100%}` écrasait le `<h2>` à gauche. Les marges héritées qui s'ajoutaient au `gap` sont retirées.
+- **CSS des deux blocs en 100 % tokens** : plus une seule couleur hexadécimale ni une seule taille en dur — chaque valeur historique devient le repli d'un `var()` adossé à un token du `theme.json`. Un site qui n'a jamais touché aux réglages rend à l'identique. La couleur du texte revient au `theme.json`, et l'ombre des pastilles est neutralisable depuis une variation via `settings.custom.countdown.itemShadow`, sans `!important`.
+- **L'alignement du compteur n'est plus ignoré** : `style.css` forçait `justify-content: center` et `text-align: center` plus bas dans la cascade que le `text-align` posé par `save()`. Le rendu suit maintenant le contrôle d'alignement, y compris pour les dispositions avec icône latérale.
+- **Feuille du compte à rebours mise en file une seule fois** : `ScriptsManager::enqueue_g2rd_countdown_css()` doublonnait le `"style"` du `block.json`, avec deux handles pour le même fichier dans le `<head>`.
+- **Variation « L'Aixoise » allégée sur `g2rd/countdown`** : le conteneur ne porte plus ni fond blanc, ni filet, ni rayon, ni ombre — une carte dans une carte, hors charte sur une section crème. Le décor revient aux pastilles.
+- **Pattern « Section Hero Animé » réparé** : il posait `g2rd/counter` avec des attributs disparus et en balise auto-fermante alors que le bloc a un `save()` statique — trois blocs en « contenu invalide » à l'insertion.
 
 ### **1.36.0**
 

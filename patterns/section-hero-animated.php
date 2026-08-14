@@ -60,21 +60,21 @@
 			<div class="wp-block-columns">
 
 				<!-- wp:column -->
-				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":150,"suffix":"+","label":"Sites livrés","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2000} /-->
-				</div>
+				<div class="wp-block-column"><!-- wp:g2rd/counter {"endingNumber":150,"numberSuffix":"+","enableIcon":false,"numberColor":"var(--wp--preset--color--secondary)","title":"Sites livrés","titleColor":"var(--wp--preset--color--white)","numberFontSize":"2.2rem","titleFontSize":"0.9rem"} -->
+				<div style="text-align:center;margin:0px 0px 0px 0px" class="wp-block-g2rd-counter g2rd-counter layout-number icon-top" data-start="0" data-end="150" data-decimals="0" data-prefix="" data-suffix="+" data-duration="2000" data-thousands="comma"><div class="counter-content"><div class="counter-number-wrapper"><span class="counter-number" style="color:var(--wp--preset--color--secondary);font-size:2.2rem">0</span><span class="counter-suffix" style="margin-left:0px;color:var(--wp--preset--color--secondary);font-size:2.2rem">+</span></div><h3 class="counter-title" style="color:var(--wp--preset--color--white);font-size:0.9rem">Sites livrés</h3></div></div>
+				<!-- /wp:g2rd/counter --></div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
-				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":5,"suffix":" ans","label":"D'expérience","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":1500} /-->
-				</div>
+				<div class="wp-block-column"><!-- wp:g2rd/counter {"endingNumber":5,"numberSuffix":"ans","animationDuration":1500,"enableIcon":false,"numberColor":"var(--wp--preset--color--secondary)","title":"D'expérience","titleColor":"var(--wp--preset--color--white)","numberFontSize":"2.2rem","titleFontSize":"0.9rem"} -->
+				<div style="text-align:center;margin:0px 0px 0px 0px" class="wp-block-g2rd-counter g2rd-counter layout-number icon-top" data-start="0" data-end="5" data-decimals="0" data-prefix="" data-suffix="ans" data-duration="1500" data-thousands="comma"><div class="counter-content"><div class="counter-number-wrapper"><span class="counter-number" style="color:var(--wp--preset--color--secondary);font-size:2.2rem">0</span><span class="counter-suffix" style="margin-left:0px;color:var(--wp--preset--color--secondary);font-size:2.2rem">ans</span></div><h3 class="counter-title" style="color:var(--wp--preset--color--white);font-size:0.9rem">D'expérience</h3></div></div>
+				<!-- /wp:g2rd/counter --></div>
 				<!-- /wp:column -->
 
 				<!-- wp:column -->
-				<div class="wp-block-column">
-					<!-- wp:g2rd/counter {"number":98,"suffix":"%","label":"Clients satisfaits","numberColor":"var(--wp--preset--color--secondary)","labelColor":"var(--wp--preset--color--white)","numberSize":"2.2rem","labelSize":"0.9rem","animationDuration":2500} /-->
-				</div>
+				<div class="wp-block-column"><!-- wp:g2rd/counter {"endingNumber":98,"animationDuration":2500,"enableIcon":false,"numberColor":"var(--wp--preset--color--secondary)","title":"Clients satisfaits","titleColor":"var(--wp--preset--color--white)","numberFontSize":"2.2rem","titleFontSize":"0.9rem"} -->
+				<div style="text-align:center;margin:0px 0px 0px 0px" class="wp-block-g2rd-counter g2rd-counter layout-number icon-top" data-start="0" data-end="98" data-decimals="0" data-prefix="" data-suffix="%" data-duration="2500" data-thousands="comma"><div class="counter-content"><div class="counter-number-wrapper"><span class="counter-number" style="color:var(--wp--preset--color--secondary);font-size:2.2rem">0</span><span class="counter-suffix" style="margin-left:0px;color:var(--wp--preset--color--secondary);font-size:2.2rem">%</span></div><h3 class="counter-title" style="color:var(--wp--preset--color--white);font-size:0.9rem">Clients satisfaits</h3></div></div>
+				<!-- /wp:g2rd/counter --></div>
 				<!-- /wp:column -->
 
 			</div>
