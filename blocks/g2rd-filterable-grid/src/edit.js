@@ -34,6 +34,20 @@ const CTA_ALIGNS = [
   { value: "flex-end", label: "Droite" },
 ];
 
+/**
+ * Décode les entités HTML d'un libellé de terme (« Cellules &amp; Essaims »).
+ * L'API REST des termes renvoie le nom encodé ; React affiche ensuite la chaîne
+ * telle quelle. DOMParser analyse un document détaché — rien n'est inséré dans
+ * la page ni exécuté.
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+function decodeEntities(str) {
+  const doc = new DOMParser().parseFromString(String(str || ""), "text/html");
+  return doc.documentElement.textContent || "";
+}
+
 const RATIO_MAP = {
   "auto":     "58%",
   "16-9":     "56.25%",
@@ -272,8 +286,17 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   const [previewPosts,   setPreviewPosts]   = useState([]);
   const [previewLoading, setPreviewLoading] = useState(false);
 
-  // Re-fetch quand le type, le nombre d'éléments ou le tri changent
-  const fetchKey = JSON.stringify({ selectedPostTypes, postsPerPage, orderby, order });
+  // Restriction aux catégories retenues — appliquée aussi à l'aperçu, pour que
+  // l'éditeur montre la même grille que le front.
+  const previewTermFilter =
+    showTaxonomyFilter && taxonomy && termSelectionMode === "selected" && selectedTerms.length
+      ? `&taxonomy=${encodeURIComponent(taxonomy)}&terms=${selectedTerms.join(",")}`
+      : "";
+
+  // Re-fetch quand le type, le nombre d'éléments, le tri ou la restriction changent
+  const fetchKey = JSON.stringify({
+    selectedPostTypes, postsPerPage, orderby, order, previewTermFilter,
+  });
 
   useEffect(() => {
     if (selectedPostTypes.length === 0) {
@@ -287,7 +310,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     Promise.all(
       selectedPostTypes.map((postType) =>
         apiFetch({
-          path: `/g2rd/v1/posts?post_type=${ encodeURIComponent(postType) }&per_page=${ perType }&orderby=${ orderby }&order=${ order }`,
+          path: `/g2rd/v1/posts?post_type=${ encodeURIComponent(postType) }&per_page=${ perType }&orderby=${ orderby }&order=${ order }${ previewTermFilter }`,
         })
       )
     )
@@ -741,7 +764,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                   { ! loadingTerms && taxTerms.map((t) => (
                     <CheckboxControl
                       key={ t.id }
-                      label={ t.count === 0 ? `${t.name} (${__("vide", "g2rd")})` : t.name }
+                      label={ t.count === 0
+                        ? `${decodeEntities(t.name)} (${__("vide", "g2rd")})`
+                        : decodeEntities(t.name) }
                       checked={ selectedTerms.includes(t.id) }
                       onChange={ (checked) => toggleTerm(t.id, checked) }
                       __nextHasNoMarginBottom

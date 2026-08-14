@@ -47,6 +47,20 @@ function attr(str) {
   return String(str || "").replace(/"/g, "&quot;");
 }
 
+/**
+ * Décode les entités HTML d'un libellé de terme (« Cellules &amp; Essaims »).
+ * L'API REST des termes renvoie le nom encodé. DOMParser analyse un document
+ * détaché : rien n'est inséré dans la page ni exécuté, contrairement à un
+ * innerHTML posé sur un nœud vivant — l'invariant du fichier est préservé.
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+function decodeEntities(str) {
+  const doc = new DOMParser().parseFromString(String(str || ""), "text/html");
+  return doc.documentElement.textContent || "";
+}
+
 function debounce(fn, ms) {
   let t;
   return (...args) => {
@@ -300,7 +314,7 @@ class FilterableGrid {
         if (!t || typeof t.id !== "number" || typeof t.name !== "string") return;
         const opt       = document.createElement("option");
         opt.value       = String(t.id);
-        opt.textContent = t.name; // textContent est sûr contre les XSS
+        opt.textContent = decodeEntities(t.name); // textContent est sûr contre les XSS
         taxEl.appendChild(opt);
       });
 
@@ -335,8 +349,14 @@ class FilterableGrid {
         });
         if (this.state.search) params.set("search", this.state.search);
         if (this.state.term > 0) {
+          // Le visiteur a choisi une catégorie dans le filtre.
           params.set("taxonomy", this.cfg.taxonomy);
           params.set("term",     this.state.term);
+        } else if (this.cfg.termMode === "selected" && this.cfg.terms.length) {
+          // Aucun choix dans le filtre : la grille reste bornée aux catégories
+          // retenues dans les réglages du bloc, au lieu de tout afficher.
+          params.set("taxonomy", this.cfg.taxonomy);
+          params.set("terms",    this.cfg.terms.join(","));
         }
         return apiFetch(`${API_BASE}/g2rd/v1/posts?${params}`);
       });

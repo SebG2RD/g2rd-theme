@@ -109,6 +109,15 @@ class FilterableGrid {
                     'default'           => 0,
                     'sanitize_callback' => 'absint',
                 ],
+                // Liste d'IDs séparés par des virgules : restreint la grille aux
+                // catégories retenues dans les réglages du bloc. `term` (choix du
+                // visiteur dans le filtre) reste prioritaire sur cette liste.
+                'terms'     => [
+                    'default'           => '',
+                    'sanitize_callback' => 'sanitize_text_field',
+                    'validate_callback' => static fn( $v ) => '' === $v
+                        || 1 === \preg_match('/^\d+(,\d+)*$/', (string) $v),
+                ],
                 'orderby'   => [
                     'default'           => 'date',
                     'sanitize_callback' => 'sanitize_key',
@@ -254,6 +263,7 @@ class FilterableGrid {
         $search    = (string) $request->get_param('search');
         $taxonomy  = (string) $request->get_param('taxonomy');
         $term      = (int)    $request->get_param('term');
+        $terms_csv = (string) $request->get_param('terms');
         $orderby   = $request->get_param('orderby');
         $order     = \strtoupper($request->get_param('order')) === 'ASC' ? 'ASC' : 'DESC';
 
@@ -277,7 +287,20 @@ class FilterableGrid {
             $query_args['s'] = $search;
         }
 
-        if (!empty($taxonomy) && $term > 0) {
+        // Termes retenus : le choix du visiteur dans le filtre l'emporte sur la
+        // restriction posée dans les réglages du bloc. Sans l'un ni l'autre, la
+        // grille n'est pas filtrée.
+        $term_ids = [];
+        if ($term > 0) {
+            $term_ids = [$term];
+        } elseif ('' !== $terms_csv) {
+            $term_ids = \array_values(\array_unique(\array_filter(
+                \array_map('absint', \explode(',', $terms_csv))
+            )));
+            $term_ids = \array_slice($term_ids, 0, 50);
+        }
+
+        if (!empty($taxonomy) && !empty($term_ids)) {
             // Vérifier que la taxonomie appartient bien au post_type demandé (cross-validation REST)
             $post_type_taxonomies = \get_object_taxonomies($post_type);
             if (\in_array($taxonomy, $post_type_taxonomies, true)) {
@@ -285,7 +308,7 @@ class FilterableGrid {
                     [
                         'taxonomy' => $taxonomy,
                         'field'    => 'term_id',
-                        'terms'    => [$term],
+                        'terms'    => $term_ids,
                     ],
                 ];
             }

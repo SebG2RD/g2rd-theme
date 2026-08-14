@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.1**
+
+- **La sélection de catégories restreint enfin la grille, pas seulement le filtre** : en 1.37.0, cocher une catégorie ne limitait que les choix du menu déroulant — tous les produits restaient affichés. L'endpoint `/g2rd/v1/posts` accepte désormais un paramètre `terms` (liste d'IDs, validée par `/^\d+(,\d+)*$/`, dédoublonnée et plafonnée à 50) et le frontend l'envoie dès que le mode est « Sélection ». Le choix du visiteur dans le filtre reste prioritaire, à l'intérieur du périmètre retenu.
+- **L'aperçu de l'éditeur applique la même restriction** que le front, pour ne pas rouvrir d'écart de rendu entre les deux.
+- **Entités HTML des noms de catégories** : l'API REST des termes renvoie le nom encodé, si bien qu'une catégorie « Cellules & Essaims » s'affichait « Cellules &amp;amp; Essaims » dans l'éditeur comme dans le filtre. Décodage via `DOMParser` sur un document détaché — aucune valeur brute ne transite par `innerHTML`.
+- **Aucune reconfiguration nécessaire** : `save.js` est inchangé, le `data-terms` déjà enregistré par la 1.37.0 est simplement exploité.
 
 ### **1.37.0**
 
