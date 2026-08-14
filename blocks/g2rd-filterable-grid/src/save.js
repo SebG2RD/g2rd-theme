@@ -17,6 +17,8 @@ export default function Save({ attributes }) {
     showSearch,
     showTaxonomyFilter,
     taxonomy,
+    termSelectionMode,
+    selectedTerms,
     layoutColumns,
     cardDisplay,
     linkType,
@@ -86,6 +88,15 @@ export default function Save({ attributes }) {
     "data-excerpt-fontsize":    excerptFontSize   || "",
     // Ajout conditionnel : les instances existantes (valeur vide) gardent un rendu identique → pas d'invalidation de bloc.
     ...(ctaButtonStyle ? { "data-cta-style": ctaButtonStyle } : {}),
+    // Idem : seules les grilles qui restreignent réellement les catégories
+    // portent ces attributs. Les blocs déjà en base (mode « all ») sérialisent
+    // exactement le même HTML qu'avant → aucune dépréciation nécessaire.
+    ...(termSelectionMode === "selected" && Array.isArray(selectedTerms) && selectedTerms.length
+      ? {
+          "data-term-mode": "selected",
+          "data-terms":     JSON.stringify(selectedTerms),
+        }
+      : {}),
   });
 
   const cssVars = {};

@@ -181,6 +181,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     showSearch,
     showTaxonomyFilter,
     taxonomy,
+    termSelectionMode,
+    selectedTerms,
     layoutColumns,
     cardDisplay,
     linkType,
@@ -321,6 +323,53 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   const hasProductType = contentTypes
     ? contentTypes.some((t) => selectedPostTypes.includes(t.slug) && t.is_product)
     : false;
+
+  // ── Termes de la taxonomie choisie (catégories proposées au visiteur) ───────
+  // La route REST d'une taxonomie utilise son rest_base et non son slug :
+  // `category` s'interroge sur /wp/v2/categories, `product_cat` sur
+  // /wp/v2/product_cat. On lit donc rest_base, exposé par /g2rd/v1/content-types.
+  const taxonomyRestBase =
+    availableTaxonomies.find((t) => t.slug === taxonomy)?.rest_base || taxonomy;
+
+  const [taxTerms, setTaxTerms]       = useState([]);
+  const [loadingTerms, setLoadingTerms] = useState(false);
+
+  useEffect(() => {
+    if (!showTaxonomyFilter || !taxonomyRestBase) {
+      setTaxTerms([]);
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingTerms(true);
+
+    // hide_empty=false : on propose la taxonomie complète au moment de la
+    // configuration. Le front, lui, masque les catégories vides.
+    apiFetch({
+      path: `/wp/v2/${encodeURIComponent(taxonomyRestBase)}?per_page=100&hide_empty=false&_fields=id,name,count`,
+    })
+      .then((terms) => {
+        if (cancelled) return;
+        setTaxTerms(Array.isArray(terms) ? terms : []);
+        setLoadingTerms(false);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setTaxTerms([]);
+        setLoadingTerms(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [showTaxonomyFilter, taxonomyRestBase]);
+
+  const toggleTerm = (termId, checked) => {
+    const next = checked
+      ? [...selectedTerms, termId]
+      : selectedTerms.filter((id) => id !== termId);
+    setAttributes({ selectedTerms: next });
+  };
 
   const toggleType = (slug, checked) => {
     if (checked) {
@@ -659,6 +708,57 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               onChange={ (v) => setAttributes({ taxonomy: v }) }
             />
           ) }
+
+          {/* Choix des catégories proposées dans le filtre : toutes, ou une
+              sélection. Vaut pour les articles (category) comme pour les
+              produits WooCommerce (product_cat) — la liste suit la taxonomie
+              choisie juste au-dessus. */}
+          { showTaxonomyFilter && taxonomy && (
+            <>
+              <ToggleGroupControl
+                label={ __("Catégories proposées", "g2rd") }
+                help={ __("« Sélection » limite le filtre aux catégories cochées. Les catégories vides n'apparaissent jamais sur le front.", "g2rd") }
+                value={ termSelectionMode || "all" }
+                onChange={ (v) => setAttributes({ termSelectionMode: v }) }
+                isBlock
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              >
+                <ToggleGroupControlOption value="all"      label={ __("Toutes", "g2rd") } />
+                <ToggleGroupControlOption value="selected" label={ __("Sélection", "g2rd") } />
+              </ToggleGroupControl>
+
+              { termSelectionMode === "selected" && (
+                <>
+                  { loadingTerms && <Spinner /> }
+
+                  { ! loadingTerms && taxTerms.length === 0 && (
+                    <Notice status="warning" isDismissible={ false }>
+                      { __("Aucune catégorie trouvée pour cette taxonomie.", "g2rd") }
+                    </Notice>
+                  ) }
+
+                  { ! loadingTerms && taxTerms.map((t) => (
+                    <CheckboxControl
+                      key={ t.id }
+                      label={ t.count === 0 ? `${t.name} (${__("vide", "g2rd")})` : t.name }
+                      checked={ selectedTerms.includes(t.id) }
+                      onChange={ (checked) => toggleTerm(t.id, checked) }
+                      __nextHasNoMarginBottom
+                    />
+                  )) }
+
+                  { ! loadingTerms && taxTerms.length > 0 && selectedTerms.length === 0 && (
+                    <Notice status="info" isDismissible={ false }>
+                      { __("Aucune catégorie cochée : le filtre les affichera toutes.", "g2rd") }
+                    </Notice>
+                  ) }
+
+                </>
+              ) }
+            </>
+          ) }
+
           <ToggleControl
             label={ __("Pagination", "g2rd") }
             checked={ showPagination }

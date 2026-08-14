@@ -178,6 +178,10 @@ class FilterableGrid {
                     $tax_list[] = [
                         'slug'  => $tax_slug,
                         'label' => $tax_obj->label,
+                        // La route REST d'une taxonomie utilise son rest_base, pas son
+                        // slug : `category` s'interroge sur /wp/v2/categories. Sans
+                        // cette valeur, l'appel des termes part en 404.
+                        'rest_base' => $tax_obj->rest_base ?: $tax_slug,
                     ];
                 }
             }

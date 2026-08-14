@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.36.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.0**
+
+- **Grille filtrable : choisir les catégories proposées au visiteur** : quand le filtre par taxonomie est activé, un contrôle « Catégories proposées » offre **Toutes** ou **Sélection**. En mode Sélection, les catégories de la taxonomie s'affichent en cases à cocher, celles sans contenu étant signalées `(vide)`. Vaut sans code spécifique pour les articles (`category`) comme pour les produits WooCommerce (`product_cat`) : la liste suit la taxonomie choisie. Cocher zéro catégorie revient à toutes les afficher plutôt qu'à vider le filtre.
+- **Le filtre par catégories ne fonctionnait pas sur les articles** : le frontend interrogeait `wp/v2/{slug}` avec le slug de la taxonomie alors que la route REST utilise son `rest_base` — pour `category`, c'est `wp/v2/categories`. La requête partait en 404, avalée par un `catch` silencieux, et la liste déroulante restait vide sans le moindre message. Le `rest_base` est désormais résolu via `/wp/v2/taxonomies/{slug}`, avec repli sur le slug.
+- **Aucun contenu existant invalidé** : les attributs `data-term-mode` et `data-terms` ne sont sérialisés que si le mode est « Sélection » **et** qu'au moins une catégorie est cochée. Les grilles déjà en base produisent exactement le même HTML qu'avant — pas de dépréciation nécessaire.
+- **`/g2rd/v1/content-types`** expose maintenant le `rest_base` de chaque taxonomie, en plus de son slug et de son libellé.
 
 ### **1.36.2**
 

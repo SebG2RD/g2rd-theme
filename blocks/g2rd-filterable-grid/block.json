@@ -44,6 +44,17 @@
             "type": "string",
             "default": "category"
         },
+        "termSelectionMode": {
+            "type": "string",
+            "default": "all"
+        },
+        "selectedTerms": {
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "default": []
+        },
         "layoutColumns": {
             "type": "number",
             "default": 3

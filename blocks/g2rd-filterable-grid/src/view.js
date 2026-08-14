@@ -205,6 +205,17 @@ class FilterableGrid {
       orderby:      el.dataset.orderby                || "date",
       order:        el.dataset.order                  || "DESC",
       ctaButtonStyle: el.dataset.ctaStyle             || "",
+      // Catégories proposées dans le filtre : « all » par défaut. Les grilles
+      // qui restreignent la liste portent data-term-mode + data-terms.
+      termMode:     el.dataset.termMode               || "all",
+      terms:        (() => {
+        try {
+          const parsed = JSON.parse(el.dataset.terms || "[]");
+          return Array.isArray(parsed) ? parsed.filter((n) => Number.isInteger(n)) : [];
+        } catch (_) {
+          return [];
+        }
+      })(),
     };
 
     this.state = {
@@ -255,8 +266,31 @@ class FilterableGrid {
     taxEl.disabled = false;
 
     try {
+      // La route REST d'une taxonomie utilise son rest_base, pas son slug :
+      // `category` s'interroge sur /wp/v2/categories. Interroger le slug
+      // renvoyait un 404 avalé par le catch — le filtre restait vide.
+      let restBase = this.cfg.taxonomy;
+      try {
+        const taxInfo = await apiFetch(
+          `${API_BASE}/wp/v2/taxonomies/${encodeURIComponent(this.cfg.taxonomy)}?_fields=rest_base`
+        );
+        if (taxInfo?.rest_base) restBase = taxInfo.rest_base;
+      } catch (_) {
+        // On retombe sur le slug : correct pour les taxonomies dont le
+        // rest_base n'a pas été personnalisé (product_cat, la plupart des CPT).
+      }
+
+      // Sélection de catégories : on ne demande que celles retenues.
+      const params = new URLSearchParams({
+        per_page:   "100",
+        hide_empty: "true",
+      });
+      if (this.cfg.termMode === "selected" && this.cfg.terms.length) {
+        params.set("include", this.cfg.terms.join(","));
+      }
+
       const terms = await apiFetch(
-        `${API_BASE}/wp/v2/${encodeURIComponent(this.cfg.taxonomy)}?per_page=100&hide_empty=true`
+        `${API_BASE}/wp/v2/${encodeURIComponent(restBase)}?${params.toString()}`
       );
 
       if (!Array.isArray(terms)) return;
