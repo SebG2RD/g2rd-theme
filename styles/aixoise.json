@@ -36,6 +36,11 @@
           "color": "#775D8C"
         },
         {
+          "slug": "accent-fonce",
+          "name": "Purple Heart lecture",
+          "color": "#634B77"
+        },
+        {
           "name": "Lavande (aplat seul)",
           "slug": "accent-2",
           "color": "#8B7BA8"
@@ -66,9 +71,9 @@
           "color": "#9AA8B8"
         },
         {
-          "name": "Texte atténué",
+          "name": "Atténué",
           "slug": "muted",
-          "color": "#6E6273"
+          "color": "#5F5566"
         },
         {
           "name": "Surface",
@@ -149,7 +154,7 @@
         {
           "name": "Titres — Retrofia (intérim : Bodoni Moda 700)",
           "slug": "retrofia",
-          "fontFamily": "\"Retrofia\", \"Bodoni Moda\", Georgia, \"Times New Roman\", serif"
+          "fontFamily": "\"Retrofia\", \"Fraunces\", Georgia, \"Times New Roman\", serif"
         },
         {
           "name": "Texte courant",
@@ -391,10 +396,6 @@
         "prose": "62ch",
         "chapo": "34ch",
         "titre": "20ch"
-      },
-      "countdown": {
-        "itemShadow": "var(--wp--preset--shadow--xs)",
-        "itemShadowHover": "var(--wp--preset--shadow--md)"
       }
     }
   },
@@ -481,19 +482,19 @@
       },
       "link": {
         "color": {
-          "text": "var(--wp--preset--color--accent)"
+          "text": "var(--wp--custom--color--accenthover)"
         },
         "typography": {
           "textDecoration": "underline"
         },
         ":hover": {
           "color": {
-            "text": "var(--wp--custom--color--accenthover)"
+            "text": "var(--wp--preset--color--primary)"
           }
         },
         ":focus": {
           "color": {
-            "text": "var(--wp--custom--color--accenthover)"
+            "text": "var(--wp--preset--color--primary)"
           }
         }
       },
@@ -783,9 +784,6 @@
         }
       },
       "g2rd/countdown": {
-        "color": {
-          "text": "var(--wp--preset--color--primary)"
-        },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--montserrat)",
           "fontSize": "var(--wp--preset--font-size--m)",
@@ -796,6 +794,12 @@
           "margin": {
             "top": "var(--wp--preset--spacing--xs)",
             "bottom": "var(--wp--preset--spacing--s)"
+          },
+          "padding": {
+            "top": "var(--wp--preset--spacing--xs)",
+            "bottom": "var(--wp--preset--spacing--xs)",
+            "left": "var(--wp--preset--spacing--xs)",
+            "right": "var(--wp--preset--spacing--xs)"
           }
         }
       },

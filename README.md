@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.36.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.36.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.36.2**
+
+- **La barre de progression rendait une couleur en back-office et une autre sur le front** : `render.php` pose `--wrb-progress-bar-color` et `--wrb-progress-track-color` sur le conteneur, alors que l'éditeur forçait `backgroundColor` en style inline sur la piste et le remplissage, plus un `stroke` en dur sur les cercles SVG — que le front, lui, ne pose pas. Deux mécanismes pour un même rendu : toute couleur venant d'ailleurs dans la cascade (variation de styles, thème enfant) s'appliquait au front et jamais à l'éditeur. L'éditeur écrit désormais les deux mêmes variables sur le conteneur et ne force plus rien en aval.
+- **Variation « L'Aixoise »** : contraste de la palette revu — slug `accent-fonce` (#634B77) ajouté pour les liens en lecture, `muted` assombri à #5F5566, liens portés sur `accenthover`. Fraunces remplace Bodoni Moda comme intérim de Retrofia.
+- **Variation « Moovéa »** : mise en forme des pages légales (`.mv-legal`) — titres, filets de séparation et rythme vertical.
 
 ### **1.36.1**
 
