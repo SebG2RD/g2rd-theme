@@ -107,6 +107,7 @@
     "adm-zip": ">=0.6.0",
     "@puppeteer/browsers": "^3.2.0",
     "browserslist": ">=4.28.7",
+    "qs": ">=6.16.0",
     "@wordpress/scripts": {
       "copy-webpack-plugin": "^14.0.0",
       "markdownlint-cli": "^0.48.0",
