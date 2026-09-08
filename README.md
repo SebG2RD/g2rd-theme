@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.3** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.4** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.4**
+
+- **Fix avis Google (bloc Témoignage) : rendu mobile des dispositions marquee et carrousel** : la largeur des cartes était calculée en JS en divisant le conteneur par le nombre de colonnes configuré (ex. 3), quel que soit l'écran — sur téléphone chaque carte tombait à la largeur du mot le plus long (un mot par ligne). Le nombre de colonnes est désormais borné par la largeur réelle de la piste : 1 sous 560 px, 2 au plus sous 900 px, le réglage du bloc au-delà, avec un plancher de 240 px par carte.
+- **Recalcul au redimensionnement** (rotation du téléphone, fenêtre redimensionnée) via `ResizeObserver` throttlé par `requestAnimationFrame`, mesure faite sur la piste réelle une fois dans le DOM (tient compte du padding des flèches du carrousel).
+- **`box-sizing: border-box` sur la carte d'avis** : le padding s'ajoutait à la largeur calculée et la carte débordait du conteneur de 2 × 1.4rem dès qu'elle occupait toute la largeur. Aucune modification de page nécessaire.
 
 ### **1.37.3**
 
