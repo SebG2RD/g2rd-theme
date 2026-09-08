@@ -150,6 +150,9 @@ blockquote.g2rd-testimonial__card {
   flex-direction: column;
   gap: 0.6rem;
   padding: 1.25rem 1.4rem;
+  /* Indispensable en carrousel/marquee : la largeur calculée en JS inclut le padding,
+     sinon la carte déborde du conteneur de 2 × 1.4rem. */
+  box-sizing: border-box;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

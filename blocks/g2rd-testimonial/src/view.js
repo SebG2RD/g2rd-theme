@@ -95,13 +95,60 @@ function renderGoogleBadge( data, opts ) {
 	return `<div class="g2rd-testimonial__google-header">${ inner }</div>`;
 }
 
+/* Largeur minimale confortable d'une carte (px) — en dessous, le texte passe à un mot par ligne. */
+const MIN_CARD_WIDTH = 240;
+
 /**
- * Calcule la largeur d'une carte en pixels depuis la largeur visible du conteneur.
+ * Nombre de colonnes réellement affichables selon la largeur du conteneur.
+ * Le réglage « colonnes » du bloc est un maximum pensé pour le desktop :
+ * sur mobile on descend à 1, sur tablette à 2 au plus.
+ */
+function effectiveColumns( width, columns ) {
+	if ( width < 560 ) return 1;
+	if ( width < 900 ) return Math.min( columns, 2 );
+	return columns;
+}
+
+/**
+ * Calcule la largeur d'une carte en pixels depuis la largeur visible de la piste.
  * Utilise offsetWidth pour éviter le bug CSS 100% sur flex overflow.
  */
-function computeCardWidth( el, columns ) {
-	const gap = parseFloat( getComputedStyle( el ).getPropertyValue( 'gap' ) ) || 20;
-	return Math.floor( ( el.offsetWidth - gap * ( columns - 1 ) ) / columns );
+function computeCardWidth( track, columns ) {
+	const width = track.offsetWidth;
+	if ( width <= 0 ) return 0;
+	const gap  = parseFloat( getComputedStyle( track ).columnGap ) || 20;
+	const cols = effectiveColumns( width, columns );
+	const raw  = Math.floor( ( width - gap * ( cols - 1 ) ) / cols );
+	/* Plancher : jamais moins de MIN_CARD_WIDTH, sans dépasser la piste. */
+	return Math.max( Math.min( raw, width ), Math.min( MIN_CARD_WIDTH, width ) );
+}
+
+/**
+ * Applique la largeur de carte au bloc et la recalcule à chaque redimensionnement
+ * (rotation du téléphone, redimensionnement de fenêtre) — throttle via requestAnimationFrame.
+ */
+function bindCardWidth( el, track, columns ) {
+	const apply = () => {
+		const cardWidth = computeCardWidth( track, columns );
+		if ( cardWidth > 0 ) {
+			el.style.setProperty( '--g2rd-t-card-width', cardWidth + 'px' );
+		}
+	};
+	apply();
+
+	if ( 'ResizeObserver' in window ) {
+		let frame = 0;
+		const ro = new ResizeObserver( () => {
+			if ( frame ) return;
+			frame = requestAnimationFrame( () => {
+				frame = 0;
+				apply();
+			} );
+		} );
+		ro.observe( track );
+	} else {
+		window.addEventListener( 'resize', apply, { passive: true } );
+	}
 }
 
 function buildCarousel( cardsHTML ) {
@@ -213,14 +260,6 @@ function initBlock( el ) {
 	el.setAttribute( 'data-google-layout', layout );
 	el.style.setProperty( '--g2rd-t-cols', columns );
 
-	/* Largeur des cartes basée sur offsetWidth réel — évite le bug CSS 100% sur flex overflow */
-	if ( 'carousel' === layout || 'marquee' === layout ) {
-		const cardWidth = computeCardWidth( el, columns );
-		if ( cardWidth > 0 ) {
-			el.style.setProperty( '--g2rd-t-card-width', cardWidth + 'px' );
-		}
-	}
-
 	const url = endpoint
 		+ '?place_id='   + encodeURIComponent( placeId )
 		+ '&min_rating=' + encodeURIComponent( minRating )
@@ -240,9 +279,14 @@ function initBlock( el ) {
 			el.removeAttribute( 'aria-busy' );
 
 			if ( 'carousel' === layout ) {
-				el.appendChild( buildCarousel( cardsHTML ) );
+				const carousel = buildCarousel( cardsHTML );
+				el.appendChild( carousel );
+				/* Mesure sur la piste réelle (une fois dans le DOM) : tient compte du padding des flèches. */
+				bindCardWidth( el, carousel.querySelector( '.g2rd-testimonial__carousel-track' ), columns );
 			} else if ( 'marquee' === layout ) {
-				el.appendChild( buildMarquee( cardsHTML, marqueeSpeed, marqueePauseButton ) );
+				const marquee = buildMarquee( cardsHTML, marqueeSpeed, marqueePauseButton );
+				el.appendChild( marquee );
+				bindCardWidth( el, marquee, columns );
 			} else {
 				el.insertAdjacentHTML( 'beforeend', cardsHTML );
 			}
