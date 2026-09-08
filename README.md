@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.3** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.3**
+
+- **Fix RGAA : les images gardent leur texte alternatif** : la règle « image décorative » de `inc/rgaa-accessibility.php` lisait une clé méta inexistante (`_wp_alt_text`) et forçait donc `alt=""` + `role="presentation"` sur **toutes** les images, y compris celles dont l'alt était renseigné en médiathèque (RGAA 1.1 / 1.2). Elle lit désormais la vraie clé WordPress `_wp_attachment_image_alt` et respecte un `alt` fourni par l'appelant (ex. image mise en avant liée, où le cœur passe le titre de l'article). Seules les images sans aucun alt restent marquées décoratives.
 
 ### **1.37.2**
 
