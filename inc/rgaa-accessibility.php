@@ -165,12 +165,18 @@ if ( \defined( 'G2RD_RGAA_FIXES_LOADED' ) ) {
 	}
 );
 
-// 8. Images décoratives : alt="" + role="presentation" si l'alt est vide en médiathèque
+/*
+ * 8. Images décoratives : alt="" + role="presentation" si l'alt est vide en médiathèque
+ *    ET si aucun alt n'a été fourni par l'appelant (ex. image mise en avant liée :
+ *    le cœur passe le titre de l'article — à conserver). Clé méta WordPress :
+ *    _wp_attachment_image_alt.
+ */
 \add_filter(
 	'wp_get_attachment_image_attributes',
 	function ( $attr, $attachment ) {
-		$alt = \get_post_meta( $attachment->ID, '_wp_alt_text', true );
-		if ( '' === $alt ) {
+		$media_alt  = \trim( (string) \get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ) );
+		$passed_alt = isset( $attr['alt'] ) ? \trim( (string) $attr['alt'] ) : '';
+		if ( '' === $media_alt && '' === $passed_alt ) {
 			$attr['alt']  = '';
 			$attr['role'] = 'presentation';
 		}
