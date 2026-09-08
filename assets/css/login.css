@@ -29,7 +29,17 @@ body.login {
   display: flex !important;
   flex-direction: column !important;
   align-items: center;
-  justify-content: center;
+  /* Centrage vertical via marges auto (voir ci-dessous) : contrairement à
+     justify-content: center, le contenu reste accessible par défilement
+     quand il dépasse la hauteur de la fenêtre (zoom, petit écran). */
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* Aucun enfant du panneau ne doit rétrécir : le bouton « Se connecter »
+   doit rester visible quoi qu'il arrive. */
+#login > * {
+  flex-shrink: 0 !important;
 }
 
 .login-image {
@@ -146,6 +156,11 @@ input[type="checkbox"]:checked {
 #loginform {
   background: none !important;
   box-shadow: none !important;
+  border: none !important;
+  /* WP core applique overflow: hidden sur .login form : combiné au flex,
+     le bas du formulaire (bouton de connexion) était rogné sur petit écran. */
+  overflow: visible !important;
+  flex-shrink: 0 !important;
   margin: 0 !important;
   display: flex !important;
   flex-direction: column !important;
@@ -190,6 +205,46 @@ input[type="checkbox"]:checked {
 /* Supprimer les styles précédents du sélecteur de langue */
 .language-switcher {
   display: none !important;
+}
+
+/* Centrage vertical du panneau par marges auto — déclaré après les règles
+   de marge de #nav / #backtoblog pour l'emporter dans la cascade. */
+#login > :first-child {
+  margin-top: auto !important;
+}
+
+#login > :last-child {
+  margin-bottom: auto !important;
+}
+
+/* Écrans peu hauts (zoom navigateur, petits portables) : on resserre les
+   espacements verticaux pour garder le bouton de connexion à l'écran. */
+@media screen and (max-height: 800px) {
+  #login {
+    padding: 24px 40px !important;
+  }
+
+  .login h1 {
+    margin-bottom: 16px !important;
+  }
+
+  .login .message,
+  .login #login_error {
+    margin-bottom: 16px !important;
+  }
+
+  .login .forgetmenot {
+    margin: 10px 0 12px !important;
+  }
+
+  .wp-core-ui .button-primary {
+    margin-top: 12px !important;
+  }
+
+  .login #nav,
+  .login #backtoblog {
+    margin-top: 12px !important;
+  }
 }
 
 /* Responsive */

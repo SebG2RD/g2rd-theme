@@ -260,6 +260,12 @@ body.login { background: {$bg_color} !important; }";
 
         // Responsive — placé après les règles dynamiques pour les surcharger (cascade CSS)
         $inline_css .= '
+@media screen and (max-height: 800px) {
+    .login h1 a {
+        height: 56px !important;
+        margin-bottom: 12px !important;
+    }
+}
 @media screen and (max-width: 768px) {
     #login {
         width: 100% !important;
