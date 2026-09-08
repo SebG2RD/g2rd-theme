@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.2**
+
+- **Fix page de connexion : le bouton « Se connecter » reste visible quoi qu'il arrive** : WordPress core applique `overflow: hidden` et une bordure sur `.login form`. Enfant flex de la colonne `#login`, le formulaire était le seul élément à rétrécir quand la hauteur manquait (zoom navigateur, petit écran) et son bas — le bouton de connexion — était rogné. Le formulaire ne rétrécit plus (`flex-shrink: 0`, `overflow: visible`), la bordure grise core est supprimée et aucun enfant du panneau ne peut être compressé.
+- **Centrage vertical par marges auto** au lieu de `justify-content: center` : lorsque le contenu dépasse la fenêtre, la page défile au lieu de couper le haut ou le bas du panneau.
+- **Écrans peu hauts (`max-height: 800px`)** : espacements verticaux et hauteur du logo resserrés pour garder le bouton à l'écran sans défilement dans la plupart des cas.
+- **Dépendances** : correction de 6 alertes Dependabot (`fast-uri`, `postcss-selector-parser`, `browserslist`, `qs`) via `overrides` racine.
 
 ### **1.37.1**
 
