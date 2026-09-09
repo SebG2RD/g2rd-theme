@@ -514,7 +514,8 @@ LiteSpeed Cache convertit tous les scripts en `type="litespeed/javascript"` (def
 ```powershell
 # Depuis la racine du projet (PowerShell)
 .\tools\export-theme.ps1
-# Génère : C:\Users\gerar\Downloads\Développement Web\G2RD-theme.zip
+# Génère : C:\Users\gerar\Downloads\DeveloppementWeb\G2RD-theme.zip
+# Après tout déplacement/renommage du dossier : relancer `npm link` (sinon le bridge MCP crashe)
 ```
 
 ## Workflow

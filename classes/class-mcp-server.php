@@ -264,6 +264,21 @@ class McpServer {
 
 		$ability = $this->abilities->get( $tool_name );
 		if ( null === $ability ) {
+			// Outil inconnu : authentifier quand même le token avant de répondre,
+			// sinon un appel sans token valide distinguerait « outil inconnu » de
+			// « token invalide » et permettrait d'énumérer les outils existants.
+			$probe = $this->gate->authorize(
+				$raw_token,
+				'read_only',
+				'read',
+				'mcp/tools-call',
+				[ 'name' => $tool_name ],
+				$client_ip,
+				$req_ctx
+			);
+			if ( ! $probe['allowed'] ) {
+				return $this->auth_error( $id, $probe );
+			}
 			return $this->rpc_error( $id, -32601, "Unknown tool: {$tool_name}" );
 		}
 

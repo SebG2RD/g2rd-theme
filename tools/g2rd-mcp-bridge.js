@@ -77,6 +77,10 @@ try {
 
 // ── Lecture stdin ligne par ligne ─────────────────────────────────────────────
 
+// Suivi des requêtes HTTP en cours pour ne pas quitter avant d'avoir répondu.
+let inFlight    = 0;
+let stdinClosed = false;
+
 const rl = readline.createInterface( {
 	input:     process.stdin,
 	crlfDelay: Infinity,
@@ -101,6 +105,7 @@ rl.on( 'line', ( line ) => {
 
 	const isNotification = ! ( 'id' in body );
 
+	inFlight++;
 	postToWordPress( JSON.stringify( body ) )
 		.then( ( { body: raw, status } ) => {
 			dbg( 'HTTP ' + status + ' ← ' + ( body.method || '?' ) + ' id=' + ( body.id ?? 'none' ) );
@@ -159,12 +164,28 @@ rl.on( 'line', ( line ) => {
 				error:   { code: -32603, message: String( err.message || err ) },
 				id:      body.id ?? null,
 			} );
+		} )
+		.finally( () => {
+			// Décrémenté après l'écriture de la réponse : si stdin est déjà fermé,
+			// on ne quitte qu'une fois toutes les requêtes en vol terminées.
+			inFlight--;
+			exitIfDrained();
 		} );
 } );
 
+// Fermeture de stdin (Claude Desktop arrête le serveur, ou fin d'un pipe en
+// ligne de commande) : ne pas tuer les requêtes HTTP encore en cours, sinon
+// leurs réponses sont perdues. On sort dès que la file est vide.
 rl.on( 'close', () => {
-	process.exit( 0 );
+	stdinClosed = true;
+	exitIfDrained();
 } );
+
+function exitIfDrained() {
+	if ( stdinClosed && 0 === inFlight ) {
+		process.exit( 0 );
+	}
+}
 
 // ── HTTP POST vers WordPress ──────────────────────────────────────────────────
 
