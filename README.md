@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.4** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.37.5** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.37.5**
+
+- **Sécurité MCP** : `tools/call` authentifie le token avant de signaler un outil inconnu — plus d'énumération des outils sans token valide.
+- **Bridge MCP** : à la fermeture de stdin, le bridge attend la fin des requêtes en cours avant de quitter (réponses perdues en ligne de commande).
+- **Docs** : nouveau chemin du dossier de développement et rappel `npm link`.
 
 ### **1.37.4**
 
