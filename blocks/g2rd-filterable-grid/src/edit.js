@@ -462,6 +462,19 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             { value: excerptColor,      onChange: (v) => setAttributes({ excerptColor: v || "" }),      label: __("Couleur de l'extrait", "g2rd") },
             { value: ctaBgColor,        onChange: (v) => setAttributes({ ctaBgColor: v || "" }),        label: __("Bouton — fond", "g2rd") },
             { value: ctaTextColor,      onChange: (v) => setAttributes({ ctaTextColor: v || "" }),      label: __("Bouton — texte", "g2rd") },
+            {
+              value:    ctaBorderColor,
+              // Une couleur seule ne dessine aucune bordure : au premier choix on
+              // amorce largeur et style (comme le panneau Bordure), pour que le
+              // trait apparaisse immédiatement dans l'éditeur et sur le front.
+              onChange: (v) => setAttributes({
+                ctaBorderColor: v || "",
+                ...( v && ! ctaBorderWidth
+                  ? { ctaBorderWidth: "1px", ctaBorderStyle: ctaBorderStyle || "solid" }
+                  : {} ),
+              }),
+              label:    __("Bouton — bordure", "g2rd"),
+            },
             { value: ctaHoverBgColor,   onChange: (v) => setAttributes({ ctaHoverBgColor: v || "" }),   label: __("Bouton — fond (survol)", "g2rd") },
             { value: ctaHoverTextColor, onChange: (v) => setAttributes({ ctaHoverTextColor: v || "" }), label: __("Bouton — texte (survol)", "g2rd") },
           ] }

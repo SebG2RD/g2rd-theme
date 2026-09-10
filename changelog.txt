@@ -1,3 +1,8 @@
+= 1.38.0 =
+* Nouveau : filtre g2rd_mcp_abilities — un plugin peut enregistrer ses propres outils MCP sans modifier le thème (noms du cœur protégés, callback obligatoire, portées par défaut restrictives).
+* Nouveau : bloc Grille filtrable — la couleur de bordure des boutons se choisit dans le panneau Couleur, comme celle des titres et du texte.
+* Note : les outils tiers en écriture ne passent pas encore par la file de confirmation par e-mail — les garder en read_only.
+
 = 1.15.3 =
 * Fix : révocation d'un token MCP supprime immédiatement l'enregistrement en base de données.
 

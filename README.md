@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.37.5** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.38.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.38.0**
+
+- **Serveur MCP extensible** : nouveau filtre `g2rd_mcp_abilities` — un plugin peut enregistrer ses propres outils MCP sans modification du thème. Les noms d'outils du cœur sont protégés, une entrée sans callback appelable est rejetée et les portées omises retombent sur `read_only` / `manage_options`. Le chemin d'exécution des outils existants est inchangé : aucun d'eux ne déclare de callback.
+- **Grille filtrable — couleur de bordure des boutons** : réglable depuis le panneau Couleur, au même endroit que la couleur des titres et du texte. Le premier choix amorce une bordure de 1px en trait plein si aucune largeur n'est définie, pour que le trait apparaisse immédiatement.
+- **Sécurité des dépendances** : `smol-toml` épinglé en 1.8.0 (avis *high* : déni de service via document TOML malformé, chaîne `@wordpress/scripts` → `markdownlint-cli`).
+- **Documentation** : section « Étendre le serveur MCP » dans le guide, conception et limites détaillées dans `docs/internal/mcp-extending-tools.md`.
 
 ### **1.37.5**
 

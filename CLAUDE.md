@@ -375,6 +375,18 @@ Le bridge détecte les réponses non-JSON-RPC (erreurs WordPress) et les convert
 - **`g2rd_create-full-post`** — crée un article complet en une seule opération atomique : article + image à la une (sideload URL avec vérif MIME réelle) + catégories/tags + métas SEO. Orchestré dans `McpConfirmationQueue::exec_create_full_post()` (ordre : image → `wp_insert_post` → image à la une → terms → SEO ; rollback du média si l'insert échoue). Réutilise les helpers partagés `sideload_media_from_url()` et `write_seo_meta()`. Résultat riche affiché sur la page de confirmation + option `g2rd_mcp_last_operation_result`.
 - **`g2rd_batch`** — regroupe jusqu'à 20 opérations d'écriture en une confirmation (`exec_batch()` → `dispatch_operation()` par op). Best-effort, statut par op, pas de rollback global, refus des lots imbriqués/outils inconnus.
 
+### Registre d'outils extensible (v1.38.0+)
+
+Le registre de `McpAbilities` est passé au filtre **`g2rd_mcp_abilities`** en fin de constructeur : un plugin (ex. `g2rd-facturation`) enregistre ses propres outils sans modifier le thème.
+
+- Une entrée tierce reprend la forme d'une entrée du cœur (`name`, `description`, `required_scope`, `wp_capability`, `inputSchema`) et ajoute une clé **`callback`** appelable, reçue par `call()` avant son `switch`.
+- Signature : `callback( array $args, array $gate_result ): array` — retour `[ 'content' => [ [ 'type' => 'text', 'text' => '…' ] ] ]`, plus `'isError' => true` en cas d'échec. Un retour non-tableau devient une erreur d'outil.
+- **Garde-fous** : un nom d'outil du cœur ne peut pas être écrasé ; une entrée sans `callback` appelable ou sans `name`/`description`/`inputSchema` est ignorée ; les portées omises retombent sur `read_only` / `manage_options` (fail-closed).
+- L'autorisation n'est pas déléguée : `McpSecurityGate` s'applique avant `call()`. `list_tools()` n'expose ni le `callback` ni les champs de portée.
+- **Aucun outil du cœur ne déclare de `callback`** — leur chemin d'exécution est inchangé (vérifié par `McpAbilitiesFilterTest`).
+- **Limite connue** : `McpConfirmationQueue::dispatch_operation()` a son propre `switch` sans point d'extension. Un outil tiers en `editor` passant par la file échouerait à la confirmation → garder les outils tiers en `read_only`.
+- Conception, exemple complet et limites : `docs/internal/mcp-extending-tools.md`.
+
 ## Module IA (v1.14.0+)
 
 Intégration Claude via WordPress Abilities API, activable depuis la page d'options (clé `enable_ai`).

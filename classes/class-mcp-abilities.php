@@ -1753,6 +1753,40 @@ class McpAbilities {
 				],
 			],
 		];
+
+		/**
+		 * Filters the MCP tool registry to let plugins register their own tools.
+		 *
+		 * A third-party entry uses the same shape as a core one (name, description,
+		 * required_scope, wp_capability, inputSchema) plus a `callback` key holding
+		 * a callable executed by call(). The callable receives ( array $args,
+		 * array $gate_result ) and must return an MCP tool-result payload.
+		 *
+		 * Core tool names are protected: an entry whose key already exists in the
+		 * core registry is discarded, so a plugin cannot shadow g2rd_delete-post.
+		 *
+		 * @since 1.38.0
+		 *
+		 * @param array<string, array<string, mixed>> $registry Tool definitions keyed by name.
+		 */
+		$extended = \apply_filters( 'g2rd_mcp_abilities', $this->registry );
+
+		if ( \is_array( $extended ) ) {
+			foreach ( $extended as $key => $tool ) {
+				if ( isset( $this->registry[ $key ] ) ) {
+					continue;
+				}
+				if ( ! \is_array( $tool ) || ! isset( $tool['name'], $tool['description'], $tool['inputSchema'] ) ) {
+					continue;
+				}
+				if ( ! isset( $tool['callback'] ) || ! \is_callable( $tool['callback'] ) ) {
+					continue;
+				}
+				$tool['required_scope']    = $tool['required_scope'] ?? 'read_only';
+				$tool['wp_capability']     = $tool['wp_capability'] ?? 'manage_options';
+				$this->registry[ $key ]    = $tool;
+			}
+		}
 	}
 
 	// ── Public API ────────────────────────────────────────────────────────────
@@ -1800,6 +1834,15 @@ class McpAbilities {
 	 */
 	public function call( string $name, mixed $arguments, array $gate_result ): array {
 		$args = \is_array( $arguments ) ? $arguments : [];
+
+		// Third-party tools registered via the g2rd_mcp_abilities filter carry
+		// their own callback; core tools never do, so the switch below is untouched.
+		$registered = $this->registry[ $name ] ?? null;
+		if ( null !== $registered && isset( $registered['callback'] ) && \is_callable( $registered['callback'] ) ) {
+			$result = \call_user_func( $registered['callback'], $args, $gate_result );
+
+			return \is_array( $result ) ? $result : $this->tool_error( "Invalid result returned by tool: {$name}" );
+		}
 
 		switch ( $name ) {
 			// ── Read tools ─────────────────────────────────────────────────────

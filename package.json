@@ -1,6 +1,6 @@
 {
   "name": "g2rd-theme",
-  "version": "1.37.5",
+  "version": "1.38.0",
   "private": true,
   "workspaces": [
     "blocks/g2rd-card",
@@ -92,7 +92,7 @@
     "markdownlint-cli": "^0.48.0",
     "markdownlint": "^0.38.0",
     "markdown-it": "^14.2.0",
-    "smol-toml": "^1.6.1",
+    "smol-toml": ">=1.8.0",
     "serialize-javascript": "^7.0.5",
     "webpack-dev-server": "^5.2.5",
     "http-proxy-middleware": "^2.0.10",
@@ -113,7 +113,7 @@
       "markdownlint-cli": "^0.48.0",
       "markdownlint": "^0.38.0",
       "markdown-it": "^14.1.1",
-      "smol-toml": "^1.6.1",
+      "smol-toml": ">=1.8.0",
       "serialize-javascript": "^7.0.5",
       "webpack-dev-server": "^5.2.5",
       "uuid": ">=11.1.1",

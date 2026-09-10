@@ -150,8 +150,31 @@ if (!defined('OBJECT')) {
 if (!function_exists('add_action')) {
     function add_action($hook, $callback, $priority = 10, $accepted_args = 1) { return true; }
 }
+// Filtres : registre en mémoire, contrairement aux actions restées no-op.
+// McpAbilities expose le point d'extension g2rd_mcp_abilities ; un stub qui
+// jetterait le callback rendrait tout test du filtre vide de sens.
+global $g2rd_filter_store;
+$g2rd_filter_store = [];
+
 if (!function_exists('add_filter')) {
-    function add_filter($hook, $callback, $priority = 10, $accepted_args = 1) { return true; }
+    function add_filter($hook, $callback, $priority = 10, $accepted_args = 1) {
+        global $g2rd_filter_store;
+        $g2rd_filter_store[$hook][(int) $priority][] = $callback;
+        ksort($g2rd_filter_store[$hook]);
+        return true;
+    }
+}
+if (!function_exists('remove_all_filters')) {
+    /** Isolation entre tests : à appeler dans setUp()/tearDown(). */
+    function remove_all_filters($hook = null, $priority = false) {
+        global $g2rd_filter_store;
+        if (null === $hook) {
+            $g2rd_filter_store = [];
+        } else {
+            unset($g2rd_filter_store[$hook]);
+        }
+        return true;
+    }
 }
 if (!function_exists('register_rest_route')) {
     function register_rest_route($namespace, $route, $args = [], $override = false) { return true; }
@@ -695,6 +718,12 @@ if (!function_exists('is_multisite')) {
 }
 if (!function_exists('apply_filters')) {
     function apply_filters(string $hook, mixed $value, mixed ...$args): mixed {
+        global $g2rd_filter_store;
+        foreach ($g2rd_filter_store[$hook] ?? [] as $callbacks) {
+            foreach ($callbacks as $callback) {
+                $value = $callback($value, ...$args);
+            }
+        }
         return $value;
     }
 }
