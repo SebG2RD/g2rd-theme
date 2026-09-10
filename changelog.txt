@@ -1,3 +1,7 @@
+= 1.39.0 =
+* Nouveau : les variations de styles peuvent vivre dans le thème enfant (<enfant>/styles/*.json) — elles surchargent celles du parent et survivent aux mises à jour du thème.
+* Style : variation Moovéa — carte en héros éclaircie (fond blush, filtre de tuiles adouci, voile dégradé revu).
+
 = 1.38.1 =
 * Fix : la variation de styles Moovéa embarquée dans l archive correspond enfin à la version déployée — l archive 1.38.0 contenait une version antérieure qui aurait été écrasée à la mise à jour.
 

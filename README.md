@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.38.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.39.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.39.0**
+
+- **Variations de styles depuis le thème enfant** : `composeThemeJson()` charge désormais `<enfant>/styles/*.json` en plus de celles du parent. Les fichiers sont indexés par nom, donc une variation de l'enfant remplace celle du parent en gardant sa place dans le sélecteur. Une variation propre à un client vit ainsi dans son thème enfant et **survit aux mises à jour du parent**, qui remplace tout le dossier du thème. La clé de cache intègre les `mtime` de ces fichiers : modifier une variation enfant invalide le transient sans purge manuelle. Sans thème enfant, le comportement est inchangé.
+- **Variation Moovéa — carte en héros éclaircie** : fond de canevas et de conteneur en `blush`, filtre de tuiles adouci, voile dégradé horizontal sur grand écran et vertical sous 781 px.
 
 ### **1.38.1**
 

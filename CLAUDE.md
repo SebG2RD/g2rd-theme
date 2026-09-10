@@ -334,6 +334,21 @@ Pour surcharger un style depuis un enfant, utiliser une **variation de styles**
 (`styles/<projet>.json`) ou le CSS de l'enfant, pas `styles` dans son
 `theme.json`.
 
+### Variations de styles du thème enfant (v1.39.0+)
+
+`composeThemeJson()` charge les variations du **parent puis de l'enfant**
+(`<enfant>/styles/*.json`). Les fichiers sont indexés par **nom de fichier** :
+un `styles/moovea.json` de l'enfant **remplace** celui du parent, en conservant
+sa position dans le sélecteur de styles.
+
+- **Une variation propre à un client vit dans son thème enfant** : elle survit
+  aux mises à jour du parent (GitHub Updater remplace tout le dossier du thème)
+  et n'apparaît pas dans le sélecteur des autres sites.
+- `getThemeJsonCacheKey()` inclut les `mtime` des variations de l'enfant :
+  modifier une variation enfant invalide le transient sans purge manuelle.
+- Sans thème enfant (`$child_dir === $dir`), le comportement est strictement
+  celui d'avant la 1.39.0.
+
 ## Module MCP (v1.12.0+)
 
 Serveur JSON-RPC 2.0 natif exposant les CPTs et la configuration du thème à des outils IA compatibles MCP (Claude Desktop, Claude.ai).

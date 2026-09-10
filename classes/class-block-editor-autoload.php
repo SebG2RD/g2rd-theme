@@ -305,6 +305,11 @@ class BlockEditorAutoload {
         $child_dir = \get_stylesheet_directory();
         if ($child_dir !== $dir) {
             $mtimes[] = @filemtime($child_dir . '/theme.json');
+
+            // ... et si une variation de style de l'enfant change.
+            foreach (\glob($child_dir . '/styles/*.json') ?: [] as $f) {
+                $mtimes[] = @filemtime($f);
+            }
         }
 
         return self::CACHE_PREFIX . md5(implode('_', $mtimes));
@@ -364,16 +369,32 @@ class BlockEditorAutoload {
             }
         }
 
-        // Charger les variations de style
+        /*
+         * Charger les variations de style : parent d'abord, puis thème enfant.
+         *
+         * Une variation propre à un client vit ainsi dans son thème enfant : elle
+         * survit aux mises à jour du parent (GitHub Updater remplace tout le dossier)
+         * et n'apparaît pas dans le sélecteur de styles des autres sites.
+         *
+         * L'indexation par nom de fichier fait qu'un styles/x.json de l'enfant
+         * remplace celui du parent : un projet peut surcharger une variation livrée.
+         */
         $style_files = \glob($dir . '/styles/*.json') ?: [];
-        $variations  = [];
+
+        if ($child_dir !== $dir) {
+            $style_files = \array_merge($style_files, \glob($child_dir . '/styles/*.json') ?: []);
+        }
+
+        $variations = [];
 
         foreach ($style_files as $style_file) {
             $style_data = $this->loadJsonFile($style_file);
             if (null !== $style_data && isset($style_data['title'])) {
-                $variations[] = $style_data;
+                $variations[\basename($style_file)] = $style_data;
             }
         }
+
+        $variations = \array_values($variations);
 
         $new_data = [
             'version'    => 3,
