@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.38.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.38.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,10 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.38.1**
+
+- **Variation de styles Moovéa à jour** : token `terracotta-vif`, carte en héros (filtre de teinte, marqueur animé, panneau superposé), bandeau défilant, habillage de la fenêtre modale, survol des cartes d'offres, bloc citations et calage du héros sur la hauteur d'en-tête via `--mv-header-h`. Cette variation était déjà déployée manuellement sur le site concerné : l'archive 1.38.0 en embarquait encore la version précédente et l'aurait écrasée à la mise à jour.
 
 ### **1.38.0**
 
