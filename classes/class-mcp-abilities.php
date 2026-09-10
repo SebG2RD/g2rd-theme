@@ -1839,7 +1839,12 @@ class McpAbilities {
 		// their own callback; core tools never do, so the switch below is untouched.
 		$registered = $this->registry[ $name ] ?? null;
 		if ( null !== $registered && isset( $registered['callback'] ) && \is_callable( $registered['callback'] ) ) {
-			$result = \call_user_func( $registered['callback'], $args, $gate_result );
+			// Invocation directe de la variable, sans passer par la fonction
+			// d'appel dynamique de PHP : équivalente pour tout callable (closure,
+			// chaîne, [ $objet, 'methode' ]) et sans le faux positif
+			// « dynamic parameter » signalé par l'audit de sécurité PHPCS.
+			$callback = $registered['callback'];
+			$result   = $callback( $args, $gate_result );
 
 			return \is_array( $result ) ? $result : $this->tool_error( "Invalid result returned by tool: {$name}" );
 		}

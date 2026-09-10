@@ -81,6 +81,8 @@ Il doit retourner une charge utile MCP :
 [ 'content' => [ [ 'type' => 'text', 'text' => 'Message d’erreur' ] ], 'isError' => true ]
 ```
 
+Le callback est invoqué directement depuis la variable, sans fonction d'appel dynamique : les closures, les chaînes et les tableaux `[ $objet, 'methode' ]` sont donc tous acceptés.
+
 Un callback qui retourne autre chose qu'un tableau est converti en erreur d'outil par `call()`, plutôt que transmis tel quel au client MCP.
 
 ## Garde-fous

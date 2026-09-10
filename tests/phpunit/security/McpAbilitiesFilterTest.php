@@ -191,6 +191,44 @@ final class McpAbilitiesFilterTest extends TestCase {
 	}
 
 	/**
+	 * call() invoque directement la variable de callback plutôt que
+	 * call_user_func() : ce test verrouille l'équivalence pour un callable de
+	 * type tableau [ $objet, 'methode' ], la forme la plus susceptible de
+	 * régresser si l'invocation changeait à nouveau.
+	 */
+	public function test_call_supports_array_callable(): void {
+		$handler = new class() {
+			public function run( array $args, array $gate_result ): array {
+				return [
+					'content' => [
+						[
+							'type' => 'text',
+							'text' => 'array callable: ' . ( $args['invoice_id'] ?? 0 ),
+						],
+					],
+				];
+			}
+		};
+
+		\add_filter(
+			'g2rd_mcp_abilities',
+			function ( array $registry ) use ( $handler ): array {
+				$registry['g2rd_invoice-total'] = $this->third_party_tool( [ $handler, 'run' ] );
+
+				return $registry;
+			}
+		);
+
+		$result = ( new McpAbilities() )->call(
+			'g2rd_invoice-total',
+			[ 'invoice_id' => 7 ],
+			$this->gate
+		);
+
+		$this->assertSame( 'array callable: 7', $result['content'][0]['text'] );
+	}
+
+	/**
 	 * Un callback qui ne retourne pas un tableau produit une erreur d'outil
 	 * plutôt qu'une réponse malformée renvoyée au client MCP.
 	 */
