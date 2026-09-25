@@ -104,7 +104,7 @@
     "ws": ">=8.20.1",
     "websocket-driver": ">=0.7.5",
     "webpack": "^5.108.1",
-    "adm-zip": ">=0.6.0",
+    "adm-zip": ">=0.6.1",
     "@puppeteer/browsers": "^3.2.0",
     "browserslist": ">=4.28.7",
     "qs": ">=6.16.0",
