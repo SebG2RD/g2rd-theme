@@ -1,0 +1,53 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
+<main class="wp-block-group"><!-- wp:group {"tagName":"section","className":"g2rd-page-hero","layout":{"type":"default"}} -->
+<section class="wp-block-group g2rd-page-hero"><!-- wp:group {"className":"g2rd-wide","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-wide"><!-- wp:paragraph {"className":"g2rd-meta"} -->
+<p class="g2rd-meta">Étude de cas</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:post-title {"level":1} /-->
+
+<!-- wp:group {"className":"g2rd-page-hero__meta","layout":{"type":"flex"}} -->
+<div class="wp-block-group g2rd-page-hero__meta"><!-- wp:post-terms {"term":"site_web"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:buttons {"className":"g2rd-page-hero__actions"} -->
+<div class="wp-block-buttons g2rd-page-hero__actions"><!-- wp:button {"className":"g2rd-btn g2rd-btn--ghost","metadata":{"bindings":{"url":{"source":"g2rd/portfolio-link"}}}} -->
+<div class="wp-block-button g2rd-btn g2rd-btn--ghost"><a class="wp-block-button__link wp-element-button" href="https://g2rd.fr/portfolio/" target="_blank" rel="noopener">Visiter le site</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"g2rd-single-featured","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-single-featured"><!-- wp:post-featured-image /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"g2rd-single-content","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-single-content"><!-- wp:post-content /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"section","className":"g2rd-blog g2rd-section g2rd-theme-surface","layout":{"type":"default"}} -->
+<section class="wp-block-group g2rd-blog g2rd-section g2rd-theme-surface"><!-- wp:group {"className":"g2rd-wide","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-wide"><!-- wp:heading {"className":"g2rd-section-head g2rd-reveal"} -->
+<h2 class="wp-block-heading g2rd-section-head g2rd-reveal">Autres réalisations</h2>
+<!-- /wp:heading -->
+
+<!-- wp:query {"queryId":41,"query":{"perPage":3,"postType":"portfolio","order":"desc","orderBy":"date","inherit":false}} -->
+<div class="wp-block-query"><!-- wp:post-template {"className":"g2rd-card-grid"} -->
+<!-- wp:post-featured-image {"isLink":true} /-->
+
+<!-- wp:group {"className":"g2rd-card__body","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-card__body"><!-- wp:post-title {"level":3,"isLink":true} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:pattern {"slug":"g2rd-child/cta"} /--></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

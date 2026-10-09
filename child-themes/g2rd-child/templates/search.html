@@ -1,0 +1,47 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
+<main class="wp-block-group"><!-- wp:group {"tagName":"section","className":"g2rd-page-hero","layout":{"type":"default"}} -->
+<section class="wp-block-group g2rd-page-hero"><!-- wp:group {"className":"g2rd-wide","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-wide"><!-- wp:paragraph {"className":"g2rd-meta"} -->
+<p class="g2rd-meta">Recherche</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:query-title {"type":"search","level":1} /-->
+
+<!-- wp:search {"label":"Rechercher","showLabel":false,"buttonText":"Rechercher","className":"g2rd-search-form"} /--></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"g2rd-archive","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-archive"><!-- wp:group {"className":"g2rd-wide","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-wide"><!-- wp:query {"queryId":30,"query":{"inherit":true,"perPage":9}} -->
+<div class="wp-block-query"><!-- wp:post-template {"className":"g2rd-card-grid"} -->
+<!-- wp:post-featured-image /-->
+
+<!-- wp:group {"className":"g2rd-card__body","layout":{"type":"default"}} -->
+<div class="wp-block-group g2rd-card__body"><!-- wp:post-date {"format":"j F Y"} /-->
+
+<!-- wp:post-title {"level":2,"isLink":true} /-->
+
+<!-- wp:post-excerpt {"moreText":"Lire la suite","excerptLength":22} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>Aucun contenu ne correspond à votre recherche. Essayez d'autres mots-clés ou parcourez nos <a href="https://g2rd.fr/prestations">prestations</a>.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:pattern {"slug":"g2rd-child/cta"} /--></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

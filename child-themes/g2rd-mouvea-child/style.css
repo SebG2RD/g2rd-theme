@@ -1,0 +1,820 @@
+/*
+Theme Name: G2RD — Moovéa
+Theme URI: https://g2rd.fr
+Description: Thème enfant du thème G2RD pour le studio moovéa (Pilates Reformer, Montargis). Contient la charte du projet dans styles/moovea.json (variation de style, chargée depuis l'enfant à partir de g2rd-theme 1.39.0) et, dans style.css, ce que le JSON ne sait pas faire : en-tête fixe, curseur, barre Founders, popup, menu mobile, habillage du widget de réservation bsport. Les compositions des pages du projet vivent dans patterns/, ici même : elles ne sont pas la propriété du thème parent.
+Author: G2RD Agence Web
+Author URI: https://g2rd.fr
+Template: g2rd-theme
+Version: 1.10.4
+Requires at least: 6.6
+Requires Parent: 1.39.0
+Tested up to: 6.8
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: g2rd-mouvea-child
+Tags: full-site-editing, block-styles, pilates, moovea
+*/
+
+/* ==========================================================================
+   Moovéa — CSS spécifique au projet
+
+   La charte est dans styles/moovea.json, ici même. Depuis g2rd-theme 1.39.0,
+   composeThemeJson() lit les variations du parent PUIS celles de l'enfant : le
+   fichier est donc à l'abri des mises à jour du thème parent. S'il existe aussi
+   un g2rd-theme/styles/moovea.json, c'est celui de l'enfant qui gagne.
+
+   Ne mettre dans ce fichier QUE ce que le JSON ne sait pas faire :
+   comportements (en-tête fixe, barre fixe, révélation au scroll, curseur,
+   popup automatique) et correctifs de cascade.
+   ========================================================================== */
+
+/* --- Barre Founders fixe en bas de page ---------------------------------- */
+/* La hauteur réelle est mesurée par assets/js/moovea.js et exposée
+   dans --mv-founders-h, pour que le contenu ne passe jamais dessous. */
+body {
+	padding-bottom: var( --mv-founders-h, 0px );
+}
+
+/* Le hero occupe la hauteur d'écran moins la barre Founders.
+   L'en-tête est fixe et transparent : il passe PAR-DESSUS le hero,
+   qui réserve sa hauteur via --mv-header-h (règle dans moovea.json). */
+.wp-block-cover.mv-hero {
+	min-height: max( 400px, calc( 100svh - var( --mv-founders-h, 0px ) ) );
+}
+
+/* --- En-tête : transparent en haut de page, fixe et voilé au défilement -- */
+/* Le fond bordeaux du bloc (classe has-bordeaux-background-color, en
+   !important côté WordPress) est neutralisé : le hero passe dessous.
+   Au défilement, la classe .is-scrolled (moovea.js) rend un bordeaux
+   légèrement atténué + flou. Sur une page qui ne commence pas par une
+   section sombre, moovea.js pose .is-solid : l'en-tête garde son fond. */
+.wp-site-blocks .mv-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 60;
+	background-color: transparent !important;
+	transition:
+		background-color var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ),
+		box-shadow var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ),
+		padding var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+.admin-bar .wp-site-blocks .mv-header {
+	top: 32px;
+}
+
+@media ( max-width: 782px ) {
+	.admin-bar .wp-site-blocks .mv-header {
+		top: 46px;
+	}
+}
+
+.wp-site-blocks .mv-header.is-solid {
+	background-color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.wp-site-blocks .mv-header.is-scrolled {
+	background-color: rgba( 74, 23, 40, 0.86 ) !important;
+	-webkit-backdrop-filter: blur( 12px );
+	backdrop-filter: blur( 12px );
+	box-shadow: 0 1px 0 rgba( 244, 237, 231, 0.08 );
+	padding-top: 12px !important;
+	padding-bottom: 12px !important;
+}
+
+/* Page sans section sombre en tête : on rend au contenu la place de l'en-tête. */
+body.mv-header-solid {
+	padding-top: var( --mv-header-h, 0px );
+}
+
+/* Réservation de la hauteur de l'en-tête par les sections de tête.
+   Cette règle vit ici et non dans la variation de style : c'est la contrepartie
+   du `position: fixed` ci-dessus, pas une valeur de charte.
+
+   Sélecteur renforcé (.wp-site-blocks) ET !important : les styles globaux en
+   ligne contiennent une copie de la variation enregistrée en base, qui peut
+   dater et gagner par ordre de cascade. Une spécificité supérieure passe devant
+   quelle que soit cette copie.
+
+   Repli à 96px si le JavaScript n'a pas encore mesuré : mieux vaut un peu trop
+   d'espace qu'un titre sous le logo. */
+.wp-site-blocks .mv-hero-typo {
+	padding-top: calc( var( --mv-header-h, 96px ) + clamp( 1.5rem, 5vw, 3.5rem ) ) !important;
+}
+
+.wp-site-blocks .wp-block-cover.mv-hero {
+	padding-top: calc( var( --mv-header-h, 96px ) + clamp( 2.5rem, 8vw, 4.5rem ) ) !important;
+}
+
+/* Menu mobile ouvert : décoller les entrées du bord de l'écran.
+   Le conteneur plein écran du bloc Navigation arrive sans marge intérieure,
+   les libellés touchent le bord droit et les plus longs se coupent.
+   La marge appliquée ici aligne aussi la croix de fermeture, qui se positionne
+   sur la boîte de remplissage du conteneur. */
+.mv-header .wp-block-navigation__responsive-container.is-menu-open {
+	padding-right: clamp( 1.5rem, 7vw, 2.5rem );
+	padding-left: clamp( 1.5rem, 7vw, 2.5rem );
+	padding-bottom: clamp( 1.5rem, 7vw, 2.5rem );
+}
+
+/* Dans l'éditeur, l'en-tête reste dans le flux avec son fond. */
+.block-editor-writing-flow .mv-header,
+.block-editor-iframe__body .mv-header {
+	position: relative !important;
+	background-color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* --- Curseur personnalisé (maquette) ------------------------------------- */
+/* Un point plein + un anneau qui suit avec retard. Uniquement sur pointeur
+   fin (souris/trackpad) : sur tactile ou en « mouvement réduit », le
+   navigateur garde son curseur. La classe .mv-has-cursor est posée sur
+   <body> par moovea.js une fois les deux éléments injectés. */
+@media ( hover: hover ) and ( pointer: fine ) {
+	body.mv-has-cursor,
+	body.mv-has-cursor a,
+	body.mv-has-cursor button,
+	body.mv-has-cursor input,
+	body.mv-has-cursor select,
+	body.mv-has-cursor textarea,
+	body.mv-has-cursor label,
+	body.mv-has-cursor summary,
+	body.mv-has-cursor [role="button"] {
+		cursor: none;
+	}
+
+	.mv-cursor,
+	.mv-cursor-ring {
+		position: fixed;
+		top: 0;
+		left: 0;
+		border-radius: 50%;
+		pointer-events: none;
+		transform: translate( -50%, -50% );
+		z-index: 100001; /* au-dessus de la modale G2RD (100000) */
+		opacity: 0;
+	}
+
+	.mv-cursor {
+		width: 10px;
+		height: 10px;
+		background: var( --wp--preset--color--bordeaux );
+		transition:
+			transform 0.15s ease,
+			background-color 0.2s ease,
+			opacity 0.2s ease;
+	}
+
+	.mv-cursor-ring {
+		width: 36px;
+		height: 36px;
+		border: 1px solid var( --wp--preset--color--bordeaux );
+		transition:
+			transform 0.3s cubic-bezier( .22, .68, 0, 1.2 ),
+			border-color 0.2s ease,
+			opacity 0.3s ease;
+	}
+
+	body.mv-has-cursor .mv-cursor { opacity: 1; }
+	body.mv-has-cursor .mv-cursor-ring { opacity: 0.5; }
+
+	/* Survol d'un élément interactif : le point grossit, l'anneau s'ouvre. */
+	.mv-cursor.is-hover {
+		transform: translate( -50%, -50% ) scale( 1.8 );
+	}
+
+	body.mv-has-cursor .mv-cursor-ring.is-hover {
+		transform: translate( -50%, -50% ) scale( 1.3 );
+		opacity: 0.8;
+	}
+
+	/* Sur fond sombre, le curseur passe en crème. */
+	.mv-cursor.is-light {
+		background: var( --wp--preset--color--creme );
+	}
+
+	.mv-cursor-ring.is-light {
+		border-color: var( --wp--preset--color--creme );
+	}
+
+	/* Souris sortie de la fenêtre. */
+	body.mv-has-cursor .mv-cursor.is-out,
+	body.mv-has-cursor .mv-cursor-ring.is-out {
+		opacity: 0;
+	}
+}
+
+/* --- Popup automatique (bloc G2RD Modal, classe mv-popup-auto) ----------- */
+/* Le déclencheur du bloc est masqué : c'est moovea.js qui ouvre la modale
+   après 5 secondes. Le bloc ne doit prendre aucune place dans la page. */
+.wp-site-blocks .mv-popup-auto {
+	margin: 0 !important;
+	height: 0;
+	overflow: visible;
+}
+
+.mv-popup-auto .g2rd-modal__trigger-wrapper {
+	display: none;
+}
+
+/* --- Widget de réservation bsport (page « Réserver ») -------------------- */
+/* Le widget se rend en DOM classique : ni iframe, ni shadow DOM. Toutes ses
+   couleurs et sa police viennent d'une seule règle qu'il injecte lui-même :
+
+       .bs-setup-variable { --color-primary-main: …; --fontFamily: …; … }
+
+   Spécificité 0-1-0. On redouble la classe (0-2-0) : notre mappage gagne
+   partout, y compris dans la fenêtre de réservation, qui se monte ailleurs
+   dans la page — donc pas de sélecteur d'emplacement ici, sinon le popup
+   repartirait aux couleurs bsport.
+
+   Les valeurs réglées dans le back-office bsport restent le repli : si l'on
+   supprime ce bloc, le widget retrouve simplement ses couleurs d'origine.
+   Les replis en dur doublent les variables de la palette, au cas où le reset
+   « cleanslate » du widget couperait l'héritage. */
+.bs-setup-variable.bs-setup-variable {
+	--fontFamily: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+	--color-background: var( --wp--preset--color--creme, #f4ede7 );
+	--color-background-paper: var( --wp--preset--color--creme-clair, #faf4ee );
+	--color-secondary-background-paper: var( --wp--preset--color--creme-clair, #faf4ee );
+	--color-secondary-background-paper-transparent: rgba( 74, 23, 40, 0.06 );
+
+	--color-grey-dark: var( --wp--preset--color--bordeaux, #4a1728 );
+	--color-grey-main: var( --wp--preset--color--muted-deep, #7a6459 );
+	--border-color: var( --wp--preset--color--line, #e7d6cb );
+
+	--color-primary-main: var( --wp--preset--color--bordeaux, #4a1728 );
+	--color-primary-dark: var( --wp--preset--color--bordeaux-deep, #3e1322 );
+	--color-primary-light: var( --wp--preset--color--blush, #d7b3a9 );
+	--color-primary-contrastText: var( --wp--preset--color--creme, #f4ede7 );
+
+	--color-secondary-main: var( --wp--preset--color--terracotta-vif, #bd6844 );
+	--color-secondary-dark: var( --wp--preset--color--terracotta, #ae805f );
+	--color-secondary-light: var( --wp--preset--color--blush, #d7b3a9 );
+	--color-secondary-contrastText: var( --wp--preset--color--creme, #f4ede7 );
+
+	--border-radius-1: 14px;
+}
+
+/* Le cadre autour du widget : une carte moovéa, pas un bloc posé sur la page.
+   Pas d'overflow caché : les listes déroulantes (Activité, Niveau, Professeur)
+   s'ouvrent par-dessus. */
+.mv-booking {
+	background-color: var( --wp--preset--color--creme-clair );
+	border: 1px solid var( --wp--preset--color--line );
+	border-radius: 18px;
+	padding: clamp( 0.75rem, 2.5vw, 1.75rem );
+	box-shadow: var( --wp--preset--shadow--douce );
+}
+
+/* Réserve la hauteur pendant le chargement : la page ne saute pas. */
+.mv-booking [id^="bsport-widget"] {
+	min-height: 480px;
+}
+
+/* La fenêtre de réservation passe au-dessus de l'en-tête fixe (z-index 60)
+   et sous le curseur personnalisé (100001). */
+.bs-dialog,
+.bs-modal,
+[class*="bs-"][role="dialog"] {
+	z-index: 100000;
+}
+
+/* --- Cartes et abonnements bsport : le rendu moovéa ---------------------- */
+/* Le widget « Cartes » (widgetType: pass) et le widget « Abonnement »
+   (subscription) rendent leurs propres cartes, avec des classes sémantiques
+   stables : .bs-generic-card pour la carte, .bs-paymentpack-card__* et
+   .bs-contract-card__* pour son contenu.
+
+   RÈGLE DE SPÉCIFICITÉ — à respecter pour toute règle ajoutée ici.
+   bsport écrit toutes ses règles sous la forme
+
+       [id*="bsport-widget"] .cleanslate .bs-machin { … !important }
+
+   soit 0-3-0 avec !important, injectées par CSSOM APRÈS notre feuille. À
+   spécificité et importance égales, c'est la dernière écrite qui gagne : une
+   règle à 0-3-0 de notre côté perd toujours. D'où le gabarit ci-dessous —
+   .mv-offres + .cleanslate + la classe cible doublée, soit 0-4-0 minimum :
+
+       .mv-offres .cleanslate .bs-machin.bs-machin { … !important }
+
+   Ne pas alléger : c'est ce qui a fait que la barre de recherche restait
+   affichée en 1.5.1 alors que la règle existait bien. */
+
+/* Le conteneur des offres. La grille et les regroupements sont ceux du widget :
+   bsport rend un titre par catégorie. Le jour où Inès crée « Pour commencer »,
+   « Pour venir de temps en temps », « Pour installer une routine » et « Pour les
+   passionnées », les familles apparaissent d'elles-mêmes, dans son ordre, sans
+   rien changer ici ni dans la page. C'est pour ça qu'un seul widget suffit. */
+.mv-offres {
+	min-height: 200px;
+}
+
+/* Un gabarit dont les catégories ne sont pas renseignées ne monte pas :
+   on le signale dans l'éditeur, discrètement, jamais côté visiteur. */
+.mv-offres[data-bsport-etat="categories-manquantes"]::before {
+	content: "Widget bsport : catégorie à renseigner dans data-bsport-categories.";
+	display: block;
+	padding: 1rem 1.25rem;
+	border: 1px dashed var( --wp--preset--color--terracotta-vif );
+	border-radius: 12px;
+	color: var( --wp--preset--color--muted-deep );
+	font-size: 0.875rem;
+}
+
+/* Le titre de catégorie devient le surtitre terracotta des familles. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__title.bs-pass-page__payment__pack__list__title {
+	color: var( --wp--preset--color--terracotta ) !important;
+	font-family: var( --wp--preset--font-family--dm-sans ) !important;
+	font-size: var( --wp--preset--font-size--xs ) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.14em !important;
+	line-height: 1.5 !important;
+	margin-bottom: var( --wp--preset--spacing--s ) !important;
+	text-transform: uppercase !important;
+}
+
+/* Le titre de CATÉGORIE — « Pour commencer », « Pour venir de temps en temps »… —
+   devient le surtitre terracotta des familles. Bsport lui donne une classe à part,
+   `…__list__title--with-divider`, distincte de `…__list__title` qui coiffe le TYPE
+   d'offre (« Cartes cours collectifs »). Les deux existent en même temps dès qu'une
+   catégorie est créée : la structure du widget change à ce moment-là, il faut donc
+   viser les deux classes. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__title--with-divider.bs-pass-page__payment__pack__list__title--with-divider {
+	color: var( --wp--preset--color--terracotta ) !important;
+	font-family: var( --wp--preset--font-family--dm-sans ) !important;
+	font-size: var( --wp--preset--font-size--xs ) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.14em !important;
+	line-height: 1.5 !important;
+	margin-bottom: var( --wp--preset--spacing--s ) !important;
+	text-transform: uppercase !important;
+}
+
+/* Le titre de type, lui, fait doublon dès que les familles s'affichent : il
+   coiffe toute la liste d'un « Cartes cours collectifs » qui n'apporte rien au
+   visiteur. On le masque — mais seulement en enfant direct de la liste, pour ne
+   jamais toucher les titres de catégorie. */
+.mv-offres .cleanslate .bs-pass-page__list > .bs-pass-page__payment__pack__list__title.bs-pass-page__payment__pack__list__title {
+	display: none !important;
+}
+
+/* La barre Rechercher / Type / Catégories fait doublon avec les familles.
+   Classe mv-offres-filtres sur le bloc pour la remettre.
+   ATTENTION : le widget « Abonnement » n'utilise PAS le même préfixe. Sa barre
+   est `bs-contract-page__pass__filters__search__container` — « contract-page »,
+   pas « pass-page ». Les deux sont listées ici. Le conteneur `.bs-contract-page`
+   est un flex à gap 27px : un `display:none` sort l'élément du flux, il ne
+   laisse aucun espace résiduel. */
+.mv-offres:not( .mv-offres-filtres ) .cleanslate .bs-pass-page__pass__filters.bs-pass-page__pass__filters,
+.mv-offres:not( .mv-offres-filtres ) .cleanslate .bs-pass-page__pass__filters__search__container.bs-pass-page__pass__filters__search__container,
+.mv-offres:not( .mv-offres-filtres ) .cleanslate .bs-contract-page__pass__filters__search__container.bs-contract-page__pass__filters__search__container {
+	display: none !important;
+}
+
+/* --- Widget « Abonnement » : faire ressortir la carte ---------------------- */
+/* Le widget « Abonnement » n'enveloppe pas sa carte dans un <button>, contrairement
+   au widget « Cartes ». L'enveloppe est `.bs-contract-page__contract__button__container`,
+   et elle a EXACTEMENT la même boîte que `.bs-generic-card` — vérifié en direct,
+   les deux getBoundingClientRect sont identiques. C'est donc là qu'on pose l'ombre,
+   le rayon et le soulèvement.
+
+   Pourquoi pas sur la carte elle-même : cleanslate neutralise `box-shadow` et
+   `transform` sur `.bs-generic-card`. La valeur calculée reste `none` quelle que
+   soit la spécificité, `!important` compris. Même limite sur `border-width`,
+   plafonné à 1px : seule la couleur de bordure passe.
+
+   Ne pas viser `.bs-contract-page__contract__list__container` : il fait 36px de
+   plus que la carte (padding latéral de 18px), l'ombre déborderait. */
+.mv-offres .cleanslate .bs-contract-page__contract__button__container.bs-contract-page__contract__button__container {
+	border: 1.5px solid var( --wp--preset--color--blush ) !important;
+	border-radius: 16px !important;
+	box-shadow: 0 20px 48px rgba( 74, 23, 40, .18 ) !important;
+	transition: transform var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ), box-shadow var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ), border-color var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+.mv-offres .cleanslate .bs-contract-page__contract__button__container.bs-contract-page__contract__button__container:hover,
+.mv-offres .cleanslate .bs-contract-page__contract__button__container.bs-contract-page__contract__button__container:focus-within {
+	transform: translateY( -6px ) !important;
+	box-shadow: 0 28px 60px rgba( 74, 23, 40, .24 ) !important;
+	border-color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* La grille des offres : les cartes se partagent toujours la largeur.
+   Bsport fige un nombre de colonnes — `repeat(4, minmax(300px, 1fr))` — donc une
+   famille de deux offres laissait deux pistes vides à droite et deux cartes
+   étroites collées à gauche. `auto-fit` replie les pistes vides : deux cartes
+   occupent toute la largeur à parts égales, trois aussi, quatre aussi.
+   Le minimum de 280px garde le passage en colonne unique sur mobile. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container.bs-pass-page__payment__pack__list__container {
+	grid-template-columns: repeat( auto-fit, minmax( 280px, 1fr ) ) !important;
+}
+
+/* Le pied de carte — « DÉTAILS » et « AJOUTER AU PANIER » — arrive collé au prix.
+   On le décolle du contenu. */
+.mv-offres .cleanslate .bs-paymentpack-card__footer.bs-paymentpack-card__footer,
+.mv-offres .cleanslate .bs-contract-card__footer.bs-contract-card__footer {
+	margin-top: 1.25rem !important;
+}
+
+/* Widget « Abonnement » : rendre le bouton visible DANS la carte.
+   Sous une certaine largeur, bsport masque le pied de carte et ne laisse qu'une
+   icône de panier. Mesuré sur la page : à 428px de colonne,
+   `.bs-contract-card__footer` est en `display:none` alors que « Détails » et
+   « M'abonner » sont bien présents dans le DOM. On le réaffiche et on retire
+   l'icône de panier, qui fait alors doublon avec le bouton.
+
+   `height: auto` est indispensable : bsport pose une hauteur fixe sur la carte
+   (160px), calculée sans le pied. Sans ça, le pied déborde sous la carte.
+   Mesuré : 160px avant, 191px après, pied contenu. */
+.mv-offres .cleanslate .bs-contract-card__footer.bs-contract-card__footer {
+	display: flex !important;
+	width: 100% !important;
+	gap: 0.75rem !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+}
+
+.mv-offres .cleanslate .bs-contract-card__price-icon.bs-contract-card__price-icon {
+	display: none !important;
+}
+
+.mv-offres .cleanslate .bs-generic-card.bs-generic-card,
+.mv-offres .cleanslate .bs-generic-card__content.bs-generic-card__content {
+	height: auto !important;
+	min-height: 0 !important;
+}
+
+/* La carte : même silhouette que .mv-offre — filet, rayon, décollement au survol. */
+.mv-offres .cleanslate .bs-generic-card.bs-generic-card {
+	background-color: var( --wp--preset--color--creme-clair ) !important;
+
+	/* INDISPENSABLE. Bsport pose un `background-image: linear-gradient(120deg, …)`
+	   sur certaines cartes. Un background-image se peint PAR-DESSUS le
+	   background-color : sans cette ligne, notre couleur est calculée
+	   correctement (getComputedStyle la renvoie) mais reste invisible, masquée
+	   par le dégradé. La carte paraît crème, et nos textes clairs prévus pour un
+	   fond sombre deviennent des fantômes.
+	   Ne jamais retirer, et ne jamais diagnostiquer une couleur de carte
+	   uniquement avec `backgroundColor` : lire aussi `backgroundImage`. */
+	background-image: none !important;
+
+	border: 1.5px solid var( --wp--preset--color--line ) !important;
+	border-radius: 16px !important;
+	transition:
+		transform var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ),
+		box-shadow var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ),
+		border-color var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+/* Le décollement au survol se pose sur le BOUTON qui enveloppe la carte, pas sur
+   la carte : le reset « cleanslate » de bsport neutralise `transform` et
+   `box-shadow` sur .bs-generic-card, quelle que soit la spécificité. Sur le
+   bouton, les deux passent. Vérifié en lisant les valeurs calculées. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > * {
+	transition: transform var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:hover,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:focus-within {
+	transform: translateY( -6px );
+}
+
+/* Le titre de l'offre : Playfair, comme les h3 des cartes. */
+.mv-offres .cleanslate .bs-paymentpack-card__title.bs-paymentpack-card__title,
+.mv-offres .cleanslate .bs-contract-card__title.bs-contract-card__title {
+	font-family: var( --wp--preset--font-family--playfair ) !important;
+	font-weight: 600 !important;
+	font-size: clamp( 1.05rem, 1.6vw, 1.35rem ) !important;
+	line-height: 1.15 !important;
+	letter-spacing: -0.01em !important;
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* « 4 crédits », « 3 factures » : le sous-titre, en terracotta. */
+.mv-offres .cleanslate .bs-paymentpack-card__subtitle.bs-paymentpack-card__subtitle,
+.mv-offres .cleanslate .bs-contract-card__planned-invoices__content.bs-contract-card__planned-invoices__content {
+	color: var( --wp--preset--color--terracotta ) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.04em !important;
+	text-transform: uppercase !important;
+	font-size: 0.75rem !important;
+}
+
+.mv-offres .cleanslate .bs-paymentpack-card__description.bs-paymentpack-card__description,
+.mv-offres .cleanslate .bs-contract-card__description.bs-contract-card__description {
+	color: var( --wp--preset--color--muted-deep ) !important;
+	font-size: 0.875rem !important;
+	line-height: 1.5 !important;
+}
+
+/* « Valide 1 mois » : une pastille discrète plutôt qu'un texte brut. */
+.mv-offres .cleanslate .bs-paymentpack-card__validity__content.bs-paymentpack-card__validity__content,
+.mv-offres .cleanslate .bs-contract-card__billing-interval--desktop.bs-contract-card__billing-interval--desktop,
+.mv-offres .cleanslate .bs-contract-card__billing-interval--mobile.bs-contract-card__billing-interval--mobile {
+	background-color: rgba( 189, 104, 68, 0.12 ) !important;
+	border-radius: 999px !important;
+	color: var( --wp--preset--color--terracotta ) !important;
+	font-size: 0.7rem !important;
+	letter-spacing: 0.06em !important;
+	padding: 0.25rem 0.7rem !important;
+	text-transform: uppercase !important;
+	white-space: nowrap !important;
+}
+
+/* Le prix : la typographie de .mv-price. */
+.mv-offres .cleanslate .bs-price__container.bs-price__container {
+	color: var( --wp--preset--color--bordeaux ) !important;
+	font-family: var( --wp--preset--font-family--playfair ) !important;
+	font-size: clamp( 1.6rem, 3vw, 2.1rem ) !important;
+	font-weight: 500 !important;
+	letter-spacing: -0.02em !important;
+	line-height: 1 !important;
+}
+
+/* Les boutons : bordeaux plein, texte crème, comme les boutons du site. */
+.mv-offres .cleanslate .bs-button-primary__container.bs-button-primary__container {
+	background-color: var( --wp--preset--color--bordeaux ) !important;
+	border-radius: 999px !important;
+	min-height: 44px !important;
+	transition: background-color var( --mv-dur-base, 420ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+.mv-offres .cleanslate .bs-button-primary__container.bs-button-primary__container:hover {
+	background-color: var( --wp--preset--color--bordeaux-deep ) !important;
+}
+
+.mv-offres .cleanslate .bs-button-primary__text.bs-button-primary__text {
+	color: var( --wp--preset--color--creme ) !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.06em !important;
+	text-transform: uppercase !important;
+	font-size: 0.75rem !important;
+}
+
+/* « DÉTAILS » : le bouton secondaire reste discret. */
+.mv-offres .cleanslate .bs-button__text.bs-button__text:not( .bs-button-primary__text ) {
+	color: var( --wp--preset--color--muted-deep ) !important;
+	letter-spacing: 0.06em !important;
+	text-transform: uppercase !important;
+	font-size: 0.72rem !important;
+}
+
+/* --- Alternance des cartes ----------------------------------------------- */
+/* Trois tons qui se répètent — crème clair, blush, bordeaux profond — plus une
+   carte mise en avant. C'est une règle de POSITION, pas une couleur par offre :
+   le cycle redémarre à chaque famille : bsport ouvre un
+   `…__list__container` par catégorie, et `nth-child` compte à l'intérieur de
+   chacun. Vérifié avec les quatre catégories d'Inès en place. Ajouter ou déplacer une offre décale les couleurs, jamais ne les
+   casse.
+
+   À savoir : un cycle de trois dans une grille de trois colonnes donne des
+   bandes verticales, pas un damier. C'est assumé. En tablette et en mobile, le
+   nombre de colonnes change et le motif se décale — c'est le prix d'une règle
+   positionnelle, et ça reste cohérent puisque chaque carte garde sa couleur.
+
+   L'ORDRE DES RÈGLES COMPTE. Les surcharges de position absolue (2e et 3e) sont
+   écrites APRÈS le cycle et ont la même spécificité : c'est la dernière écrite
+   qui gagne. Ne pas les remonter. */
+
+/* Deuxième de chaque groupe de trois : blush. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 2 ) .bs-generic-card.bs-generic-card {
+	background-color: var( --wp--preset--color--blush ) !important;
+	border-color: transparent !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 2 ) .bs-paymentpack-card__description.bs-paymentpack-card__description {
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 2 ) .bs-paymentpack-card__validity__content.bs-paymentpack-card__validity__content {
+	background-color: rgba( 74, 23, 40, 0.12 ) !important;
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 2 ) .bs-paymentpack-card__subtitle.bs-paymentpack-card__subtitle,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 2 ) .bs-button__text.bs-button__text:not( .bs-button-primary__text ) {
+	color: var( --wp--preset--color--bordeaux-deep ) !important;
+}
+
+/* Troisième de chaque groupe de trois : bordeaux profond, texte inversé. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-generic-card.bs-generic-card {
+	background-color: var( --wp--preset--color--bordeaux-deep ) !important;
+	border-color: transparent !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-paymentpack-card__title.bs-paymentpack-card__title,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-price__container.bs-price__container {
+	color: var( --wp--preset--color--creme ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-paymentpack-card__subtitle.bs-paymentpack-card__subtitle,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-paymentpack-card__description.bs-paymentpack-card__description,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-button__text.bs-button__text:not( .bs-button-primary__text ) {
+	color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-paymentpack-card__validity__content.bs-paymentpack-card__validity__content {
+	background-color: rgba( 244, 237, 231, 0.16 ) !important;
+	color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-button-primary__container.bs-button-primary__container {
+	background-color: var( --wp--preset--color--creme ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-button-primary__container.bs-button-primary__container:hover {
+	background-color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 3 ) .bs-button-primary__text.bs-button-primary__text {
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* La deuxième carte de chaque famille est la mise en avant : bordeaux plein,
+   décollée en permanence. Elle se lit comme un choix, pas
+   comme une case du motif — d'où le décollement permanent, qui la distingue
+   quelle que soit la couleur de ses voisines. Le décollement est posé sur le
+   bouton parent, seul endroit où bsport laisse passer `transform`. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-generic-card.bs-generic-card {
+	background-color: var( --wp--preset--color--bordeaux ) !important;
+	border-color: transparent !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-paymentpack-card__title.bs-paymentpack-card__title,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-price__container.bs-price__container {
+	color: var( --wp--preset--color--creme ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-paymentpack-card__subtitle.bs-paymentpack-card__subtitle,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-paymentpack-card__description.bs-paymentpack-card__description,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-button__text.bs-button__text:not( .bs-button-primary__text ) {
+	color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-paymentpack-card__validity__content.bs-paymentpack-card__validity__content {
+	background-color: rgba( 215, 179, 169, 0.18 ) !important;
+	color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-button-primary__container.bs-button-primary__container {
+	background-color: var( --wp--preset--color--creme ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-button-primary__container.bs-button-primary__container:hover {
+	background-color: var( --wp--preset--color--blush ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) .bs-button-primary__text.bs-button-primary__text {
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ) {
+	transform: translateY( -8px );
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ):hover,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 2 ):focus-within {
+	transform: translateY( -14px );
+}
+
+/* Garde : la 3e carte suit immédiatement la mise en avant. Sans cette règle on
+   aurait bordeaux puis bordeaux profond côte à côte, deux sombres trop proches
+   pour se distinguer. Elle repasse en blush. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-generic-card.bs-generic-card {
+	background-color: var( --wp--preset--color--blush ) !important;
+	border-color: transparent !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-paymentpack-card__description.bs-paymentpack-card__description {
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-paymentpack-card__validity__content.bs-paymentpack-card__validity__content {
+	background-color: rgba( 74, 23, 40, 0.12 ) !important;
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-paymentpack-card__subtitle.bs-paymentpack-card__subtitle,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-button__text.bs-button__text:not( .bs-button-primary__text ) {
+	color: var( --wp--preset--color--bordeaux-deep ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-button-primary__container.bs-button-primary__container {
+	background-color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-button-primary__container.bs-button-primary__container:hover {
+	background-color: var( --wp--preset--color--bordeaux-deep ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-button-primary__text.bs-button-primary__text {
+	color: var( --wp--preset--color--creme ) !important;
+}
+
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-paymentpack-card__title.bs-paymentpack-card__title,
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3 ) .bs-price__container.bs-price__container {
+	color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* Le filet bordeaux au survol ne se voit que sur les cartes claires. */
+.mv-offres .cleanslate .bs-pass-page__payment__pack__list__container > *:nth-child( 3n + 1 ) .bs-generic-card.bs-generic-card:hover {
+	border-color: var( --wp--preset--color--bordeaux ) !important;
+}
+
+/* --- Révélation au scroll (lente, sans rebond) --------------------------- */
+.mv-reveal {
+	opacity: 0;
+	transform: translateY( 28px );
+	transition:
+		opacity var( --mv-dur-lent, 720ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) ),
+		transform var( --mv-dur-lent, 720ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+	will-change: opacity, transform;
+}
+
+.mv-reveal.is-visible {
+	opacity: 1;
+	transform: none;
+	will-change: auto;
+}
+
+/* --- Titres géants qui débordent ----------------------------------------- */
+/* Le conteneur .mv-giant-wrap coupe le débordement, jamais le <body>. */
+.mv-giant-wrap {
+	overflow: hidden;
+	max-width: 100%;
+}
+
+/* --- Séparateur soleil ---------------------------------------------------- */
+.mv-sun img {
+	transition: transform var( --mv-dur-lent, 720ms ) var( --mv-ease, cubic-bezier( .22, 1, .36, 1 ) );
+}
+
+/* --- Accessibilité : cibles tactiles 44 px minimum ------------------------ */
+.wp-block-button__link,
+.mv-header .wp-block-navigation-item__content,
+.g2rd-faq__question {
+	min-height: 44px;
+}
+
+/* --- Éditeur : neutraliser le fixe pour ne pas gêner la rédaction --------- */
+.editor-styles-wrapper .mv-founders {
+	position: static !important;
+}
+
+/* --- Mouvement réduit ----------------------------------------------------- */
+@media ( prefers-reduced-motion: reduce ) {
+	.mv-reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.wp-site-blocks .mv-header {
+		transition: none;
+	}
+}
+
+/* --- Mobile --------------------------------------------------------------- */
+@media ( max-width: 781px ) {
+	.mv-band-title {
+		white-space: normal;
+	}
+}
+
+/* --- Carte de la page Contact : copie périmée des styles globaux ---------- */
+/* Mesuré en ligne le 01/10 : `global-styles-inline-css` contient HUIT copies du
+   bloc `.mv-map-hero`, et c'est la plus ancienne (août) qui arrive en dernier.
+   À spécificité égale (0-2-0, sans !important), la dernière gagne : la carte
+   rendait `invert(1) brightness(.62)` sur fond bordeaux profond, soit une carte
+   quasi noire, sur TOUS les navigateurs. La version éclaircie du 10/09 (variante
+   F) n'a jamais été appliquée en ligne. Ce n'était pas un défaut Safari.
+
+   Même mécanisme que l'en-tête en 1.1.1 : on repasse les quatre propriétés
+   écrasées à 0-3-0 via `.wp-site-blocks`. La cascade étant par propriété, seules
+   celles-ci étaient perdues (display:grid, z-index, taille du marqueur
+   survivent, la vieille copie ne les définit pas).
+
+   Cure de fond : Apparence › Éditeur › Styles › Réinitialiser, puis réappliquer
+   la variation Moovéa. Ces règles deviennent alors redondantes, sans dommage. */
+.wp-site-blocks .mv-map-hero .g2rd-map__canvas,
+.wp-site-blocks .mv-map-hero .leaflet-container {
+	background: var( --wp--preset--color--blush );
+}
+
+.wp-site-blocks .mv-map-hero .leaflet-tile-pane {
+	filter: grayscale( 1 ) brightness( .92 ) contrast( 1.02 ) sepia( .45 ) hue-rotate( 300deg ) saturate( 1.35 );
+}
+
+.wp-site-blocks .mv-map-hero .g2rd-map__canvas::after {
+	background: linear-gradient( 95deg, rgba( 62, 19, 34, .92 ) 0%, rgba( 62, 19, 34, .84 ) 26%, rgba( 62, 19, 34, .36 ) 50%, rgba( 62, 19, 34, 0 ) 68% );
+}
+
+@media ( max-width: 781px ) {
+	.wp-site-blocks .mv-map-hero .g2rd-map__canvas::after {
+		background: linear-gradient( 180deg, rgba( 62, 19, 34, .92 ) 0%, rgba( 62, 19, 34, .84 ) 30%, rgba( 62, 19, 34, .22 ) 58%, rgba( 62, 19, 34, 0 ) 78% );
+	}
+}
