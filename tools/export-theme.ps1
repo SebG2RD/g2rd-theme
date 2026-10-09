@@ -18,7 +18,7 @@ $excludedFileNames = @(
     'phpcs.xml.dist', 'phpcs-security.xml', 'phpcs-wp-report.xml',
     'phpunit.xml.dist', '.editorconfig'
 )
-$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'tests', 'tools', 'dist', '.vscode', '.idea', '.phpunit.cache', 'Gutenberg')
+$excludedFolders = @('node_modules', '.git', '.github', '.claude', '.agents', 'docs', 'tests', 'tools', 'child-themes', 'dist', '.vscode', '.idea', '.phpunit.cache', 'Gutenberg')
 
 # Exclu a la racine uniquement : le vendor/ de Composer n'est pas embarque, mais
 # assets/vendor/ (Leaflet auto-heberge) doit rester dans le ZIP.

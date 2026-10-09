@@ -175,6 +175,8 @@ g2rd-theme/
 │   ├── single-prestations.html
 │   ├── single-qui-sommes-nous.html
 │   └── page-*.html                  # Pages spécialisées (accueil, agence, artisan, contact, etc.)
+├── child-themes/                    # Thèmes enfants de référence (exemples clients) — JAMAIS dans le ZIP de prod
+│   └── README.md                    # Convention + procédure de démarrage d'un nouveau projet
 ├── categories/
 ├── .github/workflows/
 │   ├── auto-tag.yml                 # Crée le tag vX.Y.Z sur commit "release:" — déclenche release.yml
@@ -348,6 +350,15 @@ sa position dans le sélecteur de styles.
   modifier une variation enfant invalide le transient sans purge manuelle.
 - Sans thème enfant (`$child_dir === $dir`), le comportement est strictement
   celui d'avant la 1.39.0.
+
+## Thèmes enfants de référence (`child-themes/`)
+
+Les thèmes enfants des projets clients sont versionnés dans `child-themes/<g2rd-child-client>/`
+comme **exemples de départ** pour les prochains projets. Ce dossier est **exclu du ZIP de
+production** à trois endroits : `tools/export-theme.ps1` (`$excludedFolders`),
+`.github/workflows/release.yml` (`--exclude="child-themes"`) et `tools/verify-theme-zip.sh`
+(échec si le dossier apparaît dans l'archive). Conserver ces trois exclusions à chaque
+refonte du process de release. Convention et procédure : `child-themes/README.md`.
 
 ## Module MCP (v1.12.0+)
 
