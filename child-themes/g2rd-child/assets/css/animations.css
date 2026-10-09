@@ -1,0 +1,39 @@
+/* ==========================================================================
+   G2RD — animations.css
+   États initiaux pilotés par GSAP. Sans JS ou avec reduced-motion,
+   tout le contenu reste visible : aucune dépendance de contenu au JS.
+   ========================================================================== */
+
+/* Les états initiaux ne s'appliquent que si GSAP est réellement chargé
+   (classe g2rd-gsap posée par animations.js, v1.5.2 — avant : html.js posée
+   par global.js, ce qui masquait tout le contenu quand le CDN GSAP échouait)
+   ET si l'utilisateur accepte les animations. */
+@media (prefers-reduced-motion: no-preference) {
+  html.g2rd-gsap:not(.g2rd-anim-off) .g2rd-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  html.g2rd-gsap:not(.g2rd-anim-off) .g2rd-reveal-line {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  html.g2rd-gsap:not(.g2rd-anim-off) .g2rd-hero__bar i {
+    transform: scaleX(0);
+  }
+}
+
+/* Curseur lumineux discret sur les sections sombres (décoratif) */
+.g2rd-glow {
+  position: fixed;
+  z-index: 0;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  translate: -50% -50%;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce), (max-width: 900px) {
+  .g2rd-glow { display: none; }
+}

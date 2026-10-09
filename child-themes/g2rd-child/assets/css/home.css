@@ -1,0 +1,1261 @@
+/* ==========================================================================
+   G2RD — home.css · sections de la page d'accueil
+   ========================================================================== */
+
+/* ==========================================================================
+   1. HERO
+   ========================================================================== */
+.g2rd-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(7rem, 14vh, 10rem) clamp(4rem, 8vh, 6rem);
+  overflow: hidden;
+}
+
+/* Grille technique de fond */
+.g2rd-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--g2rd-border-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--g2rd-border-dark) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+/* Halo lumineux discret */
+.g2rd-hero::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.g2rd-hero__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+  width: 100%;
+}
+
+.g2rd-hero h1 { max-width: 16ch; }
+.g2rd-hero h1 .g2rd-accent-text,
+.g2rd-hero h1 strong { color: var(--g2rd-accent); font-weight: inherit; }
+
+/* v1.6.2 — Le H1 est statique (SEO) ; la ligne à mots animés (bloc
+   g2rd/advanced-heading en balise p) devient l'accroche sous le titre. */
+.g2rd-hero__tagline { margin-top: 0.9rem; }
+.g2rd-hero__tagline .g2rd-adv-heading {
+  margin: 0;
+  font-family: var(--g2rd-font-display);
+  font-size: clamp(1.45rem, 2.9vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--g2rd-text-light);
+}
+.g2rd-hero__tagline .g2rd-adv-heading__word { color: var(--g2rd-accent); }
+
+.g2rd-hero__lead {
+  margin-top: 1.6rem;
+  max-width: 52ch;
+  color: var(--g2rd-text-dim);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+}
+.g2rd-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.4rem;
+}
+.g2rd-hero__trust {
+  margin-top: 2.6rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  letter-spacing: 0.06em;
+  color: var(--g2rd-muted);
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+/* Panneau technique (abstrait, inspiré monitoring) */
+.g2rd-hero__panel {
+  position: relative;
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-l);
+  background: linear-gradient(160deg, rgba(30, 41, 59, 0.55), rgba(2, 6, 23, 0.7));
+  padding: 1.4rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.8rem;
+  color: var(--g2rd-text-dim);
+  box-shadow: 0 30px 80px -30px rgba(2, 6, 23, 0.9);
+}
+.g2rd-hero__panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--g2rd-border-dark);
+  letter-spacing: 0.06em;
+}
+.g2rd-hero__panel-head .g2rd-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--g2rd-accent);
+  display: inline-block;
+  margin-right: 0.5rem;
+  box-shadow: 0 0 8px rgba(163, 230, 53, 0.8);
+}
+.g2rd-hero__rows { display: grid; gap: 0.65rem; padding-block: 1.1rem; }
+.g2rd-hero__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+}
+.g2rd-hero__bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--g2rd-surface-soft);
+  overflow: hidden;
+}
+.g2rd-hero__bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--g2rd-accent);
+  transform-origin: left;
+}
+.g2rd-hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--g2rd-border-dark);
+}
+.g2rd-hero__chip {
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-full);
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+.g2rd-hero__chip strong { color: var(--g2rd-accent); font-weight: 500; }
+
+@media (max-width: 900px) {
+  .g2rd-hero__grid { grid-template-columns: 1fr; }
+  .g2rd-hero__panel { max-width: 480px; }
+}
+
+/* ==========================================================================
+   2. TECHNOLOGIES — bandeau défilant
+   ========================================================================== */
+.g2rd-tech {
+  border-block: 1px solid var(--g2rd-border-dark);
+  padding-block: 1.2rem;
+  overflow: hidden;
+}
+.g2rd-tech__track {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: g2rd-marquee 36s linear infinite;
+}
+.g2rd-tech__track:hover,
+.g2rd-tech__track:focus-within {
+  animation-play-state: paused;
+}
+.g2rd-tech ul {
+  display: flex;
+  gap: 3.5rem;
+  align-items: center;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim);
+  white-space: nowrap;
+}
+.g2rd-tech li::before {
+  content: "◆" / "";
+  color: var(--g2rd-accent);
+  font-size: 0.55rem;
+  margin-right: 3.5rem;
+  vertical-align: middle;
+}
+@keyframes g2rd-marquee {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-tech__track { animation: none; flex-wrap: wrap; width: auto; }
+}
+
+/* ==========================================================================
+   3. EXPERTISES — lignes éditoriales
+   ========================================================================== */
+.g2rd-expertise__list {
+  margin-top: 3rem;
+  border-top: 1px solid var(--g2rd-border-light);
+}
+.g2rd-expertise__item { border-bottom: 1px solid var(--g2rd-border-light); }
+.g2rd-expertise__link {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(1.6rem, 3vw, 2.4rem);
+  transition: background var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-expertise__num {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-small);
+  color: var(--g2rd-muted);
+  letter-spacing: 0.08em;
+}
+.g2rd-expertise__title {
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  transition: transform 0.3s var(--g2rd-ease), color var(--g2rd-fast);
+}
+.g2rd-expertise__desc {
+  color: var(--g2rd-muted);
+  font-size: 1rem;
+  max-width: 44ch;
+}
+.g2rd-expertise__arrow {
+  font-size: 1.4rem;
+  color: var(--g2rd-muted);
+  transition: transform 0.3s var(--g2rd-ease), color var(--g2rd-fast);
+}
+.g2rd-expertise__link:hover { background: var(--g2rd-surface); }
+.g2rd-expertise__link:hover .g2rd-expertise__title { transform: translateX(8px); }
+.g2rd-expertise__link:hover .g2rd-expertise__arrow {
+  transform: translateX(6px);
+  color: var(--g2rd-accent-deep);
+}
+@media (max-width: 800px) {
+  .g2rd-expertise__link { grid-template-columns: 3rem 1fr auto; }
+  .g2rd-expertise__desc { grid-column: 2; grid-row: 2; }
+}
+
+/* ==========================================================================
+   4. ÉDITORIAL SEO
+   ========================================================================== */
+.g2rd-editorial { border-top: 1px solid var(--g2rd-border-light); }
+.g2rd-editorial__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.g2rd-editorial__body p + p { margin-top: 1.2rem; }
+.g2rd-editorial__body { font-size: clamp(1.05rem, 1.3vw, 1.15rem); }
+.g2rd-editorial__links {
+  margin-top: 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.g2rd-editorial__links a {
+  border: 1px solid var(--g2rd-border-light);
+  border-radius: var(--g2rd-radius-full);
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color var(--g2rd-fast), color var(--g2rd-fast), background var(--g2rd-fast);
+}
+.g2rd-editorial__links a:hover {
+  border-color: var(--g2rd-primary);
+  background: var(--g2rd-primary);
+  color: var(--g2rd-text-light);
+}
+@media (max-width: 800px) {
+  .g2rd-editorial__grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   5. PORTFOLIO — mise en scène immersive
+   ========================================================================== */
+.g2rd-portfolio__list {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+.g2rd-project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+}
+.g2rd-project:nth-child(even) .g2rd-project__media { order: 2; }
+.g2rd-project__media {
+  position: relative;
+  border-radius: var(--g2rd-radius-l);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--g2rd-surface-soft);
+}
+.g2rd-project__media img {
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  will-change: transform;
+  transition: scale 0.6s var(--g2rd-ease);
+}
+.g2rd-project__media img { transition: scale 0.7s ease-out; }
+.g2rd-project__media:hover img,
+.g2rd-project__media:focus-within img { scale: 1.05; }
+.g2rd-project__index {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  letter-spacing: 0.08em;
+  background: rgba(2, 6, 23, 0.65);
+  color: var(--g2rd-text-light);
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-full);
+  padding: 0.35rem 0.8rem;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.g2rd-project__body h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  max-width: 20ch;
+}
+.g2rd-project__body h3 a:hover { color: var(--g2rd-accent); }
+.g2rd-project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 1rem 1.4rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.g2rd-project__tags li {
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-full);
+  padding: 0.3rem 0.75rem;
+  color: var(--g2rd-text-dim);
+}
+.g2rd-portfolio__more { margin-top: 4rem; text-align: center; }
+@media (max-width: 800px) {
+  .g2rd-project { grid-template-columns: 1fr; align-items: start; }
+  .g2rd-project:nth-child(even) .g2rd-project__media { order: 0; }
+}
+
+/* ==========================================================================
+   6. WP MANAGER
+   ========================================================================== */
+.g2rd-wp-manager {
+  position: relative;
+  overflow: hidden;
+}
+.g2rd-wp-manager::before {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 900px;
+  max-height: 900px;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.g2rd-wp-manager__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+.g2rd-wp-manager__features { margin-top: 1.8rem; display: grid; gap: 0.9rem; }
+.g2rd-wp-manager__features li {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  color: var(--g2rd-text-dim);
+}
+.g2rd-wp-manager__features li::before {
+  content: "✓";
+  color: var(--g2rd-accent);
+  font-weight: 700;
+  flex: none;
+  margin-top: 0.1rem;
+}
+.g2rd-wp-manager__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.2rem; }
+
+/* Cadre capture — remplacé par une vraie capture WP Manager en intégration */
+.g2rd-wp-manager__shot {
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-l);
+  background: linear-gradient(160deg, rgba(30, 41, 59, 0.6), rgba(2, 6, 23, 0.8));
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 0.6rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.85rem;
+  color: var(--g2rd-text-dim);
+  box-shadow: 0 40px 100px -40px rgba(2, 6, 23, 1);
+}
+.g2rd-wp-manager__shot strong { color: var(--g2rd-accent); font-weight: 500; }
+@media (max-width: 900px) {
+  .g2rd-wp-manager__grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   7. PROCESSUS — timeline 6 étapes
+   ========================================================================== */
+.g2rd-process__grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem 2rem;
+  counter-reset: step;
+}
+.g2rd-process__step {
+  position: relative;
+  padding-top: 1.4rem;
+  border-top: 2px solid var(--g2rd-border-light);
+}
+.g2rd-process__step::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: var(--g2rd-accent-deep);
+}
+.g2rd-process__num {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-small);
+  color: var(--g2rd-muted);
+  letter-spacing: 0.08em;
+}
+.g2rd-process__step h3,
+.g2rd-process__step .g2rd-process__title { margin-block: 0.5rem 0.6rem; font-size: 1.25rem; }
+.g2rd-process__step p { font-size: 0.98rem; color: var(--g2rd-muted); }
+@media (max-width: 900px) { .g2rd-process__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .g2rd-process__grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   8. CHIFFRES — bande sombre
+   ========================================================================== */
+.g2rd-stats { border-block: 1px solid var(--g2rd-border-dark); }
+.g2rd-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.g2rd-stat { text-align: left; }
+.g2rd-stat__value {
+  font-family: var(--g2rd-font-display);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--g2rd-text-light);
+}
+.g2rd-stat__value .g2rd-accent-text { color: var(--g2rd-accent); }
+.g2rd-stat__label {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--g2rd-text-dim);
+}
+.g2rd-stats__note {
+  margin-top: 2.8rem;
+  max-width: 70ch;
+  color: var(--g2rd-text-dim);
+  font-size: 0.98rem;
+}
+@media (max-width: 800px) { .g2rd-stats__grid { grid-template-columns: 1fr 1fr; } }
+
+/* ==========================================================================
+   9. TÉMOIGNAGES — bloc G2RD Testimonial (mode Google Reviews)
+   Le bloc porte lui-même la grille (.g2rd-testimonial--google) : en-tête note
+   Google + cartes hydratées par view.js. Ici : pont visuel vers la charte.
+   ========================================================================== */
+.g2rd-testimonials__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1.5rem 3rem;
+  align-items: end;
+}
+.g2rd-testimonials__head .g2rd-section-head { margin: 0; max-width: none; }
+.g2rd-testimonials__lead {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--g2rd-muted);
+  font-size: 1rem;
+}
+
+/* Grille du bloc */
+.g2rd-testimonials .g2rd-testimonial--google {
+  margin-top: 2.6rem;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+/* En-tête : note globale Google, sur toute la largeur */
+.g2rd-testimonials .g2rd-testimonial__google-header {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 0.6rem;
+  padding: 0.6rem 1rem 0.6rem 0.75rem;
+  border: 1px solid var(--g2rd-border-light);
+  border-radius: var(--g2rd-radius-full);
+  background: #fff;
+  color: var(--g2rd-text-dark);
+  font-family: var(--g2rd-font-body);
+}
+.g2rd-testimonials .g2rd-testimonial__google-header--link:hover { background: var(--g2rd-surface); }
+.g2rd-testimonials .g2rd-testimonial__google-logo {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--g2rd-surface);
+}
+.g2rd-testimonials .g2rd-testimonial__google-overall { gap: 0.55rem; }
+.g2rd-testimonials .g2rd-testimonial__google-overall-rating {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.4rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+.g2rd-testimonials .g2rd-testimonial__google-stars { color: var(--g2rd-accent-deep); font-size: 1.05rem; }
+.g2rd-testimonials .g2rd-testimonial__google-count {
+  opacity: 1;
+  color: var(--g2rd-muted);
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  letter-spacing: 0.04em;
+}
+
+/* Cartes d'avis */
+.g2rd-testimonials .g2rd-testimonial__card,
+.g2rd-testimonials .g2rd-testimonial__card[data-card-style="bordered"] {
+  position: relative;
+  gap: 0.9rem;
+  padding: 1.8rem 1.8rem 1.5rem;
+  border: 1px solid var(--g2rd-border-light);
+  border-radius: var(--g2rd-radius-l);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-testimonials .g2rd-testimonial__card:hover { border-color: var(--g2rd-accent-deep); transform: none; }
+.g2rd-testimonials .g2rd-testimonial__card::before {
+  content: "\201C";
+  position: absolute;
+  top: 0.9rem; right: 1.3rem;
+  font-family: var(--g2rd-font-display);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--g2rd-accent);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__stars { gap: 3px; margin: 0; }
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__stars .dashicons { font-size: 17px; width: 17px; height: 17px; }
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__quote {
+  flex: 1;
+  margin: 0;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--g2rd-text-dark);
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__author {
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--g2rd-border-light);
+  gap: 0.8rem;
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__avatar,
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__avatar-placeholder {
+  width: 40px; height: 40px;
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__avatar-placeholder {
+  background: var(--g2rd-primary);
+  color: var(--g2rd-accent);
+  font-family: var(--g2rd-font-display);
+  font-size: 1rem;
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__name {
+  font-size: 0.95rem;
+  font-style: normal;
+  font-family: var(--g2rd-font-body);
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--g2rd-text-dark);
+}
+.g2rd-testimonials .g2rd-testimonial__card .g2rd-testimonial__role {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  letter-spacing: 0.04em;
+  color: var(--g2rd-muted);
+}
+
+/* Squelettes de chargement, dans la charte */
+.g2rd-testimonials .g2rd-testimonial__google-header.is-skeleton,
+.g2rd-testimonials .g2rd-testimonial__card.is-skeleton {
+  border: 1px solid var(--g2rd-border-light);
+  background: linear-gradient(90deg, var(--g2rd-surface) 25%, #fff 50%, var(--g2rd-surface) 75%);
+  background-size: 200% 100%;
+}
+.g2rd-testimonials .g2rd-testimonial__google-header.is-skeleton { width: 280px; height: 3.2rem; padding: 0; }
+.g2rd-testimonials .g2rd-testimonial__card.is-skeleton { height: 220px; }
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-testimonials .is-skeleton { animation: none; }
+}
+
+/* Bloc sans Place ID (vide) ou erreur API : la section reste propre */
+.g2rd-testimonials .g2rd-testimonial--google:empty { display: none; }
+
+.g2rd-testimonials__note {
+  margin-top: 1.8rem;
+  font-size: var(--g2rd-size-small);
+  color: var(--g2rd-muted);
+}
+
+@media (max-width: 900px) {
+  .g2rd-testimonials__head { grid-template-columns: 1fr; align-items: start; }
+  .g2rd-testimonials .g2rd-testimonial--google { max-width: 560px; }
+}
+
+/* ==========================================================================
+   10. BLOG
+   ========================================================================== */
+.g2rd-blog__grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.g2rd-post {
+  border: 1px solid var(--g2rd-border-light);
+  border-radius: var(--g2rd-radius-l);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--g2rd-ease), box-shadow 0.3s var(--g2rd-ease);
+}
+.g2rd-post:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(15, 23, 42, 0.25);
+}
+.g2rd-post__media { aspect-ratio: 16 / 9; overflow: hidden; }
+.g2rd-post__media img { width: 100%; height: 100%; object-fit: cover; }
+.g2rd-post__body { padding: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.g2rd-post time {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  color: var(--g2rd-muted);
+  letter-spacing: 0.06em;
+}
+.g2rd-post h3 { font-size: 1.15rem; line-height: 1.3; }
+.g2rd-post h3 a:hover { color: var(--g2rd-primary); text-decoration: underline; }
+.g2rd-post p { font-size: 0.95rem; color: var(--g2rd-muted); }
+@media (max-width: 900px) { .g2rd-blog__grid { grid-template-columns: 1fr; max-width: 560px; } }
+
+/* ==========================================================================
+   11. FAQ
+   ========================================================================== */
+/* Scopé hors du bloc G2RD FAQ (.wp-block-g2rd-faq porte aussi la classe g2rd-faq) */
+.g2rd-faq:not(.wp-block-g2rd-faq) .g2rd-faq__list { margin-top: 2.5rem; border-top: 1px solid var(--g2rd-border-light); }
+.g2rd-faq:not(.wp-block-g2rd-faq) details { border-bottom: 1px solid var(--g2rd-border-light); }
+.g2rd-faq:not(.wp-block-g2rd-faq) summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding-block: 1.4rem;
+  font-family: var(--g2rd-font-display);
+  font-weight: 650;
+  font-size: 1.15rem;
+}
+.g2rd-faq:not(.wp-block-g2rd-faq) summary::-webkit-details-marker { display: none; }
+.g2rd-faq:not(.wp-block-g2rd-faq) summary::after {
+  content: "+";
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--g2rd-muted);
+  transition: transform 0.3s var(--g2rd-ease);
+  flex: none;
+}
+.g2rd-faq:not(.wp-block-g2rd-faq) details[open] summary::after { transform: rotate(45deg); color: var(--g2rd-accent-deep); }
+.g2rd-faq:not(.wp-block-g2rd-faq) details > p {
+  padding-bottom: 1.6rem;
+  max-width: 68ch;
+  color: var(--g2rd-muted);
+}
+
+/* ==========================================================================
+   12. CTA FINAL
+   ========================================================================== */
+.g2rd-cta {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.g2rd-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--g2rd-border-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--g2rd-border-dark) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 90% at 50% 100%, black 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 90% at 50% 100%, black 20%, transparent 90%);
+}
+.g2rd-cta::after {
+  content: "";
+  position: absolute;
+  bottom: -40%;
+  left: 50%;
+  translate: -50% 0;
+  width: 70vw;
+  height: 40vw;
+  background: radial-gradient(ellipse, rgba(163, 230, 53, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.g2rd-cta__inner { position: relative; z-index: 1; }
+.g2rd-cta h2 { max-width: 18ch; margin-inline: auto; font-size: clamp(2.2rem, 5vw, 4rem); }
+.g2rd-cta p { margin-top: 1.2rem; color: var(--g2rd-text-dim); max-width: 52ch; margin-inline: auto; }
+.g2rd-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.4rem;
+}
+
+/* ==========================================================================
+   V2 — RELIEF, PROFONDEUR & DÉCOR ANIMÉ
+   Toutes les couches ci-dessous sont décoratives (aria-hidden) et
+   n'interceptent aucun événement : la navigation reste intacte.
+   ========================================================================== */
+
+/* ---- Barre de progression de lecture ---- */
+.g2rd-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 120;
+  pointer-events: none;
+}
+.g2rd-progress i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--g2rd-accent), var(--g2rd-accent-hover));
+  transform: scaleX(0);
+  transform-origin: left;
+  box-shadow: 0 0 12px rgba(163, 230, 53, 0.6);
+}
+
+/* ---- Scène 3D du hero ---- */
+.g2rd-hero__scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  perspective: 900px;
+  overflow: hidden;
+}
+.g2rd-stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Sol-grille en perspective, défilement lent */
+.g2rd-hero__floor {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -12%;
+  height: 55%;
+  background-image:
+    linear-gradient(rgba(163, 230, 53, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: rotateX(62deg);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(to top, black 20%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, black 20%, transparent 85%);
+  animation: g2rd-floor 14s linear infinite;
+}
+@keyframes g2rd-floor {
+  to { background-position: 0 64px, 0 0; }
+}
+
+/* Tracés lumineux */
+.g2rd-hero__lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+.g2rd-line { stroke-dasharray: 900; stroke-dashoffset: 900; }
+.g2rd-node { fill: var(--g2rd-accent); opacity: 0; filter: drop-shadow(0 0 6px rgba(163,230,53,.9)); }
+
+/* Orbes flottants */
+.g2rd-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+  animation: g2rd-drift 11s ease-in-out infinite alternate;
+}
+.g2rd-orb--a { width: 220px; height: 220px; top: 16%; right: 12%;
+  background: radial-gradient(circle at 35% 35%, rgba(163,230,53,.22), rgba(163,230,53,.03) 65%, transparent); }
+.g2rd-orb--b { width: 120px; height: 120px; bottom: 22%; left: 6%;
+  background: radial-gradient(circle at 35% 35%, rgba(148,163,184,.18), transparent 70%);
+  animation-duration: 15s; }
+.g2rd-orb--c { width: 260px; height: 260px; top: -60px; right: -60px;
+  background: radial-gradient(circle at 35% 35%, rgba(163,230,53,.14), transparent 70%); }
+.g2rd-orb--d { width: 300px; height: 300px; bottom: -100px; left: 8%;
+  background: radial-gradient(circle at 35% 35%, rgba(163,230,53,.12), transparent 70%); }
+@keyframes g2rd-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(24px, -30px, 0) scale(1.06); }
+}
+
+/* ---- Relief du panneau hero ---- */
+.g2rd-hero__panel-wrap { perspective: 1100px; }
+.g2rd-hero__panel {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.g2rd-hero__panel::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(163, 230, 53, 0.12) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: g2rd-sheen 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes g2rd-sheen {
+  0%, 100% { background-position: 120% 0; }
+  50% { background-position: -20% 0; }
+}
+
+/* ---- Tilt 3D générique ---- */
+[data-g2rd-tilt] { transform-style: preserve-3d; will-change: transform; }
+.g2rd-project { perspective: 1200px; }
+.g2rd-project__media {
+  box-shadow: 0 40px 90px -35px rgba(2, 6, 23, 0.9);
+  transition: box-shadow 0.4s var(--g2rd-ease);
+}
+.g2rd-project__media:hover { box-shadow: 0 60px 120px -35px rgba(2, 6, 23, 1); }
+.g2rd-project__index { transform: translateZ(40px); }
+
+/* ---- Cadre WP Manager flottant ---- */
+.g2rd-wp-manager__grid { perspective: 1200px; }
+.g2rd-float { animation: g2rd-float 7s ease-in-out infinite; }
+@keyframes g2rd-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -14px; }
+}
+
+/* ---- Barre de progression du processus ---- */
+.g2rd-process__track {
+  margin-top: 2.6rem;
+  height: 2px;
+  background: var(--g2rd-border-light);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.g2rd-process__track i {
+  display: block;
+  height: 100%;
+  background: var(--g2rd-accent-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.g2rd-process__grid { margin-top: 2.2rem; }
+
+/* ---- Relief sections claires ---- */
+.g2rd-post {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* ---- Garde-fous : mobile & reduced motion ---- */
+@media (max-width: 900px) {
+  .g2rd-orb--a { width: 140px; height: 140px; }
+  .g2rd-hero__floor { background-size: 44px 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-hero__floor,
+  .g2rd-orb,
+  .g2rd-float,
+  .g2rd-hero__panel::after { animation: none; }
+  .g2rd-line { stroke-dashoffset: 0; }
+  .g2rd-node { opacity: 1; }
+  .g2rd-progress { display: none; }
+}
+
+/* ==========================================================================
+   Portfolio v2 — « dossiers projets » en pile sticky
+   ========================================================================== */
+.g2rd-showcase { overflow: visible; } /* requis pour le pin ScrollTrigger */
+.g2rd-showcase__stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+  margin-top: clamp(2.4rem, 4vw, 3.4rem);
+}
+.g2rd-case {
+  position: relative;
+  transform-origin: top center;
+  will-change: transform;
+}
+.g2rd-case__inner {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 0.9fr 1.25fr;
+  gap: clamp(1.6rem, 3vw, 3rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.6rem);
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.55), rgba(2, 6, 23, 0.35)),
+    var(--g2rd-primary);
+  box-shadow: 0 34px 90px -42px rgba(2, 6, 23, 0.95);
+}
+.g2rd-case:nth-child(even) .g2rd-case__inner { grid-template-columns: 1.25fr 0.9fr; }
+.g2rd-case:nth-child(even) .g2rd-case__info { order: 2; }
+
+/* Numéro fantôme */
+.g2rd-case__ghost {
+  position: absolute;
+  top: -0.08em;
+  right: 0.6rem;
+  z-index: 0;
+  font-family: var(--g2rd-font-display);
+  font-weight: 750;
+  font-size: clamp(5rem, 11vw, 9.5rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(148, 163, 184, 0.22);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Colonne info */
+.g2rd-case__info { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 0.9rem; }
+.g2rd-case__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim);
+}
+/* Titre du dossier : h3 (maquette) ou bloc post-title en paragraphe
+   (v1.6.2 : niveau 0 dans la Query Loop pour alléger la hiérarchie Hn). */
+.g2rd-case__info h3,
+.g2rd-case__info .wp-block-post-title {
+  margin: 0;
+  font-family: var(--g2rd-font-display);
+  font-size: clamp(1.45rem, 2.3vw, 2.05rem);
+  font-weight: 650;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  color: var(--g2rd-text-light);
+}
+.g2rd-case__info h3 a,
+.g2rd-case__info .wp-block-post-title a { color: var(--g2rd-text-light); text-decoration: none; }
+.g2rd-case__info h3 a:hover,
+.g2rd-case__info .wp-block-post-title a:hover { color: var(--g2rd-accent); }
+.g2rd-case__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+.g2rd-case__tags li {
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim);
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: var(--g2rd-radius-full);
+  padding: 0.28rem 0.65rem;
+}
+.g2rd-case__desc { color: var(--g2rd-text-dim); font-size: 0.98rem; line-height: 1.65; max-width: 44ch; }
+.g2rd-case__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--g2rd-accent);
+  text-decoration: none;
+}
+.g2rd-case__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Cadre navigateur */
+.g2rd-case__frame {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--g2rd-border-dark);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(2, 6, 23, 0.65);
+  transition: border-color 0.3s var(--g2rd-ease), transform 0.3s var(--g2rd-ease), box-shadow 0.3s var(--g2rd-ease);
+}
+.g2rd-case__frame:hover {
+  border-color: rgba(163, 230, 53, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px -30px rgba(163, 230, 53, 0.25);
+}
+.g2rd-case__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--g2rd-border-dark);
+  background: rgba(2, 6, 23, 0.6);
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  color: var(--g2rd-text-dim);
+}
+.g2rd-case__dots { display: inline-flex; gap: 0.35rem; }
+.g2rd-case__dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.35);
+}
+.g2rd-case__dots i:first-child { background: var(--g2rd-accent); }
+.g2rd-case__state { color: var(--g2rd-accent); }
+.g2rd-case__frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1280 / 800;
+  object-fit: cover;
+  transition: scale 0.7s ease-out;
+}
+.g2rd-case__frame:hover img { scale: 1.05; }
+
+.g2rd-showcase__more { margin-top: clamp(2.4rem, 4vw, 3.2rem); text-align: center; }
+
+/* Responsive : pile verticale simple, contenu identique */
+@media (max-width: 1024px) {
+  .g2rd-case__inner,
+  .g2rd-case:nth-child(even) .g2rd-case__inner { grid-template-columns: 1fr; }
+  .g2rd-case:nth-child(even) .g2rd-case__info { order: 0; }
+  .g2rd-case__frame { order: -1; }
+  .g2rd-case__ghost { font-size: clamp(3.6rem, 16vw, 5rem); top: auto; bottom: -0.1em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-case__frame,
+  .g2rd-case__frame:hover { transform: none; }
+  .g2rd-case__frame img,
+  .g2rd-case__frame:hover img { transition: none; scale: 1; }
+}
+
+/* ==========================================================================
+   Adaptations au markup Gutenberg (thème enfant)
+   ========================================================================== */
+   Adaptations au markup Gutenberg (theme enfant)
+   ========================================================================== */
+.g2rd-portfolio__list { counter-reset: g2rd-prj; }
+.g2rd-portfolio__list > .wp-block-post { display: contents; }
+.g2rd-portfolio__list .g2rd-project { counter-increment: g2rd-prj; }
+.g2rd-portfolio__list .g2rd-project::before {
+  content: "PRJ." counter(g2rd-prj, decimal-leading-zero);
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--g2rd-accent, #a3e635);
+  background: rgba(2, 6, 23, 0.72);
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-full, 999px);
+  padding: 0.3rem 0.7rem;
+  pointer-events: none;
+}
+.g2rd-project__tags { margin-top: 0.6rem; }
+.g2rd-project__tags a {
+  display: inline-block;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim, #aab7c9);
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-full, 999px);
+  padding: 0.3rem 0.7rem;
+  margin: 0 0.35rem 0.35rem 0;
+  text-decoration: none;
+}
+.g2rd-project__tags a:hover { color: var(--g2rd-accent, #a3e635); border-color: rgba(163, 230, 53, 0.4); }
+.wp-block-post-terms__separator { display: none; }
+ul.g2rd-editorial__links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; padding: 0; list-style: none; }
+.g2rd-testimonial:not(.g2rd-testimonial--google) cite {
+  display: block;
+  margin-top: 0.9rem;
+  font-style: normal;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--g2rd-text-muted, #334155);
+}
+
+/* --------------------------------------------------------------------------
+   Pont Gutenberg — pile « dossiers » (.g2rd-case) en Query Loop.
+   Les numéros PRJ.NN et le numéro fantôme sont générés en CSS
+   (compteur sur la boucle : aucun contenu en dur dans le pattern).
+   -------------------------------------------------------------------------- */
+.g2rd-showcase__stack { counter-reset: g2rd-case; }
+.g2rd-showcase__stack > .wp-block-post { display: contents; }
+.g2rd-showcase__stack .g2rd-case { counter-increment: g2rd-case; }
+
+/* Ligne méta « PRJ.NN — en production » (le libellé vit dans le pattern,
+   le numéro est injecté ici) */
+.g2rd-case__meta::before {
+  content: "PRJ." counter(g2rd-case, decimal-leading-zero) " — ";
+}
+
+/* Numéro fantôme en fond de dossier */
+.g2rd-case__inner::after {
+  content: counter(g2rd-case, decimal-leading-zero);
+  position: absolute;
+  top: -0.08em;
+  right: 0.6rem;
+  z-index: 0;
+  font-family: var(--g2rd-font-display);
+  font-weight: 750;
+  font-size: clamp(5rem, 11vw, 9.5rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(148, 163, 184, 0.22);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Tags du dossier : bloc post-terms stylé comme la maquette */
+.g2rd-case .wp-block-post-terms { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.g2rd-case .wp-block-post-terms a {
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim, #aab7c9);
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-full, 999px);
+  padding: 0.28rem 0.65rem;
+  text-decoration: none;
+}
+.g2rd-case .wp-block-post-terms a:hover { color: var(--g2rd-accent, #a3e635); border-color: rgba(163, 230, 53, 0.4); }
+
+/* Cadre navigateur : l'image mise en avant remplit le cadre */
+.g2rd-case__frame .wp-block-post-featured-image { margin: 0; }
+.g2rd-case__frame .wp-block-post-featured-image img { display: block; width: 100%; height: auto; }
+
+/* Extrait et lien d'étude de cas produits par les blocs natifs */
+.g2rd-case .wp-block-post-excerpt { color: var(--g2rd-text-dim, #aab7c9); font-size: 0.98rem; line-height: 1.65; max-width: 44ch; }
+.g2rd-case .wp-block-post-excerpt__more-link {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  margin-top: 0.6rem; font-weight: 600; font-size: 0.95rem;
+  color: var(--g2rd-accent, #a3e635); text-decoration: none;
+}
+.g2rd-case .wp-block-post-excerpt__more-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* v1.6.2 — Un seul lien par dossier (SEO : plus d'ancre vide sur l'image,
+   plus de doublon d'ancre). Le lien du titre est étendu à tout le dossier ;
+   les tags et le lien « étude de cas » restent cliquables au-dessus. */
+.g2rd-case__inner { isolation: isolate; }
+.g2rd-case__inner::after { z-index: -1; }
+.g2rd-case__info { position: static; z-index: auto; }
+.g2rd-case__info .wp-block-post-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3; /* au-dessus du cadre (.g2rd-case__frame, z-index 1) */
+  border-radius: 20px;
+}
+.g2rd-case .wp-block-post-terms a,
+.g2rd-case .wp-block-post-excerpt__more-link { position: relative; z-index: 4; }
+.g2rd-case__inner:hover .g2rd-case__frame {
+  border-color: rgba(163, 230, 53, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px -30px rgba(163, 230, 53, 0.25);
+}
+.g2rd-case__inner:hover .g2rd-case__frame img { scale: 1.05; }
+.g2rd-case__inner:has(.wp-block-post-title a:focus-visible) { outline: 2px solid var(--g2rd-accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-case__inner:hover .g2rd-case__frame { transform: none; }
+  .g2rd-case__inner:hover .g2rd-case__frame img { scale: 1; }
+}
+
+/* La Query Loop rend la pile sous forme de liste : neutraliser le style ul */
+ul.g2rd-showcase__stack { list-style: none; padding: 0; margin-block: clamp(2.4rem, 4vw, 3.4rem) 0; }
+
+/* --------------------------------------------------------------------------
+   Blocs natifs uniquement (règle du projet) : équivalents CSS/JS du décor
+   qui vivait auparavant dans des blocs HTML.
+   -------------------------------------------------------------------------- */
+
+/* Pastilles de la barre de dossier : générées en CSS (pseudo-élément),
+   plus aucun span décoratif dans le pattern. */
+.g2rd-case__bar::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--g2rd-accent);
+  box-shadow:
+    13px 0 0 rgba(148, 163, 184, 0.35),
+    26px 0 0 rgba(148, 163, 184, 0.35);
+  margin-right: 26px; /* réserve la place des deux pastilles projetées */
+}
+.g2rd-case__bar .g2rd-case__state { margin: 0; }
+
+/* Placeholder de capture WP Manager en blocs natifs (deux paragraphes) */
+.g2rd-wp-manager__shot p { margin: 0; }
+.g2rd-wp-manager__shot .g2rd-wp-manager__shot-note { font-size: 0.8rem; opacity: 0.8; }
+
+/* Titres d'étapes du processus rendus en <p> (ratio titres/texte SEO) :
+   même rendu que les anciens h3 */
+.g2rd-process__title {
+  font-family: var(--g2rd-font-display);
+  font-weight: 700;
+  line-height: 1.25;
+}

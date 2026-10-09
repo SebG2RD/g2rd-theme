@@ -119,6 +119,7 @@ jobs:
             --exclude="Gutenberg" \
             --exclude="tools" \
             --exclude="tests" \
+            --exclude="child-themes" \
             --exclude="phpunit.xml.dist" \
             --exclude=".phpunit.cache" \
             --exclude="blocks/*/src" \

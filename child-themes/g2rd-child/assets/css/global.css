@@ -1,0 +1,676 @@
+/* ==========================================================================
+   G2RD — global.css
+   Tokens (source : g2rd.json), typographie, header, footer, composants.
+   ========================================================================== */
+
+/* ---- Polices locales (variables) ---- */
+@font-face {
+  font-family: "Plus Jakarta Sans Var";
+  src: url("../fonts/plus-jakarta-sans-var.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Var";
+  src: url("../fonts/inter-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* ---- Tokens (miroir de g2rd.json) ---- */
+:root {
+  --g2rd-ink: #020617;
+  --g2rd-primary: #0f172a;
+  --g2rd-surface-soft: #1e293b;
+  --g2rd-accent: #a3e635;
+  --g2rd-accent-hover: #84cc16;
+  --g2rd-light: #f8fafc;
+  --g2rd-surface: #f1f5f9;
+  --g2rd-muted: #334155;            /* 9.9:1 sur light, 9.45:1 sur surface (AAA) */
+  --g2rd-border-light: #e2e8f0;
+  --g2rd-border-dark: rgba(148, 163, 184, 0.16);
+  --g2rd-text-dark: #0f172a;
+  --g2rd-text-light: #f8fafc;
+  --g2rd-text-dim: #aab7c9;         /* >=7.19:1 sur ink, slate et panneaux (AAA) */
+  --g2rd-accent-deep: #4d7c0f;      /* accent non-texte sur fonds clairs (4.77:1 >= 3:1) */
+
+  --g2rd-font-display: "Plus Jakarta Sans Var", "Plus Jakarta Sans", system-ui, sans-serif;
+  --g2rd-font-body: "Inter Var", Inter, system-ui, sans-serif;
+  --g2rd-font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --g2rd-size-display: clamp(2.75rem, 6.6vw, 6rem);
+  --g2rd-size-h2: clamp(2rem, 4.2vw, 3.4rem);
+  --g2rd-size-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --g2rd-size-body: 1.125rem;
+  --g2rd-size-small: 0.88rem;
+  --g2rd-size-meta: 0.78rem;
+
+  --g2rd-content: 960px;
+  --g2rd-wide: 1440px;
+  --g2rd-section-y: clamp(5rem, 10vw, 8.5rem);
+  --g2rd-gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  --g2rd-radius-s: 8px;
+  --g2rd-radius-m: 12px;
+  --g2rd-radius-l: 16px;
+  --g2rd-radius-full: 999px;
+
+  --g2rd-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --g2rd-fast: 0.2s;
+}
+
+/* ---- Base ---- */
+body {
+  font-family: var(--g2rd-font-body);
+  font-size: var(--g2rd-size-body);
+  color: var(--g2rd-text-dark);
+  background: var(--g2rd-light);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--g2rd-font-display);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 750;
+}
+
+h1 { font-size: var(--g2rd-size-display); }
+h2 { font-size: var(--g2rd-size-h2); }
+h3 { font-size: var(--g2rd-size-h3); font-weight: 650; }
+
+a { text-decoration: none; }
+p a, .g2rd-editorial a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--g2rd-accent-hover);
+  transition: color var(--g2rd-fast) var(--g2rd-ease);
+}
+p a:hover { color: var(--g2rd-primary); text-decoration-thickness: 2px; }
+.g2rd-theme-ink p a:hover, .g2rd-theme-slate p a:hover { color: var(--g2rd-accent); }
+p a { text-decoration-color: var(--g2rd-accent-deep); }
+.g2rd-theme-ink p a, .g2rd-theme-slate p a { text-decoration-color: var(--g2rd-accent); }
+
+:focus-visible {
+  outline: 3px solid var(--g2rd-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 6px rgba(248, 250, 252, 0.9);
+}
+.g2rd-theme-ink :focus-visible,
+.g2rd-theme-slate :focus-visible,
+.g2rd-header :focus-visible,
+.g2rd-footer :focus-visible {
+  outline-color: var(--g2rd-accent);
+  box-shadow: 0 0 0 6px rgba(2, 6, 23, 0.9);
+}
+
+/* Texte masque visuellement, lu par les lecteurs d'ecran */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.g2rd-skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 200;
+  background: var(--g2rd-accent);
+  color: var(--g2rd-ink);
+  padding: 0.6rem 1rem;
+  border-radius: var(--g2rd-radius-s);
+  font-weight: 600;
+  transition: top var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-skip-link:focus { top: 1rem; }
+
+/* ---- Conteneurs ---- */
+.g2rd-wide { max-width: var(--g2rd-wide); margin-inline: auto; padding-inline: var(--g2rd-gutter); }
+.g2rd-content { max-width: var(--g2rd-content); margin-inline: auto; padding-inline: var(--g2rd-gutter); }
+.g2rd-section { padding-block: var(--g2rd-section-y); }
+
+/* Thèmes de section — rythme sombre / clair */
+.g2rd-theme-ink { background: var(--g2rd-ink); color: var(--g2rd-text-light); }
+.g2rd-theme-slate { background: var(--g2rd-primary); color: var(--g2rd-text-light); }
+.g2rd-theme-light { background: var(--g2rd-light); color: var(--g2rd-text-dark); }
+.g2rd-theme-surface { background: var(--g2rd-surface); color: var(--g2rd-text-dark); }
+
+/* ---- Signature : méta-ligne console ---- */
+.g2rd-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--g2rd-muted);
+  margin-bottom: 1.4rem;
+}
+.g2rd-theme-ink .g2rd-meta,
+.g2rd-theme-slate .g2rd-meta { color: var(--g2rd-text-dim); }
+.g2rd-meta::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--g2rd-accent);
+  box-shadow: 0 0 10px rgba(163, 230, 53, 0.7);
+  flex: none;
+}
+.g2rd-meta::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.25;
+  min-width: 2rem;
+}
+
+.g2rd-section-head { max-width: 760px; }
+.g2rd-section-head p { margin-top: 1rem; color: var(--g2rd-muted); }
+.g2rd-theme-ink .g2rd-section-head p,
+.g2rd-theme-slate .g2rd-section-head p { color: var(--g2rd-text-dim); }
+
+/* ---- Boutons ---- */
+.g2rd-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.3rem;
+  border-radius: var(--g2rd-radius-full);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform var(--g2rd-fast) var(--g2rd-ease),
+    background var(--g2rd-fast) var(--g2rd-ease),
+    border-color var(--g2rd-fast) var(--g2rd-ease),
+    color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-btn:hover { transform: translateY(-2px) scale(1.02); }
+.g2rd-btn:active { transform: translateY(1px) scale(0.98); }
+
+/* Reflet qui traverse le bouton au survol (micro-interaction) */
+.g2rd-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-110%);
+  pointer-events: none;
+}
+.g2rd-btn--ghost::before,
+.g2rd-btn--outline::before {
+  background: linear-gradient(115deg, transparent 30%, rgba(163, 230, 53, 0.18) 50%, transparent 70%);
+}
+.g2rd-btn:hover::before { animation: g2rd-btn-shine 0.7s var(--g2rd-ease); }
+@keyframes g2rd-btn-shine {
+  to { transform: translateX(110%); }
+}
+
+/* Point d'etat dans chaque bouton (meme signature que le bouton animations) */
+.g2rd-btn::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--g2rd-accent);
+  transition: left 0.55s var(--g2rd-ease);
+  z-index: 1;                /* passe au-dessus des lettres : effet de traversee */
+}
+/* Au survol / focus, le point transperce le libelle et se range de l'autre cote */
+.g2rd-btn:hover::after,
+.g2rd-btn:focus-visible::after {
+  left: calc(100% - 1rem - 8px);
+}
+.g2rd-btn--accent::after {
+  background: var(--g2rd-ink);
+}
+.g2rd-btn--ghost::after {
+  background: var(--g2rd-accent);
+  box-shadow: 0 0 8px rgba(163, 230, 53, 0.7);
+}
+.g2rd-btn--outline::after {
+  background: var(--g2rd-accent-deep);
+}
+
+/* Le point pulse tant que le bouton est survole ou focus */
+.g2rd-btn:hover::after,
+.g2rd-btn:focus-visible::after {
+  animation: g2rd-dot-ping 1s ease-out infinite;
+}
+.g2rd-btn--accent:hover::after,
+.g2rd-btn--accent:focus-visible::after {
+  animation-name: g2rd-dot-ping-dark;
+}
+@keyframes g2rd-dot-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(163, 230, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); }
+}
+@keyframes g2rd-dot-ping-dark {
+  0%   { box-shadow: 0 0 0 0 rgba(2, 6, 23, 0.4); }
+  70%  { box-shadow: 0 0 0 7px rgba(2, 6, 23, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(2, 6, 23, 0); }
+}
+
+/* Les lettres reagissent au passage du point (delai calque sur la traversee) */
+.g2rd-btn__char { display: inline-block; }
+html:not(.g2rd-anim-off) .g2rd-btn:hover .g2rd-btn__char,
+html:not(.g2rd-anim-off) .g2rd-btn:focus-visible .g2rd-btn__char {
+  animation: g2rd-char-bump 0.32s var(--g2rd-ease) both;
+  animation-delay: calc(var(--i) / var(--n) * 0.42s + 0.06s);
+}
+@keyframes g2rd-char-bump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-btn:hover .g2rd-btn__char,
+  .g2rd-btn:focus-visible .g2rd-btn__char { animation: none; }
+}
+
+/* Halo doux selon le style */
+.g2rd-btn--accent:hover { box-shadow: 0 8px 24px -8px rgba(163, 230, 53, 0.55); }
+.g2rd-btn--ghost:hover { box-shadow: 0 8px 24px -10px rgba(163, 230, 53, 0.35); }
+.g2rd-btn--outline:hover { box-shadow: 0 8px 20px -10px rgba(15, 23, 42, 0.3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-btn:hover { transform: none; }
+  .g2rd-btn::after { transition: none; }
+  .g2rd-btn:hover::after,
+  .g2rd-btn:focus-visible::after { left: 1rem; }
+  .g2rd-btn:hover::before,
+  .g2rd-btn:hover::after,
+  .g2rd-btn:focus-visible::after,
+  .g2rd-anim-toggle:hover .g2rd-anim-toggle__dot { animation: none; }
+}
+
+.g2rd-btn--accent { background: var(--g2rd-accent); color: var(--g2rd-ink); }
+.g2rd-btn--accent:hover { background: var(--g2rd-accent-hover); }
+
+.g2rd-btn--ghost { border: 1px solid var(--g2rd-border-dark); color: var(--g2rd-text-light); }
+.g2rd-btn--ghost:hover { border-color: var(--g2rd-accent); color: var(--g2rd-accent); }
+
+.g2rd-btn--outline { border: 1px solid var(--g2rd-border-light); color: var(--g2rd-text-dark); }
+.g2rd-btn--outline:hover { border-color: var(--g2rd-primary); }
+
+/* Lien flèche */
+.g2rd-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: inherit;
+}
+.g2rd-arrow-link .g2rd-arrow { transition: transform var(--g2rd-fast) var(--g2rd-ease); }
+.g2rd-arrow-link:hover .g2rd-arrow { transform: translateX(4px); }
+.g2rd-arrow-link:hover { color: var(--g2rd-primary); }
+.g2rd-theme-ink .g2rd-arrow-link:hover, .g2rd-theme-slate .g2rd-arrow-link:hover { color: var(--g2rd-accent); }
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.g2rd-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  transition: background 0.3s var(--g2rd-ease), box-shadow 0.3s var(--g2rd-ease);
+}
+.g2rd-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.1rem;
+  transition: padding 0.3s var(--g2rd-ease);
+}
+.g2rd-header.is-scrolled {
+  background: rgba(2, 6, 23, 0.82);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--g2rd-border-dark);
+}
+.g2rd-header.is-scrolled .g2rd-header__bar { padding-block: 0.7rem; }
+
+.g2rd-header__logo img { height: 38px; width: auto; }
+
+.g2rd-nav ul { display: flex; gap: 2rem; align-items: center; }
+.g2rd-nav a {
+  display: inline-block;
+  padding-block: 0.55rem;
+  color: var(--g2rd-text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  text-decoration: none;
+}
+.g2rd-nav a:not(.g2rd-btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background: var(--g2rd-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-nav a:not(.g2rd-btn):hover::after,
+.g2rd-nav .current-menu-item > a::after { transform: scaleX(1); }
+
+/* --------------------------------------------------------------------------
+   Bloc Navigation natif (header) : bouton d'ouverture, overlay mobile,
+   bouton de fermeture. Remplace l'ancien pont du menu custom (.g2rd-burger).
+   Point de bascule aligné sur la maquette : burger < 900px, menu en ligne
+   au-delà. Le cœur WP gère < 600px ; les règles ci-dessous étendent le
+   comportement mobile à la tranche 600-899px et laissent le cœur masquer
+   le bouton en desktop (aucun display sur la règle de base).
+   -------------------------------------------------------------------------- */
+.g2rd-nav .wp-block-navigation__responsive-container-open {
+  color: var(--g2rd-text-light);
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+.g2rd-nav .wp-block-navigation__responsive-container-open svg {
+  width: 26px;
+  height: 26px;
+}
+/* Tranche tablette : comportement mobile étendu jusqu'à 899px */
+@media (min-width: 600px) and (max-width: 899px) {
+  .g2rd-header .g2rd-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+    display: none;
+  }
+  .g2rd-header .g2rd-nav .wp-block-navigation__responsive-container-open:not(.always-shown) {
+    display: inline-flex;
+  }
+}
+/* Desktop : jamais de burger (verrou de spécificité sur la règle cœur) */
+@media (min-width: 900px) {
+  .g2rd-header .g2rd-nav .wp-block-navigation__responsive-container-open:not(.always-shown) {
+    display: none;
+  }
+}
+/* Overlay mobile : plein écran encre, liens centrés et agrandis.
+   Le cœur WP force un fond blanc avec une spécificité (0,5,0) :
+   .wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay)
+   → sélecteur aligné dessus (0,6,0) pour que l'encre gagne (texte blanc). */
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open,
+.wp-block-navigation.g2rd-nav:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open:not(.disable-default-overlay) {
+  background: var(--g2rd-ink);
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__responsive-container-content {
+  display: grid;
+  place-content: start center;
+  justify-items: center;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 4.75rem 1.5rem 6.5rem; /* haut : croix de fermeture ; bas : barre a11y + consentement */
+}
+/* Centrage : le menu porte items-justified-right (desktop), le cœur le
+   traduit en align-items:flex-end dans l'overlay — remis au centre ici. */
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__container,
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__container.items-justified-right,
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__submenu-container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__container { gap: 1.6rem; }
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation-item {
+  align-items: center;
+  justify-content: center;
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open a { font-size: 1.4rem; }
+/* Sous-menu (Prestations) : le cœur l'affiche toujours déplié dans l'overlay.
+   Le parent devient une étiquette de groupe, le bouton de bascule est retiré,
+   les enfants sont resserrés et fermés par un filet. */
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation-submenu__toggle { display: none; }
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .has-child { flex-direction: column; gap: 0; }
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .has-child > .wp-block-navigation-item__content {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g2rd-accent);
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .has-child > .wp-block-navigation-item__content::after { display: none; }
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__submenu-container {
+  gap: 0.85rem;
+  min-width: 14rem;
+  margin-top: 0.9rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--g2rd-border-dark);
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__submenu-container a {
+  font-size: 1.1rem;
+  padding-block: 0.2rem;
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__responsive-container-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  z-index: 2;
+  color: var(--g2rd-text-light);
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.g2rd-nav .wp-block-navigation__responsive-container.has-modal-open .wp-block-navigation__responsive-container-close svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Élément de menu « Contact » en pastille accent : ajouter la classe CSS
+   g2rd-nav__cta à l'élément dans l'éditeur du menu. */
+.g2rd-nav .wp-block-navigation-item.g2rd-nav__cta a {
+  background: var(--g2rd-accent);
+  color: var(--g2rd-ink);
+  padding: 0.55rem 1.4rem;
+  border-radius: var(--g2rd-radius-full);
+  font-weight: 600;
+  transition: background var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-nav .wp-block-navigation-item.g2rd-nav__cta a::after { display: none; }
+.g2rd-nav .wp-block-navigation-item.g2rd-nav__cta a:hover {
+  background: var(--g2rd-accent-hover, #84cc16);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.g2rd-footer {
+  background: var(--g2rd-ink);
+  color: var(--g2rd-text-dim);
+  padding-block: 4.5rem 2rem;
+  border-top: 1px solid var(--g2rd-border-dark);
+}
+.g2rd-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+}
+.g2rd-footer h3,
+.g2rd-footer .g2rd-footer__title {
+  font-size: var(--g2rd-size-meta);
+  font-family: var(--g2rd-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--g2rd-text-light);
+  margin-bottom: 1.1rem;
+  font-weight: 500;
+}
+.g2rd-footer li { margin-bottom: 0.25rem; font-size: 0.95rem; }
+.g2rd-footer li a { display: inline-block; padding-block: 0.3rem; }
+.g2rd-footer a:hover { color: var(--g2rd-accent); }
+.g2rd-footer__brand img { height: 40px; width: auto; margin-bottom: 1rem; }
+.g2rd-footer__brand p { font-size: 0.95rem; max-width: 30ch; }
+.g2rd-footer__bottom {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--g2rd-border-dark);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+@media (max-width: 900px) {
+  .g2rd-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .g2rd-footer__grid { grid-template-columns: 1fr; }
+}
+
+
+/* ---- Controle utilisateur des animations (RGAA 13.8 / WCAG 2.2.2) ---- */
+.g2rd-anim-toggle {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 130;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border-radius: var(--g2rd-radius-full);
+  background: var(--g2rd-ink);
+  color: var(--g2rd-text-light);
+  border: 1px solid var(--g2rd-accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.g2rd-anim-toggle { transition: background var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease), box-shadow var(--g2rd-fast) var(--g2rd-ease); }
+.g2rd-anim-toggle:hover {
+  background: var(--g2rd-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -10px rgba(163, 230, 53, 0.4);
+}
+@media (prefers-reduced-motion: reduce) { .g2rd-anim-toggle:hover { transform: none; } }
+.g2rd-anim-toggle .g2rd-anim-toggle__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--g2rd-accent);
+}
+.g2rd-anim-toggle:hover .g2rd-anim-toggle__dot,
+.g2rd-anim-toggle:focus-visible .g2rd-anim-toggle__dot {
+  animation: g2rd-dot-ping 1s ease-out infinite;
+}
+.g2rd-anim-off .g2rd-anim-toggle .g2rd-anim-toggle__dot { background: var(--g2rd-text-dim); }
+
+/* Animations desactivees par l'utilisateur : tout est fige, contenu integral visible */
+.g2rd-anim-off .g2rd-tech__track,
+.g2rd-anim-off .g2rd-hero__floor,
+.g2rd-anim-off .g2rd-orb,
+.g2rd-anim-off .g2rd-float,
+.g2rd-anim-off .g2rd-hero__panel::after { animation-play-state: paused; }
+.g2rd-anim-off .g2rd-line { stroke-dashoffset: 0; }
+.g2rd-anim-off .g2rd-node { opacity: 1; }
+.g2rd-anim-off .g2rd-stars { display: none; }
+
+/* Bandeau technologies fige proprement quand les animations sont coupees */
+.g2rd-anim-off .g2rd-tech__track { animation: none; flex-wrap: wrap; width: auto; }
+.g2rd-anim-off .g2rd-tech__track ul[aria-hidden="true"] { display: none; }
+
+/* Grain premium en couche fixe (principe Motion / DA console) : texture statique,
+   pointer-events none, jamais sur un conteneur scrollant. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g2rd-n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g2rd-n)'/%3E%3C/svg%3E");
+}
+
+
+/* ---- Bouton « Espace client » du header ---- */
+.g2rd-header__right { display: flex; align-items: center; gap: 1.4rem; }
+.g2rd-header__login-wrap { margin: 0; }
+.g2rd-header__login a {
+  padding: 0.5rem 1.15rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--g2rd-accent);
+  color: var(--g2rd-accent);
+  border-radius: var(--g2rd-radius-full);
+  transition: background var(--g2rd-fast) var(--g2rd-ease), color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-header__login a:hover {
+  background: var(--g2rd-accent);
+  color: var(--g2rd-ink);
+}
+.g2rd-header__login a::after { display: none; } /* pas de soulignement nav */
+@media (max-width: 600px) {
+  .g2rd-header__right { gap: 0.7rem; }
+  .g2rd-header__login a { padding: 0.42rem 0.85rem; font-size: 0.82rem; }
+}
+
+/* ==========================================================================
+   Accessibilité v1.5 — correctifs issus de l'audit axe-core du 06/09/2026
+   (voir contenus-pages/page--declaration-daccessibilite.html)
+   ========================================================================== */
+/* RGAA 3.2 — la variation de style du parent colore les liens en #e11d48 :
+   4,29:1 sur encre et 4,48:1 sur fond clair, sous le seuil AA (4,5:1).
+   Liens de texte : vert profond sur clair (>= 4,56:1), clair sur encre. */
+p a, li a, .g2rd-editorial a, .g2rd-single-sections a:not(.wp-element-button) {
+  color: var(--g2rd-accent-deep);
+}
+.g2rd-theme-ink p a, .g2rd-theme-ink li a,
+.g2rd-theme-slate p a, .g2rd-theme-slate li a,
+.g2rd-footer a, .g2rd-footer__contact a, .g2rd-footer__bottom a {
+  color: var(--g2rd-text-dim);
+  text-decoration-color: var(--g2rd-accent);
+}
+.g2rd-footer a:hover, .g2rd-theme-ink p a:hover, .g2rd-theme-slate p a:hover { color: var(--g2rd-accent); }
+
+/* RGAA 3.2 — bouton d'envoi Fluent Forms : le CSS personnalisé du formulaire
+   force un texte blanc sur l'accent (1,44:1). Encre sur accent : 13,4:1. */
+.g2rd-contact-form .ff-btn-submit,
+.fluentform .ff-btn-submit {
+  color: var(--g2rd-ink) !important;
+  background: var(--g2rd-accent) !important;
+  border-color: var(--g2rd-accent) !important;
+}
+.g2rd-contact-form .ff-btn-submit:hover,
+.fluentform .ff-btn-submit:hover { background: var(--g2rd-accent-hover) !important; }
+
+/* RGAA 12.7 — le bouton « Désactiver les animations » chevauchait la barre
+   d'accessibilité du parent en bas à gauche : décalé vers la droite. */
+.g2rd-anim-toggle { left: auto; right: 1rem; }
+
+/* Texte réservé aux lecteurs d'écran (repli si le cœur ne le charge pas) */
+.screen-reader-text {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.screen-reader-text:focus {
+  position: static !important;
+  width: auto; height: auto; margin: 0; padding: 0.5rem 1rem;
+  clip: auto; clip-path: none; white-space: normal;
+}

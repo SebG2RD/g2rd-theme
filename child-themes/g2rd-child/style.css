@@ -1,0 +1,15 @@
+/*
+Theme Name: G2RD Child
+Theme URI: https://g2rd.fr
+Description: Thème enfant G2RD — refonte graphique 2026 (identité console/supervision, GSAP, RGAA). Toutes les surcouches visuelles et les templates redessinés vivent ici ; le thème parent reste la base fonctionnelle (CPT, blocs, options).
+Author: G2RD Agence Web
+Template: g2rd-theme
+Version: 1.0.0
+Requires at least: 6.6
+Requires PHP: 8.0
+License: EUPL-1.2
+Text Domain: g2rd-child
+*/
+
+/* Les styles sont chargés via functions.php (assets/css/*).
+   Ne rien ajouter ici : ce fichier ne sert qu'à déclarer le thème enfant. */

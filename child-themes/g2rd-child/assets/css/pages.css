@@ -1,0 +1,1445 @@
+/* ==========================================================================
+   G2RD Child — pages.css
+   1) Pont entre les classes g2rd-* et le markup produit par Gutenberg
+   2) Modèle d'en-tête des pages internes
+   3) Archives (blog, portfolio, prestations), singles, contact, 404, recherche
+   ========================================================================== */
+
+/* ==========================================================================
+   1. PONT GUTENBERG
+   ========================================================================== */
+
+/* Boutons : la classe g2rd-btn est posée sur le wrapper wp-block-button,
+   le style s'applique au lien interne (duplication assumée et documentée). */
+.wp-block-button.g2rd-btn {
+  padding: 0;
+  overflow: visible;
+  border-radius: 0;
+}
+.wp-block-button.g2rd-btn::before,
+.wp-block-button.g2rd-btn::after { content: none; }
+
+.wp-block-button.g2rd-btn .wp-block-button__link {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.3rem;
+  border-radius: var(--g2rd-radius-full, 999px);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: none;
+  color: inherit;
+  transition: transform var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing),
+    background var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing),
+    border-color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing),
+    color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing),
+    box-shadow var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing);
+}
+.wp-block-button.g2rd-btn .wp-block-button__link:hover { transform: translateY(-2px) scale(1.02); }
+.wp-block-button.g2rd-btn .wp-block-button__link:active { transform: translateY(1px) scale(0.98); }
+
+.wp-block-button.g2rd-btn--accent .wp-block-button__link {
+  background: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-ink, #020617);
+}
+.wp-block-button.g2rd-btn--accent .wp-block-button__link:hover {
+  background: var(--g2rd-accent-hover, #84cc16);
+  box-shadow: 0 8px 24px -8px rgba(163, 230, 53, 0.55);
+}
+.wp-block-button.g2rd-btn--ghost .wp-block-button__link {
+  border-color: var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  color: var(--g2rd-text-light, #f8fafc);
+}
+.wp-block-button.g2rd-btn--ghost .wp-block-button__link:hover {
+  border-color: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-accent, #a3e635);
+  box-shadow: 0 8px 24px -10px rgba(163, 230, 53, 0.35);
+}
+.wp-block-button.g2rd-btn--outline .wp-block-button__link {
+  border-color: var(--g2rd-border-light, #e2e8f0);
+  color: var(--g2rd-text-dark, #0f172a);
+}
+.wp-block-button.g2rd-btn--outline .wp-block-button__link:hover {
+  border-color: var(--g2rd-primary, #0f172a);
+  box-shadow: 0 8px 20px -10px rgba(15, 23, 42, 0.3);
+}
+
+/* Point traversant + reflet + reaction des lettres (identiques a la maquette) */
+.wp-block-button.g2rd-btn .wp-block-button__link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--g2rd-accent, #a3e635);
+  transition: left 0.55s var(--g2rd-anim-easing, cubic-bezier(0.16, 1, 0.3, 1));
+  z-index: 1;
+}
+.wp-block-button.g2rd-btn--accent .wp-block-button__link::after { background: var(--g2rd-ink, #020617); }
+.wp-block-button.g2rd-btn--outline .wp-block-button__link::after { background: var(--g2rd-accent-deep, #4d7c0f); }
+.wp-block-button.g2rd-btn .wp-block-button__link:hover::after,
+.wp-block-button.g2rd-btn .wp-block-button__link:focus-visible::after {
+  left: calc(100% - 1rem - 8px);
+  animation: g2rd-dot-ping 1s ease-out infinite;
+}
+.wp-block-button.g2rd-btn--accent .wp-block-button__link:hover::after,
+.wp-block-button.g2rd-btn--accent .wp-block-button__link:focus-visible::after {
+  animation-name: g2rd-dot-ping-dark;
+}
+.wp-block-button.g2rd-btn .wp-block-button__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-110%);
+  pointer-events: none;
+}
+.wp-block-button.g2rd-btn--ghost .wp-block-button__link::before,
+.wp-block-button.g2rd-btn--outline .wp-block-button__link::before {
+  background: linear-gradient(115deg, transparent 30%, rgba(163, 230, 53, 0.18) 50%, transparent 70%);
+}
+.wp-block-button.g2rd-btn .wp-block-button__link:hover::before {
+  animation: g2rd-btn-shine 0.7s var(--g2rd-anim-easing, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-button.g2rd-btn .wp-block-button__link:hover { transform: none; }
+  .wp-block-button.g2rd-btn .wp-block-button__link::after { transition: none; }
+  .wp-block-button.g2rd-btn .wp-block-button__link:hover::after,
+  .wp-block-button.g2rd-btn .wp-block-button__link:focus-visible::after { left: 1rem; animation: none; }
+  .wp-block-button.g2rd-btn .wp-block-button__link:hover::before { animation: none; }
+}
+
+/* Navigation core dans le header sombre */
+.g2rd-header .wp-block-navigation a {
+  color: var(--g2rd-text-light, #f8fafc);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-block: 0.55rem;
+}
+.g2rd-header .wp-block-navigation a:hover { color: var(--g2rd-accent, #a3e635); }
+.g2rd-header .wp-block-navigation__responsive-container.is-menu-open {
+  background: var(--g2rd-ink, #020617);
+}
+.g2rd-header .wp-block-navigation__responsive-container.is-menu-open a { font-size: 1.3rem; }
+.g2rd-header .wp-block-navigation__responsive-container-open,
+.g2rd-header .wp-block-navigation__responsive-container-close {
+  color: var(--g2rd-text-light, #f8fafc);
+  min-width: 44px;
+  min-height: 44px;
+}
+.g2rd-header .wp-block-navigation .wp-block-navigation__submenu-container {
+  background: var(--g2rd-primary, #0f172a);
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-m, 12px);
+}
+
+/* Site logo */
+.g2rd-header .wp-block-site-logo img { height: 38px; width: auto; }
+
+/* ==========================================================================
+   2. MODELE D'EN-TETE DES PAGES INTERNES (bande sombre commune)
+   ========================================================================== */
+.g2rd-page-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+  padding-block: clamp(9rem, 18vh, 12rem) clamp(3.5rem, 7vw, 5.5rem);
+}
+.g2rd-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--g2rd-border-dark, rgba(148, 163, 184, 0.16)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--g2rd-border-dark, rgba(148, 163, 184, 0.16)) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 0%, black 30%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 0%, black 30%, transparent 95%);
+  pointer-events: none;
+}
+.g2rd-page-hero > * { position: relative; }
+.g2rd-page-hero h1,
+.g2rd-page-hero .wp-block-post-title,
+.g2rd-page-hero .wp-block-query-title {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  max-width: 22ch;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+.g2rd-page-hero .g2rd-page-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-page-hero .wp-block-post-terms a { color: var(--g2rd-accent, #a3e635); text-decoration: none; }
+
+/* ==========================================================================
+   3. CONTENU DES SINGLES (articles, prestations, portfolio, equipe)
+   ========================================================================== */
+.g2rd-single-content { padding-block: var(--g2rd-layout-section-spacing, clamp(5rem, 10vw, 8.5rem)); }
+.g2rd-single-content > .wp-block-post-content > * { max-width: var(--g2rd-layout-content-width, 960px); margin-inline: auto; }
+.g2rd-single-content > .wp-block-post-content > .alignwide { max-width: var(--g2rd-layout-wide-width, 1440px); }
+.g2rd-single-content > .wp-block-post-content > .alignfull { max-width: none; }
+
+.wp-block-post-content h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-block: 2.2em 0.7em; }
+.wp-block-post-content h3 { margin-block: 1.8em 0.6em; }
+.wp-block-post-content p + p { margin-top: 1.1em; }
+.wp-block-post-content ul,
+.wp-block-post-content ol { padding-left: 1.2em; margin-block: 1em; }
+.wp-block-post-content li { margin-bottom: 0.45em; }
+.wp-block-post-content img { border-radius: var(--g2rd-radius-l, 16px); }
+.wp-block-post-content blockquote {
+  border-left: 3px solid var(--g2rd-accent-deep, #4d7c0f);
+  padding-left: 1.2rem;
+  color: var(--g2rd-text-muted, #334155);
+}
+
+/* Image a la une des singles : immersive, sous l'en-tete */
+.g2rd-single-featured .wp-block-post-featured-image {
+  max-width: var(--g2rd-layout-wide-width, 1440px);
+  margin: calc(-1 * clamp(2rem, 4vw, 3rem)) auto 0;
+  padding-inline: var(--g2rd-layout-gutter, clamp(1.25rem, 4vw, 2.5rem));
+}
+.g2rd-single-featured img {
+  border-radius: var(--g2rd-radius-l, 16px);
+  box-shadow: 0 40px 90px -35px rgba(2, 6, 23, 0.5);
+}
+
+/* ==========================================================================
+   4. ARCHIVES — grilles de cartes (blog, prestations, equipe, recherche)
+   ========================================================================== */
+.g2rd-archive { padding-block: var(--g2rd-layout-section-spacing, clamp(5rem, 10vw, 8.5rem)); }
+.g2rd-archive .wp-block-post-template.g2rd-card-grid,
+.g2rd-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+/* v1.6.3 — paliers responsive. Les sélecteurs reprennent la spécificité de la
+   règle de base : l'ancien palier (`.g2rd-card-grid` seul) perdait contre
+   `.g2rd-archive .wp-block-post-template.g2rd-card-grid` et les archives
+   restaient en 3 colonnes sur téléphone. */
+@media (max-width: 1024px) {
+  .g2rd-archive .wp-block-post-template.g2rd-card-grid,
+  .g2rd-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+}
+@media (max-width: 640px) {
+  .g2rd-archive .wp-block-post-template.g2rd-card-grid,
+  .g2rd-card-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+  .g2rd-archive { padding-block: clamp(3rem, 8vw, 5rem); }
+}
+
+.g2rd-card-grid .wp-block-post,
+.g2rd-card {
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--g2rd-anim-easing), box-shadow 0.3s var(--g2rd-anim-easing);
+}
+.g2rd-card-grid .wp-block-post:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(15, 23, 42, 0.25);
+}
+.g2rd-card-grid .wp-block-post-featured-image { aspect-ratio: 16 / 9; overflow: hidden; margin: 0; }
+.g2rd-card-grid .wp-block-post-featured-image img { width: 100%; height: 100%; object-fit: cover; }
+.g2rd-card-grid .g2rd-card__body { padding: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.g2rd-card-grid .wp-block-post-title { font-size: 1.15rem; line-height: 1.3; overflow-wrap: anywhere; hyphens: auto; }
+.g2rd-card-grid .wp-block-post-title a { text-decoration: none; }
+/* v1.6.2 — un seul lien par carte : l'image n'est plus un lien (ancre vide),
+   le lien du titre couvre toute la carte. */
+.g2rd-card-grid .wp-block-post { position: relative; }
+.g2rd-card-grid .wp-block-post-title a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.g2rd-card-grid .wp-block-post-excerpt__more-link { position: relative; z-index: 2; }
+.g2rd-card-grid .wp-block-post:has(.wp-block-post-title a:focus-visible) { outline: 2px solid var(--g2rd-accent-deep, #4d7c0f); outline-offset: 2px; }
+.g2rd-card-grid .wp-block-post-title a:hover { color: var(--g2rd-primary, #0f172a); text-decoration: underline; }
+.g2rd-card-grid .wp-block-post-date {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  color: var(--g2rd-text-muted, #334155);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.g2rd-card-grid .wp-block-post-excerpt { font-size: 0.95rem; color: var(--g2rd-text-muted, #334155); }
+.g2rd-card-grid .wp-block-post-excerpt__more-link { font-weight: 600; }
+
+/* Portfolio en archive : reutilise la mise en scene immersive de l'accueil */
+.g2rd-archive .g2rd-portfolio__list .wp-block-post { display: contents; }
+
+/* Pagination de requete */
+.wp-block-query-pagination {
+  margin-top: 3rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.9rem;
+}
+.wp-block-query-pagination a,
+.wp-block-query-pagination .wp-block-query-pagination-numbers .current {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-s, 8px);
+  text-decoration: none;
+}
+.wp-block-query-pagination a:hover { border-color: var(--g2rd-primary, #0f172a); }
+.wp-block-query-pagination .current {
+  background: var(--g2rd-primary, #0f172a);
+  color: var(--g2rd-text-light, #f8fafc);
+  border-color: var(--g2rd-primary, #0f172a);
+}
+
+/* ==========================================================================
+   5. RECHERCHE & 404
+   ========================================================================== */
+.g2rd-search-form .wp-block-search__input {
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-s, 8px);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+}
+.g2rd-search-form .wp-block-search__button {
+  background: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-ink, #020617);
+  border: 0;
+  border-radius: var(--g2rd-radius-full, 999px);
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  min-height: 44px;
+}
+.g2rd-404 { text-align: center; }
+/* Grand « 404 » en dégradé (maquette v3.0.2) ; le surtitre mono reste disponible
+   via .g2rd-404__eyebrow pour un libellé de type console. */
+.g2rd-404 .g2rd-404__code {
+  font-family: var(--g2rd-font-display);
+  font-weight: 800;
+  font-size: clamp(6rem, 22vw, 14rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(180deg, var(--g2rd-text-light, #f8fafc) 30%, rgba(163, 230, 53, 0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.g2rd-404 .g2rd-404__eyebrow {
+  font-family: var(--g2rd-font-mono);
+  color: var(--g2rd-accent, #a3e635);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   6. DIVERS
+   ========================================================================== */
+/* Le bandeau CTA final et le footer sont partages avec l'accueil (global.css/home.css
+   charges partout pour le footer via global ; la section CTA en pattern embarque
+   ses classes, stylees ci-dessous pour les pages ou home.css est absent). */
+.g2rd-cta-band {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+  padding-block: var(--g2rd-layout-section-spacing, clamp(5rem, 10vw, 8.5rem));
+}
+.g2rd-cta-band h2 { font-size: clamp(2rem, 4.5vw, 3.6rem); max-width: 18ch; margin-inline: auto; }
+.g2rd-cta-band p { margin-top: 1.2rem; color: var(--g2rd-text-dim, #aab7c9); max-width: 52ch; margin-inline: auto; }
+.g2rd-cta-band .wp-block-buttons { justify-content: center; margin-top: 2.4rem; }
+
+/* Copyright : "© 2019 – <annee courante via binding g2rd/current-year> G2RD…" */
+.g2rd-footer__copy { gap: 0.35em; align-items: baseline; }
+.g2rd-footer__copy p { margin: 0; }
+
+/* Grille equipe (archive qui-sommes-nous) : portraits 4/5, role en meta */
+.g2rd-team-grid .wp-block-post-featured-image { aspect-ratio: 4 / 5; }
+.g2rd-team-grid__role,
+.g2rd-team-grid__role a {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--g2rd-accent-deep, #4d7c0f);
+  text-decoration: none;
+}
+
+/* Bouton compact (cartes portfolio) */
+.wp-block-button.g2rd-btn--sm .wp-block-button__link { padding: 0.55rem 1.6rem; font-size: 0.88rem; }
+.g2rd-page-hero__actions { margin-top: 1.6rem; }
+
+/* ==========================================================================
+   Composants des pages intérieures (maquette v3.0.2) — pont Gutenberg
+   ========================================================================== */
+
+/* ---- Hero de page : lead, actions, tags (compléments du bloc existant) ---- */
+.g2rd-page-hero .g2rd-page-hero__lead {
+  margin-top: 1.4rem;
+  max-width: 62ch;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-page-hero .g2rd-page-hero__actions { margin-top: 2.2rem; gap: 1rem; }
+.g2rd-page-hero .g2rd-page-hero__tags { margin-top: 1.6rem; gap: 0.5rem; }
+.g2rd-page-hero .g2rd-page-hero__tags .wp-block-post-terms,
+.g2rd-page-hero .g2rd-page-hero__tags p {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-full, 999px);
+  color: var(--g2rd-text-dim, #aab7c9);
+  margin: 0;
+}
+
+/* ---- Grille de services (archive prestations) ---- */
+ul.g2rd-svc-grid { list-style: none; padding: 0; display: grid; gap: 1.25rem; margin-top: 3rem; }
+@media (min-width: 720px)  { ul.g2rd-svc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { ul.g2rd-svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.g2rd-svc-grid > .wp-block-post { display: flex; }
+.g2rd-svc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.8rem;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.65));
+  transition: transform var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease),
+    border-color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-svc:hover { transform: translateY(-4px); border-color: rgba(163, 230, 53, 0.45); }
+.g2rd-svc .wp-block-post-title { font-size: 1.25rem; font-family: var(--g2rd-font-display); }
+.g2rd-svc .wp-block-post-title a { color: var(--g2rd-text-light, #f8fafc); text-decoration: none; }
+.g2rd-svc .wp-block-post-title a::after { content: ""; position: absolute; inset: 0; } /* carte cliquable */
+.g2rd-svc .wp-block-post-excerpt { color: var(--g2rd-text-dim, #aab7c9); font-size: 0.98rem; flex: 1; }
+.g2rd-svc .wp-block-post-excerpt__more-link {
+  position: relative; z-index: 1;
+  font-weight: 600; font-size: 0.95rem;
+  color: var(--g2rd-accent, #a3e635); text-decoration: none;
+}
+.g2rd-svc .wp-block-post-excerpt__more-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---- Bloc « par où commencer » ---- */
+.g2rd-start-grid { display: grid; gap: 1.25rem; margin-top: 3rem; }
+@media (min-width: 800px) { .g2rd-start-grid { grid-template-columns: 1fr 1fr; } }
+.g2rd-start {
+  padding: 2rem;
+  border-radius: var(--g2rd-radius-l, 16px);
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  background: #fff;
+}
+.g2rd-start__num {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  color: var(--g2rd-accent-deep, #4d7c0f);
+  letter-spacing: 0.08em;
+}
+.g2rd-start h3 { margin-top: 0.5rem; }
+.g2rd-start p { margin-top: 0.7rem; color: var(--g2rd-text-muted, #334155); }
+
+/* ---- Liste de points forts (checklist des prestations) ----
+   Utilisable dans le contenu : bloc Liste avec la classe g2rd-checklist. */
+ul.g2rd-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 2.4rem 0 0;
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 760px) { ul.g2rd-checklist { grid-template-columns: 1fr 1fr; } }
+.g2rd-checklist li {
+  position: relative;
+  padding: 1.1rem 1.3rem 1.1rem 2.9rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-m, 12px);
+  background: #fff;
+  color: var(--g2rd-text-muted, #334155);
+}
+.g2rd-checklist li strong { color: var(--g2rd-text-dark, #0f172a); display: block; margin-bottom: 0.2rem; }
+.g2rd-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 1.1rem; top: 1.15rem;
+  color: var(--g2rd-accent-deep, #4d7c0f);
+  font-weight: 700;
+}
+.g2rd-theme-ink ul.g2rd-checklist li,
+.g2rd-theme-slate ul.g2rd-checklist li {
+  background: rgba(30, 41, 59, 0.45);
+  border-color: var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-theme-ink ul.g2rd-checklist li strong,
+.g2rd-theme-slate ul.g2rd-checklist li strong { color: var(--g2rd-text-light, #f8fafc); }
+.g2rd-theme-ink ul.g2rd-checklist li::before,
+.g2rd-theme-slate ul.g2rd-checklist li::before { color: var(--g2rd-accent, #a3e635); }
+
+/* ---- Archive portfolio : grille de projets ---- */
+ul.g2rd-work-grid { list-style: none; padding: 0; display: grid; gap: 1.5rem; margin-top: 3rem; }
+@media (min-width: 820px) { ul.g2rd-work-grid { grid-template-columns: 1fr 1fr; } }
+.g2rd-work-grid > .wp-block-post { display: flex; }
+.g2rd-work {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--g2rd-radius-l, 16px);
+  overflow: hidden;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.7));
+  transition: transform var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease),
+    border-color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-work:hover { transform: translateY(-5px); border-color: rgba(163, 230, 53, 0.4); }
+.g2rd-work .wp-block-post-featured-image { aspect-ratio: 16 / 10; overflow: hidden; margin: 0; }
+.g2rd-work .wp-block-post-featured-image img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
+  transition: transform 0.6s var(--g2rd-anim-easing, ease);
+}
+.g2rd-work:hover .wp-block-post-featured-image img { transform: scale(1.04); }
+.g2rd-work__body { padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.g2rd-work .wp-block-post-title { font-size: 1.3rem; font-family: var(--g2rd-font-display); }
+.g2rd-work .wp-block-post-title a { color: var(--g2rd-text-light, #f8fafc); text-decoration: none; }
+.g2rd-work .wp-block-post-title a::after { content: ""; position: absolute; inset: 0; }
+.g2rd-work .wp-block-post-excerpt { color: var(--g2rd-text-dim, #aab7c9); font-size: 0.98rem; }
+.g2rd-work .wp-block-post-terms { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: auto; }
+.g2rd-work .wp-block-post-terms a {
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-full, 999px);
+  color: var(--g2rd-text-dim, #aab7c9);
+  text-decoration: none;
+}
+.g2rd-work .wp-block-post-terms a:hover { color: var(--g2rd-accent, #a3e635); border-color: rgba(163, 230, 53, 0.4); }
+
+/* ---- Équipe : cartes membres (archive qui-sommes-nous) ---- */
+ul.g2rd-team-grid { list-style: none; padding: 0; display: grid; gap: 1.5rem; margin-top: 3rem; }
+@media (min-width: 760px) { ul.g2rd-team-grid { grid-template-columns: 1fr 1fr; } }
+.g2rd-team-grid > .wp-block-post { display: flex; }
+.g2rd-member {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+  border-radius: var(--g2rd-radius-l, 16px);
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  background: #fff;
+  transition: transform var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease),
+    box-shadow var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-member:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(2, 6, 23, 0.25); }
+.g2rd-member .wp-block-post-featured-image {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 0 1.3rem;
+}
+.g2rd-member .wp-block-post-featured-image img { width: 100%; height: 100%; object-fit: cover; }
+.g2rd-member .wp-block-post-terms {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-type-meta, 0.78rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.g2rd-member .wp-block-post-terms a { color: var(--g2rd-accent-deep, #4d7c0f); text-decoration: none; }
+.g2rd-member .wp-block-post-title { margin-top: 0.4rem; font-family: var(--g2rd-font-display); }
+.g2rd-member .wp-block-post-title a { color: var(--g2rd-text-dark, #0f172a); text-decoration: none; }
+.g2rd-member .wp-block-post-title a::after { content: ""; position: absolute; inset: 0; }
+.g2rd-member .wp-block-post-excerpt { margin-top: 0.8rem; color: var(--g2rd-text-muted, #334155); }
+
+/* ---- Valeurs de l'agence ---- */
+.g2rd-values { display: grid; gap: 1.25rem; margin-top: 3rem; }
+@media (min-width: 900px) { .g2rd-values { grid-template-columns: repeat(3, 1fr); } }
+.g2rd-value {
+  padding: 1.8rem;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: rgba(30, 41, 59, 0.45);
+}
+.g2rd-value h3 { color: var(--g2rd-text-light, #f8fafc); font-size: 1.2rem; }
+.g2rd-value p { margin-top: 0.7rem; color: var(--g2rd-text-dim, #aab7c9); font-size: 0.98rem; }
+
+/* ---- Contact : grille formulaire + infos ---- */
+.g2rd-contact-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); margin-top: 3rem; align-items: start; }
+@media (min-width: 960px) { .g2rd-contact-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); } }
+
+/* Champs : couvre le formulaire du thème parent et les extensions usuelles
+   (Contact Form 7 : .wpcf7 ; Fluent Forms : .fluentform ; WPForms). */
+.g2rd-contact-form input[type="text"],
+.g2rd-contact-form input[type="email"],
+.g2rd-contact-form input[type="tel"],
+.g2rd-contact-form select,
+.g2rd-contact-form textarea {
+  font: inherit;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-m, 12px);
+  background: #fff;
+  color: var(--g2rd-text-dark, #0f172a);
+  transition: border-color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease),
+    box-shadow var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-contact-form input:focus,
+.g2rd-contact-form select:focus,
+.g2rd-contact-form textarea:focus {
+  outline: none;
+  border-color: var(--g2rd-accent-deep, #4d7c0f);
+  box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.35);
+}
+.g2rd-contact-form label { font-weight: 600; font-size: 0.95rem; }
+.g2rd-contact-form input[type="submit"],
+.g2rd-contact-form button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 2.3rem;
+  border: 0;
+  border-radius: var(--g2rd-radius-full, 999px);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-ink, #020617);
+  transition: transform var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease),
+    background var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-contact-form input[type="submit"]:hover,
+.g2rd-contact-form button[type="submit"]:hover {
+  background: var(--g2rd-accent-hover, #84cc16);
+  transform: translateY(-2px);
+}
+
+/* Cartes d'infos (aside contact) */
+.g2rd-contact-aside { display: grid; gap: 1.25rem; align-content: start; }
+.g2rd-info-card {
+  padding: 1.6rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: #fff;
+}
+.g2rd-info-card h3 { font-size: 1.1rem; }
+.g2rd-info-card p, .g2rd-info-card ul { margin-top: 0.6rem; color: var(--g2rd-text-muted, #334155); font-size: 0.98rem; }
+.g2rd-info-card ul { list-style: none; padding: 0; display: grid; gap: 0.4rem; }
+.g2rd-info-card--dark {
+  background: var(--g2rd-ink, #020617);
+  border-color: var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  color: var(--g2rd-text-light, #f8fafc);
+}
+.g2rd-info-card--dark h3 { color: var(--g2rd-text-light, #f8fafc); }
+.g2rd-info-card--dark p { color: var(--g2rd-text-dim, #aab7c9); }
+.g2rd-info-card--dark a { color: var(--g2rd-accent, #a3e635); }
+
+/* ---- Pagination Query Loop stylée comme la maquette ---- */
+.g2rd-archive .wp-block-query-pagination { margin-top: 3.5rem; gap: 0.5rem; }
+.g2rd-archive .wp-block-query-pagination a,
+.g2rd-archive .wp-block-query-pagination .page-numbers {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.6rem; min-height: 2.6rem;
+  padding-inline: 0.8rem;
+  border-radius: var(--g2rd-radius-s, 8px);
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  font-weight: 600;
+  color: var(--g2rd-text-dark, #0f172a);
+  text-decoration: none;
+  transition: border-color var(--g2rd-anim-fast, 0.2s) var(--g2rd-anim-easing, ease);
+}
+.g2rd-archive .wp-block-query-pagination a:hover { border-color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-archive .wp-block-query-pagination .page-numbers.current {
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+  border-color: var(--g2rd-ink, #020617);
+}
+.g2rd-theme-ink .wp-block-query-pagination a,
+.g2rd-theme-ink .wp-block-query-pagination .page-numbers {
+  border-color: var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  color: var(--g2rd-text-light, #f8fafc);
+}
+.g2rd-theme-ink .wp-block-query-pagination .page-numbers.current {
+  background: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-ink, #020617);
+  border-color: var(--g2rd-accent, #a3e635);
+}
+
+/* ---- Contenu en sections pleines (single prestations, page WP Manager) ----
+   Le contenu de la page EST une suite de sections g2rd-section alignfull :
+   le wrapper ne rajoute aucun espacement, chaque section gère le sien.
+   Les blocs simples éventuels restent centrés (filet de sécurité). ---- */
+.g2rd-single-sections { padding-block: 0; }
+.g2rd-single-sections > .wp-block-post-content > * {
+  max-width: var(--g2rd-layout-content-width, 960px);
+  margin-inline: auto;
+}
+.g2rd-single-sections > .wp-block-post-content > .alignfull { max-width: none; }
+
+/* ---- Hero deux colonnes (page WP Manager) : texte + panneau injecté ---- */
+.g2rd-page-hero__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .g2rd-page-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+}
+
+
+/* ---- Section « Nous trouver » (page contact) : carte + coordonnées ---- */
+.g2rd-map-grid { display: grid; gap: 1.5rem; margin-top: 3rem; align-items: stretch; }
+@media (min-width: 900px) {
+  .g2rd-map-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); }
+}
+.g2rd-map-card { display: flex; flex-direction: column; gap: 0.4rem; }
+.g2rd-map-card p:last-child { margin-top: auto; padding-top: 1rem; font-size: var(--g2rd-type-small, 0.9rem); }
+.g2rd-map-slot {
+  border-radius: var(--g2rd-radius-l, 16px);
+  overflow: hidden;
+  min-height: 320px;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  background: #fff;
+}
+/* Le bloc carte inséré remplit l'emplacement, quel que soit son markup */
+.g2rd-map-slot > * { height: 100%; min-height: 320px; }
+.g2rd-map-slot iframe { display: block; width: 100%; height: 100%; min-height: 320px; border: 0; }
+.g2rd-map-slot__note {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  min-height: 320px;
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.8rem;
+  color: var(--g2rd-text-muted, #334155);
+}
+
+/* ==========================================================================
+   FICHES PRESTATIONS v1.5 — contenu enrichi (7 sections)
+   Comprendre + résumé GEO | Ce que comprend | Tarifs ou repères | Méthode
+   (timeline) | Pour qui | FAQ (bloc G2RD, mode GEO) | Aller plus loin.
+   Les blocs du thème parent (geo-summary, pricing-table, timeline, faq) sont
+   ramenés dans la charte par surcharge de leurs variables ou classes.
+   ========================================================================== */
+
+/* ---- 1. Comprendre : éditorial + résumé GEO en carte encre ---- */
+.g2rd-svc-intro__grid { display: grid; gap: 2.5rem; align-items: start; }
+@media (min-width: 960px) {
+  .g2rd-svc-intro__grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 5rem); }
+  .g2rd-svc-intro__aside { position: sticky; top: 6rem; }
+}
+.g2rd-svc-intro__body > p {
+  max-width: 62ch;
+  margin-top: 1.4rem;
+  color: var(--g2rd-muted, #334155);
+}
+.g2rd-svc-intro__body > .g2rd-section-head + p { margin-top: 2rem; }
+
+/* Résumé GEO : la carte mémorable de la page — fond encre, puces accent */
+.g2rd-svc-intro__aside .wp-block-g2rd-geo-summary {
+  margin: 0;
+  padding: 1.8rem 1.8rem 1.6rem;
+  border: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  border-left: 4px solid var(--g2rd-accent, #a3e635);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+  box-shadow: 0 24px 60px -30px rgba(2, 6, 23, 0.55);
+}
+.g2rd-svc-intro__aside .geo-summary__header { gap: 0.6rem; margin-bottom: 1rem; }
+.g2rd-svc-intro__aside .geo-summary__icon { display: none; }
+.g2rd-svc-intro__aside .geo-summary__tagline {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g2rd-accent, #a3e635);
+}
+.g2rd-svc-intro__aside .geo-summary__tagline::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+  background: var(--g2rd-accent, #a3e635);
+}
+.g2rd-svc-intro__aside .geo-summary__text {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--g2rd-text-light, #f8fafc);
+  margin-bottom: 1.2rem;
+}
+.g2rd-svc-intro__aside .geo-summary__points {
+  list-style: none;
+  margin: 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  display: grid;
+  gap: 0.6rem;
+}
+.g2rd-svc-intro__aside .geo-summary__point {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-svc-intro__aside .geo-summary__bullet { color: var(--g2rd-accent, #a3e635); font-size: 0.75rem; line-height: 1.7; }
+
+/* ---- 2. Ce que comprend : checklist existante (surface) ---- */
+.g2rd-svc-scope .g2rd-section-head p { max-width: 64ch; }
+
+/* ---- 3. Tarifs : bloc G2RD Tableau de prix ramené dans la charte ---- */
+.g2rd-svc-pricing__table { margin-top: 2.8rem; }
+.g2rd-svc-pricing__table .g2rd-pt__col {
+  border: 1px solid var(--g2rd-border-light, #e2e8f0) !important;
+  border-radius: var(--g2rd-radius-l, 16px) !important;
+  padding: 2rem 1.8rem !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: border-color var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-svc-pricing__table .g2rd-pt__col:hover { border-color: var(--g2rd-accent-deep, #4d7c0f) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__title {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.3rem !important;
+  letter-spacing: -0.02em;
+}
+.g2rd-svc-pricing__table .g2rd-pt__subtitle { opacity: 1 !important; color: var(--g2rd-muted, #334155); }
+.g2rd-svc-pricing__table .g2rd-pt__price { margin: 1.2rem 0 0.8rem !important; }
+.g2rd-svc-pricing__table .g2rd-pt__price-prefix {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem) !important;
+  letter-spacing: 0.06em;
+  opacity: 1 !important;
+  color: var(--g2rd-muted, #334155);
+}
+.g2rd-svc-pricing__table .g2rd-pt__price-amount {
+  font-family: var(--g2rd-font-display);
+  font-size: clamp(2rem, 3vw, 2.6rem) !important;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+.g2rd-svc-pricing__table .g2rd-pt__price-period { opacity: 1 !important; color: var(--g2rd-muted, #334155); }
+.g2rd-svc-pricing__table .g2rd-pt__description { opacity: 1 !important; color: var(--g2rd-muted, #334155); font-size: 0.95rem !important; }
+.g2rd-svc-pricing__table .g2rd-pt__features { font-size: 0.95rem !important; margin-bottom: 1.6rem !important; }
+.g2rd-svc-pricing__table .g2rd-pt__features li { align-items: flex-start !important; }
+.g2rd-svc-pricing__table .g2rd-pt__features li > span:first-child { color: var(--g2rd-accent-deep, #4d7c0f) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__badge {
+  font-family: var(--g2rd-font-mono);
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase;
+  background: var(--g2rd-accent, #a3e635) !important;
+  color: var(--g2rd-ink, #020617) !important;
+}
+.g2rd-svc-pricing__table .g2rd-pt__cta {
+  border-radius: var(--g2rd-radius-full, 999px) !important;
+  padding: 0.9rem 1.4rem !important;
+  font-family: var(--g2rd-font-display);
+  font-weight: 650 !important;
+  transition: background var(--g2rd-fast) var(--g2rd-ease), color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-svc-pricing__table .g2rd-pt__cta:hover { background: var(--g2rd-surface-soft, #1e293b) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__cta:focus-visible { outline: 3px solid var(--g2rd-primary, #0f172a); outline-offset: 3px; }
+/* Forfait mis en avant : carte encre, bouton accent */
+.g2rd-svc-pricing__table .g2rd-pt__col--featured {
+  background: var(--g2rd-ink, #020617) !important;
+  border-color: var(--g2rd-ink, #020617) !important;
+  color: var(--g2rd-text-light, #f8fafc) !important;
+}
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__subtitle,
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__price-prefix,
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__price-period,
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__description { color: var(--g2rd-text-dim, #aab7c9); }
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__price-amount { color: var(--g2rd-text-light, #f8fafc) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__features li > span:first-child { color: var(--g2rd-accent, #a3e635) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__cta {
+  background: var(--g2rd-accent, #a3e635) !important;
+  color: var(--g2rd-ink, #020617) !important;
+}
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__cta:hover { background: var(--g2rd-accent-hover, #84cc16) !important; }
+.g2rd-svc-pricing__table .g2rd-pt__col--featured .g2rd-pt__cta:focus-visible { outline-color: var(--g2rd-accent, #a3e635); }
+.g2rd-svc-pricing__note {
+  margin-top: 1.6rem;
+  max-width: 70ch;
+  font-size: var(--g2rd-size-small, 0.88rem);
+  color: var(--g2rd-muted, #334155);
+}
+
+/* ---- 3 bis. Repères (délai, budget, engagement) ---- */
+ul.g2rd-facts {
+  list-style: none;
+  padding: 0;
+  margin: 2.6rem 0 0;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 720px) { ul.g2rd-facts { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { ul.g2rd-facts { grid-template-columns: repeat(4, 1fr); } }
+.g2rd-facts li {
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-top: 3px solid var(--g2rd-accent, #a3e635);
+  border-radius: var(--g2rd-radius-m, 12px);
+  background: #fff;
+  color: var(--g2rd-muted, #334155);
+  font-size: 0.95rem;
+}
+.g2rd-facts li strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g2rd-text-dark, #0f172a);
+}
+
+/* ---- 4. Méthode : timeline G2RD sur fond encre, deux colonnes ---- */
+@media (min-width: 960px) {
+  .g2rd-svc-method > .g2rd-wide {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .g2rd-svc-method .g2rd-section-head { position: sticky; top: 6rem; }
+}
+.g2rd-svc-timeline {
+  margin-top: 2.5rem;
+  --g2rd-tl-trait: var(--g2rd-border-dark, rgba(148, 163, 184, 0.16));
+  --g2rd-tl-marqueur: var(--g2rd-accent, #a3e635);
+  --g2rd-tl-repere: var(--g2rd-accent, #a3e635);
+  --g2rd-tl-numero: var(--g2rd-text-dim, #aab7c9);
+  --g2rd-tl-attenue: var(--g2rd-text-dim, #aab7c9);
+  --g2rd-tl-serif: var(--g2rd-font-mono);
+  --g2rd-tl-vedette: 0.9rem;
+  --g2rd-tl-titre: 1.25rem;
+  --g2rd-tl-corps: 0.98rem;
+  --g2rd-tl-etiquette: var(--g2rd-size-meta, 0.78rem);
+}
+@media (min-width: 960px) { .g2rd-svc-timeline { margin-top: 0; } }
+.g2rd-svc-timeline .g2rd-timeline__etape { padding-inline-start: 2.2rem; padding-block-end: 2.4rem; }
+.g2rd-svc-timeline .g2rd-timeline__numero {
+  letter-spacing: 0.14em;
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-svc-timeline .g2rd-timeline__numero::before { content: "Étape "; }
+.g2rd-svc-timeline .g2rd-timeline__repere {
+  display: inline-block;
+  margin-block: 0.2rem 0.6rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid rgba(163, 230, 53, 0.35);
+  border-radius: var(--g2rd-radius-full, 999px);
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  letter-spacing: 0.06em;
+  color: var(--g2rd-accent, #a3e635);
+}
+.g2rd-svc-timeline .g2rd-timeline__repere::before { content: "Livrable : "; color: var(--g2rd-text-dim, #aab7c9); }
+.g2rd-svc-timeline .g2rd-timeline__titre {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--g2rd-text-light, #f8fafc);
+  margin: 0 0 0.5rem;
+}
+.g2rd-svc-timeline .g2rd-timeline__texte { max-width: 56ch; color: var(--g2rd-text-dim, #aab7c9); font-size: 0.98rem; }
+.g2rd-svc-timeline .g2rd-timeline__etape.est-fort .g2rd-timeline__titre {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.25rem;
+  font-weight: 650;
+  color: var(--g2rd-accent, #a3e635);
+}
+.g2rd-svc-timeline .g2rd-timeline__etape.est-fort .g2rd-timeline__repere { background: rgba(163, 230, 53, 0.12); }
+
+/* ---- 5. Pour qui : trois profils ---- */
+.g2rd-audience-grid { display: grid; gap: 1.25rem; margin-top: 2.8rem; }
+@media (min-width: 720px) { .g2rd-audience-grid { grid-template-columns: repeat(3, 1fr); } }
+.g2rd-audience {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.8rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.g2rd-audience h3 { font-size: 1.15rem; line-height: 1.25; }
+.g2rd-audience p { color: var(--g2rd-muted, #334155); font-size: 0.95rem; }
+
+/* ---- 6. FAQ : bloc G2RD FAQ (mode GEO) dans la charte ---- */
+.g2rd-faq-section .g2rd-section-head { max-width: none; }
+.g2rd-faq-block {
+  margin-top: 2.5rem;
+  --g2rd-faq-border: var(--g2rd-primary, #0f172a);
+  --g2rd-faq-separator: var(--g2rd-border-light, #e2e8f0);
+  --g2rd-faq-question-color: var(--g2rd-text-dark, #0f172a);
+  --g2rd-faq-answer-color: var(--g2rd-muted, #334155);
+  --g2rd-faq-icon-color: var(--g2rd-accent-deep, #4d7c0f);
+}
+.g2rd-faq-block .g2rd-faq__question { padding: 1.3rem 0.4rem 1.3rem 0; grid-template-columns: 2.4rem 1fr auto; }
+.g2rd-faq-block .g2rd-faq__question::before { color: var(--g2rd-accent-deep, #4d7c0f); opacity: 0.9; }
+.g2rd-faq-block .g2rd-faq__question-text {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.12rem;
+  font-weight: 650;
+}
+.g2rd-faq-block .g2rd-faq__icon { opacity: 1; }
+.g2rd-faq-block .g2rd-faq__item::after { background: var(--g2rd-accent, #a3e635); }
+.g2rd-faq-block .g2rd-faq__answer-inner { padding-left: 2.4rem; }
+.g2rd-faq-block .g2rd-faq__answer-inner p { max-width: 68ch; color: var(--g2rd-muted, #334155); }
+.g2rd-faq-block .g2rd-faq__answer-inner a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-faq-block .g2rd-faq__details[open] .g2rd-faq__answer-inner { padding-bottom: 1.4rem; }
+.g2rd-faq-block .g2rd-faq__question:focus-visible { outline: 3px solid var(--g2rd-primary, #0f172a); outline-offset: 3px; }
+
+/* ---- 7. Aller plus loin : prestations liées ---- */
+ul.g2rd-related__list { list-style: none; padding: 0; margin: 2.4rem 0 0; display: grid; gap: 1rem; }
+@media (min-width: 760px) { ul.g2rd-related__list { grid-template-columns: repeat(3, 1fr); } }
+.g2rd-related__list li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.5rem 3rem 1.5rem 1.5rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-m, 12px);
+  background: #fff;
+  color: var(--g2rd-muted, #334155);
+  font-size: 0.95rem;
+  transition: border-color var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-related__list li:hover { border-color: var(--g2rd-accent-deep, #4d7c0f); transform: translateY(-2px); }
+.g2rd-related__list li::after {
+  content: "→";
+  position: absolute;
+  top: 1.35rem; right: 1.3rem;
+  font-size: 1.2rem;
+  color: var(--g2rd-accent-deep, #4d7c0f);
+  transition: transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-related__list li:hover::after { transform: translateX(4px); }
+.g2rd-related ul.g2rd-related__list li a {
+  font-family: var(--g2rd-font-display);
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--g2rd-text-dark, #0f172a);
+  text-decoration: none;
+}
+.g2rd-related__list a::after { content: ""; position: absolute; inset: 0; } /* carte cliquable */
+.g2rd-related__list a:focus-visible { outline: none; }
+.g2rd-related__list li:has(a:focus-visible) { outline: 3px solid var(--g2rd-primary, #0f172a); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-related__list li, .g2rd-related__list li::after, .g2rd-svc-pricing__table .g2rd-pt__col { transition: none; }
+  .g2rd-related__list li:hover { transform: none; }
+}
+
+/* ==========================================================================
+   ARTICLES v1.6 — single.html : colonne de lecture + barre latérale collante
+   (sommaire, CTA devis, prestations, partage, auteur). Fil d'Ariane du parent.
+   ========================================================================== */
+.g2rd-page-hero .wp-block-g2rd-breadcrumb,
+.g2rd-page-hero .g2rd-breadcrumb {
+  margin: 0 0 1.4rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  letter-spacing: 0.04em;
+  color: var(--g2rd-text-dim, #aab7c9);
+}
+.g2rd-page-hero .g2rd-breadcrumb a,
+.g2rd-page-hero .g2rd-breadcrumb__link { color: var(--g2rd-text-dim, #aab7c9); text-decoration: none; }
+.g2rd-page-hero .g2rd-breadcrumb a:hover,
+.g2rd-page-hero .g2rd-breadcrumb__link:hover { color: var(--g2rd-accent, #a3e635); }
+.g2rd-page-hero .g2rd-breadcrumb__separator { margin-inline: 0.5rem; opacity: 0.6; }
+.g2rd-page-hero .g2rd-breadcrumb__current { color: var(--g2rd-text-light, #f8fafc); }
+.g2rd-page-hero .g2rd-breadcrumb ol,
+.g2rd-page-hero .g2rd-breadcrumb ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.2rem 0; }
+
+.g2rd-article-hero .g2rd-article-hero__terms { margin-top: 0; margin-bottom: 1rem; align-items: center; }
+.g2rd-article-hero .g2rd-article-hero__terms .g2rd-meta { margin: 0; }
+.g2rd-article-hero .g2rd-article-hero__terms .wp-block-post-terms { font-family: var(--g2rd-font-mono); font-size: var(--g2rd-size-meta, 0.78rem); letter-spacing: 0.06em; text-transform: uppercase; }
+.g2rd-article-hero .g2rd-article-hero__byline { margin-top: 1.6rem; text-transform: none; letter-spacing: 0.02em; }
+.g2rd-article-hero .g2rd-article-hero__byline > * + *::before { content: "·"; margin-right: 0.9rem; color: var(--g2rd-accent, #a3e635); }
+.g2rd-article-hero .wp-block-post-excerpt__more-text { display: none; }
+
+/* Grille : lecture à gauche, barre latérale à droite (collante) */
+.g2rd-article { padding-block: clamp(3rem, 6vw, 5rem) var(--g2rd-section-y, clamp(5rem, 10vw, 8.5rem)); }
+.g2rd-article__grid { display: grid; gap: 3rem; align-items: start; }
+@media (min-width: 1024px) {
+  .g2rd-article__grid { grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(3rem, 6vw, 6rem); }
+  .g2rd-article__aside { position: sticky; top: 6rem; }
+}
+.g2rd-article__main { min-width: 0; max-width: 72ch; }
+.g2rd-article__main .g2rd-single-featured { margin-bottom: 2.5rem; }
+.g2rd-article__main .g2rd-single-featured .wp-block-post-featured-image { max-width: none; margin: 0; padding: 0; }
+.g2rd-article__main .g2rd-single-featured img { width: 100%; height: auto; border-radius: var(--g2rd-radius-l, 16px); box-shadow: 0 24px 60px -30px rgba(2, 6, 23, 0.35); }
+
+/* Typographie de lecture (articles et fiches produits) */
+.g2rd-prose > .wp-block-post-content > * { max-width: none; }
+.g2rd-prose .wp-block-post-content > p,
+.g2rd-prose .wp-block-post-content > ul,
+.g2rd-prose .wp-block-post-content > ol { font-size: 1.08rem; line-height: 1.75; color: var(--g2rd-muted, #334155); }
+.g2rd-prose .wp-block-post-content h2 { scroll-margin-top: 6rem; }
+.g2rd-prose .wp-block-post-content h3 { scroll-margin-top: 6rem; font-size: 1.3rem; }
+.g2rd-prose .wp-block-post-content blockquote {
+  margin: 2rem 0;
+  padding: 0.6rem 0 0.6rem 1.4rem;
+  border-left: 3px solid var(--g2rd-accent, #a3e635);
+  font-family: var(--g2rd-font-display);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--g2rd-text-dark, #0f172a);
+}
+.g2rd-prose .wp-block-post-content figure { margin-block: 2rem; }
+.g2rd-prose .wp-block-post-content figcaption { font-family: var(--g2rd-font-mono); font-size: var(--g2rd-size-meta, 0.78rem); color: var(--g2rd-muted, #334155); margin-top: 0.6rem; }
+.g2rd-prose .wp-block-post-content a:not(.wp-element-button) { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-prose .wp-block-post-content pre { border-radius: var(--g2rd-radius-m, 12px); }
+.g2rd-prose .wp-block-post-content table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.g2rd-prose .wp-block-post-content th,
+.g2rd-prose .wp-block-post-content td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--g2rd-border-light, #e2e8f0); text-align: left; }
+
+.g2rd-article__tags { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--g2rd-border-light, #e2e8f0); font-family: var(--g2rd-font-mono); font-size: var(--g2rd-size-meta, 0.78rem); letter-spacing: 0.04em; color: var(--g2rd-muted, #334155); }
+.g2rd-article__tags .wp-block-post-terms a {
+  display: inline-block;
+  margin: 0 0.35rem 0.35rem 0;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-full, 999px);
+  color: var(--g2rd-text-dark, #0f172a);
+  text-decoration: none;
+}
+.g2rd-article__tags .wp-block-post-terms a:hover { border-color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-article__tags .wp-block-post-terms__separator { display: none; }
+.g2rd-article__tags .wp-block-post-terms:empty { display: none; }
+
+/* ---- Cartes de la barre latérale (articles et produits) ---- */
+.g2rd-article__aside,
+.g2rd-product-details__aside { display: grid; gap: 1.25rem; }
+.g2rd-aside-card {
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.g2rd-aside-card__label {
+  margin: 0 0 0.9rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g2rd-muted, #334155);
+}
+/* Sommaire (bloc parent g2rd/table-of-contents) */
+.g2rd-aside-card--toc .g2rd-toc__title {
+  margin: 0 0 0.9rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g2rd-muted, #334155);
+}
+.g2rd-aside-card--toc .g2rd-toc__list { list-style: none; padding: 0; margin: 0; }
+.g2rd-aside-card--toc .g2rd-toc__item { margin: 0; }
+.g2rd-aside-card--toc .g2rd-toc__item--h3 { padding-left: 1rem; }
+.g2rd-aside-card--toc .g2rd-toc__link {
+  display: block;
+  padding: 0.45rem 0 0.45rem 0.9rem;
+  border-left: 2px solid var(--g2rd-border-light, #e2e8f0);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: var(--g2rd-muted, #334155);
+  text-decoration: none;
+  transition: color var(--g2rd-fast) var(--g2rd-ease), border-color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-aside-card--toc .g2rd-toc__item--h3 .g2rd-toc__link { font-size: 0.86rem; }
+.g2rd-aside-card--toc .g2rd-toc__link:hover,
+.g2rd-aside-card--toc .g2rd-toc__link:focus-visible { color: var(--g2rd-text-dark, #0f172a); border-color: var(--g2rd-accent, #a3e635); text-decoration: none; }
+.g2rd-aside-card--toc .g2rd-toc__empty { font-size: 0.9rem; color: var(--g2rd-muted, #334155); margin: 0; }
+.g2rd-aside-card--toc .g2rd-toc:not(.is-initialized) .g2rd-toc__list-container:empty { display: none; }
+.g2rd-aside-card--toc:has(.g2rd-toc__empty) { display: none; }
+/* CTA devis : la carte mise en avant, fond encre */
+.g2rd-aside-card--cta {
+  border-color: var(--g2rd-ink, #020617);
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+  box-shadow: 0 24px 60px -30px rgba(2, 6, 23, 0.55);
+}
+.g2rd-aside-card--cta .g2rd-meta { margin-bottom: 0.9rem; }
+.g2rd-aside-card__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--g2rd-font-display);
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--g2rd-text-light, #f8fafc);
+}
+.g2rd-aside-card--cta p:not(.g2rd-meta):not(.g2rd-aside-card__title) { font-size: 0.95rem; color: var(--g2rd-text-dim, #aab7c9); }
+.g2rd-aside-card__actions { margin-top: 1.2rem; }
+.g2rd-aside-card__actions .wp-block-button__link { width: 100%; justify-content: center; }
+.g2rd-aside-card__contact { margin-top: 1rem !important; font-size: 0.9rem !important; line-height: 1.8; }
+.g2rd-aside-card--cta .g2rd-aside-card__contact a { color: var(--g2rd-text-light, #f8fafc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--g2rd-accent, #a3e635); }
+/* Prestations */
+ul.g2rd-aside-links { list-style: none; margin: 0; padding: 0; }
+.g2rd-aside-links li { margin: 0; border-top: 1px solid var(--g2rd-border-light, #e2e8f0); }
+.g2rd-aside-links li:first-child { border-top: 0; }
+.g2rd-aside-links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--g2rd-text-dark, #0f172a);
+  text-decoration: none;
+}
+.g2rd-aside-links a::after { content: "→"; color: var(--g2rd-accent-deep, #4d7c0f); transition: transform var(--g2rd-fast) var(--g2rd-ease); }
+.g2rd-aside-links a:hover { color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-aside-links a:hover::after { transform: translateX(4px); }
+ol.g2rd-aside-steps { margin: 0; padding-left: 1.3rem; font-size: 0.92rem; line-height: 1.5; color: var(--g2rd-muted, #334155); }
+.g2rd-aside-steps li { margin-bottom: 0.6rem; padding-left: 0.2rem; }
+.g2rd-aside-steps li::marker { font-family: var(--g2rd-font-mono); font-weight: 600; color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-aside-card__more { margin: 1rem 0 0; font-size: 0.92rem; }
+.g2rd-aside-card__more a { font-weight: 600; color: var(--g2rd-accent-deep, #4d7c0f); }
+/* Partage (bloc parent g2rd/share-buttons) */
+.g2rd-aside-card--share .g2rd-share-buttons__list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.g2rd-aside-card--share .g2rd-share-buttons__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: 50%;
+  background: var(--g2rd-surface, #f1f5f9);
+  color: var(--g2rd-text-dark, #0f172a);
+  transition: background var(--g2rd-fast) var(--g2rd-ease), border-color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-aside-card--share .g2rd-share-buttons__link:hover { background: var(--g2rd-accent, #a3e635); border-color: var(--g2rd-accent, #a3e635); }
+.g2rd-aside-card--share .g2rd-share-buttons__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+/* Auteur (bloc cœur) */
+.g2rd-aside-card--author .wp-block-post-author { display: flex; gap: 0.9rem; align-items: flex-start; }
+.g2rd-aside-card--author .wp-block-post-author__avatar img { border-radius: 50%; width: 48px; height: 48px; }
+.g2rd-aside-card--author .wp-block-post-author__byline { font-family: var(--g2rd-font-mono); font-size: var(--g2rd-size-meta, 0.78rem); color: var(--g2rd-muted, #334155); }
+.g2rd-aside-card--author .wp-block-post-author__name { font-family: var(--g2rd-font-display); font-weight: 650; font-size: 1rem; }
+.g2rd-aside-card--author .wp-block-post-author__bio { margin-top: 0.4rem; font-size: 0.88rem; line-height: 1.5; color: var(--g2rd-muted, #334155); }
+.g2rd-aside-card--author .wp-block-post-author__bio:empty { display: none; }
+@media (max-width: 1023px) {
+  .g2rd-article__aside { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g2rd-aside-card--toc { display: none; } /* le sommaire n'a de sens qu'en colonne collante */
+}
+
+/* ==========================================================================
+   PRODUITS FLUENTCART v1.6 — single-fluent-products.html dans la charte
+   (avant : template du parent, palette beige / tutoiement)
+   ========================================================================== */
+.g2rd-product-hero .g2rd-page-hero__lead { margin-top: 1.2rem; }
+.g2rd-product-hero { padding-bottom: clamp(7rem, 12vw, 10rem); }
+
+/* Carte d'achat : chevauche le hero */
+.g2rd-product-buy { padding-bottom: 0; }
+.g2rd-product-buy > .g2rd-wide { margin-top: clamp(-5rem, -8vw, -7rem); position: relative; z-index: 2; }
+.g2rd-product-card {
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: #fff;
+  box-shadow: 0 30px 80px -40px rgba(2, 6, 23, 0.45);
+  overflow: hidden;
+}
+.g2rd-product-card .wp-block-columns { gap: 0; margin: 0; }
+.g2rd-product-card__media {
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--g2rd-surface, #f1f5f9);
+  border-right: 1px solid var(--g2rd-border-light, #e2e8f0);
+}
+.g2rd-product-card .fct-product-gallery-wrapper { width: 100%; }
+.g2rd-product-card .fct-product-gallery-thumb img,
+.g2rd-product-card .fct-product-gallery-wrapper img { width: 100%; height: auto; border-radius: var(--g2rd-radius-m, 12px); }
+.g2rd-product-card__body { padding: clamp(1.8rem, 3vw, 2.8rem); }
+.g2rd-product-card__label {
+  margin: 0 0 0.6rem;
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g2rd-accent-deep, #4d7c0f);
+}
+/* Fourchette de prix */
+.g2rd-product-card .fct-product-card-prices { margin: 0 0 0.6rem; }
+.g2rd-product-card .fct-product-card-prices .fct-item-price {
+  font-family: var(--g2rd-font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  color: var(--g2rd-text-dark, #0f172a);
+}
+/* Stock / SKU : discrets, en mono */
+.g2rd-product-card .fct-product-sku-info,
+.g2rd-product-card [class*="fct-stock"],
+.g2rd-product-card .wp-block-fluent-cart-stock {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-meta, 0.78rem);
+  letter-spacing: 0.04em;
+  color: var(--g2rd-muted, #334155);
+}
+.g2rd-product-card .fct-product-sku-info { margin-bottom: 0.4rem; }
+.g2rd-product-card .wp-block-fluent-cart-product-package-description { font-size: 0.95rem; color: var(--g2rd-muted, #334155); }
+/* Variantes (Mensuel / Annuel) en pastilles */
+.g2rd-product-card .fct_buy_section { margin-top: 1.4rem; padding-top: 1.4rem; border-top: 1px solid var(--g2rd-border-light, #e2e8f0); }
+.g2rd-product-card .fct-product-variants { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
+.g2rd-product-card .fct-product-variant-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-full, 999px);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--g2rd-text-dark, #0f172a);
+  transition: border-color var(--g2rd-fast) var(--g2rd-ease), background var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-product-card .fct-product-variant-item:hover { border-color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-product-card .fct-product-variant-item.selected,
+.g2rd-product-card .fct-product-variant-item[aria-checked="true"] {
+  border-color: var(--g2rd-ink, #020617);
+  background: var(--g2rd-ink, #020617);
+  color: var(--g2rd-text-light, #f8fafc);
+}
+.g2rd-product-card .fct-product-variant-item:focus-visible { outline: 3px solid var(--g2rd-primary, #0f172a); outline-offset: 3px; }
+.g2rd-product-card .fct-product-variant-image { display: none; } /* image générique de FluentCart */
+.g2rd-product-card .fct-product-variant-title { font-size: inherit; }
+.g2rd-product-card .fct-product-item-price { margin-bottom: 1rem; }
+.g2rd-product-card .fct-product-payment-type {
+  font-family: var(--g2rd-font-mono);
+  font-size: var(--g2rd-size-small, 0.88rem);
+  letter-spacing: 0.04em;
+  color: var(--g2rd-muted, #334155);
+}
+.g2rd-product-card .fct-product-buttons-wrap { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.g2rd-product-card .fluent-cart-direct-checkout-button,
+.g2rd-product-card .fct-add-to-cart-button,
+.g2rd-product-card .wp-block-fluent-cart-buy-section {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.8rem;
+  border: 0;
+  border-radius: var(--g2rd-radius-full, 999px);
+  background: var(--g2rd-accent, #a3e635);
+  color: var(--g2rd-ink, #020617);
+  font-family: var(--g2rd-font-display);
+  font-weight: 650;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-product-card .fluent-cart-direct-checkout-button:hover,
+.g2rd-product-card .fct-add-to-cart-button:hover { background: var(--g2rd-accent-hover, #84cc16); transform: translateY(-2px); }
+.g2rd-product-card .fluent-cart-direct-checkout-button:focus-visible { outline: 3px solid var(--g2rd-primary, #0f172a); outline-offset: 3px; }
+/* Réassurance */
+ul.g2rd-product-card__reassurance { list-style: none; margin: 1.6rem 0 0; padding: 1.2rem 0 0; border-top: 1px solid var(--g2rd-border-light, #e2e8f0); display: grid; gap: 0.5rem; }
+.g2rd-product-card__reassurance li { position: relative; padding-left: 1.5rem; font-size: 0.9rem; color: var(--g2rd-muted, #334155); }
+.g2rd-product-card__reassurance li::before { content: "✓"; position: absolute; left: 0; top: 0; font-weight: 700; color: var(--g2rd-accent-deep, #4d7c0f); }
+@media (max-width: 781px) {
+  .g2rd-product-card .wp-block-columns { flex-wrap: wrap; }
+  .g2rd-product-card__media { border-right: 0; border-bottom: 1px solid var(--g2rd-border-light, #e2e8f0); }
+  .g2rd-product-card .wp-block-column { flex-basis: 100% !important; }
+}
+
+/* Détails : présentation à gauche, aide à droite */
+.g2rd-product-details__grid { display: grid; gap: 3rem; align-items: start; }
+@media (min-width: 1024px) {
+  .g2rd-product-details__grid { grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(3rem, 6vw, 6rem); }
+  .g2rd-product-details__aside { position: sticky; top: 6rem; }
+}
+.g2rd-product-details__main { min-width: 0; max-width: 72ch; }
+.g2rd-product-details__main .g2rd-section-head { margin-bottom: 2rem; }
+.g2rd-product-details .g2rd-prose .wp-block-post-content h2 { font-size: 1.5rem; margin-block: 1.8em 0.6em; }
+.g2rd-product-details .g2rd-prose .wp-block-post-content h3 { font-size: 1.2rem; }
+.g2rd-product-details .g2rd-prose .wp-block-post-content ul { padding-left: 0; list-style: none; }
+.g2rd-product-details .g2rd-prose .wp-block-post-content ul li { position: relative; padding-left: 1.5rem; margin-bottom: 0.4rem; }
+.g2rd-product-details .g2rd-prose .wp-block-post-content ul li::before { content: "✓"; position: absolute; left: 0; font-weight: 700; color: var(--g2rd-accent-deep, #4d7c0f); }
+
+/* Produits associés (shortcode FluentCart) dans la charte */
+.g2rd-product-related .fct-product-list-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.g2rd-product-related .fct-product-list-container { margin-top: 2.6rem; }
+.g2rd-product-related .fct-product-list { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.g2rd-product-related .fct-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.2rem;
+  border: 1px solid var(--g2rd-border-light, #e2e8f0);
+  border-radius: var(--g2rd-radius-l, 16px);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color var(--g2rd-fast) var(--g2rd-ease), transform var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-product-related .fct-product-card:hover { border-color: var(--g2rd-accent-deep, #4d7c0f); transform: translateY(-3px); }
+.g2rd-product-related .fct-product-card-image-wrap { display: block; border-radius: var(--g2rd-radius-m, 12px); overflow: hidden; background: var(--g2rd-surface, #f1f5f9); margin-bottom: 1rem; }
+.g2rd-product-related .fct-product-card-image { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; }
+.g2rd-product-related .fct-product-card > p:empty { display: none; }
+.g2rd-product-related .fct-product-card-title { font-size: 1.1rem; margin: 0 0 0.4rem; }
+.g2rd-product-related .fct-product-card-title a { color: var(--g2rd-text-dark, #0f172a); text-decoration: none; }
+.g2rd-product-related .fct-product-card-title a:hover { color: var(--g2rd-accent-deep, #4d7c0f); }
+.g2rd-product-related .fct-product-card-excerpt { flex: 1; font-size: 0.9rem; line-height: 1.5; color: var(--g2rd-muted, #334155); margin: 0 0 0.8rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.g2rd-product-related .fct-product-card-prices { margin-bottom: 0.9rem; }
+.g2rd-product-related .fct-product-card-prices .fct-item-price { font-family: var(--g2rd-font-display); font-weight: 750; font-size: 1.25rem; color: var(--g2rd-text-dark, #0f172a); }
+.g2rd-product-related .fct-product-view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--g2rd-ink, #020617);
+  border-radius: var(--g2rd-radius-full, 999px);
+  background: transparent;
+  color: var(--g2rd-ink, #020617);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background var(--g2rd-fast) var(--g2rd-ease), color var(--g2rd-fast) var(--g2rd-ease);
+}
+.g2rd-product-related .fct-product-view-button:hover { background: var(--g2rd-ink, #020617); color: var(--g2rd-text-light, #f8fafc); }
+@media (prefers-reduced-motion: reduce) {
+  .g2rd-product-related .fct-product-card, .g2rd-product-card .fluent-cart-direct-checkout-button, .g2rd-aside-links a::after { transition: none; }
+  .g2rd-product-related .fct-product-card:hover, .g2rd-product-card .fluent-cart-direct-checkout-button:hover { transform: none; }
+}

@@ -25,6 +25,9 @@ grep -qF 'g2rd-theme/index.php'    <<< "$LIST" || fail "g2rd-theme/index.php abs
 if grep -qE 'g2rd-theme/(vendor|node_modules)/' <<< "$LIST"; then
   fail "vendor ou node_modules présent dans le ZIP (exclusion attendue)"
 fi
+if grep -qE 'g2rd-theme/child-themes/' <<< "$LIST"; then
+  fail "child-themes/ présent dans le ZIP (exclusion attendue)"
+fi
 if grep -qE 'g2rd-theme/(composer\.json|composer\.lock|package\.json|package-lock\.json)$' <<< "$LIST"; then
   fail "fichiers composer/package racine présents dans le ZIP (exclusion attendue)"
 fi

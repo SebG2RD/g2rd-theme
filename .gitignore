@@ -84,8 +84,9 @@ skills-lock.json
 # Lock files des workspaces npm (le lock file racine fait autorité)
 blocks/*/package-lock.json
 
-# Thème enfant (source locale — à déployer manuellement dans wp-content/themes/)
-g2rd-child/
+# Thème enfant de travail à la racine (source locale — à déployer manuellement dans wp-content/themes/).
+# Motif ancré à la racine : les thèmes enfants de référence dans child-themes/ SONT versionnés.
+/g2rd-child/
 
 # Documentation interne (specs, notes de conception — non pertinentes pour le dépôt)
 # docs/internal/ est une exception : décisions d'architecture à versionner

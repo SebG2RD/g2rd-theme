@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "custom": {
+      "g2rdRefonte": {
+        "note": "Les tokens visuels proviennent de g2rd.json (racine du theme parent), injectes en custom properties --g2rd-* par le theme enfant. Ce theme.json ne duplique pas ces valeurs.",
+        "sizeDisplay": "clamp(2.75rem, 6.6vw, 6rem)",
+        "sizeH2": "clamp(2rem, 4.2vw, 3.4rem)"
+      }
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--inter)"
+    }
+  }
+}
