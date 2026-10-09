@@ -92,7 +92,7 @@
     "markdownlint-cli": "^0.48.0",
     "markdownlint": "^0.38.0",
     "markdown-it": "^14.3.2",
-    "smol-toml": ">=1.8.0",
+    "smol-toml": ">=1.9.0",
     "serialize-javascript": "^7.0.5",
     "webpack-dev-server": "^5.2.5",
     "http-proxy-middleware": "^2.0.10",
@@ -113,7 +113,7 @@
       "markdownlint-cli": "^0.48.0",
       "markdownlint": "^0.38.0",
       "markdown-it": "^14.1.1",
-      "smol-toml": ">=1.8.0",
+      "smol-toml": ">=1.9.0",
       "serialize-javascript": "^7.0.5",
       "webpack-dev-server": "^5.2.5",
       "uuid": ">=11.1.1",
@@ -124,6 +124,19 @@
     },
     "nanoid": "^3.3.17",
     "svgo": "^3.3.5",
-    "colord": ">=2.9.4"
+    "colord": ">=2.9.4",
+    "shell-quote": ">=1.11.0",
+    "katex": ">=0.18.2",
+    "source-map-js": ">=1.2.2",
+    "proxy-addr": ">=2.0.8",
+    "compression": ">=1.8.2",
+    "postcss-selector-parser": ">=7.1.6",
+    "@opentelemetry/instrumentation-pg": ">=0.73.0",
+    "@opentelemetry/instrumentation-mysql2": ">=0.67.0",
+    "@opentelemetry/instrumentation-knex": ">=0.65.0",
+    "@opentelemetry/instrumentation-mysql": ">=0.67.0",
+    "@opentelemetry/instrumentation-mongoose": ">=0.67.0",
+    "@opentelemetry/instrumentation-tedious": ">=0.40.0",
+    "fast-uri": "^3.1.8"
   }
 }
