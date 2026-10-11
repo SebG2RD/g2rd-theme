@@ -1,0 +1,612 @@
+/* ==========================================================================
+   TCGForge — catalog.css
+   Grilles et cartes produit, filtres, tri, pagination du catalogue.
+
+   Deux balisages de carte coexistent et partagent le même dessin :
+     - blocs WooCommerce : ul.wc-block-product-template > li.wc-block-product
+     - boucle classique  : .woocommerce ul.products > li.product
+       (shortcodes, pages de licence, produits liés, ventes croisées)
+
+   Ordre de lecture d'une carte : visuel, statut, licence, nom, extension,
+   langue, prix, sortie, bouton.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Grille
+   -------------------------------------------------------------------------- */
+
+.tcgf .woocommerce ul.products,
+ul.wc-block-product-template.wc-block-product-template {
+	--tcgf-cols: 4;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: clamp(0.6rem, 1.6vw, 1.25rem);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Le clearfix flottant de WooCommerce deviendrait une cellule de grille. */
+.tcgf .woocommerce ul.products::before,
+.tcgf .woocommerce ul.products::after {
+	content: none;
+	display: none;
+}
+
+@media (min-width: 600px) {
+	.tcgf .woocommerce ul.products,
+	ul.wc-block-product-template.wc-block-product-template {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.tcgf .woocommerce ul.products,
+	ul.wc-block-product-template.wc-block-product-template {
+		grid-template-columns: repeat(var(--tcgf-cols), minmax(0, 1fr));
+	}
+
+	.tcgf-catalog ul.wc-block-product-template.wc-block-product-template {
+		--tcgf-cols: 3;
+	}
+}
+
+@media (min-width: 1280px) {
+	.tcgf-catalog ul.wc-block-product-template.wc-block-product-template {
+		--tcgf-cols: 4;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Carte produit
+   -------------------------------------------------------------------------- */
+
+.tcgf .woocommerce ul.products li.product,
+ul.wc-block-product-template > li {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+	float: none;
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	padding: clamp(0.5rem, 1.2vw, 0.8rem);
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	overflow: hidden;
+	text-align: left;
+	transition:
+		border-color var(--tcgf-anim-fast) var(--tcgf-anim-easing),
+		transform var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+}
+
+.tcgf .woocommerce ul.products li.product > *,
+ul.wc-block-product-template > li > * {
+	margin: 0;
+}
+
+/* Tranche « holo » : signature de la carte, révélée au survol et au focus. */
+.tcgf .woocommerce ul.products li.product::after,
+ul.wc-block-product-template > li::after {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 3px;
+	background: var(--tcgf-foil);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform var(--tcgf-anim-base) var(--tcgf-anim-easing);
+	pointer-events: none;
+}
+
+.tcgf .woocommerce ul.products li.product:hover,
+.tcgf .woocommerce ul.products li.product:focus-within,
+ul.wc-block-product-template > li:hover,
+ul.wc-block-product-template > li:focus-within {
+	border-color: var(--tcgf-bordure-forte);
+}
+
+.tcgf .woocommerce ul.products li.product:hover::after,
+.tcgf .woocommerce ul.products li.product:focus-within::after,
+ul.wc-block-product-template > li:hover::after,
+ul.wc-block-product-template > li:focus-within::after {
+	transform: scaleX(1);
+}
+
+/* Boucle classique : le lien enveloppe visuel, titre et prix. */
+.tcgf .woocommerce ul.products li.product a.woocommerce-LoopProduct-link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+	color: var(--tcgf-blanc);
+	text-decoration: none;
+}
+
+/* Visuel : jamais recadré. Un booster est vertical, un display horizontal. */
+.tcgf .woocommerce ul.products li.product a img,
+ul.wc-block-product-template .wc-block-components-product-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: contain;
+	margin: 0;
+	padding: 6%;
+	box-sizing: border-box;
+	background: radial-gradient(circle at 50% 40%, var(--tcgf-surface-2), var(--tcgf-noir));
+	border-radius: var(--tcgf-radius-s);
+	transition: transform var(--tcgf-anim-base) var(--tcgf-anim-easing);
+}
+
+ul.wc-block-product-template .wc-block-components-product-image {
+	margin: 0;
+	border-radius: var(--tcgf-radius-s);
+	overflow: hidden;
+}
+
+ul.wc-block-product-template .wc-block-components-product-image a {
+	display: block;
+}
+
+.tcgf .woocommerce ul.products li.product:hover a img,
+ul.wc-block-product-template > li:hover .wc-block-components-product-image img {
+	transform: scale(1.03);
+}
+
+/* Badges posés sur le visuel */
+.tcgf .woocommerce ul.products li.product .tcgf-badges,
+ul.wc-block-product-template > li .tcgf-block-badges {
+	position: absolute;
+	top: clamp(0.85rem, 1.8vw, 1.2rem);
+	left: clamp(0.85rem, 1.8vw, 1.2rem);
+	right: clamp(0.85rem, 1.8vw, 1.2rem);
+	z-index: 2;
+	pointer-events: none;
+}
+
+/* Nom du produit */
+.tcgf .woocommerce ul.products li.product .woocommerce-loop-product__title,
+ul.wc-block-product-template > li .wp-block-post-title {
+	font-family: var(--tcgf-font-titres);
+	font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+	font-weight: 700;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	padding: 0;
+	color: var(--tcgf-blanc);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+ul.wc-block-product-template > li .wp-block-post-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.tcgf .woocommerce ul.products li.product a.woocommerce-LoopProduct-link:hover .woocommerce-loop-product__title,
+ul.wc-block-product-template > li .wp-block-post-title a:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-violet-clair);
+	text-underline-offset: 0.2em;
+}
+
+/* Prix */
+.tcgf .woocommerce ul.products li.product .price,
+ul.wc-block-product-template > li .wc-block-components-product-price {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.1rem 0.5rem;
+	font-family: var(--tcgf-font-titres);
+	font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+	font-weight: 800;
+	color: var(--tcgf-blanc);
+	line-height: 1.2;
+}
+
+.tcgf .woocommerce ul.products li.product .price del,
+ul.wc-block-product-template > li .wc-block-components-product-price del {
+	color: var(--tcgf-attenue);
+	font-size: 0.82em;
+	font-weight: 500;
+	opacity: 1;
+}
+
+.tcgf .woocommerce ul.products li.product .price ins,
+ul.wc-block-product-template > li .wc-block-components-product-price ins {
+	text-decoration: none;
+	background: none;
+	color: var(--tcgf-blanc);
+}
+
+.tcgf .woocommerce ul.products li.product .star-rating {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--tcgf-or);
+}
+
+/* Bouton d'achat : pleine largeur, toujours en bas de la carte. */
+.tcgf .woocommerce ul.products li.product > .button,
+.tcgf .woocommerce ul.products li.product > .added_to_cart,
+ul.wc-block-product-template > li .wc-block-components-product-button {
+	margin-block-start: auto;
+}
+
+.tcgf .woocommerce ul.products li.product > .button,
+ul.wc-block-product-template > li .wc-block-components-product-button .wp-block-button__link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 2.75rem;
+	padding: 0.55rem 0.6rem;
+	box-sizing: border-box;
+	background: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+	border: 0;
+	border-radius: var(--tcgf-radius-s);
+	font-family: var(--tcgf-font-titres);
+	font-size: var(--tcgf-type-small);
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+	text-decoration: none;
+}
+
+.tcgf .woocommerce ul.products li.product > .button:hover,
+ul.wc-block-product-template > li .wc-block-components-product-button .wp-block-button__link:hover {
+	background: var(--tcgf-violet-fonce);
+	color: var(--tcgf-blanc);
+}
+
+.tcgf .woocommerce ul.products li.product > .button.loading {
+	opacity: 0.7;
+}
+
+.tcgf .woocommerce ul.products li.product > .added_to_cart,
+ul.wc-block-product-template > li .wc-block-components-product-button .added_to_cart {
+	display: block;
+	text-align: center;
+	font-size: var(--tcgf-type-meta);
+	color: var(--tcgf-lien);
+	padding: 0.2rem 0;
+}
+
+/* Produit en rupture : la carte reste lisible, le visuel s'efface. */
+.tcgf .woocommerce ul.products li.product.outofstock a img,
+ul.wc-block-product-template > li.outofstock .wc-block-components-product-image img {
+	opacity: 0.55;
+	filter: grayscale(0.6);
+}
+
+/* --------------------------------------------------------------------------
+   Sections de produits (shortcode tcgforge_produits, pages de licence)
+   -------------------------------------------------------------------------- */
+
+.tcgf-products + .tcgf-products {
+	margin-block-start: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.tcgf-products__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.4rem 1.5rem;
+	margin-block-end: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.tcgf-products__title,
+.tcgf-related__title {
+	font-size: var(--tcgf-type-h2);
+	margin: 0;
+}
+
+.tcgf-related__title {
+	margin-block-end: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.tcgf-products__more {
+	flex-shrink: 0;
+}
+
+.tcgf-licence-products__all {
+	margin-block-start: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* Pagination de la boucle classique */
+.tcgf .woocommerce nav.woocommerce-pagination {
+	margin-block-start: clamp(1.5rem, 4vw, 3rem);
+	text-align: center;
+}
+
+.tcgf .woocommerce nav.woocommerce-pagination ul {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.tcgf .woocommerce nav.woocommerce-pagination ul li {
+	border: 0;
+	float: none;
+	margin: 0;
+}
+
+.tcgf .woocommerce nav.woocommerce-pagination ul li a,
+.tcgf .woocommerce nav.woocommerce-pagination ul li span {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0 0.6rem;
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-s);
+	background: transparent;
+	color: var(--tcgf-blanc);
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.tcgf .woocommerce nav.woocommerce-pagination ul li a:hover {
+	border-color: var(--tcgf-violet-clair);
+	background: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+}
+
+.tcgf .woocommerce nav.woocommerce-pagination ul li span.current {
+	background: var(--tcgf-violet);
+	border-color: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+}
+
+/* --------------------------------------------------------------------------
+   Page catalogue : en-tête, filtres, barre d'outils
+   -------------------------------------------------------------------------- */
+
+.tcgf-catalog {
+	padding-block-start: clamp(1.5rem, 4vw, 3rem);
+}
+
+.tcgf-catalog__head {
+	margin-block-end: clamp(1.25rem, 3vw, 2rem);
+}
+
+.tcgf-catalog__head > * {
+	margin-block: 0;
+}
+
+.tcgf-catalog__head > * + * {
+	margin-block-start: 0.75rem;
+}
+
+.tcgf-catalog__head .wp-block-query-title {
+	font-size: var(--tcgf-type-h1);
+}
+
+.tcgf-catalog__head .wp-block-term-description {
+	color: var(--tcgf-attenue);
+	max-width: 72ch;
+}
+
+.tcgf-catalog__grid {
+	gap: clamp(1.25rem, 3vw, 2.5rem);
+	align-items: flex-start;
+	margin-block: 0;
+}
+
+.tcgf-catalog__aside {
+	position: sticky;
+	top: calc(var(--tcgf-layout-header-height) + 4.5rem + var(--wp-admin--admin-bar--height, 0px));
+	max-height: calc(100vh - var(--tcgf-layout-header-height) - 6rem);
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--tcgf-bordure-forte) transparent;
+}
+
+/* Colonne de filtres vide (aucun filtre disponible) : elle ne prend pas de place. */
+.tcgf-catalog__aside:not(:has(.wc-block-product-filters)) {
+	display: none;
+}
+
+.tcgf-catalog__results > * {
+	margin-block: 0;
+}
+
+.tcgf-catalog__toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.6rem 1rem;
+	margin-block-end: 1rem;
+	padding-block-end: 0.9rem;
+	border-bottom: 1px solid var(--tcgf-bordure);
+}
+
+.tcgf-catalog__toolbar > * {
+	margin: 0;
+}
+
+.tcgf .woocommerce-result-count,
+.tcgf-catalog__toolbar .woocommerce-result-count {
+	margin: 0;
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-attenue);
+	float: none;
+}
+
+.tcgf .woocommerce-ordering,
+.tcgf-catalog__toolbar .woocommerce-ordering {
+	margin: 0;
+	float: none;
+}
+
+.tcgf .woocommerce-ordering select,
+.tcgf-catalog__toolbar select {
+	min-height: 2.75rem;
+	padding: 0.45rem 2.2rem 0.45rem 0.8rem;
+	font-size: var(--tcgf-type-small);
+	max-width: 100%;
+}
+
+/* Filtres */
+.tcgf-filters {
+	gap: 0;
+}
+
+/* Garde-fou : une icône de filtre ne dépasse jamais la taille d'une case. */
+.tcgf-filters svg {
+	width: 1.15rem;
+	height: 1.15rem;
+	max-width: 1.15rem;
+	max-height: 1.15rem;
+	flex-shrink: 0;
+}
+
+.tcgf-filters .tcgf-filters__title {
+	font-size: 1.15rem;
+	margin: 0 0 0.75rem;
+}
+
+.tcgf-filters > [class*="wp-block-woocommerce-product-filter-"] {
+	padding-block: 1rem;
+	border-top: 1px solid var(--tcgf-bordure);
+	margin: 0;
+}
+
+.tcgf-filters > .wp-block-woocommerce-product-filter-active:empty,
+.tcgf-filters > .wp-block-woocommerce-product-filter-active:not(:has(*)) {
+	display: none;
+}
+
+.tcgf-filters h3 {
+	font-size: var(--tcgf-type-small);
+	font-weight: 800;
+	letter-spacing: 0;
+}
+
+.tcgf-filters label,
+.tcgf-filters .wc-block-product-filter-checkbox-list__label {
+	font-weight: 400;
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-blanc);
+	min-height: 2.25rem;
+	align-items: center;
+	cursor: pointer;
+}
+
+.tcgf-filters .wc-block-product-filter-checkbox-list__items {
+	display: grid;
+	gap: 0.1rem;
+}
+
+.tcgf-filters .wc-block-product-filter-checkbox-list__show-more,
+.tcgf-filters button:not(.wp-element-button) {
+	color: var(--tcgf-lien);
+	background: transparent;
+	border: 0;
+	padding: 0.4rem 0;
+	min-height: 2.25rem;
+	font: inherit;
+	font-size: var(--tcgf-type-small);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.tcgf-filters .wc-block-product-filter-price-slider input[type="text"],
+.tcgf-filters .wc-block-product-filter-price-slider input[type="number"] {
+	min-height: 2.5rem;
+	padding: 0.4rem 0.5rem;
+	font-size: var(--tcgf-type-small);
+	width: 100%;
+}
+
+.tcgf-filters input[type="range"] {
+	accent-color: var(--tcgf-violet-clair);
+}
+
+.tcgf-filters .wc-block-product-filter-removable-chips__item,
+.tcgf-filters .wc-block-product-filter-chips__item {
+	background: var(--tcgf-surface-2);
+	color: var(--tcgf-blanc);
+	border: 1px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-full);
+}
+
+/* Bouton « Filtrer » sur mobile et tiroir de filtres */
+.wc-block-product-filters__open-overlay {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	padding: 0.5rem 1rem;
+	background: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+	border: 1.5px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	font-size: var(--tcgf-type-small);
+}
+
+.wc-block-product-filters__overlay-dialog,
+.wc-block-product-filters__overlay-content {
+	background: var(--tcgf-noir);
+	color: var(--tcgf-blanc);
+}
+
+.wc-block-product-filters__overlay-header,
+.wc-block-product-filters__overlay-footer {
+	background: var(--tcgf-surface);
+	border-color: var(--tcgf-bordure);
+}
+
+.wc-block-product-filters__close-overlay {
+	color: var(--tcgf-blanc);
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+}
+
+@media (max-width: 781px) {
+	.tcgf-catalog__aside {
+		position: static;
+		max-height: none;
+		overflow: visible;
+	}
+
+	.tcgf-catalog__grid {
+		gap: 0.75rem;
+	}
+
+	.tcgf-catalog__toolbar .woocommerce-ordering,
+	.tcgf-catalog__toolbar .woocommerce-ordering select {
+		width: 100%;
+	}
+
+	/* Deux colonnes dès 360 px : libellé du bouton sur une ligne. */
+	.tcgf .woocommerce ul.products li.product > .button,
+	ul.wc-block-product-template > li .wc-block-components-product-button .wp-block-button__link {
+		font-size: 0.82rem;
+		padding-inline: 0.35rem;
+	}
+}
+
+/* Rayon or : précommandes */
+.tcgf-products--precommandes .tcgf-products__title {
+	color: var(--tcgf-or);
+}
+
+/* Aucun résultat : ni filtres ni barre de tri, seulement le message et la recherche. */
+.tcgf-catalog__grid:has(.tcgf-empty) .tcgf-catalog__aside,
+.tcgf-catalog__results:has(.tcgf-empty) .tcgf-catalog__toolbar {
+	display: none;
+}

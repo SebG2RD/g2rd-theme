@@ -1,0 +1,57 @@
+<!-- wp:template-part {"slug":"header","tagName":"header","className":"tcgf-header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"tcgf-page tcgf-page\u002d\u002dsearch","layout":{"type":"default"}} -->
+<main id="contenu" class="wp-block-group tcgf-page tcgf-page--search"><!-- wp:group {"align":"full","className":"tcgf-section tcgf-page-hero tcgf-page-hero\u002d\u002dwide","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull tcgf-section tcgf-page-hero tcgf-page-hero--wide"><!-- wp:query-title {"type":"search","level":1} /-->
+
+<!-- wp:paragraph {"className":"tcgf-lead"} -->
+<p class="tcgf-lead">Cette recherche porte sur les guides et les pages du site. Pour trouver un produit, utilisez la recherche de l'en-tête.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:search {"label":"Rechercher dans les guides et les pages","showLabel":false,"placeholder":"Rechercher un guide, une page","buttonText":"Rechercher"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"tcgf-section tcgf-listing","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull tcgf-section tcgf-listing"><!-- wp:query {"queryId":33,"query":{"inherit":true,"perPage":12},"align":"wide","className":"tcgf-posts"} -->
+<div class="wp-block-query alignwide tcgf-posts"><!-- wp:post-template {"className":"tcgf-post-grid","layout":{"type":"grid","columnCount":3}} -->
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9"} /-->
+
+<!-- wp:post-title {"level":2,"isLink":true} /-->
+
+<!-- wp:post-excerpt {"excerptLength":24} /-->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:group {"className":"tcgf-empty","layout":{"type":"default"}} -->
+<div class="wp-block-group tcgf-empty"><!-- wp:heading {"className":"tcgf-empty__title"} -->
+<h2 class="wp-block-heading tcgf-empty__title">Aucun contenu à afficher</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"tcgf-empty__text"} -->
+<p class="tcgf-empty__text">Essayez un autre mot-clé, ou cherchez directement un produit dans la boutique.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/boutique/">Parcourir la boutique</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"tcgf-btn-ghost"} -->
+<div class="wp-block-button tcgf-btn-ghost"><a class="wp-block-button__link wp-element-button" href="/conseils/">Lire les guides</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer","className":"tcgf-footer"} /-->

@@ -1,0 +1,20 @@
+/*
+Theme Name: G2RD — TCGForge
+Theme URI: https://g2rd.fr
+Description: Thème enfant du thème G2RD pour TCGForge, boutique française de cartes à collectionner (TCG), accessoires, figurines et produits dérivés. Charte sombre violet et or, templates WooCommerce FSE, badges produits tirés des données WooCommerce, pages de licences paramétrables, contenus Gutenberg fournis dans gutenberg-pages/. Aucune intégration fournisseur : flux, stocks et commandes restent gérés hors du thème.
+Author: G2RD Agence Web
+Author URI: https://g2rd.fr
+Template: g2rd-theme
+Version: 1.2.1
+Requires at least: 6.6
+Requires Parent: 1.39.0
+Tested up to: 7.0
+Requires PHP: 8.0
+License: EUPL-1.2
+License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+Text Domain: g2rd-tcgforge-child
+Tags: full-site-editing, block-styles, e-commerce, woocommerce
+*/
+
+/* Les styles sont chargés par functions.php depuis assets/css/.
+   Ce fichier déclare le thème enfant. Ne rien ajouter ici. */

@@ -1,0 +1,988 @@
+/* ==========================================================================
+   TCGForge — global.css
+   Socle : alias de tokens, base, mise en page, typographie, boutons, champs,
+   états vides, accessibilité. Chargé sur toutes les pages et dans l'éditeur.
+
+   Couleurs : toujours via les presets WordPress (theme.json, surchargés par
+   tcgForge.json). Aucune valeur hexadécimale dans les feuilles de style.
+   ========================================================================== */
+
+:root {
+	/* Alias courts des presets de couleur */
+	--tcgf-noir: var(--wp--preset--color--tcgf-noir);
+	--tcgf-surface: var(--wp--preset--color--tcgf-surface);
+	--tcgf-surface-2: var(--wp--preset--color--tcgf-surface-2);
+	--tcgf-bordure: var(--wp--preset--color--tcgf-bordure);
+	--tcgf-bordure-forte: var(--wp--preset--color--tcgf-bordure-forte);
+	--tcgf-blanc: var(--wp--preset--color--tcgf-blanc);
+	--tcgf-attenue: var(--wp--preset--color--tcgf-attenue);
+	--tcgf-violet: var(--wp--preset--color--tcgf-violet);
+	--tcgf-violet-fonce: var(--wp--preset--color--tcgf-violet-fonce);
+	--tcgf-violet-clair: var(--wp--preset--color--tcgf-violet-clair);
+	--tcgf-lien: var(--wp--preset--color--tcgf-lien);
+	--tcgf-or: var(--wp--preset--color--tcgf-or);
+	--tcgf-succes: var(--wp--preset--color--tcgf-succes);
+	--tcgf-danger: var(--wp--preset--color--tcgf-danger);
+
+	/* Teintes dérivées */
+	--tcgf-violet-voile: color-mix(in srgb, var(--tcgf-violet) 16%, transparent);
+	--tcgf-or-voile: color-mix(in srgb, var(--tcgf-or) 14%, transparent);
+	--tcgf-foil: linear-gradient(120deg, var(--tcgf-violet) 0%, var(--tcgf-violet-clair) 45%, var(--tcgf-or) 100%);
+
+	/* Replis des tokens de tcgForge.json (remplacés par le bloc injecté en ligne) */
+	--tcgf-layout-content-width: 760px;
+	--tcgf-layout-wide-width: 1320px;
+	--tcgf-layout-section-spacing: clamp(3.5rem, 8vw, 6.5rem);
+	--tcgf-layout-gutter: clamp(1rem, 4vw, 2.5rem);
+	--tcgf-layout-header-height: 4.25rem;
+	--tcgf-radius-xs: 4px;
+	--tcgf-radius-s: 8px;
+	--tcgf-radius-m: 12px;
+	--tcgf-radius-l: 18px;
+	--tcgf-radius-carte: 4.5% / 3.2%;
+	--tcgf-radius-full: 999px;
+	--tcgf-type-display: clamp(2.5rem, 7vw, 5.25rem);
+	--tcgf-type-h1: clamp(2.1rem, 5vw, 3.5rem);
+	--tcgf-type-h2: clamp(1.65rem, 3.6vw, 2.6rem);
+	--tcgf-type-h3: clamp(1.2rem, 2vw, 1.5rem);
+	--tcgf-type-body: 1.0625rem;
+	--tcgf-type-small: 0.9rem;
+	--tcgf-type-meta: 0.8rem;
+	--tcgf-type-tracking-titre: -0.025em;
+	--tcgf-type-tracking-label: 0.04em;
+	--tcgf-anim-fast: 0.16s;
+	--tcgf-anim-base: 0.28s;
+	--tcgf-anim-easing: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	--tcgf-font-titres: var(--wp--preset--font-family--tcgf-titres);
+	--tcgf-font-texte: var(--wp--preset--font-family--tcgf-texte);
+
+	color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: calc(var(--tcgf-layout-header-height) + 4.5rem);
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	background-color: var(--tcgf-noir);
+	color: var(--tcgf-blanc);
+	font-family: var(--tcgf-font-texte);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	overflow-wrap: break-word;
+}
+
+::selection {
+	background: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+}
+
+img,
+svg,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Les blocs racine se touchent : les sections gèrent leur propre respiration. */
+.wp-site-blocks > * {
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+.wp-site-blocks > main {
+	display: block;
+	min-height: 50vh;
+}
+
+:where(main) > * {
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Focus : visible partout, y compris sur les fonds violets
+   -------------------------------------------------------------------------- */
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: 2px solid var(--tcgf-blanc);
+	outline-offset: 3px;
+	border-radius: var(--tcgf-radius-xs);
+	box-shadow: 0 0 0 5px var(--tcgf-violet);
+}
+
+/* Lien d'évitement */
+.skip-link.screen-reader-text:focus,
+.tcgf-skip:focus {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 100000;
+	clip: auto;
+	clip-path: none;
+	width: auto;
+	height: auto;
+	padding: 0.75rem 1rem;
+	background: var(--tcgf-blanc);
+	color: var(--tcgf-noir);
+	font-weight: 700;
+	border-radius: var(--tcgf-radius-s);
+	text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Sections et largeurs
+   -------------------------------------------------------------------------- */
+
+.tcgf-section {
+	padding-block: var(--tcgf-layout-section-spacing);
+	padding-inline: var(--tcgf-layout-gutter);
+}
+
+/* Deux sections qui se suivent partagent leur respiration. */
+.tcgf-section + .tcgf-section {
+	padding-block-start: 0;
+}
+
+.tcgf-section__head {
+	margin-block-end: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.tcgf-section__head > * {
+	margin-block: 0;
+}
+
+.tcgf-section__head > * + * {
+	margin-block-start: 0.6rem;
+}
+
+.tcgf-section__head--split {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+}
+
+.tcgf-section__head--split > * + * {
+	margin-block-start: 0;
+}
+
+.tcgf-section__intro {
+	max-width: 58ch;
+	color: var(--tcgf-attenue);
+}
+
+/* --------------------------------------------------------------------------
+   Typographie
+   -------------------------------------------------------------------------- */
+
+:where(h1, h2, h3, h4, h5, h6) {
+	font-family: var(--tcgf-font-titres);
+	text-wrap: balance;
+}
+
+:where(p, li) {
+	text-wrap: pretty;
+}
+
+.tcgf-lead {
+	font-size: var(--wp--preset--font-size--l);
+	line-height: 1.5;
+	color: var(--tcgf-attenue);
+	max-width: 62ch;
+}
+
+.tcgf-meta {
+	font-size: var(--tcgf-type-meta);
+	color: var(--tcgf-attenue);
+	margin: 0;
+}
+
+.tcgf-more {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-more a,
+a.tcgf-link-arrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45em;
+	color: var(--tcgf-blanc);
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-violet-clair);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.3em;
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	font-size: var(--tcgf-type-small);
+}
+
+/* Chevron dessiné en CSS : pas de caractère flèche dans le texte. */
+.tcgf-more a::after,
+a.tcgf-link-arrow::after {
+	content: "";
+	width: 0.45em;
+	height: 0.45em;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+}
+
+.tcgf-more a:hover,
+a.tcgf-link-arrow:hover {
+	text-decoration-color: var(--tcgf-or);
+}
+
+.tcgf-more a:hover::after,
+a.tcgf-link-arrow:hover::after {
+	transform: translateX(3px) rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Boutons
+   -------------------------------------------------------------------------- */
+
+.wp-block-button__link,
+.wp-element-button {
+	transition:
+		background-color var(--tcgf-anim-fast) var(--tcgf-anim-easing),
+		color var(--tcgf-anim-fast) var(--tcgf-anim-easing),
+		border-color var(--tcgf-anim-fast) var(--tcgf-anim-easing),
+		transform var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+	text-decoration: none;
+	min-height: 2.75rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	cursor: pointer;
+}
+
+.wp-block-button__link:active,
+.wp-element-button:active {
+	transform: translateY(1px);
+}
+
+/* Variante or : précommandes et sorties importantes. Texte noir sur or. */
+.wp-block-button.tcgf-btn-or .wp-block-button__link {
+	background-color: var(--tcgf-or);
+	color: var(--tcgf-noir);
+}
+
+.wp-block-button.tcgf-btn-or .wp-block-button__link:hover,
+.wp-block-button.tcgf-btn-or .wp-block-button__link:focus {
+	background-color: color-mix(in srgb, var(--tcgf-or) 86%, var(--tcgf-blanc));
+	color: var(--tcgf-noir);
+}
+
+/* Variante fantôme : action secondaire. */
+.wp-block-button.tcgf-btn-ghost .wp-block-button__link {
+	background-color: transparent;
+	color: var(--tcgf-blanc);
+	box-shadow: inset 0 0 0 1.5px var(--tcgf-bordure-forte);
+}
+
+.wp-block-button.tcgf-btn-ghost .wp-block-button__link:hover,
+.wp-block-button.tcgf-btn-ghost .wp-block-button__link:focus {
+	background-color: var(--tcgf-surface-2);
+	color: var(--tcgf-blanc);
+	box-shadow: inset 0 0 0 1.5px var(--tcgf-blanc);
+}
+
+.wp-block-buttons {
+	gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Champs de formulaire
+   -------------------------------------------------------------------------- */
+
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="hidden"]), select, textarea) {
+	background-color: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+	border: 1.5px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+	padding: 0.7rem 0.9rem;
+	font-family: var(--tcgf-font-texte);
+	font-size: 1rem;
+	line-height: 1.4;
+	min-height: 2.9rem;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+:where(input, textarea)::placeholder {
+	color: var(--tcgf-attenue);
+	opacity: 1;
+}
+
+:where(input, select, textarea):hover {
+	border-color: var(--tcgf-attenue);
+}
+
+:where(input[type="checkbox"], input[type="radio"]) {
+	accent-color: var(--tcgf-violet-clair);
+	width: 1.15rem;
+	height: 1.15rem;
+}
+
+:where(label) {
+	font-weight: 600;
+}
+
+/* Bloc Recherche */
+.wp-block-search__inside-wrapper {
+	gap: 0.5rem;
+}
+
+.wp-block-search__input {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.wp-block-search__button {
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.wp-block-search__button.has-icon {
+	padding: 0.55rem 0.8rem;
+}
+
+.wp-block-search__button svg {
+	fill: currentColor;
+	min-width: 1.4rem;
+	min-height: 1.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   Fluent Forms (contact, newsletter) sur fond sombre
+   -------------------------------------------------------------------------- */
+
+.tcgf-form,
+.tcgf-newsletter__form {
+	max-width: 40rem;
+}
+
+.fluentform .ff-el-group {
+	margin-bottom: 1.1rem;
+}
+
+.fluentform .ff-el-input--label label {
+	color: var(--tcgf-blanc);
+	font-family: var(--tcgf-font-titres);
+	font-size: var(--tcgf-type-small);
+	font-weight: 700;
+}
+
+.fluentform .ff-el-is-required.asterisk-right label::after,
+.fluentform .ff-el-is-required.asterisk-left label::before {
+	color: var(--tcgf-or);
+}
+
+.fluentform .ff-el-form-control {
+	background-color: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+	border: 1.5px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+	min-height: 2.9rem;
+	padding: 0.7rem 0.9rem;
+	font-size: 1rem;
+}
+
+.fluentform textarea.ff-el-form-control {
+	min-height: 9rem;
+}
+
+.fluentform .ff-el-form-control:hover {
+	border-color: var(--tcgf-attenue);
+}
+
+.fluentform .ff-el-form-control:focus {
+	background-color: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+	border-color: var(--tcgf-blanc);
+	box-shadow: 0 0 0 3px var(--tcgf-violet);
+	outline: none;
+}
+
+.fluentform .ff-el-form-control::placeholder {
+	color: var(--tcgf-attenue);
+}
+
+.fluentform .ff-el-help-message,
+.fluentform .ff-el-tc,
+.fluentform .ff-el-form-check-label {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+	font-weight: 400;
+}
+
+.fluentform .ff-el-tc a,
+.fluentform .ff-el-form-check-label a {
+	color: var(--tcgf-lien);
+}
+
+.fluentform .ff-btn-submit,
+.fluentform .ff-btn.ff-btn-submit:not(.ff_btn_no_style) {
+	min-height: 2.9rem;
+	padding: 0.75rem 1.5rem;
+	background-color: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+	border: 0;
+	border-radius: var(--tcgf-radius-s);
+	font-family: var(--tcgf-font-titres);
+	font-size: var(--tcgf-type-small);
+	font-weight: 700;
+	cursor: pointer;
+	opacity: 1;
+}
+
+.fluentform .ff-btn-submit:hover,
+.fluentform .ff-btn.ff-btn-submit:not(.ff_btn_no_style):hover {
+	background-color: var(--tcgf-violet-fonce);
+	color: var(--tcgf-blanc);
+	opacity: 1;
+}
+
+/* Erreurs : au plus près du champ, texte lisible sur fond sombre. */
+.fluentform .ff-el-is-error .ff-el-form-control {
+	border-color: var(--tcgf-danger);
+}
+
+.fluentform .ff-el-is-error .text-danger,
+.fluentform .error.text-danger,
+.fluentform .ff-errors-in-stack .error {
+	color: var(--tcgf-danger);
+	font-size: var(--tcgf-type-small);
+}
+
+.fluentform .ff-errors-in-stack .error {
+	background: color-mix(in srgb, var(--tcgf-danger) 10%, var(--tcgf-surface));
+	border: 1px solid var(--tcgf-danger);
+	border-radius: var(--tcgf-radius-s);
+	padding: 0.7rem 0.9rem;
+}
+
+.ff-message-success {
+	background: var(--tcgf-surface);
+	color: var(--tcgf-blanc);
+	border: 1px solid var(--tcgf-bordure-forte);
+	border-inline-start: 4px solid var(--tcgf-succes);
+	border-radius: var(--tcgf-radius-m);
+	box-shadow: none;
+	padding: 1rem 1.15rem;
+}
+
+/* Newsletter : champ et bouton sur une ligne quand la place le permet. */
+.tcgf-newsletter__form .fluentform .ff-t-container,
+.tcgf-newsletter__form .fluentform form > fieldset {
+	gap: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Tuiles (univers, engagements)
+   -------------------------------------------------------------------------- */
+
+.tcgf-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	gap: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+.tcgf-tiles > * {
+	margin: 0;
+}
+
+/* Six univers : trois colonnes, puis deux, pour ne laisser aucune tuile seule. */
+.tcgf-tiles--univers {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tcgf-tiles--confiance {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 899px) {
+	.tcgf-tiles--univers,
+	.tcgf-tiles--confiance {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 479px) {
+	.tcgf-tiles--confiance {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.tcgf-tile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: clamp(1.1rem, 2vw, 1.6rem);
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	transition:
+		border-color var(--tcgf-anim-fast) var(--tcgf-anim-easing),
+		background-color var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+}
+
+.tcgf-tile > * {
+	margin: 0;
+}
+
+.tcgf-tile__title {
+	font-size: 1.15rem;
+	line-height: 1.2;
+	letter-spacing: -0.015em;
+}
+
+/* Toute la tuile est cliquable : le lien du titre s'étend sur la tuile. */
+.tcgf-tile__title a {
+	color: var(--tcgf-blanc);
+	text-decoration: none;
+}
+
+.tcgf-tile__title a::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+}
+
+.tcgf-tile__text {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+	line-height: 1.5;
+}
+
+.tcgf-tile:hover,
+.tcgf-tile:focus-within {
+	border-color: var(--tcgf-violet-clair);
+	background: var(--tcgf-surface-2);
+}
+
+.tcgf-tile__title a:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
+
+.tcgf-tile:has(a:focus-visible) {
+	outline: 2px solid var(--tcgf-blanc);
+	outline-offset: 3px;
+	box-shadow: 0 0 0 5px var(--tcgf-violet);
+}
+
+/* --------------------------------------------------------------------------
+   Questions fréquentes (blocs Détails natifs)
+   -------------------------------------------------------------------------- */
+
+.tcgf-faq {
+	display: grid;
+	gap: 0.6rem;
+}
+
+.tcgf-faq > * {
+	margin: 0;
+}
+
+.wp-block-details {
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	padding: 0;
+	overflow: hidden;
+}
+
+.wp-block-details > summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.15rem;
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	line-height: 1.3;
+	min-height: 2.75rem;
+}
+
+.wp-block-details > summary::-webkit-details-marker {
+	display: none;
+}
+
+.wp-block-details > summary::after {
+	content: "";
+	flex-shrink: 0;
+	width: 0.55rem;
+	height: 0.55rem;
+	border-right: 2px solid var(--tcgf-violet-clair);
+	border-bottom: 2px solid var(--tcgf-violet-clair);
+	transform: rotate(45deg) translate(-2px, -2px);
+	transition: transform var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+}
+
+.wp-block-details[open] > summary::after {
+	transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+.wp-block-details > summary:hover {
+	background: var(--tcgf-surface-2);
+}
+
+.wp-block-details > :not(summary) {
+	margin: 0;
+	padding: 0 1.15rem 1.1rem;
+	color: color-mix(in srgb, var(--tcgf-blanc) 86%, var(--tcgf-attenue));
+}
+
+.wp-block-details > :not(summary) + :not(summary) {
+	padding-block-start: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Tableaux
+   -------------------------------------------------------------------------- */
+
+.wp-block-table {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.wp-block-table table {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 30rem;
+}
+
+.wp-block-table th,
+.wp-block-table td {
+	border: 1px solid var(--tcgf-bordure);
+	padding: 0.7rem 0.9rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+.wp-block-table thead th {
+	background: var(--tcgf-surface-2);
+	border-bottom-width: 1px;
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+}
+
+.wp-block-table tbody tr:nth-child(even) td {
+	background: var(--tcgf-surface);
+}
+
+/* --------------------------------------------------------------------------
+   États vides et messages à l'équipe
+   -------------------------------------------------------------------------- */
+
+.tcgf-empty {
+	padding: clamp(1.5rem, 4vw, 2.75rem);
+	background: var(--tcgf-surface);
+	border: 1px dashed var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-m);
+	display: grid;
+	gap: 0.9rem;
+	justify-items: start;
+}
+
+.tcgf-empty {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.tcgf-empty > * {
+	margin: 0;
+	min-width: 0;
+	max-width: 100%;
+}
+
+.tcgf-empty__title {
+	font-size: var(--tcgf-type-h3);
+}
+
+.tcgf-empty__text {
+	color: var(--tcgf-attenue);
+	max-width: 60ch;
+}
+
+.tcgf-empty .wp-block-search {
+	width: min(100%, 30rem);
+}
+
+.tcgf-empty__admin {
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-or);
+	border-left: 3px solid var(--tcgf-or);
+	padding-left: 0.8rem;
+	margin: 0;
+}
+
+.tcgf-editor-placeholder {
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	font-size: var(--tcgf-type-meta);
+	color: var(--tcgf-attenue);
+	border: 1px dashed var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+}
+
+/* --------------------------------------------------------------------------
+   Fil d'Ariane (bloc G2RD et bloc WooCommerce)
+   -------------------------------------------------------------------------- */
+
+.tcgf-breadcrumb,
+.wp-block-woocommerce-breadcrumbs,
+.woocommerce-breadcrumb {
+	font-size: var(--tcgf-type-meta);
+	color: var(--tcgf-attenue);
+	margin: 0 0 1rem;
+}
+
+.tcgf-breadcrumb a,
+.woocommerce-breadcrumb a {
+	color: var(--tcgf-attenue);
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-bordure-forte);
+	text-underline-offset: 0.25em;
+}
+
+.tcgf-breadcrumb a:hover,
+.woocommerce-breadcrumb a:hover {
+	color: var(--tcgf-blanc);
+}
+
+/* --------------------------------------------------------------------------
+   Séparateur « tranche de carte »
+   -------------------------------------------------------------------------- */
+
+.wp-block-separator {
+	border: 0;
+	height: 1px;
+	background: var(--tcgf-bordure);
+	opacity: 1;
+}
+
+.wp-block-separator.tcgf-foil-rule {
+	height: 2px;
+	background: var(--tcgf-foil);
+}
+
+/* --------------------------------------------------------------------------
+   Appel à l'action final
+   -------------------------------------------------------------------------- */
+
+.tcgf-cta__inner {
+	position: relative;
+	padding: clamp(1.75rem, 5vw, 3.5rem);
+	border-radius: var(--tcgf-radius-l);
+	background:
+		radial-gradient(120% 140% at 100% 0%, var(--tcgf-violet-voile), transparent 60%),
+		var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	display: grid;
+	gap: 1rem;
+	justify-items: start;
+}
+
+.tcgf-cta__inner > * {
+	margin: 0;
+	max-width: 56ch;
+}
+
+.tcgf-cta__title {
+	font-size: var(--tcgf-type-h2);
+}
+
+/* --------------------------------------------------------------------------
+   Articles de guide (grille de billets)
+   -------------------------------------------------------------------------- */
+
+.tcgf-post-grid {
+	gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.tcgf-post-grid > li {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	margin: 0;
+}
+
+.tcgf-post-grid > li > * {
+	margin: 0;
+}
+
+.tcgf-post-grid .wp-block-post-featured-image {
+	border-radius: var(--tcgf-radius-m);
+	overflow: hidden;
+	background: var(--tcgf-surface);
+}
+
+.tcgf-post-grid .wp-block-post-featured-image img {
+	display: block;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 0;
+}
+
+.tcgf-post-grid .wp-block-post-title {
+	font-size: 1.2rem;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+}
+
+.tcgf-post-grid .wp-block-post-title a {
+	color: var(--tcgf-blanc);
+	text-decoration: none;
+}
+
+.tcgf-post-grid .wp-block-post-title a:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-violet-clair);
+	text-underline-offset: 0.2em;
+}
+
+.tcgf-post-grid .wp-block-post-excerpt {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-post-grid .wp-block-post-excerpt__excerpt {
+	margin: 0;
+}
+
+@media (max-width: 900px) {
+	.tcgf-post-grid.is-layout-grid,
+	.tcgf-post-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 560px) {
+	.tcgf-post-grid.is-layout-grid,
+	.tcgf-post-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* Pagination (billets et produits) */
+.wp-block-query-pagination {
+	margin-block-start: clamp(1.5rem, 4vw, 3rem);
+	gap: 0.4rem;
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+}
+
+.wp-block-query-pagination a,
+.wp-block-query-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0 0.6rem;
+	border-radius: var(--tcgf-radius-s);
+	color: var(--tcgf-blanc);
+	text-decoration: none;
+	border: 1px solid var(--tcgf-bordure);
+}
+
+.wp-block-query-pagination a:hover {
+	border-color: var(--tcgf-violet-clair);
+	background: var(--tcgf-surface);
+}
+
+.wp-block-query-pagination .page-numbers.current {
+	background: var(--tcgf-violet);
+	border-color: var(--tcgf-violet);
+}
+
+.wp-block-query-pagination .page-numbers.dots {
+	border-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Blocs G2RD sur fond sombre
+   -------------------------------------------------------------------------- */
+
+.g2rd-toc {
+	background: transparent;
+	color: var(--tcgf-blanc);
+}
+
+.g2rd-toc__title {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	margin: 0 0 0.6rem;
+}
+
+.g2rd-toc a {
+	color: var(--tcgf-attenue);
+	text-decoration: none;
+}
+
+.g2rd-toc a:hover,
+.g2rd-toc a[aria-current],
+.g2rd-toc a.is-active {
+	color: var(--tcgf-blanc);
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-violet-clair);
+	text-underline-offset: 0.25em;
+}
+
+/* --------------------------------------------------------------------------
+   Boutons flottants du thème parent (accessibilité, retour en haut)
+   Plus discrets sur mobile, et relevés quand la barre d'achat est affichée.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 781px) {
+	.a11y-widget {
+		left: 0.75rem;
+		bottom: 0.75rem;
+	}
+
+	.a11y-scroll-top {
+		right: 0.75rem;
+		bottom: 0.75rem;
+	}
+
+	.tcgf-has-buybar .a11y-widget,
+	.tcgf-has-buybar .a11y-scroll-top {
+		bottom: 5.5rem;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Mouvement réduit
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important; /* Exception documentée : coupe toute animation pour respecter la préférence système. */
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

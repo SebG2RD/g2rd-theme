@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "project": "TCGForge",
+    "description": "Tokens graphiques TCGForge. Lu par le thème enfant g2rd-tcgforge-child (inc/tokens.php), qui en tire les custom properties --tcgf-* et les couleurs de palette tcgf-*. Seul fichier ajouté au thème parent. Si ce fichier manque (mise à jour du parent par GitHub Updater), le thème enfant retombe sur les valeurs identiques de son theme.json.",
+    "version": "1.0.0"
+  },
+  "colors": {
+    "noir": "#09090B",
+    "surface": "#18181B",
+    "surface2": "#27272A",
+    "bordure": "#3F3F46",
+    "bordureForte": "#71717A",
+    "blanc": "#FAFAFA",
+    "attenue": "#A1A1AA",
+    "violet": "#7C3AED",
+    "violetFonce": "#6D28D9",
+    "violetClair": "#A855F7",
+    "lien": "#C084FC",
+    "or": "#F59E0B",
+    "orFonce": "#B45309",
+    "succes": "#4ADE80",
+    "danger": "#F87171"
+  },
+  "layout": {
+    "contentWidth": "760px",
+    "wideWidth": "1320px",
+    "sectionSpacing": "clamp(3.5rem, 8vw, 6.5rem)",
+    "gutter": "clamp(1rem, 4vw, 2.5rem)",
+    "headerHeight": "4.25rem"
+  },
+  "radius": {
+    "xs": "4px",
+    "s": "8px",
+    "m": "12px",
+    "l": "18px",
+    "carte": "4.5% / 3.2%",
+    "full": "999px"
+  },
+  "typography": {
+    "display": "clamp(2.5rem, 7vw, 5.25rem)",
+    "h1": "clamp(2.1rem, 5vw, 3.5rem)",
+    "h2": "clamp(1.65rem, 3.6vw, 2.6rem)",
+    "h3": "clamp(1.2rem, 2vw, 1.5rem)",
+    "body": "1.0625rem",
+    "small": "0.9rem",
+    "meta": "0.8rem",
+    "trackingTitre": "-0.025em",
+    "trackingLabel": "0.04em"
+  },
+  "animation": {
+    "fast": "0.16s",
+    "base": "0.28s",
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)"
+  }
+}

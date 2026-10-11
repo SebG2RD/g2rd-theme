@@ -1,0 +1,568 @@
+/* ==========================================================================
+   TCGForge — pages.css
+   Pages de contenu : en-tête de page, texte courant, guides avec sommaire,
+   pages de licence, contact, pages légales, recherche, 404.
+   Chargé partout sauf sur la page d'accueil.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   En-tête de page
+   -------------------------------------------------------------------------- */
+
+.tcgf-page-hero {
+	padding-block: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2.75rem);
+	background:
+		radial-gradient(55% 120% at 100% 0%, var(--tcgf-violet-voile), transparent 70%),
+		var(--tcgf-noir);
+	border-bottom: 1px solid var(--tcgf-bordure);
+}
+
+.tcgf-page-hero > * {
+	margin-block: 0;
+}
+
+.tcgf-page-hero > * + * {
+	margin-block-start: 0.9rem;
+}
+
+.tcgf-page-hero h1,
+.tcgf-page-hero .wp-block-post-title,
+.tcgf-page-hero .wp-block-query-title {
+	font-size: var(--tcgf-type-h1);
+	line-height: 1.05;
+	letter-spacing: -0.03em;
+}
+
+/* Le chapeau suit la colonne de texte de la page. */
+.tcgf-page-hero .tcgf-lead {
+	max-width: var(--wp--style--global--content-size);
+}
+
+/* En-tête large : pages de licence, guides, listes. Le texte reste court. */
+.tcgf-page-hero--wide.is-layout-constrained > * {
+	max-width: var(--wp--style--global--wide-size);
+}
+
+.tcgf-page-hero--wide .tcgf-lead,
+.tcgf-page-hero--wide .wp-block-post-title,
+.tcgf-page-hero--wide h1 {
+	box-sizing: border-box;
+	padding-inline-end: max(0px, calc(100% - 46rem));
+}
+
+.tcgf-page-hero + .tcgf-section,
+.tcgf-page-hero + .tcgf-prose {
+	padding-block-start: clamp(2rem, 5vw, 3.5rem);
+}
+
+.tcgf-page-hero .wp-block-post-excerpt__excerpt {
+	margin: 0;
+}
+
+.tcgf-page-hero .wp-block-search {
+	max-width: 32rem;
+}
+
+.tcgf-article__meta {
+	gap: 0.35em;
+}
+
+.tcgf-article__meta > * {
+	margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Texte courant
+   -------------------------------------------------------------------------- */
+
+.tcgf-prose {
+	padding-block: clamp(2rem, 5vw, 3.5rem) var(--tcgf-layout-section-spacing);
+	padding-inline: var(--tcgf-layout-gutter);
+}
+
+.tcgf-prose--guide {
+	padding: 0;
+}
+
+.tcgf-prose > :first-child {
+	margin-block-start: 0;
+}
+
+.tcgf-prose :where(h2) {
+	font-size: var(--tcgf-type-h2);
+	margin-block: 2.6em 0.7em;
+}
+
+.tcgf-prose :where(h3) {
+	font-size: var(--tcgf-type-h3);
+	margin-block: 2em 0.6em;
+}
+
+.tcgf-prose :where(h4) {
+	margin-block: 1.6em 0.5em;
+}
+
+.tcgf-prose > h2:first-child,
+.tcgf-prose > .wp-block-group:first-child h2:first-child {
+	margin-block-start: 0;
+}
+
+.tcgf-prose :where(p, ul, ol) {
+	color: color-mix(in srgb, var(--tcgf-blanc) 90%, var(--tcgf-attenue));
+}
+
+.tcgf-prose :where(ul, ol):not([class*="tcgf-"]):not(.wc-block-product-template):not(.products) {
+	padding-inline-start: 1.3rem;
+}
+
+.tcgf-prose :where(li) + :where(li) {
+	margin-block-start: 0.4rem;
+}
+
+.tcgf-prose :where(ul:not([class*="tcgf-"]):not(.products):not(.wc-block-product-template)) > li::marker {
+	color: var(--tcgf-violet-clair);
+}
+
+.tcgf-prose :where(ol) > li::marker {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	color: var(--tcgf-violet-clair);
+}
+
+.tcgf-prose strong {
+	color: var(--tcgf-blanc);
+}
+
+/* Les sections pleine largeur insérées dans une page reprennent leurs marges. */
+.tcgf-prose > .tcgf-section {
+	padding-inline: 0;
+}
+
+/* Encadré : point à retenir */
+.tcgf-note {
+	padding: 1.1rem 1.25rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-inline-start: 3px solid var(--tcgf-violet-clair);
+	border-radius: var(--tcgf-radius-m);
+}
+
+.tcgf-note > * {
+	margin-block: 0;
+}
+
+.tcgf-note > * + * {
+	margin-block-start: 0.5rem;
+}
+
+.tcgf-note--or {
+	border-inline-start-color: var(--tcgf-or);
+	background: var(--tcgf-or-voile);
+}
+
+.tcgf-note__title {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	color: var(--tcgf-blanc);
+}
+
+/* Étapes numérotées (une vraie séquence : commande, retour, précommande) */
+.tcgf-steps {
+	list-style: none;
+	counter-reset: tcgf-step;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.75rem;
+}
+
+.tcgf-prose .tcgf-steps {
+	padding-inline-start: 0;
+}
+
+.tcgf-steps > li {
+	counter-increment: tcgf-step;
+	position: relative;
+	margin: 0;
+	padding: 1rem 1.1rem 1rem 3.6rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	min-height: 3.6rem;
+}
+
+.tcgf-steps > li + li {
+	margin-block-start: 0;
+}
+
+.tcgf-steps > li::before {
+	content: counter(tcgf-step);
+	position: absolute;
+	left: 1rem;
+	top: 0.9rem;
+	width: 1.9rem;
+	height: 1.9rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+	border-radius: 50%;
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	font-size: var(--tcgf-type-small);
+}
+
+/* --------------------------------------------------------------------------
+   Guides : sommaire collé + texte
+   -------------------------------------------------------------------------- */
+
+.tcgf-guide__grid {
+	gap: clamp(1.5rem, 5vw, 4rem);
+	align-items: flex-start;
+	margin-block: 0;
+}
+
+.tcgf-guide__aside {
+	position: sticky;
+	top: calc(var(--tcgf-layout-header-height) + 4.5rem + var(--wp-admin--admin-bar--height, 0px));
+	max-height: calc(100vh - var(--tcgf-layout-header-height) - 6rem);
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+
+.tcgf-toc {
+	padding: 1.1rem 1.2rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-toc ul,
+.tcgf-toc ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tcgf-toc li {
+	margin: 0;
+}
+
+.tcgf-toc li a {
+	display: block;
+	padding: 0.4rem 0;
+	line-height: 1.35;
+}
+
+.tcgf-toc li li a {
+	padding-inline-start: 0.9rem;
+}
+
+.tcgf-guide__body {
+	min-width: 0;
+	max-width: 74ch;
+}
+
+.tcgf-guide__body > * {
+	margin-block-start: 0;
+}
+
+.tcgf-guide__body .wp-block-post-featured-image {
+	margin-block-end: 2rem;
+	border-radius: var(--tcgf-radius-l);
+	overflow: hidden;
+}
+
+.tcgf-guide__body .wp-block-post-featured-image img {
+	display: block;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 0;
+}
+
+@media (max-width: 899px) {
+	.tcgf-guide__grid.wp-block-columns {
+		flex-wrap: wrap;
+	}
+
+	.tcgf-guide__grid.wp-block-columns > .wp-block-column {
+		flex-basis: 100%;
+	}
+
+	.tcgf-guide__aside {
+		position: static;
+		max-height: none;
+		overflow: visible;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Pages de licence et de rayon
+   -------------------------------------------------------------------------- */
+
+.tcgf-licence {
+	padding-block-start: clamp(2rem, 5vw, 3.5rem);
+}
+
+.tcgf-page--licence .tcgf-prose {
+	border-top: 1px solid var(--tcgf-bordure);
+}
+
+/* Liens rapides vers les types de produit d'une licence */
+.tcgf-chips {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.tcgf-prose .tcgf-chips {
+	padding-inline-start: 0;
+}
+
+.tcgf-chips li {
+	margin: 0;
+}
+
+.tcgf-chips li + li {
+	margin-block-start: 0;
+}
+
+.tcgf-chips a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	padding: 0.4rem 1rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-full);
+	color: var(--tcgf-blanc);
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+	font-size: var(--tcgf-type-small);
+	text-decoration: none;
+}
+
+.tcgf-chips a:hover {
+	border-color: var(--tcgf-violet-clair);
+	background: var(--tcgf-surface-2);
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.tcgf-contact__grid {
+	gap: clamp(1.5rem, 4vw, 3rem);
+	align-items: flex-start;
+}
+
+.tcgf-contact__card {
+	padding: clamp(1.1rem, 2.5vw, 1.6rem);
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+}
+
+.tcgf-contact__card > * {
+	margin-block: 0;
+}
+
+.tcgf-contact__card > * + * {
+	margin-block-start: 0.6rem;
+}
+
+.tcgf-contact__card h2,
+.tcgf-contact__card h3 {
+	font-size: 1.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   Pages légales : champs à compléter repérables par l'équipe
+   -------------------------------------------------------------------------- */
+
+.tcgf-legal__date {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+}
+
+/* Formulaire type de rétractation : bloc à recopier */
+.tcgf-form-type {
+	padding: clamp(1.1rem, 3vw, 1.75rem);
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-m);
+}
+
+.tcgf-form-type > :first-child {
+	margin-block-start: 0;
+}
+
+.tcgf-form-type > :last-child {
+	margin-block-end: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Listes de billets, recherche, 404
+   -------------------------------------------------------------------------- */
+
+.tcgf-listing {
+	padding-block-start: clamp(2rem, 5vw, 3.5rem);
+}
+
+.tcgf-404 {
+	padding-block: clamp(3rem, 9vw, 7rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+.tcgf-404 > * {
+	margin-block: 0;
+}
+
+.tcgf-404 > * + * {
+	margin-block-start: 1.1rem;
+}
+
+.tcgf-404__code {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-or);
+}
+
+.tcgf-404 h1 {
+	font-size: var(--tcgf-type-h1);
+	letter-spacing: -0.03em;
+}
+
+.tcgf-404 .wp-block-search {
+	max-width: 32rem;
+}
+
+.tcgf-page--404 .tcgf-univers {
+	padding-block-start: 0;
+}
+
+/* Dans le corps d'une page, le chapeau occupe toute la colonne de texte. */
+.tcgf-prose > .tcgf-lead {
+	max-width: var(--wp--style--global--content-size);
+	color: var(--tcgf-blanc);
+}
+
+/* --------------------------------------------------------------------------
+   Rétractation en ligne
+   -------------------------------------------------------------------------- */
+
+.tcgf-withdrawal {
+	max-width: 40rem;
+	margin-block: 2rem;
+	padding: 1.5rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	scroll-margin-top: 6rem;
+}
+
+.tcgf-withdrawal > :first-child,
+.tcgf-withdrawal__done > :first-child {
+	margin-block-start: 0;
+}
+
+.tcgf-withdrawal__field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	margin-block: 1.1rem;
+}
+
+.tcgf-withdrawal__field label {
+	color: var(--tcgf-blanc);
+	font-family: var(--tcgf-font-titres);
+	font-size: var(--tcgf-type-small);
+	font-weight: 700;
+}
+
+.tcgf-withdrawal__field label span {
+	color: var(--tcgf-or);
+}
+
+.tcgf-withdrawal__field input,
+.tcgf-withdrawal__field textarea {
+	width: 100%;
+	min-height: 2.9rem;
+	padding: 0.7rem 0.9rem;
+	background-color: var(--tcgf-noir);
+	color: var(--tcgf-blanc);
+	border: 1.5px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+	font: inherit;
+}
+
+.tcgf-withdrawal__field input:focus,
+.tcgf-withdrawal__field textarea:focus {
+	border-color: var(--tcgf-blanc);
+	box-shadow: 0 0 0 3px var(--tcgf-violet);
+	outline: none;
+}
+
+.tcgf-withdrawal__field [aria-invalid="true"] {
+	border-color: var(--tcgf-or);
+}
+
+.tcgf-withdrawal__help {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-withdrawal__field-error,
+.tcgf-withdrawal__error {
+	color: var(--tcgf-or);
+	font-size: var(--tcgf-type-small);
+	font-weight: 700;
+}
+
+.tcgf-withdrawal__error {
+	padding: 0.9rem 1.1rem;
+	border: 1px solid var(--tcgf-or);
+	border-radius: var(--tcgf-radius-s);
+	background: var(--tcgf-or-voile);
+}
+
+.tcgf-withdrawal__error a {
+	color: inherit;
+}
+
+.tcgf-withdrawal__text {
+	margin-block: 1rem;
+	padding: 1rem;
+	background: var(--tcgf-noir);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-s);
+	font: inherit;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.tcgf-withdrawal__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem 1.5rem;
+	margin-block-start: 1.25rem;
+}
+
+.tcgf-withdrawal__submit {
+	min-height: 2.9rem;
+	cursor: pointer;
+}
+
+.tcgf-withdrawal__trap {
+	position: absolute;
+	inset-inline-start: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
