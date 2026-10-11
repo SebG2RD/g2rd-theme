@@ -1,0 +1,488 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1320px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "custom": true,
+      "customGradient": true,
+      "palette": [
+        {
+          "name": "Noir (fond)",
+          "slug": "tcgf-noir",
+          "color": "#09090B"
+        },
+        {
+          "name": "Surface sombre",
+          "slug": "tcgf-surface",
+          "color": "#18181B"
+        },
+        {
+          "name": "Surface relevée",
+          "slug": "tcgf-surface-2",
+          "color": "#27272A"
+        },
+        {
+          "name": "Bordure",
+          "slug": "tcgf-bordure",
+          "color": "#3F3F46"
+        },
+        {
+          "name": "Bordure forte (champs)",
+          "slug": "tcgf-bordure-forte",
+          "color": "#71717A"
+        },
+        {
+          "name": "Blanc cassé (texte)",
+          "slug": "tcgf-blanc",
+          "color": "#FAFAFA"
+        },
+        {
+          "name": "Texte atténué",
+          "slug": "tcgf-attenue",
+          "color": "#A1A1AA"
+        },
+        {
+          "name": "Violet (marque)",
+          "slug": "tcgf-violet",
+          "color": "#7C3AED"
+        },
+        {
+          "name": "Violet foncé (survol)",
+          "slug": "tcgf-violet-fonce",
+          "color": "#6D28D9"
+        },
+        {
+          "name": "Violet clair",
+          "slug": "tcgf-violet-clair",
+          "color": "#A855F7"
+        },
+        {
+          "name": "Lien",
+          "slug": "tcgf-lien",
+          "color": "#C084FC"
+        },
+        {
+          "name": "Or (précommandes, sorties)",
+          "slug": "tcgf-or",
+          "color": "#F59E0B"
+        },
+        {
+          "name": "Or foncé (sur fond clair)",
+          "slug": "tcgf-or-fonce",
+          "color": "#B45309"
+        },
+        {
+          "name": "Succès",
+          "slug": "tcgf-succes",
+          "color": "#4ADE80"
+        },
+        {
+          "name": "Danger",
+          "slug": "tcgf-danger",
+          "color": "#F87171"
+        },
+        {
+          "name": "Parent · primary (texte clair)",
+          "slug": "primary",
+          "color": "#FAFAFA"
+        },
+        {
+          "name": "Parent · secondary (violet)",
+          "slug": "secondary",
+          "color": "#7C3AED"
+        },
+        {
+          "name": "Parent · white (surface sombre)",
+          "slug": "white",
+          "color": "#18181B"
+        },
+        {
+          "name": "Parent · blue-dark",
+          "slug": "blue-dark",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "Parent · blue-soft",
+          "slug": "blue-soft",
+          "color": "#E4E4E7"
+        },
+        {
+          "name": "Parent · cream",
+          "slug": "cream",
+          "color": "#18181B"
+        },
+        {
+          "name": "Parent · muted",
+          "slug": "muted",
+          "color": "#A1A1AA"
+        },
+        {
+          "name": "Parent · accent",
+          "slug": "accent",
+          "color": "#C084FC"
+        },
+        {
+          "name": "Parent · accent-2",
+          "slug": "accent-2",
+          "color": "#A855F7"
+        },
+        {
+          "name": "Parent · surface",
+          "slug": "surface",
+          "color": "#27272A"
+        },
+        {
+          "name": "Parent · success",
+          "slug": "success",
+          "color": "#4ADE80"
+        },
+        {
+          "name": "Parent · warning",
+          "slug": "warning",
+          "color": "#F59E0B"
+        },
+        {
+          "name": "Parent · danger",
+          "slug": "danger",
+          "color": "#F87171"
+        }
+      ],
+      "gradients": [
+        {
+          "name": "Forge (violet)",
+          "slug": "tcgf-forge",
+          "gradient": "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)"
+        },
+        {
+          "name": "Feuille holographique",
+          "slug": "tcgf-foil",
+          "gradient": "linear-gradient(120deg, #7C3AED 0%, #A855F7 45%, #F59E0B 100%)"
+        },
+        {
+          "name": "Nuit",
+          "slug": "tcgf-nuit",
+          "gradient": "linear-gradient(180deg, #18181B 0%, #09090B 100%)"
+        },
+        {
+          "name": "Parent · action",
+          "slug": "secondary",
+          "gradient": "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)"
+        },
+        {
+          "name": "Parent · section sombre",
+          "slug": "magic-dark",
+          "gradient": "linear-gradient(135deg, #09090B 0%, #18181B 58%, #09090B 100%)"
+        },
+        {
+          "name": "Parent · section claire",
+          "slug": "magic-light",
+          "gradient": "linear-gradient(180deg, #18181B 0%, #09090B 100%)"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "customFontSize": true,
+      "defaultFontSizes": false,
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "name": "Plus Jakarta Sans (titres)",
+          "slug": "tcgf-titres",
+          "fontFamily": "\"Plus Jakarta Sans Var\", \"Plus Jakarta Sans\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Plus Jakarta Sans Var",
+              "fontWeight": "200 800",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/plus-jakarta-sans-var.woff2"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Inter (texte)",
+          "slug": "tcgf-texte",
+          "fontFamily": "\"Inter Var\", Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Inter Var",
+              "fontWeight": "100 900",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/inter-var.woff2"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Système",
+          "slug": "tcgf-systeme",
+          "fontFamily": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+        },
+        {
+          "name": "Parent · Inter",
+          "slug": "inter",
+          "fontFamily": "\"Inter Var\", Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif"
+        },
+        {
+          "name": "Parent · Plus Jakarta Sans",
+          "slug": "plus-jakarta-sans",
+          "fontFamily": "\"Plus Jakarta Sans Var\", \"Plus Jakarta Sans\", system-ui, sans-serif"
+        }
+      ],
+      "fontSizes": [
+        {
+          "name": "Mention",
+          "slug": "xs",
+          "size": "0.8rem",
+          "fluid": false
+        },
+        {
+          "name": "Petit",
+          "slug": "s",
+          "size": "0.9rem",
+          "fluid": false
+        },
+        {
+          "name": "Texte",
+          "slug": "m",
+          "size": "1.0625rem",
+          "fluid": false
+        },
+        {
+          "name": "Chapeau",
+          "slug": "l",
+          "size": "1.3rem",
+          "fluid": {
+            "min": "1.125rem",
+            "max": "1.3rem"
+          }
+        },
+        {
+          "name": "Titre de section",
+          "slug": "xl",
+          "size": "2.6rem",
+          "fluid": {
+            "min": "1.65rem",
+            "max": "2.6rem"
+          }
+        },
+        {
+          "name": "Titre de page",
+          "slug": "xxl",
+          "size": "3.5rem",
+          "fluid": {
+            "min": "2.1rem",
+            "max": "3.5rem"
+          }
+        },
+        {
+          "name": "Affiche",
+          "slug": "display",
+          "size": "5.25rem",
+          "fluid": {
+            "min": "2.5rem",
+            "max": "5.25rem"
+          }
+        }
+      ]
+    },
+    "spacing": {
+      "blockGap": true,
+      "padding": true,
+      "margin": true,
+      "customSpacingSize": true,
+      "defaultSpacingSizes": false,
+      "units": [
+        "%",
+        "px",
+        "em",
+        "rem",
+        "vh",
+        "vw"
+      ],
+      "spacingSizes": [
+        {
+          "name": "Très petit",
+          "slug": "xs",
+          "size": "0.75rem"
+        },
+        {
+          "name": "Petit",
+          "slug": "s",
+          "size": "1.25rem"
+        },
+        {
+          "name": "Moyen",
+          "slug": "m",
+          "size": "2rem"
+        },
+        {
+          "name": "Grand",
+          "slug": "l",
+          "size": "3.5rem"
+        },
+        {
+          "name": "Très grand",
+          "slug": "xl",
+          "size": "clamp(3.5rem, 8vw, 6.5rem)"
+        },
+        {
+          "name": "Gouttière",
+          "slug": "gouttiere",
+          "size": "clamp(1rem, 4vw, 2.5rem)"
+        }
+      ]
+    },
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "name": "Très légère",
+          "slug": "xs",
+          "shadow": "0 1px 2px rgba(0, 0, 0, 0.4)"
+        },
+        {
+          "name": "Douce",
+          "slug": "light",
+          "shadow": "0 1px 3px rgba(0, 0, 0, 0.5)"
+        },
+        {
+          "name": "Moyenne",
+          "slug": "md",
+          "shadow": "0 6px 16px -4px rgba(0, 0, 0, 0.6)"
+        },
+        {
+          "name": "Fine",
+          "slug": "neat",
+          "shadow": "0 2px 8px rgba(0, 0, 0, 0.45)"
+        },
+        {
+          "name": "Imposante",
+          "slug": "huge",
+          "shadow": "0 18px 40px -12px rgba(0, 0, 0, 0.7)"
+        },
+        {
+          "name": "Élevée",
+          "slug": "xl",
+          "shadow": "0 28px 60px -16px rgba(0, 0, 0, 0.75)"
+        },
+        {
+          "name": "Lueur claire",
+          "slug": "primary-glow",
+          "shadow": "0 4px 24px rgba(250, 250, 250, 0.12)"
+        },
+        {
+          "name": "Lueur violette",
+          "slug": "secondary-glow",
+          "shadow": "0 10px 30px -8px rgba(124, 58, 237, 0.55)"
+        },
+        {
+          "name": "Lueur violette douce",
+          "slug": "accent-glow",
+          "shadow": "0 10px 30px -10px rgba(168, 85, 247, 0.45)"
+        },
+        {
+          "name": "Carte",
+          "slug": "magic",
+          "shadow": "0 24px 60px -12px rgba(0, 0, 0, 0.7)"
+        },
+        {
+          "name": "Carte XL",
+          "slug": "magic-xl",
+          "shadow": "0 32px 80px -16px rgba(0, 0, 0, 0.75)"
+        },
+        {
+          "name": "Lueur or",
+          "slug": "tcgf-or",
+          "shadow": "0 10px 30px -10px rgba(245, 158, 11, 0.45)"
+        }
+      ]
+    },
+    "custom": {
+      "radius": {
+        "xs": "4px",
+        "s": "8px",
+        "m": "12px",
+        "l": "18px",
+        "xl": "24px",
+        "full": "999px"
+      },
+      "button": {
+        "radius": "10px",
+        "radius-pill": "999px",
+        "radius-square": "4px",
+        "padding-h": "1.4rem",
+        "padding-v": "0.8rem",
+        "font-weight": 700,
+        "transition": "0.16s cubic-bezier(0.2, 0.8, 0.2, 1)"
+      },
+      "color": {
+        "primaryhover": "#E4E4E7",
+        "secondaryhover": "#6D28D9",
+        "whitehover": "#27272A",
+        "accenthover": "#C084FC",
+        "border": "#3F3F46",
+        "neutral-50": "#18181B",
+        "neutral-100": "#27272A",
+        "neutral-200": "#3F3F46",
+        "neutral-500": "#A1A1AA",
+        "neutral-700": "#D4D4D8",
+        "neutral-900": "#FAFAFA"
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "area": "header",
+      "name": "header",
+      "title": "TCGForge — En-tête"
+    },
+    {
+      "area": "footer",
+      "name": "footer",
+      "title": "TCGForge — Pied de page"
+    },
+    {
+      "area": "header",
+      "name": "header-commande",
+      "title": "TCGForge — En-tête de commande"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "page-licence",
+      "title": "TCGForge — Univers ou rayon (catalogue)",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-guide",
+      "title": "TCGForge — Page avec sommaire",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-libre",
+      "title": "TCGForge — Page libre (pleine largeur)",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ]
+}

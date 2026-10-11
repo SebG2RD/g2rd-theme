@@ -1,0 +1,492 @@
+/* ==========================================================================
+   TCGForge — header-footer.css
+   En-tête (logo, recherche, compte, liste de souhaits, panier, rail des
+   univers) et pied de page.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   En-tête
+   -------------------------------------------------------------------------- */
+
+.tcgf-header {
+	position: sticky;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	z-index: 60;
+	background: color-mix(in srgb, var(--tcgf-noir) 92%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	border-bottom: 1px solid var(--tcgf-bordure);
+	transition: box-shadow var(--tcgf-anim-base) var(--tcgf-anim-easing);
+}
+
+.tcgf-header.is-scrolled {
+	box-shadow: var(--wp--preset--shadow--md);
+}
+
+.tcgf-header__inner {
+	max-width: calc(var(--tcgf-layout-wide-width) + 2 * var(--tcgf-layout-gutter));
+	box-sizing: border-box;
+	margin-inline: auto;
+	padding-inline: var(--tcgf-layout-gutter);
+}
+
+.tcgf-header__inner > * {
+	margin-block: 0;
+}
+
+.tcgf-header__bar {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem clamp(0.75rem, 2.5vw, 2rem);
+	min-height: var(--tcgf-layout-header-height);
+	padding-block: 0.6rem;
+}
+
+.tcgf-header__bar > * {
+	margin: 0;
+}
+
+/* Logo */
+.tcgf-header .wp-block-site-logo,
+.tcgf-header .tcgf-logo {
+	flex-shrink: 0;
+	line-height: 0;
+}
+
+.tcgf-header .wp-block-site-logo a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+}
+
+.tcgf-header .wp-block-site-logo img {
+	width: clamp(8.75rem, 12vw, 10.75rem);
+	height: auto;
+	max-height: 2.5rem;
+	border-radius: 0;
+}
+
+/* Recherche */
+.tcgf-header__search {
+	flex: 1 1 18rem;
+	max-width: 36rem;
+}
+
+.tcgf-header__search .wp-block-search__inside-wrapper {
+	background: var(--tcgf-surface);
+	border: 1.5px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-full);
+	padding: 0.2rem 0.25rem 0.2rem 0.35rem;
+	gap: 0;
+}
+
+.tcgf-header__search .wp-block-search__inside-wrapper:focus-within {
+	border-color: var(--tcgf-blanc);
+	box-shadow: 0 0 0 4px var(--tcgf-violet);
+}
+
+.tcgf-header__search .wp-block-search__input {
+	background: transparent;
+	border: 0;
+	min-height: 2.4rem;
+	padding: 0.4rem 0.75rem;
+}
+
+.tcgf-header__search .wp-block-search__input:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
+
+.tcgf-header__search .wp-block-search__button {
+	border-radius: var(--tcgf-radius-full);
+	min-height: 2.4rem;
+	min-width: 2.75rem;
+	padding: 0.4rem 0.7rem;
+}
+
+/* Outils : compte, liste de souhaits, panier */
+.tcgf-header__tools {
+	display: flex;
+	align-items: center;
+	gap: 0.15rem;
+	margin-inline-start: auto;
+	flex-shrink: 0;
+}
+
+.tcgf-header__tools > * {
+	margin: 0;
+}
+
+.tcgf-header__tools a,
+.tcgf-header__tools button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0.4rem;
+	color: var(--tcgf-blanc);
+	border-radius: var(--tcgf-radius-s);
+	background: transparent;
+	text-decoration: none;
+}
+
+.tcgf-header__tools a:hover,
+.tcgf-header__tools button:hover {
+	background: var(--tcgf-surface-2);
+	color: var(--tcgf-blanc);
+}
+
+.tcgf-header__tools .wc-block-customer-account__account-icon,
+.tcgf-header__tools .wc-block-mini-cart__icon {
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+.tcgf-header .wc-block-mini-cart__badge {
+	background: var(--tcgf-or);
+	color: var(--tcgf-noir);
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+}
+
+/* Rail des univers */
+.tcgf-header__nav.wp-block-navigation {
+	position: relative;
+	padding-block: 0.15rem 0.55rem;
+}
+
+.tcgf-header__nav .wp-block-navigation__container {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.15rem;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+	margin-inline: calc(-1 * 0.7rem);
+	padding-inline: 0;
+	scroll-padding-inline: 1rem;
+	width: calc(100% + 1.4rem);
+}
+
+.tcgf-header__nav .wp-block-navigation__container::-webkit-scrollbar {
+	display: none;
+}
+
+.tcgf-header__nav .wp-block-navigation-item {
+	flex-shrink: 0;
+}
+
+.tcgf-header__nav .wp-block-navigation-item__content {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	padding: 0.35rem 0.7rem;
+	border-radius: var(--tcgf-radius-s);
+	color: var(--tcgf-blanc);
+	white-space: nowrap;
+	text-decoration: none;
+	transition: background-color var(--tcgf-anim-fast) var(--tcgf-anim-easing);
+}
+
+.tcgf-header__nav .wp-block-navigation-item__content:hover {
+	background: var(--tcgf-surface-2);
+}
+
+.tcgf-header__nav .current-menu-item > .wp-block-navigation-item__content,
+.tcgf-header__nav .wp-block-navigation-item__content[aria-current="page"] {
+	box-shadow: inset 0 -2px 0 var(--tcgf-violet-clair);
+	border-end-start-radius: 0;
+	border-end-end-radius: 0;
+}
+
+/* Précommandes : seul lien or du rail. */
+.tcgf-header__nav .tcgf-nav--or > .wp-block-navigation-item__content {
+	color: var(--tcgf-or);
+}
+
+/* Repères de défilement (classes posées par tcgforge.js) */
+.tcgf-header__nav::before,
+.tcgf-header__nav::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0.4rem;
+	width: 2.5rem;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity var(--tcgf-anim-fast) linear;
+	z-index: 1;
+}
+
+.tcgf-header__nav::before {
+	left: -0.7rem;
+	background: linear-gradient(90deg, var(--tcgf-noir), transparent);
+}
+
+.tcgf-header__nav::after {
+	right: -0.7rem;
+	background: linear-gradient(270deg, var(--tcgf-noir), transparent);
+}
+
+.tcgf-header__nav.has-overflow-start::before,
+.tcgf-header__nav.has-overflow-end::after {
+	opacity: 1;
+}
+
+/* En-tête de commande : logo + retour au panier */
+.tcgf-header--commande {
+	position: static;
+}
+
+.tcgf-header__back {
+	font-size: var(--tcgf-type-small);
+	margin: 0;
+}
+
+.tcgf-header__back a {
+	color: var(--tcgf-blanc);
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+}
+
+/* Mobile : logo + outils, puis recherche pleine largeur, puis rail. */
+@media (max-width: 781px) {
+	.tcgf-header__bar {
+		flex-wrap: wrap;
+		padding-block: 0.4rem 0.5rem;
+		gap: 0.35rem 0.5rem;
+	}
+
+	.tcgf-header__search {
+		order: 3;
+		flex: 1 0 100%;
+		max-width: none;
+	}
+
+	/* Seul le rail reste collé : l'en-tête remonte de la hauteur de la barre
+	   (mesurée par tcgforge.js). Sans JavaScript, l'en-tête défile avec la page. */
+	.tcgf-header {
+		position: static;
+	}
+
+	.tcgf-header.is-rail-sticky {
+		position: sticky;
+		top: calc(var(--wp-admin--admin-bar--height, 0px) - var(--tcgf-header-offset, 0px));
+	}
+
+	.tcgf-header--commande,
+	.tcgf-header--commande.is-rail-sticky {
+		position: static;
+	}
+
+	.tcgf-header__nav.wp-block-navigation {
+		padding-block: 0 0.35rem;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Pied de page
+   -------------------------------------------------------------------------- */
+
+.tcgf-footer {
+	border-top: 1px solid var(--tcgf-bordure);
+	background: var(--tcgf-noir);
+	margin-block-start: 0;
+}
+
+.tcgf-footer__inner > * {
+	margin-block: 0;
+}
+
+.tcgf-footer__main {
+	padding: clamp(2.5rem, 6vw, 4.5rem) var(--tcgf-layout-gutter) 2rem;
+}
+
+.tcgf-footer__grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr));
+	gap: 2rem clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.tcgf-footer__grid > .wp-block-column {
+	flex-basis: auto;
+	min-width: 0;
+	margin: 0;
+}
+
+.tcgf-footer__grid > .wp-block-column > * {
+	margin-block: 0;
+}
+
+.tcgf-footer__grid > .wp-block-column > * + * {
+	margin-block-start: 0.9rem;
+}
+
+.tcgf-footer__brand p {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+	max-width: 34ch;
+}
+
+.tcgf-footer .wp-block-site-logo img {
+	width: 10.75rem;
+	height: auto;
+	border-radius: 0;
+}
+
+.tcgf-footer__title {
+	font-size: var(--tcgf-type-small);
+	font-weight: 800;
+	letter-spacing: 0;
+	color: var(--tcgf-blanc);
+	margin: 0;
+}
+
+.tcgf-footer__links {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 0.1rem;
+}
+
+.tcgf-footer__links a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.25rem;
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+	text-decoration: none;
+}
+
+.tcgf-footer__links a:hover {
+	color: var(--tcgf-blanc);
+	text-decoration: underline;
+	text-decoration-color: var(--tcgf-violet-clair);
+	text-underline-offset: 0.25em;
+}
+
+.tcgf-footer__social {
+	gap: 0.35rem;
+	margin: 0;
+	padding: 0;
+}
+
+.tcgf-footer__social .wp-social-link {
+	background: transparent;
+	color: var(--tcgf-attenue);
+}
+
+.tcgf-footer__social .wp-social-link a {
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border-radius: var(--tcgf-radius-s);
+	color: inherit;
+}
+
+.tcgf-footer__social .wp-social-link a:hover {
+	color: var(--tcgf-blanc);
+	background: var(--tcgf-surface-2);
+}
+
+.tcgf-footer__social .wp-social-link svg {
+	fill: currentColor;
+	width: 1.35rem;
+	height: 1.35rem;
+}
+
+.tcgf-footer__services {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem clamp(1.5rem, 5vw, 4rem);
+	margin-block-start: clamp(2rem, 4vw, 3rem);
+	padding-block-start: 1.75rem;
+	border-top: 1px solid var(--tcgf-bordure);
+}
+
+.tcgf-footer__service {
+	flex: 1 1 18rem;
+	display: grid;
+	gap: 0.6rem;
+	align-content: start;
+}
+
+.tcgf-footer__service > * {
+	margin: 0;
+}
+
+.tcgf-footer__note {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-small);
+	max-width: 52ch;
+}
+
+.tcgf-footer__bottom {
+	margin-block-start: 1.75rem;
+	padding-block-start: 1.5rem;
+	border-top: 1px solid var(--tcgf-bordure);
+	display: grid;
+	gap: 0.6rem;
+}
+
+.tcgf-footer__bottom > * {
+	margin: 0;
+}
+
+.tcgf-footer__copy {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 0.35em;
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-blanc);
+}
+
+.tcgf-footer__copy p {
+	margin: 0;
+}
+
+.tcgf-footer__legal {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-meta);
+	max-width: 90ch;
+}
+
+/* Écrans tactiles : cibles de 44 px dans les listes du pied de page. */
+@media (pointer: coarse) {
+	.tcgf-footer__links a {
+		min-height: 2.75rem;
+	}
+}
+
+@media (max-width: 1023px) {
+	.tcgf-footer__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.tcgf-footer__brand {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width: 479px) {
+	.tcgf-footer__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.tcgf-header__back a,
+a.tcgf-header__back {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 2.75rem;
+	color: var(--tcgf-blanc);
+	font-size: var(--tcgf-type-small);
+}

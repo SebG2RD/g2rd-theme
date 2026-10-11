@@ -1,0 +1,299 @@
+/* ==========================================================================
+   TCGForge — tcg.css
+   Vocabulaire propre au TCG : badges de statut, caractéristiques (jeu,
+   extension, langue, type), précommande, moyens de paiement, newsletter.
+   Chaque élément est rendu à partir d'une donnée réelle (inc/product-data.php).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Badges : Nouveau, Précommande, Promotion, Stock faible, Rupture, Sur commande
+   Le libellé est toujours écrit : la couleur n'est jamais le seul signal.
+   -------------------------------------------------------------------------- */
+
+.tcgf-badges {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+
+.tcgf-badge {
+	display: inline-flex;
+	align-items: center;
+	min-height: 1.5rem;
+	padding: 0.15rem 0.55rem;
+	border-radius: var(--tcgf-radius-xs);
+	font-family: var(--tcgf-font-titres);
+	font-size: 0.74rem;
+	font-weight: 800;
+	line-height: 1.2;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	border: 1px solid transparent;
+}
+
+.tcgf-badge--nouveau {
+	background: var(--tcgf-violet);
+	color: var(--tcgf-blanc);
+}
+
+.tcgf-badge--precommande {
+	background: var(--tcgf-or);
+	color: var(--tcgf-noir);
+}
+
+.tcgf-badge--promotion {
+	background: var(--tcgf-blanc);
+	color: var(--tcgf-noir);
+}
+
+.tcgf-badge--stock-faible {
+	background: var(--tcgf-surface-2);
+	color: var(--tcgf-or);
+	border-color: var(--tcgf-or);
+}
+
+.tcgf-badge--rupture {
+	background: var(--tcgf-surface-2);
+	color: var(--tcgf-attenue);
+	border-color: var(--tcgf-bordure-forte);
+}
+
+.tcgf-badge--sur-commande {
+	background: var(--tcgf-surface-2);
+	color: var(--tcgf-blanc);
+	border-color: var(--tcgf-violet-clair);
+}
+
+/* --------------------------------------------------------------------------
+   Caractéristiques : étiquettes (cartes) et liste (fiche produit)
+   -------------------------------------------------------------------------- */
+
+.tcgf-facts--chips {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.15rem 0.6rem;
+	font-size: var(--tcgf-type-meta);
+	line-height: 1.35;
+	color: var(--tcgf-attenue);
+}
+
+.tcgf-facts__chip {
+	display: inline-flex;
+	align-items: center;
+}
+
+/* Le jeu (la licence) se lit en premier, sur sa propre ligne. */
+.tcgf-facts__chip--jeu {
+	flex: 1 0 100%;
+	color: var(--tcgf-lien);
+	font-family: var(--tcgf-font-titres);
+	font-weight: 700;
+}
+
+/* Séparateur discret entre extension et langue (décor). */
+.tcgf-facts__chip:not(.tcgf-facts__chip--jeu) + .tcgf-facts__chip::before {
+	content: "";
+	width: 3px;
+	height: 3px;
+	margin-inline-end: 0.6rem;
+	border-radius: 50%;
+	background: var(--tcgf-bordure-forte);
+}
+
+/* Sur la fiche produit, la licence seule sert de surtitre. */
+.tcgf-product__summary .tcgf-facts--chips .tcgf-facts__chip--jeu {
+	flex: 0 1 auto;
+}
+
+.tcgf-facts--liste {
+	margin: 0;
+	display: grid;
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	overflow: hidden;
+}
+
+.tcgf-facts__row {
+	display: grid;
+	grid-template-columns: minmax(6.5rem, 34%) 1fr;
+	gap: 0.75rem;
+	padding: 0.6rem 0.9rem;
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-facts__row + .tcgf-facts__row {
+	border-top: 1px solid var(--tcgf-bordure);
+}
+
+.tcgf-facts__row:nth-child(odd) {
+	background: var(--tcgf-surface);
+}
+
+.tcgf-facts__row dt {
+	color: var(--tcgf-attenue);
+	font-weight: 500;
+}
+
+.tcgf-facts__row dd {
+	margin: 0;
+	font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Précommande : statut, date de sortie, expédition
+   -------------------------------------------------------------------------- */
+
+.tcgf-release {
+	display: grid;
+	gap: 0.3rem;
+	padding: 0.85rem 1rem;
+	background: var(--tcgf-surface);
+	border: 1px solid var(--tcgf-bordure);
+	border-radius: var(--tcgf-radius-m);
+	font-size: var(--tcgf-type-small);
+}
+
+.tcgf-release > * {
+	margin: 0;
+}
+
+.tcgf-release--precommande {
+	background: var(--tcgf-or-voile);
+	border-color: color-mix(in srgb, var(--tcgf-or) 55%, transparent);
+}
+
+.tcgf-release__status {
+	font-family: var(--tcgf-font-titres);
+	font-weight: 800;
+	color: var(--tcgf-or);
+	font-size: 1rem;
+}
+
+.tcgf-release__label {
+	color: var(--tcgf-attenue);
+}
+
+.tcgf-release__label::after {
+	content: " :";
+}
+
+.tcgf-release time {
+	font-weight: 700;
+}
+
+.tcgf-release__note {
+	color: var(--tcgf-attenue);
+	font-size: var(--tcgf-type-meta);
+}
+
+.tcgf-release--compact {
+	display: block;
+	padding: 0;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	font-size: var(--tcgf-type-meta);
+	color: var(--tcgf-or);
+	margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Moyens de paiement activés (texte, sans logo)
+   -------------------------------------------------------------------------- */
+
+.tcgf-payments__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.tcgf-payments__item {
+	padding: 0.3rem 0.65rem;
+	border: 1px solid var(--tcgf-bordure-forte);
+	border-radius: var(--tcgf-radius-s);
+	font-size: var(--tcgf-type-meta);
+	font-weight: 600;
+	color: var(--tcgf-blanc);
+}
+
+/* --------------------------------------------------------------------------
+   Newsletter (affichée seulement si un formulaire est configuré)
+   -------------------------------------------------------------------------- */
+
+.tcgf-newsletter {
+	border-bottom: 1px solid var(--tcgf-bordure);
+	background:
+		radial-gradient(70% 160% at 0% 0%, var(--tcgf-violet-voile), transparent 65%),
+		var(--tcgf-surface);
+	padding: clamp(2rem, 5vw, 3.25rem) var(--tcgf-layout-gutter);
+}
+
+.tcgf-newsletter__inner {
+	max-width: var(--tcgf-layout-wide-width);
+	margin-inline: auto;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 1.25rem clamp(1.5rem, 5vw, 4rem);
+	align-items: center;
+}
+
+.tcgf-newsletter__title {
+	font-size: var(--tcgf-type-h3);
+	margin: 0 0 0.4rem;
+}
+
+.tcgf-newsletter__text p {
+	margin: 0;
+	color: var(--tcgf-attenue);
+	max-width: 48ch;
+}
+
+@media (max-width: 781px) {
+	.tcgf-newsletter__inner {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Rappels sous le bouton d'achat
+   -------------------------------------------------------------------------- */
+
+.tcgf-assurance__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.5rem;
+	font-size: var(--tcgf-type-small);
+	color: var(--tcgf-attenue);
+}
+
+.tcgf-assurance__list li {
+	position: relative;
+	padding-inline-start: 1.5rem;
+}
+
+.tcgf-assurance__list li::before {
+	content: "";
+	position: absolute;
+	left: 0.2rem;
+	top: 0.38em;
+	width: 0.42rem;
+	height: 0.72rem;
+	border-right: 2px solid var(--tcgf-succes);
+	border-bottom: 2px solid var(--tcgf-succes);
+	transform: rotate(40deg);
+}
+
+.tcgf-assurance__list a {
+	color: var(--tcgf-blanc);
+}
