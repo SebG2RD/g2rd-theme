@@ -360,6 +360,10 @@ production** à trois endroits : `tools/export-theme.ps1` (`$excludedFolders`),
 (échec si le dossier apparaît dans l'archive). Conserver ces trois exclusions à chaque
 refonte du process de release. Convention et procédure : `child-themes/README.md`.
 
+Le dossier est aussi **ignoré par les audits PHPCS globaux** (`--ignore=…,child-themes/*` dans les
+jobs Security Audit et PHPCompatibility de `phpcs-security.yml`) : ce code de référence n'est pas
+livré et ne doit pas bloquer la CI du parent. Le job WordPress Standards ne le voit pas (scope ciblé).
+
 ## Module MCP (v1.12.0+)
 
 Serveur JSON-RPC 2.0 natif exposant les CPTs et la configuration du thème à des outils IA compatibles MCP (Claude Desktop, Claude.ai).
