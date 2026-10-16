@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.40.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.40.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.40.1**
+
+- **Console d'options — v2** : refonte sur le modèle des consoles de réglages de référence — fond blanc, navigation claire, lignes de réglages (libellé et description à gauche, interrupteur à droite), icônes SVG linéaires, tableaux sobres, un seul accent lime réservé aux boutons primaires et aux états actifs.
+- **Fix** : les cartes de fonctionnalités affichaient le libellé de l'interrupteur en double et écrasaient leur texte (`ToggleControl` remplacé par `FormToggle` avec `aria-label`).
+- **Fix** : l'en-tête affichait la version du thème enfant actif au lieu de celle du thème parent.
+- **Fix** : libellés des listes déroulantes alignés sur ceux des champs texte.
 
 ### **1.40.0**
 
