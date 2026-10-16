@@ -175,6 +175,7 @@ const PATHS = {
 			<circle cx="15" cy="7" r="1.1" fill="currentColor" stroke="none" />
 		</>
 	),
+	cloud: <path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.2 9.5 4.25 4.25 0 0 0 7 18z" />,
 	dot: <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />,
 };
 

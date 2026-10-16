@@ -58,11 +58,17 @@ class ThemeAdmin {
             \filemtime(\get_template_directory() . '/assets/css/admin.css')
         );
 
-        // Police Inter variable self-hostée pour tout le back-office (perf + RGPD).
-        $inter_url = \esc_url( \get_template_directory_uri() . '/assets/fonts/inter-var.woff2' );
+        // Polices du back-office, self-hostées (perf + RGPD, licence OFL) :
+        // Instrument Sans (variable, texte) et IBM Plex Mono (valeurs techniques).
+        $fonts_uri = \get_template_directory_uri() . '/assets/fonts/';
+        $sans      = \esc_url( $fonts_uri . 'instrument-sans-var.woff2' );
+        $mono_400  = \esc_url( $fonts_uri . 'ibm-plex-mono-400.woff2' );
+        $mono_500  = \esc_url( $fonts_uri . 'ibm-plex-mono-500.woff2' );
         \wp_add_inline_style(
             'g2rd-admin',
-            '@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url("' . $inter_url . '") format("woff2-variations"),url("' . $inter_url . '") format("woff2");}'
+            '@font-face{font-family:"Instrument Sans";font-style:normal;font-weight:400 700;font-display:swap;src:url("' . $sans . '") format("woff2-variations"),url("' . $sans . '") format("woff2");}'
+            . '@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url("' . $mono_400 . '") format("woff2");}'
+            . '@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("' . $mono_500 . '") format("woff2");}'
         );
 
         $logo_url = \esc_url( $this->getLogoUrl() );
@@ -331,7 +337,7 @@ class ThemeAdmin {
      * @return void
      */
     private function render_geo_widget_footer(): void {
-        $options_url    = \admin_url( 'admin.php?page=g2rd-options' );
+        $options_url    = \admin_url( 'admin.php?page=g2rd' );
         $onboarding_url = \wp_nonce_url(
             \admin_url( 'admin.php?action=g2rd_reset_onboarding' ),
             'g2rd_reset_onboarding'
