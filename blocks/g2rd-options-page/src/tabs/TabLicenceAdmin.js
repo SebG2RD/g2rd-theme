@@ -106,10 +106,10 @@ export function TabLicenceAdmin() {
 
 			<section className="g2rd-section">
 				<div className="g2rd-section__head">
-					<h2 className="g2rd-section__title">
+					<h3 className="g2rd-section__title">
 						<span className="dashicons dashicons-admin-network"></span>
 						Gestion des licences
-					</h2>
+					</h3>
 					<Button
 						variant="secondary"
 						isSmall

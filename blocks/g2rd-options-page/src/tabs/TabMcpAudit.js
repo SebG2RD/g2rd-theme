@@ -73,10 +73,10 @@ export function TabMcpAudit() {
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
 				<div className="g2rd-section__head">
-					<h2 className="g2rd-section__title">
+					<h3 className="g2rd-section__title">
 						<span className="dashicons dashicons-list-view"></span>
 						Journal d'audit MCP
-					</h2>
+					</h3>
 					<div className="g2rd-row g2rd-row--loose">
 						<SelectControl __next40pxDefaultSize __nextHasNoMarginBottom
 							label="Filtrer par décision"

@@ -106,14 +106,14 @@ class Onboarding {
 
 		$url = \admin_url( 'admin.php?page=' . self::PAGE_SLUG );
 		printf(
-			'<div class="notice notice-warning" style="border-left-color:#D4A373;padding:1rem 1.25rem;display:flex;align-items:center;gap:1.5rem;">
-				<div style="flex:1">
-					<strong>%s</strong><br>
-					<span>%s</span>
+			'<div class="notice notice-info g2rd-admin-banner">
+				<span class="g2rd-admin-banner__icon" aria-hidden="true"><span class="dashicons dashicons-welcome-learn-more"></span></span>
+				<div class="g2rd-admin-banner__body">
+					<p><strong class="g2rd-admin-banner__title">%s</strong><span class="g2rd-admin-banner__text">%s</span></p>
 				</div>
-				<a href="%s" class="button button-primary" style="background:#2F425D;border-color:#2F425D;font-weight:600;flex-shrink:0;">%s →</a>
+				<a href="%s" class="button button-primary">%s</a>
 			</div>',
-			\esc_html__( '🚀 Bienvenue sur le thème G2RD !', 'g2rd' ),
+			\esc_html__( 'Bienvenue sur le thème G2RD !', 'g2rd' ),
 			\esc_html__( 'Complétez l\'assistant de démarrage pour configurer votre site en 2 minutes.', 'g2rd' ),
 			\esc_url( $url ),
 			\esc_html__( 'Démarrer l\'assistant', 'g2rd' )
@@ -261,7 +261,8 @@ class Onboarding {
 		?>
 		<div class="wrap g2rd-onboarding">
 			<div class="g2rd-onboarding__header">
-				<h1><?php \esc_html_e( '🚀 Configuration de votre thème G2RD', 'g2rd' ); ?></h1>
+				<span class="g2rd-onboarding__badge"><span class="g2rd-onboarding__badge-mark" aria-hidden="true">G2RD</span><?php \esc_html_e( 'Assistant de démarrage', 'g2rd' ); ?></span>
+				<h1><?php \esc_html_e( 'Configuration de votre thème G2RD', 'g2rd' ); ?></h1>
 				<p class="g2rd-onboarding__subtitle"><?php \esc_html_e( 'Configurez votre site en 4 étapes rapides.', 'g2rd' ); ?></p>
 			</div>
 
@@ -270,7 +271,12 @@ class Onboarding {
 				<?php foreach ( $steps as $num => $label ) : ?>
 					<div class="g2rd-onboarding__step <?php echo $num < $current_step ? 'done' : ( $num === $current_step ? 'active' : '' ); ?>">
 						<span class="g2rd-onboarding__step-num">
-							<?php echo $num < $current_step ? '✓' : \esc_html( (string) $num ); ?>
+							<?php if ( $num < $current_step ) : ?>
+								<span class="dashicons dashicons-yes" aria-hidden="true"></span>
+								<span class="screen-reader-text"><?php \esc_html_e( 'Étape terminée', 'g2rd' ); ?></span>
+							<?php else : ?>
+								<?php echo \esc_html( (string) $num ); ?>
+							<?php endif; ?>
 						</span>
 						<span class="g2rd-onboarding__step-label"><?php echo \esc_html( $label ); ?></span>
 					</div>
@@ -287,18 +293,19 @@ class Onboarding {
 
 						<div class="g2rd-onboarding__sectors">
 							<?php
+							// Icônes : slugs Dashicons (pas d'emoji — rendu homogène et accessible).
 							$sectors = [
-								'agence'    => [ 'icon' => '🎨', 'label' => 'Agence / Studio', 'desc' => 'Web, créatif, conseil' ],
-								'artisan'   => [ 'icon' => '🔧', 'label' => 'Artisan / Prestataire', 'desc' => 'Bâtiment, rénovation, services' ],
-								'vtc'       => [ 'icon' => '🚗', 'label' => 'Transport / VTC', 'desc' => 'Taxi, chauffeur, livraison' ],
-								'ecommerce' => [ 'icon' => '🛒', 'label' => 'E-commerce', 'desc' => 'Boutique en ligne, produits' ],
-								'autre'     => [ 'icon' => '🌐', 'label' => 'Autre', 'desc' => 'Professionnel libéral, etc.' ],
+								'agence'    => [ 'icon' => 'art',            'label' => 'Agence / Studio', 'desc' => 'Web, créatif, conseil' ],
+								'artisan'   => [ 'icon' => 'admin-tools',    'label' => 'Artisan / Prestataire', 'desc' => 'Bâtiment, rénovation, services' ],
+								'vtc'       => [ 'icon' => 'car',            'label' => 'Transport / VTC', 'desc' => 'Taxi, chauffeur, livraison' ],
+								'ecommerce' => [ 'icon' => 'cart',           'label' => 'E-commerce', 'desc' => 'Boutique en ligne, produits' ],
+								'autre'     => [ 'icon' => 'admin-site-alt3', 'label' => 'Autre', 'desc' => 'Professionnel libéral, etc.' ],
 							];
 							foreach ( $sectors as $key => $s ) :
 								?>
 								<label class="g2rd-sector-card">
 									<input type="radio" name="sector" value="<?php echo \esc_attr( $key ); ?>" <?php \checked( \get_option( 'g2rd_business_sector', 'autre' ), $key ); ?>>
-									<span class="g2rd-sector-card__icon"><?php echo \esc_html( $s['icon'] ); ?></span>
+									<span class="g2rd-sector-card__icon" aria-hidden="true"><span class="dashicons dashicons-<?php echo \esc_attr( $s['icon'] ); ?>"></span></span>
 									<span class="g2rd-sector-card__label"><?php echo \esc_html( $s['label'] ); ?></span>
 									<span class="g2rd-sector-card__desc"><?php echo \esc_html( $s['desc'] ); ?></span>
 								</label>
@@ -341,20 +348,20 @@ class Onboarding {
 
 						<div class="g2rd-onboarding__pages-preview">
 							<?php
+							// Icônes : slugs Dashicons (pas d'emoji — rendu homogène et accessible).
 							$pages = [
-								[ 'icon' => '🏠', 'name' => 'Accueil', 'desc' => 'Template adapté à votre secteur' ],
-								[ 'icon' => '⚙️', 'name' => 'Services', 'desc' => 'Présentation de vos prestations' ],
-								[ 'icon' => '📧', 'name' => 'Contact', 'desc' => 'Formulaire et coordonnées' ],
+								[ 'icon' => 'admin-home',  'name' => 'Accueil', 'desc' => 'Template adapté à votre secteur' ],
+								[ 'icon' => 'admin-tools', 'name' => 'Services', 'desc' => 'Présentation de vos prestations' ],
+								[ 'icon' => 'email-alt',   'name' => 'Contact', 'desc' => 'Formulaire et coordonnées' ],
 							];
 							foreach ( $pages as $p ) :
 								?>
 								<div class="g2rd-page-preview">
-									<span><?php echo \esc_html( $p['icon'] ); ?></span>
+									<span class="g2rd-page-preview__icon" aria-hidden="true"><span class="dashicons dashicons-<?php echo \esc_attr( $p['icon'] ); ?>"></span></span>
 									<div>
 										<strong><?php echo \esc_html( $p['name'] ); ?></strong>
 										<small><?php echo \esc_html( $p['desc'] ); ?></small>
 									</div>
-									<span style="color:#46b450">✓</span>
 								</div>
 							<?php endforeach; ?>
 						</div>
@@ -364,13 +371,13 @@ class Onboarding {
 
 					<?php elseif ( 4 <= $current_step ) : ?>
 						<div class="g2rd-onboarding__success">
-							<div class="g2rd-onboarding__success-icon">🎉</div>
+							<div class="g2rd-onboarding__success-icon" aria-hidden="true"><span class="dashicons dashicons-yes-alt"></span></div>
 							<h2><?php \esc_html_e( 'Votre site est prêt !', 'g2rd' ); ?></h2>
 							<p><?php \esc_html_e( 'Vos pages ont été créées et votre site est configuré. Rendez-vous dans l\'Éditeur de site pour le personnaliser.', 'g2rd' ); ?></p>
 
 							<div class="g2rd-onboarding__success-links">
-								<a href="<?php echo \esc_url( \admin_url( 'site-editor.php' ) ); ?>" class="button button-primary button-hero"><?php \esc_html_e( '✏️ Ouvrir l\'éditeur de site', 'g2rd' ); ?></a>
-								<a href="<?php echo \esc_url( \home_url( '/' ) ); ?>" class="button button-secondary" target="_blank"><?php \esc_html_e( '👁️ Voir mon site', 'g2rd' ); ?></a>
+								<a href="<?php echo \esc_url( \admin_url( 'site-editor.php' ) ); ?>" class="button button-primary button-hero"><span class="dashicons dashicons-edit" aria-hidden="true"></span><?php \esc_html_e( 'Ouvrir l\'éditeur de site', 'g2rd' ); ?></a>
+								<a href="<?php echo \esc_url( \home_url( '/' ) ); ?>" class="button button-secondary button-hero" target="_blank"><span class="dashicons dashicons-external" aria-hidden="true"></span><?php \esc_html_e( 'Voir mon site', 'g2rd' ); ?></a>
 							</div>
 						</div>
 
@@ -379,7 +386,7 @@ class Onboarding {
 					<?php endif; ?>
 
 					<p class="g2rd-onboarding__skip">
-						<button type="submit" name="onboarding_action" value="skip" class="button-link" style="color:#999">
+						<button type="submit" name="onboarding_action" value="skip" class="button-link">
 							<?php \esc_html_e( 'Passer cette étape et configurer manuellement', 'g2rd' ); ?>
 						</button>
 					</p>

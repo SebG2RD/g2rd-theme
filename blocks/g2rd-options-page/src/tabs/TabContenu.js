@@ -14,10 +14,10 @@ export function TabContenu( { settings, update } ) {
 	return (
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-category"></span>
 					Types de contenus personnalisés (CPT)
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Activez ou désactivez les types de contenus inclus dans le thème.
 					Un changement de slug nécessite une mise à jour des permaliens.

@@ -103,13 +103,13 @@ export function TabMcpQueue() {
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
 				<div className="g2rd-section__head">
-					<h2 className="g2rd-section__title">
+					<h3 className="g2rd-section__title">
 						<span className="dashicons dashicons-clock"></span>
 						File d'approbation MCP
 						{ total > 0 && (
 							<span className="g2rd-count">{ total }</span>
 						) }
-					</h2>
+					</h3>
 					<Button variant="secondary" isSmall onClick={ loadEntries } disabled={ isLoading }>
 						<span className="dashicons dashicons-update g2rd-ico"></span>
 						Rafraîchir

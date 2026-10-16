@@ -333,18 +333,14 @@ class ThemeOptions {
         }
 
         if ( \file_exists( $css_path ) ) {
+            // La police Inter (@font-face) est déclarée une seule fois par
+            // ThemeAdmin::registerAdminAssets() sur la feuille `g2rd-admin`,
+            // chargée sur toutes les pages d'administration — d'où la dépendance.
             \wp_enqueue_style(
                 'g2rd-options-page',
                 $dir_uri . '/blocks/g2rd-options-page/build/style-index.css',
-                [ 'wp-components', 'dashicons' ],
+                [ 'wp-components', 'dashicons', 'g2rd-admin' ],
                 (string) \filemtime( $css_path )
-            );
-
-            // Police Inter self-hostée (remplace l'@import Google Fonts — perf + RGPD).
-            $inter_url = $dir_uri . '/assets/fonts/Inter_28pt-Regular.woff2';
-            \wp_add_inline_style(
-                'g2rd-options-page',
-                '@font-face{font-family:"Inter";font-style:normal;font-weight:300 800;font-display:swap;src:url("' . \esc_url( $inter_url ) . '") format("woff2");}'
             );
         }
 

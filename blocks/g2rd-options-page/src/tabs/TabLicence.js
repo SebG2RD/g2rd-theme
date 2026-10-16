@@ -138,10 +138,10 @@ export function TabLicence() {
 			</ConfirmDialog>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-admin-network"></span>
 					Licence G2RD FSE
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Activez votre licence pour débloquer les blocs Gutenberg personnalisés G2RD.{ ' ' }
 					<a href="https://g2rd.fr/boutique" target="_blank" rel="noopener noreferrer">

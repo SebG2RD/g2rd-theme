@@ -63,42 +63,46 @@ function ExternalTabHost({ tab }) {
 	);
 }
 
+/*
+ * Chaque entrée porte une description courte : affichée sous le titre de
+ * page, elle dit ce que l'onglet pilote avant même d'en lire les sections.
+ */
 const NAV_GROUPS = [
 	{
 		label: 'Thème',
 		items: [
-			{ name: 'configuration', title: 'Configuration', icon: 'admin-settings' },
-			{ name: 'contenu',       title: 'Contenu',       icon: 'category' },
-			{ name: 'editeur',       title: 'Éditeur',       icon: 'block-default' },
-			{ name: 'clients',       title: 'Clients',       icon: 'admin-users' },
+			{ name: 'configuration', title: 'Configuration', icon: 'admin-settings', description: 'Type de site, couleurs de l\'administration et intégrations tierces.' },
+			{ name: 'contenu',       title: 'Contenu',       icon: 'category',       description: 'Types de contenus personnalisés inclus dans le thème.' },
+			{ name: 'editeur',       title: 'Éditeur',       icon: 'block-default',  description: 'Modules optionnels, boutons flottants et blocs Gutenberg disponibles.' },
+			{ name: 'clients',       title: 'Clients',       icon: 'admin-users',    description: 'Interface simplifiée et aides SEO / GEO pour vos clients.' },
 		],
 	},
 	{
 		label: 'Site',
 		items: [
-			{ name: 'maintenance', title: 'Maintenance', icon: 'clock' },
-			{ name: 'connexion',   title: 'Connexion',   icon: 'lock' },
+			{ name: 'maintenance', title: 'Maintenance', icon: 'clock', description: 'Mode « bientôt disponible » et assistant de démarrage.' },
+			{ name: 'connexion',   title: 'Connexion',   icon: 'lock',  description: 'Apparence de la page de connexion WordPress, avec aperçu en direct.' },
 		],
 	},
 	{
 		label: 'Système',
 		items: [
-			{ name: 'licence', title: 'Licence', icon: 'admin-network' },
-			...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'admin-network' } ] : [] ),
+			{ name: 'licence', title: 'Licence', icon: 'admin-network', description: 'Activation de la licence G2RD sur ce domaine.' },
+			...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'admin-network', description: 'Création et suivi des clés de licence de vos clients.' } ] : [] ),
 		],
 	},
 	{
 		label: 'IA',
 		items: [
-			{ name: 'ia', title: 'Module IA', icon: 'superhero-alt' },
+			{ name: 'ia', title: 'Module IA', icon: 'superhero-alt', description: 'Profil du site, clé API, quotas et consignes des générations IA.' },
 		],
 	},
 	{
 		label: 'MCP',
 		items: [
-			{ name: 'mcp-tokens', title: 'Tokens',  icon: 'shield' },
-			{ name: 'mcp-audit',  title: 'Audit',   icon: 'list-view' },
-			{ name: 'mcp-queue',  title: 'File',    icon: 'clock' },
+			{ name: 'mcp-tokens', title: 'Tokens',  icon: 'shield',    description: 'Tokens d\'accès des agents MCP et snippets d\'intégration.' },
+			{ name: 'mcp-audit',  title: 'Audit',   icon: 'list-view', description: 'Journal immuable de toutes les requêtes MCP reçues.' },
+			{ name: 'mcp-queue',  title: 'File',    icon: 'clock',     description: 'Opérations d\'écriture en attente de votre approbation.' },
 		],
 	},
 ];
@@ -111,12 +115,13 @@ const EXTERNAL_GROUP = externalTabs.length > 0 ? {
 		name: `ext:${ tab.key }`,
 		title: tab.label || tab.key,
 		icon: tab.icon || 'admin-plugins',
+		description: tab.description || '',
 		_external: tab,
 	} ) ),
 } : null;
 
 const FULL_NAV_GROUPS = EXTERNAL_GROUP ? [ ...NAV_GROUPS, EXTERNAL_GROUP ] : NAV_GROUPS;
-const ALL_ITEMS = FULL_NAV_GROUPS.flatMap( ( g ) => g.items );
+const ALL_ITEMS = FULL_NAV_GROUPS.flatMap( ( g ) => g.items.map( ( item ) => ( { ...item, group: g.label } ) ) );
 
 function renderTab( name, settings, update ) {
 	const props = { settings, update };
@@ -159,13 +164,15 @@ export function App() {
 	return (
 		<div className="g2rd-app">
 
+			<a className="g2rd-skip" href="#g2rd-main">Aller au contenu</a>
+
 			{ /* ── Header ── */ }
 			<header className="g2rd-header">
 				<div className="g2rd-header__brand">
-					<span className="g2rd-header__logo">G2RD</span>
+					<span className="g2rd-header__logo" aria-hidden="true">G2RD</span>
 					<div className="g2rd-header__meta">
 						<h1 className="g2rd-header__title">Options du thème</h1>
-						<span className="g2rd-header__version">v{ version }</span>
+						<span className="g2rd-header__version">G2RD FSE · v{ version }</span>
 					</div>
 				</div>
 
@@ -182,26 +189,29 @@ export function App() {
 						</span>
 					) }
 
-					{ ( isDirty || isSaving ) && (
-						<div className="g2rd-header__save">
-							{ ! isSaving && (
-								<Button variant="tertiary" onClick={ reset } disabled={ isSaving }>
-									Annuler
+					{ /* aria-live : l'apparition des boutons est annoncée aux lecteurs d'écran */ }
+					<div className="g2rd-header__save" aria-live="polite">
+						{ ( isDirty || isSaving ) && (
+							<>
+								{ ! isSaving && (
+									<span className="g2rd-header__dirty">
+										<span className="g2rd-header__dirty-dot" aria-hidden="true"></span>
+										Modifications non enregistrées
+									</span>
+								) }
+								{ ! isSaving && (
+									<Button variant="tertiary" onClick={ reset } disabled={ isSaving }>
+										Annuler
+									</Button>
+								) }
+								<Button variant="primary" onClick={ save } disabled={ isSaving } isBusy={ isSaving }>
+									{ isSaving ? 'Enregistrement…' : 'Enregistrer' }
 								</Button>
-							) }
-							<Button variant="primary" onClick={ save } disabled={ isSaving } isBusy={ isSaving }>
-								{ isSaving ? 'Enregistrement…' : 'Enregistrer' }
-							</Button>
-						</div>
-					) }
+							</>
+						) }
+					</div>
 				</div>
 			</header>
-
-			{ notice && (
-				<Notice status={ notice.type } onRemove={ clearNotice } className="g2rd-notice">
-					{ notice.message }
-				</Notice>
-			) }
 
 			{ /* ── Body ── */ }
 			<div className="g2rd-body">
@@ -214,6 +224,7 @@ export function App() {
 							{ group.items.map( ( item ) => (
 								<button
 									key={ item.name }
+									type="button"
 									className={ `g2rd-nav__item${ activeTab === item.name ? ' g2rd-nav__item--active' : '' }` }
 									onClick={ () => setActiveTab( item.name ) }
 									aria-current={ activeTab === item.name ? 'page' : undefined }
@@ -227,18 +238,37 @@ export function App() {
 				</nav>
 
 				{ /* ── Main content ── */ }
-				<main className="g2rd-main">
-					<div className="g2rd-main__heading">
-						<span className={ `dashicons dashicons-${ activeItem?.icon }` } aria-hidden="true"></span>
-						<h2>{ activeItem?.title }</h2>
-					</div>
-					{ /* key force le remount et déclenche l'animation CSS */ }
-					<div className="g2rd-main__content" key={ activeTab }>
-						{ renderTab( activeTab, settings, update ) }
+				<main className="g2rd-main" id="g2rd-main" tabIndex={ -1 }>
+					<div className="g2rd-main__inner">
+						<header className="g2rd-page-head">
+							<div className="g2rd-page-head__icon" aria-hidden="true">
+								<span className={ `dashicons dashicons-${ activeItem?.icon }` }></span>
+							</div>
+							<div>
+								<p className="g2rd-page-head__eyebrow">{ activeItem?.group }</p>
+								<h2 className="g2rd-page-head__title">{ activeItem?.title }</h2>
+								{ activeItem?.description && (
+									<p className="g2rd-page-head__desc">{ activeItem.description }</p>
+								) }
+							</div>
+						</header>
+						{ /* key force le remount et déclenche l'animation CSS */ }
+						<div className="g2rd-main__content" key={ activeTab }>
+							{ renderTab( activeTab, settings, update ) }
+						</div>
 					</div>
 				</main>
 
 			</div>
+
+			{ /* ── Toast ── */ }
+			{ notice && (
+				<div className="g2rd-toast" role="status">
+					<Notice status={ notice.type } onRemove={ clearNotice } className="g2rd-notice">
+						{ notice.message }
+					</Notice>
+				</div>
+			) }
 		</div>
 	);
 }

@@ -1,11 +1,26 @@
 import { ToggleControl } from '@wordpress/components';
 
+/**
+ * Carte d'une fonctionnalité optionnelle du thème.
+ *
+ * L'interrupteur est aligné à droite, sur la ligne du titre : l'état se lit
+ * d'un coup d'œil sur une grille de cartes, sans descendre sous chaque
+ * description. La carte porte la classe `--on` quand la fonctionnalité est
+ * active pour teinter l'icône et la bordure.
+ */
 export function FeatureCard( { featureKey, definition, value, onChange, locked } ) {
 	const { label, description } = definition;
+	const isOn = !! value && ! locked;
+
+	const classes = [
+		'g2rd-feature-card',
+		isOn ? 'g2rd-feature-card--on' : '',
+		locked ? 'g2rd-feature-card--locked' : '',
+	].filter( Boolean ).join( ' ' );
 
 	return (
-		<div className={ `g2rd-feature-card${ locked ? ' g2rd-feature-card--locked' : '' }` }>
-			<div className="g2rd-feature-card__icon">
+		<div className={ classes }>
+			<div className="g2rd-feature-card__icon" aria-hidden="true">
 				<span className={ `dashicons dashicons-${ getIcon( featureKey ) }` }></span>
 			</div>
 			<div className="g2rd-feature-card__body">
@@ -16,6 +31,8 @@ export function FeatureCard( { featureKey, definition, value, onChange, locked }
 					) }
 				</div>
 				<p className="g2rd-feature-card__desc">{ description }</p>
+			</div>
+			<div className="g2rd-feature-card__control">
 				<ToggleControl
 					label={ label }
 					hideLabelFromVision
@@ -35,7 +52,7 @@ function getIcon( key ) {
 		particles_effect:         'star-filled',
 		glass_effect:             'admin-appearance',
 		clickable_articles:       'admin-links',
-		accessibility:            'universal',
+		accessibility:            'universal-access-alt',
 		back_to_top:              'arrow-up-alt2',
 		dark_mode:                'visibility',
 		enable_ai:                'rest-api',

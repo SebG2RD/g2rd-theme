@@ -27,10 +27,10 @@ export function TabEditeur( { settings, update } ) {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-admin-plugins"></span>
 					Fonctionnalités
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Activez ou désactivez les modules optionnels du thème.
 				</p>
@@ -49,10 +49,10 @@ export function TabEditeur( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-art"></span>
 					Couleur des boutons flottants
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Couleur des boutons « accessibilité » et « retour en haut », choisie
 					dans la palette du thème. « Défaut » utilise la couleur primaire du thème.
@@ -72,13 +72,13 @@ export function TabEditeur( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-block-default"></span>
 					Blocs Gutenberg
 					{ ! licensed && (
 						<span className="g2rd-badge g2rd-badge--lock">Licence requise</span>
 					) }
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					{ licensed
 						? 'Masquez les blocs inutilisés pour simplifier l\'interface de vos clients.'

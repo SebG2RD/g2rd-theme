@@ -58,6 +58,13 @@ class ThemeAdmin {
             \filemtime(\get_template_directory() . '/assets/css/admin.css')
         );
 
+        // Police Inter variable self-hostée pour tout le back-office (perf + RGPD).
+        $inter_url = \esc_url( \get_template_directory_uri() . '/assets/fonts/inter-var.woff2' );
+        \wp_add_inline_style(
+            'g2rd-admin',
+            '@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url("' . $inter_url . '") format("woff2-variations"),url("' . $inter_url . '") format("woff2");}'
+        );
+
         $logo_url = \esc_url( $this->getLogoUrl() );
         \wp_add_inline_style(
             'g2rd-admin',
@@ -127,21 +134,24 @@ class ThemeAdmin {
         }
 
         // Valeurs par défaut si la palette est vide ou le slug introuvable
+        // (alignées sur la palette « WP Manager » de theme-settings.json).
         $fallbacks = [
-            'admin_bg'       => '#2f425d',
-            'admin_text'     => '#f0f0f0',
-            'btn_bg'         => '#d4a373',
-            'btn_text'       => '#f0f0f0',
-            'btn_bg_hover'   => '#c4935c',
-            'btn_text_hover' => '#f0f0f0',
+            'admin_bg'       => '#0f172a',
+            'admin_text'     => '#ffffff',
+            'btn_bg'         => '#a3e635',
+            'btn_text'       => '#0f172a',
+            'btn_bg_hover'   => '#a3e635',
+            'btn_text_hover' => '#0f172a',
         ];
+        // RGAA : le lime (`secondary`) est un aplat — le texte posé dessus est
+        // navy (`primary`), jamais blanc (contraste 1,6:1 insuffisant).
         $default_slugs = [
             'admin_bg'       => 'primary',
             'admin_text'     => 'white',
             'btn_bg'         => 'secondary',
-            'btn_text'       => 'white',
+            'btn_text'       => 'primary',
             'btn_bg_hover'   => 'secondary',
-            'btn_text_hover' => 'white',
+            'btn_text_hover' => 'primary',
         ];
 
         $saved = (array) \get_option('g2rd_admin_colors', []);
@@ -165,6 +175,7 @@ class ThemeAdmin {
     --primary-color: %1$s;
     --secondary-color: %2$s;
     --text-light: %3$s;
+    --text-dark: %5$s;
     --menu-submenu-bg: %4$s;
     --menu-highlight-color: %2$s;
 }
@@ -225,9 +236,9 @@ class ThemeAdmin {
         if ($column_name === 'featured_image') {
             if (has_post_thumbnail($post_id)) {
                 $thumbnail = get_the_post_thumbnail_url($post_id, 'thumbnail');
-                echo '<img src="' . esc_url($thumbnail) . '" style="width: 150px; height: 150px; object-fit: cover;" alt="Image mise en avant">';
+                echo '<img src="' . esc_url($thumbnail) . '" class="g2rd-col-thumb" alt="">';
             } else {
-                echo '—';
+                echo '<span aria-hidden="true">—</span>';
             }
         }
     }
@@ -301,11 +312,11 @@ class ThemeAdmin {
         echo '<ul class="g2rd-dash-geo__list">';
         foreach ( $posts as $post ) {
             $score     = (int) \get_post_meta( $post->ID, '_g2rd_geo_score', true );
-            $color     = $score >= 75 ? '#22c55e' : ( $score >= 50 ? '#f59e0b' : '#ef4444' );
+            $tone      = $score >= 75 ? 'good' : ( $score >= 50 ? 'mid' : 'low' );
             $edit_link = \get_edit_post_link( $post->ID );
             $label     = \get_the_title( $post->ID );
             echo '<li class="g2rd-dash-geo__item">';
-            echo '<span class="g2rd-dash-geo__score" style="background:' . \esc_attr( $color ) . '">' . \esc_html( (string) $score ) . '</span>';
+            echo '<span class="g2rd-dash-geo__score g2rd-dash-geo__score--' . \esc_attr( $tone ) . '">' . \esc_html( (string) $score ) . '</span>';
             echo '<a href="' . \esc_url( (string) $edit_link ) . '">' . \esc_html( $label ) . '</a>';
             echo '</li>';
         }

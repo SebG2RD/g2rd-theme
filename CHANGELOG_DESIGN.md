@@ -106,3 +106,32 @@ Aucune autre exception. `style.css` n'a pas grossi ailleurs.
 - Appliquer les variations (`is-style-card`, `section-dark`, bouton **Action**) à des patterns
   existants ou créer des patterns « façon dashboard » (sections cartes, CTA action).
 - Étape 5 bloc par bloc (ci-dessus), avec validation éditeur.
+
+## Backoffice — console d'options, chrome admin, onboarding
+
+Même charte que le site (navy `#0f172a`, lime `#a3e635`, pink `#ec4899`→purple `#a855f7`,
+neutres slate), appliquée au back-office à la place de l'ancienne charte « logo »
+(navy `#2F425D` / doré `#D4A373` / or `#b8924a`).
+
+- **Page d'options React** (`blocks/g2rd-options-page/src/style.css`, `App.js`,
+  `FeatureCard.js`) : tokens fixes de la charte (jamais les couleurs configurables de la
+  barre d'admin) ; sidebar **navy** avec item actif **lime / texte navy** (façon sidebar
+  wp-manager) ; en-tête collant translucide ; en-tête de page (groupe, titre, description) ;
+  sections en cartes ; boutons primaires **lime / navy** via les variables
+  `--wp-components-color-accent*` (zéro `!important`) ; bouton Enregistrer en dégradé
+  « action » assombri (texte blanc AA) ; liens en pink AA `#db2777` ; toast de notification ;
+  lien d'évitement ; hiérarchie h1 → h2 (page) → h3 (sections) ; Inter **variable**
+  (`inter-var.woff2`, graisses réelles).
+- **Chrome admin** (`assets/css/admin.css`) : habillage complet de l'administration hors
+  éditeur de blocs — Inter variable sur tout le back-office (`@font-face` injecté par
+  `ThemeAdmin::registerAdminAssets()`), champs 36 px arrondis avec anneau de focus navy,
+  boutons secondaires blancs/slate et primaires (couleurs configurables, forme ici), onglets
+  `nav-tab` à surlignage lime, filtres de statut en pastilles, tableaux de listes arrondis
+  avec en-tête slate et survol, boîtes/cartes/plugins/thèmes à rayon 12 px, notices et
+  panneau « Options de l'écran » harmonisés. Barre/menu toujours configurables (slugs de
+  palette, défauts = charte, texte sur lime = **navy**), entrées de menu arrondies.
+  Bannières G2RD et widgets tableau de bord sans styles inline ni emoji (dashicons).
+- **Onboarding** (`assets/css/onboarding.css`, `class-onboarding.php`) : mêmes tokens,
+  étapes/cartes secteur avec dashicons, bouton héro lime / navy.
+- **Supprimé** : `assets/css/admin-options.css` et `assets/js/admin-options.js` (ancienne
+  page d'options PHP, plus référencés).

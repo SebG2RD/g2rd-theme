@@ -159,8 +159,11 @@ class Client_Mode {
 		}
 
 		printf(
-			'<div class="notice notice-info is-dismissible" style="border-left-color:#D4A373;padding:1rem 1.25rem;">
-				<p style="font-size:1rem;margin:0;">👋 <strong>%s</strong> — %s</p>
+			'<div class="notice notice-info is-dismissible g2rd-admin-banner">
+				<span class="g2rd-admin-banner__icon" aria-hidden="true"><span class="dashicons dashicons-admin-users"></span></span>
+				<div class="g2rd-admin-banner__body">
+					<p><strong class="g2rd-admin-banner__title">%s</strong><span class="g2rd-admin-banner__text">%s</span></p>
+				</div>
 			</div>',
 			\esc_html__( 'Bonjour', 'g2rd' ),
 			\esc_html( $message )

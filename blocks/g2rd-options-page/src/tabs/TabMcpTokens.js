@@ -287,10 +287,10 @@ export function TabMcpTokens() {
 		<div className="g2rd-tab-content">
 			<section className="g2rd-section">
 				<div className="g2rd-section__head">
-					<h2 className="g2rd-section__title">
+					<h3 className="g2rd-section__title">
 						<span className="dashicons dashicons-shield"></span>
 						Tokens API MCP
-					</h2>
+					</h3>
 					<div className="g2rd-row">
 						<Button variant="secondary" isSmall onClick={ toggleInactive }>
 							<span className={ `dashicons dashicons-${ showInactive ? 'hidden' : 'visibility' } g2rd-ico` }></span>

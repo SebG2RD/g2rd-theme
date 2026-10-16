@@ -58,7 +58,6 @@ class Business_Mode {
 		\add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_data' ] );
 		\add_action( 'wp_dashboard_setup', [ $this, 'register_dashboard_widget' ] );
 		\add_action( 'admin_notices', [ $this, 'show_setup_notice' ] );
-		\add_action( 'admin_head', [ $this, 'enqueue_widget_styles' ] );
 	}
 
 	/**
@@ -99,7 +98,7 @@ class Business_Mode {
 	public function register_dashboard_widget(): void {
 		\wp_add_dashboard_widget(
 			'g2rd_business_mode_widget',
-			\esc_html__( '🎯 Conseils G2RD pour votre site', 'g2rd' ),
+			\esc_html__( 'Conseils G2RD pour votre site', 'g2rd' ),
 			[ $this, 'render_dashboard_widget' ]
 		);
 	}
@@ -127,12 +126,12 @@ class Business_Mode {
 
 		echo '<div class="g2rd-bm-widget">';
 		printf( '<p class="g2rd-bm-widget__type"><strong>%s</strong> %s</p>', \esc_html__( 'Type de site :', 'g2rd' ), \esc_html( $label ) );
-		printf( '<p class="g2rd-bm-widget__tip">💡 %s</p>', \esc_html( $rec['tip'] ) );
+		printf( '<p class="g2rd-bm-widget__tip"><span class="dashicons dashicons-lightbulb" aria-hidden="true"></span><span>%s</span></p>', \esc_html( $rec['tip'] ) );
 
 		echo '<p><strong>' . \esc_html__( 'Pages recommandées :', 'g2rd' ) . '</strong></p>';
 		echo '<ul class="g2rd-bm-widget__list">';
 		foreach ( $rec['pages'] as $page ) {
-			printf( '<li>• %s</li>', \esc_html( $page ) );
+			printf( '<li>%s</li>', \esc_html( $page ) );
 		}
 		echo '</ul>';
 
@@ -146,27 +145,10 @@ class Business_Mode {
 	}
 
 	/**
-	 * Injecte les styles du widget tableau de bord sur la page dashboard uniquement.
-	 *
-	 * @return void
-	 */
-	public function enqueue_widget_styles(): void {
-		$screen = \get_current_screen();
-		if ( ! $screen || 'dashboard' !== $screen->id ) {
-			return;
-		}
-		?>
-		<style id="g2rd-bm-widget-styles">
-		.g2rd-bm-widget__type { color:#2F425D; font-size:13px; }
-		.g2rd-bm-widget__tip  { background:#FFF8F0; border-left:3px solid #D4A373; padding:8px 12px; border-radius:0 4px 4px 0; font-size:12px; }
-		.g2rd-bm-widget__list { margin:4px 0 8px 0; }
-		.g2rd-bm-widget__list li { font-size:12px; margin:2px 0; }
-		</style>
-		<?php
-	}
-
-	/**
 	 * Notice si le type de site n'est pas encore configuré.
+	 *
+	 * Les styles du widget (`.g2rd-bm-widget__*`) vivent dans
+	 * assets/css/admin.css, chargé sur toutes les pages d'administration.
 	 */
 	public function show_setup_notice(): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
@@ -181,12 +163,17 @@ class Business_Mode {
 		}
 
 		printf(
-			'<div class="notice notice-info is-dismissible" style="border-left-color:#2F425D;">
-				<p>🚀 <strong>G2RD</strong> — %s <a href="%s">%s</a></p>
+			'<div class="notice notice-info is-dismissible g2rd-admin-banner">
+				<span class="g2rd-admin-banner__icon" aria-hidden="true"><span class="dashicons dashicons-admin-settings"></span></span>
+				<div class="g2rd-admin-banner__body">
+					<p><strong class="g2rd-admin-banner__title">%s</strong><span class="g2rd-admin-banner__text">%s</span></p>
+				</div>
+				<a href="%s" class="button button-primary">%s</a>
 			</div>',
+			\esc_html__( 'Type de site non défini', 'g2rd' ),
 			\esc_html__( 'Configurez le type de votre site pour obtenir des conseils personnalisés.', 'g2rd' ),
 			\esc_url( \admin_url( 'themes.php?page=g2rd-options' ) ),
-			\esc_html__( 'Configurer maintenant →', 'g2rd' )
+			\esc_html__( 'Configurer maintenant', 'g2rd' )
 		);
 	}
 

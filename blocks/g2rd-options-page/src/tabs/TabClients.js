@@ -10,10 +10,10 @@ export function TabClients( { settings, update } ) {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-admin-users"></span>
 					Mode client
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Simplifie l'interface d'administration WordPress pour vos clients non techniques.
 					Masque les menus avancés et affiche un message d'accueil personnalisé.
@@ -42,10 +42,10 @@ export function TabClients( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-search"></span>
 					Aide SEO
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Affiche des indicateurs SEO légers directement dans la barre latérale de l'éditeur Gutenberg.
 				</p>
@@ -61,10 +61,10 @@ export function TabClients( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-admin-site-alt3"></span>
 					Aide GEO
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Affiche un score GEO (Generative Engine Optimization) dans la barre latérale de l'éditeur.
 					Analyse la capacité du contenu à être compris, résumé et cité par une IA générative.

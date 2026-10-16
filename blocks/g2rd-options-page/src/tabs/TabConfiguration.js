@@ -33,10 +33,10 @@ export function TabConfiguration( { settings, update } ) {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-admin-home"></span>
 					Type de site
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Oriente les recommandations GEO et les conseils contextuels dans l'éditeur.
 				</p>
@@ -57,10 +57,10 @@ export function TabConfiguration( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-art"></span>
 					Couleurs de l'administration
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Personnalise la barre admin WordPress avec les couleurs du thème.
 				</p>
@@ -86,10 +86,10 @@ export function TabConfiguration( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-google"></span>
 					Intégrations — Google Maps
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Clé API Places (Google Maps Platform) — utilisée par le bloc Testimonial pour afficher les avis Google Business.
 				</p>

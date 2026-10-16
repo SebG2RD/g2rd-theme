@@ -151,10 +151,10 @@ export function TabIA() {
 
 			{ /* ── Profil du site (capturé une fois, réutilisé partout) ── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-id"></span>
 					Profil du site
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Saisi <strong>une seule fois</strong> ici, puis réutilisé automatiquement par toutes
 					les générations IA (blocs, pages, articles…). Plus besoin de re-saisir l'activité ou
@@ -199,10 +199,10 @@ export function TabIA() {
 
 			{ /* ── Clé API Anthropic ───────────────────────────────────── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-cloud"></span>
 					Clé API Anthropic
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Clé secrète pour les appels IA. Obtenez-en une sur <strong>console.anthropic.com</strong>.
 					Elle est stockée en base et jamais exposée publiquement.
@@ -234,10 +234,10 @@ export function TabIA() {
 
 			{ /* ── Activation ──────────────────────────────────────────── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-superhero-alt"></span>
 					Activation du module IA
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Le module IA doit d'abord être activé dans <strong>Éditeur → Fonctionnalités</strong> (interrupteur « Module IA G2RD »).
 					Ces réglages configurent son comportement une fois activé.
@@ -270,10 +270,10 @@ export function TabIA() {
 
 			{ /* ── Limites ──────────────────────────────────────────────── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-performance"></span>
 					Limites et quotas
-				</h2>
+				</h3>
 
 				<RangeControl
 					label="Quota journalier par utilisateur"
@@ -289,10 +289,10 @@ export function TabIA() {
 
 			{ /* ── Valeurs par défaut ───────────────────────────────────── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-edit-large"></span>
 					Valeurs par défaut
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Ces valeurs sont pré-remplies dans les interfaces IA mais restent modifiables par chaque utilisateur.
 				</p>
@@ -319,10 +319,10 @@ export function TabIA() {
 
 			{ /* ── Consignes personnalisées ───────────────────────────── */ }
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-format-quote"></span>
 					Consignes personnalisées
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Décrivez votre entreprise, votre activité, votre ton éditorial ou toute contrainte spécifique.
 					Ces informations seront automatiquement ajoutées au contexte de chaque génération IA.

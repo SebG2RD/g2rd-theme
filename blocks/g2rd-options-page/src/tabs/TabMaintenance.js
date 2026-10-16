@@ -16,10 +16,10 @@ export function TabMaintenance( { settings, update } ) {
 		<div className="g2rd-tab-content">
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-clock"></span>
 					Mode « Bientôt disponible »
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Redirige les visiteurs non connectés vers une page de maintenance.
 					Les administrateurs continuent de voir le site normalement.
@@ -51,10 +51,10 @@ export function TabMaintenance( { settings, update } ) {
 			</section>
 
 			<section className="g2rd-section">
-				<h2 className="g2rd-section__title">
+				<h3 className="g2rd-section__title">
 					<span className="dashicons dashicons-welcome-learn-more"></span>
 					Assistant de démarrage
-				</h2>
+				</h3>
 				<p className="g2rd-section__desc">
 					Relancez l'assistant G2RD pour reconfigurer les bases du thème.
 				</p>
