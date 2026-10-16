@@ -130,6 +130,16 @@ neutres slate), appliquée au back-office à la place de l'ancienne charte « lo
   **parent** (un enfant actif affichait `v1.0.0`). Toast, lien d'évitement, hiérarchie
   h1 → h2 → h3, Inter **variable**, `prefers-reduced-motion`. Rendu vérifié par captures
   Playwright sur un harnais local chargeant `wp.components` depuis jsDelivr.
+- **Verre dépoli et relief (v3)** : fond maillé doux (lime, navy, pink de la charte à faible
+  opacité, `background-attachment: fixed`) ; barre supérieure, navigation et cartes de
+  section en verre translucide (`backdrop-filter: blur(16px) saturate(…)`), liseré clair en
+  haut (`inset 0 1px 0 rgba(255,255,255,.85)`), ombres étagées ; item de navigation actif en
+  pastille surélevée ; pastilles d'icônes et cartes de type de site en relief (dégradé léger,
+  ombre courte, survol qui soulève) ; champs en creux (ombre interne) ; bouton primaire lime
+  avec halo ; pastilles de couleur bombées ; en-têtes de tableau en dégradé. Repli opaque sans
+  flou sous `prefers-reduced-transparency: reduce`, aucun déplacement sous
+  `prefers-reduced-motion: reduce`. Tokens dédiés : `--g2rd-glass*`, `--g2rd-shadow-card`,
+  `--g2rd-shadow-raise`, `--g2rd-shadow-inset`, `--g2rd-highlight`, `--g2rd-glow-*`.
 - **Chrome admin** (`assets/css/admin.css`) : habillage complet de l'administration hors
   éditeur de blocs — Inter variable sur tout le back-office (`@font-face` injecté par
   `ThemeAdmin::registerAdminAssets()`), champs 36 px arrondis avec anneau de focus navy,
