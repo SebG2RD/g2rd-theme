@@ -27,7 +27,14 @@ class ThemeOptions {
     private const OPTION_COLORS           = 'g2rd_admin_colors';
     private const OPTION_CPTS             = 'g2rd_cpt_settings';
     private const OPTION_COMING_SOON      = 'g2rd_coming_soon';
-    private const PAGE_SLUG               = 'g2rd-options';
+    /**
+     * Slug du menu de premier niveau « G2RD » et de sa page d'accueil (le thème).
+     * Les extensions G2RD s'y rattachent via AdminConsole::MENU_SLUG.
+     */
+    private const PAGE_SLUG               = AdminConsole::MENU_SLUG;
+
+    /** Ancien slug (sous Apparence) : redirigé vers la console pour les liens enregistrés. */
+    private const LEGACY_PAGE_SLUG        = 'g2rd-options';
     private const REST_NAMESPACE          = 'g2rd/v1';
 
     // ── Définitions statiques ─────────────────────────────────────────────
@@ -259,7 +266,10 @@ class ThemeOptions {
      */
     public function register_hooks(): void {
         \add_action( 'admin_init',   [ $this, 'maybeSyncPricingTableBlock' ], 1 );
-        \add_action( 'admin_menu',   [ $this, 'registerAdminPage' ] );
+        \add_action( 'admin_init',   [ $this, 'redirectLegacyPage' ] );
+        // Priorité 9 : le menu « G2RD » existe avant que les extensions (priorité
+        // par défaut 10) n'y ajoutent leurs sous-menus.
+        \add_action( 'admin_menu',   [ $this, 'registerAdminPage' ], 9 );
         \add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
         \add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAssets' ] );
     }
@@ -298,18 +308,57 @@ class ThemeOptions {
     }
 
     /**
-     * Enregistre la page d'options dans le menu Apparence de WordPress.
+     * Enregistre le menu de premier niveau « G2RD » et sa première entrée, le thème.
+     *
+     * Toutes les interfaces G2RD (thème, connecteur, facturation, futurs plugins)
+     * vivent sous ce menu : les extensions écoutent `g2rd_console_menu` et y
+     * ajoutent leurs sous-menus avec `add_submenu_page( AdminConsole::MENU_SLUG, … )`.
      *
      * @return void
      */
     public function registerAdminPage(): void {
-        $this->hook_suffix = \add_theme_page(
-            \__( 'Options du thème G2RD', 'g2rd' ),
-            \__( 'Options G2RD', 'g2rd' ),
+        $this->hook_suffix = \add_menu_page(
+            \__( 'Console G2RD', 'g2rd' ),
+            \__( 'G2RD', 'g2rd' ),
+            'manage_options',
+            self::PAGE_SLUG,
+            [ $this, 'renderPage' ],
+            AdminConsole::menuIcon(),
+            AdminConsole::MENU_POSITION
+        );
+
+        // Renomme la première entrée (WordPress répète sinon le libellé du menu).
+        \add_submenu_page(
+            self::PAGE_SLUG,
+            \__( 'Console G2RD — Thème', 'g2rd' ),
+            \__( 'Thème', 'g2rd' ),
             'manage_options',
             self::PAGE_SLUG,
             [ $this, 'renderPage' ]
         );
+
+        /**
+         * Le menu « G2RD » est prêt : les extensions ajoutent leurs sous-menus ici.
+         *
+         * @param string $menu_slug Slug du menu parent (AdminConsole::MENU_SLUG).
+         */
+        \do_action( 'g2rd_console_menu', self::PAGE_SLUG );
+    }
+
+    /**
+     * Redirige l'ancienne adresse (Apparence → Options G2RD) vers la console.
+     *
+     * @return void
+     */
+    public function redirectLegacyPage(): void {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule d'un slug de page pour une redirection.
+        $page = isset( $_GET['page'] ) ? \sanitize_key( \wp_unslash( $_GET['page'] ) ) : '';
+        if ( self::LEGACY_PAGE_SLUG !== $page ) {
+            return;
+        }
+        $target = \admin_url( 'admin.php?page=' . self::PAGE_SLUG );
+        \wp_safe_redirect( $target, 301 );
+        exit;
     }
 
     /**
@@ -333,7 +382,7 @@ class ThemeOptions {
         }
 
         if ( \file_exists( $css_path ) ) {
-            // La police Inter (@font-face) est déclarée une seule fois par
+            // Les polices (Instrument Sans, IBM Plex Mono) sont déclarées une seule fois par
             // ThemeAdmin::registerAdminAssets() sur la feuille `g2rd-admin`,
             // chargée sur toutes les pages d'administration — d'où la dépendance.
             \wp_enqueue_style(
@@ -355,6 +404,10 @@ class ThemeOptions {
         );
 
         \wp_set_script_translations( 'g2rd-options-page', 'g2rd' );
+
+        // Contrat d'interface des extensions, aussi juste avant le bundle (filet
+        // de sécurité si la console est rendue hors du menu « G2RD »).
+        \wp_add_inline_script( 'g2rd-options-page', AdminConsole::contractScript(), 'before' );
 
         // Données initiales transmises à l'app React
         \wp_localize_script( 'g2rd-options-page', 'G2RDOptionsData', $this->get_initial_data() );

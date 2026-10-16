@@ -199,6 +199,10 @@ function bootstrap_theme(): void
     // Assistant d'intégration (onboarding au premier démarrage)
     ( new Onboarding() )->register_hooks();
 
+    // Console G2RD : assets partagés des pages du menu « G2RD », contrat des
+    // extensions et hub de raccourcis sur le tableau de bord.
+    ( new AdminConsole() )->register_hooks();
+
     // Socle d'accessibilité RGAA — jamais conditionné à une option : le lien
     // d'évitement doit exister sur toutes les pages de tous les sites.
     ( new Accessibility() )->register_hooks();

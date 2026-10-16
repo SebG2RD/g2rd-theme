@@ -65,10 +65,11 @@ class Onboarding {
 	 * @return void
 	 */
 	public function add_page(): void {
+		// Sous-menu du menu « G2RD » (AdminConsole::MENU_SLUG), avec les autres interfaces G2RD.
 		\add_submenu_page(
-			'',
+			AdminConsole::MENU_SLUG,
 			\esc_html__( 'Assistant de démarrage G2RD', 'g2rd' ),
-			\esc_html__( 'Démarrage', 'g2rd' ),
+			\esc_html__( 'Assistant', 'g2rd' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			[ $this, 'render_page' ]
@@ -111,7 +112,7 @@ class Onboarding {
 				<div class="g2rd-admin-banner__body">
 					<p><strong class="g2rd-admin-banner__title">%s</strong><span class="g2rd-admin-banner__text">%s</span></p>
 				</div>
-				<a href="%s" class="button button-primary">%s</a>
+				<a href="%s" class="button g2rd-admin-banner__cta">%s</a>
 			</div>',
 			\esc_html__( 'Bienvenue sur le thème G2RD !', 'g2rd' ),
 			\esc_html__( 'Complétez l\'assistant de démarrage pour configurer votre site en 2 minutes.', 'g2rd' ),

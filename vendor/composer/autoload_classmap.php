@@ -39,6 +39,7 @@ return array(
     'G2RD\\AI\\AiRest' => $baseDir . '/classes/ai/class-ai-rest.php',
     'G2RD\\Abilities' => $baseDir . '/classes/class-abilities.php',
     'G2RD\\Accessibility' => $baseDir . '/classes/class-accessibility.php',
+    'G2RD\\AdminConsole' => $baseDir . '/classes/class-admin-console.php',
     'G2RD\\AgentDiscovery' => $baseDir . '/classes/class-agent-discovery.php',
     'G2RD\\ApiConnector' => $baseDir . '/classes/class-api-connector.php',
     'G2RD\\BlockCategories' => $baseDir . '/classes/class-block-categories.php',

@@ -107,7 +107,44 @@ Aucune autre exception. `style.css` n'a pas grossi ailleurs.
   existants ou créer des patterns « façon dashboard » (sections cartes, CTA action).
 - Étape 5 bloc par bloc (ci-dessus), avec validation éditeur.
 
-## Backoffice — console d'options, chrome admin, onboarding
+## Console G2RD 1.41.0 — direction « Verre », menu unique, hub, contrat d'extensions
+
+Maquette validée : <https://claude.ai/artifact/4TQMyqhVGYu8q9V1CHKU4m> (transposition de la
+direction D « Verre » des planches Facturation). Captures réelles du bundle : artifact
+« Console G2RD v2 ».
+
+- **Direction « Verre »** (`blocks/g2rd-options-page/src/style.css`, `App.js`) : sol froid
+  `#E7ECF3`, encre `#0B1B2B`, **bandeau sombre navy→teal** avec halos teal / bleu / lime qui porte
+  la barre (monogramme, « Console G2RD », version), le titre de page et **trois tuiles de verre**
+  calculées depuis les données déjà chargées (modules actifs, blocs visibles, licence, CPT,
+  type de site…) ; navigation en carte blanche à item actif surélevé ; cartes blanches à ombre
+  profonde ; lignes de réglages dans une cuvette ; **interrupteurs** à piste en creux et pastille
+  lime quand actif ; champs sans bordure en creux (44 px) ; boutons en relief, primaire lime à halo ;
+  puces lime pour les identifiants des tableaux ; **barre d'enregistrement flottante** (verre
+  sombre) dès qu'un réglage change. Polices **Instrument Sans** (variable) et **IBM Plex Mono**
+  self-hostées (`assets/fonts/`, OFL), déclarées par `ThemeAdmin::registerAdminAssets()`.
+- **Menu unique « G2RD »** (`ThemeOptions::registerAdminPage`, `AdminConsole`) : entrée de premier
+  niveau (slug `g2rd`, position 61, icône SVG), sous-menus « Thème », « Assistant », puis les
+  extensions via l'action `g2rd_console_menu`. Ancienne adresse `themes.php?page=g2rd-options`
+  redirigée. Les pages du menu reçoivent automatiquement `g2rd-admin` + `g2rd-console` ;
+  `AdminConsole::open()/close()` dessinent bandeau, titre et tuiles pour une page d'extension PHP.
+  Doc : `docs/internal/console-admin-extensions.md`.
+- **Hub du tableau de bord** (`AdminConsole::renderDashboardHub`, `.g2rd-hub` dans `admin.css`) :
+  remplace la notice « Type de site non défini » — bandeau Verre avec version, puces d'état
+  (licence, type de site, file MCP) et raccourcis vers chaque entrée du menu « G2RD ».
+- **Contrat d'extensions** (`window.G2RDOptions.console = { version: 2 }`, posé dans `<head>`
+  des pages du menu, avant le bundle et à son exécution) : classes stables listées dans
+  `docs/plugin-wordpress.md` ; groupe « **Extensions G2RD** » ; icône `tab.icon` si elle existe
+  dans le jeu interne (ajout de `cloud`), sinon `plug` ; montage différé si l'extension
+  s'enregistre après le premier rendu ; `.g2rd-status` (`--ok`, `--warn`, `__dot`) réintroduit.
+- **Cases à cocher WordPress 7.x** (`admin.css`) : sous `body[class*="branch-7"]`, la case et le
+  radio cochés reprennent le fond `--wp-admin-theme-color` (WordPress 7 dessine coche et point
+  en blanc) ; rien ne change sous 6.x. Preuve : planche 6.9 / 7.1.3 × Modern / Light × avec /
+  sans `admin.css`, générée par le harnais (`checkbox-proof.cjs`).
+- **Bannières admin** : CTA en classe `g2rd-admin-banner__cta` (lime / navy), hors
+  `.button-primary` dont les couleurs configurables sont imposées en `!important`.
+
+## Backoffice — console d'options, chrome admin, onboarding (1.40.x)
 
 Même charte que le site (navy `#0f172a`, lime `#a3e635`, pink `#ec4899`→purple `#a855f7`,
 neutres slate), appliquée au back-office à la place de l'ancienne charte « logo »

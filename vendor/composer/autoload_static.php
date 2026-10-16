@@ -109,6 +109,7 @@ class ComposerStaticInit28de9bce36293c473162ad03e9cc6112
         'G2RD\\AI\\AiRest' => __DIR__ . '/../..' . '/classes/ai/class-ai-rest.php',
         'G2RD\\Abilities' => __DIR__ . '/../..' . '/classes/class-abilities.php',
         'G2RD\\Accessibility' => __DIR__ . '/../..' . '/classes/class-accessibility.php',
+        'G2RD\\AdminConsole' => __DIR__ . '/../..' . '/classes/class-admin-console.php',
         'G2RD\\AgentDiscovery' => __DIR__ . '/../..' . '/classes/class-agent-discovery.php',
         'G2RD\\ApiConnector' => __DIR__ . '/../..' . '/classes/class-api-connector.php',
         'G2RD\\BlockCategories' => __DIR__ . '/../..' . '/classes/class-block-categories.php',

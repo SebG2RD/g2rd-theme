@@ -57,7 +57,10 @@ class Business_Mode {
 	public function register_hooks(): void {
 		\add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_data' ] );
 		\add_action( 'wp_dashboard_setup', [ $this, 'register_dashboard_widget' ] );
-		\add_action( 'admin_notices', [ $this, 'show_setup_notice' ] );
+		// La notice « type de site non défini » est remplacée par le hub G2RD du
+		// tableau de bord (AdminConsole::renderDashboardHub), qui affiche l'état
+		// du type de site parmi ses informations. show_setup_notice() reste
+		// disponible mais n'est plus accroché.
 	}
 
 	/**
@@ -115,7 +118,7 @@ class Business_Mode {
 			printf(
 				'<p>%s <a href="%s">%s</a></p>',
 				\esc_html__( 'Configurez le type de votre site dans', 'g2rd' ),
-				\esc_url( \admin_url( 'themes.php?page=g2rd-options' ) ),
+				\esc_url( \admin_url( 'admin.php?page=g2rd' ) ),
 				\esc_html__( 'Options G2RD', 'g2rd' )
 			);
 			return;
@@ -168,11 +171,11 @@ class Business_Mode {
 				<div class="g2rd-admin-banner__body">
 					<p><strong class="g2rd-admin-banner__title">%s</strong><span class="g2rd-admin-banner__text">%s</span></p>
 				</div>
-				<a href="%s" class="button button-primary">%s</a>
+				<a href="%s" class="button g2rd-admin-banner__cta">%s</a>
 			</div>',
 			\esc_html__( 'Type de site non défini', 'g2rd' ),
 			\esc_html__( 'Configurez le type de votre site pour obtenir des conseils personnalisés.', 'g2rd' ),
-			\esc_url( \admin_url( 'themes.php?page=g2rd-options' ) ),
+			\esc_url( \admin_url( 'admin.php?page=g2rd' ) ),
 			\esc_html__( 'Configurer maintenant', 'g2rd' )
 		);
 	}

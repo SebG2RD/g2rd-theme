@@ -86,6 +86,7 @@ g2rd-theme/
 ├── classes/
 │   ├── — Core thème —
 │   ├── class-abilities.php                      # WordPress Abilities API (opt-in admin)
+│   ├── class-admin-console.php                 # Console G2RD : menu « G2RD », assets partagés, hub tableau de bord, contrat extensions
 │   ├── class-agent-discovery.php               # Découverte agents IA (RFC 8288, RFC 9727, robots.txt)
 │   ├── class-api-connector.php
 │   ├── class-block-categories.php              # Catégorie de blocs g2rd-blocks
@@ -443,6 +444,31 @@ Intégration Claude via WordPress Abilities API, activable depuis la page d'opti
 - **`class-fluent-cart-support.php`** — intégration FluentCart (remplaçant de SureCart pour les licences)
 - **`class-license-manager.php`** — gestionnaire de licences actuel (GitHub Updater)
 - **SureCart produits** : le support des produits SureCart (`sc-product`) est **conservé** dans `class-filterable-grid.php` pour les utilisateurs du thème qui utilisent SureCart — ne pas le retirer
+
+## Console G2RD (v1.41.0+)
+
+Toutes les interfaces G2RD vivent sous un **menu de premier niveau « G2RD »** (slug `g2rd`,
+`AdminConsole::MENU_SLUG`, position 61) : « Thème » (page d'options React), « Assistant »
+(onboarding), puis les extensions (connecteur, facturation…) qui ajoutent leurs sous-menus sur
+l'action **`g2rd_console_menu`**. L'ancienne adresse `themes.php?page=g2rd-options` est redirigée.
+
+- **Design** : direction « Verre » (bandeau navy→teal, tuiles de verre, cartes profondes, champs en
+  creux) — maquette validée avant tout changement (règle de travail : **maquette d'abord**).
+  Tokens dans `blocks/g2rd-options-page/src/style.css` ; polices Instrument Sans + IBM Plex Mono
+  self-hostées (`assets/fonts/`), déclarées une seule fois par `ThemeAdmin::registerAdminAssets()`.
+- **Pages d'extension** : feuille `g2rd-console` chargée automatiquement sur `toplevel_page_g2rd`
+  et `g2rd_page_*` ; `AdminConsole::open( [...] )` / `close()` rendent bandeau, titre, tuiles —
+  cf. `docs/internal/console-admin-extensions.md`.
+- **Onglets d'extension** dans la page « Thème » : filtre `g2rd_options_external_tabs` +
+  `window.G2RDOptions.registerTab({ key, mount })`, groupe « Extensions G2RD ». Contrat
+  `window.G2RDOptions.console.version` (= `AdminConsole::CONTRACT_VERSION`, **2**) et classes
+  stables listées dans `docs/plugin-wordpress.md` — n'augmenter la version que si une classe du
+  contrat change de sens, et annoncer tout renommage dans le changelog.
+- **Hub du tableau de bord** : `AdminConsole::renderDashboardHub()` (licence, type de site, file
+  MCP, raccourcis du menu) remplace la notice « Type de site non défini ».
+- **Cases à cocher WordPress 7.x** : `admin.css` repeint le fond des cases/radios cochés sous
+  `body[class*="branch-7"]` uniquement (WordPress 7 dessine la coche en blanc) ; ne jamais
+  peindre ce fond sous 6.x. Preuve reproductible par le harnais Playwright du scratchpad.
 
 ## Fonctionnalités contrôlées par la page d'options admin
 

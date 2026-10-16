@@ -51,7 +51,8 @@
 	--g2rd-admin-radius-lg:     12px;
 	--g2rd-admin-shadow-xs:     0 1px 2px rgba( 15, 23, 42, 0.04 );
 	--g2rd-admin-shadow-sm:     0 1px 3px rgba( 15, 23, 42, 0.06 ), 0 1px 2px rgba( 15, 23, 42, 0.04 );
-	--g2rd-admin-font:          'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--g2rd-admin-font:          'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--g2rd-admin-mono:          'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
 	/* Sémantique (texte ≥ 4,5:1 sur son fond) */
 	--g2rd-admin-success:        #16a34a;
@@ -454,6 +455,18 @@ body.wp-admin:not( .block-editor-page ) input[type="checkbox"] {
 body.wp-admin:not( .block-editor-page ) input[type="checkbox"]:checked,
 body.wp-admin:not( .block-editor-page ) input[type="radio"]:checked {
 	border-color: var(--g2rd-navy);
+}
+
+/*
+ * WordPress 7.x (classe `branch-7-*` sur <body>) dessine la coche en BLANC sur
+ * un fond `--wp-admin-theme-color` ; le fond blanc générique ci-dessus la
+ * rendait invisible. Sous 6.x la coche est colorée sur fond blanc : on n'y
+ * touche pas, un fond sombre la cacherait. Le focus garde le dessin de WordPress.
+ */
+body.wp-admin[class*="branch-7"]:not( .block-editor-page ) input[type="checkbox"]:checked,
+body.wp-admin[class*="branch-7"]:not( .block-editor-page ) input[type="radio"]:checked {
+	background: var(--wp-admin-theme-color);
+	border-color: var(--wp-admin-theme-color);
 }
 
 body.wp-admin:not( .block-editor-page ) input[type="checkbox"]:focus,
@@ -896,20 +909,115 @@ span.description {
 	color: var(--g2rd-admin-muted);
 }
 
-/* CTA de la charte : aplat lime, texte navy */
-.wp-core-ui .g2rd-admin-banner .button-primary {
+/* CTA de la charte : aplat lime, texte navy. Hors `.button-primary`, dont les
+   couleurs (configurables) sont imposées en !important par outputAdminColorVars(). */
+.wp-core-ui .button.g2rd-admin-banner__cta {
 	flex-shrink: 0;
 	border-color: var(--g2rd-lime);
 	background: var(--g2rd-lime);
 	color: var(--g2rd-navy);
 	font-weight: 600;
+	box-shadow: 0 6px 16px -6px rgba( 101, 163, 13, 0.7 ), inset 0 1px 0 rgba( 255, 255, 255, 0.5 );
 }
 
-.wp-core-ui .g2rd-admin-banner .button-primary:hover,
-.wp-core-ui .g2rd-admin-banner .button-primary:focus {
+.wp-core-ui .button.g2rd-admin-banner__cta:hover,
+.wp-core-ui .button.g2rd-admin-banner__cta:focus {
 	border-color: var(--g2rd-lime-hover);
 	background: var(--g2rd-lime-hover);
 	color: var(--g2rd-navy);
+}
+
+/* ── Hub G2RD du tableau de bord (direction « Verre ») ───────── */
+.g2rd-hub {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 24px;
+	margin: 16px 20px 8px 2px;
+	padding: 16px 22px;
+	border-radius: 18px;
+	color: #F6F8FA;
+	background:
+		radial-gradient( 520px 220px at 85% 0%, rgba( 45, 212, 191, 0.45 ), transparent 70% ),
+		radial-gradient( 420px 220px at 15% 0%, rgba( 59, 130, 246, 0.55 ), transparent 70% ),
+		radial-gradient( 260px 140px at 60% 100%, rgba( 163, 230, 53, 0.35 ), transparent 70% ),
+		linear-gradient( 160deg, #0B1B2B 0%, #102A44 55%, #0E3A4A 100% );
+	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.12 ), 0 24px 60px -28px rgba( 11, 27, 43, 0.6 );
+	font-family: var(--g2rd-admin-font);
+}
+
+.g2rd-hub__brand { display: flex; align-items: center; gap: 12px; }
+
+.g2rd-hub__mark {
+	display: grid;
+	place-items: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 10px;
+	background: linear-gradient( 180deg, #FFFFFF, #E4EAF2 );
+	color: #0B1B2B;
+	font-size: 15px;
+	font-weight: 700;
+	box-shadow: inset 0 1px 0 #FFFFFF, 0 8px 20px -6px rgba( 163, 230, 53, 0.6 );
+}
+
+.g2rd-hub__title { display: block; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.g2rd-hub__version { font-family: var(--g2rd-admin-mono); font-size: 11.5px; color: rgba( 246, 248, 250, 0.72 ); }
+
+.g2rd-hub__facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.g2rd-hub__facts li { margin: 0; }
+
+.g2rd-hub__chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	border: 1px solid rgba( 255, 255, 255, 0.25 );
+	background: rgba( 255, 255, 255, 0.12 );
+	backdrop-filter: blur( 10px );
+	-webkit-backdrop-filter: blur( 10px );
+	color: #F6F8FA;
+	font-size: 12.5px;
+	font-weight: 500;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background 120ms;
+}
+
+.g2rd-hub__chip:hover, .g2rd-hub__chip:focus { background: rgba( 255, 255, 255, 0.22 ); color: #FFFFFF; }
+.g2rd-hub__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.g2rd-hub__dot.is-ok   { background: #4ADE80; box-shadow: 0 0 10px rgba( 74, 222, 128, 0.9 ); }
+.g2rd-hub__dot.is-warn { background: #FBBF24; box-shadow: 0 0 10px rgba( 251, 191, 36, 0.9 ); }
+
+.g2rd-hub__links { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+
+.g2rd-hub__link {
+	display: inline-flex;
+	align-items: center;
+	min-height: 36px;
+	padding: 0 14px;
+	border-radius: 12px;
+	background: linear-gradient( 180deg, #FFFFFF, #E4EAF2 );
+	color: #0B1B2B;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	box-shadow: inset 0 1px 0 #FFFFFF, 0 6px 14px -8px rgba( 11, 27, 43, 0.6 );
+	transition: transform 120ms, box-shadow 120ms;
+}
+
+.g2rd-hub__link:hover, .g2rd-hub__link:focus { color: #0B1B2B; transform: translateY( -1px ); box-shadow: inset 0 1px 0 #FFFFFF, 0 10px 20px -8px rgba( 163, 230, 53, 0.6 ); }
+.g2rd-hub__link:first-child { background: var(--g2rd-lime); box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.5 ), 0 8px 20px -6px rgba( 163, 230, 53, 0.6 ); }
+.g2rd-hub a:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+
+@media ( max-width: 782px ) {
+	.g2rd-hub { margin: 10px 10px 8px 0; padding: 14px 16px; }
+	.g2rd-hub__links { margin-left: 0; }
+}
+
+@media ( prefers-reduced-transparency: reduce ) {
+	.g2rd-hub__chip { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba( 11, 27, 43, 0.6 ); }
 }
 
 @media ( max-width: 600px ) {

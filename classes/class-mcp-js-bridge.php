@@ -66,7 +66,7 @@ class McpJsBridge {
 			return;
 		}
 
-		$queue_url = \admin_url( 'admin.php?page=g2rd-options#mcp-queue' );
+		$queue_url = \admin_url( 'admin.php?page=g2rd#mcp-queue' );
 
 		$admin_bar->add_node( [
 			'id'    => self::BAR_NODE_ID,
