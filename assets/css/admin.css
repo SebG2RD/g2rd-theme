@@ -378,8 +378,7 @@ body.wp-admin:not( .block-editor-page ) :is(
 	input[type="datetime-local"],
 	input[type="time"],
 	input[type="month"],
-	input[type="week"],
-	input[type="color"]
+	input[type="week"]
 ) {
 	min-height: 36px;
 	padding: 0 12px;
@@ -391,6 +390,22 @@ body.wp-admin:not( .block-editor-page ) :is(
 	box-shadow: var(--g2rd-admin-shadow-xs);
 	transition: border-color 120ms, box-shadow 120ms;
 }
+
+/* Sélecteur de couleur : la pastille remplit la boîte (pas de padding latéral) */
+body.wp-admin:not( .block-editor-page ) input[type="color"] {
+	width: 36px;
+	height: 36px;
+	min-height: 36px;
+	padding: 3px;
+	border: 1px solid var(--g2rd-admin-border-strong);
+	border-radius: var(--g2rd-admin-radius);
+	background: var(--g2rd-admin-surface);
+	cursor: pointer;
+}
+
+body.wp-admin:not( .block-editor-page ) input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+body.wp-admin:not( .block-editor-page ) input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 5px; }
+body.wp-admin:not( .block-editor-page ) input[type="color"]::-moz-color-swatch { border: 0; border-radius: 5px; }
 
 body.wp-admin:not( .block-editor-page ) select {
 	min-height: 36px;

@@ -112,11 +112,12 @@
 /* ── Shell ────────────────────────────────────────────────────── */
 .wrap#g2rd-options-root { margin: 0; padding: 0; }
 
+/* Pas d'`overflow: hidden` ici : il neutraliserait `position: sticky` de la
+   navigation et de l'aperçu de connexion (le bandeau absolu reste dans la boîte). */
 .g2rd-app {
 	position: relative;
 	min-height: calc( 100vh - 32px );
 	margin: 0 -20px 0 0;
-	overflow: hidden;
 	background:
 		radial-gradient( 900px 420px at 88% 108%, rgba( 45, 212, 191, 0.18 ), transparent 60% ),
 		radial-gradient( 700px 380px at 4% 64%,   rgba( 99, 102, 241, 0.12 ), transparent 60% ),
@@ -307,6 +308,9 @@
 	top: 48px;
 	flex: 0 1 236px;
 	min-width: 200px;
+	max-height: calc( 100vh - 64px );
+	overflow-y: auto;
+	scrollbar-width: thin;
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
@@ -722,8 +726,12 @@
 .g2rd-app .components-toggle-control__label { font-weight: 500; color: var(--g2rd-ink); font-size: var(--g2rd-fs-base); }
 
 /* ── Page de connexion ────────────────────────────────────────── */
-.g2rd-login-layout { display: grid; grid-template-columns: minmax( 0, 1fr ) minmax( 300px, 400px ); gap: 22px; align-items: start; }
+/* La colonne de l'aperçu s'étire sur toute la hauteur de la grille (pas
+   d'`align-items: start`) : la carte collante a ainsi la place de suivre le
+   défilement pendant qu'on règle les couleurs à gauche. */
+.g2rd-login-layout { display: grid; grid-template-columns: minmax( 0, 1fr ) minmax( 300px, 400px ); gap: 22px; align-items: stretch; }
 .g2rd-login-options { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.g2rd-login-preview-col { min-width: 0; }
 .g2rd-login-preview-col .g2rd-section--sticky { position: sticky; top: 48px; }
 .g2rd-login-preview { display: flex; flex-direction: column; gap: 10px; }
 .g2rd-login-preview__hint { margin: 0; text-align: center; font-size: var(--g2rd-fs-xs); color: var(--g2rd-muted); }
@@ -744,9 +752,11 @@
 .g2rd-color-input__label, .g2rd-media-picker__label { font-size: var(--g2rd-fs-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g2rd-muted); }
 .g2rd-color-input__row { display: flex; align-items: center; gap: 8px; }
 
-.g2rd-color-input__picker {
+/* Spécificité (0,4,0) : admin.css stylise aussi input[type="color"] en (0,3,2). */
+.g2rd-app .g2rd-color-input .g2rd-color-input__row .g2rd-color-input__picker {
 	width: var(--g2rd-field-height);
 	height: var(--g2rd-field-height);
+	min-height: var(--g2rd-field-height);
 	padding: 4px;
 	border: 0;
 	border-radius: var(--g2rd-r);
