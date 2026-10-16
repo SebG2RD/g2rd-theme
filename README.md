@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.40.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.41.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -127,12 +127,14 @@ g2rd-theme/
 
 ## Changelog
 
-### **1.40.1**
+### **1.41.0**
 
-- **Console d'options — v2** : refonte sur le modèle des consoles de réglages de référence — fond blanc, navigation claire, lignes de réglages (libellé et description à gauche, interrupteur à droite), icônes SVG linéaires, tableaux sobres, un seul accent lime réservé aux boutons primaires et aux états actifs.
-- **Fix** : les cartes de fonctionnalités affichaient le libellé de l'interrupteur en double et écrasaient leur texte (`ToggleControl` remplacé par `FormToggle` avec `aria-label`).
-- **Fix** : l'en-tête affichait la version du thème enfant actif au lieu de celle du thème parent.
-- **Fix** : libellés des listes déroulantes alignés sur ceux des champs texte.
+- **Console G2RD, direction « Verre »** : la page d'options est reconstruite sur la maquette validée — bandeau sombre navy→teal avec halos, barre (monogramme, « Console G2RD », version), tuiles de verre calculées depuis les données chargées (modules actifs, blocs visibles, licence, types de contenus, type de site…), navigation en carte, cartes profondes, lignes de réglages en cuvette, interrupteurs à pastille lime, champs en creux, boutons en relief, barre d'enregistrement flottante. Polices Instrument Sans et IBM Plex Mono auto-hébergées (OFL), uniquement dans l'administration.
+- **Menu « G2RD » unique** : entrée de premier niveau (`admin.php?page=g2rd`) avec les sous-menus Thème, Assistant, puis les extensions G2RD (connecteur, facturation…) via l'action `g2rd_console_menu`. L'ancienne adresse `themes.php?page=g2rd-options` est redirigée. `AdminConsole::open()` / `close()` habillent les pages d'extension avec la même charte ; la feuille `g2rd-console` et les polices se chargent automatiquement sur toutes les pages du menu.
+- **Hub du tableau de bord** : à la place de la notice « Type de site non défini », un bandeau G2RD avec version, licence, type de site, opérations MCP en attente et raccourcis vers chaque entrée du menu.
+- **Contrat d'onglets d'extension** : `window.G2RDOptions.console = { version: 2 }` posé dans `<head>` et avant le bundle, classes stables documentées (`docs/plugin-wordpress.md`), groupe « Extensions G2RD », icône fournie par l'extension (`cloud` ajoutée) ou `plug`, montage différé si l'extension s'enregistre après le premier rendu.
+- **Fix** : cases à cocher et boutons radio invisibles sous WordPress 7.x (coche blanche sur fond blanc) — fond `--wp-admin-theme-color` rétabli sous `body.branch-7-*` uniquement, 6.x inchangé.
+- **Fix** : les cartes de fonctionnalités affichaient le libellé de l'interrupteur en double (`ToggleControl` remplacé par `FormToggle` avec `aria-label`) ; l'en-tête affichait la version du thème enfant au lieu du parent ; libellés des listes déroulantes alignés sur ceux des champs texte ; boutons des bannières admin hors `.button-primary` (couleurs configurables imposées en `!important`).
 
 ### **1.40.0**
 

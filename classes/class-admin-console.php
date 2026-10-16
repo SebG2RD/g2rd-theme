@@ -190,6 +190,7 @@ class AdminConsole {
         $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">'
             . '<path fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" d="M15.8 6.2A7 7 0 1 0 17 10h-6.2"/>'
             . '</svg>';
+        // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- encodage d'une icône SVG de menu, format attendu par add_menu_page().
         return 'data:image/svg+xml;base64,' . \base64_encode( $svg );
     }
 
