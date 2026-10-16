@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.39.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.40.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,13 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.40.0**
+
+- **Back-office** : refonte complète sur la charte du site (navy / lime / slate) — page d'options (sidebar navy, en-têtes de page, sections en cartes, toast, Inter variable, champs 40 px, boutons lime / navy), habillage global de wp-admin hors éditeur de blocs (champs, boutons, onglets, tableaux, boîtes, notices), onboarding et widgets tableau de bord sans emoji ni styles inline. Les couleurs de la barre et du menu restent personnalisables depuis Options G2RD → Configuration ; le texte sur bouton lime est navy par défaut (contraste RGAA).
+- **Thèmes enfants de référence** : dossier `child-themes/` (exclu du ZIP de production) avec `g2rd-tcgforge-child` et la variation de styles TCGForge dans le parent.
+- **Nettoyage** : suppression de `assets/css/admin-options.css` et `assets/js/admin-options.js` (ancienne page d'options PHP, non référencés).
+- **Dépendances** : alertes Dependabot corrigées via `overrides` npm, bumps des dépendances de développement.
 
 ### **1.39.0**
 

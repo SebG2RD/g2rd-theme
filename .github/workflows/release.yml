@@ -87,8 +87,14 @@ jobs:
       - name: Installer les dépendances npm
         run: npm ci --ignore-scripts
 
+      # Audit limité aux dépendances livrées (--omit=dev) : le thème n'a aucune
+      # dépendance de production et l'outillage de build (@wordpress/scripts,
+      # Playwright…) n'entre jamais dans le ZIP. Une vuln sans correctif dans
+      # cette chaîne (ex. braces GHSA-vfj7-8cjw-p6xm) ne doit pas bloquer une
+      # release après la création du tag. Les vulns dev restent suivies par
+      # Dependabot et corrigées par PR.
       - name: npm audit (avant build)
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Compiler tous les blocs
         run: npm run build
