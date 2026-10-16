@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.41.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.41.1** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,11 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.41.1**
+
+- **Fix** : la navigation de la console et l'aperçu en direct de la page de connexion suivent le défilement (un `overflow: hidden` neutralisait `position: sticky` ; la colonne de l'aperçu s'étire sur toute la hauteur de la grille).
+- **Fix** : le sélecteur de couleur affiche la couleur choisie sur toute la pastille (règle dédiée à `input[type="color"]` dans wp-admin et dans la console).
 
 ### **1.41.0**
 
