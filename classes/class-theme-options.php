@@ -609,7 +609,9 @@ class ThemeOptions {
             'restUrl'         => \rest_url( self::REST_NAMESPACE . '/settings' ),
             'licenseRestUrl'  => \rest_url( self::REST_NAMESPACE . '/license' ),
             'nonce'           => \wp_create_nonce( 'wp_rest' ),
-            'version'         => (string) \wp_get_theme()->get( 'Version' ),
+            // Version du thème PARENT : avec un thème enfant actif, wp_get_theme()
+            // renverrait la version de l'enfant (ex. 1.0.0) dans l'en-tête.
+            'version'         => (string) \wp_get_theme( \get_template() )->get( 'Version' ),
             'themeUri'        => \get_template_directory_uri(),
             'onboardingUrl'   => \admin_url( 'admin.php?page=g2rd-onboarding' ),
             'settings'        => $this->get_current_settings(),

@@ -1,12 +1,13 @@
 import { useState } from '@wordpress/element';
+import { Icon } from '../components/Icon';
 
 const { palette, googleReviewsClearUrl, nonce } = window.G2RDOptionsData || {};
 
 const BUSINESS_TYPES = [
-	{ label: 'Site vitrine',     value: 'vitrine',   icon: 'admin-home',    desc: 'Présentation de votre activité' },
-	{ label: 'Génération leads', value: 'leads',     icon: 'email-alt',     desc: 'Capture et conversion de prospects' },
-	{ label: 'E-commerce',       value: 'ecommerce', icon: 'cart',          desc: 'Boutique en ligne et vente' },
-	{ label: 'Non défini',       value: '',          icon: 'minus',         desc: 'Aucune recommandation spécifique' },
+	{ label: 'Site vitrine',     value: 'vitrine',   icon: 'home',  desc: 'Présentation de votre activité' },
+	{ label: 'Génération leads', value: 'leads',     icon: 'mail',  desc: 'Capture et conversion de prospects' },
+	{ label: 'E-commerce',       value: 'ecommerce', icon: 'cart',  desc: 'Boutique en ligne et vente' },
+	{ label: 'Non défini',       value: '',          icon: 'minus', desc: 'Aucune recommandation spécifique' },
 ];
 
 const COLOR_SLOTS = [
@@ -40,15 +41,17 @@ export function TabConfiguration( { settings, update } ) {
 				<p className="g2rd-section__desc">
 					Oriente les recommandations GEO et les conseils contextuels dans l'éditeur.
 				</p>
-				<div className="g2rd-business-grid">
+				<div className="g2rd-business-grid" role="radiogroup" aria-label="Type de site">
 					{ BUSINESS_TYPES.map( ( { label, value, icon, desc } ) => (
 						<button
 							key={ value }
 							type="button"
-							className={ `g2rd-business-card${ businessType === value ? ' g2rd-business-card--active' : '' }` }
+							role="radio"
+							aria-checked={ businessType === value }
+							className={ `g2rd-business-card${ businessType === value ? ' is-active' : '' }` }
 							onClick={ () => update( [ 'businessType' ], value ) }
 						>
-							<span className={ `dashicons dashicons-${ icon }` }></span>
+							<span className="g2rd-business-card__icon"><Icon name={ icon } size={ 18 } /></span>
 							<strong>{ label }</strong>
 							<span className="g2rd-business-card__desc">{ desc }</span>
 						</button>

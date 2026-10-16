@@ -113,15 +113,23 @@ Même charte que le site (navy `#0f172a`, lime `#a3e635`, pink `#ec4899`→purpl
 neutres slate), appliquée au back-office à la place de l'ancienne charte « logo »
 (navy `#2F425D` / doré `#D4A373` / or `#b8924a`).
 
-- **Page d'options React** (`blocks/g2rd-options-page/src/style.css`, `App.js`,
-  `FeatureCard.js`) : tokens fixes de la charte (jamais les couleurs configurables de la
-  barre d'admin) ; sidebar **navy** avec item actif **lime / texte navy** (façon sidebar
-  wp-manager) ; en-tête collant translucide ; en-tête de page (groupe, titre, description) ;
-  sections en cartes ; boutons primaires **lime / navy** via les variables
-  `--wp-components-color-accent*` (zéro `!important`) ; bouton Enregistrer en dégradé
-  « action » assombri (texte blanc AA) ; liens en pink AA `#db2777` ; toast de notification ;
-  lien d'évitement ; hiérarchie h1 → h2 (page) → h3 (sections) ; Inter **variable**
-  (`inter-var.woff2`, graisses réelles).
+- **Page d'options React — v2** (`blocks/g2rd-options-page/src/style.css`, `App.js`,
+  `components/Icon.js`, `components/Toggle.js`, `FeatureCard.js`, `CPTPanel.js`,
+  `TabEditeur.js`) : direction « console de réglages de référence » — fond blanc, navigation
+  **claire** (item actif = aplat slate, texte navy semi-gras), icônes **SVG linéaires 16 px**
+  maison (zéro dépendance, les Dashicons des titres sont masqués), **lignes de réglages**
+  (libellé + description à gauche, interrupteur à droite, filets fins) à la place des cartes
+  en grille, en-tête de page (groupe, titre 22 px, description), barre supérieure sobre
+  (monogramme navy, puce de version, statut licence à point coloré, « Non enregistré »
+  + Annuler + Enregistrer), tableaux à en-tête slate et actions discrètes. Un seul accent :
+  **lime / texte navy** sur les boutons primaires et les états « actif » ; navy pour les
+  interrupteurs et le focus ; pas de dégradé ni de pink. Boutons primaires via les variables
+  `--wp-components-color-accent*` (zéro `!important`). Correctifs : `ToggleControl`
+  remplacé par `FormToggle` + `aria-label` (son libellé s'affichait et écrasait les cartes),
+  libellés de `SelectControl` alignés sur ceux de `TextControl`, version lue sur le thème
+  **parent** (un enfant actif affichait `v1.0.0`). Toast, lien d'évitement, hiérarchie
+  h1 → h2 → h3, Inter **variable**, `prefers-reduced-motion`. Rendu vérifié par captures
+  Playwright sur un harnais local chargeant `wp.components` depuis jsDelivr.
 - **Chrome admin** (`assets/css/admin.css`) : habillage complet de l'administration hors
   éditeur de blocs — Inter variable sur tout le back-office (`@font-face` injecté par
   `ThemeAdmin::registerAdminAssets()`), champs 36 px arrondis avec anneau de focus navy,

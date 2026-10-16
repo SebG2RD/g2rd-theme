@@ -1,33 +1,49 @@
 import { useState } from '@wordpress/element';
 import { ToggleControl, TextControl, Button } from '@wordpress/components';
+import { Icon } from './Icon';
+import { Toggle } from './Toggle';
 
-export function CPTPanel( { cptKey, label, icon, settings, defaults, onChange } ) {
+const CPT_ICONS = {
+	portfolio:         'image',
+	prestations:       'briefcase',
+	'qui-sommes-nous': 'users',
+};
+
+export function CPTPanel( { cptKey, label, settings, defaults, onChange } ) {
 	const [ expanded, setExpanded ] = useState( false );
 
 	const get = ( key ) => settings?.[ key ] ?? defaults?.[ key ] ?? '';
 	const set = ( key, val ) => onChange( key, val );
+	const enabled = !! get( 'enabled' );
 
 	return (
-		<div className={ `g2rd-cpt-panel${ get( 'enabled' ) ? '' : ' g2rd-cpt-panel--disabled' }` }>
-			<div className="g2rd-cpt-panel__header">
-				<span className={ `dashicons dashicons-${ icon }` }></span>
-				<strong>{ label }</strong>
-				<ToggleControl
-					label={ `Activer ${ label }` }
-					hideLabelFromVision
-					checked={ !! get( 'enabled' ) }
-					onChange={ ( val ) => set( 'enabled', val ) }
-					__nextHasNoMarginBottom
-				/>
-				<Button
-					variant="tertiary"
-					size="small"
-					onClick={ () => setExpanded( ( v ) => ! v ) }
-					aria-expanded={ expanded }
-					className="g2rd-cpt-panel__toggle"
-				>
-					{ expanded ? 'Masquer' : 'Configurer' }
-				</Button>
+		<div className={ `g2rd-cpt-panel${ enabled ? '' : ' is-off' }${ expanded ? ' is-open' : '' }` }>
+			<div className="g2rd-setting-row g2rd-cpt-panel__header">
+				<span className="g2rd-setting-row__icon">
+					<Icon name={ CPT_ICONS[ cptKey ] || 'folder' } size={ 16 } />
+				</span>
+				<div className="g2rd-setting-row__main">
+					<div className="g2rd-setting-row__title">{ label }</div>
+					<p className="g2rd-setting-row__desc">
+						{ enabled ? `Slug : /${ get( 'slug' ) || cptKey }/` : 'Désactivé' }
+					</p>
+				</div>
+				<div className="g2rd-setting-row__control g2rd-row g2rd-row--loose">
+					<Button
+						variant="tertiary"
+						size="small"
+						onClick={ () => setExpanded( ( v ) => ! v ) }
+						aria-expanded={ expanded }
+						className="g2rd-cpt-panel__toggle"
+					>
+						{ expanded ? 'Fermer' : 'Configurer' }
+					</Button>
+					<Toggle
+						label={ `Activer ${ label }` }
+						checked={ enabled }
+						onChange={ ( val ) => set( 'enabled', val ) }
+					/>
+				</div>
 			</div>
 
 			{ expanded && (
@@ -37,26 +53,31 @@ export function CPTPanel( { cptKey, label, icon, settings, defaults, onChange } 
 							label="Nom singulier"
 							value={ get( 'singular' ) }
 							onChange={ ( v ) => set( 'singular', v ) }
+							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>
 						<TextControl
 							label="Nom pluriel"
 							value={ get( 'plural' ) }
 							onChange={ ( v ) => set( 'plural', v ) }
+							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>
 					</div>
 					<div className="g2rd-cpt-panel__row">
 						<TextControl
-							label="Label «Tous les éléments»"
+							label="Libellé « Tous les éléments »"
 							value={ get( 'all_items' ) }
 							onChange={ ( v ) => set( 'all_items', v ) }
+							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>
 						<TextControl
 							label="Slug URL"
+							help="Un changement de slug nécessite une mise à jour des permaliens."
 							value={ get( 'slug' ) }
 							onChange={ ( v ) => set( 'slug', v ) }
+							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>
 					</div>
@@ -83,15 +104,17 @@ export function CPTPanel( { cptKey, label, icon, settings, defaults, onChange } 
 					{ get( 'tax_enabled' ) && (
 						<div className="g2rd-cpt-panel__row">
 							<TextControl
-								label="Nom taxonomie (singulier)"
+								label="Nom de la taxonomie (singulier)"
 								value={ get( 'tax_singular' ) }
 								onChange={ ( v ) => set( 'tax_singular', v ) }
+								__next40pxDefaultSize
 								__nextHasNoMarginBottom
 							/>
 							<TextControl
-								label="Nom taxonomie (pluriel)"
+								label="Nom de la taxonomie (pluriel)"
 								value={ get( 'tax_plural' ) }
 								onChange={ ( v ) => set( 'tax_plural', v ) }
+								__next40pxDefaultSize
 								__nextHasNoMarginBottom
 							/>
 						</div>

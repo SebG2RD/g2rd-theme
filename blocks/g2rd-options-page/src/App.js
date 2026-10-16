@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { Button, Notice } from '@wordpress/components';
 import { useSettings } from './hooks/useSettings';
+import { Icon } from './components/Icon';
 import { TabConfiguration } from './tabs/TabConfiguration';
 import { TabContenu }       from './tabs/TabContenu';
 import { TabEditeur }       from './tabs/TabEditeur';
@@ -64,17 +65,18 @@ function ExternalTabHost({ tab }) {
 }
 
 /*
- * Chaque entrée porte une description courte : affichée sous le titre de
- * page, elle dit ce que l'onglet pilote avant même d'en lire les sections.
+ * `icon` : nom d'une icône du jeu interne (components/Icon.js).
+ * `description` : affichée sous le titre de page, elle dit ce que l'onglet
+ * pilote avant même d'en lire les sections.
  */
 const NAV_GROUPS = [
 	{
 		label: 'Thème',
 		items: [
-			{ name: 'configuration', title: 'Configuration', icon: 'admin-settings', description: 'Type de site, couleurs de l\'administration et intégrations tierces.' },
-			{ name: 'contenu',       title: 'Contenu',       icon: 'category',       description: 'Types de contenus personnalisés inclus dans le thème.' },
-			{ name: 'editeur',       title: 'Éditeur',       icon: 'block-default',  description: 'Modules optionnels, boutons flottants et blocs Gutenberg disponibles.' },
-			{ name: 'clients',       title: 'Clients',       icon: 'admin-users',    description: 'Interface simplifiée et aides SEO / GEO pour vos clients.' },
+			{ name: 'configuration', title: 'Configuration', icon: 'settings', description: 'Type de site, couleurs de l\'administration et intégrations tierces.' },
+			{ name: 'contenu',       title: 'Contenu',       icon: 'folder',   description: 'Types de contenus personnalisés inclus dans le thème.' },
+			{ name: 'editeur',       title: 'Éditeur',       icon: 'layout',   description: 'Modules optionnels, boutons flottants et blocs Gutenberg disponibles.' },
+			{ name: 'clients',       title: 'Clients',       icon: 'users',    description: 'Interface simplifiée et aides SEO / GEO pour vos clients.' },
 		],
 	},
 	{
@@ -87,22 +89,22 @@ const NAV_GROUPS = [
 	{
 		label: 'Système',
 		items: [
-			{ name: 'licence', title: 'Licence', icon: 'admin-network', description: 'Activation de la licence G2RD sur ce domaine.' },
-			...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'admin-network', description: 'Création et suivi des clés de licence de vos clients.' } ] : [] ),
+			{ name: 'licence', title: 'Licence', icon: 'key', description: 'Activation de la licence G2RD sur ce domaine.' },
+			...( licenseServerMode ? [ { name: 'licence-admin', title: 'Gestion licences', icon: 'shield', description: 'Création et suivi des clés de licence de vos clients.' } ] : [] ),
 		],
 	},
 	{
 		label: 'IA',
 		items: [
-			{ name: 'ia', title: 'Module IA', icon: 'superhero-alt', description: 'Profil du site, clé API, quotas et consignes des générations IA.' },
+			{ name: 'ia', title: 'Module IA', icon: 'sparkles', description: 'Profil du site, clé API, quotas et consignes des générations IA.' },
 		],
 	},
 	{
 		label: 'MCP',
 		items: [
-			{ name: 'mcp-tokens', title: 'Tokens',  icon: 'shield',    description: 'Tokens d\'accès des agents MCP et snippets d\'intégration.' },
-			{ name: 'mcp-audit',  title: 'Audit',   icon: 'list-view', description: 'Journal immuable de toutes les requêtes MCP reçues.' },
-			{ name: 'mcp-queue',  title: 'File',    icon: 'clock',     description: 'Opérations d\'écriture en attente de votre approbation.' },
+			{ name: 'mcp-tokens', title: 'Tokens',  icon: 'key',   description: 'Tokens d\'accès des agents MCP et snippets d\'intégration.' },
+			{ name: 'mcp-audit',  title: 'Audit',   icon: 'list',  description: 'Journal immuable de toutes les requêtes MCP reçues.' },
+			{ name: 'mcp-queue',  title: 'File',    icon: 'inbox', description: 'Opérations d\'écriture en attente de votre approbation.' },
 		],
 	},
 ];
@@ -114,7 +116,7 @@ const EXTERNAL_GROUP = externalTabs.length > 0 ? {
 	items: externalTabs.map( ( tab ) => ( {
 		name: `ext:${ tab.key }`,
 		title: tab.label || tab.key,
-		icon: tab.icon || 'admin-plugins',
+		icon: 'plug',
 		description: tab.description || '',
 		_external: tab,
 	} ) ),
@@ -166,37 +168,28 @@ export function App() {
 
 			<a className="g2rd-skip" href="#g2rd-main">Aller au contenu</a>
 
-			{ /* ── Header ── */ }
-			<header className="g2rd-header">
-				<div className="g2rd-header__brand">
-					<span className="g2rd-header__logo" aria-hidden="true">G2RD</span>
-					<div className="g2rd-header__meta">
-						<h1 className="g2rd-header__title">Options du thème</h1>
-						<span className="g2rd-header__version">G2RD FSE · v{ version }</span>
-					</div>
+			{ /* ── Barre supérieure ── */ }
+			<header className="g2rd-topbar">
+				<div className="g2rd-topbar__brand">
+					<span className="g2rd-topbar__mark" aria-hidden="true">G</span>
+					<h1 className="g2rd-topbar__title">Options du thème</h1>
+					<span className="g2rd-topbar__version">v{ version }</span>
 				</div>
 
-				<div className="g2rd-header__actions">
-					{ licensed ? (
-						<span className="g2rd-pill g2rd-pill--ok">
-							<span className="dashicons dashicons-yes-alt" aria-hidden="true"></span>
-							Licence active
-						</span>
-					) : (
-						<span className="g2rd-pill g2rd-pill--warn">
-							<span className="dashicons dashicons-warning" aria-hidden="true"></span>
-							Sans licence
-						</span>
-					) }
+				<div className="g2rd-topbar__actions">
+					<span className={ `g2rd-status${ licensed ? ' g2rd-status--ok' : ' g2rd-status--warn' }` }>
+						<span className="g2rd-status__dot" aria-hidden="true"></span>
+						{ licensed ? 'Licence active' : 'Sans licence' }
+					</span>
 
 					{ /* aria-live : l'apparition des boutons est annoncée aux lecteurs d'écran */ }
-					<div className="g2rd-header__save" aria-live="polite">
+					<div className="g2rd-topbar__save" aria-live="polite">
 						{ ( isDirty || isSaving ) && (
 							<>
 								{ ! isSaving && (
-									<span className="g2rd-header__dirty">
-										<span className="g2rd-header__dirty-dot" aria-hidden="true"></span>
-										Modifications non enregistrées
+									<span className="g2rd-topbar__dirty">
+										<span className="g2rd-topbar__dirty-dot" aria-hidden="true"></span>
+										Non enregistré
 									</span>
 								) }
 								{ ! isSaving && (
@@ -213,10 +206,10 @@ export function App() {
 				</div>
 			</header>
 
-			{ /* ── Body ── */ }
+			{ /* ── Corps ── */ }
 			<div className="g2rd-body">
 
-				{ /* ── Sidebar nav ── */ }
+				{ /* ── Navigation ── */ }
 				<nav className="g2rd-nav" aria-label="Navigation options thème">
 					{ FULL_NAV_GROUPS.map( ( group ) => (
 						<div key={ group.label } className="g2rd-nav__group">
@@ -225,32 +218,27 @@ export function App() {
 								<button
 									key={ item.name }
 									type="button"
-									className={ `g2rd-nav__item${ activeTab === item.name ? ' g2rd-nav__item--active' : '' }` }
+									className={ `g2rd-nav__item${ activeTab === item.name ? ' is-active' : '' }` }
 									onClick={ () => setActiveTab( item.name ) }
 									aria-current={ activeTab === item.name ? 'page' : undefined }
 								>
-									<span className={ `dashicons dashicons-${ item.icon }` } aria-hidden="true"></span>
-									{ item.title }
+									<Icon name={ item.icon } size={ 16 } />
+									<span>{ item.title }</span>
 								</button>
 							) ) }
 						</div>
 					) ) }
 				</nav>
 
-				{ /* ── Main content ── */ }
+				{ /* ── Contenu ── */ }
 				<main className="g2rd-main" id="g2rd-main" tabIndex={ -1 }>
 					<div className="g2rd-main__inner">
 						<header className="g2rd-page-head">
-							<div className="g2rd-page-head__icon" aria-hidden="true">
-								<span className={ `dashicons dashicons-${ activeItem?.icon }` }></span>
-							</div>
-							<div>
-								<p className="g2rd-page-head__eyebrow">{ activeItem?.group }</p>
-								<h2 className="g2rd-page-head__title">{ activeItem?.title }</h2>
-								{ activeItem?.description && (
-									<p className="g2rd-page-head__desc">{ activeItem.description }</p>
-								) }
-							</div>
+							<p className="g2rd-page-head__eyebrow">{ activeItem?.group }</p>
+							<h2 className="g2rd-page-head__title">{ activeItem?.title }</h2>
+							{ activeItem?.description && (
+								<p className="g2rd-page-head__desc">{ activeItem.description }</p>
+							) }
 						</header>
 						{ /* key force le remount et déclenche l'animation CSS */ }
 						<div className="g2rd-main__content" key={ activeTab }>

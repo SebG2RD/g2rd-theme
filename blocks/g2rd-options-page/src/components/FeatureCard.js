@@ -1,45 +1,41 @@
-import { ToggleControl } from '@wordpress/components';
+import { Icon } from './Icon';
+import { Toggle } from './Toggle';
 
 /**
- * Carte d'une fonctionnalité optionnelle du thème.
+ * Ligne de réglage d'une fonctionnalité optionnelle du thème.
  *
- * L'interrupteur est aligné à droite, sur la ligne du titre : l'état se lit
- * d'un coup d'œil sur une grille de cartes, sans descendre sous chaque
- * description. La carte porte la classe `--on` quand la fonctionnalité est
- * active pour teinter l'icône et la bordure.
+ * Libellé et description à gauche, interrupteur à droite, filet entre les
+ * lignes : la lecture suit une seule colonne et l'état se voit d'un coup
+ * d'œil, sans carte ni grille. S'empile dans `.g2rd-setting-list`.
  */
 export function FeatureCard( { featureKey, definition, value, onChange, locked } ) {
 	const { label, description } = definition;
 	const isOn = !! value && ! locked;
 
 	const classes = [
-		'g2rd-feature-card',
-		isOn ? 'g2rd-feature-card--on' : '',
-		locked ? 'g2rd-feature-card--locked' : '',
+		'g2rd-setting-row',
+		isOn ? 'is-on' : '',
+		locked ? 'is-locked' : '',
 	].filter( Boolean ).join( ' ' );
 
 	return (
 		<div className={ classes }>
-			<div className="g2rd-feature-card__icon" aria-hidden="true">
-				<span className={ `dashicons dashicons-${ getIcon( featureKey ) }` }></span>
-			</div>
-			<div className="g2rd-feature-card__body">
-				<div className="g2rd-feature-card__header">
-					<strong className="g2rd-feature-card__label">{ label }</strong>
-					{ locked && (
-						<span className="g2rd-feature-card__badge">Licence requise</span>
-					) }
+			<span className="g2rd-setting-row__icon">
+				<Icon name={ getIcon( featureKey ) } size={ 16 } />
+			</span>
+			<div className="g2rd-setting-row__main">
+				<div className="g2rd-setting-row__title">
+					{ label }
+					{ locked && <span className="g2rd-chip g2rd-chip--muted">Licence requise</span> }
 				</div>
-				<p className="g2rd-feature-card__desc">{ description }</p>
+				<p className="g2rd-setting-row__desc">{ description }</p>
 			</div>
-			<div className="g2rd-feature-card__control">
-				<ToggleControl
+			<div className="g2rd-setting-row__control">
+				<Toggle
 					label={ label }
-					hideLabelFromVision
 					checked={ !! value }
 					onChange={ onChange }
 					disabled={ locked }
-					__nextHasNoMarginBottom
 				/>
 			</div>
 		</div>
@@ -48,16 +44,16 @@ export function FeatureCard( { featureKey, definition, value, onChange, locked }
 
 function getIcon( key ) {
 	const icons = {
-		gsap_animations:          'video-alt3',
-		particles_effect:         'star-filled',
-		glass_effect:             'admin-appearance',
-		clickable_articles:       'admin-links',
-		accessibility:            'universal-access-alt',
-		back_to_top:              'arrow-up-alt2',
-		dark_mode:                'visibility',
-		enable_ai:                'rest-api',
+		gsap_animations:          'play',
+		particles_effect:         'star',
+		glass_effect:             'layers',
+		clickable_articles:       'link',
+		accessibility:            'accessibility',
+		back_to_top:              'arrowUp',
+		dark_mode:                'moon',
+		enable_ai:                'sparkles',
 		patterns_require_license: 'lock',
-		pin_scroll:               'video-alt2',
+		pin_scroll:               'film',
 	};
-	return icons[ key ] || 'admin-generic';
+	return icons[ key ] || 'dot';
 }
