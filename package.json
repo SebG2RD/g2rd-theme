@@ -86,12 +86,12 @@
     "@typescript-eslint/typescript-estree": "^8.0.0",
     "@typescript-eslint/utils": "^8.0.0",
     "basic-ftp": ">=5.3.0",
-    "follow-redirects": ">=1.16.0",
+    "follow-redirects": "^1.16.1",
     "minimatch": ">=3.1.4",
     "copy-webpack-plugin": "^14.0.0",
     "markdownlint-cli": "^0.48.0",
     "markdownlint": "^0.38.0",
-    "markdown-it": "^14.3.2",
+    "markdown-it": "^14.3.3",
     "smol-toml": ">=1.9.0",
     "serialize-javascript": "^7.0.5",
     "webpack-dev-server": "^5.2.5",
@@ -112,7 +112,7 @@
       "copy-webpack-plugin": "^14.0.0",
       "markdownlint-cli": "^0.48.0",
       "markdownlint": "^0.38.0",
-      "markdown-it": "^14.1.1",
+      "markdown-it": "^14.3.3",
       "smol-toml": ">=1.9.0",
       "serialize-javascript": "^7.0.5",
       "webpack-dev-server": "^5.2.5",
@@ -137,6 +137,8 @@
     "@opentelemetry/instrumentation-mysql": ">=0.67.0",
     "@opentelemetry/instrumentation-mongoose": ">=0.67.0",
     "@opentelemetry/instrumentation-tedious": ">=0.40.0",
-    "fast-uri": "^3.1.8"
+    "fast-uri": "^3.1.8",
+    "launch-editor": "^2.14.2",
+    "zod": "^4.6.6"
   }
 }
