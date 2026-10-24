@@ -681,11 +681,23 @@
 .g2rd-cpt-panel.is-off .g2rd-setting-row__title { color: var(--g2rd-muted); }
 .g2rd-cpt-panel__fields { display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 14px; border-top: 1px solid var(--g2rd-line); }
 .g2rd-cpt-panel__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.g2rd-cpt-panel__toggles { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+/* 18 px entre deux lignes : les zones cliquables de 44 px des interrupteurs
+   (9 px de débord de chaque côté) ne se chevauchent pas quand ils passent à la ligne. */
+.g2rd-cpt-panel__toggles { display: flex; flex-wrap: wrap; gap: 18px 24px; }
 .g2rd-save-bar { display: none; }
 
 /* ── Interrupteur : piste en creux, pastille lime quand actif ──── */
 .g2rd-app .components-form-toggle { width: 44px; height: 26px; }
+
+/* Cible de 44 × 44 px : la zone cliquable de FormToggle est l'input invisible
+   étiré sur l'enveloppe (44 × 26). On l'agrandit de 9 px au-dessus et au-dessous
+   sans toucher au dessin (piste et pastille). Le préfixe `.g2rd-app` l'emporte sur
+   `.components-form-toggle input.components-form-toggle__input[type="checkbox"]`
+   de @wordpress/components ; pas de `transform` (neutralisé en mouvement réduit). */
+.g2rd-app .components-form-toggle input.components-form-toggle__input[type="checkbox"] {
+	top: calc( 50% - 22px );
+	height: 44px;
+}
 
 .g2rd-app .components-form-toggle .components-form-toggle__track {
 	width: 44px;

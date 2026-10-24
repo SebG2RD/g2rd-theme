@@ -258,6 +258,11 @@ export function App() {
 	const activeItem = ALL_ITEMS.find( ( i ) => i.name === activeTab );
 	const tiles      = computeTiles( activeTab, settings );
 
+	// Les onglets d'extension ne lisent pas ces réglages : la barre y masquerait le
+	// bas de leur panneau. Une modification du thème en attente reste signalée par
+	// la puce « Non enregistré » du bandeau, et la barre revient sur les onglets du thème.
+	const showSavebar = ( isDirty || isSaving ) && ! activeItem?._external;
+
 	return (
 		<div className="g2rd-app">
 
@@ -341,8 +346,8 @@ export function App() {
 				</div>
 			</div>
 
-			{ /* Barre d'enregistrement flottante : visible dès qu'un réglage change */ }
-			{ ( isDirty || isSaving ) && (
+			{ /* Barre d'enregistrement flottante : visible dès qu'un réglage change, sur les onglets du thème */ }
+			{ showSavebar && (
 				<div className="g2rd-savebar" role="region" aria-label="Modifications en attente">
 					<span className="g2rd-savebar__text">
 						<span className="g2rd-dot is-warn" aria-hidden="true"></span>

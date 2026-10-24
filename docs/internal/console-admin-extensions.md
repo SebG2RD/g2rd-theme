@@ -102,6 +102,14 @@ Pour une interface légère, une extension peut aussi apparaître comme **onglet
 `window.G2RDOptions.registerTab({ key, mount })` (cf. `docs/plugin-wordpress.md`). Le sous-menu
 reste la voie recommandée dès que l'extension a plusieurs écrans.
 
+- La barre flottante « Modifications non enregistrées » ne concerne que les réglages du thème :
+  elle n'est jamais affichée sur un onglet d'extension. Une modification du thème en attente
+  reste signalée par la puce « Non enregistré » du bandeau. L'extension gère son propre
+  enregistrement.
+- Un interrupteur `g2rd-toggle` (`FormToggle`) est dessiné en 44 × 26 px mais sa zone cliquable
+  fait 44 × 44 px : l'input invisible déborde de 9 px en haut et en bas. Prévoir au moins 18 px
+  entre deux interrupteurs empilés, sinon leurs zones se chevauchent.
+
 ## 5. Règles
 
 - Slug de page préfixé `g2rd-`, capacité `manage_options` sauf besoin justifié.
