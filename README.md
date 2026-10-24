@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.41.1** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.41.2** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,12 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.41.2**
+
+- **Accessibilité** : les interrupteurs de la console ont une zone cliquable de 44 × 44 px (WCAG 2.5.5), dessin inchangé — l'input invisible de `FormToggle` déborde de 9 px en haut et en bas ; dans le panneau des types de contenus, les interrupteurs passés à la ligne sont espacés de 18 px pour que leurs zones ne se chevauchent pas.
+- **Fix** : la barre « Modifications non enregistrées » ne s'affiche plus sur les onglets d'extension (Manager G2RD…), dont elle masquait le bas du panneau ; la puce « Non enregistré » du bandeau signale toujours une modification du thème en attente.
+- **Maintenance** : dépendances de build mises à jour (follow-redirects, markdown-it, launch-editor, zod, @playwright/test, dotenv) — corrige les alertes Dependabot ; aucun fichier livré concerné.
 
 ### **1.41.1**
 
