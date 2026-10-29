@@ -101,6 +101,7 @@ g2rd-theme/
 │   ├── class-client-mode.php                   # Mode client — interface simplifiée pour les clients
 │   ├── class-coming-soon.php
 │   ├── class-conditional-menu.php
+│   ├── class-contact-tracking.php              # Suivi des clics tel:/mailto: — GA4/GTM + compteurs (licence)
 │   ├── class-custom-post-types-portfolio.php
 │   ├── class-custom-post-types-prestations.php
 │   ├── class-custom-post-types-qui-sommes-nous.php
@@ -484,7 +485,18 @@ La page d'options React (`blocks/g2rd-options-page/`) gère les features via `Th
 | `dark_mode` | `class-dark-mode.php` | **oui** |
 | `enable_ai` | `classes/ai/class-ai-module.php` | non |
 | `pin_scroll` | `class-pin-scroll.php` | non (nécessite licence) |
+| `contact_tracking` | `class-contact-tracking.php` | non (nécessite licence) |
 | `patterns_require_license` | (accès patterns) | non |
+
+### Suivi des clics de contact (v1.42.0+)
+
+Reprise native de l'extension `g2rd-suivi-contact` 1.2.0 (`ContactTracking`, clé `contact_tracking`, licence requise).
+
+- **Front** : `assets/js/contact-tracking.js` (capture phase, `tel:` / `mailto:` / e-mails obfusqués Cloudflare, `gtag` sinon `dataLayer`, `sendBeacon`), exclu de LiteSpeed.
+- **REST** : `POST /g2rd/v1/contact-click` public sans nonce (pages en cache), enum `tel|mail`, 20 clics/IP/min, 204.
+- **Données** : option `g2rd_contact_clicks` **identique à l'extension** — un site qui migre garde ses compteurs. Ne pas renommer.
+- **Admin** : widget `g2rd_contact_clicks` + puce dans le hub de la console.
+- **Coexistence** : si la constante `G2RD_CONTACT_SLUG` de l'extension est définie, le thème ne charge rien et affiche une notice (pas de double comptage).
 
 Ajouter une nouvelle feature : 1) clé dans `FEATURES` (class-theme-options.php) ; 2) `isFeatureEnabled('key')` dans la classe concernée ; 3) icône dashicon dans `FeatureCard.js` ; 4) `npm run build:options`.
 

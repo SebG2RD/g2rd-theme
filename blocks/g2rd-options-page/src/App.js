@@ -180,7 +180,7 @@ function computeTiles( name, settings ) {
 			return [
 				{ label: 'Modules optionnels', value: count( settings.features, Boolean ), hint: `actifs sur ${ Object.keys( defs ).length }`, mono: true },
 				{ label: 'Blocs Gutenberg', value: Math.max( 0, blocks.length - off ), hint: `visibles sur ${ blocks.length }`, mono: true },
-				{ label: 'Licence', value: licensed ? 'Active' : 'Absente', hint: licensed ? 'blocs et compositions débloqués' : 'Pin Scroll et blocs verrouillés' },
+				{ label: 'Licence', value: licensed ? 'Active' : 'Absente', hint: licensed ? 'blocs et compositions débloqués' : 'Pin Scroll, suivi de contact et blocs verrouillés' },
 			];
 		}
 		case 'clients':

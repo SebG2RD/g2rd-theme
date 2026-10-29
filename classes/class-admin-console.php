@@ -141,6 +141,16 @@ class AdminConsole {
             ],
         ];
 
+        // Suivi des clics de contact : synthèse du mois, lien vers le widget détaillé.
+        if ( \class_exists( __NAMESPACE__ . '\\ContactTracking' ) && ContactTracking::isRunning() ) {
+            $clicks  = ContactTracking::monthlyTotal();
+            $facts[] = [
+                'label' => \sprintf( /* translators: %d : nombre de clics */ \_n( '%d clic de contact ce mois-ci', '%d clics de contact ce mois-ci', $clicks, 'g2rd' ), $clicks ),
+                'tone'  => 'ok',
+                'href'  => \admin_url( 'index.php#' . ContactTracking::WIDGET_ID ),
+            ];
+        }
+
         // Entrées du menu « G2RD » : le thème, l'assistant, puis les extensions.
         $links = [];
         foreach ( (array) ( $submenu[ self::MENU_SLUG ] ?? [] ) as $item ) {
