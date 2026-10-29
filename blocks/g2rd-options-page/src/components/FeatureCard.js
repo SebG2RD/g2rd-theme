@@ -54,6 +54,7 @@ function getIcon( key ) {
 		enable_ai:                'sparkles',
 		patterns_require_license: 'lock',
 		pin_scroll:               'film',
+		contact_tracking:         'phone',
 	};
 	return icons[ key ] || 'dot';
 }

@@ -6,7 +6,7 @@ import { Toggle } from '../components/Toggle';
 const { features: featureDefs, blocks: blockDefs, licensed } = window.G2RDOptionsData || {};
 
 // Features nécessitant une licence active
-const LICENSE_REQUIRED_FEATURES = [ 'pin_scroll' ];
+const LICENSE_REQUIRED_FEATURES = [ 'pin_scroll', 'contact_tracking' ];
 const EMPTY_FEATURES = {};
 const EMPTY_BLOCKS   = [];
 const EMPTY_COLORS   = {};

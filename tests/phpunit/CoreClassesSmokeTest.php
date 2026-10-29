@@ -23,6 +23,7 @@ final class CoreClassesSmokeTest extends TestCase
             'ThemeOptions' => [\G2RD\ThemeOptions::class, 'register_hooks'],
             'GeoAnalyzer' => [\G2RD\GeoAnalyzer::class, 'register_hooks'],
             'SeoHelper' => [\G2RD\SEO_Helper::class, 'register_hooks'],
+            'ContactTracking' => [\G2RD\ContactTracking::class, 'register_hooks'],
         ];
     }
 

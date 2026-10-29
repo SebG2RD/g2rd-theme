@@ -84,6 +84,10 @@ class ScriptsManager {
         $excludes[] = 'clickable-articles.js';
         $excludes[] = 'gsap-animation.js';
         $excludes[] = 'carousel-frontend.js';
+        // Suivi de contact : un premier tap sur un lien tel: ne doit pas précéder
+        // le chargement différé du script, sinon le clic est perdu.
+        $excludes[] = 'contact-tracking.js';
+        $excludes[] = 'g2rdContactTracking';
         return $excludes;
     }
 

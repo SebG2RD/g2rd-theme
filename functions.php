@@ -193,6 +193,9 @@ function bootstrap_theme(): void
     // Bloc Pin Scroll — gestion licence + feature toggle + assets GSAP
     new PinScroll( $license_manager );
 
+    // Suivi des clics téléphone / e-mail — feature toggle + licence
+    ( new ContactTracking( $license_manager ) )->register_hooks();
+
     // Mode client (simplifie l'admin WP pour les utilisateurs non techniques)
     ( new Client_Mode() )->register_hooks();
 

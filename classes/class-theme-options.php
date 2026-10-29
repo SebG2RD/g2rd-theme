@@ -147,11 +147,16 @@ class ThemeOptions {
             'label'       => 'Pin Scroll (effet Apple)',
             'description' => 'Active le bloc G2RD Pin Scroll — séquence d\'images synchronisée au défilement. Nécessite une licence active.',
         ],
+        'contact_tracking' => [
+            'label'       => 'Suivi des clics de contact',
+            'description' => 'Compte les clics sur les liens téléphone et e-mail, envoie un événement à Google Analytics et affiche les compteurs dans le tableau de bord. Nécessite une licence active.',
+        ],
     ];
 
     private const FEATURE_DEFAULTS = [
         'enable_ai'                => false,
         'patterns_require_license' => false,
+        'contact_tracking'         => false,
     ];
 
     private const BLOCKS = [
