@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.41.2** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.42.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,14 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.42.0**
+
+- **Suivi des clics de contact** : nouvelle fonctionnalité de l'onglet Éditeur, désactivée par défaut et réservée aux sites sous licence. Elle compte les clics sur les liens téléphone et e-mail, y compris les adresses obfusquées par Cloudflare. Elle envoie `clic_telephone` / `clic_email` à Google Analytics (gtag) ou Google Tag Manager (dataLayer) et tient un compteur local par mois et par type.
+- **Tableau de bord** : widget « Clics de contact » (mois en cours et cumul, téléphone et e-mail séparés) et puce « N clics de contact ce mois-ci » dans le hub G2RD.
+- **Migration** : remplace l'extension `g2rd-suivi-contact`. Les compteurs existants sont repris tels quels. Tant que l'extension reste active, le thème s'efface et affiche une notice invitant à la désactiver, sans double comptage.
+- **Sécurité** : endpoint public `POST /g2rd/v1/contact-click` limité à `tel|mail` et à 20 clics par IP et par minute. Aucune IP n'est stockée.
+- **Maintenance** : chart.js 4.6.1 et dépendances de build mises à jour (body-parser, serialize-javascript, fast-uri, dotenv), qui corrigent les alertes Dependabot.
 
 ### **1.41.2**
 
