@@ -600,7 +600,11 @@ LiteSpeed Cache convertit tous les scripts en `type="litespeed/javascript"` (def
 
 ## Workflow
 
-- Créer une branche par fonctionnalité ou bloc
+- **Travailler directement sur `main`, le moins de branches possible** (règle du 2026-10-30) :
+  pas de branche par fonctionnalité, correctif ou alerte Dependabot. Commits locaux dès qu'un
+  lot est vérifié, push uniquement sur accord explicite, puis contrôle de la CI de `main`.
+  Valider en local avant le commit ce que la CI vérifierait (tests, PHPCS, `npm run build`,
+  `npm audit`), puisqu'aucune PR ne filtre plus le changement.
 - Tester chaque bloc dans l'éditeur Gutenberg ET sur le front avant commit
 - Vérifier le rendu responsive sur mobile, tablette et desktop
 - Messages de commit en français, format : `type: description courte`
