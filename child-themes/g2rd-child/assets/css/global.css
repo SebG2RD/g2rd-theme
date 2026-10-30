@@ -327,7 +327,6 @@ html:not(.g2rd-anim-off) .g2rd-btn:focus-visible .g2rd-btn__char {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 100;
-  transition: background 0.3s var(--g2rd-ease), box-shadow 0.3s var(--g2rd-ease);
 }
 .g2rd-header__bar {
   display: flex;
@@ -337,13 +336,33 @@ html:not(.g2rd-anim-off) .g2rd-btn:focus-visible .g2rd-btn__char {
   padding-block: 1.1rem;
   transition: padding 0.3s var(--g2rd-ease);
 }
-.g2rd-header.is-scrolled {
+/* Fond flouté au défilement, porté par un pseudo-élément et jamais par
+   .g2rd-header lui-même : un backdrop-filter (comme un transform ou un filter)
+   fait de l'élément le bloc conteneur de ses descendants en position:fixed.
+   L'overlay du menu mobile, descendant de l'en-tête, était alors réduit à la
+   hauteur de l'en-tête (86 px) dès que la page avait défilé. */
+.g2rd-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
   background: rgba(2, 6, 23, 0.82);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 var(--g2rd-border-dark);
+  transition: opacity 0.3s var(--g2rd-ease);
 }
+.g2rd-header.is-scrolled::before { opacity: 1; }
 .g2rd-header.is-scrolled .g2rd-header__bar { padding-block: 0.7rem; }
+
+/* Menu mobile ouvert (WordPress pose html.has-modal-open) : l'overlay vit dans
+   le contexte d'empilement de l'en-tête (z-index 100). Sans ce relèvement, le
+   bouton d'accessibilité (10000), l'onglet cookies SEOPress (7999) et le bouton
+   des animations (130) recouvraient le bas du menu et captaient les touchers.
+   Reste sous le grain décoratif (body::after, pointer-events: none). */
+html.has-modal-open .g2rd-header { z-index: 100000; }
 
 .g2rd-header__logo img { height: 38px; width: auto; }
 
@@ -609,8 +628,6 @@ body::after {
 .g2rd-header__right { display: flex; align-items: center; gap: 1.4rem; }
 .g2rd-header__login-wrap { margin: 0; }
 .g2rd-header__login a {
-  padding: 0.5rem 1.15rem;
-  font-size: 0.9rem;
   border: 1px solid var(--g2rd-accent);
   color: var(--g2rd-accent);
   border-radius: var(--g2rd-radius-full);
@@ -623,7 +640,25 @@ body::after {
 .g2rd-header__login a::after { display: none; } /* pas de soulignement nav */
 @media (max-width: 600px) {
   .g2rd-header__right { gap: 0.7rem; }
-  .g2rd-header__login a { padding: 0.42rem 0.85rem; font-size: 0.82rem; }
+}
+/* Taille du bouton : il porte aussi .g2rd-btn, dont la règle générique
+   (pages.css, .wp-block-button.g2rd-btn .wp-block-button__link, spécificité
+   0,3,0) imposait sa taille de CTA (1rem, marges de 2.3rem) et l'emportait sur
+   .g2rd-header__login a. Le libellé se coupait en plein mot (« Espace cli /
+   ent ») sur mobile et entre 900 et 1024 px. Sélecteur 0,4,0 pour rétablir la
+   taille compacte prévue ; couleurs du style ghost inchangées. Le point
+   décoratif de .g2rd-btn est déjà masqué ci-dessus (::after), d'où les marges
+   réduites sans chevauchement. */
+.g2rd-header .wp-block-button.g2rd-header__login .wp-block-button__link {
+  padding: 0.5rem 1.15rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .g2rd-header .wp-block-button.g2rd-header__login .wp-block-button__link {
+    padding: 0.42rem 0.85rem;
+    font-size: 0.82rem;
+  }
 }
 
 /* ==========================================================================
