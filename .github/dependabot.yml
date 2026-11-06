@@ -25,3 +25,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Pas de montée MAJEURE de PHPUnit par Dependabot : chaque majeure relève la
+    # version PHP minimale (13 exige PHP 8.4), alors que la CI tourne en PHP 8.2 et
+    # que le thème garantit PHP 8.0. La PR #79 (10 → 13) cassait `composer install`
+    # en CI. Une majeure se fait à la main, avec la version PHP de la CI et la
+    # migration des tests. Les patchs/mineures restent automatiques.
+    ignore:
+      - dependency-name: "phpunit/phpunit"
+        update-types: ["version-update:semver-major"]
