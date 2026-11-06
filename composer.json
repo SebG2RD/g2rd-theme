@@ -12,7 +12,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "phpstan/phpstan": "^2.1",
     "szepeviktor/phpstan-wordpress": "^2.0",
-    "phpunit/phpunit": "^10.0"
+    "phpunit/phpunit": "^13.4"
   },
   "autoload": {
     "psr-4": {
