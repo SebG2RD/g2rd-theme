@@ -106,14 +106,14 @@
 }
 
 /* ==========================================================================
-   Indicateur visuel dans le canvas éditeur
-   (bloc avec opacity réduite + outline orange quand masqué sur au moins 1 appareil)
+   Indicateur visuel dans le canvas éditeur (chargé dans l'iframe via
+   enqueue_block_assets) : le bloc masqué sur au moins 1 appareil reste
+   éditable, grisé et entouré d'un tireté orange.
    ========================================================================== */
 
-.block-editor-block-list__block.g2rd-hide-desktop,
-.block-editor-block-list__block.g2rd-hide-tablet,
-.block-editor-block-list__block.g2rd-hide-mobile {
-	outline:        2px dashed #e0aa00 !important;
+.block-editor-block-list__block.g2rd-editor-is-hidden {
+	outline:        2px dashed #e0aa00;
 	outline-offset: 2px;
-	opacity:        0.65;
+	opacity:        0.5;
+	filter:         grayscale( 1 );
 }

@@ -2,8 +2,9 @@
  * G2RD — Visibilité par appareil
  *
  * Ajoute un panneau « Visibilité par appareil » dans l'Inspector de TOUS les blocs.
- * Les classes CSS g2rd-hide-desktop / g2rd-hide-tablet / g2rd-hide-mobile
- * sont injectées côté PHP via render_block (functions.php).
+ * Front : les classes g2rd-hide-desktop / g2rd-hide-tablet / g2rd-hide-mobile
+ * sont injectées côté PHP (BlockEditorEnhancements::renderBlock).
+ * Éditeur : le bloc reste affiché, grisé (classe g2rd-editor-is-hidden).
  *
  * UX inspirée du plugin Astra : 3 boutons toggle (Desktop / Tablette / Mobile).
  */
@@ -44,8 +45,9 @@
 	);
 
 	// ────────────────────────────────────────────
-	// 2. Classes CSS sur l'enveloppe dans l'éditeur
-	//    (rendu visuel — ne masque pas réellement)
+	// 2. Bloc grisé dans l'éditeur quand il est masqué sur au moins un appareil.
+	//    Classe propre à l'éditeur : jamais g2rd-hide-*, sinon une CSS front
+	//    chargée dans le canvas (styles de blocs) le ferait disparaître.
 	// ────────────────────────────────────────────
 	addFilter(
 		'editor.BlockListBlock',
@@ -53,14 +55,15 @@
 		createHigherOrderComponent( function ( BlockListBlock ) {
 			return function ( props ) {
 				var attrs = props.attributes || {};
-				var extra = [
-					attrs.g2rdHideDesktop ? 'g2rd-hide-desktop' : '',
-					attrs.g2rdHideTablet  ? 'g2rd-hide-tablet'  : '',
-					attrs.g2rdHideMobile  ? 'g2rd-hide-mobile'  : '',
-				].filter( Boolean ).join( ' ' );
+				// hideOn* : réglages de visibilité propres au bloc g2rd/container.
+				var isHidden = attrs.g2rdHideDesktop || attrs.g2rdHideTablet || attrs.g2rdHideMobile
+					|| attrs.hideOnDesktop || attrs.hideOnTablet || attrs.hideOnMobile;
 
+				if ( ! isHidden ) {
+					return createElement( BlockListBlock, props );
+				}
 				return createElement( BlockListBlock, Object.assign( {}, props, {
-					className: [ props.className, extra ].filter( Boolean ).join( ' ' ),
+					className: [ props.className, 'g2rd-editor-is-hidden' ].filter( Boolean ).join( ' ' ),
 				} ) );
 			};
 		}, 'withG2rdResponsiveEditorClasses' )

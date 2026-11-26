@@ -4,16 +4,9 @@
  * par render.php dans une balise <style> scopée par ID.
  */
 
-/* Masquage responsive — classes appliquées par render.php */
-@media (min-width: 1025px) {
-	.g2rd-hide-desktop { display: none !important; }
-}
-@media (max-width: 1024px) {
-	.g2rd-hide-tablet  { display: none !important; }
-}
-@media (max-width: 768px) {
-	.g2rd-hide-mobile  { display: none !important; }
-}
+/* Masquage responsive : géré par le <style> scopé de render.php (#id). Pas de
+   règle .g2rd-hide-* ici : ce fichier est aussi chargé dans le canvas de
+   l'éditeur, où il faisait disparaître les blocs au lieu de les griser. */
 
 /* Animations d'entrée */
 [data-g2rd-animate] {
