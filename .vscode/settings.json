@@ -1,0 +1,16 @@
+{
+	"intelephense.files.maxSize": 6000000,
+	"intelephense.files.exclude": [
+		"**/.git/**",
+		"**/.svn/**",
+		"**/.hg/**",
+		"**/CVS/**",
+		"**/.DS_Store/**",
+		"**/node_modules/**",
+		"**/bower_components/**",
+		"**/vendor/**/{Tests,tests}/**",
+		"**/.history/**",
+		"**/vendor/**/vendor/**",
+		"**/tests/phpunit/bootstrap.php"
+	]
+}
