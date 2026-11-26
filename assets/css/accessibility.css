@@ -204,11 +204,20 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
 /* Conteneur fixe unique (bouton + panneau) — les deux restent solidaires même
    sous un ancêtre transformé (transform/filter/will-change capturent sinon le
    position:fixed du panneau et l'envoient en bas du document). */
+/* --g2rd-float-offset : un thème enfant remonte tous les boutons flottants
+   (accessibilité, haut de page, mode sombre) au-dessus de sa barre fixe. */
 .a11y-widget {
   position: fixed;
-  bottom: 32px;
+  bottom: calc(32px + var(--g2rd-float-offset, 0px));
   left: 32px;
   z-index: 10000;
+}
+
+/* Menu mobile ouvert (WordPress pose html.has-modal-open) : les boutons flottants
+   (z-index 10000) recouvraient le panneau du menu et captaient les touchers. */
+html.has-modal-open .a11y-widget,
+html.has-modal-open .a11y-scroll-top {
+  visibility: hidden;
 }
 
 .a11y-float-btn {
@@ -253,7 +262,7 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
      Repli : couleur primaire du thème, puis navy neutre. */
   --_accent: var(--g2rd-top-accent, var(--wp--preset--color--primary, #0f172a));
   position: fixed;
-  bottom: 32px;
+  bottom: calc(32px + var(--g2rd-float-offset, 0px));
   right: 32px;
   z-index: 10000;
   background: var(--_accent);
@@ -555,7 +564,7 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
 
 @media (max-width: 480px) {
   .a11y-widget {
-    bottom: 16px;
+    bottom: calc(16px + var(--g2rd-float-offset, 0px));
     left: 16px;
   }
 
@@ -566,7 +575,7 @@ body.a11y-grayscale > *:not(.a11y-widget):not(.a11y-scroll-top) {
   }
 
   .a11y-scroll-top {
-    bottom: 16px;
+    bottom: calc(16px + var(--g2rd-float-offset, 0px));
     right: 16px;
   }
 }

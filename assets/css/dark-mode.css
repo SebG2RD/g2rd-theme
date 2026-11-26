@@ -13,9 +13,14 @@
    Bouton toggle dark mode
    ========================================================= */
 
+/* Menu mobile ouvert : le bouton (z-index 9998) recouvrait le panneau du menu. */
+html.has-modal-open .g2rd-dark-mode-toggle {
+	visibility: hidden;
+}
+
 .g2rd-dark-mode-toggle {
 	position: fixed;
-	bottom: 100px;
+	bottom: calc(100px + var(--g2rd-float-offset, 0px));
 	right: 20px;
 	z-index: 9998;
 	display: flex;

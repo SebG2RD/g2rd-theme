@@ -5,6 +5,21 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Menu mobile ouvert — tous les en-têtes, parent et enfants
+   Un ancêtre avec backdrop-filter / filter / transform (en-tête collant
+   flouté…) devient le bloc conteneur du panneau position:fixed du menu, qui
+   se retrouve réduit à la hauteur de l'en-tête. On neutralise ces effets le
+   temps de l'ouverture (WordPress pose html.has-modal-open).
+   -------------------------------------------------------------------------- */
+
+html.has-modal-open :is(.wp-block-template-part, .wp-block-group, .g2rd-site-header, .g2rd-site-header-light):has(.wp-block-navigation__responsive-container.is-menu-open) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  filter: none;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
    Header light (header-color.html)
    -------------------------------------------------------------------------- */
 
