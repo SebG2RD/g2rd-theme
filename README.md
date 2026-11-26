@@ -7,7 +7,7 @@
 
 | | |
 | --- | --- |
-| **Version actuelle** | **1.42.0** (voir aussi `style.css` et `package.json`) |
+| **Version actuelle** | **1.43.0** (voir aussi `style.css` et `package.json`) |
 | **Licence** | [EUPL-1.2](LICENSE) |
 | **WordPress minimum** | **6.6** |
 | **PHP minimum** | **8.0** |
@@ -126,6 +126,16 @@ g2rd-theme/
 ---
 
 ## Changelog
+
+### **1.43.0**
+
+- **Fix visibilité par appareil** : un bloc masqué restait visible sur le site (classe jamais posée sur les blocs statiques, CSS non chargée dans les gabarits et template parts). Dans l'éditeur, il ne disparaît plus : il reste affiché, grisé et entouré d'un tireté. L'aperçu des blocs rendus par le serveur (Archives, Calendrier…) n'est plus refusé quand un réglage est posé. Même correctif pour l'infobulle.
+- **Fix menu mobile** : les boutons flottants (accessibilité, haut de page, mode sombre) ne recouvrent plus le menu ouvert, et un en-tête collant flouté ne réduit plus le panneau à sa propre hauteur.
+- **Thèmes enfants** : le parent ne prend plus le dessus. Les `styles` du `theme.json` de l'enfant l'emportent ; ses gabarits ne sont plus masqués par des copies du parent en base ; son en-tête remplace `header-color` sur les gabarits du parent ; le `?ver=` des CSS/JS du parent suit enfin la version du parent (`G2RD_THEME_VERSION`).
+- **Thèmes enfants — nouveaux réglages** : filtres `g2rd_default_style_variation` (charte par défaut), `g2rd_feature_defaults` et `g2rd_cpt_defaults` (valeurs par défaut, le choix de la page d'options garde la main), variable CSS `--g2rd-float-offset` (remonte les boutons flottants).
+- **Fix cache** : la version Markdown d'une page (agents IA) n'est plus jamais mise en cache — LiteSpeed ou un CDN pouvait la resservir aux visiteurs en texte brut.
+- **Accessibilité** : le logo lié à l'accueil reçoit le nom du site en texte alternatif quand il n'en a pas (RGAA 6.2).
+- **Maintenance** : dépendances de build corrigées (qs, follow-redirects, minimatch), PHPUnit 10.5.66 ; aucun fichier livré concerné.
 
 ### **1.42.0**
 
