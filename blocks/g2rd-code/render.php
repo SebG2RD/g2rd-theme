@@ -62,7 +62,7 @@ if ($show_lines) {
 $theme_file = 'vendor/scrivo/highlight.php/styles/' . $theme . '.css';
 $g2rd_theme_dir = \get_template_directory();
 $g2rd_theme_uri = \get_template_directory_uri();
-$g2rd_theme_ver = (string) \wp_get_theme()->get('Version');
+$g2rd_theme_ver = (string) \G2RD_THEME_VERSION;
 if (file_exists($g2rd_theme_dir . '/' . $theme_file)) {
 	wp_enqueue_style(
 		'g2rd-hljs-theme-' . $theme,

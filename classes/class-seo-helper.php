@@ -48,7 +48,7 @@ class SEO_Helper {
 			'g2rd-seo-helper',
 			\get_template_directory_uri() . '/assets/js/seo-helper.js',
 			[ 'wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data', 'wp-i18n' ],
-			\wp_get_theme()->get( 'Version' ),
+			\G2RD_THEME_VERSION,
 			true
 		);
 
@@ -63,7 +63,7 @@ class SEO_Helper {
 			'g2rd-seo-helper',
 			\get_template_directory_uri() . '/assets/css/seo-helper.css',
 			[],
-			\wp_get_theme()->get( 'Version' )
+			\G2RD_THEME_VERSION
 		);
 	}
 

@@ -81,7 +81,7 @@ class Business_Mode {
 			'g2rd-business-mode',
 			\get_template_directory_uri() . '/assets/js/business-mode.js',
 			[ 'wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-i18n' ],
-			\wp_get_theme()->get( 'Version' ),
+			\G2RD_THEME_VERSION,
 			true
 		);
 

@@ -299,3 +299,24 @@ if ( \defined( 'G2RD_RGAA_FIXES_LOADED' ) ) {
 	10,
 	2
 );
+
+// 13. Logo du site lié à l'accueil sans texte alternatif : l'image est le seul contenu du
+// lien, qui n'a alors aucun intitulé — RGAA 6.2. On reprend le nom du site, comme WordPress
+// hors du bloc. Contournement jusqu'ici recopié dans 4 thèmes enfants.
+\add_filter(
+	'render_block_core/site-logo',
+	function ( $block_content ) {
+		$block_content = (string) $block_content;
+		if ( false === \strpos( $block_content, 'custom-logo-link' ) ) {
+			return $block_content;
+		}
+
+		$tags = new \WP_HTML_Tag_Processor( $block_content );
+		while ( $tags->next_tag( 'img' ) ) {
+			if ( '' === \trim( (string) $tags->get_attribute( 'alt' ) ) ) {
+				$tags->set_attribute( 'alt', \get_bloginfo( 'name' ) );
+			}
+		}
+		return $tags->get_updated_html();
+	}
+);

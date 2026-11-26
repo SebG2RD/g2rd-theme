@@ -66,11 +66,37 @@ class FseSync {
 	 */
 	public function normalize_template_part_theme( $parsed_block ) {
 		if ( is_array( $parsed_block )
-			&& isset( $parsed_block['blockName'], $parsed_block['attrs']['theme'] )
+			&& isset( $parsed_block['blockName'] )
 			&& 'core/template-part' === $parsed_block['blockName'] ) {
 			unset( $parsed_block['attrs']['theme'] );
+
+			if ( 'header-color' === ( $parsed_block['attrs']['slug'] ?? '' ) && self::child_header_replaces_header_color() ) {
+				$parsed_block['attrs']['slug'] = 'header';
+			}
 		}
 		return $parsed_block;
+	}
+
+	/**
+	 * Les gabarits du parent appellent presque tous le part « header-color ». Un
+	 * thème enfant qui ne livre que parts/header.html afficherait l'en-tête du
+	 * PARENT sur toutes ces pages : on lui sert son propre « header ».
+	 *
+	 * @return bool
+	 */
+	private static function child_header_replaces_header_color(): bool {
+		// shortcut: ne regarde que les fichiers de l'enfant (un header-color modifié
+		// dans l'éditeur de site d'un enfant sans fichier header-color.html est
+		// remplacé par header) ; livrer parts/header-color.html dans l'enfant pour
+		// garder un header-color distinct.
+		static $replace = null;
+		if ( null === $replace ) {
+			$child   = \get_stylesheet_directory();
+			$replace = \is_child_theme()
+				&& \file_exists( $child . '/parts/header.html' )
+				&& ! \file_exists( $child . '/parts/header-color.html' );
+		}
+		return $replace;
 	}
 
 	/**
@@ -129,7 +155,7 @@ class FseSync {
 	 * @return void
 	 */
 	public function sync_fse_once(): void {
-		$current_version = \wp_get_theme()->get( 'Version' );
+		$current_version = \G2RD_THEME_VERSION;
 
 		if ( \get_option( self::SYNC_VERSION_OPTION ) === $current_version ) {
 			return;
@@ -193,7 +219,15 @@ class FseSync {
 	 * @return void
 	 */
 	public function recreate_fse_templates(): void {
-		$current_version = \wp_get_theme()->get( 'Version' );
+		// Thème enfant : ne rien recopier. Les fichiers lus ici sont ceux du PARENT
+		// mais insérés sous le slug de l'ENFANT et publiés : en base, ils priment sur
+		// les parts/templates de l'enfant (qui « disparaissaient » au profit du
+		// parent). WordPress résout déjà seul enfant → parent depuis les fichiers.
+		if ( \is_child_theme() ) {
+			return;
+		}
+
+		$current_version = \G2RD_THEME_VERSION;
 
 		if ( \get_option( self::RECREATE_VERSION_OPTION ) === $current_version ) {
 			return;
@@ -319,7 +353,7 @@ class FseSync {
 	 * @return void
 	 */
 	public function maybe_flush_rewrite_rules(): void {
-		$current_version = \wp_get_theme()->get( 'Version' );
+		$current_version = \G2RD_THEME_VERSION;
 		$flushed_version = \get_option( self::REWRITE_VERSION_OPTION, '' );
 
 		if ( $flushed_version === $current_version ) {

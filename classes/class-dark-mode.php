@@ -44,7 +44,7 @@ class DarkMode {
      * Constructeur
      */
     public function __construct() {
-        $this->theme_version = wp_get_theme()->get('Version');
+        $this->theme_version = \G2RD_THEME_VERSION;
     }
 
     /**

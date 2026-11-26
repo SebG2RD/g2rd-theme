@@ -53,7 +53,7 @@ class BlockEditorAutoload {
      * Constructeur
      */
     public function __construct() {
-        $this->theme_version = wp_get_theme()->get('Version') ?: '1.0.0';
+        $this->theme_version = \G2RD_THEME_VERSION ?: '1.0.0';
     }
 
     /**
@@ -312,7 +312,23 @@ class BlockEditorAutoload {
             }
         }
 
+        // ... et si la variation appliquée par défaut change.
+        $mtimes[] = $this->getDefaultVariation();
+
         return self::CACHE_PREFIX . md5(implode('_', $mtimes));
+    }
+
+    /**
+     * Variation de styles appliquée par défaut, sans passer par l'éditeur de site.
+     *
+     * Un thème enfant impose ainsi sa charte en une ligne :
+     * add_filter( 'g2rd_default_style_variation', fn() => 'creapub.json' );
+     * (nom de fichier d'une variation de styles/ de l'enfant ou du parent).
+     *
+     * @return string Nom de fichier, ou '' (aucune).
+     */
+    private function getDefaultVariation(): string {
+        return \basename((string) \apply_filters('g2rd_default_style_variation', ''));
     }
 
     /**
@@ -352,20 +368,23 @@ class BlockEditorAutoload {
 
         // Fusionner le theme.json du thème enfant s'il existe.
         //
-        // Seuls ses `settings` sont réinjectés ici. C'est délibéré : le filtre
-        // wp_theme_json_data_theme reçoit déjà les données de l'enfant (WordPress
-        // lit le theme.json du thème ACTIF, donc celui de l'enfant), et
-        // update_with() fusionne $new_data par-dessus au lieu de remplacer. Sans
-        // cette réinjection, theme-settings.json écraserait les réglages de
-        // l'enfant. En revanche, les `styles` de l'enfant qui touchent un chemin
-        // également défini dans theme-styles.json restent perdants — un thème
-        // enfant n'apporte donc de manière fiable que des settings, ce que
-        // documente CLAUDE.md.
+        // Le filtre wp_theme_json_data_theme reçoit déjà les données de l'enfant
+        // (WordPress lit le theme.json du thème ACTIF, donc celui de l'enfant),
+        // mais update_with() fusionne $new_data PAR-DESSUS : sans réinjection,
+        // theme-settings.json et theme-styles.json écraseraient l'enfant. On
+        // réinjecte donc ses `settings` (mergeChildSettings) et ses `styles`
+        // (chemin par chemin, l'enfant l'emporte sur theme-styles.json).
         $child_dir = \get_stylesheet_directory();
         if ($child_dir !== $dir) {
             $child_json = $this->loadJsonFile($child_dir . '/theme.json');
             if (null !== $child_json) {
                 $theme_settings = $this->mergeChildSettings($theme_settings, $child_json);
+                if (!empty($child_json['styles']) && \is_array($child_json['styles'])) {
+                    $theme_styles['styles'] = \array_replace_recursive(
+                        $theme_styles['styles'] ?? [],
+                        $child_json['styles']
+                    );
+                }
             }
         }
 
@@ -392,6 +411,16 @@ class BlockEditorAutoload {
             if (null !== $style_data && isset($style_data['title'])) {
                 $variations[\basename($style_file)] = $style_data;
             }
+        }
+
+        // Variation par défaut (filtre g2rd_default_style_variation) : ses styles
+        // passent devant ceux du parent et du theme.json de l'enfant.
+        $default_variation = $this->getDefaultVariation();
+        if (\is_array($variations[$default_variation]['styles'] ?? null)) {
+            $theme_styles['styles'] = \array_replace_recursive(
+                $theme_styles['styles'] ?? [],
+                $variations[$default_variation]['styles']
+            );
         }
 
         $variations = \array_values($variations);

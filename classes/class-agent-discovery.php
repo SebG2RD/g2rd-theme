@@ -122,7 +122,7 @@ class AgentDiscovery {
 		}
 
 		$home    = \home_url();
-		$version = \wp_get_theme()->get( 'Version' );
+		$version = \G2RD_THEME_VERSION;
 
 		$catalog = [
 			'linkset' => [
@@ -174,7 +174,7 @@ class AgentDiscovery {
 		}
 
 		$home    = \home_url();
-		$version = \wp_get_theme()->get( 'Version' );
+		$version = \G2RD_THEME_VERSION;
 
 		$card_url  = $home . '/.well-known/mcp/server-card.json';
 		$rest_url  = $home . '/wp-json';
@@ -241,7 +241,7 @@ class AgentDiscovery {
 		}
 
 		$home    = \home_url();
-		$version = \wp_get_theme()->get( 'Version' );
+		$version = \G2RD_THEME_VERSION;
 
 		$card = [
 			'serverInfo'   => [
@@ -512,10 +512,19 @@ class AgentDiscovery {
 		$content  = \apply_filters( 'the_content', \get_the_content( null, false, $post ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- hook WP natif, pas notre hook
 		$markdown = $this->htmlToMarkdown( $title, $content );
 
+		// Jamais en cache : avec « Cache-Control: public » et sans Vary, LiteSpeed et
+		// les CDN stockaient le Markdown sous l'URL de la page et le resservaient aux
+		// visiteurs (page affichée en texte brut).
+		if ( ! \defined( 'DONOTCACHEPAGE' ) ) {
+			\define( 'DONOTCACHEPAGE', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- constante standard des extensions de cache
+		}
+		\do_action( 'litespeed_control_set_nocache', 'g2rd : réponse Markdown' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- API de LiteSpeed Cache, pas notre hook
+		\nocache_headers();
+
 		\status_header( 200 );
 		\header( 'Content-Type: text/markdown; charset=UTF-8' );
+		\header( 'Vary: Accept' );
 		\header( 'X-Markdown-Tokens: ' . \str_word_count( $markdown ) );
-		\header( 'Cache-Control: public, max-age=600' );
 
 		echo \wp_kses_post( $markdown );
 		exit;

@@ -318,25 +318,45 @@ Les blocs sont enregistrés automatiquement par `class-block-editor-autoload.php
 - Ne pas modifier `theme.json` directement pour les couleurs/typos — éditer `theme-settings.json`
 - Vérifier la compatibilité du JSON après chaque modification des fichiers sources
 
-### Thème enfant : `settings` seulement
-
-Un `theme.json` de thème enfant n'apporte de façon fiable que des **`settings`**.
+### Thème enfant : l'enfant l'emporte sur le parent
 
 `BlockEditorAutoload::composeThemeJson()` recompose `settings` + `styles` +
 `variations` puis appelle `WP_Theme_JSON_Data::update_with()`, qui **fusionne**
-(`WP_Theme_JSON::merge()`, `array_replace_recursive` + remplacement des tableaux
-de presets) — il ne remplace pas la couche « theme ». Seuls les `settings` de
-l'enfant sont réinjectés dans la composition, par `mergeChildSettings()` :
+par-dessus les données de l'enfant (il ne remplace pas la couche « theme »). Le
+`theme.json` de l'enfant est donc **réinjecté** dans la composition :
 
-- **`settings` de l'enfant** → prioritaires sur `theme-settings.json`. Les listes
-  (`palette`, `fontSizes`…) remplacent intégralement celle du parent ; les objets
-  (`custom`, `layout`…) fusionnent clé par clé.
-- **`styles` de l'enfant** → conservés uniquement sur les chemins **absents** de
-  `theme-styles.json`. Tout chemin en collision est écrasé par le parent.
+- **`settings` de l'enfant** (`mergeChildSettings()`) → prioritaires sur
+  `theme-settings.json`. Les listes (`palette`, `fontSizes`…) remplacent
+  intégralement celle du parent ; les objets (`custom`, `layout`…) fusionnent clé
+  par clé.
+- **`styles` de l'enfant** → prioritaires sur `theme-styles.json`, chemin par
+  chemin (`array_replace_recursive`) ; les chemins absents chez l'enfant gardent
+  la valeur du parent. Avant la correction, tout chemin en collision était
+  écrasé par le parent.
+- **Variation par défaut** : `add_filter( 'g2rd_default_style_variation', fn() =>
+  'client.json' )` applique les `styles` de cette variation (enfant ou parent)
+  par-dessus le tout, sans passer par l'éditeur de site. Remplace les copies de
+  `apply_default_variation()` (filtre `wp_theme_json_data_theme` priorité 20) des
+  enfants, qui continuent de fonctionner. Valeur incluse dans la clé de cache.
 
-Pour surcharger un style depuis un enfant, utiliser une **variation de styles**
-(`styles/<projet>.json`) ou le CSS de l'enfant, pas `styles` dans son
-`theme.json`.
+Autres points d'entrée pour un enfant, sans contourner le parent :
+
+- **`g2rd_feature_defaults`** / **`g2rd_cpt_defaults`** : valeurs par défaut des
+  fonctionnalités (ex. `dark_mode => false`) et des CPT (`enabled => false`). Le
+  choix enregistré dans la page d'options garde la main — à préférer aux filtres
+  `option_g2rd_theme_features` qui rendaient les interrupteurs inopérants.
+- **`--g2rd-float-offset`** (CSS) : remonte d'un coup les boutons flottants du
+  parent (accessibilité, haut de page, mode sombre) au-dessus d'une barre fixe.
+- **En-tête** : sur un enfant qui livre `parts/header.html` sans
+  `header-color.html`, le part `header-color` appelé par les gabarits du parent
+  est servi par `header` (`FseSync::normalize_template_part_theme()`).
+- **Gabarits** : `FseSync::recreate_fse_templates()` ne recopie plus rien en base
+  sous un enfant (les copies du parent, publiées sous le slug de l'enfant,
+  masquaient ses fichiers). Les copies déjà en base sur les sites existants ne
+  sont pas purgées par le parent.
+- **Version** : `G2RD_THEME_VERSION` (functions.php) = version du **parent**. Ne
+  jamais utiliser `wp_get_theme()->get( 'Version' )`, qui renvoie celle de
+  l'enfant actif (le `?ver=` des assets du parent ne changeait plus).
 
 ### Variations de styles du thème enfant (v1.39.0+)
 

@@ -259,7 +259,7 @@ class ContactTracking {
         }
 
         $path    = \get_template_directory() . '/assets/js/contact-tracking.js';
-        $version = \file_exists( $path ) ? (string) \filemtime( $path ) : (string) \wp_get_theme()->get( 'Version' );
+        $version = \file_exists( $path ) ? (string) \filemtime( $path ) : (string) \G2RD_THEME_VERSION;
 
         \wp_enqueue_script(
             self::SCRIPT_HANDLE,

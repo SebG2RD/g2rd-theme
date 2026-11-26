@@ -87,7 +87,7 @@ class Onboarding {
 			return;
 		}
 
-		\wp_enqueue_style( 'g2rd-onboarding', \get_template_directory_uri() . '/assets/css/onboarding.css', [], \wp_get_theme()->get( 'Version' ) );
+		\wp_enqueue_style( 'g2rd-onboarding', \get_template_directory_uri() . '/assets/css/onboarding.css', [], \G2RD_THEME_VERSION );
 	}
 
 	/**

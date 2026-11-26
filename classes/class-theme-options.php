@@ -209,7 +209,10 @@ class ThemeOptions {
         if ( isset( $features[ $key ] ) ) {
             return (bool) $features[ $key ];
         }
-        return self::FEATURE_DEFAULTS[ $key ] ?? true;
+        // Valeurs par défaut ajustables par un thème enfant (ex. dark_mode => false) :
+        // le choix enregistré dans la page d'options garde toujours la main.
+        $defaults = (array) \apply_filters( 'g2rd_feature_defaults', self::FEATURE_DEFAULTS );
+        return (bool) ( $defaults[ $key ] ?? true );
     }
 
     /**
@@ -246,7 +249,9 @@ class ThemeOptions {
      * @return array<string, mixed>
      */
     public static function getCPTSettings( string $cpt_key ): array {
-        $defaults  = self::CPT_DEFAULTS[ $cpt_key ] ?? [];
+        // Valeurs par défaut ajustables par un thème enfant (ex. 'enabled' => false) :
+        // les réglages enregistrés dans la page d'options gardent toujours la main.
+        $defaults  = (array) \apply_filters( 'g2rd_cpt_defaults', self::CPT_DEFAULTS[ $cpt_key ] ?? [], $cpt_key );
         $saved_all = (array) \get_option( self::OPTION_CPTS, [] );
         $saved_cpt = \is_array( $saved_all[ $cpt_key ] ?? null ) ? $saved_all[ $cpt_key ] : [];
         return \array_merge( $defaults, $saved_cpt );

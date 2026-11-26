@@ -34,7 +34,7 @@ class PinScroll {
     public function __construct( LicenseManager $license_manager ) {
         $this->enabled       = ThemeOptions::isFeatureEnabled( 'pin_scroll' );
         $this->licensed      = $license_manager->isLicenseValid();
-        $this->theme_version = \wp_get_theme()->get( 'Version' );
+        $this->theme_version = \G2RD_THEME_VERSION;
 
         $this->register_hooks();
     }

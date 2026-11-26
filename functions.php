@@ -19,6 +19,12 @@ if ( ! \defined( 'G2RD_BLOCK_CATEGORY' ) ) {
     \define( 'G2RD_BLOCK_CATEGORY', 'g2rd-blocks' );
 }
 
+// Version du thème PARENT. wp_get_theme() renvoie celle du thème enfant actif :
+// le ?ver= des CSS/JS du parent ne changeait donc pas à ses mises à jour.
+if ( ! \defined( 'G2RD_THEME_VERSION' ) ) {
+    \define( 'G2RD_THEME_VERSION', (string) \wp_get_theme( \get_template() )->get( 'Version' ) );
+}
+
 // Charger l'autoloader Composer si disponible (PSR-4 + classmap).
 // Fallback : requires statiques pour les distributions ZIP sans vendor/ (production).
 if ( \file_exists( __DIR__ . '/vendor/autoload.php' ) ) {

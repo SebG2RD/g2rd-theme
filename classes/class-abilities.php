@@ -810,7 +810,7 @@ class Abilities {
 	/** @param array $_input Paramètres d'entrée (non utilisés — thème sans input). */
 	public function executeThemeSettings( array $_input ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		return [
-			'version' => \wp_get_theme()->get( 'Version' ),
+			'version' => \G2RD_THEME_VERSION,
 			'cpts'    => [
 				'portfolio'       => ThemeOptions::isCPTEnabled( 'portfolio' ),
 				'prestations'     => ThemeOptions::isCPTEnabled( 'prestations' ),

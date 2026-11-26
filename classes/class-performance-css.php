@@ -29,7 +29,7 @@ class PerformanceCSS {
 	 * Constructeur — récupère la version du thème.
 	 */
 	public function __construct() {
-		$this->theme_version = \wp_get_theme()->get( 'Version' );
+		$this->theme_version = \G2RD_THEME_VERSION;
 	}
 
 	/**

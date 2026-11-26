@@ -48,7 +48,7 @@ class ScriptsManager {
      * Constructeur
      */
     public function __construct() {
-        $this->theme_version = wp_get_theme()->get('Version');
+        $this->theme_version = \G2RD_THEME_VERSION;
     }
 
     /**
@@ -213,7 +213,7 @@ class ScriptsManager {
      * @return void
      */
     public function enqueueScripts(): void {
-        $ver = \wp_get_theme()->get( 'Version' );
+        $ver = \G2RD_THEME_VERSION;
         $uri = \get_template_directory_uri();
 
         // Design system Magic Page — enregistré ici, enqueué uniquement via style_handle

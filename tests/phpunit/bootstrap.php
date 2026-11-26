@@ -15,6 +15,12 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__DIR__, 2) . '/');
 }
 
+// Version du thème parent (définie par functions.php, non chargé ici) — même valeur
+// que le stub wp_get_theme()->get() plus bas.
+if (!defined('G2RD_THEME_VERSION')) {
+    define('G2RD_THEME_VERSION', '1.14.0');
+}
+
 // WordPress constants required by MCP classes.
 if (!defined('AUTH_KEY')) {
     define('AUTH_KEY', 'g2rd_phpunit_auth_key_not_for_production_xYzAbCdEfGhIjKlMnOpQrStUvWxYz01');
