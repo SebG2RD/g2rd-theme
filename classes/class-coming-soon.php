@@ -58,9 +58,13 @@ class ComingSoon {
         }
 
         if ( \is_page( $page_id ) ) {
+            // Site en maintenance : ne rien indexer, pas même la page d'attente.
+            \header( 'X-Robots-Tag: noindex, nofollow', true );
+            \add_filter( 'wp_robots', 'wp_robots_no_robots' );
             return;
         }
 
+        \header( 'X-Robots-Tag: noindex, nofollow', true );
         \wp_safe_redirect( \get_permalink( $page_id ), 302 );
         exit;
     }
