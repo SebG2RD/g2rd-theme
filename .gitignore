@@ -75,6 +75,7 @@ CLAUDE.md
 .cursor/
 .aider*
 .copilot/
+.omc/
 .codeium/
 .continue/
 .windsurf/
