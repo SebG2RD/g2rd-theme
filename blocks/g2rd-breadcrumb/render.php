@@ -202,11 +202,18 @@ if ( ! function_exists( 'g2rd_bc_is_seo_plugin_active' ) ) {
 	 * @return bool
 	 */
 	function g2rd_bc_is_seo_plugin_active(): bool {
-		return defined( 'WPSEO_VERSION' )    // Yoast SEO
+		// SEOPress n'émet le BreadcrumbList qu'avec PRO et l'option « JSON-LD
+		// fil d'Ariane » cochée (action seopress_jsonld_breadcrumbs) : sans elle,
+		// se taire laissait la page sans fil d'Ariane structuré.
+		$seopress = defined( 'SEOPRESS_VERSION' ) && false !== has_action( 'wp_head', 'seopress_jsonld_breadcrumbs' );
+		$active   = defined( 'WPSEO_VERSION' )    // Yoast SEO
 			|| defined( 'RANK_MATH_VERSION' ) // RankMath
-			|| defined( 'SEOPRESS_VERSION' )  // SEOPress
+			|| $seopress                      // SEOPress PRO
 			|| defined( 'AIOSEO_VERSION' )    // All in One SEO
 			|| function_exists( 'tsf' );      // The SEO Framework
+
+		/** Filtre : forcer (false) ou couper (true) le JSON-LD du bloc. */
+		return (bool) apply_filters( 'g2rd_breadcrumb_seo_plugin_handles_schema', $active );
 	}
 }
 
