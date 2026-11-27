@@ -171,7 +171,9 @@
     var icon = ICONS[action] || "";
     var ariaPressed = def.toggle ? ' aria-pressed="false"' : "";
     return (
-      '<button class="a11y-btn" data-action="' + action + '"' + ariaPressed + ">" +
+      // aria-label explicite : sur les boutons A- / A+ le libellé est masqué en
+      // CSS (display:none) et l'icône est aria-hidden, donc sans nom accessible.
+      '<button type="button" class="a11y-btn" data-action="' + action + '" aria-label="' + def.label + '"' + ariaPressed + ">" +
       '<span class="a11y-btn__icon">' + icon + "</span>" +
       '<span class="a11y-btn__label">' + def.label + "</span>" +
       "</button>"
