@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-routier-poids-lourds-transports-collectifs",
+ "titre": "Poids lourds, autocars et transport de matières dangereuses",
+ "theme": "Secours routier",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Opérations de secours en milieu routier, DGSCGC, juillet 2025, 1re édition",
+ "resume": "Le GDO routier présente les poids lourds, bus et autocars, leur structure et leurs énergies. Il donne la conduite à tenir face à leur incendie et face à un transport de matières dangereuses (TMD).",
+ "cles": [
+  "Poids lourd : PTAC supérieur à 3,5 t. La plaque de tare renseigne le COS sur la masse et le chargement.",
+  "Bus : zone urbaine, station debout permise, pas de soute. Autocar : trajets interurbains, station assise obligatoire.",
+  "Capacités d'autocar : minibus vers 20 personnes, grand tourisme 50, double étage jusqu'à 80.",
+  "Cabine de poids lourd : zone renforcée en H, fixée en 4 points, à traiter lors de la poussée du tableau de bord.",
+  "Réservoirs GNC : flancs du tracteur des semi-remorques, derrière la cabine des porteurs, sur le toit des bus.",
+  "Feu de poids lourd ou de bus : surveille la rupture du réservoir de gazole ou d'essence pendant l'attaque.",
+  "L'attaque de la cargaison ne doit pas faire oublier les risques liés au tracteur.",
+  "TMD : renseigne-toi sur le produit auprès du conducteur et du CODIS, cale, délimite un périmètre, établis selon pente et vent.",
+  "Citerne non atteinte par le feu : refroidis-la en jet diffusé ou recouvre-la de mousse.",
+  "Opération de grande ampleur ou nombreuses victimes : le COS choisit le stationnement en épi pour réduire la zone."
+ ],
+ "retenir": [
+  "Plaque orange de 40 x 30 cm : code danger en haut, numéro ONU à 4 chiffres en bas.",
+  "Code danger : chiffre doublé, danger amplifié. Lettre X devant, réaction violente avec l'eau.",
+  "Exceptions au doublement : 22 gaz réfrigéré, 44 solide fondu, 99 matière transportée à chaud, 333 liquide pyrophorique.",
+  "Semi-remorque d'hydrogène : zone d'exclusion de 50 m, aucune action sur la remorque sauf dégagement de personne.",
+  "Jet enflammé de TPRD : flamme de 10 m, 3 kW/m² à environ 15 m, LIE (4 %) à 20 m."
+ ],
+ "pieges": [
+  "Ne pas oublier la soute des autocars de voyage : bagages, parfois cabine de couchage des conducteurs.",
+  "Confondre bus et autocar : le bus n'a pas de soute, l'autocar de voyage en a une.",
+  "Ne pas croire à un produit unique sous une plaque 33/1203 de citerne multi-cuves.",
+  "Ne pas sous-estimer le BLEVE d'un réservoir de poids lourd : effets létaux jusqu'à 750 m à l'air libre.",
+  "Ne pas se fier au moteur d'origine d'un car rétrofité : sa traction devient électrique ou hydrogène."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Opérations de secours en milieu routier (DGSCGC, 2025)",
+   "https://enasis.fr/pluginfile.php/97203/mod_label/intro/GDO_2025-07_OPERATIONS_DE_SECOURS_EN_MILIEU_ROUTIER.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Traffic accident on the D6 highway, Czech Republic 07.png",
+   "auteur": "Hasiči Karlovarského kraje HZS KVK",
+   "licence": "CC BY 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Traffic_accident_on_the_D6_highway,_Czech_Republic_07.png",
+   "alt": "Pompiers tchèques travaillant dans la cabine d'un camion accidenté."
+  },
+  {
+   "fichier": "File:Ferric chloride Tanker.jpg",
+   "auteur": "Epolk",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Ferric_chloride_Tanker.jpg",
+   "alt": "Camion-citerne avec plaque orange de matière dangereuse sur autoroute."
+  }
+ ]
+}

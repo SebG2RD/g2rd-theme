@@ -1,0 +1,41 @@
+{
+ "slug": "gnr-risque-radiologique-contamination",
+ "titre": "Risque radiologique : irradiation, contamination et décontamination succincte",
+ "theme": "Risques technologiques",
+ "niveau": "Équipier",
+ "document": "Guide national de référence Risques radiologiques, DDSC, juin 2001, modifié par arrêté du 20 décembre 2006",
+ "resume": "Le GNR distingue la mesure d'irradiation et la détection de contamination. Il confie à l'équipe intervention les sas, le contrôle de contamination et la décontamination succincte, et au véhicule CMIR-G la mesure de contamination interne.",
+ "cles": [
+  "Équipe reconnaissance : mesures d'irradiation, détection de contamination de surface, relevés de terrain.",
+  "Équipe intervention : elle confirme la nature du risque par mesure d'irradiation ou détection de contamination.",
+  "Elle détecte la contamination atmosphérique et prélève des échantillons.",
+  "Hors plan d'urgence, elle contrôle la contamination externe des victimes, avec d'autres services si besoin.",
+  "En plan d'urgence, elle participe au contrôle de contamination des populations sous la responsabilité de l'IRSN.",
+  "Le véhicule CMIR-G mesure la contamination interne gamma avec 2 sondes : thorax et thyroïde.",
+  "Le CMIR-G intervient toujours avec une CMIR, qui détermine la contamination externe des victimes.",
+  "Mesures sur personnes sous contrôle d'un médecin, résultats donnés par un médecin.",
+  "Cas douteux orientés vers l'IRSN pour des contrôles complémentaires, sous contrôle médical.",
+  "Dotation CMIR : savon décontaminant, produit fixant la contamination, aspirateur à effluents et poussières radioactives."
+ ],
+ "retenir": [
+  "Sas, contrôle et décontamination succincte, prélèvements, confinement de la source : ces missions imposent le chef de CMIR sur place.",
+  "Contrôle la contamination (personnels, matériels, air, environnement) et l'irradiation, puis procède à la décontamination succincte.",
+  "Mets en place des sas d'accès et de sortie de la zone contaminée.",
+  "Panneaux distincts « irradiation », « contamination » et « radioactivité » : 10 de chaque par équipe.",
+  "Fin d'opération : conditionne le matériel selon la contamination et organise stockage ou récupération des déchets."
+ ],
+ "pieges": [
+  "Confondre irradiation, mesurée en débit de dose au radiamètre, et contamination, détectée par sondes de surface.",
+  "Ne pas engager le véhicule CMIR-G sans CMIR.",
+  "Ne pas annoncer un résultat de mesure sur une personne : ce rôle revient au médecin.",
+  "Ne pas réaliser une mission de sas ou de décontamination succincte sans le chef de CMIR.",
+  "Ne pas remettre en service un matériel d'intervention sans contrôle de contamination."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Guide national de référence Risques radiologiques (DDSC, 2001)",
+   "https://rescue18.com/telechargement/risque-radiologiques/"
+  ]
+ ]
+}

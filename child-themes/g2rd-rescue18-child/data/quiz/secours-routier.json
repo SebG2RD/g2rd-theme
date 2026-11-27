@@ -1,0 +1,167 @@
+{
+ "slug": "secours-routier",
+ "titre": "Secours routier : balisage, stabilisation et véhicules électriques",
+ "theme": "Secours routier",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Révise les gestes clés d'un accident de la route : protéger la zone, stabiliser le véhicule, gérer airbags et batteries haute tension.",
+ "sources": [
+  [
+   "GDOD Organisation de la réponse Secours routier, version juin 2025 (guide départemental publié sur ENASIS)",
+   "https://enasis.fr/pluginfile.php/186636/mod_resource/content/1/GDOD-SR-juin-2025.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Tu poses le balisage sur une chaussée ouverte à la circulation. Quelle règle s'applique aux cônes et panneaux ?",
+   "c": [
+    "Ne jamais poser un panneau ou un cône isolément sur une voie",
+    "Un cône isolé au milieu de la voie suffit",
+    "Le balisage se pose après la désincarcération"
+   ],
+   "a": 0,
+   "why": "Le guide secours routier pose la règle : ne jamais poser un panneau ou un cône de balisage isolément sur une voie. Le balisage forme un ensemble cohérent en amont de la zone de travail."
+  },
+  {
+   "q": "Où place-t-on le panneau lumineux de pré-signalisation ?",
+   "c": [
+    "En aval de l'accident",
+    "Au contact du véhicule accidenté",
+    "En amont, sur la bande d'arrêt d'urgence ou l'accotement",
+    "Sur le toit de l'engin de désincarcération"
+   ],
+   "a": 2,
+   "why": "La pré-signalisation se place en amont de l'intervention, sur la bande d'arrêt d'urgence ou l'accotement, pour avertir les usagers qui arrivent."
+  },
+  {
+   "q": "Dans le zonage d'un accident, quelle couleur correspond à la zone d'exclusion, celle du danger absolu ?",
+   "c": [
+    "Rouge",
+    "Verte",
+    "Orange"
+   ],
+   "a": 0,
+   "why": "Le guide définit trois zones : exclusion en rouge (danger absolu), contrôlée en orange (risque élevé) et soutien en vert (risque acceptable)."
+  },
+  {
+   "q": "À quoi sert la zone de soutien, en vert ?",
+   "c": [
+    "À découper le véhicule",
+    "À abriter les impliqués et les équipes en attente",
+    "À stocker les produits répandus",
+    "À faire circuler les usagers"
+   ],
+   "a": 1,
+   "why": "La zone de soutien présente un risque acceptable. Elle sert à mettre à l'abri les impliqués et les équipages en attente."
+  },
+  {
+   "q": "Quel est le but de la stabilisation du véhicule accidenté ?",
+   "c": [
+    "Remettre le véhicule sur ses roues",
+    "Immobiliser le véhicule pour sécuriser les techniques de désincarcération",
+    "Faciliter le dépannage",
+    "Mesurer les dégâts pour l'assurance"
+   ],
+   "a": 1,
+   "why": "Le guide définit la stabilisation comme l'immobilisation du véhicule pour sécuriser les techniques de désincarcération. Le calage en fait partie."
+  },
+  {
+   "q": "Sur quel document t'appuies-tu pour caler et mettre en sécurité un modèle de véhicule précis ?",
+   "c": [
+    "Le guide constructeur ERG",
+    "La carte grise",
+    "Le carnet d'entretien",
+    "Le constat amiable"
+   ],
+   "a": 0,
+   "why": "Le guide demande de réaliser calage, mise en sécurité et immobilisation selon les guides constructeurs ERG (Emergency Response Guide)."
+  },
+  {
+   "q": "Un airbag frontal conducteur n'a pas été déclenché. Quelle distance garder hors de sa zone de déploiement ?",
+   "c": [
+    "10 cm",
+    "60 cm",
+    "30 cm",
+    "90 cm"
+   ],
+   "a": 1,
+   "why": "Le guide fixe les distances à respecter : 30 cm pour les airbags latéraux, 60 cm pour l'airbag conducteur et 90 cm pour l'airbag passager."
+  },
+  {
+   "q": "Et pour un airbag passager non déclenché ?",
+   "c": [
+    "60 cm",
+    "90 cm",
+    "30 cm"
+   ],
+   "a": 1,
+   "why": "L'airbag passager est le plus volumineux. Le guide impose de rester à 90 cm de sa zone de déploiement."
+  },
+  {
+   "q": "Quelle distance garder face à un airbag latéral non déclenché ?",
+   "c": [
+    "90 cm",
+    "60 cm",
+    "5 cm",
+    "30 cm"
+   ],
+   "a": 3,
+   "why": "Le guide retient 30 cm pour les airbags latéraux, 60 cm pour le conducteur et 90 cm pour le passager."
+  },
+  {
+   "q": "Tu immobilises un véhicule électrique ou hybride. Quelle action fait partie de cette étape ?",
+   "c": [
+    "Débrancher la batterie avec une pince coupante",
+    "Arroser la batterie par précaution",
+    "Ouvrir le capot pour chercher le moteur",
+    "Couper le contact, serrer le frein de parking et engager la position P"
+   ],
+   "a": 3,
+   "why": "Le guide décrit l'immobilisation : moteur coupé, frein de parking serré et levier en position P. Vient ensuite l'isolement de l'énergie de traction."
+  },
+  {
+   "q": "Quel équipement est requis pour retirer la prise de service (service plug) d'une batterie haute tension ?",
+   "c": [
+    "Des gants isolants de classe 1000 V",
+    "Des gants de manutention en cuir",
+    "Aucun équipement particulier",
+    "Des gants nitrile de soins"
+   ],
+   "a": 0,
+   "why": "Le guide impose des gants isolants 1000 V pour déconnecter les prises de service des batteries haute tension."
+  },
+  {
+   "q": "Que vise l'étape d'isolement d'un véhicule électrique ou hybride ?",
+   "c": [
+    "Couper l'énergie de traction pour sécuriser la zone d'intervention",
+    "Isoler la victime du public",
+    "Fermer les portières à clé",
+    "Couper l'éclairage public"
+   ],
+   "a": 0,
+   "why": "Isoler consiste à couper l'énergie de traction pour sécuriser la zone d'intervention. Cela passe par la prise ou boucle de service, ou par le système de déconnexion pyrotechnique."
+  },
+  {
+   "q": "À quoi sert le dispositif fireman access présent sur certaines batteries ?",
+   "c": [
+    "À ouvrir les portes à distance",
+    "À recharger le véhicule après l'accident",
+    "À faciliter l'extinction en cas de feu ou d'emballement de la batterie haute tension",
+    "À couper l'airbag conducteur"
+   ],
+   "a": 2,
+   "why": "Le fireman access équipe certaines batteries. Il aide à l'extinction en cas de feu ou d'emballement d'une batterie haute tension."
+  },
+  {
+   "q": "Quelle technique de désincarcération utilise des vérins hydrauliques passés par le coffre pour redonner de l'espace sans découper ?",
+   "c": [
+    "La coupe du pied milieu",
+    "La découpe complète du toit",
+    "Le bris de la lunette arrière",
+    "Le cross ramming"
+   ],
+   "a": 3,
+   "why": "Le guide décrit le cross ramming : des vérins hydrauliques passés par le coffre remodèlent le véhicule au lieu de le découper."
+  }
+ ]
+}

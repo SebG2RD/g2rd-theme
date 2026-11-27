@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-drones",
+ "titre": "Drones en opération : emplois, cadre, sécurité et place dans le commandement",
+ "theme": "Commandement",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle « Engagement des appareils télépilotés de lutte, d'appui et de secours » (DGSCGC, 1re édition, septembre 2022)",
+ "resume": "Le drone est un outil du COS pour l'observation aérienne et l'emport de charge. Il vole à 120 m au plus, sans survol de tiers, depuis une TOLA validée par le COS, avec un chef d'unité distinct du télépilote.",
+ "cles": [
+  "Finalités légales : prévention des risques naturels ou technologiques, secours aux personnes, lutte contre l'incendie.",
+  "Trois scénarios nationaux, S1, S2 et S3, selon zone peuplée, tiers au sol, vol en vue ou hors vue, masse et hauteur.",
+  "Les SIS emploient des drones de moins de 25 kg. Enregistrement sur Alpha Tango dès 800 g.",
+  "Zone peuplée : moins de 50 m d'une agglomération ou moins de 150 m d'un rassemblement de personnes.",
+  "Spécialité : unité de 2 à 3 équipiers, 2 drones en vol simultané au plus, et section de 3 unités.",
+  "Le télépilote, âgé de 18 ans révolus au minimum, reste seul décisionnaire pour accepter ou refuser le vol.",
+  "Le chef d'unité décide du décollage après autorisation du COS et rend compte de l'atterrissage et des incidents.",
+  "Le chef de section, conseiller technique du COS, reste l'interlocuteur unique des autorités aériennes.",
+  "Le COS valide la TOLA, le zonage drone, l'information du public et tout vol en dérogation.",
+  "Captation de son interdite. Imagerie thermique soumise à une habilitation préfectorale. Streaming permanent interdit."
+ ],
+ "retenir": [
+  "Hauteur maximale : 120 m. Les aéronefs habités évoluent en principe au-dessus de 500 pieds, environ 152 m.",
+  "TOLA (aire de décollage et d'atterrissage) : 5 m de diamètre minimum, matérialisée, balisée de nuit, portée sur la SITAC.",
+  "Zone d'exclusion de tiers fixée pour toute la durée du vol, avec une marge de 10 m de rayon minimum autour de la trajectoire.",
+  "Nuit aéronautique : de 30 min après le coucher du soleil à 30 min avant son lever.",
+  "Perte de liaison vidéo : active sans délai le return to home (RTH), paramétré et vérifié avant le décollage."
+ ],
+ "pieges": [
+  "Ne pas cumuler les fonctions de chef d'unité et de télépilote, même avec les deux qualifications.",
+  "Ne pas voler en atmosphère explosive ni sous orage : la turbulence sévère s'étend de 20 à 40 km autour du phénomène.",
+  "Ne pas consommer d'alcool dans les huit heures avant un vol.",
+  "Confondre mode automatique et mode autonome : l'autonome est interdit en scénario national, sauf aérostat captif sous conditions.",
+  "Ne pas laisser les écrans de report visibles des badauds ou des journalistes."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Engagement des appareils télépilotés de lutte, d'appui et de secours, Guide de doctrine opérationnelle (DGSCGC, 2022)",
+   "https://rescue18.com/wp-content/uploads/2023/11/gdo-drones-aeriens-vr29.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:FDNY drone activity near former Pfizer Building.jpg",
+   "auteur": "Tessa Bury",
+   "licence": "CC BY 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:FDNY_drone_activity_near_former_Pfizer_Building.jpg",
+   "alt": "Télépilote des pompiers de New York préparant un drone sur une intervention."
+  },
+  {
+   "fichier": "File:USAG Rheinland-Pfalz DES firefighters partner with local fire department, discuss emerging tech in emergency response (9001182).jpg",
+   "auteur": "U.S. Army USAG-RP by Linda Lambiotte",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:USAG_Rheinland-Pfalz_DES_firefighters_partner_with_local_fire_department,_discuss_emerging_tech_in_emergency_response_(9001182).jpg",
+   "alt": "Drone d'intervention et sa mallette de transport dans un engin de secours."
+  }
+ ]
+}

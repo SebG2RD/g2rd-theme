@@ -1,0 +1,18 @@
+{
+ "region-vernon-z11": {
+  "z": 11,
+  "x0": 1030,
+  "y0": 700,
+  "width": 1280,
+  "height": 1536,
+  "attribution": "© contributeurs OpenStreetMap"
+ },
+ "centre-vernon-z16": {
+  "z": 16,
+  "x0": 33032,
+  "y0": 22477,
+  "width": 1536,
+  "height": 1024,
+  "attribution": "© contributeurs OpenStreetMap"
+ }
+}

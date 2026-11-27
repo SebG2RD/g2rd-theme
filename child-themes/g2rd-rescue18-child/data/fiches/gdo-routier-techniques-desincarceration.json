@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-routier-techniques-desincarceration",
+ "titre": "Désincarcération : sécurisation du véhicule, verre et outils",
+ "theme": "Secours routier",
+ "niveau": "Chef d'équipe",
+ "document": "Guide de doctrine opérationnelle : Opérations de secours en milieu routier, DGSCGC, juillet 2025, 1re édition",
+ "resume": "Le GDO routier ne fige aucune technique de désincarcération. Il pose les règles de sécurité : les 5 i, l'arrimage, la stabilisation, le dégarnissage, le marquage, la gestion du verre et l'emploi des outils.",
+ "cles": [
+  "Sécurise le véhicule avec les 5 i : identifier, inspecter, interdire, immobiliser, isoler.",
+  "Immobiliser : coupure du contact, frein de parc, position P, calage des roues, voire arrimage dans l'axe le plus menaçant.",
+  "Isole la batterie 12 V après réflexion sur les mobilités utiles : sièges, vitres, colonne de direction, coffre.",
+  "Arrime tout véhicule exposé au glissement ou au basculement sur un point fixe résistant : arbre, poteau, engin calé.",
+  "La stabilisation maintient la liaison au sol et neutralise les déséquilibres latéraux et avant-arrière. Surveille-la jusqu'à la fin.",
+  "Dégarnis avant toute découpe pour repérer airbags, générateurs de gaz, câbles HT et renforts de structure.",
+  "Verre trempé (vitres latérales, lunette arrière) : il éclate en petits morceaux. Verre feuilleté (pare-brise) : il se découpe à la scie.",
+  "Coupe les aciers nouvelle génération avec le cœur de l'outil et à faible vitesse.",
+  "Privilégie la reformation, qui redonne du volume à l'habitacle, à la découpe systématique.",
+  "Organise trois parcs : matériels, débris, SSUAP."
+ ],
+ "retenir": [
+  "Contact coupé ou batterie 12 V débranchée : le système airbag devient inerte.",
+  "Batterie non débranchée : couper un faisceau alimentant un générateur de gaz risque de le déclencher par court-circuit.",
+  "Airbags déclenchables dès une vitesse d'impact de 25 km/h. Gonflage en moins de 30 millisecondes.",
+  "Marquage de l'énergie : ES essence, GO gazole, H2 hydrogène, GPL, GNV ou GNC gaz, VE électrique, HY hybride.",
+  "Outil : déplacement fermé vers le bas, jamais les mains sur les mâchoires, jamais entre le véhicule et l'outil."
+ ],
+ "pieges": [
+  "Ne pas utiliser un lampadaire comme point d'arrimage : sa résistance est faible.",
+  "Ne pas découper sans dégarnissage préalable de la zone travaillée.",
+  "Ne pas lutter contre la force d'un outil : replace-le.",
+  "Ne pas porter, tirer ou déplacer un outil par ses flexibles.",
+  "Ne pas sectionner les vérins de capot ou de hayon : effet missile et projection d'huile."
+ ],
+ "quiz": "secours-routier",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Opérations de secours en milieu routier (DGSCGC, 2025)",
+   "https://enasis.fr/pluginfile.php/97203/mod_label/intro/GDO_2025-07_OPERATIONS_DE_SECOURS_EN_MILIEU_ROUTIER.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Firefighters perform auto extrication demonstration for Fire Prevention Week (4824576).jpg",
+   "auteur": "U.S. Air Force photo by Karen Abeyasekere",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Firefighters_perform_auto_extrication_demonstration_for_Fire_Prevention_Week_(4824576).jpg",
+   "alt": "Pompiers autour d'une voiture lors d'un exercice de désincarcération."
+  },
+  {
+   "fichier": "File:Fire Brigade Festival Marktplatz Sebnitz on 3 September 2021 - Lord Mayor Mike Ruckh and District Administrator Michael Geisler hands over the symbolic vehicle key of the Magirus TLF 4000 - 10.jpg",
+   "auteur": "Lupus in Saxonia",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Fire_Brigade_Festival_Marktplatz_Sebnitz_on_3_September_2021_-_Lord_Mayor_Mike_Ruckh_and_District_Administrator_Michael_Geisler_hands_over_the_symbolic_vehicle_key_of_the_Magirus_TLF_4000_-_10.jpg",
+   "alt": "Outils hydrauliques de désincarcération rangés dans un engin."
+  }
+ ]
+}

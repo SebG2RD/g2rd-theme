@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-ssuap-situations-particulieres",
+ "titre": "SSUAP : situations particulières et nombreuses victimes",
+ "theme": "Secours à personne",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle « Secours et soins d'urgence aux personnes » (DGSCGC, 1re édition V1.1, novembre 2022)",
+ "resume": "Fin de vie, mineur seul, troubles du comportement, scène de crime ou afflux de victimes : chaque cas a ses règles. Tu appliques le bon réflexe, tu tiens informé le médecin régulateur et tu protèges les traces.",
+ "cles": [
+  "Pas de geste de secours si la tête est séparée du tronc, en cas de raideur cadavérique ou de putréfaction.",
+  "Fin de vie à domicile : débute la RCP, transmets âge, antécédents et circonstances. Le médecin régulateur décide de l'arrêt.",
+  "Un mineur non émancipé ne refuse pas sa prise en charge. Seul son responsable légal le fait.",
+  "L'absence du parent ne retarde pas l'évacuation d'un mineur. Chef d'agrès et un équipier restent dans la cellule sanitaire.",
+  "Une admission psychiatrique sans consentement exige la présence physique d'un médecin et son examen avant tout transport.",
+  "Troubles du comportement : un seul interlocuteur non isolé, un chemin de retrait, au moins un mètre de distance.",
+  "La contention physique relève des forces de l'ordre. Par les secours, elle se fait sur prescription d'un médecin présent.",
+  "Personne ne répondant pas aux appels : ne sonne pas, sollicite les forces de l'ordre, entre plutôt par une fenêtre, annonce-toi à chaque étape.",
+  "Scène de crime : cheminement unique, corde coupée sans défaire le nœud, vêtements découpés hors des trous existants.",
+  "Le damage control traite d'abord l'immédiat vital, grandes hémorragies et voies aériennes, et diffère le reste des lésions."
+ ],
+ "retenir": [
+  "Noyade : le prompt secours reste valable pour une immersion d'une heure, jusqu'à 2 heures en eau inférieure à 6 °C, durée adaptable sur avis médical.",
+  "Nombreuses victimes, premier tri : décédés laissés sur place, blessés graves en gestes de survie, blessés légers et impliqués regroupés à part.",
+  "Détresse vitale évidente chez l'adulte conscient au repérage : fréquence respiratoire supérieure à 30/min ou fréquence cardiaque supérieure à 120/min.",
+  "SINUS attribue à chaque victime un numéro unique lisible en clair et en QR code. Le COS l'emploie sur ordre à partir de cinq victimes.",
+  "Ivresse sur la voie publique : bilan complet et surveillance attentive, l'état bascule parfois vers une détresse vitale ou une mort subite."
+ ],
+ "pieges": [
+  "Ne pas toucher l'arme ni la lettre d'un suicide présumé, et ne pas fouiller le corps.",
+  "Ne pas consigner des violences intrafamiliales comme un fait établi : note « déclare avoir été victime de violences ».",
+  "Ne pas laisser un majeur protégé refuser une évacuation jugée nécessaire par le médecin régulateur.",
+  "Ne pas tomber dans la routine face aux mêmes personnes ivres : agressivité et dégradation brutale restent possibles.",
+  "Ne pas laisser les renforts arriver gyrophares et deux tons près d'une personne aux troubles du comportement : demande la coupure au CTA-CODIS."
+ ],
+ "quiz": "orsec-plans-secours",
+ "sources": [
+  [
+   "Secours et soins d'urgence aux personnes, Guide de doctrine opérationnelle (DGSCGC, 2022)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo_ssuap_v1.1.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:USNH Yokosuka and JSDF Hospital Yokosuka Hold Joint Disaster Response Drill (8936107).jpg",
+   "auteur": "U.S. Navy photo by Daniel Taylor",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:USNH_Yokosuka_and_JSDF_Hospital_Yokosuka_Hold_Joint_Disaster_Response_Drill_(8936107).jpg",
+   "alt": "Secouristes prenant en charge plusieurs victimes simulées lors d'un exercice."
+  },
+  {
+   "fichier": "File:FEMA - 45932 - Hospital Emergency Response Training (HERT) for Mass Casualty Incidents.jpg",
+   "auteur": "Shannon Arledge",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:FEMA_-_45932_-_Hospital_Emergency_Response_Training_(HERT)_for_Mass_Casualty_Incidents.jpg",
+   "alt": "Chef d'équipe de triage en chasuble lors d'un exercice de nombreuses victimes."
+  }
+ ]
+}

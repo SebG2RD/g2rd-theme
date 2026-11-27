@@ -1,0 +1,50 @@
+{
+ "slug": "pse-detresses-vitales",
+ "titre": "Détresses neurologique, respiratoire et circulatoire",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Une détresse vitale atteint une des 3 fonctions vitales et menace à court terme les deux autres. Reconnais-la aux signes et aux mesures, agis sans attendre la fin de l'examen et demande un avis médical.",
+ "cles": [
+  "Neurologique : victime somnolente, désorientée, muette, paralysée, aveugle d'un œil, visage ou pupilles asymétriques.",
+  "Victime inconsciente qui respire : haut risque de détresse respiratoire, ses voies aériennes sont menacées.",
+  "Pense à l'hypoglycémie : mesure la glycémie, elle se corrige rapidement.",
+  "Respiratoire : la victime refuse de s'allonger, parle avec peine, présente tirage, sueurs, cyanose, sifflements ou râles.",
+  "Chez l'enfant : battement des ailes du nez et creusement au-dessus du sternum à l'inspiration.",
+  "Circulatoire : pâleur, marbrures aux genoux, sueurs froides, pouls radial imperceptible, pouls carotidien rapide.",
+  "Détresse en cours d'installation : pouls qui accélère, TRC qui s'allonge, PA qui pince puis chute, même dans les normes.",
+  "Oxygène en inhalation, puis adapte le débit à la SpO2. Sans SpO2 fiable, poursuis jusqu'à l'avis médical.",
+  "En détresse vitale, utilise d'emblée le masque haute concentration, jamais en dessous de 6 l/min.",
+  "Détresse circulatoire : risque majeur d'arrêt cardiaque à toute mobilisation, relevage ou brancardage."
+ ],
+ "retenir": [
+  "Seuils respiratoires : fréquence souvent au-delà de 30 mouvements par minute, SpO2 inférieure à 94 %, ou à 89 % chez l'insuffisant respiratoire chronique.",
+  "Seuils circulatoires : temps de recoloration cutanée (TRC) au-delà de 2 s, pouls au-delà de 120 ou en dessous de 40 au repos, pression systolique sous 90 mmHg.",
+  "Victime hypertendue : pression artérielle (PA) systolique abaissée de plus de 30 % par rapport à sa valeur habituelle.",
+  "Positions : allongée pour les détresses neurologique et circulatoire, assise ou demi-assise pour la détresse respiratoire.",
+  "Détresse neurologique confirmée : victime inconsciente et plus réactive à la voix au score EVDA."
+ ],
+ "pieges": [
+  "Ne pas attendre des valeurs hors normes : une tendance qui se dégrade signe une détresse en cours d'installation.",
+  "Ne pas allonger de force une victime en détresse respiratoire : propose la position assise ou demi-assise.",
+  "Ne pas utiliser l'insufflateur manuel avec ballon-réserve pour une inhalation d'oxygène.",
+  "Ne pas oublier de protéger du froid une victime en détresse circulatoire : l'hypothermie l'aggrave.",
+  "Ne pas finir l'évaluation d'une fonction avant d'agir sur une détresse identifiée."
+ ],
+ "quiz": "bilan-victime",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:020220209 134149 pulse oximeter.jpg",
+   "auteur": "Silar",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:020220209_134149_pulse_oximeter.jpg",
+   "alt": "Oxymètre de pouls affichant la saturation en oxygène."
+  }
+ ]
+}

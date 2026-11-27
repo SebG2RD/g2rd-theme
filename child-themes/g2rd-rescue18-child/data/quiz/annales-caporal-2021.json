@@ -1,0 +1,181 @@
+{
+  "slug": "annales-caporal-2021",
+  "titre": "Concours caporal 2021 : le QCM de maths de la session",
+  "theme": "Concours",
+  "niveau": "Caporal",
+  "duree": "20 min",
+  "resume": "Rejoue 15 questions du QCM de mathématiques du concours externe de caporal 2021. Feux de forêts, sport, IMC : chaque calcul est détaillé.",
+  "sources": [
+    [
+      "Sujet officiel, concours externe de caporal SPP 2021, QCM de mathématiques (SDMIS et CDG 69, publié par les CDG Auvergne-Rhône-Alpes)",
+      "https://www.cdg-aura.fr/sites/default/files/Annales/cdg69-capospp-2021-ext-qcm_math.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "Un bassin mesure 7 m de long, 3 m de large et 1,50 m de haut. Il est rempli aux deux tiers de sa hauteur. Quel volume d'eau contient-il ?",
+      "c": [
+        "31,5 m³ = 3 150 L",
+        "21 m³ = 21 000 L",
+        "31,5 m³ = 31 500 L",
+        "21 m³ = 2 100 L"
+      ],
+      "a": 1,
+      "why": "Hauteur d'eau : 1,50 × 2/3 = 1 m. 7 × 3 × 1 = 21 m³, soit 21 000 L."
+    },
+    {
+      "q": "Un hélicoptère doit larguer 15 000 L avec un seau de 1 m³. Chaque largage dure 4 min, remplissage et aller-retour compris. Combien de temps faut-il au total ?",
+      "c": [
+        "30 min",
+        "1 h 30 min",
+        "1 h",
+        "6 min"
+      ],
+      "a": 2,
+      "why": "15 000 L demandent 15 largages de 1 m³. 15 × 4 min = 60 min, soit 1 h."
+    },
+    {
+      "q": "Un groupe compte 4 CCF de 4 000 L chacun. De quel volume d'eau dispose-t-il ?",
+      "c": [
+        "160 m³",
+        "16 m³",
+        "1 600 m³",
+        "1,6 m³"
+      ],
+      "a": 1,
+      "why": "4 × 4 000 = 16 000 L, soit 16 m³."
+    },
+    {
+      "q": "La lance-canon d'un CCF débite 33,33 L/s. Combien de temps faut-il pour vider une citerne de 4 000 L ?",
+      "c": [
+        "1 min",
+        "3 min",
+        "2 min",
+        "4 min"
+      ],
+      "a": 2,
+      "why": "4 000 / 33,33 = 120 s, soit 2 min."
+    },
+    {
+      "q": "Un CCF consomme en moyenne 31 L aux 100 km. Le centre de secours se trouve à 60 km du feu. Quelle quantité de carburant faut-il pour l'aller-retour ?",
+      "c": [
+        "387 L",
+        "372 L",
+        "38,7 L",
+        "37,2 L"
+      ],
+      "a": 3,
+      "why": "Aller-retour : 120 km. 120 × 31 / 100 = 37,2 L."
+    },
+    {
+      "q": "Un lot de 6 barres de céréales, remisé de 34 %, a coûté 16,50 €. Quel était son prix avant la remise ?",
+      "c": [
+        "25 €",
+        "22,11 €",
+        "16,84 €",
+        "40,50 €"
+      ],
+      "a": 0,
+      "why": "Après une remise de 34 %, tu paies 66 % du prix. 16,50 / 0,66 = 25 €."
+    },
+    {
+      "q": "Chaque barre pèse 18 g et contient 48,5 % de céréales. Quelle masse de céréales contient le lot de 6 barres ?",
+      "c": [
+        "17,515 g",
+        "52,38 g",
+        "27,27 g",
+        "15 g"
+      ],
+      "a": 1,
+      "why": "6 × 18 = 108 g. 108 × 0,485 = 52,38 g."
+    },
+    {
+      "q": "Sur une piste de 400 m, Sylvain boucle 8 tours et 100 m pendant le test de Cooper de 12 minutes. Quelle est sa vitesse moyenne ?",
+      "c": [
+        "27,5 km/h",
+        "13,2 km/h",
+        "15 km/h",
+        "16,5 km/h"
+      ],
+      "a": 3,
+      "why": "8 × 400 + 100 = 3 300 m en 12 min, soit 0,2 h. 3,3 / 0,2 = 16,5 km/h."
+    },
+    {
+      "q": "Mathéo court le test de Cooper de 12 minutes à 15 km/h de moyenne sur une piste de 400 m. Combien de tours complets boucle-t-il ?",
+      "c": [
+        "7 tours",
+        "9 tours",
+        "4 tours",
+        "6 tours"
+      ],
+      "a": 0,
+      "why": "15 km/h pendant 0,2 h donnent 3 000 m. 3 000 / 400 = 7,5, soit 7 tours complets."
+    },
+    {
+      "q": "Quel est l'IMC d'une personne de 86 kg mesurant 188 cm ? (IMC = masse / taille², en kg et en m)",
+      "c": [
+        "23,2",
+        "26,4",
+        "22,3",
+        "24,3"
+      ],
+      "a": 3,
+      "why": "1,88² = 3,5344. 86 / 3,5344 = 24,3."
+    },
+    {
+      "q": "Quelle est la masse d'une personne de 175 cm dont l'IMC vaut 18,5 ?",
+      "c": [
+        "56,6 kg",
+        "32,3 kg",
+        "37 kg",
+        "48,5 kg"
+      ],
+      "a": 0,
+      "why": "Masse = IMC × taille². 18,5 × 1,75² = 18,5 × 3,0625 = 56,6 kg."
+    },
+    {
+      "q": "Dans une caserne de 60 sapeurs-pompiers, les IMC arrondis se répartissent ainsi : 17 (1), 20 (11), 22 (18), 23 (14), 24 (11), 25 (2), 29 (1), 30 (1), 33 (1). Quel est l'IMC moyen, à l'unité près ?",
+      "c": [
+        "23",
+        "25",
+        "21",
+        "26"
+      ],
+      "a": 0,
+      "why": "Somme pondérée : 1 361. 1 361 / 60 = 22,7, arrondi à 23."
+    },
+    {
+      "q": "L'IMC moyen d'un groupe passe de 27 à 25. Quel est le pourcentage de baisse ?",
+      "c": [
+        "12,5 %",
+        "92 %",
+        "7,4 %",
+        "8 %"
+      ],
+      "a": 2,
+      "why": "Baisse de 2 points. 2 / 27 = 0,074, soit 7,4 %."
+    },
+    {
+      "q": "Avec la même répartition des 60 IMC, quel pourcentage des sapeurs-pompiers est en surpoids (25 ≤ IMC < 30) ?",
+      "c": [
+        "3 %",
+        "6,6 %",
+        "5 %",
+        "8 %"
+      ],
+      "a": 2,
+      "why": "Sont en surpoids les IMC 25 (2 agents) et 29 (1 agent), soit 3 agents. 3 / 60 = 5 %."
+    },
+    {
+      "q": "Objectif : 95 % des 60 agents en corpulence normale (18,5 ≤ IMC < 25). Combien d'agents doivent perdre du poids pour l'atteindre ?",
+      "c": [
+        "4",
+        "3",
+        "2",
+        "5"
+      ],
+      "a": 1,
+      "why": "Corpulence normale : 11 + 18 + 14 + 11 = 54 agents, soit 90 %. 95 % de 60 donnent 57 agents. Il en manque 3."
+    }
+  ]
+}

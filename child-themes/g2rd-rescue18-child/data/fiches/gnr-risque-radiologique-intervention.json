@@ -1,0 +1,57 @@
+{
+ "slug": "gnr-risque-radiologique-intervention",
+ "titre": "Risque radiologique : CMIR, zonage et marche des opérations",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'agrès",
+ "document": "Guide national de référence Risques radiologiques, DDSC, juin 2001, modifié par arrêté du 20 décembre 2006",
+ "resume": "Le GNR organise l'intervention radiologique autour des équipes reconnaissance et intervention et de la CMIR. Il fixe le suivi dosimétrique, la marche des opérations et un zonage en quatre zones, avec un seuil de 2,5 µGy/h.",
+ "cles": [
+  "Équipe reconnaissance : 1 chef (RAD 1 et GOC 1) et 2 équipiers RAD 1. Équipe intervention : même effectif, niveau RAD 2.",
+  "Équipe engagée isolément : le COS est au moins chef d'agrès incendie.",
+  "Plus d'une équipe reconnaissance ou intervention sur une opération : un chef de CMIR est engagé.",
+  "Dès l'alerte, renseigne-toi sur la source : nom, activité, état, conditionnement.",
+  "Avant le départ, prépare le matériel et sélectionne les tenues.",
+  "Zones : public, soutien général (PC, PMA), soutien spécialisé autour de l'exclusion, exclusion où se trouve la source.",
+  "Le sas est le passage obligé pour entrer dans une zone ou la quitter.",
+  "Agis sur la source : isolement par balisage sur site ou récupération par une société spécialisée.",
+  "PPI : périmètres du plan. Phase post-accidentelle : le DOS les fixe après avis du COS et des experts.",
+  "Radiamètre portatif de la CMIR : plage minimale de 0,1 à 50 mGy/h, réponse en moins d'1 seconde."
+ ],
+ "retenir": [
+  "Hors plan d'urgence, le périmètre de sécurité englobe toute zone à 2,5 µGy/h ou plus, ou avec contamination surfacique.",
+  "En opération, chaque spécialiste porte un film dosimètre et un dosimètre électronique à lecture directe.",
+  "Rends compte des doses reçues au chef de CMIR, à défaut au COS, en cours et en fin d'opération, puis au médecin-chef.",
+  "Marche des opérations : renseignement, reconnaissance, conduite, fin d'opération avec information du soutien sanitaire.",
+  "Dépasser les niveaux de référence est admis à titre exceptionnel pour sauver des vies, avec des volontaires informés du risque."
+ ],
+ "pieges": [
+  "Ne pas engager un spécialiste sans film dosimètre ni dosimètre électronique.",
+  "Confondre zone de soutien spécialisé, autour de l'exclusion, et zone de soutien général, où sont PC et PMA.",
+  "Ne pas redéfinir les périmètres en PPI : ils sont fixés dans le plan.",
+  "Ne pas oublier d'informer le service de soutien sanitaire pour le suivi dosimétrique en fin d'opération.",
+  "Ne pas engager une équipe isolée sous un COS de niveau inférieur à chef d'agrès incendie."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Guide national de référence Risques radiologiques (DDSC, 2001)",
+   "https://rescue18.com/telechargement/risque-radiologiques/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:RadiaCode-101 dosimeter-spectrometer (front view).jpg",
+   "auteur": "Siarhei Besarab",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:RadiaCode-101_dosimeter-spectrometer_(front_view).jpg",
+   "alt": "Dosimètre électronique affichant une mesure de rayonnement."
+  },
+  {
+   "fichier": "File:Wolf Pack tests radiological response readiness during exercise Radiant Falcon (10035891).jpg",
+   "auteur": "U.S. Air Force photo by Staff Sgt. Joshua",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Wolf_Pack_tests_radiological_response_readiness_during_exercise_Radiant_Falcon_(10035891).jpg",
+   "alt": "Intervenant tenant une sonde de détection radiologique en exercice."
+  }
+ ]
+}

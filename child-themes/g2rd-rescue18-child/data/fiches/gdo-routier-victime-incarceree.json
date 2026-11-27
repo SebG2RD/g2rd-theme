@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-routier-victime-incarceree",
+ "titre": "Victime incarcérée : prise en charge et sortie du véhicule",
+ "theme": "Secours routier",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Opérations de secours en milieu routier, DGSCGC, juillet 2025, 1re édition",
+ "resume": "Le GDO routier encadre le secours d'urgence aux personnes sur accident : priorités, lecture de l'accident, protection de la victime et mode d'extraction. La stratégie d'extraction revient au COS, appuyé par le médecin présent.",
+ "cles": [
+  "Marche générale des opérations en 5 phases : site, véhicule, secours d'urgence aux personnes, techniques, sortie de la victime.",
+  "Priorité devant un traumatisé de la route : traiter ce qui tue en premier et débuter la prise en charge au plus tôt.",
+  "La lecture de l'accident complète le bilan primaire et guide la recherche des hémorragies dites à bas bruit.",
+  "Critères véhicule : vitesse équivalente d'énergie (EES), déformation, type de choc, obstacle, ceinture, airbags.",
+  "Critères victime : âge et morphologie, place dans le véhicule, objets missiles, déplacements dans l'habitacle, siège auto.",
+  "Choc latéral : le plus létal pour les passagers. Aborde par le côté opposé quand c'est réalisable.",
+  "Protège la victime des projections avec une couverture ou un bouclier pendant la désincarcération.",
+  "Les actions techniques partent de la victime (libération des pieds) vers l'extérieur du cheminement d'extraction.",
+  "Le COS s'appuie sur le médecin présent : qualité d'extraction, horizontalité stricte, immobilisation d'un membre lésé.",
+  "Masque FFP2 au minimum pour sauveteurs et victimes lors de la découpe des vitrages."
+ ],
+ "retenir": [
+  "Victime incarcérée : comprimée par la déformation du véhicule, elle exige plusieurs outils de désincarcération. Notion indépendante de la gravité.",
+  "Dégagement d'urgence : face à un danger réel, vital, imminent et non contrôlable pour la victime.",
+  "Extraction rapide : le délai de mise en œuvre prime sur le respect strict de l'axe tête-cou-tronc.",
+  "Extraction améliorée : sortie dans les meilleures conditions, la vie de la victime n'étant pas menacée dans l'imminence.",
+  "Toute idée de manœuvre de désincarcération s'accompagne d'une solution de remplacement."
+ ],
+ "pieges": [
+  "Ne pas juger la gravité sur l'apparence : une victime assise ou debout hors du véhicule cache parfois des lésions internes graves.",
+  "Confondre victime incarcérée et victime grave : l'incarcération décrit la situation dans le véhicule, pas l'état.",
+  "Ne pas engager de personnel dans un véhicule instable avant sa stabilisation ou son arrimage complet.",
+  "Ne pas inscrire l'état des victimes sur les véhicules : dignité et risque de fausses informations.",
+  "Ne pas négliger les deux-roues : éjectés en majorité, avec des fractures bilatérales des fémurs."
+ ],
+ "quiz": "secours-routier",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Opérations de secours en milieu routier (DGSCGC, 2025)",
+   "https://enasis.fr/pluginfile.php/97203/mod_label/intro/GDO_2025-07_OPERATIONS_DE_SECOURS_EN_MILIEU_ROUTIER.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:52nd CES Fire Department sparks interest in high school student (5237294).jpg",
+   "auteur": "U.S. Air Force photo by Airman 1st Class",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:52nd_CES_Fire_Department_sparks_interest_in_high_school_student_(5237294).jpg",
+   "alt": "Pompiers soulevant le toit découpé d'une voiture en exercice."
+  },
+  {
+   "fichier": "File:Car on side firemen attend.jpg",
+   "auteur": "Cartman02au",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Car_on_side_firemen_attend.jpg",
+   "alt": "Deux pompiers près d'une voiture couchée sur le flanc."
+  }
+ ]
+}

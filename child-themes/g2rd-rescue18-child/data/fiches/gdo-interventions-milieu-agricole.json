@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-interventions-milieu-agricole",
+ "titre": "Interventions en milieu agricole : fourrage, engrais, lisier, élevages",
+ "theme": "Risques technologiques",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle « Interventions en milieu agricole » (GDO 2019)",
+ "resume": "L'exploitation agricole concentre fourrage, engrais, gaz, lisier, engins et animaux, souvent loin d'une DECI suffisante. Tu identifies ces sources de risque avant d'engager.",
+ "cles": [
+  "La DECI y est souvent sous-dimensionnée. Forages et systèmes d'irrigation alimentent les engins-pompes.",
+  "Le bois massif garde sa tenue mécanique au feu et se consume d'environ 0,7 mm par face et par minute.",
+  "Les plaques en fibrociment antérieures à 1997 contiennent parfois de l'amiante et libèrent des fibres en incendie.",
+  "Sous l'effet de la chaleur, les engrais émettent des gaz toxiques : NOx, HCN, SO2, HCl, NH3, HNO3, Cl2.",
+  "Les engrais NK et NPK subissent une décomposition auto-entretenue qui persiste sans source de chaleur.",
+  "Le biogaz de méthanisation contient surtout du méthane et du CO2 : incendie, explosion, CO, H2S, anoxie.",
+  "Fourrage qui chauffe : vapeur et condensation en partie haute, odeur de roussi, tassement anormal.",
+  "Une moissonneuse-batteuse emporte jusqu'à 900 L de carburant et 450 L d'huile.",
+  "Les isolants des élevages avicoles ou porcins favorisent l'EGE et l'explosion de fumées.",
+  "Toute blessure par un animal expose à un risque infectieux. Fais souvent appel à un vétérinaire."
+ ],
+ "retenir": [
+  "Fourrage : fermentation normale à cœur vers 45 °C. À partir de 70 °C, la bascule vers l'auto-combustion est possible à tout moment.",
+  "H2S du lisier : seuil olfactif 0,02 ppm. Mortel, il devient inodore concentré, à partir de 150 ppm.",
+  "Pré-fosse sous caillebotis effondré : vide et ventile avant de procéder aux sauvetages.",
+  "Ammonitrates à plus de 80 % de nitrate d'ammonium : détonation possible après contamination, sous confinement, dérive de température ou impact.",
+  "Acier : sa résistance baisse dès 400 °C. Ne coupe jamais un contreventement."
+ ],
+ "pieges": [
+  "Ne pas se fier à l'odeur d'œuf pourri : l'H2S concentré devient inodore.",
+  "Confondre feu de chaume et feu de récolte sur pied : la récolte donne un front de flamme de 3 à 4 m qui piège les équipes.",
+  "Ne pas compter sur la ventilation dynamique d'un élevage pour désenfumer : en cas de coupure, elle ne désenfume pas.",
+  "Les eaux d'extinction figurent aussi parmi les contaminants des ammonitrates.",
+  "Ne pas traiter le vin comme ininflammable : dès 13 % vol, sa combustion s'auto-entretient."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Interventions en milieu agricole, Guide de doctrine opérationnelle (DGSCGC, 2019)",
+   "https://interieur.gouv.fr/content/download/133623/1059087/file/GDO-Interventions-Milieu-Agricole.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Great bales of fire (55533055563).jpg",
+   "auteur": "Lars Plougmann",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Great_bales_of_fire_(55533055563).jpg",
+   "alt": "Engins de pompiers sur une route près d'un feu de balles de foin."
+  },
+  {
+   "fichier": "File:Fire in a bale stack - geograph.org.uk - 6725950.jpg",
+   "auteur": "Bob Harvey",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Fire_in_a_bale_stack_-_geograph.org.uk_-_6725950.jpg",
+   "alt": "Épaisse fumée noire au-dessus d'un tas de balles en feu dans un champ."
+  }
+ ]
+}

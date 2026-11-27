@@ -1,0 +1,41 @@
+{
+ "slug": "gnr-secours-montagne",
+ "titre": "Secours en montagne : emplois, engagement et sécurité",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Tous niveaux",
+ "document": "Guide national de référence Secours en montagne, DDSC, décembre 2000",
+ "resume": "La spécialité secours en montagne intervient en milieu escarpé, enneigé ou glaciaire, là où les moyens courants et ceux du GRIMP ne suffisent plus. Le GNR fixe les emplois, la composition des unités, les procédures de sécurité et l'équipement.",
+ "cles": [
+  "Trois emplois : équipier, chef d'unité et conseiller technique secours en montagne.",
+  "Équipe : 2 équipiers. Unité : 1 chef d'unité et 3 équipes.",
+  "Activités complémentaires : milieu enneigé, glace et glacier, canyon, site souterrain.",
+  "Hélicoptère : 1 conseiller technique ou chef d'unité, plus 2 équipiers ou 1 équipier et 1 médecin.",
+  "Le reste de l'unité rejoint par d'autres rotations ou tout autre moyen.",
+  "Le personnel médical est pris en charge par l'unité secours en montagne.",
+  "Entraînements répartis sur 12 mois francs, d'une durée effective de 4 heures au moins chacun.",
+  "Équipement individuel neige et glace : ARVA, pelle à neige, sonde, piolet, crampons, broches à glace.",
+  "Collectif neige : 20 sondes rigides de 4 m au moins, 10 pelles, 10 pioches, sac avalanche.",
+  "Accès SMO 2 : SMO 1 de moins de 2 ans, SAP 1, 1 000 m de dénivelée avec 10 kg, escalade 6a en tête."
+ ],
+ "retenir": [
+  "Reconnaissance ou intervention : un conseiller technique ou un chef d'unité présent sur place, avec au moins une équipe.",
+  "Sauvetage de vie humaine : l'opération démarre avec une équipe sous l'autorité du COS, le responsable rejoint au plus vite.",
+  "Le responsable refuse une mission hors conditions de sécurité ou hors cadre réglementaire et notifie le refus par écrit au DDSIS.",
+  "Mission validée par le COS : durée, lieu, mission. Entraînement validé par le DDSIS : date, durée, lieu, objet.",
+  "Seuls les inscrits sur la liste annuelle départementale d'aptitude opérationnelle entrent dans une unité et partent en intervention."
+ ],
+ "pieges": [
+  "Confondre l'attestation SMO 1, sans activité opérationnelle, et le diplôme d'équipier SMO 2.",
+  "Ne pas engager en milieu enneigé un équipier sans l'activité neige portée sur la liste d'aptitude.",
+  "Ne pas minorer les moyens et procédures du guide lors d'une adaptation technique.",
+  "Confondre test annuel de l'équipier, l'épreuve pratique SMO 2, et test du chef d'unité, le commandement d'une manœuvre.",
+  "Ne pas partir sur neige sans ARVA, pelle et sonde."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide national de référence Secours en montagne (DDSC, 2000)",
+   "https://rescue18.com/telechargement/secours-en-montagne/"
+  ]
+ ]
+}

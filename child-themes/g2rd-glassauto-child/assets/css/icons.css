@@ -1,0 +1,146 @@
+/* Icônes GlassAuto en masque CSS, mêmes dessins que la maquette (design-preview/_src/partials/icons.mjs).
+   Usage : <div class="ga-icon ga-icon--tel"></div> — la couleur suit currentColor.
+   Les variables --ga-icon-<nom> servent aussi aux pseudo-éléments (boutons, liens). */
+:root{
+  --ga-icon-pare-brise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.8 8.6c5.9-2.9 12.5-2.9 18.4 0l-1.9 9.2H4.7z'/%3E%3Cpath d='M14.6 11.4l.6 1.3 1.3.6-1.3.6-.6 1.3-.6-1.3-1.3-.6 1.3-.6z' fill='black' stroke='none'/%3E%3C/svg%3E");
+  --ga-icon-impact: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='2.2'/%3E%3Cpath d='M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4M6 6l2.8 2.8M15.2 15.2 18 18M18 6l-2.8 2.8M8.8 15.2 6 18'/%3E%3C/svg%3E");
+  --ga-icon-vitre-laterale: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 17.5V12l5.2-5.5h9.3A1.5 1.5 0 0 1 19 8v9.5z'/%3E%3Cpath d='M11.5 6.5v11M3 17.5h18'/%3E%3C/svg%3E");
+  --ga-icon-lunette-arriere: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.2 7.4h15.6l1.4 9.6c-6 1.6-12.4 1.6-18.4 0z'/%3E%3Cpath d='M6.5 11h11M6.2 13.6h11.6'/%3E%3C/svg%3E");
+  --ga-icon-toit-ouvrant: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4.5' y='3' width='15' height='18' rx='5'/%3E%3Crect x='7.5' y='7' width='9' height='7' rx='1.2'/%3E%3C/svg%3E");
+  --ga-icon-retroviseur: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5A3.5 3.5 0 0 1 6.5 5h10a3.5 3.5 0 0 1 3.5 3.5v2A4.5 4.5 0 0 1 15.5 15h-9A3.5 3.5 0 0 1 3 11.5z'/%3E%3Cpath d='M15 15l1.5 4.5h3'/%3E%3C/svg%3E");
+  --ga-icon-phare: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.5 5.5c-4 0-6.5 2.9-6.5 6.5s2.5 6.5 6.5 6.5h1.5v-13z'/%3E%3Cpath d='M15 8.5l5.5-1.5M15 12h6M15 15.5l5.5 1.5'/%3E%3C/svg%3E");
+  --ga-icon-camera-adas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.8 9.6c5.9-2.9 12.5-2.9 18.4 0l-1.7 8.2H4.5z'/%3E%3Crect x='9.2' y='8' width='5.6' height='3.4' rx='.8'/%3E%3Cpath d='M12 13.5v1.2M8 16h8' stroke-dasharray='1.5 2'/%3E%3C/svg%3E");
+  --ga-icon-vitrages-speciaux: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 16.5V8.5a2 2 0 0 1 2-2h9l3.5 4h2.5a2 2 0 0 1 2 2v4'/%3E%3Cpath d='M5 10h7.5'/%3E%3Ccircle cx='7' cy='17' r='1.8'/%3E%3Ccircle cx='17' cy='17' r='1.8'/%3E%3C/svg%3E");
+  --ga-icon-voiture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 15.5v-3l1.8-4.2A2 2 0 0 1 7.1 7h9.8a2 2 0 0 1 1.8 1.3l1.8 4.2v3'/%3E%3Cpath d='M3 15.5h18M5 12.5h14'/%3E%3Ccircle cx='7' cy='16.5' r='1.7'/%3E%3Ccircle cx='17' cy='16.5' r='1.7'/%3E%3C/svg%3E");
+  --ga-icon-utilitaire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 16V6.5h11V16M13.5 9.5h4l3.5 3.5v3h-1.5'/%3E%3Ccircle cx='6.5' cy='17' r='1.8'/%3E%3Ccircle cx='16.5' cy='17' r='1.8'/%3E%3Cpath d='M8.3 17h6.4'/%3E%3C/svg%3E");
+  --ga-icon-camping-car: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 16V5.5h12a3 3 0 0 1 3 3V10l3.5 2.5V16'/%3E%3Crect x='5' y='8' width='4' height='3' rx='.5'/%3E%3Ccircle cx='6.5' cy='17' r='1.8'/%3E%3Ccircle cx='16.5' cy='17' r='1.8'/%3E%3C/svg%3E");
+  --ga-icon-poids-lourd: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 16V5h12v11M14 9h4.5l3.5 4v3'/%3E%3Ccircle cx='5.5' cy='17.2' r='1.7'/%3E%3Ccircle cx='10' cy='17.2' r='1.7'/%3E%3Ccircle cx='18' cy='17.2' r='1.7'/%3E%3C/svg%3E");
+  --ga-icon-agricole: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='7' cy='15' r='4.5'/%3E%3Ccircle cx='7' cy='15' r='1.2'/%3E%3Ccircle cx='18' cy='17' r='2.5'/%3E%3Cpath d='M5 10.5V5h6l2 5.5h6.5V14M15.5 17h-4'/%3E%3C/svg%3E");
+  --ga-icon-chantier: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 17h13M4.5 17v-4h8v4M7 13V9.5h4l1.5 3.5M12.5 13l6-7 2.5 2.5-2 3'/%3E%3Ccircle cx='6' cy='18.5' r='.9' fill='black'/%3E%3Ccircle cx='11' cy='18.5' r='.9' fill='black'/%3E%3C/svg%3E");
+  --ga-icon-bouclier: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z'/%3E%3Cpath d='m8.8 12 2.2 2.2 4.4-4.4'/%3E%3C/svg%3E");
+  --ga-icon-portefeuille: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7.5h14.5A1.5 1.5 0 0 1 20 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z'/%3E%3Cpath d='M4 7.5 15 4l1.2 3.5'/%3E%3Cpath d='M16 13.8h.01' stroke-width='3'/%3E%3C/svg%3E");
+  --ga-icon-cles: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='15' r='4'/%3E%3Cpath d='m11 12 8.5-8.5M16.5 6.5 19 9M14.5 8.5l2 2'/%3E%3C/svg%3E");
+  --ga-icon-convoyage: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 15.5v-3l1.6-3.7A2 2 0 0 1 6.4 7.5h6.2'/%3E%3Cpath d='M3 15.5h9'/%3E%3Ccircle cx='6.5' cy='16.5' r='1.6'/%3E%3Cpath d='M15 9.5h6M18.5 6.5l3 3-3 3'/%3E%3C/svg%3E");
+  --ga-icon-nettoyage: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5l1.2 3.3L16.5 8l-3.3 1.2L12 12.5l-1.2-3.3L7.5 8l3.3-1.2z'/%3E%3Cpath d='M18 13l.7 1.8 1.8.7-1.8.7L18 18l-.7-1.8-1.8-.7 1.8-.7zM6 14l.6 1.4L8 16l-1.4.6L6 18l-.6-1.4L4 16l1.4-.6z'/%3E%3C/svg%3E");
+  --ga-icon-lavage: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.5 4.5c0 2-2 3-2 5a2 2 0 0 0 4 0c0-2-2-3-2-5zM16.5 4.5c0 2-2 3-2 5a2 2 0 0 0 4 0c0-2-2-3-2-5z'/%3E%3Cpath d='M3.5 19v-2.2l1.2-2.6a1.5 1.5 0 0 1 1.4-.9h11.8a1.5 1.5 0 0 1 1.4.9l1.2 2.6V19z'/%3E%3C/svg%3E");
+  --ga-icon-sourire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M8.5 14.2c1.9 2 5.1 2 7 0M9 9.8h.01M15 9.8h.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --ga-icon-technicien: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='7.5' r='3.5'/%3E%3Cpath d='M5 20.5c.8-3.8 3.6-6 7-6s6.2 2.2 7 6'/%3E%3Cpath d='M8.5 6.5h7'/%3E%3C/svg%3E");
+  --ga-icon-document: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8z'/%3E%3Cpath d='M14 3.5V8h4.5M8.5 12.5h7M8.5 16h5'/%3E%3C/svg%3E");
+  --ga-icon-carte-grise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='1.5'/%3E%3Cpath d='M6.5 9.5h6M6.5 12.5h4M6.5 15.5h7'/%3E%3Crect x='14.5' y='9' width='3.5' height='4.5' rx='.5'/%3E%3C/svg%3E");
+  --ga-icon-permis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='1.5'/%3E%3Ccircle cx='8.5' cy='11' r='2'/%3E%3Cpath d='M5.5 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14 10h4M14 13h3'/%3E%3C/svg%3E");
+  --ga-icon-tel: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4.5h3l1.5 4-2 1.3a10.5 10.5 0 0 0 6.7 6.7l1.3-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 6.1A1.5 1.5 0 0 1 5 4.5z'/%3E%3C/svg%3E");
+  --ga-icon-calendrier: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2'/%3E%3Cpath d='M3.5 9.5h17M8 3v4M16 3v4'/%3E%3Cpath d='M7.5 13h.01M12 13h.01M16.5 13h.01M7.5 16.5h.01M12 16.5h.01' stroke-width='2.6'/%3E%3C/svg%3E");
+  --ga-icon-pin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z'/%3E%3Ccircle cx='12' cy='10' r='2.4'/%3E%3C/svg%3E");
+  --ga-icon-horloge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/svg%3E");
+  --ga-icon-mail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='1.5'/%3E%3Cpath d='m3.5 6.5 8.5 6.5 8.5-6.5'/%3E%3C/svg%3E");
+  --ga-icon-fleche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13.5 6.5 19 12l-5.5 5.5'/%3E%3C/svg%3E");
+  --ga-icon-fleche-gauche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12H5M10.5 6.5 5 12l5.5 5.5'/%3E%3C/svg%3E");
+  --ga-icon-chevron-bas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  --ga-icon-chevron-droite: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E");
+  --ga-icon-chevron-gauche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 6-6 6 6 6'/%3E%3C/svg%3E");
+  --ga-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  --ga-icon-check-cercle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='m8.3 12.2 2.6 2.6 5-5'/%3E%3C/svg%3E");
+  --ga-icon-croix: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");
+  --ga-icon-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M4 12h16M4 17h16'/%3E%3C/svg%3E");
+  --ga-icon-cadenas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2'/%3E%3Cpath d='M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2.5'/%3E%3C/svg%3E");
+  --ga-icon-utilisateur: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4.5 20.5c.9-3.9 3.9-6.2 7.5-6.2s6.6 2.3 7.5 6.2'/%3E%3C/svg%3E");
+  --ga-icon-utilisateurs: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8.5' r='3.5'/%3E%3Cpath d='M2.5 20c.7-3.4 3.2-5.5 6.5-5.5s5.8 2.1 6.5 5.5'/%3E%3Cpath d='M15.5 5.3a3.5 3.5 0 0 1 0 6.4M17.5 14.8c2 .8 3.4 2.6 4 5.2'/%3E%3C/svg%3E");
+  --ga-icon-etoile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z'/%3E%3C/svg%3E");
+  --ga-icon-recherche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='m16 16 4.5 4.5'/%3E%3C/svg%3E");
+  --ga-icon-filtre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6h16M7 12h10M10 18h4'/%3E%3C/svg%3E");
+  --ga-icon-euro: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.5 6.8A6.5 6.5 0 1 0 17.5 17.2'/%3E%3Cpath d='M4.5 10.2h8M4.5 13.8h8'/%3E%3C/svg%3E");
+  --ga-icon-telecharger: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v11M7 10.5l5 5 5-5M4.5 20h15'/%3E%3C/svg%3E");
+  --ga-icon-deconnexion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4.5H6.5A1.5 1.5 0 0 0 5 6v12a1.5 1.5 0 0 0 1.5 1.5H14'/%3E%3Cpath d='M10 12h10.5M17 8.5l3.5 3.5-3.5 3.5'/%3E%3C/svg%3E");
+  --ga-icon-tableau: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='7' height='8' rx='1.2'/%3E%3Crect x='13.5' y='3.5' width='7' height='5' rx='1.2'/%3E%3Crect x='3.5' y='14.5' width='7' height='6' rx='1.2'/%3E%3Crect x='13.5' y='11.5' width='7' height='9' rx='1.2'/%3E%3C/svg%3E");
+  --ga-icon-liste: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6.5h11M9 12h11M9 17.5h11'/%3E%3Cpath d='M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01' stroke-width='2.8'/%3E%3C/svg%3E");
+  --ga-icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+  --ga-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 11v5.5M12 7.8h.01' stroke-width='2.2'/%3E%3C/svg%3E");
+  --ga-icon-alerte: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.8 21 19.5H3z'/%3E%3Cpath d='M12 10v4.5M12 17h.01' stroke-width='2.2'/%3E%3C/svg%3E");
+  --ga-icon-oeil: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z'/%3E%3Ccircle cx='12' cy='12' r='2.8'/%3E%3C/svg%3E");
+  --ga-icon-cle-2fa: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6.5' y='2.5' width='11' height='19' rx='2.2'/%3E%3Cpath d='M10.5 18h3'/%3E%3Cpath d='M9.5 9.5l1.8 1.8 3.3-3.3'/%3E%3C/svg%3E");
+  --ga-icon-itineraire: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.5 21.5 12 12 21.5 2.5 12z'/%3E%3Cpath d='M9 14v-2.5a1.5 1.5 0 0 1 1.5-1.5H15M13 8l2 2-2 2'/%3E%3C/svg%3E");
+  --ga-icon-externe: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4.5h5.5V10M19.5 4.5 11 13M17 14v4.5A1.5 1.5 0 0 1 15.5 20h-10A1.5 1.5 0 0 1 4 18.5v-10A1.5 1.5 0 0 1 5.5 7H10'/%3E%3C/svg%3E");
+  --ga-icon-reglages: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2.2'/%3E%3Ccircle cx='9' cy='17' r='2.2'/%3E%3C/svg%3E");
+  --ga-icon-graphique: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20V4M4 20h16'/%3E%3Cpath d='M8 16v-4M12 16V8M16 16v-6'/%3E%3C/svg%3E");
+  --ga-icon-atelier: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 20V9l9-5.5L21 9v11'/%3E%3Cpath d='M7 20v-7h10v7M7 16h10'/%3E%3C/svg%3E");
+  --ga-icon-historique: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9'/%3E%3Cpath d='M4.5 4.5V9H9M12 8v4.2l2.8 1.8'/%3E%3C/svg%3E");
+  --ga-icon-cloche: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z'/%3E%3Cpath d='M10 20.5a2 2 0 0 0 4 0'/%3E%3C/svg%3E");
+  --ga-icon-points: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12h.01M12 12h.01M18.5 12h.01' stroke-width='3'/%3E%3C/svg%3E");
+  --ga-icon-google: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.5 12.2c0-.6-.1-1.2-.2-1.7H12v3.3h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.6-3.9 2.6-6.5z'/%3E%3Cpath d='M12 21c2.4 0 4.5-.8 5.9-2.2l-2.9-2.2c-.8.5-1.8.9-3 .9-2.3 0-4.3-1.6-5-3.7H4v2.3A9 9 0 0 0 12 21z'/%3E%3Cpath d='M7 13.8a5.4 5.4 0 0 1 0-3.6V7.9H4a9 9 0 0 0 0 8.2z'/%3E%3Cpath d='M12 6.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 4 7.9l3 2.3c.7-2.1 2.7-3.6 5-3.6z'/%3E%3C/svg%3E");
+  --ga-icon-rafraichir: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12a7.5 7.5 0 0 1-13 5.1M4.5 12a7.5 7.5 0 0 1 13-5.1'/%3E%3Cpath d='M17.5 3v4h-4M6.5 21v-4h4'/%3E%3C/svg%3E");
+  --ga-icon-copier: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='8.5' y='8.5' width='12' height='12' rx='1.5'/%3E%3Cpath d='M15.5 8.5V5A1.5 1.5 0 0 0 14 3.5H5A1.5 1.5 0 0 0 3.5 5v9A1.5 1.5 0 0 0 5 15.5h3.5'/%3E%3C/svg%3E");
+  --ga-icon-oeil-barre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.6 5.6A9.6 9.6 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-2.7 3.4M6.6 6.6C3.9 8.4 2.5 12 2.5 12S6 18.5 12 18.5c1.9 0 3.5-.6 4.9-1.5'/%3E%3Cpath d='M9.9 9.9a3 3 0 0 0 4.2 4.2M3.5 3.5l17 17'/%3E%3C/svg%3E");
+  --ga-icon-virement: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='18' height='12.5' rx='1.5'/%3E%3Cpath d='M3 10h18M7 14.5h4'/%3E%3Cpath d='M15 14.5h2.5' stroke-width='2.4'/%3E%3C/svg%3E");
+}
+.ga-icon{display:inline-block;width:1.5rem;height:1.5rem;flex:none;background-color:currentColor;-webkit-mask:var(--ga-icon) center/contain no-repeat;mask:var(--ga-icon) center/contain no-repeat}
+.ga-icon--lg{width:2.5rem;height:2.5rem}
+.ga-icon--xl{width:3.25rem;height:3.25rem}
+.ga-icon--pare-brise{--ga-icon:var(--ga-icon-pare-brise)}
+.ga-icon--impact{--ga-icon:var(--ga-icon-impact)}
+.ga-icon--vitre-laterale{--ga-icon:var(--ga-icon-vitre-laterale)}
+.ga-icon--lunette-arriere{--ga-icon:var(--ga-icon-lunette-arriere)}
+.ga-icon--toit-ouvrant{--ga-icon:var(--ga-icon-toit-ouvrant)}
+.ga-icon--retroviseur{--ga-icon:var(--ga-icon-retroviseur)}
+.ga-icon--phare{--ga-icon:var(--ga-icon-phare)}
+.ga-icon--camera-adas{--ga-icon:var(--ga-icon-camera-adas)}
+.ga-icon--vitrages-speciaux{--ga-icon:var(--ga-icon-vitrages-speciaux)}
+.ga-icon--voiture{--ga-icon:var(--ga-icon-voiture)}
+.ga-icon--utilitaire{--ga-icon:var(--ga-icon-utilitaire)}
+.ga-icon--camping-car{--ga-icon:var(--ga-icon-camping-car)}
+.ga-icon--poids-lourd{--ga-icon:var(--ga-icon-poids-lourd)}
+.ga-icon--agricole{--ga-icon:var(--ga-icon-agricole)}
+.ga-icon--chantier{--ga-icon:var(--ga-icon-chantier)}
+.ga-icon--bouclier{--ga-icon:var(--ga-icon-bouclier)}
+.ga-icon--portefeuille{--ga-icon:var(--ga-icon-portefeuille)}
+.ga-icon--cles{--ga-icon:var(--ga-icon-cles)}
+.ga-icon--convoyage{--ga-icon:var(--ga-icon-convoyage)}
+.ga-icon--nettoyage{--ga-icon:var(--ga-icon-nettoyage)}
+.ga-icon--lavage{--ga-icon:var(--ga-icon-lavage)}
+.ga-icon--sourire{--ga-icon:var(--ga-icon-sourire)}
+.ga-icon--technicien{--ga-icon:var(--ga-icon-technicien)}
+.ga-icon--document{--ga-icon:var(--ga-icon-document)}
+.ga-icon--carte-grise{--ga-icon:var(--ga-icon-carte-grise)}
+.ga-icon--permis{--ga-icon:var(--ga-icon-permis)}
+.ga-icon--tel{--ga-icon:var(--ga-icon-tel)}
+.ga-icon--calendrier{--ga-icon:var(--ga-icon-calendrier)}
+.ga-icon--pin{--ga-icon:var(--ga-icon-pin)}
+.ga-icon--horloge{--ga-icon:var(--ga-icon-horloge)}
+.ga-icon--mail{--ga-icon:var(--ga-icon-mail)}
+.ga-icon--fleche{--ga-icon:var(--ga-icon-fleche)}
+.ga-icon--fleche-gauche{--ga-icon:var(--ga-icon-fleche-gauche)}
+.ga-icon--chevron-bas{--ga-icon:var(--ga-icon-chevron-bas)}
+.ga-icon--chevron-droite{--ga-icon:var(--ga-icon-chevron-droite)}
+.ga-icon--chevron-gauche{--ga-icon:var(--ga-icon-chevron-gauche)}
+.ga-icon--check{--ga-icon:var(--ga-icon-check)}
+.ga-icon--check-cercle{--ga-icon:var(--ga-icon-check-cercle)}
+.ga-icon--croix{--ga-icon:var(--ga-icon-croix)}
+.ga-icon--menu{--ga-icon:var(--ga-icon-menu)}
+.ga-icon--cadenas{--ga-icon:var(--ga-icon-cadenas)}
+.ga-icon--utilisateur{--ga-icon:var(--ga-icon-utilisateur)}
+.ga-icon--utilisateurs{--ga-icon:var(--ga-icon-utilisateurs)}
+.ga-icon--etoile{--ga-icon:var(--ga-icon-etoile)}
+.ga-icon--recherche{--ga-icon:var(--ga-icon-recherche)}
+.ga-icon--filtre{--ga-icon:var(--ga-icon-filtre)}
+.ga-icon--euro{--ga-icon:var(--ga-icon-euro)}
+.ga-icon--telecharger{--ga-icon:var(--ga-icon-telecharger)}
+.ga-icon--deconnexion{--ga-icon:var(--ga-icon-deconnexion)}
+.ga-icon--tableau{--ga-icon:var(--ga-icon-tableau)}
+.ga-icon--liste{--ga-icon:var(--ga-icon-liste)}
+.ga-icon--plus{--ga-icon:var(--ga-icon-plus)}
+.ga-icon--info{--ga-icon:var(--ga-icon-info)}
+.ga-icon--alerte{--ga-icon:var(--ga-icon-alerte)}
+.ga-icon--oeil{--ga-icon:var(--ga-icon-oeil)}
+.ga-icon--cle-2fa{--ga-icon:var(--ga-icon-cle-2fa)}
+.ga-icon--itineraire{--ga-icon:var(--ga-icon-itineraire)}
+.ga-icon--externe{--ga-icon:var(--ga-icon-externe)}
+.ga-icon--reglages{--ga-icon:var(--ga-icon-reglages)}
+.ga-icon--graphique{--ga-icon:var(--ga-icon-graphique)}
+.ga-icon--atelier{--ga-icon:var(--ga-icon-atelier)}
+.ga-icon--historique{--ga-icon:var(--ga-icon-historique)}
+.ga-icon--cloche{--ga-icon:var(--ga-icon-cloche)}
+.ga-icon--points{--ga-icon:var(--ga-icon-points)}
+.ga-icon--google{--ga-icon:var(--ga-icon-google)}
+.ga-icon--rafraichir{--ga-icon:var(--ga-icon-rafraichir)}
+.ga-icon--copier{--ga-icon:var(--ga-icon-copier)}
+.ga-icon--oeil-barre{--ga-icon:var(--ga-icon-oeil-barre)}
+.ga-icon--virement{--ga-icon:var(--ga-icon-virement)}

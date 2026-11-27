@@ -1,0 +1,50 @@
+{
+ "slug": "interventions-medico-social",
+ "titre": "Interventions à caractère médico-social : repérer, qualifier, signaler",
+ "theme": "Secours à personne",
+ "niveau": "Chef d'agrès",
+ "document": "Bibliothèque des pratiques des services d'incendie et de secours : Interventions à caractère médico-social (DGSCGC), 1re édition, octobre 2024",
+ "resume": "Les interventions à caractère social ou médico-social (ICMS) concernent un public fragile et n'appellent aucun geste technique au-delà du bilan. Le chef d'agrès les repère, les qualifie sur la fiche bilan et les signale aux acteurs sociaux.",
+ "cles": [
+  "Le référentiel propose 30 fiches réparties en 3 axes : valoriser l'action du SIS, réduire la sollicitation, structurer la réponse.",
+  "Ne confonds pas ICMS et urgence en contexte social dégradé, comme un feu en habitat insalubre ou une victime sans domicile.",
+  "Le transport à l'hôpital, issue fréquente d'une ICMS, ne règle pas l'urgence sociale et entraîne des appels répétés.",
+  "Une rubrique de la fiche bilan VSAV permet au chef d'agrès de qualifier le caractère social ou médico-social d'une intervention.",
+  "Toutes les ICMS ne justifient pas l'établissement d'une fiche bilan.",
+  "Le signalement aux services sociaux est une obligation légale. Vise un point d'entrée unique, le service social départemental.",
+  "Partenaires : services sociaux du conseil départemental, CCAS, dispositif d'appui à la coordination (DAC), SAMU, forces de l'ordre.",
+  "Exemples de réorientation : SAMU social, 115 dédié aux sapeurs-pompiers ou « Croix-Rouge chez vous » à la BSPP.",
+  "Téléassistance : la levée de doute doit précéder tout engagement des moyens du SIS.",
+  "Troubles psychiatriques : un protocole interservices SIS, SAMU et forces de l'ordre fixe les missions de chacun."
+ ],
+ "retenir": [
+  "ICMS : assistance auprès d'un public fragile (précarité, exclusion, dépendance, handicap) sans aucun acte de secourisme hormis le bilan.",
+  "Les ICMS ne relèvent pas des missions de l'article L1424-2 du CGCT. Elles entrent dans les « autres missions » de l'article R1424-42.",
+  "Indices de fragilité : logement non décent ou inadapté, perte d'autonomie, troubles de l'équilibre, violence, détresse psychologique, difficulté à se soigner ou s'alimenter.",
+  "En temporisation, le doute bénéficie à la victime. Une intervention récurrente ne signifie pas l'absence d'urgence vitale.",
+  "Moyen dédié au relevage : 2 sapeurs-pompiers avec sac prompt secours, sac oxygène et DAE. Au SDIS 77, 1 intervention sur 5 a demandé un VSAV en renfort."
+ ],
+ "pieges": [
+  "Confondre une ICMS avec une intervention d'urgence survenue dans un contexte social dégradé.",
+  "Ne pas conclure à l'absence d'urgence vitale pour une personne aux appels répétés.",
+  "Ne pas oublier de qualifier et de signaler l'ICMS : sans signalement, la personne restera sans suivi social.",
+  "Ne pas engager un véhicule à 2 sapeurs-pompiers sans conditions de renfort définies : une analyse initiale erronée met l'équipe en difficulté.",
+  "Ne pas croire à un engagement du SIS à prendre en charge ces interventions du fait de sa participation aux instances sociales."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Interventions à caractère médico-social, bibliothèque des pratiques des SIS (DGSCGC, 2024)",
+   "https://rescue18.com/telechargement/interventions-a-caractere-medico-social/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:VSAV sapeurs-pompiers des Yvelines, gare de Poissy.jpg",
+   "auteur": "Kyah117",
+   "licence": "CC BY 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:VSAV_sapeurs-pompiers_des_Yvelines,_gare_de_Poissy.jpg",
+   "alt": "VSAV des sapeurs-pompiers des Yvelines stationné en ville."
+  }
+ ]
+}

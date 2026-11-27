@@ -1,0 +1,57 @@
+{
+ "slug": "pse-intoxications-piqures-morsures",
+ "titre": "Intoxications, monoxyde de carbone, piqûres et morsures",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Face à une intoxication, ta sécurité passe d'abord, surtout en environnement toxique. Pour les piqûres et morsures, tu soustrais la victime au danger, tu traites la détresse vitale puis tu appliques le geste propre à l'animal en cause.",
+ "cles": [
+  "Quatre voies de pénétration d'un toxique : ingestion, inhalation, injection, absorption par la peau saine.",
+  "Environnement toxique suspect : nuage visible, odeur, plusieurs personnes avec les mêmes signes, animaux malades ou morts.",
+  "Le monoxyde de carbone (CO) est inodore et invisible. Plusieurs personnes en local fermé avec maux de tête et vomissements : pense CO.",
+  "Fumées d'incendie et CO faussent la mesure de SpO2 et donnent à tort des valeurs rassurantes.",
+  "Intoxication par ingestion : recherche emballages et flacons, la dose supposée et l'heure de prise.",
+  "Opiacés : dépression respiratoire, troubles de la conscience et myosis. Retire les patchs, donne de l'oxygène.",
+  "Naloxone intranasale dès 14 ans, une pulvérisation dans une narine, renouvelée au bout de 2 à 3 minutes si besoin.",
+  "Piqûre dans la bouche ou la gorge ou victime allergique : bilan en urgence. Fais sucer de la glace.",
+  "Piqûre d'abeille : retire le dard à la pince à écharde sans écraser la poche à venin. Retire bagues et bracelets.",
+  "Morsure humaine : plaie grave par principe. Animal suspect de rage : consultation médicale indispensable."
+ ],
+ "retenir": [
+  "Intoxication au CO ou aux fumées : oxygène au masque haute concentration à 15 l/min, même avec une SpO2 normale.",
+  "Suspicion de CO : évacue, aère en retenant ta respiration, identifie l'appareil en cause et arrête-le.",
+  "Ingestion d'un toxique : ne fais ni vomir ni boire la victime.",
+  "Opiacés : ventilation artificielle prête si la fréquence respiratoire passe sous 6 par minute. Dépression respiratoire sous 12 par minute.",
+  "Morsure de serpent : victime allongée, membre immobile, lavage sans frotter, pansement. Jamais d'aspiration ni de sérum antivenimeux."
+ ],
+ "pieges": [
+  "Ne pas entrer dans une atmosphère toxique sans protection : prends en charge les victimes à distance.",
+  "Ne pas se fier à une SpO2 normale chez une victime de fumées ou de CO.",
+  "Ne pas écraser la poche à venin en retirant un dard d'abeille.",
+  "Ne pas frotter une piqûre de méduse : vinaigre, puis mousse à raser ou sable raclé avec une carte rigide, puis eau chaude.",
+  "Ne pas oublier l'eau chaude pendant 30 minutes au minimum pour une piqûre de vive ou de rascasse."
+ ],
+ "quiz": "intoxications-monoxyde",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:FA370 Carbon monoxide detector, The Hague (2019) 04.jpg",
+   "auteur": "Donald Trung Quoc Don",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:FA370_Carbon_monoxide_detector,_The_Hague_(2019)_04.jpg",
+   "alt": "Détecteur de monoxyde de carbone fixé au mur."
+  },
+  {
+   "fichier": "File:Aspic Viper (Vipera aspis zinnikeri) subadult female (10114686826).jpg",
+   "auteur": "Bernard DUPONT from FRANCE",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Aspic_Viper_(Vipera_aspis_zinnikeri)_subadult_female_(10114686826).jpg",
+   "alt": "Vipère aspic enroulée sur un rocher dans l'Hérault."
+  }
+ ]
+}

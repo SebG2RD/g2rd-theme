@@ -1,0 +1,56 @@
+{
+ "slug": "gto-feux-forets-espaces-naturels",
+ "titre": "Feux de forêts : engins, unités, sécurité et autoprotection",
+ "theme": "Feux de forêts",
+ "niveau": "Tous niveaux",
+ "document": "Guide de techniques opérationnelles : Lutte contre les feux de forêts et d'espaces naturels",
+ "resume": "Ce GTO décrit les matériels, les unités organiques et les manœuvres de la lutte contre les feux de forêts et d'espaces naturels. Il fixe les règles de sécurité : repli d'urgence, autoprotection des CCF et autodéfense.",
+ "cles": [
+  "Les CCF sont classés par masse totale en charge : léger (CCFL), moyen (CCFM), super (CCFS).",
+  "L'UIFF est constituée de 2 CCF de classe M ou S.",
+  "Le GIFF est constitué d'un VLHR et de 4 CCF de classe M, sous les ordres d'un chef de groupe.",
+  "La colonne regroupe au minimum 3 GIFF et un élément de commandement et de soutien.",
+  "La lance 500 est alimentée en DN 45 et débite au maximum 500 l/min.",
+  "La lance 150 est alimentée en DN 25 et débite au maximum 150 l/min.",
+  "Toutes les manœuvres s'exécutent du point d'eau vers le point d'attaque.",
+  "L'autodéfense du GIFF est active, avec les moyens hydrauliques, ou passive, avec l'autoprotection des engins.",
+  "Les feux tactiques regroupent le contre-feu et le brûlage tactique."
+ ],
+ "retenir": [
+  "CCFL : 3 t < MTC ≤ 7,5 t. CCFM : 7,5 t < MTC ≤ 14 t. CCFS : MTC > 14 t.",
+  "Capacité utile minimale : 600 l (CCFL), 1 500 l (CCFM), 5 000 l (CCFS). Capacité d'autoprotection minimale : 300 l.",
+  "Air respirable du CCF : autonomie minimale de 10 minutes pour 4 personnes. Masque de fuite : 6 minutes.",
+  "Le chef d'agrès donne l'ordre de repli. La cabine reste l'unique espace de survie des personnels.",
+  "Largage de sécurité : largage délibéré sur un véhicule ou un groupe en difficulté. Ce n'est pas un appui aérien."
+ ],
+ "pieges": [
+  "Confondre capacité utile (CU) et capacité d'autoprotection (CA) du CCF.",
+  "Confondre l'UIFF, 2 CCF, et le GIFF, un VLHR et 4 CCF de classe M.",
+  "Ne pas lire le classement par masse comme une mesure des capacités opérationnelles du CCF.",
+  "Ne pas établir du point d'attaque vers le point d'eau.",
+  "Confondre largage de sécurité et appui aérien."
+ ],
+ "quiz": "feux-forets",
+ "sources": [
+  [
+   "Guide de techniques opérationnelles : Lutte contre les feux de forêts et d'espaces naturels, 1re édition (DGSCGC, 2021)",
+   "https://pnrs.ensosp.fr/content/download/40517/668888/file/GTO_FDF_1e%20edition_2021_BDFE_DGSCGC.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Tracteur et sa tonne à lisier ravitaillant un camion-citerne feux de forêt (CCF) près de Pierroton au cours des incendies de 2026 dans la forêt des Landes.jpg",
+   "auteur": "Bastimoxicilline",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Tracteur_et_sa_tonne_%C3%A0_lisier_ravitaillant_un_camion-citerne_feux_de_for%C3%AAt_(CCF)_pr%C3%A8s_de_Pierroton_au_cours_des_incendies_de_2026_dans_la_for%C3%AAt_des_Landes.jpg",
+   "alt": "Camion-citerne feux de forêt ravitaillé par une tonne à lisier dans les Landes."
+  },
+  {
+   "fichier": "File:Angeles National Forest firefighters at the Eaton Fire on 21 January 2025.jpg",
+   "auteur": "Pacific Southwest Forest Service, USDA",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Angeles_National_Forest_firefighters_at_the_Eaton_Fire_on_21_January_2025.jpg",
+   "alt": "Pompiers forestiers en silhouette avec une lance au coucher du soleil."
+  }
+ ]
+}

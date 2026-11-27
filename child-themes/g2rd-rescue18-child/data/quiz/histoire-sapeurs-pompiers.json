@@ -1,0 +1,34 @@
+{
+ "slug": "histoire-sapeurs-pompiers",
+ "titre": "Histoire des sapeurs-pompiers : les grandes dates",
+ "theme": "Culture pompier",
+ "niveau": "Tous publics",
+ "duree": "8 min",
+ "resume": "De l'incendie de l'ambassade d'Autriche à la loi de 1996, teste tes connaissances sur l'histoire des pompiers en France.",
+ "sources": [
+  ["Fondation Napoléon, Tragique incendie à l'ambassade d'Autriche", "https://www.napoleon.org/histoire-des-2-empires/articles/tragique-incendie-a-lambassade-dautriche"],
+  ["Ministère des Armées, Brigade de sapeurs-pompiers de Paris", "https://www.defense.gouv.fr/terre/unites-larmee-terre/armes/genie/brigade-sapeurs-pompiers-paris"],
+  ["BSPP, Le Régiment de sapeurs-pompiers de Paris", "https://www.terre.defense.gouv.fr/pompiers-paris/presentation-brigade-sapeurs-pompiers/histoire-brigade-sapeurs-pompiers-paris/regiment-sapeurs"],
+  ["BSPP, La Brigade de sapeurs-pompiers de Paris", "https://www.terre.defense.gouv.fr/pompiers-paris/presentation-brigade-sapeurs-pompiers/histoire-brigade-sapeurs-pompiers-paris/brigade-sapeurs"],
+  ["Marins-pompiers de Marseille, Présentation générale", "https://www.marinspompiersdemarseille.com/pages/presentation-generale"],
+  ["Loi n° 96-369 du 3 mai 1996 relative aux services d'incendie et de secours (AIDA)", "https://aida.ineris.fr/reglementation/loi-ndeg-96-369-030596-relative-services-dincendie-secours"],
+  ["FNSPF, Histoire de sainte Barbe", "https://www.pompiers.fr/sites/default/files/publications/file/histoire_st-barbe_web.pdf"]
+ ],
+ "questions": [
+  {"q": "Quel drame pousse Napoléon à réorganiser la lutte contre le feu à Paris ?", "c": ["L'incendie de l'Opéra de Paris", "L'incendie d'un bal à l'ambassade d'Autriche", "Le grand incendie de Londres", "L'incendie du Bazar de la Charité"], "a": 1, "why": "Le 1er juillet 1810, un incendie ravage le bal donné à l'ambassade d'Autriche, en présence de Napoléon. Ce drame mène à la création d'un corps militaire de pompiers (Fondation Napoléon)."},
+  {"q": "Quel événement célèbre le bal de l'ambassade d'Autriche du 1er juillet 1810 ?", "c": ["Le sacre de Napoléon", "La victoire d'Austerlitz", "Le mariage de Napoléon et Marie-Louise", "La naissance du roi de Rome"], "a": 2, "why": "Le prince de Schwarzenberg, ambassadeur d'Autriche, donne ce bal pour clore les fêtes du mariage de Napoléon et de Marie-Louise de Habsbourg (Fondation Napoléon)."},
+  {"q": "À quelle date un décret impérial crée le bataillon de sapeurs-pompiers de Paris ?", "c": ["18 septembre 1811", "14 juillet 1790", "1er janvier 1815", "2 décembre 1804"], "a": 0, "why": "Le décret impérial du 18 septembre 1811 confie la lutte contre le feu à Paris à un corps militaire (ministère des Armées)."},
+  {"q": "À quelle armée appartient la Brigade de sapeurs-pompiers de Paris ?", "c": ["La Marine nationale", "La Gendarmerie nationale", "L'Armée de l'air et de l'espace", "L'Armée de Terre, arme du Génie"], "a": 3, "why": "La BSPP est une unité de l'Armée de Terre affectée à l'arme du Génie (ministère des Armées)."},
+  {"q": "Sous quelle autorité Napoléon place-t-il le bataillon de sapeurs-pompiers de Paris ?", "c": ["Le maire de Paris", "Le préfet de police", "Le ministre de la Marine", "Le gouverneur des Invalides"], "a": 1, "why": "Le bataillon créé en 1811 est un corps militaire placé sous l'autorité du préfet de police (Fondation Napoléon, ministère des Armées)."},
+  {"q": "En quelle année le bataillon devient-il le Régiment de sapeurs-pompiers de Paris ?", "c": ["1830", "1848", "1866", "1914"], "a": 2, "why": "Le 5 décembre 1866, le bataillon devient officiellement le Régiment de sapeurs-pompiers de Paris (BSPP)."},
+  {"q": "En quelle année le Régiment devient-il la Brigade de sapeurs-pompiers de Paris ?", "c": ["1945", "1967", "1981", "2000"], "a": 1, "why": "Le 1er mars 1967, le Régiment devient la Brigade. Elle défend Paris et la petite couronne à partir du 1er janvier 1968 (BSPP)."},
+  {"q": "Le 14 juillet 1902, les sapeurs-pompiers de Paris deviennent la première unité de l'armée à recevoir quelle décoration pour leur drapeau ?", "c": ["La Croix de guerre", "La Médaille militaire", "L'ordre national du Mérite", "La Légion d'honneur"], "a": 3, "why": "Le président Émile Loubet remet la Légion d'honneur au drapeau du Régiment, une première pour une unité de l'armée (BSPP)."},
+  {"q": "Quel incendie conduit à la création des marins-pompiers de Marseille ?", "c": ["L'incendie du Vieux-Port", "L'incendie de l'Opéra de Marseille", "L'incendie des Nouvelles Galeries", "L'incendie de la gare Saint-Charles"], "a": 2, "why": "L'incendie des Nouvelles Galeries, sur la Canebière, se déclare le 28 octobre 1938. Le bataillon naît neuf mois plus tard (marins-pompiers de Marseille)."},
+  {"q": "Combien de victimes fait l'incendie des Nouvelles Galeries de Marseille en 1938 ?", "c": ["12", "73", "250", "480"], "a": 1, "why": "Les marins-pompiers de Marseille indiquent que l'incendie du 28 octobre 1938 fait 73 victimes."},
+  {"q": "En quelle année est créé le bataillon de marins-pompiers de Marseille ?", "c": ["1939", "1945", "1958", "1972"], "a": 0, "why": "Un décret-loi de juillet 1939 crée le bataillon de marins-pompiers de Marseille (marins-pompiers de Marseille)."},
+  {"q": "À quelle armée appartient le bataillon de marins-pompiers de Marseille ?", "c": ["L'Armée de Terre", "La Gendarmerie nationale", "L'Armée de l'air et de l'espace", "La Marine nationale"], "a": 3, "why": "Le bataillon relève organiquement d'un officier général de la Marine nationale. Pour l'emploi, il dépend du maire de Marseille (marins-pompiers de Marseille)."},
+  {"q": "Que crée la loi du 3 mai 1996 dans chaque département ?", "c": ["Une école départementale de jeunes sapeurs-pompiers", "Un centre de secours dans chaque commune", "Un établissement public appelé service départemental d'incendie et de secours", "Une brigade militaire de pompiers"], "a": 2, "why": "L'article 1er de la loi n° 96-369 crée dans chaque département un établissement public, le SDIS. C'est la départementalisation (loi du 3 mai 1996)."},
+  {"q": "À quelle date les pompiers fêtent-ils sainte Barbe, leur patronne ?", "c": ["1er novembre", "4 décembre", "25 décembre", "14 juillet"], "a": 1, "why": "La Sainte-Barbe se fête le 4 décembre. La tradition se répand chez les pompiers sous la IIIe République (FNSPF)."},
+  {"q": "Selon la légende, que subit le père de sainte Barbe après l'avoir décapitée ?", "c": ["Il est frappé par la foudre", "Il se noie dans un fleuve", "Il est exilé", "Il devient pompier"], "a": 0, "why": "Le père de Barbe est foudroyé et réduit en poussière. Ce récit lie la sainte au feu et à la foudre (FNSPF)."}
+ ]
+}

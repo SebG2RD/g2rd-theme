@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-bouteilles-gaz",
+ "titre": "Bouteilles de gaz au feu ou après un choc : BLEVE et conduite à tenir",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'équipe",
+ "document": "Guide de doctrine opérationnelle « Interventions en présence de bouteilles de gaz soumises à un incendie ou à un choc » (DGSCGC, octobre 2017)",
+ "resume": "Toute bouteille chauffée risque d'éclater, avec surpression, flux thermique et projections. Tu refroidis tôt en jet diffusé d'attaque derrière un écran, et tu traites l'acétylène à part : une heure de refroidissement puis une heure de surveillance.",
+ "cles": [
+  "Trois formes de stockage : gaz comprimé (air, hydrogène), gaz liquéfié (butane, propane), gaz dissous (acétylène).",
+  "Le BLEVE est la vaporisation explosive d'un liquide porté nettement au-delà de sa température d'ébullition, après rupture du contenant.",
+  "L'éclatement produit surpression, flux thermique, projection de fragments et effets propres au gaz stocké.",
+  "Pression de vapeur à température ambiante : environ 2 bars pour le butane, environ 7 bars pour le propane.",
+  "La couleur d'une bouteille de GPL dépend de la marque et ne renseigne pas sur le risque.",
+  "Une bouteille gonflée annonce un éclatement imminent.",
+  "Une bouteille composite devient poreuse au feu : le gaz fuit à travers la paroi et alimente la combustion.",
+  "Gaz comprimé : le risque d'éclatement apparaît vers 350 °C.",
+  "Acétylène : instable, il se décompose sous la chaleur ou au-delà de 1,5 bar. Plage d'inflammabilité de 2,3 % à 83 % dans l'air.",
+  "Situation complexe : le conseiller technique zonal sollicite le réseau RADART, activé par le COGIC à la demande du COZ."
+ ],
+ "retenir": [
+  "Repères GPL pour une bouteille pleine : 15 % de ciel gazeux à 15 °C, 5 % à 30 °C, 3 % à 50 °C, plein hydraulique à 80 °C.",
+  "Refroidis toute bouteille GPL dans les flammes ou au-delà de 50 °C en surface. Elle est refroidie quand l'eau ruisselle sans évaporation visible.",
+  "Effets missiles au-delà de 100 m pour les bouteilles en acier. Flamme de soupape ou de disque de rupture au-delà de 10 m pour un gaz inflammable.",
+  "Gaz comprimé ou acétylène chauffé : refroidissement en jet diffusé d'attaque à 250 l/min minimum.",
+  "Acétylène chauffé : périmètre jusqu'à 200 m sans écran, 1 h de refroidissement, puis 1 h de surveillance avec contrôle toutes les 15 min. Fuite sans feu : 50 m minimum."
+ ],
+ "pieges": [
+  "Ne pas employer le jet droit direct sur une bouteille chauffée : il entraîne le liquide vers les parois chaudes du ciel gazeux.",
+  "Ne pas déplacer une bouteille d'acétylène chauffée, ni pendant le refroidissement, ni pendant la surveillance.",
+  "Ne pas compter sur la soupape : en conditions extrêmes, les dispositifs de sécurité se déclenchent trop tard.",
+  "Ne pas manipuler une bouteille de gaz comprimé chauffée avant son total refroidissement, enveloppe sous 50 °C.",
+  "Ne pas intervenir sur une bouteille d'acétylène dont la fuite ne vient pas du robinet : laisse-la se vider par l'orifice."
+ ],
+ "quiz": "risques-gaz-electricite",
+ "sources": [
+  [
+   "Interventions en présence de bouteilles de gaz soumises à un incendie ou à un choc, Guide de doctrine opérationnelle (DGSCGC, 2017)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo-bouteille-de-gaz-version-vf-11102017.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:-2019-12-11 Calor 47kg propane gas cylinders, Loop Road, Triningham.JPG",
+   "auteur": "Kolforn",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:-2019-12-11_Calor_47kg_propane_gas_cylinders,_Loop_Road,_Triningham.JPG",
+   "alt": "Deux bouteilles de propane rouges de 47 kg posées contre une palissade."
+  },
+  {
+   "fichier": "File:Campingaz C206 pierceable gas cylinder.jpg",
+   "auteur": "Dmitry G",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Campingaz_C206_pierceable_gas_cylinder.jpg",
+   "alt": "Cartouche de gaz butane bleue posée au sol."
+  }
+ ]
+}

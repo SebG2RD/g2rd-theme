@@ -1,0 +1,30 @@
+{
+ "slug": "securite-intervention-epi",
+ "titre": "Sécurité en intervention : EPI, binôme et fumées",
+ "theme": "Sécurité",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Binôme, zones de sécurité, toxicité des fumées et décontamination : vérifie tes réflexes de sécurité en intervention.",
+ "sources": [
+  ["CIRC, Monographies volume 132 : exposition professionnelle en tant que pompier", "https://monographs.iarc.who.int/fr/news-events/volume-132-exposition-professionnelle-en-tant-que-pompier"],
+  ["DGSCGC, GDO Prévention des risques liés à la toxicité des fumées (2e édition, 2020)", "https://interieur.gouv.fr/content/download/133630/1059122/file/GDO-Prevention-Risques-Toxicite-Fumees.pdf"],
+  ["DGSCGC, GDO Interventions sur les incendies de structures (2018)", "https://pnrs.ensosp.fr/content/download/40515/668868/file/GDO-incendies-de-structures-2018-V2.pdf"],
+  ["AFNOR, NF EN 659 Gants de protection pour sapeurs-pompiers", "https://www.boutique.afnor.org/en-gb/standard/nf-en-659/protective-gloves-for-firefighters/fa104123/62485"]
+ ],
+ "questions": [
+  {"q": "En 2022, comment le CIRC classe-t-il l'exposition professionnelle des pompiers ?", "c": ["Groupe 3, inclassable", "Groupe 1, cancérogène pour l'homme", "Groupe 2B, peut-être cancérogène", "Non évaluée"], "a": 1, "why": "Le CIRC a classé l'exposition professionnelle en tant que pompier dans le groupe 1, cancérogène pour l'homme (CIRC, volume 132, 2022)."},
+  {"q": "Pour quels cancers le CIRC retient-il des indications suffisantes chez les pompiers ?", "c": ["Poumon et foie", "Peau et estomac", "Côlon et prostate", "Mésothéliome et vessie"], "a": 3, "why": "Les indications sont suffisantes pour le mésothéliome et le cancer de la vessie. Elles sont limitées pour le côlon, la prostate, le testicule, le mélanome et le lymphome non hodgkinien (CIRC)."},
+  {"q": "Quelles voies de contamination par les fumées sont souvent oubliées selon le GDO ?", "c": ["Les voies percutanée et oculaire", "La voie respiratoire", "La voie digestive seule", "Aucune, toutes sont bien connues"], "a": 0, "why": "Le GDO cite quatre voies : inhalation, ingestion, peau et yeux. Les voies percutanée et oculaire sont souvent ignorées (GDO toxicité des fumées, 2020)."},
+  {"q": "Quel facteur augmente l'absorption des polluants par la peau ?", "c": ["Le froid", "Le port de gants", "L'élévation de la température corporelle", "Le port du casque"], "a": 2, "why": "Une élévation de la température corporelle augmente le taux d'absorption. Le visage et le cou sont les zones les plus sensibles (GDO toxicité des fumées)."},
+  {"q": "En zone d'exclusion, jusqu'à quand portes-tu l'ARI ?", "c": ["Seulement pendant l'attaque", "En permanence jusqu'à la fin de l'opération", "Jusqu'à l'extinction des flammes visibles", "Au choix de chaque équipier"], "a": 1, "why": "La zone d'exclusion impose le port permanent de l'ARI jusqu'à la fin de l'opération (GDO toxicité des fumées)."},
+  {"q": "Pendant le déblai, quelle protection est obligatoire ?", "c": ["Aucune, le feu est éteint", "Seulement le casque", "Seulement les gants", "Une protection respiratoire, cutanée et oculaire adaptée"], "a": 3, "why": "Au-delà de l'attaque, notamment au déblai et au dégarnissage, une protection respiratoire, cutanée et oculaire adaptée est obligatoire (GDO toxicité des fumées)."},
+  {"q": "De retour d'intervention, que fais-tu avant de rejoindre les espaces de vie du centre ?", "c": ["Tu prends une douche", "Tu prends un café", "Tu ranges ta tenue dans ton casier", "Tu montes en salle de repos"], "a": 0, "why": "Le personnel ne rejoint en aucun cas les espaces de vie avant la douche (GDO toxicité des fumées)."},
+  {"q": "Comment transportes-tu les EPI souillés dans le véhicule ?", "c": ["Dans la cabine avec l'équipage", "Mélangés au matériel propre", "À l'écart du matériel propre, en sacs spécifiques ou bacs étanches", "Sur toi jusqu'à la caserne"], "a": 2, "why": "Les EPI souillés sont mis à l'écart des matériels propres, dans des sacs spécifiques, des bacs étanches ou des espaces dédiés (GDO toxicité des fumées)."},
+  {"q": "Au centre de secours, quelles zones le GDO prévoit-il pour éviter la contamination ?", "c": ["Rouge, orange, verte", "Sale, semi-propre, propre, avec marche en avant", "Une seule zone de lavage", "Intérieure et extérieure"], "a": 1, "why": "Le GDO organise le CIS en zones sale, semi-propre et propre, avec le principe de marche en avant (GDO toxicité des fumées)."},
+  {"q": "Comment se mènent les actions offensives à l'intérieur d'un volume en feu ?", "c": ["Seul, pour aller plus vite", "À trois minimum", "Au choix du chef d'agrès", "Systématiquement en binôme"], "a": 3, "why": "Les actions offensives à l'intérieur d'un volume se font systématiquement en binôme (GDO incendies de structures, 2018)."},
+  {"q": "Que doit mettre en place le COS dès que possible sur un feu de structure ?", "c": ["Un binôme de sécurité", "Un point presse", "Un deuxième COS", "Une équipe de relève médicale"], "a": 0, "why": "Le COS met en place un binôme de sécurité dès que possible (GDO incendies de structures)."},
+  {"q": "Quelles sont les trois zones de sécurité définies par la doctrine incendie ?", "c": ["Zone chaude, tiède, froide", "Zone A, B, C", "Zone d'exclusion, zone contrôlée, zone de soutien", "Zone publique, privée, militaire"], "a": 2, "why": "Le lexique du GDO définit la zone d'exclusion (ZE), la zone contrôlée (ZC) et la zone de soutien (ZS) (GDO incendies de structures)."},
+  {"q": "Quels sont les trois éléments du triangle du feu ?", "c": ["Eau, air, chaleur", "Combustible, comburant, énergie d'activation", "Fumée, flamme, braise", "Oxygène, azote, carbone"], "a": 1, "why": "La combustion suppose un combustible, un comburant et un apport d'énergie (GDO incendies de structures)."},
+  {"q": "Quelle norme européenne vise les gants de protection des sapeurs-pompiers ?", "c": ["EN 14604", "EN 3", "EN 659", "EN 471"], "a": 2, "why": "La norme NF EN 659 porte sur les gants de protection pour sapeurs-pompiers (AFNOR)."}
+ ]
+}

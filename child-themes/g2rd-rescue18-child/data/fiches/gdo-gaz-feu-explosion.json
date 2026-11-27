@@ -1,0 +1,50 @@
+{
+ "slug": "gdo-gaz-feu-explosion",
+ "titre": "Gaz enflammé et explosion : conduite à tenir et sécurité des intervenants",
+ "theme": "Risques technologiques",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle : Interventions en présence de gaz (DGSCGC, 1re édition, décembre 2021)",
+ "resume": "Une fuite enflammée ou une explosion de gaz exposent au rayonnement, à la surpression et aux projections. Tu protèges l'environnement, tu barres le gaz avant d'éteindre et tu te tiens à distance ou derrière un écran solide.",
+ "cles": [
+  "Conditions d'une explosion : gaz combustible, comburant, source d'inflammation, concentration dans la plage d'explosivité. Le confinement aggrave le phénomène.",
+  "UVCE : explosion d'un nuage de gaz inflammable en milieu non confiné, après fuite, dispersion puis inflammation au contact d'une source.",
+  "BLEVE : rupture brutale d'un réservoir de gaz liquéfié fragilisé par la chaleur ou un choc. Le produit n'a pas besoin d'être inflammable.",
+  "Les feux de gaz sont des feux de classe C.",
+  "Incendie d'un local alimenté en gaz : le COS cherche à barrer l'alimentation et protège l'environnement en attendant.",
+  "Barrage impossible : le COS engage du personnel uniquement face à un risque pour les personnes. Odeur et sifflement annoncent une explosion imminente.",
+  "Feu de coffret en façade : le gaz non brûlé s'accumule sous une avancée de toiture ou pénètre dans les locaux.",
+  "Seuls la distance et un écran solide protègent du blast. Place les équipes derrière des murs capables de résister.",
+  "Flux thermique sur l'homme : 3 kW/m² effets irréversibles, 5 kW/m² premiers effets létaux, 8 kW/m² effets létaux significatifs.",
+  "Victime d'explosion : traumatisée, brûlée, blastée et intoxiquée à la fois. Les plus graves se trouvent près de l'épicentre."
+ ],
+ "retenir": [
+  "Fuite enflammée : la flamme s'éteint par barrage de la conduite, sauf absolue nécessité. Éteindre sans arrêter la fuite recrée un risque d'explosion.",
+  "Extinction avant arrêt de la fuite : décision conjointe COS et exploitant sur quatre critères. Urgence absolue, barrage impossible ou trop long, neutralisation possible à la fuite, aucune matière en ignition autour.",
+  "Mise en œuvre : l'agent de l'exploitant avance encadré de porte-lances en jet diffusé de protection. Sur moyenne pression, des lances supplémentaires en retrait protègent les porte-lances.",
+  "Distance d'engagement : au moins 1,5 fois la hauteur du bâtiment pour tenir compte de l'effondrement. Binôme de sécurité protégé, matériel prêt, hors zone d'exclusion.",
+  "Surpression : 20 mbar bris de vitres, 50 mbar effets irréversibles, 140 mbar premiers effets létaux, 200 mbar effets létaux significatifs sur l'homme."
+ ],
+ "pieges": [
+  "Ne pas souffler la flamme avec les lances de protection, ni noyer une conduite en tranchée par effet « baignoire ».",
+  "Ne pas croire le risque d'explosion écarté quand le gaz brûle : une part du gaz ne brûle pas et s'accumule.",
+  "Ne pas s'abriter derrière un véhicule de tourisme : il ne protège pas des effets d'une explosion.",
+  "Ne pas garder radios, téléphones ou bips non ATEX dans la zone d'exclusion.",
+  "Ne pas utiliser sonnette, interrupteur ou gâchette électrique de porte en présence de gaz."
+ ],
+ "quiz": "risques-gaz-electricite",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions en présence de gaz (DGSCGC, 2021)",
+   "https://rescue18.com/wp-content/uploads/2023/09/20211215-gdo-gaz-vd.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Gas pipeline near gas filling station.jpg",
+   "auteur": "Homoatrox",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Gas_pipeline_near_gas_filling_station.jpg",
+   "alt": "Canalisation de gaz jaune protégée par une clôture avec panneau de danger."
+  }
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "slug": "intoxications-monoxyde",
+ "titre": "Monoxyde de carbone : reconnaître, se protéger, agir",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "7 min",
+ "resume": "Révise les signes d'une intoxication au CO, la sécurité des intervenants et la prise en charge des victimes, seules ou en groupe.",
+ "sources": [
+  ["Santé publique France, Quels sont les signes d'une intoxication au monoxyde de carbone ?", "https://www.santepubliquefrance.fr/monoxyde-de-carbone/quels-sont-les-signes-dune-intoxication-au-monoxyde-de-carbone"],
+  ["Santé.fr, Comment éviter une intoxication au monoxyde de carbone ?", "https://sante.fr/comment-eviter-une-intoxication-au-monoxyde-de-carbone"],
+  ["ENASIS, Référentiel technique SUAP : 13.6 L'intoxication par le monoxyde de carbone", "https://enasis.fr/pluginfile.php/187772/mod_resource/content/2/SUAP-CT-13-Les%20intoxications-12-13.pdf"]
+ ],
+ "questions": [
+  {
+   "q": "Pourquoi le monoxyde de carbone piège-t-il les occupants d'un logement ?",
+   "c": ["Il dégage une odeur d'œuf pourri", "Il est incolore, inodore, sans saveur et non irritant", "Il forme une fumée noire au plafond", "Il pique les yeux dès les premières secondes"],
+   "a": 1,
+   "why": "Santé publique France décrit le CO comme incolore, inodore, sans saveur et non irritant. Aucun de tes sens ne le détecte."
+  },
+  {
+   "q": "Quelle est l'origine du monoxyde de carbone dans un logement ?",
+   "c": ["Une fuite d'eau chaude", "Un court-circuit électrique", "Une combustion incomplète", "L'humidité des murs"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP indique que le CO se dégage lors de toute combustion incomplète. Chaudières, poêles, chauffe-eau, braseros et moteurs en sont des sources."
+  },
+  {
+   "q": "Quels sont les premiers signes les plus fréquents d'une intoxication au CO ?",
+   "c": ["Maux de tête, fatigue, nausées et vomissements", "Fièvre et éruption cutanée", "Douleur au genou et boiterie", "Démangeaisons et éternuements"],
+   "a": 0,
+   "why": "Santé publique France cite céphalées, asthénie, nausées et vomissements comme signes précoces. Ils se confondent avec une grippe ou une intoxication alimentaire."
+  },
+  {
+   "q": "Plusieurs personnes d'un même logement présentent des troubles digestifs et des maux de tête. Que dois-tu évoquer ?",
+   "c": ["Une gastro-entérite à coup sûr", "Une allergie collective au pollen", "Une crise d'angoisse partagée", "Une intoxication au monoxyde de carbone"],
+   "a": 3,
+   "why": "Le référentiel technique SUAP demande de penser au CO devant un malaise collectif, surtout avec des signes digestifs qui évoquent une intoxication alimentaire. Santé publique France rappelle que l'intoxication touche souvent plusieurs personnes."
+  },
+  {
+   "q": "Selon le référentiel technique SUAP, quand le détecteur de CO doit-il être présent ?",
+   "c": ["Pour toute intervention", "Uniquement sur les feux de cheminée", "Uniquement la nuit", "Uniquement sur demande du médecin régulateur"],
+   "a": 0,
+   "why": "Le référentiel technique SUAP impose la présence du détecteur de CO sur les lieux pour toute intervention. Le CO se rencontre aussi pendant le déblai d'un incendie."
+  },
+  {
+   "q": "Selon le référentiel technique SUAP, à quelle concentration se situe le premier seuil d'alerte du détecteur de CO ?",
+   "c": ["5 ppm", "500 ppm", "35 ppm", "2 000 ppm"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP fixe le premier seuil d'alerte à 35 ppm, signe d'un danger imminent. Le second seuil d'alarme se situe à 200 ppm."
+  },
+  {
+   "q": "Pourquoi ne te fies-tu pas à l'oxymètre de pouls (SpO2) chez une victime de CO ?",
+   "c": ["Il ne fonctionne pas au froid", "Il ne distingue pas l'hémoglobine liée à l'oxygène de celle liée au CO", "Il surestime toujours la fréquence cardiaque", "Il est interdit en milieu clos"],
+   "a": 1,
+   "why": "Le référentiel technique SUAP précise que l'oxymètre ne fait pas la différence entre l'oxyhémoglobine et l'hémoglobine liée au CO. La saturation affichée paraît normale à tort."
+  },
+  {
+   "q": "Victime extraite d'un local contaminé au CO, signes légers. Quelle oxygénothérapie ?",
+   "c": ["Aucune, les signes sont légers", "Oxygène au masque à haute concentration, de façon systématique", "Oxygène uniquement si elle perd connaissance", "Lunettes à oxygène à faible débit"],
+   "a": 1,
+   "why": "Le référentiel technique SUAP demande d'administrer systématiquement l'oxygène au masque à haute concentration, même en cas de signes légers. Tu adaptes ensuite les gestes à la gravité."
+  },
+  {
+   "q": "Comment l'équipe évacue-t-elle une victime d'un local saturé en CO ?",
+   "c": ["Sous appareil respiratoire isolant (ARI) si possible", "Avec un simple masque chirurgical", "Sans protection, en courant", "En attendant que le local se ventile seul"],
+   "a": 0,
+   "why": "Le référentiel technique SUAP prévoit l'évacuation par un personnel sous ARI si possible, ou en apnée. Tu aères ensuite et tu coupes la source si c'est possible."
+  },
+  {
+   "q": "Pourquoi une femme enceinte exposée au CO demande-t-elle une attention particulière ?",
+   "c": ["Le CO ne traverse pas le placenta", "Elle élimine le CO deux fois plus vite", "Le fœtus est gravement atteint même si la mère a peu de signes", "Elle ne doit pas recevoir d'oxygène"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP souligne que le fœtus subit des atteintes graves même quand la mère a peu de signes. La grossesse fait partie des indications du caisson hyperbare."
+  },
+  {
+   "q": "Pourquoi l'enfant est-il plus gravement atteint par le CO que l'adulte ?",
+   "c": ["Il respire plus lentement", "Il respire plus vite et son cerveau est en développement", "Il a plus d'hémoglobine", "Il est plus grand que l'adulte"],
+   "a": 1,
+   "why": "Le référentiel technique SUAP explique que l'enfant respire plus vite et que son cerveau se développe encore. L'enfant figure parmi les indications du caisson hyperbare."
+  },
+  {
+   "q": "Un particulier soupçonne une intoxication au CO chez lui. Quel conseil lui donnes-tu en premier ?",
+   "c": ["Fermer portes et fenêtres pour garder la chaleur", "Rallumer la chaudière pour vérifier", "Aller se coucher et attendre le matin", "Aérer en ouvrant portes et fenêtres, arrêter les appareils à combustion et sortir"],
+   "a": 3,
+   "why": "Santé.fr demande d'aérer immédiatement, d'arrêter les appareils à combustion si possible et de quitter les lieux. On appelle ensuite le 15, le 18 ou le 112, et le 114 pour les personnes sourdes ou malentendantes."
+  },
+  {
+   "q": "Quelle norme doit respecter un détecteur de CO domestique ?",
+   "c": ["NF EN 50291", "NF EN 14604", "ISO 9001", "NF EN 3"],
+   "a": 0,
+   "why": "Santé.fr indique que les détecteurs de CO du commerce doivent respecter la norme NF EN 50291. Leur pose n'est pas obligatoire et ne remplace pas l'entretien annuel des appareils."
+  }
+ ]
+}

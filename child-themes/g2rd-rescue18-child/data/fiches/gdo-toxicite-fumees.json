@@ -1,0 +1,56 @@
+{
+ "slug": "gdo-toxicite-fumees",
+ "titre": "Toxicité des fumées : te protéger avant, pendant et après le feu",
+ "theme": "Incendie",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle : Prévention des risques liés à la toxicité des fumées (2e édition)",
+ "resume": "Les fumées d'incendie exposent les sapeurs-pompiers à des polluants qui pénètrent par plusieurs voies. Le GDO fixe les mesures de prévention avant, pendant et après l'intervention.",
+ "cles": [
+  "Les fumées de structures contiennent notamment CO, cyanure d'hydrogène, oxydes d'azote et benzène.",
+  "Les suies contiennent des HAP, hydrocarbures aromatiques polycycliques.",
+  "Quatre voies de pénétration : inhalation, ingestion, voie percutanée, voie oculaire.",
+  "Chaleur, humidité et peau fine du visage et du cou favorisent le passage par la peau.",
+  "Le risque dépend de la fréquence, de la durée et de l'intensité de l'exposition.",
+  "La filière sale-propre sépare le sale du propre au CIS.",
+  "Stationne les engins vitres et ventilations fermées.",
+  "Avant de boire ou de manger, nettoie visage, cou et mains à la lingette ou à l'eau froide savonneuse.",
+  "Le masque d'ARI se porte sur une peau rasée."
+ ],
+ "retenir": [
+  "En zone d'exclusion, l'ARI se porte en permanence jusqu'à la fin de l'opération.",
+  "Protection respiratoire, cutanée et oculaire obligatoire au-delà de la phase d'attaque, notamment en déblai.",
+  "Au retour au CIS, prends ta douche sans attendre.",
+  "À l'air libre, la désorption d'une tenue se poursuit plus de 48 heures.",
+  "Principe du juste besoin d'exposition, transposé du principe ALARA."
+ ],
+ "pieges": [
+  "Ne pas compter sur la cagoule filtrante contre les gaz : elle ne les filtre pas.",
+  "Ne pas rejoindre les espaces de vie avant la douche.",
+  "Ne pas ranger une tenue qui sent encore la fumée.",
+  "Confondre absorption, pénétration dans un milieu, et adsorption, fixation en surface.",
+  "Ne pas nettoyer un ARI au jet haute pression."
+ ],
+ "quiz": "securite-intervention-epi",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Prévention des risques liés à la toxicité des fumées, 2e édition (DGSCGC, 2020)",
+   "https://interieur.gouv.fr/content/download/133630/1059122/file/GDO-Prevention-Risques-Toxicite-Fumees.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Smoke house training.jpg",
+   "auteur": "Staffsfire",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Smoke_house_training.jpg",
+   "alt": "Pompier sous ARI dans un caisson d'entraînement rempli de fumée."
+  },
+  {
+   "fichier": "File:Picking up where CENTAM SMOKE left off 141203-F-ZT243-011.jpg",
+   "auteur": "Tech. Sgt. Heather Redman",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Picking_up_where_CENTAM_SMOKE_left_off_141203-F-ZT243-011.jpg",
+   "alt": "Pompier ajustant le masque de son appareil respiratoire."
+  }
+ ]
+}

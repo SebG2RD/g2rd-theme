@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-photovoltaique",
+ "titre": "Interventions en présence d'éléments photovoltaïques",
+ "theme": "Risques technologiques",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle « Interventions en présence d'éléments photovoltaïques » (GDO V2-2017, DGSCGC, septembre 2017)",
+ "resume": "Un panneau photovoltaïque éclairé produit du courant en permanence. Tu coupes d'abord côté AC puis côté DC, tu considères l'amont de l'onduleur toujours sous tension et tu attaques en jet diffusé à plus de 5 m.",
+ "cles": [
+  "Le panneau PV (photovoltaïque) produit un courant continu (DC), converti en courant alternatif (AC) par l'onduleur.",
+  "Sauf occultation totale des panneaux, impossible de couper l'alimentation en amont de l'onduleur.",
+  "Les câbles entre panneaux et onduleur restent sous tension le jour, même disjoncteurs actionnés.",
+  "Aucun détecteur de tension ne garantit l'absence de tension dans la partie DC.",
+  "Le pictogramme PV figure à l'accès des secours, sur les plans, aux locaux techniques et sur les câbles DC tous les 5 m.",
+  "Organes de coupure : côté DC au coffret DC, côté AC au coffret AC et à l'AGCP (appareil général de commande et de protection).",
+  "Dès l'appel, le CTA sollicite le gestionnaire ou l'exploitant. Emporte la valise électro-secours et préviens ENEDIS.",
+  "Un éclairage artificiel direct et puissant génère une tension dangereuse : préfère un ballon lumineux à plus de 5 m.",
+  "Tous les agents extincteurs sont efficaces : eau, poudre, CO2, eau pulvérisée.",
+  "Chaussée PV : dalles en série par 3, 60 V maximum en courant continu, sous le seuil de danger pour les intervenants."
+ ],
+ "retenir": [
+  "Distance minimale entre nacelle ou échelle et panneau PV : 1 m. Tout contact est proscrit.",
+  "Attaque en jet diffusé à plus de 5 m, après un test de légère ouverture et fermeture de la lance. Le jet droit est à écarter.",
+  "Ordre de sécurisation : coupe d'abord la partie AC (AGCP, source autonome), puis actionne la coupure du champ PV côté DC et de la batterie.",
+  "Chaussée PV : sinistre hors chaussée sans atteinte, pas de coupure. Chaussée délabrée, coupure au coffret AC. Muret touché, coffret AC s'il est intact, sinon tableau divisionnaire.",
+  "Désengagement après deux garanties : plus de risque de blessure ni de choc électrique, plus de risque d'échauffement ou d'arc capable de rallumer le feu."
+ ],
+ "pieges": [
+  "Ne pas progresser sur les modules en verre, glissants : utilise le LSPCC (lot de sauvetage et de protection contre les chutes) et une échelle de toit plate.",
+  "Ne pas occulter les panneaux à la mousse : son opacité est insuffisante.",
+  "Ne pas oublier la coupure du gaz et de l'électricité du bâtiment.",
+  "Ne pas remettre l'installation sous tension : l'exploitant s'en charge après accord du COS.",
+  "Confondre panneau solaire thermique et panneau PV : dans le doute, considère le risque électrique."
+ ],
+ "quiz": "risques-gaz-electricite",
+ "sources": [
+  [
+   "Interventions en présence d'éléments photovoltaïques, Guide de doctrine opérationnelle (DGSCGC, 2017)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo-ppv-vf-12102017.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Solar panels on a roof.jpg",
+   "auteur": "Pujanak",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Solar_panels_on_a_roof.jpg",
+   "alt": "Panneaux photovoltaïques sur le toit en tuiles d'une maison."
+  },
+  {
+   "fichier": "File:Solar panels on metal roof.jpg",
+   "auteur": "Wikideas1",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Solar_panels_on_metal_roof.jpg",
+   "alt": "Panneaux solaires couvrant le toit en tôle d'un bâtiment agricole."
+  }
+ ]
+}

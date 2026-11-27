@@ -1,0 +1,490 @@
+/* ==========================================================================
+   GlassAuto Vernon — En-tête, pied de page, barre mobile
+   ========================================================================== */
+
+/* --- Logotype provisoire (bloc site-logo sans média) ------------------------ */
+.ga-logo__link {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	color: var(--wp--preset--color--ga-blanc);
+	text-decoration: none;
+}
+
+.ga-logo__word {
+	font-family: var(--wp--preset--font-family--titres);
+	font-size: 2rem;
+	font-weight: 800;
+	letter-spacing: -0.055em;
+	line-height: 1;
+}
+
+.ga-logo__loc {
+	transform: translateY(-0.15rem);
+	font-size: 0.6875rem;
+	font-weight: 800;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+.ga-header .wp-block-site-logo img,
+.ga-footer .wp-block-site-logo img {
+	max-height: 2.25rem;
+	width: auto;
+}
+
+/* --- Barre utilitaire ----------------------------------------------------------- */
+.ga-utility {
+	border-bottom: 1px solid var(--wp--preset--color--ga-brume);
+	color: var(--wp--preset--color--ga-graphite);
+}
+
+.ga-utility__inner {
+	min-height: 2.25rem;
+	gap: var(--wp--preset--spacing--s);
+}
+
+.ga-utility__info,
+.ga-utility__partner {
+	display: flex;
+	align-items: center;
+	gap: var(--wp--preset--spacing--s);
+	margin: 0;
+}
+
+.ga-utility__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.ga-utility__item::before {
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	background-color: var(--wp--preset--color--ga-turquoise-encre);
+	-webkit-mask: var(--ga-icon-pin) center/contain no-repeat;
+	mask: var(--ga-icon-pin) center/contain no-repeat;
+}
+
+.ga-utility__item + .ga-utility__sep + .ga-utility__item::before {
+	-webkit-mask-image: var(--ga-icon-horloge);
+	mask-image: var(--ga-icon-horloge);
+}
+
+.ga-utility__sep {
+	width: 1px;
+	height: 1rem;
+	background: var(--wp--preset--color--ga-gris-clair);
+}
+
+.ga-utility__partner a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-weight: 700;
+	color: var(--wp--preset--color--ga-anthracite);
+	text-decoration: none;
+}
+
+.ga-utility__partner a::before {
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	background-color: currentColor;
+	-webkit-mask: var(--ga-icon-cadenas) center/contain no-repeat;
+	mask: var(--ga-icon-cadenas) center/contain no-repeat;
+}
+
+.ga-utility__partner a:hover {
+	color: var(--wp--preset--color--ga-turquoise-encre);
+	text-decoration: underline;
+}
+
+/* --- En-tête --------------------------------------------------------------------- */
+.ga-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	/* Rognage horizontal seulement : la diagonale blanche des actions déborde à droite,
+	   mais les sous-menus doivent pouvoir s'ouvrir sous l'en-tête. */
+	overflow: visible;
+	overflow-x: clip;
+}
+
+.admin-bar .ga-header { top: 32px; }
+
+@media (max-width: 782px) {
+	.admin-bar .ga-header { top: 46px; }
+}
+
+.ga-header__inner {
+	min-height: var(--ga-header-h);
+	gap: var(--wp--preset--spacing--m);
+}
+
+.ga-header__inner > .wp-block-site-logo { flex: none; }
+
+/* Navigation principale */
+.ga-nav {
+	flex: 1;
+	min-width: 0;
+	gap: clamp(0.6rem, 0.1rem + 0.9vw, 1.25rem) !important;
+}
+
+.ga-nav .wp-block-navigation__container { gap: inherit; flex-wrap: nowrap; }
+
+.ga-nav .wp-block-navigation-item__content {
+	position: relative;
+	padding-block: 0.35rem;
+	color: var(--wp--preset--color--ga-blanc);
+	font-weight: 700;
+	font-size: 0.9375rem;
+	white-space: nowrap;
+}
+
+.ga-nav .wp-block-navigation-item__content::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.28);
+	transition: background-color var(--ga-dur) var(--ga-ease);
+}
+
+.ga-nav .wp-block-navigation-item__content:hover::after { background: var(--wp--preset--color--ga-blanc); }
+
+.ga-nav .current-menu-item > .wp-block-navigation-item__content::after,
+.ga-nav .current-menu-ancestor > .wp-block-navigation-item__content::after {
+	height: 2px;
+	background: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+.ga-nav .wp-block-navigation__submenu-icon { color: var(--wp--preset--color--ga-blanc); }
+
+/* Sous-menu (prestations) : panneau blanc, filet turquoise */
+.ga-nav .wp-block-navigation__submenu-container {
+	min-width: 18rem;
+	padding: var(--wp--preset--spacing--xs) 0;
+	border: 0;
+	border-top: 4px solid var(--wp--preset--color--ga-turquoise);
+	border-radius: 0 0 var(--wp--custom--radius--card) var(--wp--custom--radius--card);
+	background: var(--wp--preset--color--ga-blanc);
+	box-shadow: var(--wp--preset--shadow--menu);
+}
+
+.ga-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	display: block;
+	padding: 0.6rem 1.25rem;
+	color: var(--wp--preset--color--ga-anthracite);
+	font-size: 0.9375rem;
+}
+
+.ga-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content::after { display: none; }
+.ga-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover { background: var(--wp--preset--color--ga-nuage); }
+
+/* Zone claire à droite, coupée selon la pente de marque (72/112) */
+.ga-header__actions {
+	position: relative;
+	align-self: stretch;
+	min-height: var(--ga-header-h);
+	margin-left: auto;
+	padding-left: 4.5rem;
+	gap: var(--wp--preset--spacing--m);
+	flex: none;
+}
+
+.ga-header__actions::before {
+	content: "";
+	position: absolute;
+	z-index: 0;
+	inset: 0 -100vw 0 0;
+	background: var(--wp--preset--color--ga-nuage);
+	clip-path: polygon(calc(var(--ga-header-h) * var(--ga-pente)) 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.ga-header__actions > * { position: relative; z-index: 1; margin: 0; }
+
+.ga-header__tel a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	color: var(--wp--preset--color--ga-anthracite);
+	font-size: 1.0625rem;
+	font-weight: 800;
+	line-height: 1.15;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.ga-header__tel a::before {
+	content: "";
+	flex: none;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	background:
+		var(--ga-icon-tel) center / 1.25rem no-repeat,
+		var(--wp--preset--color--ga-blanc);
+	box-shadow: inset 0 0 0 1.5px var(--wp--preset--color--ga-gris-clair);
+	transition: box-shadow var(--ga-dur) var(--ga-ease);
+}
+
+.ga-header__tel a:hover::before { box-shadow: inset 0 0 0 1.5px var(--wp--preset--color--ga-anthracite); }
+
+.ga-header__tel-label {
+	display: block;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ga-gris);
+}
+
+.ga-header__rdv .wp-block-button__link::before {
+	content: "";
+	width: 1.15em;
+	height: 1.15em;
+	background-color: currentColor;
+	-webkit-mask: var(--ga-icon-calendrier) center/contain no-repeat;
+	mask: var(--ga-icon-calendrier) center/contain no-repeat;
+}
+
+/* Bouton d'ouverture du menu mobile */
+.ga-nav .wp-block-navigation__responsive-container-open,
+.ga-nav .wp-block-navigation__responsive-container-close {
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	border-radius: 50%;
+	background: var(--wp--preset--color--ga-anthracite);
+	color: var(--wp--preset--color--ga-blanc);
+}
+
+.ga-nav .wp-block-navigation__responsive-container-open svg,
+.ga-nav .wp-block-navigation__responsive-container-close svg { width: 1.5rem; height: 1.5rem; }
+
+/* Menu mobile ouvert : fond anthracite, grandes entrées */
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open {
+	padding: calc(var(--ga-header-h) + 1rem) var(--wp--preset--spacing--gouttiere) var(--wp--preset--spacing--xxl);
+	background: var(--wp--preset--color--ga-anthracite);
+}
+
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--wp--preset--spacing--s) 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	font-family: var(--wp--preset--font-family--titres);
+	font-size: 1.5rem;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	white-space: normal;
+}
+
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content::after { display: none; }
+
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container {
+	min-width: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	padding-left: var(--wp--preset--spacing--s);
+}
+
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	font-family: var(--wp--preset--font-family--texte);
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: #d6d8db;
+	border-bottom: 0;
+	padding: 0.5rem 0;
+}
+
+.ga-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close {
+	top: calc(var(--ga-header-h) / 2 - 1.375rem);
+	right: var(--wp--preset--spacing--gouttiere);
+}
+
+/* Points de rupture */
+@media (min-width: 1181px) {
+	.ga-nav .wp-block-navigation__responsive-container-open { display: none; }
+	.ga-nav .wp-block-navigation__responsive-container:not(.is-menu-open) { display: flex; }
+}
+
+@media (max-width: 1180px) {
+	.ga-utility { display: none; }
+	.ga-header__actions { padding-left: 3rem; gap: var(--wp--preset--spacing--s); }
+	.ga-header__tel a { font-size: 0; gap: 0; }
+	.ga-header__tel a::before { font-size: 1rem; }
+	.ga-header__tel-label { display: none; }
+}
+
+@media (max-width: 760px) {
+	.ga-header__rdv { display: none !important; }
+	.ga-header__actions { padding-left: 2.75rem; }
+	.ga-logo__word { font-size: 1.625rem; }
+}
+
+/* Le libellé « Appeler le centre » ne tient jamais à côté du menu complet dans le conteneur de 1 312 px : masqué à toutes les largeurs (le lien garde son nom accessible via le numéro). */
+.ga-header__tel-label { display: none; }
+
+@media (min-width: 1181px) and (max-width: 1520px) {
+	.ga-header__tel a { font-size: 0.9375rem; }
+	.ga-header__actions { padding-left: 3.5rem; }
+}
+
+/* Dans l'éditeur, l'en-tête reste dans le flux. */
+.block-editor-iframe__body .ga-header,
+.editor-styles-wrapper .ga-header { position: relative !important; }
+
+/* --- Pied de page ----------------------------------------------------------------- */
+.ga-footer {
+	color: #c9ccd0;
+	font-size: var(--wp--preset--font-size--s);
+}
+
+.ga-footer__grid {
+	display: grid;
+	grid-template-columns: 1.35fr 1fr 1fr 1fr;
+	gap: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--l);
+	padding-top: var(--wp--preset--spacing--xxl);
+	padding-bottom: var(--wp--preset--spacing--xl);
+}
+
+.ga-footer__brand > p { max-width: 22rem; }
+.ga-footer__brand > .ga-coords { margin-top: var(--wp--preset--spacing--m); }
+
+.ga-footer__title {
+	margin: 0 0 var(--wp--preset--spacing--s);
+	color: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+.ga-footer__links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.55rem;
+}
+
+.ga-footer__links a {
+	color: #e3e5e8;
+	text-decoration: none;
+}
+
+.ga-footer__links a:hover { color: var(--wp--preset--color--ga-blanc); text-decoration: underline; }
+
+.ga-footer__partner a::before {
+	content: "";
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.4rem;
+	vertical-align: -0.15rem;
+	background-color: currentColor;
+	-webkit-mask: var(--ga-icon-cadenas) center/contain no-repeat;
+	mask: var(--ga-icon-cadenas) center/contain no-repeat;
+}
+
+.ga-footer__zone > p {
+	margin: 0;
+	padding: var(--wp--preset--spacing--m) 0 var(--wp--preset--spacing--l);
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+	line-height: 1.6;
+}
+
+.ga-footer__zone strong { color: var(--wp--preset--color--ga-blanc); }
+.ga-footer__zone a { color: var(--wp--preset--color--ga-turquoise-clair); }
+
+.ga-footer__legal {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.ga-footer__legal-inner {
+	padding-top: var(--wp--preset--spacing--s);
+	padding-bottom: var(--wp--preset--spacing--s);
+	gap: var(--wp--preset--spacing--xs) var(--wp--preset--spacing--m);
+}
+
+.ga-footer__legal p { margin: 0; }
+
+.ga-footer__legal a {
+	color: #c9ccd0;
+	text-decoration: none;
+}
+
+.ga-footer__legal a:hover { color: var(--wp--preset--color--ga-blanc); text-decoration: underline; }
+
+.ga-footer__legal-links a + a { margin-left: var(--wp--preset--spacing--s); }
+.ga-footer__credit { opacity: 0.75; }
+
+@media (max-width: 1100px) {
+	.ga-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+	.ga-footer__grid { grid-template-columns: minmax(0, 1fr); padding-top: var(--wp--preset--spacing--xl); }
+	.ga-footer__legal-links a { display: block; margin: 0.25rem 0 0 !important; }
+}
+
+/* --- Barre d'actions mobile ------------------------------------------------------- */
+.ga-mobile-bar { display: none !important; }
+
+@media (max-width: 760px) {
+	body.ga { padding-bottom: 4.25rem; }
+
+	.ga-mobile-bar {
+		position: fixed;
+		display: grid !important;
+		z-index: 120;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: grid;
+		grid-template-columns: 1fr 1.4fr;
+		gap: 0 !important;
+		box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.18);
+	}
+
+	.ga-mobile-bar p { margin: 0; }
+
+	.ga-mobile-bar a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		min-height: 4.25rem;
+		font-weight: 800;
+		color: var(--wp--preset--color--ga-blanc);
+		text-decoration: none;
+	}
+
+	.ga-mobile-bar a::before {
+		content: "";
+		width: 1.35rem;
+		height: 1.35rem;
+		background-color: currentColor;
+		-webkit-mask: var(--ga-icon) center/contain no-repeat;
+		mask: var(--ga-icon) center/contain no-repeat;
+	}
+
+	.ga-mobile-bar__tel a { background: var(--wp--preset--color--ga-anthracite); --ga-icon: var(--ga-icon-tel); }
+	.ga-mobile-bar__rdv a { background: var(--wp--preset--color--ga-fuchsia); --ga-icon: var(--ga-icon-calendrier); }
+
+	.block-editor-iframe__body .ga-mobile-bar,
+	.editor-styles-wrapper .ga-mobile-bar { position: static; }
+}
+
+/* Largeurs intermédiaires (1181–1340 px) : le numéro passe en icône seule pour laisser la place à la navigation. */
+@media (min-width: 1181px) and (max-width: 1340px) {
+	.ga-header__inner { gap: var(--wp--preset--spacing--s); }
+	.ga-header__actions { gap: var(--wp--preset--spacing--s); }
+	.ga-header__tel a { font-size: 0; gap: 0; }
+	.ga-nav { gap: 0.6rem !important; }
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "pse-traumatisme-tete-rachis",
+ "titre": "Traumatismes du crâne et du rachis : maintien de tête, collier, MID",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Face à un traumatisé du crâne ou du rachis, tu traites d'abord toute détresse vitale, tu stabilises la tête puis tu décides de l'immobilisation corps entier selon des critères précis. Le matelas immobilisateur à dépression (MID) reste le moyen de référence.",
+ "cles": [
+  "Traumatisme crânien : surveille la conscience. Une perte de connaissance secondaire ou un intervalle libre signe une aggravation.",
+  "Hématome en lunettes, otorragie, épistaxis : pense fracture de la base du crâne. La compression d'une otorragie ne sert à rien.",
+  "Environ 15 % des traumatismes vertébraux s'accompagnent d'une lésion de la moelle épinière.",
+  "Signes de la moelle : baisse de force ou de sensibilité des mains ou des pieds, décharges électriques, perte des urines, priapisme.",
+  "Stabilisation : tête maintenue à deux mains. Restriction : blocs de tête, collier, MID. Immobilisation : combinaison de moyens sur le corps entier.",
+  "L'immobilisation du rachis ne passe jamais avant la prise en charge d'une détresse vitale.",
+  "Replace la tête dans l'axe sans traction. Stoppe si résistance, douleur cervicale ou fourmillements, et garde la tête dans sa position.",
+  "Victime allongée au sol : préfère le brancard cuillère au plan dur pour la relever. À défaut, pont à plusieurs secouristes.",
+  "Plan dur : extraction ou victime retrouvée debout. Immobilisation sur plan dur à titre exceptionnel, faute de MID.",
+  "Attelle cervico-thoracique (ACT) : réservée à l'extraction. Retire-la une fois la victime posée sur le MID, avant le transport."
+ ],
+ "retenir": [
+  "Haut risque rachis : chute sur la tête de plus de 1 m, chute sur les pieds ou les fesses de plus de 3 m, choc à plus de 40 km/h avec arrêt brutal.",
+  "Immobilisation corps entier : réponses non fiables, signes d'atteinte du rachis ou de la moelle, ou haut risque chez une victime de plus de 65 ans ou à antécédents.",
+  "Collier : hauteur égale à la distance menton haut du sternum. Contre-indiqué si obstruction possible des voies aériennes ou déformation préexistante.",
+  "MID en priorité, laissé en place jusqu'au brancard de l'hôpital. Desserre le collier une fois la victime immobilisée dans le MID.",
+  "Enfant ou nourrisson tombé d'une hauteur supérieure à sa taille : suspecte un traumatisme crânien et demande un avis médical immédiat."
+ ],
+ "pieges": [
+  "Ne pas poser le collier cervical de façon systématique : il sert si la stabilisation manuelle est difficile ou aléatoire.",
+  "Ne pas oublier de réévaluer la liberté des voies aériennes après la pose du collier.",
+  "Ne pas laisser le MID appuyer sur le sommet du crâne : l'aspiration entraîne une flexion de la tête.",
+  "Ne pas immobiliser une victime atteinte d'une plaie pénétrante isolée du thorax, du cou ou de la tête.",
+  "Ne pas forcer l'immobilisation d'une victime agitée : laisse-la dans la position confortable et maintiens la tête à deux mains."
+ ],
+ "quiz": "traumatismes-immobilisation",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Cervical-collar-application.png",
+   "auteur": "Baedr-9439",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Cervical-collar-application.png",
+   "alt": "Dessin de deux secouristes posant un collier cervical."
+  },
+  {
+   "fichier": "File:LateralCollar.JPG",
+   "auteur": "James Heilman, MD",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:LateralCollar.JPG",
+   "alt": "Personne vue de profil portant un collier cervical."
+  }
+ ]
+}

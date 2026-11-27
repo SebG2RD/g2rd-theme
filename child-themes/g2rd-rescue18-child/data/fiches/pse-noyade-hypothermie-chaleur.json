@@ -1,0 +1,57 @@
+{
+ "slug": "pse-noyade-hypothermie-chaleur",
+ "titre": "Noyade, hypothermie, coup de chaleur et gelures",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Noyade, hypothermie, affections liées à la chaleur et gelures relèvent toutes d'une atteinte circonstancielle. Tu soustrais d'abord la victime à la cause, puis tu appliques des gestes et des seuils de température propres à chaque situation.",
+ "cles": [
+  "Noyade : détresse respiratoire par immersion ou submersion. L'hypoxie et sa durée conditionnent le devenir de la victime.",
+  "Sauvetage aquatique : évite d'entrer dans l'eau, utilise bouée, perche, corde ou embarcation. Ne plonge jamais tête la première.",
+  "Sors vite le noyé de l'eau : une lésion du rachis reste rare, sauf plongeon ou accident de sport nautique.",
+  "Noyé en arrêt cardiaque : oxygène à haute concentration, 15 l/min. Sèche le thorax avant de poser les électrodes du DAE.",
+  "Hypothermie : température corporelle sous 35 °C. Légère 35 à 32 °C, modérée 32 à 28 °C, sévère 28 à 24 °C, grave sous 24 °C.",
+  "La disparition du frisson signe l'épuisement de l'organisme face au froid.",
+  "Hypothermie modérée ou sévère : mobilise sans à-coups, le risque d'arrêt cardiaque est élevé.",
+  "Coup de chaleur : température supérieure à 40 °C avec troubles neurologiques, évolution vers une détresse vitale.",
+  "Refroidissement : sous-vêtements laissés, ventilation, eau à température ambiante pulvérisée, glace aux plis de l'aine, aisselles, tête, nuque.",
+  "Gelures : retire bagues, gants et chaussures, sèche sans frictionner les zones gelées, protège contre l'hypothermie."
+ ],
+ "retenir": [
+  "Noyé en arrêt cardiaque : 5 insufflations initiales avant les compressions, compressions hors de l'eau. Secouriste isolé : 5 cycles de RCP avant d'alerter.",
+  "Hypotherme sans signe de vie : recherche les signes de vie au moins 1 minute. Sous 30 °C, 3 défibrillations au maximum avant réchauffement.",
+  "Coup de chaleur : objectif de température inférieure à 39,4 °C, transmission du bilan sans délai.",
+  "Gelure sévère de moins de 24 h sans risque de regel : eau entre 37 et 39 °C durant 20 à 30 minutes. Jamais au-delà de 39 °C.",
+  "Gelure mineure : réchauffe les extrémités contre la peau du sauveteur, main ou aisselle, pendant 10 minutes."
+ ],
+ "pieges": [
+  "Ne pas pratiquer de claques dans le dos ni de compressions abdominales chez un noyé : risque de régurgitation et RCP retardée.",
+  "Ne pas insister pour retirer la mousse aux lèvres du noyé : elle ne gêne pas la ventilation.",
+  "Ne pas réchauffer une gelure s'il existe le moindre risque de nouvelle exposition au froid.",
+  "Confondre réchauffement passif et actif : passif pour l'hypothermie légère avec frissons, actif pour la modérée ou sévère sans frisson.",
+  "Ne pas poser la glace directement sur la peau lors d'une insolation : risque de brûlure."
+ ],
+ "quiz": "noyade-sauvetage-aquatique",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Lifeguard August 2010-2.jpg",
+   "auteur": "Alvesgaspar",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Lifeguard_August_2010-2.jpg",
+   "alt": "Sauveteur en ciré jaune surveillant la mer depuis la plage."
+  },
+  {
+   "fichier": "File:2026 heat event in France - 43°C in Colombes 2026-june 24-03 13-24.jpg",
+   "auteur": "Tangopaso",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:2026_heat_event_in_France_-_43%C2%B0C_in_Colombes_2026-june_24-03_13-24.jpg",
+   "alt": "Thermomètre affichant 43 degrés pendant une canicule en France."
+  }
+ ]
+}

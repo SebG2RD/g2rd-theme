@@ -1,0 +1,170 @@
+{
+  "slug": "annales-sergent-2026",
+  "titre": "Concours sergent 2026 : le QCM de la session",
+  "theme": "Concours",
+  "niveau": "Sergent",
+  "duree": "12 min",
+  "resume": "Rejoue 14 questions du QCM du concours interne de sergent 2026. Secours à personne, risques chimiques, ERP, hydraulique, institutions : chaque réponse renvoie à un texte officiel.",
+  "sources": [
+    [
+      "Sujet officiel, concours interne de sergent SPP 2026, QCM (SDIS de l'Isère et CDG 38, publié par les CDG Auvergne-Rhône-Alpes)",
+      "https://www.cdg-aura.fr/sites/default/files/Annales/cdg-sdis38-sspp-2026-sujet-qcm.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "Chez un adulte en bonne santé, la SpO2 est considérée comme normale si elle est :",
+      "c": [
+        "Supérieure ou égale à 94 %",
+        "Supérieure ou égale à 92 %",
+        "Inférieure à 92 %",
+        "Supérieure ou égale à 88 %"
+      ],
+      "a": 0,
+      "why": "Le référentiel national PSE (DGSCGC) fixe la valeur normale de la SpO2 de l'adulte sain à 94 % ou plus. En dessous, tu notes une détresse respiratoire possible."
+    },
+    {
+      "q": "L'asepsie consiste à :",
+      "c": [
+        "Utiliser uniquement des gants stériles",
+        "Empêcher l'introduction de microbes dans l'organisme",
+        "Détruire les microbes",
+        "Désinfecter les sols"
+      ],
+      "a": 1,
+      "why": "Le référentiel PSE distingue l'asepsie, ensemble de mesures pour empêcher l'apport de micro-organismes, et l'antisepsie, qui les détruit sur les tissus vivants."
+    },
+    {
+      "q": "Qui déclenche le plan ORSEC NOVI (nombreuses victimes) ?",
+      "c": [
+        "Le premier chef d'agrès",
+        "Le président du conseil départemental",
+        "Le préfet",
+        "Le maire"
+      ],
+      "a": 2,
+      "why": "Le dispositif ORSEC départemental relève du préfet (Code de la sécurité intérieure, articles L741-1 et L741-2). Le plan NOVI en est une disposition spécifique."
+    },
+    {
+      "q": "Sur une carte au 1/25 000, 4 cm séparent le point de départ du sinistre. Quelle est la distance réelle ?",
+      "c": [
+        "4 km",
+        "400 m",
+        "1 km",
+        "100 m"
+      ],
+      "a": 2,
+      "why": "4 cm × 25 000 = 100 000 cm, soit 1 000 m. La distance réelle vaut 1 km."
+    },
+    {
+      "q": "Comment définis-tu un BLEVE ?",
+      "c": [
+        "L'explosion d'un gaz stocké dans un réservoir sous forme liquide",
+        "Une combustion incomplète dans un milieu confiné",
+        "L'inflammation accidentelle d'un nuage de gaz",
+        "Une fuite de gaz inflammable"
+      ],
+      "a": 0,
+      "why": "BLEVE signifie Boiling Liquid Expanding Vapour Explosion. Le GNR risques chimiques le décrit comme la vaporisation explosive d'un gaz liquéfié lors de la rupture de son réservoir."
+    },
+    {
+      "q": "Une lance débite 500 L/min. Le taux d'application demandé est de 5 L/min/m². Quelle surface maximale traites-tu efficacement ?",
+      "c": [
+        "100 m²",
+        "50 m²",
+        "1 000 m²",
+        "2 500 m²"
+      ],
+      "a": 0,
+      "why": "Surface = débit / taux d'application. 500 / 5 = 100 m²."
+    },
+    {
+      "q": "Quelle plage mesure un explosimètre ?",
+      "c": [
+        "De 0 % à 100 % de gaz dans l'air",
+        "De la LSE à 100 % de gaz dans l'air",
+        "De la LIE à la LSE",
+        "De 0 % de gaz dans l'air jusqu'à la LIE"
+      ],
+      "a": 3,
+      "why": "Le GNR risques chimiques précise : l'explosimètre affiche la concentration en pourcentage de la LIE, de 0 à 100 % de la LIE. Au-delà, sa mesure n'a plus de sens."
+    },
+    {
+      "q": "Le sigle RRF désigne le futur système de communication des acteurs de la sécurité et du secours. Quelle est sa signification ?",
+      "c": [
+        "Réseau Radio Futuriste",
+        "Radio Réseau du Futur",
+        "Réseau Radio du Futur",
+        "Réseau Radio France"
+      ],
+      "a": 2,
+      "why": "Le ministère de l'Intérieur pilote le programme Réseau Radio du Futur (RRF), réseau haut débit destiné aux forces de sécurité et aux services de secours."
+    },
+    {
+      "q": "Une cave mesure 10 m sur 8 m, avec 1 m d'eau. Ta motopompe débite 50 m³/h. Quel est le temps théorique d'épuisement ?",
+      "c": [
+        "48 min",
+        "1 h 07 min",
+        "2 h 40 min",
+        "1 h 36 min"
+      ],
+      "a": 3,
+      "why": "Volume : 10 × 8 × 1 = 80 m³. 80 / 50 = 1,6 h, soit 1 h 36 min."
+    },
+    {
+      "q": "Dans la classification des ERP par type d'activité, à quoi correspond la lettre J ?",
+      "c": [
+        "Salles d'exposition",
+        "Structures d'accueil pour personnes âgées et personnes handicapées",
+        "Établissements de soins",
+        "Salles de danse et salles de jeux"
+      ],
+      "a": 1,
+      "why": "Le règlement de sécurité ERP (arrêté du 25 juin 1980) classe en type J les structures d'accueil pour personnes âgées et handicapées. Les soins relèvent du type U."
+    },
+    {
+      "q": "Quel effectif correspond à un ERP de 2e catégorie ?",
+      "c": [
+        "De 700 à 1 500 personnes",
+        "De 301 à 700 personnes",
+        "De 501 à 1 500 personnes",
+        "De 701 à 1 500 personnes"
+      ],
+      "a": 3,
+      "why": "Le Code de la construction et de l'habitation classe en 2e catégorie les ERP de 701 à 1 500 personnes. La 3e catégorie va de 301 à 700."
+    },
+    {
+      "q": "Quelle échelle mesure l'énergie libérée par un séisme ?",
+      "c": [
+        "L'échelle de Richter",
+        "L'échelle de Fujita",
+        "L'échelle de Jacob",
+        "L'échelle de Beaufort"
+      ],
+      "a": 0,
+      "why": "Géorisques (ministère de la Transition écologique) rappelle : la magnitude, sur l'échelle de Richter, mesure l'énergie libérée. Beaufort sert au vent, Fujita aux tornades."
+    },
+    {
+      "q": "Comment calcules-tu le facteur de chute ?",
+      "c": [
+        "Hauteur entre le point le plus haut et le sol",
+        "Hauteur de chute divisée par la longueur de corde utilisée",
+        "Rapport entre le frein de charge et la longueur de corde",
+        "Longueur de corde divisée par la hauteur de chute"
+      ],
+      "a": 1,
+      "why": "Le GTO sauvetage et mise en sécurité définit le facteur de chute comme le rapport entre la hauteur de chute et la longueur de corde disponible pour l'amortir."
+    },
+    {
+      "q": "Qui détient l'autorité opérationnelle sur le SDIS ?",
+      "c": [
+        "Le président du conseil départemental",
+        "Le préfet",
+        "Le directeur départemental du SDIS",
+        "Le président du conseil d'administration du SDIS"
+      ],
+      "a": 1,
+      "why": "Le CGCT (article L1424-3) place le SDIS, pour l'emploi de ses moyens, sous l'autorité du maire ou du préfet. Le président du CASDIS gère l'établissement."
+    }
+  ]
+}

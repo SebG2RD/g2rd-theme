@@ -1,0 +1,57 @@
+{
+ "slug": "pse-arret-cardiaque-enfant-nourrisson",
+ "titre": "Arrêt cardiaque de l'enfant et du nourrisson",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Chez l'enfant et le nourrisson, l'arrêt cardiaque est le plus souvent d'origine respiratoire. Tu commences par 5 insufflations, puis des cycles de 15 compressions et 2 insufflations, avec le défibrillateur au plus tôt.",
+ "cles": [
+  "Causes fréquentes : étouffement, strangulation, obstruction complète des voies aériennes, noyade.",
+  "Sans geste, les lésions cérébrales apparaissent en quelques secondes chez l'enfant et le nourrisson.",
+  "Retire délicatement tout corps étranger visible et facile d'accès dans la bouche avant les insufflations.",
+  "Pendant les 5 insufflations initiales, guette tout mouvement, toute toux ou une reprise de respiration normale.",
+  "Pouls : carotidien chez l'enfant, fémoral au pli de l'aine chez le nourrisson, 10 secondes au plus.",
+  "Nourrisson : tête en position neutre, menton élevé, ta bouche englobe sa bouche et son nez.",
+  "Enfant : talon d'une main sur le sternum, un travers de doigt au-dessus de la jonction des dernières côtes.",
+  "Nourrisson : pulpe de 2 doigts si tu es seul, 2 pouces côte à côte en équipe, mains englobant le thorax.",
+  "Électrodes du défibrillateur automatisé externe (DAE) chez le nourrisson : une dans le dos entre les omoplates, l'autre devant au milieu du thorax.",
+  "Pas d'électrodes enfant : utilise les électrodes adulte."
+ ],
+ "retenir": [
+  "Séquence : 5 insufflations initiales, puis cycles de 15 compressions et 2 insufflations, à 100 à 120 compressions par minute.",
+  "Profondeur : un tiers de l'épaisseur du thorax, soit environ 5 cm chez l'enfant et 4 cm chez le nourrisson.",
+  "Pouls perçu, ventilation absente ou anormale : insufflations seules, 25 à 30 par minute chez le nourrisson, 15 à 25 chez l'enfant.",
+  "Sauveteur isolé sans tiers : 1 minute de réanimation cardiopulmonaire (RCP) avant d'alerter, puis téléphone en mains libres.",
+  "Ballon insufflateur pédiatrique de 400 à 500 ml entre 2,5 et 25 kg. Le modèle prématuré est réservé au prématuré."
+ ],
+ "pieges": [
+  "Ne pas débuter par les compressions chez l'enfant en arrêt cardiaque : commence par 5 insufflations.",
+  "Confondre avec l'obstruction des voies aériennes : après une désobstruction échouée et une perte de connaissance, débute par les compressions, à tout âge.",
+  "Ne pas basculer la tête du nourrisson en arrière : ramène-la en position neutre.",
+  "Ne pas insuffler trop vite ni trop fort : l'air passe dans l'estomac et provoque une régurgitation.",
+  "Ne pas traîner entre insufflations et compressions : chaque délai réduit l'efficacité de la circulation."
+ ],
+ "quiz": "secours-enfants-nourrissons",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Pediatric CPR training mannequin (infant)-bs.jpg",
+   "auteur": "Minja Klarić",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Pediatric_CPR_training_mannequin_(infant)-bs.jpg",
+   "alt": "Mannequin de nourrisson pour l'apprentissage de la RCP."
+  },
+  {
+   "fichier": "File:Laerdal Little Family QCPR training manikins in carrying bag, Bosnia and Herzegovina (2026)-bs.jpg",
+   "auteur": "Minja Klarić",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Laerdal_Little_Family_QCPR_training_manikins_in_carrying_bag,_Bosnia_and_Herzegovina_(2026)-bs.jpg",
+   "alt": "Mannequins adulte, enfant et nourrisson dans leur sac."
+  }
+ ]
+}

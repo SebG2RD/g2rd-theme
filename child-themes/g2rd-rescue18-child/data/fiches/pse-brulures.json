@@ -1,0 +1,50 @@
+{
+ "slug": "pse-brulures",
+ "titre": "Brûlures : gravité, refroidissement et conduites à tenir",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Face à une brûlure, tu soustrais la victime à la cause, tu refroidis dans les conditions fixées puis tu évalues la gravité au 4e regard. Brûlures chimiques, électriques et internes suivent des conduites à tenir propres.",
+ "cles": [
+  "Brûlure simple : rougeur chez l'adulte ou cloque de surface inférieure à la moitié de la paume de la victime.",
+  "Brûlure grave : cloques au-delà de la moitié de la paume, destruction profonde, aspect circulaire, origine électrique ou radiologique.",
+  "Localisations graves : visage, cou, mains, articulations, voisinage des orifices naturels. Chez l'enfant, une rougeur étendue est grave.",
+  "Peau blanchâtre, cireuse ou noirâtre et peu douloureuse : atteinte profonde, terminaisons nerveuses détruites.",
+  "La paume et les doigts de la victime représentent 1 % de sa surface cutanée, à tout âge.",
+  "Traces noires autour du nez et de la bouche, crachats noirs, voix rauque : suspecte une brûlure des voies aériennes.",
+  "Retire vite les vêtements imbibés et les bijoux, sans ôter ce qui adhère à la peau.",
+  "Brûlure grave : pansement stérile ou film plastique non adhésif, puis couverture isotherme contre l'hypothermie.",
+  "Brûlure électrique : recherche les points d'entrée et de sortie, puis traite comme une brûlure thermique.",
+  "Inhalation de fumées : surveille la respiration, la détresse respiratoire apparaît parfois à distance."
+ ],
+ "retenir": [
+  "Refroidis si brûlure de moins de 30 minutes, victime consciente, sans détresse circulatoire, surface inférieure à 20 % chez l'adulte ou 10 % chez l'enfant.",
+  "Refroidissement à l'eau tempérée, ruisselant sans pression. Brûlure grave : arrête au bout de 10 minutes minimum, idéalement 20.",
+  "Brûlure simple : arrose jusqu'à disparition de la douleur, protège et conseille une consultation (fièvre, vaccin antitétanique, enfant).",
+  "Brûlure chimique : ôte les vêtements imbibés en te protégeant et lave à grande eau tempérée 20 minutes au moins.",
+  "Ingestion de caustique : victime sur le côté, ne fais jamais vomir, ne donne jamais à boire, garde l'emballage du produit."
+ ],
+ "pieges": [
+  "Ne pas percer les cloques.",
+  "Ne pas toucher une victime électrisée avant d'avoir la certitude de l'absence de tout risque électrique.",
+  "Ne pas laisser l'eau de rinçage d'un œil atteint par un produit chimique couler sur l'autre œil.",
+  "Ne pas se fier à l'absence de douleur : une brûlure profonde est souvent peu douloureuse.",
+  "Ne pas prolonger l'arrosage d'une brûlure grave sans couverture isotherme : le brûlé grave se refroidit vite."
+ ],
+ "quiz": "brulures",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:First Aid Class(GN00030).jpg",
+   "auteur": "State Government Photographer",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:First_Aid_Class(GN00030).jpg",
+   "alt": "Photographie ancienne d'un cours de secourisme : un garçon porte un pansement à la main."
+  }
+ ]
+}

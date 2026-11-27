@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-bateaux-eaux-interieures",
+ "titre": "Interventions à bord des bateaux en eaux intérieures",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Interventions à bord des bateaux en eaux intérieures, DGSCGC, 30 octobre 2018",
+ "resume": "Ce GDO présente la navigation fluviale et ses bateaux de marchandises, de passagers et de plaisance. Il fixe les mesures du COS : sauvetages, stabilité, pollution, sécurité de la zone et lutte contre le sinistre.",
+ "cles": [
+  "Incendies et collisions sont les sollicitations les plus courantes à bord des bateaux.",
+  "Objectifs du COS : limiter les victimes et la propagation, préserver les biens, éviter les pollutions.",
+  "Construis l'analyse de la zone d'intervention avec le capitaine du bateau.",
+  "Bateaux en acier : le feu se propage surtout par conduction thermique. Refroidis coque, pont et amarres.",
+  "Bateau à quai : privilégie l'évacuation complète et le décompte vers une zone de débarquement.",
+  "Bateau à flots : transbordement, échouage volontaire en zone accessible ou mise à l'eau selon la manœuvrabilité.",
+  "Surveille la stabilité dès le début : eaux d'extinction et voie d'eau la menacent. Lance le pompage au plus tôt.",
+  "Épuise les eaux d'extinction en même temps et à débit équivalent, même bateau sur cale.",
+  "Gilet de sauvetage impératif pour les non-spécialistes. Vigies en amont et en aval du sinistre.",
+  "Fais interrompre le trafic : avis à la batellerie avec VNF, et appel VHF aux bateaux du bief."
+ ],
+ "retenir": [
+  "Cônes ou feux bleus : 1 matières inflammables, 2 matières dangereuses pour la santé, 3 matières explosibles.",
+  "Voie d'eau au-delà de la capacité d'épuisement : confine le local et épontille les cloisons.",
+  "Engagement à bord : point de pénétration matérialisé, suivi des engagés, binôme de sécurité prêt dès possible.",
+  "Remorquage : plusieurs points d'accroche, faible vitesse, charge et passagers répartis vers l'arrière.",
+  "Bateaux à passagers : 12 à 1 500 places. Paquebot fluvial avec cabines : environ 230 personnes en moyenne."
+ ],
+ "pieges": [
+  "Ne pas oublier les bateaux à couple : désaccouple-les pour stopper la propagation.",
+  "Ne pas compter sur le commandant de bord pour un nombre exact de passagers.",
+  "Ne pas oublier les cibles en aval : points de captage, zones de baignade.",
+  "Ne pas lancer de ventilation opérationnelle sans entrant et sortant cohérents.",
+  "Ne pas engager sur un cheminement long et complexe avec les règles classiques : adapte l'engagement ou appelle des spécialistes."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions à bord des bateaux en eaux intérieures (DGSCGC, 2018)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo-itv-sur-bateaux-en-eaux-interieures-v_30102018.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:London Fireboat Tanner.jpg",
+   "auteur": "Davidships",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:London_Fireboat_Tanner.jpg",
+   "alt": "Bateau-pompe rouge des pompiers de Londres amarré à un ponton."
+  },
+  {
+   "fichier": "File:Langley Fire Rescue boat during training in Southwest Branch Back River near Langley Air Force Base - 141007-F-TN449-028.JPG",
+   "auteur": "Devin Scott Michaels",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Langley_Fire_Rescue_boat_during_training_in_Southwest_Branch_Back_River_near_Langley_Air_Force_Base_-_141007-F-TN449-028.JPG",
+   "alt": "Bateau de secours projetant une lance à eau sur une rivière."
+  }
+ ]
+}

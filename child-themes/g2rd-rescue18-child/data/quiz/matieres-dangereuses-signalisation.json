@@ -1,0 +1,169 @@
+{
+ "slug": "matieres-dangereuses-signalisation",
+ "titre": "Matières dangereuses : lire un panneau orange et une étiquette",
+ "theme": "Risques technologiques",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Apprends à décoder la signalisation ADR d'un camion ou d'un wagon : code danger, numéro ONU, classes et premiers réflexes.",
+ "sources": [
+  [
+   "DDRM du Calvados, fiche Transport de matières dangereuses (préfecture du Calvados)",
+   "https://www.calvados.gouv.fr/index.php/contenu/telechargement/15834/128558/file/10_ddrm_calvados_tmd_bd.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Sur un panneau orange à deux lignes, que lis-tu dans la partie haute ?",
+   "c": [
+    "Le numéro ONU de la matière",
+    "Le numéro d'immatriculation du camion",
+    "Le code postal du transporteur",
+    "Le numéro d'identification du danger"
+   ],
+   "a": 3,
+   "why": "Le numéro du haut est le numéro d'identification du danger, de deux ou trois chiffres, parfois précédé d'un X. Le numéro ONU figure en bas."
+  },
+  {
+   "q": "Que représente le numéro de quatre chiffres placé en bas du panneau orange ?",
+   "c": [
+    "La quantité transportée en litres",
+    "La classe de danger",
+    "Le numéro de l'entreprise",
+    "Le numéro ONU qui identifie la matière"
+   ],
+   "a": 3,
+   "why": "Le numéro du bas est le numéro ONU, identifiant international à quatre chiffres. Exemple : 1202 pour le gazole."
+  },
+  {
+   "q": "Que signifie la lettre X placée devant le code danger ?",
+   "c": [
+    "La matière réagit dangereusement avec l'eau",
+    "Matière explosive",
+    "Matière inconnue",
+    "Transport exceptionnel"
+   ],
+   "a": 0,
+   "why": "Le X indique que la matière réagit dangereusement au contact de l'eau. N'utilise pas d'eau sans avis d'un spécialiste."
+  },
+  {
+   "q": "Que signifie le doublement d'un chiffre dans le code danger, comme dans 33 ?",
+   "c": [
+    "Deux matières différentes dans la citerne",
+    "Un danger réduit de moitié",
+    "Une citerne à deux compartiments",
+    "Une intensification du danger"
+   ],
+   "a": 3,
+   "why": "Le doublement d'un chiffre indique une intensification du danger correspondant. 33 désigne un liquide très inflammable, comme l'essence."
+  },
+  {
+   "q": "Quel danger principal signale le chiffre 3 dans un code danger ?",
+   "c": [
+    "Toxicité",
+    "Corrosivité",
+    "Inflammabilité des liquides (vapeurs) et des gaz",
+    "Radioactivité"
+   ],
+   "a": 2,
+   "why": "Le chiffre 3 signale l'inflammabilité de liquides (vapeurs) et de gaz, ou un liquide auto-échauffant."
+  },
+  {
+   "q": "Le code danger 30 apparaît sur une citerne de gazole. Pourquoi ce 0 ?",
+   "c": [
+    "Le danger est nul",
+    "Un seul chiffre suffit à décrire le danger, il est complété par 0",
+    "La citerne est vide",
+    "La matière est refroidie"
+   ],
+   "a": 1,
+   "why": "Quand un seul chiffre suffit à indiquer le danger, il est suivi d'un 0. 30 désigne un liquide inflammable, comme le gazole."
+  },
+  {
+   "q": "Quel chiffre du code danger indique la corrosivité ?",
+   "c": [
+    "5",
+    "6",
+    "8",
+    "9"
+   ],
+   "a": 2,
+   "why": "Le chiffre 8 indique la corrosivité. Le code 80 désigne une matière corrosive, comme l'acide chlorhydrique."
+  },
+  {
+   "q": "Quel chiffre du code danger signale un risque de toxicité ou d'infection ?",
+   "c": [
+    "6",
+    "2",
+    "4"
+   ],
+   "a": 0,
+   "why": "Le chiffre 6 signale la toxicité ou un risque d'infection."
+  },
+  {
+   "q": "Que signale le chiffre 5 dans un code danger ?",
+   "c": [
+    "Un gaz sous pression",
+    "Une matière radioactive",
+    "Une matière comburante qui favorise l'incendie",
+    "Un solide inflammable"
+   ],
+   "a": 2,
+   "why": "Le chiffre 5 désigne un effet comburant : la matière favorise l'incendie."
+  },
+  {
+   "q": "Quel chiffre signale un dégagement de gaz dû à la pression ou à une réaction chimique ?",
+   "c": [
+    "7",
+    "9",
+    "2",
+    "1"
+   ],
+   "a": 2,
+   "why": "Le chiffre 2 signale une émanation de gaz résultant de la pression ou d'une réaction chimique."
+  },
+  {
+   "q": "Un panneau porte 33 en haut et 1203 en bas. Quelle matière transporte ce véhicule ?",
+   "c": [
+    "Du gazole",
+    "Du chlore",
+    "De l'eau de Javel",
+    "De l'essence"
+   ],
+   "a": 3,
+   "why": "Le numéro ONU 1203 correspond à l'essence, classe 3. Le code 33 confirme un liquide très inflammable."
+  },
+  {
+   "q": "À quelle classe ADR appartiennent les liquides inflammables ?",
+   "c": [
+    "Classe 3",
+    "Classe 1",
+    "Classe 6.1",
+    "Classe 8"
+   ],
+   "a": 0,
+   "why": "La classe 3 regroupe les liquides inflammables. La classe 1 couvre les explosifs, la 6.1 les toxiques et la 8 les corrosifs."
+  },
+  {
+   "q": "Que désigne la classe 4.3 ?",
+   "c": [
+    "Les matières qui dégagent des gaz inflammables au contact de l'eau",
+    "Les matières radioactives",
+    "Les peroxydes organiques",
+    "Les matières infectieuses"
+   ],
+   "a": 0,
+   "why": "La classe 4.3 regroupe les matières qui, au contact de l'eau, dégagent des gaz inflammables."
+  },
+  {
+   "q": "Tu es témoin d'une fuite sur un camion de matières dangereuses. Quel réflexe adopter ?",
+   "c": [
+    "Approcher pour lire le panneau de près",
+    "Toucher le produit pour l'identifier à l'odeur",
+    "Fumer pour calmer les témoins",
+    "Ne pas toucher le produit et éloigner les personnes"
+   ],
+   "a": 3,
+   "why": "La conduite à tenir officielle : ne pas toucher le produit, éloigner les personnes pour éviter un suraccident, ne pas fumer et alerter le 18 ou le 112."
+  }
+ ]
+}

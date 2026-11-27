@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-cynotechnie",
+ "titre": "Équipes cynotechniques : spécialités, engagement et sécurité du binôme",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Chef d'équipe",
+ "document": "Guide de doctrine opérationnelle « Engagement des équipes cynotechniques » (DGSCGC, 1re édition, novembre 2022)",
+ "resume": "Le chien localise par l'odeur des victimes ensevelies, potentielles ou immergées. Tu engages au minimum une unité sous l'autorité du COS, avec un accompagnant par binôme et une confirmation de chaque marquage par un second chien.",
+ "cles": [
+  "Missions : victimes potentielles, ensevelies, immergées, et recherche de produits accélérateurs d'incendie en RCCI.",
+  "Le pistage suit l'odeur résiduelle au sol, à partir d'une odeur de référence et d'un point de départ.",
+  "Le questage cherche toute odeur humaine permanente dans un secteur, chien libre avec harnais d'identification et grelot.",
+  "Ni le chien ni le conducteur ne touchent un indice. Seules les forces de l'ordre autorisent son prélèvement.",
+  "Unité : 2 ou 3 binômes, avec au minimum 2 chiens opérationnels et 2 conducteurs distincts.",
+  "La recherche de personnes disparues relève des forces de l'ordre, sous un COR. Le SIS y apporte son concours.",
+  "Avant les recherches, le chef de détachement demande le gel des lieux pour limiter la pollution olfactive.",
+  "Recherche en décombres : chien libre, sans laisse, collier ni harnais, après détente et si possible à jeun.",
+  "Le travail sous manteau neigeux reste distinct de la recherche sous avalanche, soumise au brevet « avalanche ».",
+  "Victime immergée : chien en harnais de flottaison, conducteur en gilet, accompagnant désigné en bord de berge."
+ ],
+ "retenir": [
+  "Détente du chien de 3 à 6 minutes à l'écart du site. Travail individuel de 30 minutes en moyenne avant une période de repos.",
+  "Un marquage se confirme par un second binôme avant l'engagement des équipes de déblaiement.",
+  "Sectorisation autour du point zéro : secteur primaire de 200 m de rayon, secondaire de 500 m, approfondi au-delà de 500 m.",
+  "Retire le chien dès un risque nouveau, un secteur entièrement couvert, la fatigue ou une blessure.",
+  "Détachement à l'étranger : jusqu'à 12 équipes cynotechniques, un vétérinaire, 10 jours de nourriture sèche et 2 jours d'eau."
+ ],
+ "pieges": [
+  "Ne pas engager un binôme sans accompagnant : le conducteur reste concentré sur son chien.",
+  "Ne pas engager un conducteur seul en attendant les renforts sans l'autorisation du COS.",
+  "Ne pas engager le chien sur une scène d'enquête avant la fin des investigations et la validation du chef d'enquête judiciaire.",
+  "Ne pas engager les chiens trop tôt quand des risques importants subsistent.",
+  "Ne pas oublier la muselière en transport, hors caisse."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Engagement des équipes cynotechniques, Guide de doctrine opérationnelle (DGSCGC, 2022)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo_engagement-des-equipes-cyno_v2.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Gary Carroll, search and rescue team dog handler (16691220304).jpg",
+   "auteur": "DFID - UK Department for International",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Gary_Carroll,_search_and_rescue_team_dog_handler_(16691220304).jpg",
+   "alt": "Maître-chien en tenue orange et son chien fouillant des décombres."
+  },
+  {
+   "fichier": "File:John Ball and Darcy, his search and rescue dog (17287716066).jpg",
+   "auteur": "DFID - UK Department for International",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:John_Ball_and_Darcy,_his_search_and_rescue_dog_(17287716066).jpg",
+   "alt": "Sauveteur casqué posant avec son chien de recherche."
+  }
+ ]
+}

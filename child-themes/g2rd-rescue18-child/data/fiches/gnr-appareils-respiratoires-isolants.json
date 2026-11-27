@@ -1,0 +1,56 @@
+{
+ "slug": "gnr-appareils-respiratoires-isolants",
+ "titre": "ARI : contrôles RAPACE, pressions et règles d'engagement",
+ "theme": "Incendie",
+ "niveau": "Équipier",
+ "document": "Formation incendie, Guide national de référence : Appareils respiratoires isolants",
+ "resume": "L'ARI fournit et maintient une atmosphère respirable, isolée de l'air extérieur contaminé. Le GNR fixe sa composition, les contrôles avant engagement et les règles du binôme et du contrôleur.",
+ "cles": [
+  "Le détendeur HP ramène la pression de la bouteille à 6 ou 7 bars.",
+  "Encliquette la soupape à la demande juste avant l'engagement.",
+  "Capelle l'ARI à l'air frais, hors de la zone à risque.",
+  "Plaque de contrôle : jaune pour ARICO 200 bars, rouge pour ARICO 300 bars, blanche pour ARICF.",
+  "Le chef de binôme remet les plaques au contrôleur, qui note nom, pression et heure d'entrée.",
+  "Un contrôleur gère un seul point d'accès et 5 binômes au plus, binôme de sécurité compris.",
+  "Autonomie : T = P × V / Q. Le guide retient Q = 90 L/min, soit T ≈ 0,07 P.",
+  "Une bouteille de 6 L à 200 bars donne environ 13 minutes d'autonomie.",
+  "Le béton restitue des gaz au déblai : garde l'ARI dans les locaux mal ventilés."
+ ],
+ "retenir": [
+  "Aucun engagement sous 180 bars pour un ARICO 200 bars, sous 280 bars pour un ARICO 300 bars.",
+  "RAPACE : Robinets ouverts, Ajustement du harnais, Pression, Armement du système sonore, Code de communication, Étanchéité du masque.",
+  "En reconnaissance, demi-tour à la moitié de la pression de départ ou sur demande du contrôleur.",
+  "Sifflet de fin de charge ou système de détresse déclenché : le binôme ressort impérativement.",
+  "Toujours en binôme : si l'un sort, l'autre le suit."
+ ],
+ "pieges": [
+  "Ne pas encliqueter la soupape à la demande avant d'avoir fait RAPACE.",
+  "Confondre la valeur de la norme, 50 L/min, et la consommation en effort soutenu, environ 90 L/min.",
+  "Ne pas laisser un porteur ressortir seul.",
+  "Ne pas remettre en service un ARI qui a subi une agression chimique ou thermique importante.",
+  "Confondre plaque jaune, ARICO 200 bars, et plaque rouge, ARICO 300 bars."
+ ],
+ "quiz": "appareil-respiratoire-isolant",
+ "sources": [
+  [
+   "Formation incendie, Guide national de référence : Appareils respiratoires isolants (DDSC, 1999)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gnr-ari.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:U.S. Navy Damage Controlman 3rd Class David Boelen tests a firefighter's self contained breathing apparatus bottle in USS Kitty Hawk's (CV 63) aft chemical warfare office while under way in the Coral Sea June 070627-N-OJ170-004.jpg",
+   "auteur": "MC2 JOSEPH R SCHMITT",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:U.S._Navy_Damage_Controlman_3rd_Class_David_Boelen_tests_a_firefighter%27s_self_contained_breathing_apparatus_bottle_in_USS_Kitty_Hawk%27s_(CV_63)_aft_chemical_warfare_office_while_under_way_in_the_Coral_Sea_June_070627-N-OJ170-004.jpg",
+   "alt": "Technicien contrôlant un appareil respiratoire sur un banc de test."
+  },
+  {
+   "fichier": "File:US Navy 070612-N-0066L-018 Navy Reserve Chief Warrant Officer Vu Duck, an instructor at Navy Center for Naval Engineering, instructs Sailors on the proper method for donning a Self Contained Breathing Apparatus (SCBA).jpg",
+   "auteur": "U.S. Navy photo by Mass Communication",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:US_Navy_070612-N-0066L-018_Navy_Reserve_Chief_Warrant_Officer_Vu_Duck,_an_instructor_at_Navy_Center_for_Naval_Engineering,_instructs_Sailors_on_the_proper_method_for_donning_a_Self_Contained_Breathing_Apparatus_(SCBA).jpg",
+   "alt": "Marins vérifiant des bouteilles d'ARI posées sur des tables."
+  }
+ ]
+}

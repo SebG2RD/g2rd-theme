@@ -1,0 +1,101 @@
+{
+ "slug": "score-glasgow-conscience",
+ "titre": "Conscience et score de Glasgow : coter juste, protéger vite",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Chef d'agrès",
+ "duree": "8 min",
+ "resume": "Entraîne-toi à évaluer la conscience, à calculer un score de Glasgow et à poser la bonne indication de PLS.",
+ "sources": [
+  ["Glasgow Coma Scale, Échelle de Glasgow : suivez cette méthode (aide à l'évaluation en français)", "https://www.glasgowcomascale.org/downloads/GCS-Assessment-Aid-French.pdf"],
+  ["Commission nationale des JSP, RTN fiches procédures et techniques, thème 2 (version du 1er février 2024)", "https://www.pompiers.fr/sites/default/files/content/download-file/theme_2_0.pdf"],
+  ["SFAR, Le traumatisé crânien grave en préhospitalier", "https://sfar.org/wp-content/uploads/2014/04/le-traumatise-cranien-grave-en-prehospitalier-tentillier-1442329868.pdf"],
+  ["ENASIS, SSUAP : PR D du bilan primaire (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20Bilan%20primaire%20-%20D.pdf"],
+  ["ENASIS, SSUAP : FT PLS à 1 secouriste (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/204780/mod_resource/content/0/FT%20-%20PLS%20%C3%A0%201%20secoursite.pdf"]
+ ],
+ "questions": [
+  {
+   "q": "Entre quelles valeurs varie le score de Glasgow ?",
+   "c": ["De 0 à 15", "De 3 à 15", "De 1 à 10", "De 3 à 20"],
+   "a": 1,
+   "why": "La fiche RTN des JSP indique un score qui va de 3 pour un coma aréactif à 15 pour une victime parfaitement consciente. Chaque item vaut au minimum 1 point."
+  },
+  {
+   "q": "Quelle est la cotation maximale de l'ouverture des yeux ?",
+   "c": ["4", "5", "6", "3"],
+   "a": 0,
+   "why": "L'aide officielle Glasgow Coma Scale cote l'ouverture des yeux de 1 à 4. Le 4 correspond à une ouverture spontanée."
+  },
+  {
+   "q": "Quelle est la cotation maximale de la réponse verbale ?",
+   "c": ["4", "6", "5", "3"],
+   "a": 2,
+   "why": "L'aide officielle Glasgow Coma Scale cote la réponse verbale de 1 à 5. Le 5 correspond à une victime orientée."
+  },
+  {
+   "q": "Quelle est la cotation maximale de la réponse motrice ?",
+   "c": ["4", "5", "3", "6"],
+   "a": 3,
+   "why": "L'aide officielle Glasgow Coma Scale cote la réponse motrice de 1 à 6. Le 6 correspond à une victime qui obéit aux ordres."
+  },
+  {
+   "q": "Une victime n'ouvre pas les yeux, n'émet aucun son et ne bouge pas à la stimulation. Quel est son score de Glasgow ?",
+   "c": ["0", "1", "3", "6"],
+   "a": 2,
+   "why": "Chaque item reçoit au minimum 1 point, donc 1 + 1 + 1 donne 3. La fiche RTN des JSP associe ce score au coma aréactif."
+  },
+  {
+   "q": "La victime ouvre les yeux à la douleur, émet des sons incompréhensibles et retire son membre à la douleur. Quel score obtiens-tu ?",
+   "c": ["8", "6", "10", "12"],
+   "a": 0,
+   "why": "La fiche RTN des JSP donne Y2 pour l'ouverture à la douleur, V2 pour les sons incompréhensibles et M4 pour le retrait. Le total fait 8."
+  },
+  {
+   "q": "Une victime répond mais de façon confuse. Quelle cotation verbale lui donnes-tu ?",
+   "c": ["5", "4", "3", "2"],
+   "a": 1,
+   "why": "La fiche RTN des JSP cote la réponse confuse à 4. Le 5 reste réservé à la réponse normale et orientée."
+  },
+  {
+   "q": "Une victime localise la douleur sans obéir aux ordres. Quelle cotation motrice ?",
+   "c": ["6", "3", "4", "5"],
+   "a": 3,
+   "why": "La fiche RTN des JSP cote « localise la douleur » à 5. Le retrait simple vaut 4 et l'obéissance aux ordres vaut 6."
+  },
+  {
+   "q": "Selon la SFAR, à partir de quel score de Glasgow l'intubation du traumatisé crânien devient-elle systématique ?",
+   "c": ["14 ou moins", "12 ou moins", "8 ou moins", "3 uniquement"],
+   "a": 2,
+   "why": "La SFAR retient une intubation trachéale systématique lorsque le score de Glasgow est inférieur ou égal à 8. Un score aussi bas traduit un coma profond et doit figurer en tête de ton bilan."
+  },
+  {
+   "q": "Dans l'échelle EVDA, que signifie la lettre D ?",
+   "c": ["Réactive à la Douleur", "Déficit moteur", "Détresse respiratoire", "Désorientée"],
+   "a": 0,
+   "why": "La fiche RTN des JSP définit D comme une victime réactive à la douleur, qui ne réagit qu'à une pression à la base de l'ongle. E veut dire éveillée, V réactive à la voix, A aréactive."
+  },
+  {
+   "q": "Tu constates un trouble de la conscience au bilan primaire. Quelle mesure réalises-tu ?",
+   "c": ["Une prise de tension uniquement", "Une glycémie capillaire", "Une mesure du périmètre crânien", "Aucune, tu attends le bilan secondaire"],
+   "a": 1,
+   "why": "La procédure SSUAP du D du bilan primaire impose une glycémie capillaire devant tout trouble de la conscience. Tu évalues aussi le déficit neurologique et les pupilles."
+  },
+  {
+   "q": "Dans quel cas places-tu une victime en PLS ?",
+   "c": ["Elle est consciente et se plaint du dos", "Elle ne respire plus", "Elle a perdu connaissance, respire et n'est pas suspecte de traumatisme", "Elle fait une crise d'asthme"],
+   "a": 2,
+   "why": "La fiche technique SSUAP réserve la PLS à la victime qui a perdu connaissance et respire, sans suspicion de traumatisme. Sans respiration, tu débutes la RCP."
+  },
+  {
+   "q": "Quel est le but de la PLS ?",
+   "c": ["Faciliter les compressions thoraciques", "Réchauffer la victime", "Faire baisser la tension artérielle", "Garder les voies aériennes libres et laisser s'écouler les liquides"],
+   "a": 3,
+   "why": "La fiche technique SSUAP indique que la PLS maintient les voies aériennes libres, laisse s'écouler les liquides vers l'extérieur et évite la chute de la langue. La position reste stable et la plus latérale possible."
+  },
+  {
+   "q": "Une fois la victime en PLS, que dois-tu pouvoir contrôler en permanence ?",
+   "c": ["Les voies aériennes et les mouvements de la respiration", "La température cutanée uniquement", "La taille des pupilles uniquement", "Rien, la position suffit"],
+   "a": 0,
+   "why": "La fiche technique SSUAP exige de pouvoir contrôler les voies aériennes et les mouvements respiratoires en PLS. Tu détectes ainsi un arrêt de la respiration sans délai."
+  }
+ ]
+}

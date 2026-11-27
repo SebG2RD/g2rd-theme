@@ -1,0 +1,174 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "title": "Rescue 18",
+  "description": "Charte Rescue 18 : fond clair et gris doux, rouge #E21422, noir anthracite, Inter très gras pour les titres. Appliquée automatiquement par le thème enfant ; les réglages vivent dans theme.json.",
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--r18-brume)",
+      "text": "var(--wp--preset--color--r18-encre)"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--inter)",
+      "fontSize": "var(--wp--preset--font-size--m)",
+      "fontWeight": "400",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "blockGap": "var(--wp--preset--spacing--s)",
+      "padding": {
+        "top": "0",
+        "right": "var(--wp--preset--spacing--gouttiere)",
+        "bottom": "0",
+        "left": "var(--wp--preset--spacing--gouttiere)"
+      }
+    },
+    "elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--inter)",
+          "fontWeight": "900",
+          "lineHeight": "1.04",
+          "letterSpacing": "var(--wp--custom--tracking--titre)"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--r18-encre)"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--xxl)",
+          "lineHeight": "1"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--xl)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h3)",
+          "lineHeight": "1.16",
+          "letterSpacing": "var(--wp--custom--tracking--sous-titre)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontSize": "1.0625rem",
+          "lineHeight": "1.3",
+          "letterSpacing": "-0.02em",
+          "fontWeight": "800"
+        }
+      },
+      "link": {
+        "color": {
+          "text": "inherit"
+        },
+        "typography": {
+          "textDecoration": "none"
+        },
+        ":hover": {
+          "color": {
+            "text": "var(--wp--preset--color--r18-rouge-texte)"
+          }
+        },
+        ":focus": {
+          "color": {
+            "text": "var(--wp--preset--color--r18-rouge-texte)"
+          }
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var(--wp--preset--color--r18-rouge)",
+          "text": "var(--wp--preset--color--r18-blanc)"
+        },
+        "typography": {
+          "fontSize": "0.875rem",
+          "fontWeight": "800",
+          "lineHeight": "1.2",
+          "letterSpacing": "0"
+        },
+        "border": {
+          "radius": "12px",
+          "width": "1px",
+          "style": "solid",
+          "color": "transparent"
+        },
+        "spacing": {
+          "padding": {
+            "top": "0.875rem",
+            "bottom": "0.875rem",
+            "left": "1.25rem",
+            "right": "1.25rem"
+          }
+        },
+        "shadow": "var(--wp--preset--shadow--rouge)",
+        ":hover": {
+          "color": {
+            "background": "var(--wp--preset--color--r18-rouge-fonce)",
+            "text": "var(--wp--preset--color--r18-blanc)"
+          }
+        },
+        ":focus": {
+          "color": {
+            "background": "var(--wp--preset--color--r18-rouge-fonce)",
+            "text": "var(--wp--preset--color--r18-blanc)"
+          }
+        }
+      },
+      "caption": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--xs)"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--r18-gris)"
+        }
+      }
+    },
+    "blocks": {
+      "core/paragraph": {
+        "typography": {
+          "lineHeight": "1.6"
+        }
+      },
+      "core/post-title": {
+        "typography": {
+          "fontWeight": "900",
+          "letterSpacing": "var(--wp--custom--tracking--titre)"
+        }
+      },
+      "core/separator": {
+        "color": {
+          "text": "var(--wp--preset--color--r18-gris-clair)"
+        }
+      },
+      "core/quote": {
+        "border": {
+          "left": {
+            "color": "var(--wp--preset--color--r18-rouge)",
+            "width": "4px",
+            "style": "solid"
+          }
+        },
+        "typography": {
+          "fontSize": "1.375rem",
+          "fontWeight": "800",
+          "lineHeight": "1.35"
+        },
+        "spacing": {
+          "padding": {
+            "left": "1.5rem"
+          }
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontSize": "0.8125rem",
+          "fontWeight": "800"
+        }
+      }
+    }
+  }
+}

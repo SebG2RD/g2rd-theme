@@ -1,0 +1,944 @@
+# Copyright (C) 2026 G2RD Agence Web
+# This file is distributed under the EUPL-1.2.
+msgid ""
+msgstr ""
+"Project-Id-Version: G2RD GlassAuto Vernon 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/g2rd-glassauto-child\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-24T08:32:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: g2rd-glassauto-child\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "G2RD GlassAuto Vernon"
+msgstr ""
+
+#. Theme URI of the theme
+#. Author URI of the theme
+#: style.css
+msgid "https://g2rd.fr"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Thème enfant du thème G2RD pour le centre GlassAuto de Vernon (Eure) : réparation et remplacement de vitrage automobile. Charte GlassAuto relevée sur glassauto.fr (anthracite, turquoise, fuchsia), appliquée par défaut depuis styles/glassauto.json. Pages Gutenberg fournies dans gutenberg-pages/, sections réutilisables dans patterns/, blocs dynamiques (horaires, coordonnées, diagnostic « Réparer ou remplacer ? », zone d'intervention) rendus en PHP. L'espace partenaires et la réservation vivent dans l'extension G2RD Business Connect, pas ici."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "G2RD Agence Web"
+msgstr ""
+
+#: functions.php:159
+msgid "Prendre rendez-vous (fuchsia)"
+msgstr ""
+
+#: functions.php:160
+msgid "Turquoise"
+msgstr ""
+
+#: functions.php:161
+msgid "Contour clair (fond sombre)"
+msgstr ""
+
+#: functions.php:162
+msgid "Blanc (bandeau turquoise)"
+msgstr ""
+
+#. translators: %s : nom du site.
+#: functions.php:268
+#, php-format
+msgid "%s, retour à l'accueil"
+msgstr ""
+
+#: functions.php:293
+msgid "GlassAuto — Sections"
+msgstr ""
+
+#: functions.php:294
+msgid "GlassAuto — Pages"
+msgstr ""
+
+#: inc/blocks.php:204
+msgid "Lundi – vendredi"
+msgstr ""
+
+#: inc/blocks.php:239
+msgid "Adresse"
+msgstr ""
+
+#: inc/blocks.php:242
+#: inc/centre.php:235
+#: inc/seo.php:335
+msgid "Téléphone"
+msgstr ""
+
+#: inc/blocks.php:245
+msgid "E-mail"
+msgstr ""
+
+#: inc/blocks.php:248
+#: inc/seo.php:338
+msgid "Horaires"
+msgstr ""
+
+#: inc/blocks.php:251
+msgid "Itinéraire"
+msgstr ""
+
+#: inc/blocks.php:251
+msgid "Calculer mon itinéraire"
+msgstr ""
+
+#: inc/blocks.php:283
+msgid "Réparation généralement possible"
+msgstr ""
+
+#: inc/blocks.php:284
+msgid "Votre impact peut sans doute être réparé"
+msgstr ""
+
+#: inc/blocks.php:285
+msgid "Hors du champ de vision et plus petit qu'une pièce de 2 €, un impact se répare en général par injection de résine, sans changer le pare-brise. Plus vous venez tôt, plus la réparation a de chances de réussir."
+msgstr ""
+
+#: inc/blocks.php:286
+msgid "Hors du champ de vision, plus petit qu'une pièce de 2 €"
+msgstr ""
+
+#: inc/blocks.php:292
+msgid "Remplacement généralement nécessaire"
+msgstr ""
+
+#: inc/blocks.php:293
+msgid "Un impact dans votre champ de vision"
+msgstr ""
+
+#: inc/blocks.php:294
+msgid "Une réparation laisserait une trace dans la zone que le conducteur doit voir parfaitement. Le remplacement du pare-brise est alors en principe nécessaire."
+msgstr ""
+
+#: inc/blocks.php:295
+msgid "Dans le champ de vision du conducteur"
+msgstr ""
+
+#: inc/blocks.php:301
+msgid "Remplacement souvent conseillé"
+msgstr ""
+
+#: inc/blocks.php:302
+msgid "Un impact proche du bord"
+msgstr ""
+
+#: inc/blocks.php:303
+msgid "Près du cadre, le verre est plus sollicité et un impact se transforme facilement en fissure. Le technicien vérifie si une réparation reste possible ; sinon, il remplace le pare-brise."
+msgstr ""
+
+#: inc/blocks.php:304
+msgid "Près du bord du pare-brise"
+msgstr ""
+
+#: inc/blocks.php:310
+msgid "Remplacement nécessaire"
+msgstr ""
+
+#: inc/blocks.php:311
+msgid "Une fissure ou un impact plus large qu'une pièce de 2 €"
+msgstr ""
+
+#: inc/blocks.php:312
+msgid "Une fissure ne se répare pas : le pare-brise doit être remplacé pour retrouver la solidité et la visibilité d'origine."
+msgstr ""
+
+#: inc/blocks.php:313
+msgid "Fissure, ou impact plus grand qu'une pièce de 2 €"
+msgstr ""
+
+#: inc/blocks.php:346
+msgid "Schéma d'un pare-brise vu de l'intérieur"
+msgstr ""
+
+#: inc/blocks.php:347
+msgid "Le champ de vision du conducteur est à gauche, devant le volant. Les bords forment une bande tout autour du vitrage. Le reste de la surface est généralement réparable."
+msgstr ""
+
+#: inc/blocks.php:354
+msgid "BORDS"
+msgstr ""
+
+#: inc/blocks.php:355
+msgid "CHAMP DE VISION"
+msgstr ""
+
+#: inc/blocks.php:356
+msgid "ZONE RÉPARABLE"
+msgstr ""
+
+#: inc/blocks.php:358
+msgid "VOLANT"
+msgstr ""
+
+#: inc/blocks.php:376
+msgid "Où se situe le dommage ?"
+msgstr ""
+
+#: inc/blocks.php:381
+msgid "Faire vérifier mon pare-brise"
+msgstr ""
+
+#: inc/blocks.php:383
+msgid "Indication générale : le technicien confirme le diagnostic au centre, après examen du vitrage."
+msgstr ""
+
+#: inc/blocks.php:401
+msgid "Communes déléguées : "
+msgstr ""
+
+#: inc/blocks.php:429
+msgid "Dont "
+msgstr ""
+
+#: inc/blocks.php:430
+#: inc/blocks.php:608
+msgid "Eure (27)"
+msgstr ""
+
+#: inc/blocks.php:430
+#: inc/blocks.php:608
+msgid "Yvelines (78)"
+msgstr ""
+
+#: inc/blocks.php:435
+msgid "Distances et temps de trajet indicatifs entre chaque commune et le centre GlassAuto Vernon"
+msgstr ""
+
+#: inc/blocks.php:436
+msgid "Commune"
+msgstr ""
+
+#: inc/blocks.php:436
+msgid "Département"
+msgstr ""
+
+#: inc/blocks.php:436
+msgid "Distance par la route"
+msgstr ""
+
+#: inc/blocks.php:436
+msgid "Temps indicatif"
+msgstr ""
+
+#: inc/blocks.php:445
+msgid "Temps de trajet jusqu’au centre"
+msgstr ""
+
+#. translators: 1 : temps minimal, 2 : temps maximal (minutes).
+#: inc/blocks.php:461
+#, php-format
+msgid "%1$d à %2$d min"
+msgstr ""
+
+#: inc/blocks.php:472
+msgid "Moins de 15 minutes"
+msgstr ""
+
+#: inc/blocks.php:473
+msgid "15 à 20 minutes"
+msgstr ""
+
+#: inc/blocks.php:474
+msgid "20 à 30 minutes"
+msgstr ""
+
+#: inc/blocks.php:475
+msgid "30 à 40 minutes"
+msgstr ""
+
+#: inc/blocks.php:476
+msgid "Plus de 40 minutes"
+msgstr ""
+
+#: inc/blocks.php:601
+msgid "Carte des communes situées autour du centre GlassAuto de Vernon, avec cercles de 10, 20 et 30 km"
+msgstr ""
+
+#: inc/blocks.php:605
+#: inc/blocks.php:651
+msgid "contributeurs OpenStreetMap"
+msgstr ""
+
+#: inc/blocks.php:608
+msgid "Distance à vol d'oiseau"
+msgstr ""
+
+#. translators: %s : nom et adresse du centre.
+#: inc/blocks.php:642
+#, php-format
+msgid "Plan interactif : %s"
+msgstr ""
+
+#. translators: %s : adresse du centre.
+#: inc/blocks.php:645
+#, php-format
+msgid "Plan du quartier avec l’emplacement du centre, %s"
+msgstr ""
+
+#: inc/blocks.php:653
+msgid "Afficher le plan interactif"
+msgstr ""
+
+#: inc/blocks.php:810
+msgid "GlassAuto Vernon"
+msgstr ""
+
+#: inc/centre.php:34
+msgid "Lundi"
+msgstr ""
+
+#: inc/centre.php:35
+msgid "Mardi"
+msgstr ""
+
+#: inc/centre.php:36
+msgid "Mercredi"
+msgstr ""
+
+#: inc/centre.php:37
+msgid "Jeudi"
+msgstr ""
+
+#: inc/centre.php:38
+msgid "Vendredi"
+msgstr ""
+
+#: inc/centre.php:39
+msgid "Samedi"
+msgstr ""
+
+#: inc/centre.php:40
+msgid "Dimanche"
+msgstr ""
+
+#: inc/centre.php:68
+msgid "Sur rendez-vous"
+msgstr ""
+
+#: inc/centre.php:69
+msgid "Fermé"
+msgstr ""
+
+#: inc/centre.php:71
+msgid "Lun–ven · 8 h 30 – 12 h / 13 h 30 – 18 h"
+msgstr ""
+
+#: inc/centre.php:223
+msgid "GlassAuto Vernon — informations du centre"
+msgstr ""
+
+#: inc/centre.php:225
+msgid "Ces informations alimentent les horaires, les coordonnées, la carte et les jetons {{tel}}, {{adresse}}, {{annee}}… des pages. Vide = valeur par défaut de la fiche officielle GlassAuto."
+msgstr ""
+
+#: inc/centre.php:231
+msgid "Nom du centre"
+msgstr ""
+
+#: inc/centre.php:232
+msgid "Adresse (rue)"
+msgstr ""
+
+#: inc/centre.php:233
+#: inc/seo.php:332
+msgid "Code postal"
+msgstr ""
+
+#: inc/centre.php:234
+#: inc/seo.php:333
+msgid "Ville"
+msgstr ""
+
+#: inc/centre.php:236
+msgid "E-mail public"
+msgstr ""
+
+#: inc/centre.php:237
+#: inc/seo.php:336
+msgid "Latitude"
+msgstr ""
+
+#: inc/centre.php:238
+#: inc/seo.php:337
+msgid "Longitude"
+msgstr ""
+
+#: inc/centre.php:239
+msgid "Horaires en une ligne (en-tête)"
+msgstr ""
+
+#: inc/centre.php:240
+msgid "Lien de réservation du réseau GlassAuto (facultatif)"
+msgstr ""
+
+#: inc/centre.php:241
+msgid "Lien « Laisser un avis Google »"
+msgstr ""
+
+#: inc/centre.php:242
+msgid "Google Place ID (avis Google)"
+msgstr ""
+
+#: inc/centre.php:243
+msgid "Adresse de l'espace partenaires"
+msgstr ""
+
+#: inc/centre.php:244
+msgid "Formulaire Fluent Forms « Demande de rendez-vous » (ID)"
+msgstr ""
+
+#: inc/centre.php:245
+msgid "Formulaire Fluent Forms « Contact » (ID)"
+msgstr ""
+
+#. translators: %s : jour de la semaine.
+#: inc/centre.php:272
+#, php-format
+msgid "Horaires : %s"
+msgstr ""
+
+#: inc/centre.php:291
+msgid "Communes retirées de la zone d'intervention (une par ligne)"
+msgstr ""
+
+#: inc/centre.php:298
+msgid "Par défaut : les communes déjà couvertes par un autre centre GlassAuto (Évreux, Louviers, Mantes-la-Ville) et l'agglomération de Mantes, en attente de la décision du réseau."
+msgstr ""
+
+#: inc/forms.php:36
+msgid "Fluent Forms n’est pas actif : le formulaire ne peut pas s’afficher."
+msgstr ""
+
+#. translators: %s : libellé du formulaire.
+#: inc/forms.php:39
+#, php-format
+msgid "Formulaire « %s » : créez-le dans Fluent Forms puis saisissez son identifiant dans Réglages › Général › GlassAuto Vernon."
+msgstr ""
+
+#: inc/forms.php:40
+msgid "Demande de rendez-vous"
+msgstr ""
+
+#: inc/forms.php:40
+msgid "Contact"
+msgstr ""
+
+#: inc/seo.php:329
+msgid "Type"
+msgstr ""
+
+#: inc/seo.php:330
+msgid "Nom"
+msgstr ""
+
+#: inc/seo.php:331
+msgid "Rue"
+msgstr ""
+
+#: inc/seo.php:334
+msgid "Pays"
+msgstr ""
+
+#: inc/setup.php:761
+#: inc/setup.php:762
+msgid "Installation GlassAuto"
+msgstr ""
+
+#: inc/setup.php:783
+msgid "Installation GlassAuto Vernon"
+msgstr ""
+
+#: inc/setup.php:784
+msgid "Crée les pages manquantes depuis gutenberg-pages/ et patterns/, les articles Conseils depuis gutenberg-posts/, la navigation principale et les réglages de lecture. Un contenu existant n'est jamais remplacé, sauf si vous cochez la case ci-dessous (son titre et son statut sont conservés)."
+msgstr ""
+
+#: inc/setup.php:787
+msgid "Résultat"
+msgstr ""
+
+#: inc/setup.php:796
+msgid "Réécrire aussi le contenu des pages existantes (perte des modifications faites dans l’éditeur)"
+msgstr ""
+
+#: inc/setup.php:797
+msgid "Créer les contenus manquants"
+msgstr ""
+
+#: inc/setup.php:800
+msgid "SEOPress"
+msgstr ""
+
+#: inc/setup.php:801
+msgid "Le thème n'émet aucune donnée structurée : SEOPress porte les titres, sitemaps et le Knowledge Graph, SEOPress PRO le schéma LocalBusiness et le fil d'Ariane. Le bouton ci-dessous préremplit ces réglages avec les informations du centre ; une valeur déjà saisie dans SEOPress n'est jamais écrasée."
+msgstr ""
+
+#: inc/setup.php:804
+msgid "Préremplir SEOPress"
+msgstr ""
+
+#: inc/setup.php:806
+msgid "Valeurs attendues dans SEOPress PRO › Local Business"
+msgstr ""
+
+#: inc/setup.php:807
+msgid "Issues de Réglages › Général › GlassAuto Vernon, pour contrôle :"
+msgstr ""
+
+#: patterns/acces.php
+msgctxt "Pattern title"
+msgid "Venir au centre (plan et fiche)"
+msgstr ""
+
+#: patterns/acces.php
+msgctxt "Pattern description"
+msgid "Plan du quartier en fond (bloc glassauto/plan-acces) avec la fiche adresse, horaires résumés, itinéraire et téléphone."
+msgstr ""
+
+#: patterns/assurances.php
+msgctxt "Pattern title"
+msgid "Assurances et prise en charge"
+msgstr ""
+
+#: patterns/assurances.php
+msgctxt "Pattern description"
+msgid "Bris de glace : démarches prises en charge, franchise annoncée avant l'intervention, documents à apporter."
+msgstr ""
+
+#: patterns/avis-google.php
+msgctxt "Pattern title"
+msgid "Avis Google"
+msgstr ""
+
+#: patterns/avis-google.php
+msgctxt "Pattern description"
+msgid "Avis Google authentiques via le bloc Témoignage G2RD en mode Google (clé API Google Maps dans G2RD › Thème, Place ID dans Réglages › Général › GlassAuto Vernon). Sans clé ni Place ID, des emplacements vides s'affichent : aucun avis n'est jamais inventé."
+msgstr ""
+
+#: patterns/carte-laterale-rdv.php
+msgctxt "Pattern title"
+msgid "Carte latérale « Prendre rendez-vous »"
+msgstr ""
+
+#: patterns/carte-laterale-rdv.php
+msgctxt "Pattern description"
+msgid "Carte collante pour les pages intérieures : coordonnées, boutons Prendre rendez-vous et Appeler, horaires résumés."
+msgstr ""
+
+#: patterns/centre.php
+msgctxt "Pattern title"
+msgid "Présentation du centre"
+msgstr ""
+
+#: patterns/centre.php
+msgctxt "Pattern description"
+msgid "Collage de photos (à remplacer par les photos réelles du centre), présentation, points clés et bouton vers la page Notre centre."
+msgstr ""
+
+#: patterns/conseils.php
+msgctxt "Pattern title"
+msgid "Conseils (derniers articles)"
+msgstr ""
+
+#: patterns/conseils.php
+msgctxt "Pattern description"
+msgid "Les trois derniers articles de la rubrique Actualités, en cartes, pour relier les pages de prestations aux conseils."
+msgstr ""
+
+#: patterns/cta-final.php
+msgctxt "Pattern title"
+msgid "Appel à l'action final"
+msgstr ""
+
+#: patterns/cta-final.php
+msgctxt "Pattern description"
+msgid "Bandeau turquoise « Un impact sur votre pare-brise ? N'attendez pas qu'il s'étende » avec les boutons Prendre rendez-vous et Appeler."
+msgstr ""
+
+#: patterns/diagnostic.php
+msgctxt "Pattern title"
+msgid "Diagnostic « Réparer ou remplacer ? »"
+msgstr ""
+
+#: patterns/diagnostic.php
+msgctxt "Pattern description"
+msgid "Section sombre avec le schéma interactif du pare-brise (bloc glassauto/diagnostic)."
+msgstr ""
+
+#: patterns/faq.php
+msgctxt "Pattern title"
+msgid "Questions fréquentes"
+msgstr ""
+
+#: patterns/faq.php
+msgctxt "Pattern description"
+msgid "Six questions sur les documents, l'avance de frais, la réparation d'impact, la durée, les véhicules et le samedi. Bloc FAQ G2RD en mode GEO (details/summary + JSON-LD FAQPage)."
+msgstr ""
+
+#: patterns/hero-accueil.php
+msgctxt "Pattern title"
+msgid "Accueil — Hero"
+msgstr ""
+
+#: patterns/hero-accueil.php
+msgctxt "Pattern description"
+msgid "Photo coupée en diagonale, titre H1 « Réparation et remplacement de pare-brise à Vernon », deux boutons, repères (téléphone, adresse, assurances) et étiquette « Réparer ou remplacer ? » posée sur l'impact."
+msgstr ""
+
+#: patterns/marquee-prestations.php
+msgctxt "Pattern title"
+msgid "Bandeau défilant des prestations"
+msgstr ""
+
+#: patterns/marquee-prestations.php
+msgctxt "Pattern description"
+msgid "Bandeau turquoise en capitales espacées, à l'arrêt si l'utilisateur a demandé moins d'animations."
+msgstr ""
+
+#: patterns/parcours.php
+msgctxt "Pattern title"
+msgid "Parcours client en quatre étapes"
+msgstr ""
+
+#: patterns/parcours.php
+msgctxt "Pattern description"
+msgid "Réservation, préparation du dossier, intervention, restitution. Liste ordonnée : la numérotation suit la séquence réelle."
+msgstr ""
+
+#: patterns/prestations-bento.php
+msgctxt "Pattern title"
+msgid "Prestations — grille"
+msgstr ""
+
+#: patterns/prestations-bento.php
+msgctxt "Pattern description"
+msgid "Deux cartes vedettes avec photo (réparation d'impact, remplacement de pare-brise), six cartes à icône et la carte « Vitrages spécifiques » avec les véhicules pris en charge."
+msgstr ""
+
+#: patterns/services.php
+msgctxt "Pattern title"
+msgid "Services du centre"
+msgstr ""
+
+#: patterns/services.php
+msgctxt "Pattern description"
+msgid "Les six services annoncés sur la fiche officielle du centre (aucune avance de frais, véhicule de courtoisie, convoyage, nettoyage, station de lavage, garantie nationale). Conditions à confirmer avec le centre."
+msgstr ""
+
+#: patterns/zone.php
+msgctxt "Pattern title"
+msgid "Zone d'intervention (résumé)"
+msgstr ""
+
+#: patterns/zone.php
+msgctxt "Pattern description"
+msgid "Bandes de temps de trajet par commune et carte statique de la zone (blocs glassauto/communes et glassauto/carte-zone)."
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Anthracite"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Graphite"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Gris"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Gris clair (bordures)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Brume (séparateurs)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Nuage (fonds)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Blanc"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Turquoise (aplats, grands titres)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Turquoise clair (sur fond sombre)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Turquoise encre (texte, liens)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Fuchsia (Prendre RDV, point)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Fuchsia foncé (survol, erreurs)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Menthe (validation)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Menthe encre (texte succès)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Ambre (avertissements)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Ambre encre"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · primary (anthracite)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · secondary (turquoise)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · white"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · cream (nuage)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · muted (gris)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · accent (fuchsia)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · accent-2 (turquoise clair)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · blue-dark (anthracite profond)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · blue-soft (graphite)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · surface (brume)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · success"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · warning"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Parent · danger"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Titres (Dunbar Tall, repli Outfit)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Texte (Roboto Flex)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Surtitre (12 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Mention (13 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Petit (15 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Texte (17 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Chapô (17 → 20 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Titre 3 (20 → 24 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Titre 2 (28 → 44 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Titre 1 (34 → 56 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display (40 → 72 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "8 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "16 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "24 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "32 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "48 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "64 px"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Section (64 → 112 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Gouttière (16 → 64 px)"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Douce"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Carte"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Menu"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Aucune"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page libre (sans bandeau de titre)"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page prestation (bandeau avec photo)"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "En-tête GlassAuto"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Pied de page GlassAuto"
+msgstr ""
+
+#: styles/glassauto.json
+msgctxt "Style variation name"
+msgid "GlassAuto Vernon"
+msgstr ""
+
+#: styles/glassauto.json
+msgctxt "Style variation description"
+msgid "Charte GlassAuto relevée sur glassauto.fr : anthracite, turquoise, fuchsia pour l'action, boutons en pilule, titres Dunbar Tall (repli Outfit). Appliquée automatiquement par le thème enfant ; les réglages (palette, polices, espacements) vivent dans theme.json."
+msgstr ""

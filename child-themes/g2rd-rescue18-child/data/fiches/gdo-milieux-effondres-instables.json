@@ -1,0 +1,55 @@
+{
+ "slug": "gdo-milieux-effondres-instables",
+ "titre": "Milieux effondrés ou instables : USAR, MGO et sécurité",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Tous niveaux",
+ "document": "Interventions en milieux effondrés ou instables, guide de doctrine opérationnelle (1re édition, septembre 2021)",
+ "resume": "Ce GDO sert de référence pour les interventions en milieu effondré ou instable. Il décrit les risques, les victimes, les unités USAR et la marche générale des opérations.",
+ "cles": [
+  "Un milieu effondré ou instable est une zone où des éléments naturels ou artificiels ont subi des modifications qui engendrent un équilibre instable.",
+  "La spécialité USAR compte trois emplois : équipier, chef d'unité, chef de section.",
+  "L'unité USAR de base compte un chef d'unité et six équipiers. Elle intervient sur les opérations de faible ampleur.",
+  "L'équipe USAR compte un chef d'unité et deux binômes USAR.",
+  "Classification INSARAG : légère (LUSAR) à une unité, lourde (HUSAR) à quatre unités.",
+  "Les victimes sont emmurées, incarcérées ou ensevelies.",
+  "La surveillance d'un système instable s'appuie sur un observateur, des télémètres laser ou des contrôleurs de stabilité.",
+  "Les primo-intervenants se déplacent en binôme, lentement, et restent silencieux pour entendre les craquements."
+ ],
+ "retenir": [
+  "Ne jamais déplacer une pièce soutenant des décombres. Contourne-la ou sécurise l'élément dangereux.",
+  "La hauteur maximum des décombres correspond le plus souvent au tiers de la hauteur de l'immeuble, du sol au chéneau.",
+  "MGO1 : évaluation générale de la zone. MGO2 : évaluation des secteurs. MGO3 : victimes facilement accessibles.",
+  "MGO4 : victimes ensevelies ou difficilement accessibles. MGO5 : déblaiement généralisé et recherche des corps.",
+  "Le COS connaît à tout instant le nombre et la position des sauveteurs engagés dans chaque zone."
+ ],
+ "pieges": [
+  "Confondre victime emmurée, avec un espace de survie, et victime incarcérée, prisonnière d'un amas et sans mobilité.",
+  "Confondre MGO3, victimes facilement accessibles, et MGO4, victimes ensevelies ou difficilement accessibles.",
+  "Ne pas déranger l'équilibre instable des décombres.",
+  "Ne pas longer les murs fissurés.",
+  "Ne pas engager les sauveteurs avant d'avoir évalué la stabilité de la zone."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions en milieux effondrés ou instables (DGSCGC, 2021)",
+   "https://interieur.gouv.fr/content/download/133625/1059097/file/GDO-Interventions-Milieux-Effondres-Ou-Instables.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Fairfax County Urban Search and Rescue DVIDS240405.jpg",
+   "auteur": "Chief Petty Officer Joshua Kelsey",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Fairfax_County_Urban_Search_and_Rescue_DVIDS240405.jpg",
+   "alt": "Sauveteur casqué progressant dans les décombres d'un bâtiment effondré."
+  },
+  {
+   "fichier": "File:Bangkok USAR Tender operate at Collapse of Thailand State Audit Office building site.jpg",
+   "auteur": "This Photo was taken by Adirach Toumlamoon.",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Bangkok_USAR_Tender_operate_at_Collapse_of_Thailand_State_Audit_Office_building_site.jpg",
+   "alt": "Engin de sauvetage et sauveteurs sur le site d'un immeuble effondré."
+  }
+ ]
+}

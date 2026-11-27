@@ -5,7 +5,7 @@ Description: Thème enfant du thème G2RD pour le studio moovéa (Pilates Reform
 Author: G2RD Agence Web
 Author URI: https://g2rd.fr
 Template: g2rd-theme
-Version: 1.10.4
+Version: 1.10.6
 Requires at least: 6.6
 Requires Parent: 1.39.0
 Tested up to: 6.8
@@ -107,6 +107,16 @@ body.mv-header-solid {
 
 .wp-site-blocks .wp-block-cover.mv-hero {
 	padding-top: calc( var( --mv-header-h, 96px ) + clamp( 2.5rem, 8vw, 4.5rem ) ) !important;
+}
+
+/* Filet : une page dont la premiere section sombre n'a pas la classe
+   mv-hero-typo (page creee avant que le motif la porte, ou section ajoutee a la
+   main) passait sous l'en-tete fixe. Cas mesure le 24/11 sur la page Ines : le
+   surtitre demarrait a 84 px, sous le logo. On lui reserve la meme hauteur.
+   body:not(.mv-header-solid) : quand moovea.js rend l'en-tete opaque, le body
+   recoit deja ce decalage, il ne faut pas le doubler. */
+body:not(.mv-header-solid) .wp-site-blocks .entry-content > .mv-on-dark:first-child:not(.mv-hero):not(.mv-hero-typo) {
+	padding-top: calc( var( --mv-header-h, 96px ) + clamp( 1.5rem, 5vw, 3.5rem ) ) !important;
 }
 
 /* Menu mobile ouvert : décoller les entrées du bord de l'écran.
@@ -783,6 +793,14 @@ body.mv-header-solid {
 	.mv-band-title {
 		white-space: normal;
 	}
+}
+
+/* --- Titres d'affichage : coupure equilibree ------------------------------ */
+/* Sans insecable (filtre g2rd_moovea_titres_secables), « Choisissez votre
+   rythme » se coupe sur mobile. balance repartit les mots : CHOISISSEZ /
+   votre RYTHME. Sans effet sur desktop, la ligne tient. */
+.wp-site-blocks .mv-display {
+	text-wrap: balance;
 }
 
 /* --- Carte de la page Contact : copie périmée des styles globaux ---------- */

@@ -1,0 +1,39 @@
+<!-- wp:template-part {"slug":"header","area":"header"} /-->
+
+<!-- wp:group {"tagName":"section","align":"full","className":"ga-page-hero is-style-section-dark","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ga-page-hero is-style-section-dark"><!-- wp:group {"align":"wide","className":"ga-page-hero__inner","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide ga-page-hero__inner"><!-- wp:g2rd/breadcrumb {"showHome":true,"homeLabel":"Accueil","separator":"›"} /-->
+
+<!-- wp:query-title {"type":"search","level":1,"className":"ga-page-hero__title"} /-->
+
+<!-- wp:search {"label":"Rechercher sur le site","showLabel":false,"placeholder":"Rechercher…","buttonText":"Rechercher","className":"ga-search"} /--></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"main","align":"full","className":"ga-main ga-section","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull ga-main ga-section"><!-- wp:query {"queryId":3,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"align":"wide","className":"ga-posts","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide ga-posts"><!-- wp:post-template {"className":"ga-posts__list","layout":{"type":"default"}} -->
+<!-- wp:group {"className":"ga-post-row","layout":{"type":"default"}} -->
+<div class="wp-block-group ga-post-row"><!-- wp:post-title {"level":2,"isLink":true,"fontSize":"h3","className":"ga-post-card__title"} /-->
+
+<!-- wp:post-excerpt {"excerptLength":30,"showMoreOnNewLine":false,"fontSize":"s","className":"ga-post-card__excerpt"} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>Aucun résultat. Essayez un autre mot, ou appelez-nous au {{tel}} : l'équipe du centre vous renseigne.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+
+<!-- wp:query-pagination {"className":"ga-pagination","layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous {"label":"Précédent"} /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next {"label":"Suivant"} /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer"} /-->

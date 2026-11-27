@@ -1,0 +1,100 @@
+{
+ "slug": "noyade-sauvetage-aquatique",
+ "titre": "Noyade et hypothermie : stades, sécurité et prise en charge",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Révise les quatre stades de la noyade, la sécurité du sauveteur et la conduite face à l'hypothermie.",
+ "sources": [
+  ["ENASIS, Référentiel technique SUAP : Les atteintes liées aux circonstances (mise à jour février 2022)", "https://enasis.fr/pluginfile.php/64092/mod_folder/content/0/SUAP-CT-12-Les%20atteintes%20li%C3%A9es%20aux%20circonstances.pdf"],
+  ["ENASIS, SSUAP : AC Noyade (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/217247/mod_folder/content/0/AC%20-%20Noyade.pdf"],
+  ["Santé publique France, Noyade", "https://www.santepubliquefrance.fr/maladies-et-traumatismes/traumatismes/noyade"],
+  ["Santé publique France, Noyades en France : bilan de surveillance de l'été 2025", "https://www.santepubliquefrance.fr/traumatismes/noyade/bulletin-national/noyades-en-france-bilan-de-surveillance-de-lete-2025"]
+ ],
+ "questions": [
+  {
+   "q": "Comment le référentiel SSUAP définit-il la noyade ?",
+   "c": ["Une perte de connaissance dans l'eau froide", "Une détresse respiratoire due à l'immersion ou à la submersion", "Un arrêt cardiaque après un plongeon", "Toute baignade en eau profonde"],
+   "a": 1,
+   "why": "L'apport de connaissances SSUAP définit la noyade comme une détresse respiratoire due à l'immersion ou à la submersion. La submersion peut mener à l'arrêt cardiaque en quelques minutes."
+  },
+  {
+   "q": "Quelle différence fais-tu entre submersion et immersion ?",
+   "c": ["En submersion, le visage est recouvert d'eau", "En immersion, la victime est toujours inconsciente", "Les deux termes désignent la même situation", "La submersion concerne uniquement la mer"],
+   "a": 0,
+   "why": "L'apport de connaissances SSUAP parle de submersion quand le visage est recouvert d'eau, d'où l'asphyxie. En immersion, le corps est dans l'eau mais la tête reste hors de l'eau, souvent grâce à un gilet."
+  },
+  {
+   "q": "Quel nom porte le stade 1 de la noyade ?",
+   "c": ["Le petit hypoxique", "L'anoxique", "L'aquastress", "Le grand hypoxique"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP nomme le stade 1 « aquastress ». La victime est consciente, souvent stressée, sans détresse et sans eau dans les voies aériennes."
+  },
+  {
+   "q": "Victime consciente, qui tousse, un peu essoufflée et légèrement cyanosée. Quel stade ?",
+   "c": ["Stade 1, l'aquastress", "Stade 3, le grand hypoxique", "Stade 4, l'anoxique", "Stade 2, le petit hypoxique"],
+   "a": 3,
+   "why": "Le référentiel technique SUAP décrit le petit hypoxique comme conscient, avec toux, parfois dyspnée et légère cyanose. Au stade 1, la victime ne tousse pas et ne présente aucune détresse."
+  },
+  {
+   "q": "Quel signe distingue le grand hypoxique (stade 3) du petit hypoxique ?",
+   "c": ["Les troubles de la conscience associés à la détresse respiratoire", "La présence de frissons", "La toux", "Le stress"],
+   "a": 0,
+   "why": "Le référentiel technique SUAP associe au stade 3 une détresse respiratoire avec troubles de la conscience. Au stade 2, la victime reste consciente."
+  },
+  {
+   "q": "Que caractérise le stade 4 de la noyade, dit anoxique ?",
+   "c": ["Une toux persistante", "Un arrêt respiratoire ou cardiaque", "Une simple fatigue", "Des frissons isolés"],
+   "a": 1,
+   "why": "Le référentiel technique SUAP définit le stade anoxique par un arrêt respiratoire ou cardiaque. Tu engages sans délai la réanimation et le DAE."
+  },
+  {
+   "q": "Selon le référentiel technique SUAP, à quelle condition le sapeur-pompier entre-t-il dans l'eau ?",
+   "c": ["Dès qu'il voit la victime, sans condition", "Uniquement si l'eau dépasse 20 °C", "S'il est certain de pouvoir assurer le sauvetage de la victime", "Uniquement sur ordre du médecin régulateur"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP précise que le sapeur-pompier ne pénètre dans l'eau que s'il est certain de pouvoir assurer le sauvetage. Un sauveteur en difficulté devient une victime de plus."
+  },
+  {
+   "q": "Faut-il appuyer sur l'abdomen du noyé pour vider l'eau de l'estomac ?",
+   "c": ["Oui, systématiquement avant toute RCP", "Oui, mais seulement chez l'enfant", "Oui, si la victime tousse", "Non, cela augmente le risque d'inhalation du liquide gastrique"],
+   "a": 3,
+   "why": "L'apport de connaissances SSUAP rappelle que les régurgitations sont fréquentes chez le noyé. Tenter de vider l'estomac, par des compressions abdominales par exemple, augmente le risque d'inhalation."
+  },
+  {
+   "q": "Sous quelle température corporelle parle-t-on d'hypothermie ?",
+   "c": ["35 °C", "37 °C", "36,5 °C", "30 °C"],
+   "a": 0,
+   "why": "Le référentiel technique SUAP définit l'hypothermie par une température du corps inférieure à 35 °C. La normale se situe aux alentours de 37 °C."
+  },
+  {
+   "q": "Victime consciente, peau froide, frissons permanents. Quel stade d'hypothermie évoques-tu ?",
+   "c": ["Grave, sous 24 °C", "Légère, entre 35 et 32 °C", "Sévère, entre 28 et 24 °C", "Modérée, entre 32 et 28 °C"],
+   "a": 1,
+   "why": "Le référentiel technique SUAP décrit l'hypothermie légère, de 35 à 32 °C, avec victime consciente, frissons permanents et peau froide. Les frissons disparaissent au stade modéré."
+  },
+  {
+   "q": "Pourquoi mobilises-tu une victime en hypothermie avec prudence ?",
+   "c": ["Pour éviter de la réveiller", "Parce que ses os sont plus fragiles", "Pour éviter de déclencher une fibrillation ventriculaire", "Pour garder l'eau dans ses vêtements"],
+   "a": 2,
+   "why": "Le référentiel technique SUAP demande d'effectuer toute mobilisation avec prudence à cause du risque de fibrillation ventriculaire. La sensibilité aux mobilisations augmente avec la gravité."
+  },
+  {
+   "q": "Comment prends-tu en charge les vêtements mouillés d'une victime en hypothermie ?",
+   "c": ["Tu les enlèves doucement, tu sèches sans frictionner et tu rhabilles au sec", "Tu les laisses en place pour garder l'isolation", "Tu frottes vigoureusement la peau pour la réchauffer", "Tu arroses la victime d'eau chaude"],
+   "a": 0,
+   "why": "Le référentiel technique SUAP demande d'enlever doucement les vêtements mouillés, de sécher sans frictionner, puis de rhabiller au sec et de couvrir. Tu isoles la victime du froid et du vent."
+  },
+  {
+   "q": "Selon Santé publique France, quel rang occupe la noyade chez les moins de 25 ans ?",
+   "c": ["Dixième cause de mortalité par accident de la vie courante", "Cause de mortalité marginale", "Deuxième cause de mortalité routière", "Première cause de mortalité par accident de la vie courante"],
+   "a": 3,
+   "why": "Santé publique France classe la noyade en première cause de mortalité par accident de la vie courante chez les moins de 25 ans en France. Elle cause environ 1 000 décès par an."
+  },
+  {
+   "q": "Du 1er juin au 30 septembre 2025, combien de noyades suivies de décès Santé publique France a-t-elle recensées ?",
+   "c": ["41", "409", "4 090", "40 900"],
+   "a": 1,
+   "why": "Le bilan de l'été 2025 recense 1 418 noyades, dont 409 suivies de décès. Les décès augmentent de 16 % par rapport à l'été 2024."
+  }
+ ]
+}

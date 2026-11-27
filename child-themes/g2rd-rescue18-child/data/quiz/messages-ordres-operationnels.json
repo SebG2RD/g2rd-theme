@@ -1,0 +1,29 @@
+{
+ "slug": "messages-ordres-operationnels",
+ "titre": "Messages et ordres opérationnels : les bons réflexes",
+ "theme": "Commandement",
+ "niveau": "Chef d'agrès",
+ "duree": "8 min",
+ "resume": "Message d'ambiance, compte rendu, SOIEC, PATRACDR, DPIF et chaîne de commandement : vérifie tes réflexes de chef.",
+ "sources": [
+  ["Guide de doctrine opérationnelle Exercice du commandement et conduite des opérations (DGSCGC)", "https://interieur.gouv.fr/content/download/133613/1059035/file/GDO-Exercice-Commandement-Conduite-Operations-V2.pdf"],
+  ["Mémento chef de groupe, Gestion opérationnelle et commandement (ENSOSP)", "https://enasis.fr/pluginfile.php/6539/mod_resource/content/1/memento%20CDG.pdf"]
+ ],
+ "questions": [
+  {"q": "Quelles rubriques composent le message d'ambiance ?", "c": ["Je suis, je vois, je demande", "Je suis, je vois, je fais, je demande", "Je vois, je fais, je demande, je confirme", "Je suis, je fais, je demande"], "a": 1, "why": "Le message d'ambiance suit la trame je suis, je vois, je fais, je demande. Source : mémento chef de groupe ENSOSP."},
+  {"q": "Quelles rubriques composent le message de compte rendu ?", "c": ["Je suis, je vois, je fais, je demande", "Je vois, je fais", "Je suis, je vois, je demande", "Je demande, je confirme"], "a": 2, "why": "Le compte rendu suit la trame je suis, je vois, je demande. Source : mémento chef de groupe ENSOSP."},
+  {"q": "Quelle rubrique figure dans le message d'ambiance mais pas dans le compte rendu ?", "c": ["Je fais", "Je suis", "Je vois", "Je demande"], "a": 0, "why": "Le message d'ambiance ajoute je fais. Le compte rendu se limite à je suis, je vois, je demande. Source : mémento chef de groupe ENSOSP."},
+  {"q": "Dans l'ordre initial SOIEC, que signifie la lettre I ?", "c": ["Intervention", "Itinéraire", "Information", "Idée de manœuvre"], "a": 3, "why": "SOIEC signifie situation, objectif, idée de manœuvre, exécution, commandement. Source : mémento chef de groupe ENSOSP."},
+  {"q": "Quel moyen mnémotechnique structure l'ordre préparatoire ?", "c": ["SOIEC", "PATRACDR", "DPIF"], "a": 1, "why": "L'ordre préparatoire suit PATRACDR : personnel, armement, tenue, radio, alimentation, commandement, déroulement, rendez-vous. Source : GDO Exercice du commandement."},
+  {"q": "Dans PATRACDR, à quoi correspond le premier R ?", "c": ["Reconnaissance", "Renfort", "Radio", "Repli"], "a": 2, "why": "Le premier R désigne la radio, c'est-à-dire les transmissions. Le dernier R désigne le rendez-vous. Source : GDO Exercice du commandement."},
+  {"q": "Quel ordre suit la méthode DPIF ?", "c": ["L'ordre initial", "Le message d'ambiance", "L'ordre préparatoire", "L'ordre de mouvement"], "a": 3, "why": "L'ordre de mouvement suit DPIF : direction, point à atteindre, itinéraire, formation. Source : GDO Exercice du commandement."},
+  {"q": "Dans DPIF, que signifie la lettre F ?", "c": ["Formation", "Fréquence radio", "Fin de mission", "Feu"], "a": 0, "why": "F désigne la formation du groupe pendant le déplacement. Source : GDO Exercice du commandement."},
+  {"q": "À quoi sert l'ordre de mouvement ?", "c": ["À rendre compte au CODIS de la fin d'intervention", "À passer les consignes à l'ensemble des chefs d'agrès avant le départ", "À demander des renforts au DOS"], "a": 1, "why": "Le GDO précise que cet ordre permet un passage de consignes à l'ensemble des chefs d'agrès avant le départ."},
+  {"q": "Combien d'engins un chef de groupe conduit-il ?", "c": ["Un seul engin", "2 à 4 engins", "5 à 8 engins", "Plus de 10 engins"], "a": 1, "why": "Le chef de groupe conduit 2 à 4 engins. Source : GDO Exercice du commandement."},
+  {"q": "Que commande un chef de colonne ?", "c": ["2 à 4 groupes", "Un seul agrès", "Une équipe de deux sapeurs"], "a": 0, "why": "Le chef de colonne conduit 2 à 4 groupes. Au-delà d'une colonne, l'opération relève d'un chef de site. Source : GDO Exercice du commandement."},
+  {"q": "Qui est souvent le premier COS d'une opération ?", "c": ["Le chef de site", "Le chef de colonne", "Le préfet", "Le chef d'agrès"], "a": 3, "why": "Le chef d'agrès arrive en premier et devient souvent le premier commandant des opérations de secours. Source : GDO Exercice du commandement."},
+  {"q": "Un chef de groupe assure la fonction de chef de secteur. Sous l'autorité de qui agit-il ?", "c": ["Du maire en direct", "Du CTA", "Du COS"], "a": 2, "why": "Le GDO indique que chefs de groupe et de colonne peuvent assurer la fonction de chef de secteur sous l'autorité d'un COS."},
+  {"q": "Selon le GDO, à quelle phase de l'opération appartient la sectorisation de l'intervention ?", "c": ["La montée en puissance", "La stabilisation", "La sortie de l'opération de secours"], "a": 0, "why": "Le GDO range le zonage et la sectorisation parmi les actions attendues de la phase de montée en puissance."},
+  {"q": "Un supérieur hiérarchique arrive sur l'intervention. Que réalises-tu avant son éventuelle prise de commandement ?", "c": ["Un message d'ambiance au CODIS", "Un point de situation", "Un ordre préparatoire", "Un compte rendu de sortie de secours"], "a": 1, "why": "Le GDO prévoit un point de situation à l'arrivée d'un supérieur, avant son éventuelle prise de commandement."}
+ ]
+}

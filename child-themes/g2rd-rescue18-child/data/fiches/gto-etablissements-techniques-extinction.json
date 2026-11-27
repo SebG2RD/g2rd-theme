@@ -1,0 +1,56 @@
+{
+ "slug": "gto-etablissements-techniques-extinction",
+ "titre": "Établissements et points d'eau : les repères hydrauliques du GTO",
+ "theme": "Incendie",
+ "niveau": "Tous niveaux",
+ "document": "Guide de techniques opérationnelles : Établissements et techniques d'extinction",
+ "resume": "Ce GTO fixe les repères de la défense extérieure contre l'incendie, des points d'eau et des établissements. Tu y trouves débits, pressions et règles de mise en œuvre des lignes.",
+ "cles": [
+  "La DECI retient une durée de référence d'environ 2 heures pour la lutte contre l'incendie.",
+  "Un poteau d'incendie se raccorde à un réseau sous pression compris entre 1 et 16 bar.",
+  "Un PI est dit à haute pression au-delà de 6 bar de pression dynamique à 60 m³/h.",
+  "10 m de dénivelé représentent environ 1 bar.",
+  "Les pertes de charge croissent avec la longueur du tuyau et avec le carré du débit.",
+  "Une ligne d'attaque comprend en général une lance et 2 ou 3 tuyaux de 45 mm.",
+  "Le conducteur alimente seul l'engin si le point d'eau se trouve à moins de 20 m.",
+  "Au-delà d'environ 400 m d'alimentation, utilise une ligne de 110 mm.",
+  "Un PI à 60 m³/h remplit une citerne de 3000 L en 3 minutes environ."
+ ],
+ "retenir": [
+  "PI DN100 : environ 60 m³/h, soit 1000 L/min, ouverture en 13 tours.",
+  "PI DN150 : environ 120 m³/h, ouverture en 17 tours.",
+  "Garde au moins 1 bar à l'entrée de la pompe en alimentation.",
+  "Les pertes de charge ne dépendent pas de la pression.",
+  "L'ordre d'exécution d'un établissement se termine par « Établissez ! »."
+ ],
+ "pieges": [
+  "Ne pas ouvrir brutalement un PI à haute pression : ouvre-le lentement.",
+  "Ne pas faire tourner la pompe au-delà de 80 % de sa capacité.",
+  "Ne pas considérer une piscine privée comme un point d'eau incendie.",
+  "Confondre pertes de charge et pression : un réseau puissant ne réduit pas les pertes de charge.",
+  "Ne pas t'établir devant les ouvrants du volume en feu."
+ ],
+ "quiz": "hydraulique-incendie",
+ "sources": [
+  [
+   "Guide de techniques opérationnelles : Établissements et techniques d'extinction (DGSCGC, 2018)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gto-etablissements-techniques-extinction-2018.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Aircraft Rescue Firefighting training.jpg",
+   "auteur": "Manuel F. Guerrero, U.S. Marine Corps",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Aircraft_Rescue_Firefighting_training.jpg",
+   "alt": "Trois pompiers en tenue d'approche attaquant un feu avec une lance."
+  },
+  {
+   "fichier": "File:Fire hose and hydrant on a Delhi parking lot 02.jpg",
+   "auteur": "Kritzolina",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Fire_hose_and_hydrant_on_a_Delhi_parking_lot_02.jpg",
+   "alt": "Poteau d'incendie et armoire à tuyaux sur un mur."
+  }
+ ]
+}

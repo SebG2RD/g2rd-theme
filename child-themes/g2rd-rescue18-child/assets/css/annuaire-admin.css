@@ -1,0 +1,73 @@
+/* Rescue 18 · Annuaire et recrutement (back-office). S'appuie sur veille-admin.css. */
+.r18a .r18a-title { margin: 0; color: #fff; font-size: 30px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
+.r18a-start { margin: 0 0 20px; padding: 22px 24px; border-radius: 16px; background: #fff; border: 2px dashed #C90E1B; }
+.r18a-start h2 { margin: 0 0 6px; font-size: 18px; }
+.r18a-start p { margin: 0 0 14px; color: #4F5968; }
+.r18a-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin: 0 0 18px; }
+.r18a-tile { display: grid; gap: 2px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid #E3E6EB; color: #111319; text-decoration: none; transition: border-color .15s, transform .15s; }
+.r18a-tile:hover,
+.r18a-tile:focus-visible { border-color: #111319; transform: translateY(-2px); color: #111319; }
+.r18a-tile:focus-visible { outline: 3px solid #C90E1B; outline-offset: 2px; }
+.r18a-tile .dashicons { color: #C90E1B; font-size: 22px; width: 22px; height: 22px; margin-bottom: 6px; }
+.r18a-tile strong { font-size: 26px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
+.r18a-tile span:last-child { color: #4F5968; font-size: 13px; }
+.r18a-todo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 18px; padding: 14px 16px; border-radius: 12px; background: #FFF4E0; color: #6B4000; border: 1px solid #F3DFB4; }
+.r18a-todo a { font-weight: 700; color: #6B4000; }
+.r18a-src { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border: 1px solid #E3E6EB; border-radius: 14px; overflow: hidden; }
+.r18a-src th,
+.r18a-src td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #EEF0F3; vertical-align: middle; }
+.r18a-src thead th { background: #F5F6F8; font-size: 12px; color: #4F5968; }
+.r18a-src tbody tr:last-child > * { border-bottom: 0; }
+.r18a-src th small { display: block; font-weight: 400; color: #4F5968; }
+.r18a-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; background: #9AA3AE; vertical-align: 1px; }
+.r18a-dot.is-ok { background: #11643B; }
+.r18a-dot.is-warn { background: #B26B00; }
+.r18a-dot.is-err { background: #B3261E; }
+.r18a-settings { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 14px; }
+.r18a-box { padding: 18px 20px; border-radius: 14px; background: #fff; border: 1px solid #E3E6EB; }
+.r18a-box h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 15px; }
+.r18a-box h3 .dashicons { color: #C90E1B; }
+.r18a-box label { display: block; font-weight: 600; margin: 12px 0 4px; }
+.r18a-box .r18v-switch,
+.r18a-box .r18v-seg label { margin: 0; }
+.r18a-box input[type="text"],
+.r18a-box input[type="url"],
+.r18a-box input[type="number"] { width: 100%; max-width: 100%; min-height: 38px; }
+.r18a-save { grid-column: 1 / -1; margin: 0; }
+.r18a-where { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.r18a-where li { padding: 14px 16px; background: #fff; border: 1px solid #E3E6EB; border-radius: 12px; }
+.r18a-where a { display: block; font-weight: 700; font-size: 14px; color: #111319; }
+.r18a-where span { color: #4F5968; font-size: 12px; }
+
+/* Panneau d'une fiche */
+#r18a-fiche .inside { margin: 0; padding: 14px 16px 18px; }
+.r18a-intro { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 14px; padding: 10px 12px; border-radius: 10px; background: #F5F6F8; color: #4F5968; }
+.r18a-intro .dashicons { color: #C90E1B; }
+.r18a-visuels { display: flex; gap: 12px; margin: 0 0 14px; }
+.r18a-visuels figure { margin: 0; }
+.r18a-visuels img { display: block; height: 90px; max-width: 240px; object-fit: cover; border-radius: 10px; border: 1px solid #E3E6EB; background: #fff; }
+.r18a-visuels .is-logo img { width: 90px; object-fit: contain; padding: 6px; }
+.r18a-visuels figcaption { font-size: 11px; color: #4F5968; margin-top: 4px; }
+.r18a-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 18px; }
+.r18a-field { position: relative; }
+.r18a-field.is-full { grid-column: 1 / -1; }
+.r18a-field > label:first-child { display: block; font-weight: 600; margin-bottom: 4px; padding-right: 34px; }
+.r18a-field input:not([type="checkbox"]),
+.r18a-field select,
+.r18a-field textarea { width: 100%; max-width: 100%; }
+.r18a-field.is-check label { display: flex; align-items: center; gap: 8px; min-height: 36px; font-weight: 600; }
+.r18a-lock { position: absolute; top: -2px; right: 0; display: inline-grid; place-items: center; width: 30px; height: 26px; cursor: pointer; }
+.r18a-lock input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+.r18a-lock .dashicons { color: #C3C9D1; font-size: 17px; width: 17px; height: 17px; }
+.r18a-lock input:checked + .dashicons { color: #C90E1B; }
+.r18a-lock input:focus-visible + .dashicons { outline: 2px solid #C90E1B; outline-offset: 2px; border-radius: 4px; }
+.r18a-open { display: inline-block; margin-top: 3px; font-size: 12px; }
+.r18a-help { margin: 4px 0 0; color: #4F5968; font-size: 12px; }
+.r18a-thumb { width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; border: 1px solid #E3E6EB; }
+.r18a-badge { display: inline-block; padding: 2px 8px; border-radius: 99px; background: #E7F6EE; color: #11643B; font-size: 12px; font-weight: 600; }
+.r18a-badge.is-auto { background: #FFF4E0; color: #6B4000; }
+
+/* Bouton principal : texte blanc sur le rouge du thème (contraste AA). */
+.wrap .button.button-primary,
+.wrap .button.button-primary:hover,
+.wrap .button.button-primary:focus { color: #fff; }

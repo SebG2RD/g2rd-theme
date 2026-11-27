@@ -1,0 +1,193 @@
+{
+  "slug": "traumatismes-immobilisation",
+  "titre": "Traumatismes : rachis, membres et immobilisation",
+  "theme": "Secours d'urgence aux personnes",
+  "niveau": "Équipier",
+  "duree": "9 min",
+  "resume": "Fais le point sur le maintien de tête, le collier cervical, les attelles et le relevage d'une victime traumatisée.",
+  "sources": [
+    [
+      "Recommandations PS (DGSCGC), fiche technique Maintien de la tête en position neutre, MAJ 09-2019",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/09%20-%20TRAUMATISMES/Traumatismes%20et%20immobilisations/FT%20Maintient%20de%20t%C3%AAte%20en%20position%20neutre%20Reco%20PS%202019.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 08PR11 Traumatisme des membres, MAJ 09-2019",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/09%20-%20TRAUMATISMES/Traumatismes%20et%20immobilisations/PR%20Traumatisme%20des%20membres%20reco%20PS%202019%20%EF%80%A22021.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 10FT10 Relevage à quatre secouristes, MAJ 09-2019",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/11%20-%20RELEVAGE%20ET%20BRANCARDAGE/FT%20Relevage%20%C3%A0%20quatre%20secouristes%20reco%20PS%202019%20%EF%80%A2%202021.pdf"
+    ],
+    [
+      "Référentiel technique SUAP, Traumatisme du dos et du cou",
+      "https://enasis.fr/pluginfile.php/10300/mod_folder/content/0/Traumatisme%20du%20dos%20et%20du%20cou.pdf"
+    ],
+    [
+      "Fiche technique SSUAP SQ 2.8.1 Pose d'un collier cervical, MAJ 05-2024",
+      "https://enasis.fr/pluginfile.php/204787/mod_resource/content/0/FT%20-%20Pose%20dun%20collier%20cervical.pdf"
+    ],
+    [
+      "Fiche technique SSUAP Immobilisation d'un membre au moyen d'une attelle à dépression, MAJ 05-2024",
+      "https://enasis.fr/pluginfile.php/217263/mod_folder/content/0/FT%20-%20Immobilisation%20dun%20membre%20au%20moyen%20dune%20attelle%20%C3%A0%20d%C3%A9pression.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "Quand mets-tu en place un maintien de la tête en position neutre ?",
+      "c": [
+        "Dès que tu suspectes un traumatisme de la tête, de la nuque ou du dos",
+        "Uniquement si la victime est inconsciente",
+        "Seulement après la pose du collier cervical"
+      ],
+      "a": 0,
+      "why": "Le maintien de tête se pose dès qu'un traumatisme de la tête, de la nuque ou du dos est suspecté. Recommandations PS, fiche Maintien de la tête en position neutre."
+    },
+    {
+      "q": "La tête de la victime allongée n'est pas dans l'axe. Comment la replaces-tu ?",
+      "c": [
+        "En tirant fermement sur la tête",
+        "Sans traction, jusqu'à ce que la victime regarde droit devant",
+        "En la tournant sur le côté pour libérer la bouche",
+        "Tu ne la touches jamais"
+      ],
+      "a": 1,
+      "why": "La tête se replace sans exercer de traction jusqu'à ce que la victime regarde droit devant. Recommandations PS, fiche Maintien de la tête en position neutre."
+    },
+    {
+      "q": "Pendant le replacement de la tête, la victime ressent des fourmillements dans les bras. Que fais-tu ?",
+      "c": [
+        "Tu demandes à la victime de bouger la tête elle-même",
+        "Tu termines rapidement le replacement",
+        "Tu interromps la manœuvre et tu maintiens la tête dans la position où elle se trouve"
+      ],
+      "a": 2,
+      "why": "Une résistance, une douleur cervicale ou des sensations anormales dans les membres imposent d'arrêter et de maintenir la tête dans sa position. Recommandations PS, fiche Maintien de la tête en position neutre."
+    },
+    {
+      "q": "Dans quel cas peux-tu interrompre le maintien de tête avant l'immobilisation ?",
+      "c": [
+        "Jamais, dans aucun cas",
+        "Après 5 minutes de maintien",
+        "Dès que la victime dit ne plus avoir mal",
+        "Si la victime est allongée à plat dos, calme et coopérante, après lui avoir demandé de ne pas bouger la tête"
+      ],
+      "a": 3,
+      "why": "Le maintien peut s'interrompre si la victime est allongée à plat dos, calme et coopérante, après consigne de ne pas bouger. Recommandations PS, fiche Maintien de la tête en position neutre."
+    },
+    {
+      "q": "Ta victime suspecte d'un traumatisme du rachis présente aussi une détresse respiratoire. Quelle est ta priorité ?",
+      "c": [
+        "Terminer l'immobilisation complète avant tout",
+        "Traiter la détresse vitale, l'immobilisation ne passe jamais avant",
+        "Poser le collier puis attendre le médecin"
+      ],
+      "a": 1,
+      "why": "La menace vitale se traite en premier. L'immobilisation ne doit jamais passer avant. Référentiel technique SUAP, Traumatisme du dos et du cou."
+    },
+    {
+      "q": "Combien de secouristes faut-il pour poser un collier cervical ?",
+      "c": [
+        "Un seul",
+        "Quatre",
+        "Deux, l'un maintient la tête, l'autre pose le collier"
+      ],
+      "a": 2,
+      "why": "La pose se fait à deux. Le premier maintient la tête en position neutre pendant toute la manœuvre. Fiche SSUAP SQ 2.8.1."
+    },
+    {
+      "q": "Quel repère utilises-tu pour choisir la taille du collier cervical ?",
+      "c": [
+        "Le tour de cou",
+        "La distance entre l'oreille et l'épaule",
+        "La distance entre le menton et le haut du sternum",
+        "L'âge de la victime"
+      ],
+      "a": 2,
+      "why": "La hauteur du collier correspond à la distance entre le menton et le haut du sternum de la victime. Fiche SSUAP SQ 2.8.1."
+    },
+    {
+      "q": "Pourquoi le collier cervical ne suffit-il pas à lui seul ?",
+      "c": [
+        "Il empêche la victime de respirer",
+        "Il ne limite pas totalement les mouvements de rotation et de latéralité de la nuque",
+        "Il doit être retiré pour le transport"
+      ],
+      "a": 1,
+      "why": "Le collier ne limite pas en totalité la rotation et la latéralité de la nuque. Fiche SSUAP SQ 2.8.1."
+    },
+    {
+      "q": "Dans quelle situation ne poses-tu pas de collier cervical ?",
+      "c": [
+        "Déformation préexistante du rachis cervical",
+        "Victime casquée après retrait du casque",
+        "Victime consciente",
+        "Victime de plus de 65 ans"
+      ],
+      "a": 0,
+      "why": "Une déformation préexistante du rachis cervical contre-indique le collier. La tête reste maintenue dans sa position. Fiche SSUAP SQ 2.8.1."
+    },
+    {
+      "q": "Quelle règle appliques-tu pour immobiliser un membre traumatisé ?",
+      "c": [
+        "Immobiliser la lésion et les articulations situées au-dessus et en dessous",
+        "Immobiliser uniquement la zone douloureuse",
+        "Immobiliser tout le corps dans tous les cas"
+      ],
+      "a": 0,
+      "why": "On immobilise la lésion et les articulations situées au-dessus et en dessous. Recommandations PS, fiche 08PR11."
+    },
+    {
+      "q": "Le membre fracturé présente une déformation. Que fais-tu ?",
+      "c": [
+        "Tu réalignes le membre avant d'immobiliser",
+        "Tu tires dans l'axe pour réduire la fracture",
+        "Tu immobilises en respectant la déformation",
+        "Tu laisses le membre sans immobilisation"
+      ],
+      "a": 2,
+      "why": "Le membre s'immobilise en respectant la déformation. Le réalignement se fait par un médecin ou à sa demande. Recommandations PS, fiche 08PR11."
+    },
+    {
+      "q": "Dans quel cas n'appliques-tu pas de froid sur un traumatisme de membre ?",
+      "c": [
+        "Entorse de cheville",
+        "Contusion du bras",
+        "Fracture ouverte"
+      ],
+      "a": 2,
+      "why": "Le froid s'applique si possible, sauf en cas de fracture ouverte. Recommandations PS, fiche 08PR11."
+    },
+    {
+      "q": "Fracture ouverte sans hémorragie. Que fais-tu avant l'immobilisation ?",
+      "c": [
+        "Tu recouvres la plaie d'un pansement stérile",
+        "Tu nettoies l'os visible",
+        "Tu poses un garrot préventif",
+        "Tu remets l'os en place"
+      ],
+      "a": 0,
+      "why": "La plaie se recouvre d'un pansement stérile avant l'immobilisation. Recommandations PS, fiche 08PR11."
+    },
+    {
+      "q": "Combien de secouristes faut-il au minimum pour poser une attelle à dépression sur un membre inférieur ?",
+      "c": [
+        "Un",
+        "Trois",
+        "Deux"
+      ],
+      "a": 1,
+      "why": "Au membre inférieur, la pose se fait par trois secouristes au minimum. Fiche SSUAP Attelle à dépression."
+    },
+    {
+      "q": "Lors d'un relevage à quatre secouristes, qui commande la manœuvre ?",
+      "c": [
+        "Le secouriste placé aux pieds",
+        "Le secouriste le plus ancien, quelle que soit sa place",
+        "Le secouriste placé à la tête de la victime",
+        "Le conducteur du VSAV"
+      ],
+      "a": 2,
+      "why": "Le secouriste placé à la tête guide et commande l'ensemble de la manœuvre. Recommandations PS, fiche 10FT10."
+    }
+  ]
+}

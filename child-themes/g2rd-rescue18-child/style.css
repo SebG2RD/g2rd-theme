@@ -1,0 +1,21 @@
+/*
+Theme Name: G2RD Rescue 18
+Theme URI: https://rescue18.com
+Description: Thème enfant du thème G2RD pour la refonte de Rescue 18, le webmédia des sapeurs-pompiers. Reprend la maquette validée (Claude Design, octobre 2026) : hero au casque en relief CSS 3D, bibliothèque documentaire GDO / GTO / RETEX / référentiels, veille juridique Légifrance, formation et quiz, podcasts, boutique WooCommerce. Contenus métier en types de contenu WordPress (documents, textes juridiques, épisodes, quiz), sections en blocs natifs et blocs dynamiques rendus en PHP, sans build. Le thème parent n'est jamais modifié.
+Author: G2RD Agence Web
+Author URI: https://g2rd.fr
+Template: g2rd-theme
+Version: 0.6.38
+Requires at least: 6.6
+Requires Parent: 1.39.0
+Tested up to: 7.0
+Requires PHP: 8.0
+License: EUPL-1.2
+License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+Text Domain: g2rd-rescue18-child
+Domain Path: /languages
+Tags: full-site-editing, block-styles, news, sapeurs-pompiers, rescue18
+*/
+
+/* Les styles sont chargés par inc/setup.php depuis assets/css/.
+   Ce fichier déclare le thème enfant. Ne rien ajouter ici. */

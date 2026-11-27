@@ -1,0 +1,177 @@
+{
+  "slug": "obstruction-voies-aeriennes",
+  "titre": "Obstruction des voies aériennes : adulte, enfant, nourrisson",
+  "theme": "Secours d'urgence aux personnes",
+  "niveau": "Initiation",
+  "duree": "8 min",
+  "resume": "Contrôle tes réflexes face à un étouffement, de l'obstruction partielle à la perte de connaissance.",
+  "sources": [
+    [
+      "Recommandations PS (DGSCGC), fiche 05PR15 Obstruction complète des voies aériennes, MAJ 11-2021",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/D%C3%A9tresse%20respiratoire/PR%20Obstruction%20compl%C3%A8te%20des%20voies%20a%C3%A9riennes%20reco%20PS%202021%20%282%29.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 05FT05 Désobstruction par la méthode des claques dans le dos, MAJ 11-2021",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/D%C3%A9tresse%20respiratoire/FT%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20claques%20dans%20le%20dos%20reco%20PS%202021.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 05FT07 Désobstruction par la méthode des compressions thoraciques, MAJ 11-2021",
+      "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/D%C3%A9tresse%20respiratoire/FT%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20compressions%20thoraciques%20reco%20PS%202021.pdf"
+    ],
+    [
+      "Fiche technique SSUAP SQ 2.3.3 Désobstruction par la méthode des compressions abdominales, MAJ 05-2024",
+      "https://enasis.fr/pluginfile.php/204755/mod_resource/content/0/FT%20-%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20compressions%20abdominales.pdf"
+    ],
+    [
+      "Fiche procédure SSUAP SQ 2.3.3 Obstructions des voies aériennes complète ou partielle, MAJ 05-2024",
+      "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20OVA%20compl%C3%A9te%20ou%20partielle.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "La victime tousse fort et respire avec difficulté. Que fais-tu ?",
+      "c": [
+        "Tu ne pratiques aucune technique de désobstruction et tu l'encourages à tousser",
+        "Tu pratiques des compressions abdominales",
+        "Tu donnes immédiatement des claques dans le dos"
+      ],
+      "a": 0,
+      "why": "En cas d'obstruction partielle, on ne pratique jamais de technique de désobstruction. On installe la victime au mieux et on encourage la toux. Fiche procédure SSUAP OVA."
+    },
+    {
+      "q": "Obstruction complète chez un adulte conscient. Dans quelle position le prends-tu en charge ?",
+      "c": [
+        "Tu l'allonges sur le dos",
+        "Tu le laisses dans la position où il se trouve, en général debout ou assis",
+        "Tu le mets en position latérale de sécurité",
+        "Tu l'allonges sur le ventre"
+      ],
+      "a": 1,
+      "why": "La victime consciente reste dans la position où elle se trouve, en général debout ou assise. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "Quel geste réalises-tu en premier face à une obstruction complète chez une victime consciente ?",
+      "c": [
+        "30 compressions thoraciques",
+        "1 à 5 compressions abdominales",
+        "1 à 5 claques dans le dos",
+        "Un balayage du fond de la gorge au doigt"
+      ],
+      "a": 2,
+      "why": "La désobstruction débute par 1 à 5 claques dans le dos. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "Où donnes-tu les claques dans le dos chez l'adulte ?",
+      "c": [
+        "Entre les deux omoplates, avec le talon de la main ouverte",
+        "Au niveau des reins",
+        "Sur la nuque, avec le poing fermé"
+      ],
+      "a": 0,
+      "why": "Les claques se donnent entre les deux omoplates avec le talon de la main ouverte. Recommandations PS, fiche 05FT05."
+    },
+    {
+      "q": "Les claques dans le dos restent inefficaces chez un adulte. Quelle technique enchaînes-tu ?",
+      "c": [
+        "Des insufflations",
+        "1 à 5 compressions abdominales",
+        "Des claques plus fortes, sans limite de nombre"
+      ],
+      "a": 1,
+      "why": "Si les claques sont inefficaces, tu pratiques 1 à 5 compressions abdominales chez l'adulte et l'enfant. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "Où places-tu ton poing pour les compressions abdominales ?",
+      "c": [
+        "Sur le nombril",
+        "Au creux de l'estomac, juste au-dessus du nombril",
+        "Sur la pointe inférieure du sternum",
+        "Sous le nombril, au bas du ventre"
+      ],
+      "a": 1,
+      "why": "Le poing se place sur la partie supérieure de l'abdomen, au creux de l'estomac, juste au-dessus du nombril. Fiche SSUAP SQ 2.3.3."
+    },
+    {
+      "q": "Dans quelle direction tires-tu lors d'une compression abdominale ?",
+      "c": [
+        "Vers l'arrière et vers le haut",
+        "Vers l'arrière et vers le bas",
+        "Uniquement vers le bas"
+      ],
+      "a": 0,
+      "why": "Tu tires franchement en exerçant une pression vers l'arrière et vers le haut. Fiche SSUAP SQ 2.3.3."
+    },
+    {
+      "q": "La victime est une femme enceinte dans les derniers mois. Que remplacent les compressions abdominales ?",
+      "c": [
+        "Des claques dans le dos sans limite",
+        "Des compressions thoraciques",
+        "Rien, tu attends les renforts"
+      ],
+      "a": 1,
+      "why": "Les compressions thoraciques remplacent les abdominales chez la femme enceinte dans les derniers mois, l'adulte obèse et le nourrisson. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "Pour les compressions thoraciques de désobstruction chez l'adulte, où places-tu ton poing ?",
+      "c": [
+        "Au milieu du sternum, sans appuyer sur sa pointe inférieure",
+        "Au creux de l'estomac",
+        "Sous la clavicule gauche",
+        "Sur le côté gauche du thorax"
+      ],
+      "a": 0,
+      "why": "Le poing se place au milieu du sternum, sans appuyer sur sa pointe inférieure. Recommandations PS, fiche 05FT07."
+    },
+    {
+      "q": "Comment installes-tu un nourrisson pour les claques dans le dos ?",
+      "c": [
+        "Assis sur tes genoux, dos droit",
+        "À califourchon sur ton avant-bras, face vers le sol, tête plus basse que le thorax",
+        "Allongé sur le dos sur une table",
+        "Debout contre toi"
+      ],
+      "a": 1,
+      "why": "Le nourrisson est à califourchon sur l'avant-bras, face vers le sol, tête plus basse que le thorax. Recommandations PS, fiche 05FT05."
+    },
+    {
+      "q": "Chez le nourrisson, comment réalises-tu les compressions thoraciques de désobstruction ?",
+      "c": [
+        "Avec le talon d'une main sur le ventre",
+        "Avec la pulpe de deux doigts sur la moitié inférieure du sternum, nourrisson sur le dos",
+        "Avec le poing au creux de l'estomac"
+      ],
+      "a": 1,
+      "why": "Le nourrisson est sur le dos sur l'avant-bras, tête plus basse, et les compressions se font avec deux doigts sur la moitié inférieure du sternum. Recommandations PS, fiche 05FT07."
+    },
+    {
+      "q": "Quand arrêtes-tu les manœuvres de désobstruction ?",
+      "c": [
+        "Après exactement 5 cycles",
+        "Quand la victime devient pâle",
+        "Dès que la victime tousse, crie ou pleure, reprend sa respiration ou rejette le corps étranger"
+      ],
+      "a": 2,
+      "why": "Les manœuvres s'arrêtent dès que la victime tousse, crie ou pleure, respire ou rejette le corps étranger. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "La victime perd connaissance malgré tes manœuvres. Que fais-tu après l'avoir accompagnée au sol ?",
+      "c": [
+        "Tu commences par des compressions thoraciques, quel que soit son âge",
+        "Tu reprends les claques dans le dos",
+        "Tu la mets en PLS"
+      ],
+      "a": 0,
+      "why": "Une fois la victime au sol, tu commences par des compressions thoraciques, quel que soit son âge. Recommandations PS, fiche 05PR15."
+    },
+    {
+      "q": "La désobstruction a réussi. Pourquoi transmets-tu quand même un bilan pour avis médical ?",
+      "c": [
+        "Pour une raison administrative",
+        "Parce que de petits fragments peuvent passer dans les poumons et que les compressions peuvent causer des lésions internes",
+        "Parce que la victime doit être sédatée"
+      ],
+      "a": 1,
+      "why": "Des fragments peuvent passer dans les poumons et les compressions peuvent provoquer des lésions internes. Recommandations PS, fiche 05PR15."
+    }
+  ]
+}

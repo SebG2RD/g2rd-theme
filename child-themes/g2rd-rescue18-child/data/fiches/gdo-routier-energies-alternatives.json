@@ -1,0 +1,50 @@
+{
+ "slug": "gdo-routier-energies-alternatives",
+ "titre": "Véhicules électriques, hybrides, gaz et hydrogène : identifier et intervenir",
+ "theme": "Secours routier",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle : Opérations de secours en milieu routier, DGSCGC, juillet 2025, 1re édition",
+ "resume": "Le GDO routier décrit les énergies alternatives des véhicules et leurs risques : torchère, BLEVE, emballement thermique. Il fixe la conduite à tenir, à l'incendie comme à la désincarcération.",
+ "cles": [
+  "Identifie l'énergie dès l'appel : rubrique P3 de la carte grise, logos, câbles orange, réservoirs, fiche d'aide à la décision (FAD).",
+  "Câbles haute tension orange, parfois sous gaine noire. Le système HT monte jusqu'à 800 V.",
+  "La coupure du contact ouvre les relais HT et ferme les électrovannes GPL, GNC et hydrogène.",
+  "Sans FAD, ne touche ni au service plug ni à la boucle d'isolement.",
+  "Feu de véhicule : lance d'au moins 250 L/min, binôme en progression dans l'axe 3/4 avant.",
+  "Véhicule au gaz : ARI coiffé, approche par l'avant hors de l'axe, deux lances dont une refroidit le réservoir.",
+  "Batterie emballée : eau par la trappe thermo-fusible si elle existe, sinon par les déformations du casing.",
+  "Si l'eau ne pénètre pas la batterie, cesse l'extinction et protège les tiers et l'environnement.",
+  "Après extinction : quarantaine sur sol inerte, forces de l'ordre et dépanneur informés du risque de ré-ignition.",
+  "Flamme d'hydrogène invisible de jour : repère-la à la caméra thermique."
+ ],
+ "retenir": [
+  "Pressions de stockage : GPL-c 10 bar au maximum, GNC 200 à 250 bar, hydrogène 350 ou 700 bar.",
+  "Thermo-fusible GPL-c, fusible thermique GNC et TPRD hydrogène : déclenchement vers 110 °C.",
+  "Réservoir GNC ou hydrogène vidé en 3 minutes d'une traite après fonte du fusible thermique.",
+  "BLEVE d'un réservoir GPL de 50 L : éclats jusqu'à 100 m, boule de feu de 30 m, surpression ressentie jusqu'à 120 m.",
+  "Batterie mal éteinte : risque de ré-ignition au-delà de 24 heures."
+ ],
+ "pieges": [
+  "Ne pas poser de couverture anti-feu sur un véhicule en emballement thermique : les gaz restent piégés dessous.",
+  "Ne pas ouvrir le casing d'une batterie avec un outil de forcement.",
+  "Ne pas arroser un feu de batterie lithium métal polymère (LMP) développé : stoppe les propagations et attends la baisse d'intensité.",
+  "Confondre moteur thermique à hydrogène (H2 sur la carte grise) et véhicule à pile à combustible (HH).",
+  "Ne pas attaquer un véhicule en charge sans confirmation de coupure de la borne : limite-toi à protéger l'environnement."
+ ],
+ "quiz": "risques-gaz-electricite",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Opérations de secours en milieu routier (DGSCGC, 2025)",
+   "https://enasis.fr/pluginfile.php/97203/mod_label/intro/GDO_2025-07_OPERATIONS_DE_SECOURS_EN_MILIEU_ROUTIER.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Electric Car recharging.jpg",
+   "auteur": "original: Michael Movchinedited by Felix Müller",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Electric_Car_recharging.jpg",
+   "alt": "Voiture électrique branchée à une borne de recharge."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "pse-hemorragies-externes",
+ "titre": "Hémorragies externes et extériorisées : compression, pansement, garrot",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Une hémorragie externe est un saignement abondant et visible qui ne s'arrête pas seul. Tu l'arrêtes par compression manuelle relayée par un pansement compressif, puis par garrot ou gaze hémostatique si besoin.",
+ "cles": [
+  "Gants d'abord, écarte les vêtements, appuie fortement sur la plaie en interposant compresses ou tissu propre.",
+  "Compression efficace : relaie-la au plus vite par un pansement compressif, bandage serré qui recouvre tout le pansement.",
+  "Suintement à travers le pansement : reprends la compression manuelle par-dessus.",
+  "Zone non garrotable : pansement avec contre-appui, par exemple cou sur aisselle opposée, pli de l'aine sur le bassin.",
+  "Gaze hémostatique : au contact de la source du saignement, pression 3 minutes au moins, puis pansement compressif.",
+  "Note le nombre de gazes hémostatiques, l'heure et la localisation. Ne retire jamais une gaze posée.",
+  "Garrot improvisé : lien de 3 à 5 cm de large et 1,50 m de long au moins, serré par une barre en tourniquet.",
+  "Garrot insuffisant : resserre, puis ajoute un second garrot entre le premier et la racine du membre.",
+  "Saignement de nez après choc minime : victime assise tête penchée en avant, elle se mouche puis comprime ses narines 10 minutes.",
+  "Hémorragie vaginale chez une femme enceinte : allonge-la de préférence sur le côté gauche."
+ ],
+ "retenir": [
+  "Garrot : sur un membre, quand compression manuelle et pansement compressif sont inefficaces ou impossibles.",
+  "Position du garrot : idéalement 5 à 7 cm de la plaie, entre la plaie et la racine du membre, jamais sur une articulation.",
+  "Note l'heure de pose sur le garrot, sur la fiche de la victime, voire sur son front en cas de nombreuses victimes.",
+  "Un garrot posé ne se desserre jamais sans ordre d'un médecin.",
+  "Saignement de nez non arrêté après 10 minutes de compression : demande un avis médical."
+ ],
+ "pieges": [
+  "Ne pas retirer un morceau d'os ou un corps étranger dans la plaie : il limite le saignement.",
+  "Ne pas poser de gaze hémostatique sur une plaie avec corps étranger.",
+  "Ne pas poser de garrot au cou, au pli de l'aine ou au creux de l'aisselle : compression ou pansement avec contre-appui.",
+  "Ne pas oublier de protéger la victime du froid : l'hypothermie aggrave son état.",
+  "Confondre hémorragie externe et saignement minime d'une écorchure, qui s'arrête seul."
+ ],
+ "quiz": "hemorragies-plaies",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Fire Controlman applying tourniquet during first aid class aboard USS Benfold (DDG-65) 180628-N-GR120-0162.jpg",
+   "auteur": "Mass Communication Specialist 2nd Class Anna",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Fire_Controlman_applying_tourniquet_during_first_aid_class_aboard_USS_Benfold_(DDG-65)_180628-N-GR120-0162.jpg",
+   "alt": "Marin appliquant un garrot sur le bras d'un équipier en formation."
+  },
+  {
+   "fichier": "File:US Navy 070404-N-0775Y-007 Construction Mechanic 2nd Class Joseph Millsaps applies a tourniquet to Engineering Aid 1st Class Cesar Canonizado during a first aid course at Camp Shields.jpg",
+   "auteur": "U.S. Navy photo by Mass Communication",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:US_Navy_070404-N-0775Y-007_Construction_Mechanic_2nd_Class_Joseph_Millsaps_applies_a_tourniquet_to_Engineering_Aid_1st_Class_Cesar_Canonizado_during_a_first_aid_course_at_Camp_Shields.jpg",
+   "alt": "Militaire posant un pansement sur l'avant-bras d'un équipier."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "gto-sauvetages-mises-en-securite",
+ "titre": "Sauvetages et mises en sécurité : échelles, LSPCC et moyens aériens",
+ "theme": "Incendie",
+ "niveau": "Équipier",
+ "document": "Guide de techniques opérationnelles : Sauvetages et mises en sécurité (DGSCGC, 2e édition, février 2024)",
+ "resume": "Le GTO décrit les moyens pour soustraire une victime au danger : communications existantes, échelles à mains, moyens élévateurs aériens (MEA) et lot de sauvetage. Le COS choisit le moyen exposant le moins sauveteur et victime.",
+ "cles": [
+  "Mise en sécurité : la victime est valide et capable de se soustraire seule au danger. Tu l'accompagnes, tu l'aides, tu la conseilles.",
+  "Dégagement d'urgence : sauvetage sans matériel. Il déplace la victime en quelques secondes jusqu'à un lieu sûr.",
+  "Quatre paramètres conditionnent l'action : l'environnement, la victime, les moyens disponibles et le temps.",
+  "Mise en sécurité d'abord par les communications existantes. Communications impraticables ou victimes multiples : privilégie les MEA.",
+  "Échelle à coulisse deux plans : 1er et 2e étage. Échelle trois plans à arcs-boutants : jusqu'au 4e étage, manœuvrée par deux binômes.",
+  "Échelle à crochets : suspendue par ses crochets, jamais posée sur les pieds des montants. Elle supporte un seul homme.",
+  "Le lot de sauvetage et de protection contre les chutes (LSPCC) sert quand communications et échelles sont impossibles ou quand l'urgence l'impose.",
+  "Corde semi-statique du LSPCC : 30 m pour le lot engin, 60 m pour le lot échelle.",
+  "Véhicule pris comme ancrage : moteur arrêté, clé retirée, vitesse engagée, frein de parc serré.",
+  "Sol interdit pour stabiliser un MEA : plaque d'égout, bordure de trottoir, cave sous trottoir, parking sur dalle de moins de 15 tonnes."
+ ],
+ "retenir": [
+  "Dégagement d'urgence uniquement face à un danger réel, immédiat, vital et non contrôlable.",
+  "Facteur de chute = hauteur de chute divisée par la longueur de corde qui amortit. Facteur 1 à éviter, supérieur à 1 interdit. Cherche un amarrage en partie haute.",
+  "Pied de l'échelle à coulisse éloigné du mur d'environ 1/3 de la longueur développée. Repères : un pas par étage, test du coude, bras tendus.",
+  "Sauvetage par l'extérieur au LSPCC : au moins 20 cm entre le frein de charge et le point d'appui au passage dans le vide.",
+  "Panier de secours : sapeurs-pompiers toujours amarrés. Sortie possible du panier : harnais de protection contre les chutes avec absorbeur d'énergie."
+ ],
+ "pieges": [
+  "Ne pas quitter une échelle à crochets tenue par une seule pointe : terminer la progression reste moins dangereux.",
+  "Ne pas laisser seule une victime déplacée.",
+  "Ne pas placer le matelas de sauvetage à l'aplomb de la victime avant son gonflage complet.",
+  "Ne pas dépasser 90° entre deux anneaux de sangle d'un amarrage, ni faire travailler un mousqueton en porte-à-faux.",
+  "Ne pas faire jouer la victime par un équipier en exercice : le mannequin est obligatoire, à cause du syndrome de suspension."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide de techniques opérationnelles : Sauvetages et mises en sécurité (DGSCGC, 2024)",
+   "https://rescue18.com/telechargement/sauvetages-mise-en-securite/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Turntable ladder from the Fire Brigade (5955532576).jpg",
+   "auteur": "Jean-Pierre from Cosne-Cours-sur-Loire",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Turntable_ladder_from_the_Fire_Brigade_(5955532576).jpg",
+   "alt": "Échelle pivotante des sapeurs-pompiers dressée contre un immeuble."
+  },
+  {
+   "fichier": "File:2020-03-25 12.00.00 EVERDIGM Aerial Rescue Ladder 53 in Hoengseong Fire Station.jpg",
+   "auteur": "Choi Kwang-mo",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:2020-03-25_12.00.00_EVERDIGM_Aerial_Rescue_Ladder_53_in_Hoengseong_Fire_Station.jpg",
+   "alt": "Échelle aérienne à nacelle stationnée devant une caserne."
+  }
+ ]
+}

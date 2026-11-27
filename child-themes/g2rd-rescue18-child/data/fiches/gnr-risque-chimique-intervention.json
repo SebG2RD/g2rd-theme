@@ -1,0 +1,57 @@
+{
+ "slug": "gnr-risque-chimique-intervention",
+ "titre": "Risque chimique : zonage, marche des opérations et équipes CMIC",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'agrès",
+ "document": "Guide national de référence Risques chimiques et biologiques, DDSC, mars 2006",
+ "resume": "Le GNR fixe la méthode d'intervention sur un risque chimique ou biologique : renseignement, reconnaissance, conduite, fin d'opération. Il découpe le site en trois zones et précise la composition des équipes reconnaissance et intervention.",
+ "cles": [
+  "Dès l'alerte, renseigne-toi sur la météo : direction et force du vent, pression, hygrométrie, prévisions.",
+  "Demande au COS le point de rendez-vous des renforts et les itinéraires d'accès et de repli.",
+  "Au vent : face au danger, vent dans le dos. Sous le vent : face au danger, vent de face.",
+  "Zone d'exclusion : elle contient la source. Accès réservé aux spécialistes et aux personnes autorisées par le COS.",
+  "Zone contrôlée : bande entre exclusion et soutien. Tenue adaptée obligatoire. Elle reçoit les moyens de décontamination.",
+  "Zone de soutien, au vent : postes de commandement, postes médicaux avancés, aires de transit.",
+  "Dans un bâtiment, les zones se ramènent au local et au bâtiment, à condition d'avoir arrêté la ventilation mécanique.",
+  "Le premier COS pose un zonage réflexe a priori et un ou plusieurs points de contrôle d'accès au vent du danger.",
+  "Équipe reconnaissance ou intervention : 1 chef d'équipe et 2 équipiers.",
+  "Plan ORSEC déclenché : les périmètres sont ceux du plan, validés par le DOS après avis du COS."
+ ],
+ "retenir": [
+  "Marche générale : recherche du renseignement, reconnaissance, conduite de l'opération, fin d'opération.",
+  "Trois zones : exclusion (tenue de protection obligatoire), contrôlée (décontamination), soutien (PC et secours médicaux, au vent).",
+  "Plus d'une équipe engagée : le chef de CMIC ou le conseiller technique est engagé et le COZ est prévenu.",
+  "Équipe reconnaissance ou intervention engagée isolément : le COS est au moins sous-officier.",
+  "CMIC : 1 chef de CMIC (RCH 3), 1 équipe reconnaissance (RCH 1) et 1 équipe intervention (RCH 2)."
+ ],
+ "pieges": [
+  "Ne pas installer le PC ou le poste médical avancé sous le vent de la source.",
+  "Ne pas réduire le zonage au local dans un bâtiment sans avoir arrêté la ventilation mécanique.",
+  "Confondre zone d'exclusion, où se trouve la source, et zone contrôlée, où se fait la décontamination.",
+  "Ne pas placer le point de contrôle d'accès sous le vent du danger.",
+  "Ne pas oublier de prévenir le chef de CMIC ou le conseiller technique dès l'engagement d'une équipe."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Guide national de référence Risques chimiques et biologiques (DDSC, 2006)",
+   "https://rescue18.com/telechargement/risques-chimiques-et-biologiques/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Pueblo Chemical Agent-Destruction Pilot Plant Chemical Accident Incident Response and Assistance Exercise (50950169276).jpg",
+   "auteur": "PEO ACWA",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Pueblo_Chemical_Agent-Destruction_Pilot_Plant_Chemical_Accident_Incident_Response_and_Assistance_Exercise_(50950169276).jpg",
+   "alt": "Intervenants en tenue de protection chimique près d'un véhicule de secours."
+  },
+  {
+   "fichier": "File:Army, NG Firefighters 'suit up' for HAZMAT 121024-A-IA524-113.jpg",
+   "auteur": "Sgt. Katryn McCalment",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Army,_NG_Firefighters_%27suit_up%27_for_HAZMAT_121024-A-IA524-113.jpg",
+   "alt": "Intervenant en tenue étanche colmatant un fût qui fuit."
+  }
+ ]
+}

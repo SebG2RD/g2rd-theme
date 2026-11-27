@@ -1,0 +1,41 @@
+{
+ "slug": "gnr-site-souterrain",
+ "titre": "Interventions en site souterrain : organisation des secours",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Tous niveaux",
+ "document": "Guide national de référence Interventions en site souterrain, DDSC, avril 2004",
+ "resume": "Le GNR encadre l'engagement des unités GRIMP et secours en montagne en cavité, avec la formation complémentaire ISS 1. Il fixe le commandement unique surface et fond, les cinq opérations d'un secours et l'équipement spécifique.",
+ "cles": [
+  "Site souterrain : cavités naturelles ou artificielles, noyées ou à l'air libre.",
+  "Plongée en surface non libre : applique le GNR secours subaquatiques.",
+  "Pas de nouvelle spécialité : l'UV ISS 1 complète les spécialistes GRIMP ou secours en montagne.",
+  "Un seul COS commande en surface et sous terre. La direction des opérations reste au préfet ou au maire.",
+  "Conseiller du COS : conseiller technique GRIMP ou montagne titulaire ISS 1, ou conseiller technique départemental en spéléologie.",
+  "Renfort possible par la Fédération française de spéléologie (FFS), selon les plans de secours spécialisés.",
+  "Casque blanc pour chefs d'unité et conseillers techniques, rouge pour équipiers, avec 2 éclairages indépendants.",
+  "Collectif : cordes statiques, civière, bidons étanches, sacs « kit bag », transmissions, carbure de calcium, chevilles.",
+  "Accès ISS 1 : IMP 2 ou SMO 2 et 5 explorations en 12 mois, dont 1 cavité classe 2 de 1 000 m et 3 classe 4 de 200 m.",
+  "ISS 1 : 48 h environ. Sans validation de l'équipement-déséquipement, le stagiaire arrête la formation."
+ ],
+ "retenir": [
+  "Cinq opérations : reconnaissance, assistance médicale, transmissions, assistance logistique, évacuation des victimes.",
+  "Sauvetage de vie humaine : l'opération démarre avec deux équipiers formés au site souterrain, sous l'autorité du COS.",
+  "La reconnaissance précise victimes, conditionnement d'attente, profil de la cavité, difficultés, besoins et durée estimée.",
+  "Toute intervention exige l'autorisation du COS. Tout entraînement exige celle du DDSIS.",
+  "Le conseiller technique coordonne les opérations, menées par des équipes aux responsables désignés par le COS."
+ ],
+ "pieges": [
+  "Confondre conseiller technique départemental en spéléologie, nommé par le préfet, et conseiller technique GRIMP ou montagne titulaire ISS 1.",
+  "Ne pas engager un spécialiste sans la mention « intervention en site souterrain » sur la liste d'aptitude.",
+  "Ne pas négliger l'appui d'une personne connaissant le site lors de la reconnaissance.",
+  "Ne pas oublier de prévenir le conseiller technique départemental en spéléologie selon le plan de secours spécialisé.",
+  "Confondre intervention en cavité noyée et plongée en surface non libre, qui relève des secours subaquatiques."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide national de référence Interventions en site souterrain (DDSC, 2004)",
+   "https://rescue18.com/telechargement/interventions-en-site-souterrain/"
+  ]
+ ]
+}

@@ -1,0 +1,895 @@
+/* ==========================================================================
+   GlassAuto Vernon — Base commune
+   Règle du thème parent : variables --wp--preset--* uniquement, jamais de
+   valeur brute. Les couleurs/polices/espacements viennent de theme.json.
+   ========================================================================== */
+
+:root {
+	--ga-ease: var(--wp--custom--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+	--ga-dur: var(--wp--custom--duree, 300ms);
+	--ga-pente: var(--wp--custom--pente, 0.643);
+	--ga-corner: var(--wp--custom--corner, 44px);
+	--ga-header-h: var(--wp--custom--header-height, 5.5rem);
+}
+
+@media (max-width: 1180px) {
+	:root { --ga-header-h: 4rem; }
+}
+
+body.ga {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-optical-sizing: auto;
+}
+
+/* Le focus visible de la charte : anneau turquoise, clair sur fond sombre. */
+body.ga :focus-visible {
+	outline: 3px solid var(--wp--preset--color--ga-turquoise);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+body.ga .is-style-section-dark :focus-visible,
+body.ga .ga-header :focus-visible,
+body.ga .ga-footer :focus-visible {
+	outline-color: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+/* Liens : trait fin, plus épais au survol. */
+body.ga a {
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: 1px;
+}
+
+body.ga a:hover {
+	text-decoration-thickness: 2px;
+}
+
+/* --- Point fuchsia du logotype, repris en fin de titre --------------------- */
+.ga-dot {
+	color: var(--wp--preset--color--ga-fuchsia);
+}
+
+.is-style-card-action .ga-dot,
+.ga-cta .ga-dot {
+	color: var(--wp--preset--color--ga-anthracite);
+}
+
+/* --- Surtitre (eyebrow) ------------------------------------------------------ */
+.ga-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--wp--preset--spacing--xs);
+	margin: 0 0 var(--wp--preset--spacing--s);
+	font-family: var(--wp--preset--font-family--texte);
+	font-size: var(--wp--preset--font-size--label);
+	font-weight: 800;
+	letter-spacing: var(--wp--custom--tracking--label);
+	line-height: 1.3;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ga-turquoise-encre);
+}
+
+.is-style-section-dark .ga-eyebrow,
+.ga-page-hero .ga-eyebrow {
+	color: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+/* --- Chapô et nuances de texte ---------------------------------------------- */
+.ga-lead {
+	font-size: var(--wp--preset--font-size--l);
+	line-height: 1.55;
+	color: var(--wp--preset--color--ga-graphite);
+}
+
+.is-style-section-dark .ga-lead,
+.ga-page-hero .ga-lead,
+.ga-page-hero__lead {
+	color: #e3e5e8;
+}
+
+.ga-muted {
+	color: var(--wp--preset--color--ga-gris);
+}
+
+/* --- Boutons : icône + pilule --------------------------------------------- */
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6em;
+	min-height: 3rem;
+	white-space: nowrap;
+	transition:
+		background-color var(--ga-dur) var(--ga-ease),
+		color var(--ga-dur) var(--ga-ease),
+		border-color var(--ga-dur) var(--ga-ease);
+}
+
+.wp-block-button__link .ga-icon {
+	width: 1.15em;
+	height: 1.15em;
+}
+
+/* Gros bouton en capitales espacées (.big-btn officiel) */
+.ga-btn-big .wp-block-button__link {
+	min-height: 4rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	font-size: 0.875rem;
+	font-weight: 800;
+	letter-spacing: var(--wp--custom--tracking--label);
+	text-transform: uppercase;
+}
+
+.ga-btn-lg .wp-block-button__link {
+	min-height: 4rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	font-size: 1.0625rem;
+}
+
+.ga-btn-sm .wp-block-button__link {
+	min-height: 2.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 0.9375rem;
+}
+
+/* Icônes de bouton par classe du bloc Bouton. */
+.ga-btn-rdv .wp-block-button__link::before,
+.ga-btn-tel .wp-block-button__link::before,
+.ga-btn-itineraire .wp-block-button__link::before,
+.ga-btn-mail .wp-block-button__link::before {
+	content: "";
+	width: 1.15em;
+	height: 1.15em;
+	flex: none;
+	background-color: currentColor;
+	-webkit-mask: var(--ga-icon) center/contain no-repeat;
+	mask: var(--ga-icon) center/contain no-repeat;
+}
+
+.ga-btn-rdv .wp-block-button__link::before { --ga-icon: var(--ga-icon-calendrier); }
+.ga-btn-tel .wp-block-button__link::before { --ga-icon: var(--ga-icon-tel); }
+.ga-btn-itineraire .wp-block-button__link::before { --ga-icon: var(--ga-icon-itineraire); }
+.ga-btn-mail .wp-block-button__link::before { --ga-icon: var(--ga-icon-mail); }
+
+/* Lien souligné officiel (trait gris → anthracite au survol) */
+.ga-link-u,
+.ga-link-u a,
+.ga-link a {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45em;
+	padding-bottom: 3px;
+	font-weight: 700;
+	color: var(--wp--preset--color--ga-turquoise-encre);
+	text-decoration: none;
+}
+
+.ga-link-u::after,
+.ga-link a::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1px;
+	background: var(--wp--preset--color--ga-gris-clair);
+	transition: background-color var(--ga-dur) var(--ga-ease);
+}
+
+.ga-link-u:hover::after,
+.ga-link a:hover::after {
+	background: var(--wp--preset--color--ga-anthracite);
+}
+
+.ga-link a::before {
+	content: "";
+	order: 2;
+	width: 1em;
+	height: 1em;
+	background-color: currentColor;
+	-webkit-mask: var(--ga-icon-fleche) center/contain no-repeat;
+	mask: var(--ga-icon-fleche) center/contain no-repeat;
+	transition: transform var(--ga-dur) var(--ga-ease);
+}
+
+.ga-link a:hover::before {
+	transform: translateX(3px);
+}
+
+.ga-link {
+	margin: 0;
+}
+
+.is-style-section-dark .ga-link a,
+.is-style-section-dark .ga-link-u {
+	color: var(--wp--preset--color--ga-turquoise-clair);
+}
+
+.is-style-section-dark .ga-link a::after,
+.is-style-section-dark .ga-link-u::after {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.is-style-section-dark .ga-link a:hover::after {
+	background: var(--wp--preset--color--ga-blanc);
+}
+
+/* --- Pastilles / statuts ----------------------------------------------------- */
+.ga-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	min-height: 1.75rem;
+	margin: 0;
+	padding: 0 0.75rem;
+	border-radius: var(--wp--custom--radius--pill);
+	background: var(--wp--preset--color--ga-brume);
+	color: var(--wp--preset--color--ga-anthracite);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 700;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.ga-chip::before {
+	content: "";
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+.ga-chip--plain::before { display: none; }
+.ga-chip--turquoise { background: #e0f4f7; color: var(--wp--preset--color--ga-turquoise-encre); }
+.ga-chip--fuchsia { background: #fde6ee; color: var(--wp--preset--color--ga-fuchsia-fonce); }
+.ga-chip--menthe { background: #ddf8ee; color: var(--wp--preset--color--ga-menthe-encre); }
+.ga-chip--ambre { background: #fdf3d3; color: var(--wp--preset--color--ga-ambre-encre); }
+
+/* --- Coin plié turquoise (fiche centre officielle) --------------------------- */
+.ga-corner {
+	position: relative;
+}
+
+.ga-corner::after {
+	content: "";
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	width: var(--ga-corner);
+	height: var(--ga-corner);
+	background:
+		linear-gradient(225deg, var(--ga-corner-bg, var(--wp--preset--color--ga-blanc)) 0 50%, transparent 50%),
+		linear-gradient(225deg, transparent 50%, var(--wp--preset--color--ga-turquoise) 50%);
+	filter: drop-shadow(-3px 3px 4px rgba(47, 50, 55, 0.18));
+	pointer-events: none;
+}
+
+/* Le coin déborde de 1 px à droite : une section pleine largeur ne doit pas créer de défilement horizontal. */
+.ga-section.alignfull { overflow-x: clip; }
+
+.ga-section--alt .ga-corner { --ga-corner-bg: var(--wp--preset--color--ga-nuage); }
+.is-style-section-dark .ga-corner,
+.ga-corner--on-dark { --ga-corner-bg: var(--wp--preset--color--ga-anthracite); }
+
+/* --- Point d'impact (signature de la maquette) ----------------------------- */
+.ga-impact {
+	position: absolute;
+	z-index: 2;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin: -0.5625rem 0 0 -0.5625rem;
+	border-radius: 50%;
+	background: var(--wp--preset--color--ga-fuchsia);
+	box-shadow: 0 0 0 0.3rem rgba(229, 0, 71, 0.28), 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.ga-impact::before,
+.ga-impact::after {
+	content: "";
+	position: absolute;
+	inset: -0.5rem;
+	border-radius: 50%;
+	border: 2px solid var(--wp--preset--color--ga-fuchsia);
+	opacity: 0;
+	animation: ga-ripple 2.8s var(--ga-ease) infinite;
+}
+
+.ga-impact::after { animation-delay: 1.4s; }
+
+@keyframes ga-ripple {
+	0% { transform: scale(0.5); opacity: 0.9; }
+	100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* --- Sections : rythme vertical et fonds --------------------------------- */
+.ga-section {
+	padding-top: var(--wp--preset--spacing--section);
+	padding-bottom: var(--wp--preset--spacing--section);
+	margin-block-start: 0 !important;
+}
+
+.ga-section--tight {
+	padding-top: clamp(3rem, 2rem + 4vw, 5rem);
+	padding-bottom: clamp(3rem, 2rem + 4vw, 5rem);
+}
+
+.ga-section--alt {
+	background: var(--wp--preset--color--ga-nuage);
+}
+
+.ga-section-head {
+	display: grid;
+	gap: var(--wp--preset--spacing--s) var(--wp--preset--spacing--xxl);
+	margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+}
+
+.ga-section-head h2 {
+	margin: 0;
+	max-width: 18ch;
+}
+
+.ga-section-head .ga-lead {
+	margin: 0;
+	max-width: 38rem;
+}
+
+@media (min-width: 960px) {
+	.ga-section-head--split {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		align-items: end;
+	}
+}
+
+/* Les groupes empilés par WordPress héritent d'un blockGap : on le remet à
+   zéro pour les sections, chaque section gère son propre rythme. */
+.ga-main > .wp-block-post-content > .ga-section,
+.ga-main > .ga-section,
+.wp-site-blocks > .ga-section,
+.wp-site-blocks > .ga-cta,
+.wp-site-blocks > .ga-footer,
+.wp-site-blocks > .ga-header,
+.wp-site-blocks > .ga-utility,
+.wp-site-blocks > .ga-page-hero,
+.wp-site-blocks > .ga-main,
+.wp-site-blocks > .ga-mobile-bar {
+	margin-block-start: 0 !important;
+	margin-block-end: 0 !important;
+}
+
+/* --- Grilles utilitaires -------------------------------------------------- */
+.ga-split {
+	display: grid;
+	gap: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--xxl);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+}
+
+.ga-split--top { align-items: start; }
+
+@media (max-width: 960px) {
+	.ga-split { grid-template-columns: minmax(0, 1fr); }
+}
+
+.ga-with-aside {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 22rem;
+	gap: var(--wp--preset--spacing--xxl);
+	align-items: start;
+}
+
+.ga-with-aside > .ga-side-card,
+.ga-with-aside > .ga-sticky {
+	position: sticky;
+	top: calc(var(--ga-header-h) + var(--wp--preset--spacing--m));
+}
+
+@media (max-width: 1024px) {
+	.ga-with-aside { grid-template-columns: minmax(0, 1fr); }
+	.ga-with-aside > .ga-side-card,
+	.ga-with-aside > .ga-sticky { position: static; }
+}
+
+/* --- Horaires (bloc glassauto/horaires) ----------------------------------- */
+.ga-hours {
+	margin: 0;
+	display: grid;
+}
+
+.ga-hours > div {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--wp--preset--spacing--s);
+	padding: 0.55rem 0;
+	border-bottom: 1px solid var(--wp--preset--color--ga-brume);
+	font-size: var(--wp--preset--font-size--s);
+}
+
+.ga-hours dt { font-weight: 700; white-space: nowrap; }
+.ga-hours dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+
+.is-style-section-dark .ga-hours > div { border-color: rgba(255, 255, 255, 0.12); }
+.is-style-section-dark .ga-hours dt { color: var(--wp--preset--color--ga-blanc); }
+.is-style-section-dark .ga-hours dd { color: #c9ccd0; }
+
+/* --- Coordonnées (bloc glassauto/coordonnees) ----------------------------- */
+.ga-coords {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--wp--preset--spacing--s);
+}
+
+.ga-coord {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: var(--wp--preset--spacing--s);
+	align-items: start;
+}
+
+.ga-coord > .ga-ico {
+	width: 1.25rem;
+	height: 1.25rem;
+	margin-top: 0.15rem;
+	color: var(--wp--preset--color--ga-turquoise-encre);
+}
+
+.ga-coord__title {
+	margin: 0 0 0.2rem;
+	font-family: var(--wp--preset--font-family--texte);
+	font-size: var(--wp--preset--font-size--label);
+	font-weight: 800;
+	letter-spacing: var(--wp--custom--tracking--label);
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ga-gris);
+}
+
+.ga-coord__body { font-size: var(--wp--preset--font-size--s); line-height: 1.5; }
+.ga-coord__body a { color: inherit; font-weight: 700; text-decoration: none; }
+.ga-coord__body a:hover { text-decoration: underline; }
+.ga-coord__body .ga-link-u { white-space: nowrap; }
+.ga-coord__body .ga-ico { width: 1em; height: 1em; }
+
+.ga-coord__big {
+	font-family: var(--wp--preset--font-family--titres);
+	font-size: 1.625rem;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	word-spacing: 0.15em;
+	color: var(--wp--preset--color--ga-anthracite);
+}
+
+.ga-coords--cartes { gap: var(--wp--preset--spacing--s); }
+
+.ga-coords--cartes .ga-coord {
+	padding: var(--wp--preset--spacing--m);
+	border-radius: var(--wp--custom--radius--card);
+	background: var(--wp--preset--color--ga-blanc);
+	box-shadow: inset 0 0 0 1px var(--wp--preset--color--ga-brume);
+}
+
+.ga-coords--cartes .ga-coord > .ga-ico {
+	width: 3rem;
+	height: 3rem;
+	padding: 0.7rem;
+	border-radius: 50%;
+	background: #e0f4f7;
+	margin-top: 0;
+}
+
+.is-style-section-dark .ga-coord > .ga-ico { color: var(--wp--preset--color--ga-turquoise-clair); }
+.is-style-section-dark .ga-coord__title { color: var(--wp--preset--color--ga-turquoise-clair); }
+.is-style-section-dark .ga-coord__body { color: #c9ccd0; }
+.is-style-section-dark .ga-coord__body a,
+.is-style-section-dark .ga-coord__big { color: var(--wp--preset--color--ga-blanc); }
+
+/* --- Tableau de données ---------------------------------------------------- */
+.ga-table-wrap {
+	overflow-x: auto;
+	border-radius: var(--wp--custom--radius--card);
+	box-shadow: inset 0 0 0 1px var(--wp--preset--color--ga-brume);
+	background: var(--wp--preset--color--ga-blanc);
+}
+
+.ga-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: var(--wp--preset--font-size--s);
+}
+
+.ga-table th,
+.ga-table td {
+	padding: 0.7rem var(--wp--preset--spacing--m);
+	text-align: left;
+	border-bottom: 1px solid var(--wp--preset--color--ga-brume);
+	white-space: nowrap;
+}
+
+.ga-table thead th {
+	font-size: 0.6875rem;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ga-gris);
+	background: var(--wp--preset--color--ga-nuage);
+}
+
+.ga-table tbody th { font-weight: 700; }
+.ga-table .ga-num { text-align: right; font-variant-numeric: tabular-nums; }
+.ga-table .ga-note { font-weight: 400; color: var(--wp--preset--color--ga-gris); font-size: var(--wp--preset--font-size--xs); white-space: normal; }
+
+/* --- Formulaires (Fluent Forms) --------------------------------------------- */
+/* Champs texte, listes, zones de texte. */
+.ga .fluentform .ff-el-form-control,
+.ga .fluentform select.ff-el-form-control,
+.ga .fluentform textarea.ff-el-form-control {
+	min-height: 3.25rem;
+	padding: 0.8rem 1rem;
+	border: 1.5px solid var(--wp--preset--color--ga-gris-clair);
+	border-radius: var(--wp--custom--radius--input);
+	background: var(--wp--preset--color--ga-blanc);
+	color: var(--wp--preset--color--ga-anthracite);
+	font: inherit;
+	font-size: 1rem;
+	line-height: 1.4;
+	box-shadow: inset 0 1px 2px rgba(47, 50, 55, 0.06);
+	transition: border-color var(--ga-dur) var(--ga-ease), box-shadow var(--ga-dur) var(--ga-ease), background-color var(--ga-dur) var(--ga-ease);
+}
+
+.ga .fluentform .ff-el-form-control::placeholder { color: var(--wp--preset--color--ga-gris); opacity: 1; }
+.ga .fluentform textarea.ff-el-form-control { min-height: 7rem; resize: vertical; }
+.ga .fluentform .ff-el-form-control:hover { border-color: var(--wp--preset--color--ga-gris); }
+
+.ga .fluentform .ff-el-form-control:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--ga-turquoise-encre);
+	box-shadow: 0 0 0 3px rgba(0, 156, 182, 0.22);
+}
+
+/* Liste déroulante : chevron maison. */
+.ga .fluentform select.ff-el-form-control {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 3rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%232F3237' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 6 5 5 5-5'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 1rem center;
+	cursor: pointer;
+}
+
+/* Étiquettes. */
+.ga .fluentform .ff-el-input--label { margin-bottom: 0.5rem; }
+.ga .fluentform .ff-el-input--label label {
+	display: inline;
+	font-weight: 700;
+	font-size: var(--wp--preset--font-size--s);
+	line-height: 1.3;
+	color: var(--wp--preset--color--ga-anthracite);
+}
+
+.ga .fluentform .ff-el-input--label.ff-el-is-required.asterisk-right label::after,
+.ga .fluentform .ff-el-input--label.ff-el-is-required.asterisk-left label::before {
+	color: var(--wp--preset--color--ga-fuchsia);
+}
+
+.ga .fluentform .ff-el-tooltip { vertical-align: middle; margin-left: 0.35rem; color: var(--wp--preset--color--ga-turquoise-encre); cursor: help; }
+.ga .fluentform .ff-el-tooltip svg { width: 1rem; height: 1rem; fill: currentColor; }
+
+.ga .fluentform .ff-el-group { margin-bottom: var(--wp--preset--spacing--m); }
+.ga .fluentform .ff-el-help-message { margin-top: 0.4rem; font-size: var(--wp--preset--font-size--xs); color: var(--wp--preset--color--ga-gris); }
+
+/* Sauts de section : titre avec barre turquoise, pas de filet. */
+.ga .fluentform .ff-el-section-break {
+	margin: var(--wp--preset--spacing--l) 0 var(--wp--preset--spacing--m);
+	padding-left: 1rem;
+	border-left: 4px solid var(--wp--preset--color--ga-turquoise);
+}
+
+.ga .fluentform .ff-el-section-break:first-child { margin-top: 0; }
+.ga .fluentform .ff-el-section-break hr { display: none; }
+
+.ga .fluentform .ff-el-section-title {
+	margin: 0;
+	font-family: var(--wp--preset--font-family--titres);
+	font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+	font-weight: 800;
+	letter-spacing: var(--wp--custom--tracking--titre);
+	line-height: 1.2;
+	color: var(--wp--preset--color--ga-anthracite);
+}
+
+.ga .fluentform .ff-section_break_desk { margin-top: 0.35rem; font-size: var(--wp--preset--font-size--s); color: var(--wp--preset--color--ga-gris); }
+
+/* Boutons radio et cases à cocher : options en pastilles sélectionnables. */
+.ga .fluentform .ff-el-input--content:has(> .ff-el-form-check) {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.ga .fluentform .ff-el-form-check { margin: 0; }
+
+.ga .fluentform .ff-el-form-check .ff-el-form-check-label {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	min-height: 2.75rem;
+	margin: 0;
+	padding: 0.5rem 1rem 0.5rem 0.75rem;
+	border: 1.5px solid var(--wp--preset--color--ga-gris-clair);
+	border-radius: var(--wp--custom--radius--pill);
+	background: var(--wp--preset--color--ga-blanc);
+	color: var(--wp--preset--color--ga-anthracite);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	line-height: 1.3;
+	cursor: pointer;
+	user-select: none;
+	transition: border-color var(--ga-dur) var(--ga-ease), background-color var(--ga-dur) var(--ga-ease), color var(--ga-dur) var(--ga-ease), box-shadow var(--ga-dur) var(--ga-ease);
+}
+
+.ga .fluentform .ff-el-form-check .ff-el-form-check-label:hover { border-color: var(--wp--preset--color--ga-anthracite); }
+
+/* L'entrée native reste accessible mais invisible ; l'indicateur est dessiné. */
+.ga .fluentform .ff-el-form-check .ff-el-form-check-input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.ga .fluentform .ff-el-form-check .ff-el-form-check-label::before {
+	content: "";
+	flex: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	border: 2px solid var(--wp--preset--color--ga-gris-clair);
+	border-radius: 50%;
+	background: var(--wp--preset--color--ga-blanc);
+	transition: border-color var(--ga-dur) var(--ga-ease), background-color var(--ga-dur) var(--ga-ease), box-shadow var(--ga-dur) var(--ga-ease);
+}
+
+.ga .fluentform .ff-el-form-check:has(input[type="checkbox"]) .ff-el-form-check-label::before { border-radius: 4px; }
+
+.ga .fluentform .ff-el-form-check:has(.ff-el-form-check-input:checked) .ff-el-form-check-label {
+	border-color: var(--wp--preset--color--ga-anthracite);
+	background: var(--wp--preset--color--ga-anthracite);
+	color: var(--wp--preset--color--ga-blanc);
+}
+
+.ga .fluentform .ff-el-form-check:has(input[type="radio"]:checked) .ff-el-form-check-label::before {
+	border-color: var(--wp--preset--color--ga-menthe);
+	background: var(--wp--preset--color--ga-blanc);
+	box-shadow: inset 0 0 0 4px var(--wp--preset--color--ga-menthe);
+}
+
+.ga .fluentform .ff-el-form-check:has(input[type="checkbox"]:checked) .ff-el-form-check-label::before {
+	border-color: var(--wp--preset--color--ga-menthe);
+	background: var(--wp--preset--color--ga-menthe) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232F3237' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 8.5 3 3 6-7'/%3E%3C/svg%3E") center / 80% no-repeat;
+}
+
+.ga .fluentform .ff-el-form-check:has(.ff-el-form-check-input:focus-visible) .ff-el-form-check-label {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(0, 156, 182, 0.35);
+	border-color: var(--wp--preset--color--ga-turquoise-encre);
+}
+
+/* Consentement RGPD et conditions : case seule devant le texte. */
+.ga .fluentform .ff-el-form-check:has(.ff_gdpr_field) .ff-el-form-check-label,
+.ga .fluentform .ff-el-form-check:has(.ff_tc_checkbox) .ff-el-form-check-label {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	min-height: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: var(--wp--preset--color--ga-anthracite);
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.ga .fluentform .ff-el-form-check:has(.ff_gdpr_field) .ff-el-form-check-label::before,
+.ga .fluentform .ff-el-form-check:has(.ff_tc_checkbox) .ff-el-form-check-label::before {
+	margin-top: 0.15rem;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 4px;
+}
+
+.ga .fluentform .ff-el-form-check:has(.ff_gdpr_field:checked) .ff-el-form-check-label,
+.ga .fluentform .ff-el-form-check:has(.ff_tc_checkbox input:checked) .ff-el-form-check-label { background: transparent; color: var(--wp--preset--color--ga-anthracite); }
+
+.ga .fluentform .ff-el-form-check:has(.ff_gdpr_field:checked) .ff-el-form-check-label::before,
+.ga .fluentform .ff-el-form-check:has(.ff_tc_checkbox input:checked) .ff-el-form-check-label::before {
+	border-color: var(--wp--preset--color--ga-anthracite);
+	background: var(--wp--preset--color--ga-anthracite) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 8.5 3 3 6-7'/%3E%3C/svg%3E") center / 80% no-repeat;
+}
+
+.ga .fluentform .ff-el-form-check .ff_tc_checkbox { display: contents; }
+.ga .fluentform .ff-el-form-check .ff_t_c { flex: 1; }
+.ga .fluentform .ff_t_c a { color: var(--wp--preset--color--ga-turquoise-encre); }
+
+/* Champs composés (nom, adresse) : grille. */
+.ga .fluentform .ff-t-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0 1rem; }
+.ga .fluentform .ff-t-cell { width: auto; padding: 0; }
+.ga .fluentform .ff-t-cell .ff-el-group { margin-bottom: var(--wp--preset--spacing--s); }
+.ga .fluentform .ff-t-container > .ff-t-cell:has([name$="[address_line_1]"]) { grid-column: 1 / -1; }
+.ga .fluentform .ff-t-container:has([name$="[zip]"]) { grid-template-columns: minmax(8rem, 1fr) 2fr; }
+.ga .fluentform .ff-t-cell .ff-el-form-control { width: 100%; max-width: none; }
+@media (max-width: 600px) {
+	.ga .fluentform .ff-t-container,
+	.ga .fluentform .ff-t-container:has([name$="[zip]"]) { grid-template-columns: 1fr; }
+}
+
+/* Erreurs. */
+.ga .fluentform .ff-el-is-error .ff-el-form-control { border-color: var(--wp--preset--color--ga-fuchsia-fonce); box-shadow: 0 0 0 3px rgba(229, 0, 71, 0.12); }
+.ga .fluentform .ff-el-is-error .ff-el-form-check .ff-el-form-check-label { border-color: var(--wp--preset--color--ga-fuchsia-fonce); }
+.ga .fluentform .ff-el-is-error .text-danger,
+.ga .fluentform .error { margin-top: 0.4rem; color: var(--wp--preset--color--ga-fuchsia-fonce); font-size: var(--wp--preset--font-size--xs); font-weight: 600; }
+.ga .fluentform .ff-errors-in-stack { margin-top: var(--wp--preset--spacing--s); }
+
+/* Bouton d'envoi : même pastille fuchsia que le reste du site, quel que soit le réglage de style du formulaire. */
+.ga .fluentform .ff_submit_btn_wrapper { margin-top: var(--wp--preset--spacing--m); }
+.ga .fluentform form .ff-btn-submit.ff-btn,
+.ga .fluentform form .ff-btn-submit.ff-btn:not(.ff_btn_no_style) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6em;
+	min-height: 3.5rem;
+	padding: 0 2rem;
+	border: 0;
+	border-radius: var(--wp--custom--radius--pill);
+	background: var(--wp--preset--color--ga-fuchsia);
+	color: var(--wp--preset--color--ga-blanc);
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 800;
+	letter-spacing: var(--wp--custom--tracking--label);
+	text-transform: uppercase;
+	cursor: pointer;
+	box-shadow: 0 8px 20px -10px rgba(229, 0, 71, 0.6);
+	transition: background-color var(--ga-dur) var(--ga-ease), transform var(--ga-dur) var(--ga-ease), box-shadow var(--ga-dur) var(--ga-ease);
+}
+
+.ga .fluentform form .ff-btn-submit.ff-btn:hover,
+.ga .fluentform form .ff-btn-submit.ff-btn:focus-visible,
+.ga .fluentform form .ff-btn-submit.ff-btn:not(.ff_btn_no_style):hover,
+.ga .fluentform form .ff-btn-submit.ff-btn:not(.ff_btn_no_style):focus-visible { background: var(--wp--preset--color--ga-fuchsia-fonce); color: var(--wp--preset--color--ga-blanc); transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(229, 0, 71, 0.7); }
+.ga .fluentform form .ff-btn-submit.ff-btn:focus-visible { outline: 3px solid var(--wp--preset--color--ga-turquoise); outline-offset: 3px; }
+.ga .fluentform form .ff-btn-submit.ff-btn[disabled] { opacity: 0.6; cursor: wait; transform: none; }
+
+@media (max-width: 600px) {
+	.ga .fluentform form .ff-btn-submit.ff-btn { width: 100%; }
+}
+
+.ga .fluentform .ff-message-success {
+	padding: var(--wp--preset--spacing--s) var(--wp--preset--spacing--m);
+	border-left: 4px solid var(--wp--preset--color--ga-menthe-encre);
+	border-radius: var(--wp--custom--radius--card);
+	background: #ddf8ee;
+	color: var(--wp--preset--color--ga-anthracite);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ga .fluentform .ff-el-form-control,
+	.ga .fluentform .ff-el-form-check .ff-el-form-check-label,
+	.ga .fluentform .ff-el-form-check .ff-el-form-check-label::before,
+	.ga .fluentform form .ff-btn-submit.ff-btn { transition: none; }
+}
+
+/* Recherche native */
+.ga-search .wp-block-search__input {
+	min-height: 3rem;
+	padding: 0.75rem 1rem;
+	border: 1.5px solid var(--wp--preset--color--ga-gris-clair);
+	border-radius: var(--wp--custom--radius--input);
+	font: inherit;
+}
+
+.ga-search .wp-block-search__button {
+	border-radius: var(--wp--custom--radius--pill);
+	background: var(--wp--preset--color--ga-anthracite);
+	color: var(--wp--preset--color--ga-blanc);
+	border: 0;
+	font-weight: 700;
+	padding: 0 1.25rem;
+}
+
+/* --- Fil d'Ariane (bloc g2rd/breadcrumb) ------------------------------------ */
+.ga-page-hero .g2rd-breadcrumb,
+.ga-page-hero .wp-block-g2rd-breadcrumb {
+	font-size: var(--wp--preset--font-size--xs);
+	color: #b9bdc2;
+	margin-bottom: 0;
+}
+
+.ga-page-hero .g2rd-breadcrumb a,
+.ga-page-hero .wp-block-g2rd-breadcrumb a { color: #e3e5e8; }
+
+/* --- Révélation douce au défilement (facultative, classe ga-reveal) --------- */
+.ga-reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.7s var(--ga-ease), transform 0.7s var(--ga-ease);
+}
+
+.ga-reveal.is-visible { opacity: 1; transform: none; }
+.ga-reveal { transition-delay: var(--ga-delay, 0s); }
+
+/* --- Entrée à l'affichage : héros de l'accueil et des pages ------------------ */
+@keyframes ga-rise {
+	from { opacity: 0; transform: translateY(18px); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes ga-rise-soft {
+	from { transform: translateY(14px); }
+	to { transform: none; }
+}
+@keyframes ga-settle {
+	from { transform: scale(1.06); }
+	to { transform: none; }
+}
+.ga-hero__text > *,
+.ga-hero__facts,
+.ga-page-hero__inner > :not(.ga-page-hero__text),
+.ga-page-hero__text > * { animation: ga-rise 0.8s var(--ga-ease) both; }
+/* Titres H1 : déplacement seul, sans fondu, pour ne pas retarder le LCP. */
+.ga-hero__text > h1,
+.ga-page-hero h1 { animation-name: ga-rise-soft; }
+.ga-hero__text > :nth-child(2),
+.ga-page-hero__inner > :nth-child(2),
+.ga-page-hero__text > :nth-child(2) { animation-delay: 0.1s; }
+.ga-hero__text > :nth-child(3),
+.ga-page-hero__inner > :nth-child(3),
+.ga-page-hero__text > :nth-child(3) { animation-delay: 0.2s; }
+.ga-hero__text > :nth-child(4),
+.ga-page-hero__inner > :nth-child(4),
+.ga-page-hero__text > :nth-child(4) { animation-delay: 0.3s; }
+.ga-hero__text > :nth-child(n+5),
+.ga-hero__facts { animation-delay: 0.4s; }
+.ga-hero__media img { animation: ga-settle 1.6s var(--ga-ease) both; }
+
+/* --- Mouvement réduit -------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+	.ga-impact::before,
+	.ga-impact::after { animation: none; opacity: 0.35; transform: scale(1.4); }
+	.ga-reveal { opacity: 1; transform: none; transition: none; }
+	.ga-hero__text > *,
+	.ga-hero__facts,
+	.ga-hero__media img,
+	.ga-page-hero__inner > *,
+	.ga-page-hero__text > * { animation: none; }
+	.wp-block-button__link { transition: none; }
+}
+
+/* --- Éditeur : repères des blocs dynamiques vides --------------------------- */
+.ga-editor-placeholder {
+	padding: 1rem 1.25rem;
+	border: 1px dashed var(--wp--preset--color--ga-gris-clair);
+	border-radius: var(--wp--custom--radius--card);
+	color: var(--wp--preset--color--ga-gris);
+	font-size: 0.875rem;
+}
+
+/* --- Bouton flottant d'accessibilité du parent : au-dessus de la barre mobile --- */
+@media (max-width: 760px) {
+	body.ga .a11y-float-btn,
+	body.ga .a11y-scroll-top { bottom: 5rem; }
+}
+
+/* Le panneau porte role="region" : la règle [role="region"] { position: relative }
+   de la bibliothèque de blocs WordPress, chargée après le parent, le remettait
+   dans le flux. Le conteneur fixe grandissait alors jusqu'à couvrir l'écran
+   et interceptait les clics (panneau invisible mais présent). */
+body .a11y-widget .a11y-panel { position: absolute; }

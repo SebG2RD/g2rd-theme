@@ -1,0 +1,190 @@
+{
+ "slug": "arret-cardiaque-rcp",
+ "titre": "Arrêt cardiaque : RCP, DAE et chaîne de survie",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "9 min",
+ "resume": "Vérifie tes repères chiffrés sur la reconnaissance de l'arrêt cardiaque, les compressions et l'usage du DAE.",
+ "sources": [
+  [
+   "Recommandations PS (DGSCGC), fiche 05AC01 Arrêt cardiaque, MAJ 11-2021",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/Arr%C3%AAt%20cardiaque/AC%20Arr%C3%AAt%20cardiaque%20reco%20PS%202021%20%2B%20prise%20de%20pouls%20.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 05FT04 Compressions thoraciques, MAJ 11-2021",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/Arr%C3%AAt%20cardiaque/FT%20Compression%20thoracique%20Reco%20PS%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 05PR01 Arrêt cardiaque chez l'adulte, MAJ 06-2018",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/Arr%C3%AAt%20cardiaque/PR%20Arr%C3%AAt%20cardiaque%20chez%20ladulte%20reco%20PS%202018%20%EF%80%A22021%20.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 05PR03 Arrêt cardiaque chez l'enfant ou le nourrisson, MAJ 06-2018",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/Arr%C3%AAt%20cardiaque/PR%20Arr%C3%AAt%20cardiaque%20chez%20lenfant%20ou%20le%20nourisson%20reco%20PS%202018%20%EF%80%A2%202021.pdf"
+  ],
+  [
+   "Fiche technique SSUAP SQ 2.5.4 Utilisation d'un DAE, MAJ 07-2025",
+   "https://enasis.fr/pluginfile.php/204789/mod_resource/content/0/FT%20-%20Utilisation%20dun%20DAE.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Quels signes te font reconnaître un arrêt cardiaque ?",
+   "c": [
+    "La victime ne répond pas et ne respire plus ou présente une respiration agonique",
+    "La victime est pâle et transpire",
+    "La victime se plaint d'une douleur dans la poitrine",
+    "La victime respire vite et fort"
+   ],
+   "a": 0,
+   "why": "L'arrêt cardiaque associe une victime qui ne répond pas et qui ne respire plus ou présente une respiration agonique. Recommandations PS, fiche 05AC01."
+  },
+  {
+   "q": "Combien de temps au maximum consacres-tu à la recherche du pouls, menée avec celle de la respiration ?",
+   "c": [
+    "20 secondes",
+    "10 secondes",
+    "30 secondes"
+   ],
+   "a": 1,
+   "why": "L'évaluation du pouls, conduite en même temps que celle de la respiration, ne doit jamais dépasser 10 secondes. Recommandations PS, fiche 05AC01."
+  },
+  {
+   "q": "Quelle fréquence de compressions thoraciques appliques-tu chez l'adulte ?",
+   "c": [
+    "60 à 80 par minute",
+    "80 à 100 par minute",
+    "100 à 120 par minute",
+    "120 à 140 par minute"
+   ],
+   "a": 2,
+   "why": "Chez l'adulte, les compressions se font entre 100 et 120 par minute. Recommandations PS, fiche 05FT04."
+  },
+  {
+   "q": "Quelle profondeur de compression vises-tu chez l'adulte ?",
+   "c": [
+    "Environ 3 cm",
+    "Environ 5 cm, sans dépasser 6 cm",
+    "Au moins 7 cm",
+    "La moitié de l'épaisseur du thorax"
+   ],
+   "a": 1,
+   "why": "Chez l'adulte, le thorax s'enfonce d'environ 5 cm sans dépasser 6 cm. Recommandations PS, fiche 05FT04."
+  },
+  {
+   "q": "Quel rythme de RCP appliques-tu chez l'adulte ?",
+   "c": [
+    "15 compressions pour 2 insufflations",
+    "30 compressions pour 2 insufflations",
+    "30 compressions pour 1 insufflation"
+   ],
+   "a": 1,
+   "why": "Chez l'adulte, la RCP enchaîne des cycles de 30 compressions suivies de 2 insufflations. Recommandations PS, fiche 05PR01."
+  },
+  {
+   "q": "Entre deux compressions, que dois-tu respecter ?",
+   "c": [
+    "Laisser le thorax reprendre sa forme initiale, avec un temps de relâchement égal au temps de compression",
+    "Garder une légère pression sur le thorax",
+    "Relâcher deux fois plus longtemps que la compression"
+   ],
+   "a": 0,
+   "why": "Le thorax reprend sa forme initiale et le temps de compression égale le temps de relâchement. Recommandations PS, fiche 05FT04."
+  },
+  {
+   "q": "Chez un enfant en arrêt cardiaque, par quoi commences-tu la RCP ?",
+   "c": [
+    "30 compressions thoraciques",
+    "2 insufflations",
+    "5 insufflations",
+    "La pose du DAE uniquement"
+   ],
+   "a": 2,
+   "why": "Chez l'enfant et le nourrisson, la RCP débute par 5 insufflations. Recommandations PS, fiche 05PR03."
+  },
+  {
+   "q": "Quel rythme de RCP appliques-tu ensuite chez l'enfant ou le nourrisson ?",
+   "c": [
+    "15 compressions pour 2 insufflations",
+    "30 compressions pour 2 insufflations",
+    "5 compressions pour 1 insufflation"
+   ],
+   "a": 0,
+   "why": "Chez l'enfant et le nourrisson, les cycles comptent 15 compressions suivies de 2 insufflations. Recommandations PS, fiche 05PR03."
+  },
+  {
+   "q": "Quelle profondeur de compression vises-tu chez le nourrisson ?",
+   "c": [
+    "Au moins un tiers de l'épaisseur du thorax, soit environ 4 cm",
+    "Environ 2 cm",
+    "Environ 6 cm",
+    "La moitié de l'épaisseur du thorax"
+   ],
+   "a": 0,
+   "why": "Chez le nourrisson, le thorax s'enfonce d'au moins un tiers de son épaisseur, soit environ 4 cm. Recommandations PS, fiche 05FT04."
+  },
+  {
+   "q": "En équipe, à quel moment les secouristes se relaient-ils aux compressions ?",
+   "c": [
+    "Toutes les deux minutes, pendant l'analyse du rythme par le DAE",
+    "Toutes les 5 minutes",
+    "Uniquement en cas de fatigue"
+   ],
+   "a": 0,
+   "why": "Les secouristes se relaient toutes les deux minutes, au moment de l'analyse du rythme par le DAE. Recommandations PS, fiche 05PR01."
+  },
+  {
+   "q": "Le DAE vient de délivrer un choc. Que fais-tu ?",
+   "c": [
+    "Tu reprends la RCP immédiatement, sans attendre les instructions vocales",
+    "Tu recherches le pouls pendant 10 secondes",
+    "Tu attends la prochaine analyse sans toucher la victime",
+    "Tu retires les électrodes"
+   ],
+   "a": 0,
+   "why": "La RCP reprend immédiatement après la délivrance ou non d'un choc, sans attendre les instructions vocales du DAE. Recommandations PS, fiche 05PR01."
+  },
+  {
+   "q": "Selon les recommandations, de combien chaque minute gagnée dans la mise en place d'un DAE peut-elle augmenter les chances de survie ?",
+   "c": [
+    "1 %",
+    "10 %",
+    "25 %",
+    "50 %"
+   ],
+   "a": 1,
+   "why": "Chaque minute gagnée pour mettre en place un DAE peut augmenter les chances de survie de 10 %. Recommandations PS, fiche 05AC01."
+  },
+  {
+   "q": "Laquelle de ces actions fait partie de la chaîne de survie ?",
+   "c": [
+    "La mise en PLS systématique",
+    "La défibrillation précoce",
+    "La recherche du pouls pendant une minute"
+   ],
+   "a": 1,
+   "why": "La chaîne de survie enchaîne reconnaissance, alerte, RCP précoce et défibrillation précoce. Recommandations PS, fiche 05AC01."
+  },
+  {
+   "q": "Où places-tu les électrodes du DAE chez l'adulte ?",
+   "c": [
+    "Les deux au centre de la poitrine",
+    "Une sous la clavicule droite contre le sternum, l'autre sur le côté gauche du thorax 5 à 10 cm sous l'aisselle",
+    "Une dans le dos, l'autre au milieu du thorax",
+    "Une sous chaque clavicule"
+   ],
+   "a": 1,
+   "why": "Chez l'adulte, une électrode se place sous la clavicule droite contre le bord droit du sternum, l'autre 5 à 10 cm sous l'aisselle gauche. Fiche SSUAP SQ 2.5.4."
+  },
+  {
+   "q": "La poitrine de la victime est mouillée. Que fais-tu avant de coller les électrodes ?",
+   "c": [
+    "Tu colles les électrodes sans attendre",
+    "Tu renonces au DAE",
+    "Tu sèches la poitrine"
+   ],
+   "a": 2,
+   "why": "Une poitrine humide se sèche avant la pose des électrodes. Fiche SSUAP SQ 2.5.4."
+  }
+ ]
+}

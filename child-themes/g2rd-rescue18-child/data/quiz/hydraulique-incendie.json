@@ -1,0 +1,29 @@
+{
+ "slug": "hydraulique-incendie",
+ "titre": "Hydraulique incendie : pertes de charge et pression",
+ "theme": "Incendie",
+ "niveau": "Équipier",
+ "duree": "9 min",
+ "resume": "Calcule les pertes de charge, intègre le dénivelé et règle la bonne pression de refoulement sans coup de bélier.",
+ "sources": [
+  ["GMFOR v3, formation de spécialité Conducteur engin pompe, 2013", "https://ressourcedocumentairesp.webador.fr/_downloads/f41d30f94ed2bd0ce9d4418aad5afc78"],
+  ["Synthèse GTO Établissements et techniques d'extinction (support de formation)", "https://enasis.fr/pluginfile.php/4946/mod_folder/content/0/synthese%20GTO%20ETEX.pdf"]
+ ],
+ "questions": [
+  {"q": "Quelle perte de charge de référence retiens-tu pour un tuyau de DN 45 à 250 L/min ?", "c": ["0,6 bar pour 100 m", "1,5 bar pour 100 m", "3 bar pour 100 m", "0,3 bar pour 100 m"], "a": 1, "why": "La valeur de référence est 1,5 bar par hectomètre en DN 45 à 250 L/min (GMFOR Conducteur engin pompe)."},
+  {"q": "Quelle perte de charge de référence retiens-tu pour un tuyau de DN 70 à 500 L/min ?", "c": ["0,6 bar pour 100 m", "1,5 bar pour 100 m", "0,3 bar pour 100 m", "1 bar pour 100 m"], "a": 0, "why": "La valeur de référence est 0,6 bar par hectomètre en DN 70 à 500 L/min (GMFOR Conducteur engin pompe)."},
+  {"q": "Quelle perte de charge de référence retiens-tu pour un tuyau de DN 110 à 1 000 L/min ?", "c": ["0,6 bar pour 100 m", "1,5 bar pour 100 m", "0,1 bar pour 100 m", "0,3 bar pour 100 m"], "a": 3, "why": "La valeur de référence est 0,3 bar par hectomètre en DN 110 à 1 000 L/min (GMFOR Conducteur engin pompe)."},
+  {"q": "Comment évoluent les pertes de charge quand le débit change ?", "c": ["Elles sont proportionnelles au débit", "Elles sont proportionnelles au carré du débit", "Elles ne dépendent pas du débit", "Elles sont proportionnelles à la racine du débit"], "a": 1, "why": "Les pertes de charge sont proportionnelles au carré du débit (GMFOR Conducteur engin pompe)."},
+  {"q": "Tu fais passer 500 L/min dans un DN 45. Quelle perte de charge pour 100 m ?", "c": ["3 bar", "1,5 bar", "6 bar", "4,5 bar"], "a": 2, "why": "Le débit double par rapport à 250 L/min, donc les pertes sont multipliées par 4 : 1,5 × 4 = 6 bar pour 100 m (règle du carré du débit, GMFOR)."},
+  {"q": "Tu divises par deux le débit dans un tuyau. Que deviennent les pertes de charge ?", "c": ["Elles sont divisées par 2", "Elles restent identiques", "Elles sont multipliées par 2", "Elles sont divisées par 4"], "a": 3, "why": "Avec une loi au carré, un débit divisé par 2 donne des pertes divisées par 4 (GMFOR Conducteur engin pompe)."},
+  {"q": "Établissement de 200 m en DN 70 à 500 L/min. Quelle perte de charge totale ?", "c": ["1,2 bar", "0,6 bar", "3 bar", "2,4 bar"], "a": 0, "why": "0,6 bar pour 100 m, donc 2 × 0,6 = 1,2 bar pour 200 m (GMFOR Conducteur engin pompe)."},
+  {"q": "Établissement de 300 m en DN 110 à 1 000 L/min. Quelle perte de charge totale ?", "c": ["0,3 bar", "0,9 bar", "1,8 bar", "3 bar"], "a": 1, "why": "0,3 bar pour 100 m, donc 3 × 0,3 = 0,9 bar pour 300 m (GMFOR Conducteur engin pompe)."},
+  {"q": "Quelle règle de dénivelé appliques-tu en hydraulique incendie ?", "c": ["1 bar pour 1 m", "1 bar pour 100 m", "1 bar pour 10 m", "0,5 bar pour 10 m"], "a": 2, "why": "Le dénivelé compte pour 1 bar par 10 mètres, en perte si la lance est plus haute que la pompe, en gain si elle est plus basse (GMFOR Conducteur engin pompe)."},
+  {"q": "La lance est 20 m plus haut que la pompe. Quelle correction de pression appliques-tu ?", "c": ["Tu ajoutes 2 bar", "Tu retires 2 bar", "Tu ajoutes 0,2 bar", "Aucune correction"], "a": 0, "why": "1 bar pour 10 m, soit 2 bar à ajouter pour monter de 20 m (GMFOR Conducteur engin pompe)."},
+  {"q": "La lance est 15 m plus bas que la pompe. Quel effet sur la pression de refoulement nécessaire ?", "c": ["Elle augmente de 1,5 bar", "Elle augmente de 15 bar", "Elle ne change pas", "Elle diminue de 1,5 bar"], "a": 3, "why": "En descente, le dénivelé est un gain : 1 bar pour 10 m, soit 1,5 bar en moins pour 15 m (GMFOR Conducteur engin pompe)."},
+  {"q": "Quelle pression de travail est préconisée à la lance à débit variable (LDV) ?", "c": ["3,5 bar", "6 bar", "10 bar", "15 bar"], "a": 1, "why": "Pour les LDV, la pression de travail préconisée est de 6 bar (GMFOR Conducteur engin pompe)."},
+  {"q": "Comment calcules-tu la pression de refoulement ?", "c": ["Pression aux lances + pertes de charge + dénivelé", "Pression aux lances seule", "Pertes de charge seules", "Pression aux lances − pertes de charge"], "a": 0, "why": "Pression de refoulement = pression aux lances + pertes de charge + dénivelées (GMFOR Conducteur engin pompe)."},
+  {"q": "LDV à 6 bar, 100 m de DN 45 à 250 L/min, lance 10 m plus haut que la pompe. Quelle pression de refoulement affiches-tu ?", "c": ["7 bar", "7,5 bar", "8,5 bar", "10 bar"], "a": 2, "why": "6 bar à la lance + 1,5 bar de pertes de charge + 1 bar de dénivelé = 8,5 bar (GMFOR Conducteur engin pompe)."},
+  {"q": "Qu'est-ce qu'un coup de bélier et comment l'éviter ?", "c": ["Une chute de pression due à un tuyau percé, à colmater", "Une surpression due à une variation brutale de débit, évitée en manœuvrant doucement lances et vannes", "Une perte d'amorçage de la pompe, évitée en accélérant le moteur", "Un échauffement de la pompe, évité en fermant le refoulement"], "a": 1, "why": "Le coup de bélier est une surpression due à une variation brutale de débit, souvent une fermeture trop rapide de lance ou de vanne. Manœuvre doucement toutes les vannes (GMFOR Conducteur engin pompe)."}
+ ]
+}

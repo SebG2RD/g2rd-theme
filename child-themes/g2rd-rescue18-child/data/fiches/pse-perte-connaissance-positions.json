@@ -1,0 +1,57 @@
+{
+ "slug": "pse-perte-connaissance-positions",
+ "titre": "Perte de connaissance : LVA, PLS et positions d'attente",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Une victime qui ne répond pas, ne réagit pas mais respire a perdu connaissance. Ses voies aériennes sont menacées : libère-les, place-la en PLS sans suspicion de traumatisme, puis choisis la position d'attente adaptée.",
+ "cles": [
+  "Sur le dos, la langue chute en arrière et les liquides de la gorge encombrent les voies aériennes.",
+  "Libération des voies aériennes (LVA) sans traumatisme : main sur le front, 2 ou 3 doigts sous la pointe du menton, bascule douce de la tête en arrière.",
+  "Retire les corps étrangers visibles et les prothèses dentaires décrochées, laisse celles restées en place.",
+  "Victime traumatisée : tête maintenue à deux mains, élévation du menton seule, mâchoire poussée vers l'avant.",
+  "Victime assise tête penchée : ramène la tête en position neutre avec une légère traction vers le haut, en restant hors du véhicule.",
+  "Recherche de la respiration : 10 secondes au plus, avec les yeux, l'oreille et la joue.",
+  "Position latérale de sécurité (PLS) à un secouriste : main de la victime contre son oreille, tire le genou relevé, retourne en un seul temps.",
+  "Stabilise : hanche et genou du dessus à angle droit, ouvre la bouche sans rabattre le menton.",
+  "Nourrisson : sur le côté, dans tes bras, dos contre toi.",
+  "Grossesse ou obésité : PLS sur le côté gauche."
+ ],
+ "retenir": [
+  "Inconsciente, respire, pas de traumatisme : PLS, aspiration si encombrement, oxygène si besoin, surveillance de la respiration.",
+  "Suspicion de traumatisme : victime sur le dos, tête stabilisée à deux mains. PLS à deux secouristes sur indication médicale.",
+  "À plat dos : position courante, indiquée en détresse circulatoire, en RCP ou devant des signes d'AVC.",
+  "Assise ou demi-assise : détresse ou gêne respiratoire. Sur le côté : vomissements, fin de grossesse ou accouchement imminent.",
+  "Cuisses fléchies, jambes repliées : contusion ou plaie grave de l'abdomen, violentes douleurs abdominales."
+ ],
+ "pieges": [
+  "Ne pas basculer la tête d'une victime suspecte de traumatisme du rachis : élève le menton seul.",
+  "Ne pas mettre en PLS une victime traumatisée sans avis médical.",
+  "Ne pas relâcher la surveillance en PLS : la respiration y est plus difficile à contrôler.",
+  "Ne pas mettre la tête du nourrisson en extension : position neutre.",
+  "Ne pas laisser en PLS une victime dont la respiration s'arrête ou devient anormale : passe à la RCP."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Recovery position maneuver.jpg",
+   "auteur": "Image created by Rama",
+   "licence": "CC BY-SA 3.0 fr",
+   "page": "https://commons.wikimedia.org/wiki/File:Recovery_position_maneuver.jpg",
+   "alt": "Dessin de secouristes plaçant une victime en position latérale de sécurité."
+  },
+  {
+   "fichier": "File:PLS a deux matrice.png",
+   "auteur": "Cdang",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:PLS_a_deux_matrice.png",
+   "alt": "Schéma en quatre étapes de la mise en PLS à deux secouristes."
+  }
+ ]
+}

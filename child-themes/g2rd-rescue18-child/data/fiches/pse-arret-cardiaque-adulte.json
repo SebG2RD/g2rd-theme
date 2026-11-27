@@ -1,0 +1,57 @@
+{
+ "slug": "pse-arret-cardiaque-adulte",
+ "titre": "Arrêt cardiaque de l'adulte : RCP et défibrillation",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Une victime qui ne répond pas, ne réagit pas et ne respire pas ou respire de façon agonique est en arrêt cardiaque. Tu enchaînes réanimation cardiopulmonaire (RCP) 30/2 et défibrillateur au plus tôt, avec relais toutes les 2 minutes.",
+ "cles": [
+  "Signes : perte de connaissance et absence de respiration ou respiration agonique, soit 6 mouvements par minute ou moins.",
+  "Recherche du pouls non systématique : si tu la fais, en même temps et jamais plus de 10 secondes avec la recherche de la respiration.",
+  "Pouls absent ou douteux chez une victime inconsciente, même avec des mouvements ventilatoires : débute la RCP.",
+  "Compressions sur la moitié inférieure du sternum, bras tendus, coudes verrouillés, à 100 à 120 par minute.",
+  "Temps de compression égal au temps de relâchement. Le thorax reprend sa forme sans décoller le talon de la main.",
+  "Insufflation progressive d'1 seconde environ, jusqu'au début du soulèvement de la poitrine. Les 2 insufflations tiennent en 5 secondes au plus.",
+  "Insufflateur manuel relié à l'oxygène : débit réglé à 15 l/min, sans retarder la RCP.",
+  "Électrodes du défibrillateur automatisé externe (DAE) : sous la clavicule droite contre le sternum, et 5 à 10 cm sous l'aisselle gauche.",
+  "Reprends la RCP juste après le choc ou l'absence de choc, sans attendre les consignes vocales du DAE.",
+  "Respiration normale, mouvements ou yeux qui s'ouvrent : arrête la RCP, garde la victime sur le dos, reste prêt à reprendre."
+ ],
+ "retenir": [
+  "RCP adulte : cycles de 30 compressions et 2 insufflations, profondeur d'environ 5 cm sans dépasser 6 cm.",
+  "Relais du masseur toutes les 2 minutes, pendant l'analyse du rythme par le DAE.",
+  "Pouls perçu mais ventilation absente ou anormale : arrête les compressions, 10 insufflations par minute, contrôle le pouls en permanence.",
+  "À 2 avec DAE : l'un masse, l'autre pose le DAE et demande le renfort médical après la 1re analyse. À 3 ou plus : alerte, massage et DAE en même temps.",
+  "Chaque minute gagnée pour la mise en œuvre du DAE améliore de 10 % les chances de survie. Sans geste, survie quasi nulle en 8 minutes environ."
+ ],
+ "pieges": [
+  "Ne pas interrompre les compressions pour coller les électrodes du DAE.",
+  "Ne pas toucher la victime pendant l'analyse du rythme cardiaque.",
+  "Confondre respiration agonique et respiration normale : la respiration agonique n'arrête pas les compressions.",
+  "Ne pas choquer une victime sur une surface mouillée ou métallique, ni près d'un gaz inflammable : dégage-la d'abord.",
+  "Ne pas coller l'électrode sur un boîtier implanté ou un patch : décale-la d'un travers de main, retire le patch et essuie la peau."
+ ],
+ "quiz": "arret-cardiaque-rcp",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:CPR training-04.jpg",
+   "auteur": "Rama",
+   "licence": "CC BY-SA 2.0 fr",
+   "page": "https://commons.wikimedia.org/wiki/File:CPR_training-04.jpg",
+   "alt": "Secouristes pratiquant la RCP avec un défibrillateur sur un mannequin."
+  },
+  {
+   "fichier": "File:Automated external defibrillator (AED) Automatyczny defibrylator zewnętrzny, Tomaszów Mazowiecki, Poland.jpg",
+   "auteur": "Warszawska róg Szerokiej w Tomaszowie",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Automated_external_defibrillator_(AED)_Automatyczny_defibrylator_zewn%C4%99trzny,_Tomasz%C3%B3w_Mazowiecki,_Poland.jpg",
+   "alt": "Défibrillateur automatisé en boîtier vert fixé sur un mur."
+  }
+ ]
+}

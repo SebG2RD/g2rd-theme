@@ -1,0 +1,30 @@
+{
+ "slug": "classes-feux-extincteurs",
+ "titre": "Classes de feux et extincteurs",
+ "theme": "Incendie",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Reconnais les cinq classes de feux de la norme NF EN 2 et choisis le bon extincteur au bon moment.",
+ "sources": [
+  ["INRS ED 6054, Les extincteurs d'incendie portatifs, mobiles et fixes, 2023", "https://www.inrs.fr/dam/inrs/CataloguePapier/ED/TI-ED-6054.pdf"],
+  ["AFNOR, NF EN 2/A1 Classification des feux, 2004", "https://www.boutique.afnor.org/en-gb/standard/nf-en-2-a1/classification-of-fires/fa119065/24601"],
+  ["ISSA, Emploi des extincteurs, support de formation 2020", "https://safety-work.org/fileadmin/safety-work/articles/IVSS-Unterweisung_Feuerloescher/ISSA_106f_emploi-des-extincteurs.pdf"]
+ ],
+ "questions": [
+  {"q": "Combien de classes de feux définissent les normes NF EN 2 et NF EN 2/A1 ?", "c": ["Quatre", "Cinq", "Six", "Sept"], "a": 1, "why": "NF EN 2 et son amendement A1 définissent cinq classes : A, B, C, D et F (INRS ED 6054)."},
+  {"q": "Un feu de palettes en bois relève de quelle classe ?", "c": ["Classe B", "Classe C", "Classe A", "Classe D"], "a": 2, "why": "La classe A regroupe les feux de solides qui forment des braises, comme le bois, le papier ou les tissus (INRS ED 6054)."},
+  {"q": "Un feu de nappe d'hydrocarbures relève de quelle classe ?", "c": ["Classe B", "Classe A", "Classe F", "Classe C"], "a": 0, "why": "La classe B concerne les liquides ou solides liquéfiables : hydrocarbures, alcools, paraffine (INRS ED 6054)."},
+  {"q": "Un feu de propane relève de quelle classe ?", "c": ["Classe B", "Classe D", "Classe F", "Classe C"], "a": 3, "why": "La classe C correspond aux feux de gaz : méthane, butane, propane (INRS ED 6054)."},
+  {"q": "Un feu de copeaux de magnésium relève de quelle classe ?", "c": ["Classe A", "Classe D", "Classe B", "Classe C"], "a": 1, "why": "La classe D regroupe les feux de métaux comme l'aluminium, le magnésium ou le sodium (INRS ED 6054)."},
+  {"q": "Que couvre la classe F ?", "c": ["Les feux d'huiles et graisses de cuisson", "Les feux de fourrage", "Les feux de véhicules", "Les feux d'origine électrique"], "a": 0, "why": "La classe F concerne les huiles et graisses de cuisson. L'amendement NF EN 2/A1 de 2004 l'a ajoutée aux quatre classes de 1993 (AFNOR)."},
+  {"q": "À quelle classe appartient un feu d'origine électrique selon NF EN 2 ?", "c": ["Classe E", "Classe F", "Aucune classe spécifique n'existe", "Classe D"], "a": 2, "why": "L'INRS précise qu'il n'est pas prévu de classe spécifique pour les feux électriques. Ils relèvent en pratique de la classe A ou B selon ce qui brûle (INRS ED 6054)."},
+  {"q": "Quel agent extincteur est réservé aux feux de métaux ?", "c": ["La poudre ABC", "Le CO2", "L'eau pulvérisée avec additif", "La poudre D"], "a": 3, "why": "Le tableau de l'INRS réserve la poudre D à la classe D uniquement (INRS ED 6054)."},
+  {"q": "Quelles classes couvre la poudre polyvalente ABC ?", "c": ["A et B", "A, B et C", "B et C", "A, B, C et D"], "a": 1, "why": "La poudre ABC agit sur les classes A, B et C. Elle inhibe la réaction en chaîne et forme une couche vitreuse sur les braises (INRS ED 6054)."},
+  {"q": "Tu éteins un feu avec un extincteur CO2 sur des matériaux qui font des braises. Que conseille l'INRS ?", "c": ["Rien de plus, le CO2 suffit", "Ventiler fort pour chasser le CO2", "Compléter par un arrosage à l'eau", "Recouvrir de poudre D"], "a": 2, "why": "Le CO2 n'éteint pas les braises en profondeur et le feu peut reprendre. L'INRS conseille un arrosage à l'eau (INRS ED 6054)."},
+  {"q": "Où vises-tu avec un extincteur ?", "c": ["La base des flammes", "Le haut des flammes", "Le panache de fumée", "Le plafond au-dessus du feu"], "a": 0, "why": "Approche bas, de profil, dos au vent, et vise la base des flammes (INRS ED 6054)."},
+  {"q": "Sur une installation électrique sous tension, quelles conditions respectes-tu avec un extincteur ?", "c": ["Tout extincteur à eau convient à 50 cm", "Mention « utilisable sur tension inférieure à 1 000 volts » et au moins 1 mètre de distance", "CO2 uniquement, au contact de l'appareil", "Aucune, la tension se coupe seule"], "a": 1, "why": "L'extincteur doit porter la mention d'usage sous tension inférieure à 1 000 volts et s'utiliser à au moins 1 mètre (INRS ED 6054)."},
+  {"q": "Une fuite de gaz enflammée ne peut pas être coupée. Que fais-tu de l'extincteur ?", "c": ["Tu éteins la flamme au CO2", "Tu éteins la flamme à la poudre BC", "Tu souffles la flamme à l'eau pulvérisée", "Tu n'éteins pas la flamme tant que l'arrivée de gaz n'est pas coupée"], "a": 3, "why": "N'éteins un feu de gaz que si son arrivée peut être coupée. Sinon le gaz continue de fuir et forme une atmosphère explosive (INRS ED 6054)."},
+  {"q": "Quel agent proscris-tu sur un feu d'huile de friteuse ?", "c": ["L'eau", "Un extincteur spécifique classe F", "Une couverture adaptée", "La coupure de la source de chaleur"], "a": 0, "why": "Il ne faut pas éteindre un feu d'huile ou de graisse avec de l'eau. La classe F demande un agent spécial auxiliaires de cuisson (ISSA, Emploi des extincteurs)."},
+  {"q": "Selon le Code du travail cité par l'INRS, quelle dotation minimale en extincteurs prévoit-on ?", "c": ["Un extincteur CO2 par pièce", "Un extincteur à poudre de 2 kg pour 500 m²", "Un extincteur à eau pulvérisée de 6 litres pour 200 m², et au moins un par niveau", "Un extincteur par issue de secours"], "a": 2, "why": "Le Code du travail impose au moins un extincteur portatif à eau pulvérisée de 6 litres minimum pour 200 m² de plancher, avec au moins un appareil par niveau (INRS ED 6054)."}
+ ]
+}

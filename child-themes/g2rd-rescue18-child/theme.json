@@ -1,0 +1,426 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "780px",
+      "wideSize": "1254px",
+      "allowCustomContentAndWideSize": true,
+      "allowEditing": true
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "custom": false,
+      "customGradient": false,
+      "palette": [
+        {
+          "slug": "r18-rouge",
+          "name": "Rouge Rescue 18 (action, accents)",
+          "color": "#E21422"
+        },
+        {
+          "slug": "r18-rouge-fonce",
+          "name": "Rouge foncé (survol)",
+          "color": "#C90E1B"
+        },
+        {
+          "slug": "r18-bordeaux",
+          "name": "Bordeaux (dégradés)",
+          "color": "#8C0E1C"
+        },
+        {
+          "slug": "r18-rouge-texte",
+          "name": "Rouge texte (petits textes, liens) · 4,5:1 sur fonds clairs",
+          "color": "#BE0C19"
+        },
+        {
+          "slug": "r18-rouge-vif",
+          "name": "Rouge vif (sur fond sombre)",
+          "color": "#FF4B58"
+        },
+        {
+          "slug": "r18-rose",
+          "name": "Rose (pastilles, tuiles)",
+          "color": "#FFF0F2"
+        },
+        {
+          "slug": "r18-encre",
+          "name": "Encre (texte)",
+          "color": "#111319"
+        },
+        {
+          "slug": "r18-nuit",
+          "name": "Nuit (boutons sombres)",
+          "color": "#10141D"
+        },
+        {
+          "slug": "r18-nuit-2",
+          "name": "Nuit profonde (sections sombres)",
+          "color": "#151B28"
+        },
+        {
+          "slug": "r18-pied",
+          "name": "Pied de page",
+          "color": "#11161F"
+        },
+        {
+          "slug": "r18-ardoise",
+          "name": "Ardoise (texte secondaire)",
+          "color": "#4F5968"
+        },
+        {
+          "slug": "r18-gris",
+          "name": "Gris (mentions)",
+          "color": "#535D6A"
+        },
+        {
+          "slug": "r18-gris-clair",
+          "name": "Gris clair (bordures)",
+          "color": "#E1E5E9"
+        },
+        {
+          "slug": "r18-filet",
+          "name": "Filet (séparateurs)",
+          "color": "#EEF0F3"
+        },
+        {
+          "slug": "r18-bordure",
+          "name": "Bordure de champ · 3:1",
+          "color": "#7E8896"
+        },
+        {
+          "slug": "r18-brume",
+          "name": "Brume (fond de page)",
+          "color": "#F5F6F8"
+        },
+        {
+          "slug": "r18-blanc",
+          "name": "Blanc",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "r18-vert",
+          "name": "Vert encre (en ligne)",
+          "color": "#11643B"
+        },
+        {
+          "slug": "r18-vert-fond",
+          "name": "Vert fond",
+          "color": "#E9F7EF"
+        },
+        {
+          "slug": "r18-ambre",
+          "name": "Ambre encre (en validation)",
+          "color": "#8A5300"
+        },
+        {
+          "slug": "r18-ambre-fond",
+          "name": "Ambre fond",
+          "color": "#FFF6E5"
+        },
+        {
+          "slug": "primary",
+          "name": "Parent · primary (encre)",
+          "color": "#111319"
+        },
+        {
+          "slug": "secondary",
+          "name": "Parent · secondary (rouge)",
+          "color": "#E21422"
+        },
+        {
+          "slug": "white",
+          "name": "Parent · white",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "blue-dark",
+          "name": "Parent · blue-dark (nuit)",
+          "color": "#10141D"
+        },
+        {
+          "slug": "blue-soft",
+          "name": "Parent · blue-soft (nuit profonde)",
+          "color": "#151B28"
+        },
+        {
+          "slug": "cream",
+          "name": "Parent · cream (brume)",
+          "color": "#F5F6F8"
+        },
+        {
+          "slug": "muted",
+          "name": "Parent · muted (gris)",
+          "color": "#535D6A"
+        },
+        {
+          "slug": "accent",
+          "name": "Parent · accent (rouge)",
+          "color": "#E21422"
+        },
+        {
+          "slug": "accent-2",
+          "name": "Parent · accent-2 (rouge vif)",
+          "color": "#FF4B58"
+        },
+        {
+          "slug": "surface",
+          "name": "Parent · surface",
+          "color": "#F1F3F6"
+        },
+        {
+          "slug": "success",
+          "name": "Parent · success",
+          "color": "#2C9A5E"
+        },
+        {
+          "slug": "warning",
+          "name": "Parent · warning",
+          "color": "#F59E0B"
+        },
+        {
+          "slug": "danger",
+          "name": "Parent · danger",
+          "color": "#C90E1B"
+        }
+      ],
+      "gradients": [
+        {
+          "slug": "r18-nuit",
+          "name": "Nuit Rescue 18",
+          "gradient": "linear-gradient(155deg,#151b28 0%,#0f141f 66%,#22242c 100%)"
+        },
+        {
+          "slug": "r18-rouge",
+          "name": "Rouge Rescue 18",
+          "gradient": "linear-gradient(142deg,#d81523 0%,#8c0e1c 100%)"
+        },
+        {
+          "slug": "r18-clair",
+          "name": "Clair Rescue 18",
+          "gradient": "linear-gradient(125deg,#f5f7fa 0%,#e9edf1 47%,#f6f7f8 100%)"
+        },
+        {
+          "slug": "r18-gris",
+          "name": "Gris doux",
+          "gradient": "linear-gradient(145deg,#eff2f5 0%,#f9fafb 100%)"
+        }
+      ]
+    },
+    "typography": {
+      "defaultFontSizes": false,
+      "customFontSize": true,
+      "fluid": false,
+      "fontFamilies": [
+        {
+          "slug": "inter",
+          "name": "Inter (charte Rescue 18)",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Inter",
+              "fontStyle": "normal",
+              "fontWeight": "100 900",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/inter-var.woff2"
+              ]
+            }
+          ]
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "label",
+          "name": "Surtitre (11 px)",
+          "size": "0.6875rem"
+        },
+        {
+          "slug": "xs",
+          "name": "Mention (12 px)",
+          "size": "0.75rem"
+        },
+        {
+          "slug": "s",
+          "name": "Petit (14 px)",
+          "size": "0.875rem"
+        },
+        {
+          "slug": "m",
+          "name": "Texte (16 px)",
+          "size": "1rem"
+        },
+        {
+          "slug": "l",
+          "name": "Chapô (18 → 21 px)",
+          "size": "clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem)"
+        },
+        {
+          "slug": "h3",
+          "name": "Titre 3 (20 → 24 px)",
+          "size": "clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem)"
+        },
+        {
+          "slug": "xl",
+          "name": "Titre 2 (34 → 62 px)",
+          "size": "clamp(2.125rem, 1.2rem + 3.4vw, 3.875rem)"
+        },
+        {
+          "slug": "xxl",
+          "name": "Titre 1 (40 → 74 px)",
+          "size": "clamp(2.5rem, 1.4rem + 3.8vw, 4.625rem)"
+        },
+        {
+          "slug": "display",
+          "name": "Display hero (50 → 112 px)",
+          "size": "clamp(3.125rem, 7.15vw, 7rem)"
+        }
+      ]
+    },
+    "spacing": {
+      "blockGap": true,
+      "margin": true,
+      "padding": true,
+      "customSpacingSize": true,
+      "defaultSpacingSizes": false,
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%",
+        "vh",
+        "vw"
+      ],
+      "spacingSizes": [
+        {
+          "slug": "xxs",
+          "name": "4 px",
+          "size": "0.25rem"
+        },
+        {
+          "slug": "xs",
+          "name": "10 px",
+          "size": "0.625rem"
+        },
+        {
+          "slug": "s",
+          "name": "16 px",
+          "size": "1rem"
+        },
+        {
+          "slug": "m",
+          "name": "28 px",
+          "size": "1.75rem"
+        },
+        {
+          "slug": "l",
+          "name": "48 px",
+          "size": "3rem"
+        },
+        {
+          "slug": "xl",
+          "name": "Section (66 → 90 px)",
+          "size": "clamp(4.125rem, 3rem + 3vw, 5.625rem)"
+        },
+        {
+          "slug": "gouttiere",
+          "name": "Gouttière (20 → 48 px)",
+          "size": "clamp(1.25rem, 0.5rem + 3vw, 3rem)"
+        }
+      ]
+    },
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "slug": "carte",
+          "name": "Carte",
+          "shadow": "0 12px 26px rgba(14,22,35,.045)"
+        },
+        {
+          "slug": "carte-survol",
+          "name": "Carte survol",
+          "shadow": "0 22px 44px rgba(14,22,35,.14)"
+        },
+        {
+          "slug": "panneau",
+          "name": "Panneau",
+          "shadow": "0 22px 55px rgba(13,21,33,.07)"
+        },
+        {
+          "slug": "rouge",
+          "name": "Bouton rouge",
+          "shadow": "0 12px 24px rgba(226,20,34,.23)"
+        }
+      ]
+    },
+    "custom": {
+      "radius": {
+        "s": "10px",
+        "m": "14px",
+        "l": "21px",
+        "xl": "26px",
+        "full": "999px"
+      },
+      "tracking": {
+        "display": "-0.085em",
+        "titre": "-0.055em",
+        "sous-titre": "-0.04em",
+        "label": "0.16em"
+      },
+      "header": {
+        "height": "78px",
+        "heightMobile": "66px"
+      }
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": true
+        }
+      }
+    }
+  },
+  "customTemplates": [
+    {
+      "name": "page-libre",
+      "title": "Page pleine largeur (sections)",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-commande",
+      "title": "Panier et commande",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ],
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "En-tête",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Pied de page",
+      "area": "footer"
+    },
+    {
+      "name": "newsletter",
+      "title": "Bandeau newsletter",
+      "area": "uncategorized"
+    },
+    {
+      "name": "header-commande",
+      "title": "En-tête commande sécurisée",
+      "area": "header"
+    }
+  ]
+}

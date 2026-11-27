@@ -1,0 +1,183 @@
+{
+  "slug": "brulures",
+  "titre": "Brûlures : gravité, refroidissement et cas particuliers",
+  "theme": "Secours d'urgence aux personnes",
+  "niveau": "Équipier",
+  "duree": "9 min",
+  "resume": "Évalue ta capacité à juger la gravité d'une brûlure et à appliquer les bons gestes, du refroidissement aux brûlures chimiques et électriques.",
+  "sources": [
+    [
+      "Recommandations PS (DGSCGC), fiche 08AC01 Brûlures, MAJ 06-2018",
+      "https://enasis.fr/pluginfile.php/126512/mod_resource/content/0/AC%20Br%C3%BBlures%20reco%20PS%202018%20%EF%80%A2%202021.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 08PR05 Brûlure thermique, MAJ 11-2021",
+      "https://enasis.fr/pluginfile.php/126517/mod_resource/content/0/PR%20Br%C3%BBlure%20thermique%20reco%20PS%202021.pdf"
+    ],
+    [
+      "Recommandations PS (DGSCGC), fiche 08PR01 Brûlure chimique, MAJ 09-2014",
+      "https://enasis.fr/pluginfile.php/126513/mod_resource/content/0/PR%20Br%C3%BBlure%20chimique%20reco%20PS%202014%20%EF%80%A2%202021.pdf"
+    ],
+    [
+      "Fiche procédure SSUAP Les brûlures, MAJ 05-2024",
+      "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20Br%C3%BBlures.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "À partir de quelle surface de cloques une brûlure est-elle grave ?",
+      "c": [
+        "Plus de la moitié de la paume de la main de la victime",
+        "Plus de la surface d'une pièce de 2 euros",
+        "Plus de deux paumes de main de la victime",
+        "Plus de 10 % de la surface du corps uniquement"
+      ],
+      "a": 0,
+      "why": "Une ou plusieurs cloques dont la surface totale dépasse la moitié de la paume de la main de la victime signent une brûlure grave. Recommandations PS, fiche 08AC01."
+    },
+    {
+      "q": "Quelle localisation rend une brûlure grave ?",
+      "c": [
+        "Le dos",
+        "Le visage, le cou, les mains ou les articulations",
+        "La cuisse"
+      ],
+      "a": 1,
+      "why": "Une brûlure du visage, du cou, des mains ou des articulations est grave. Recommandations PS, fiche 08AC01."
+    },
+    {
+      "q": "Quel aspect traduit une destruction profonde de la peau ?",
+      "c": [
+        "Une simple rougeur douloureuse",
+        "Une petite cloque unique",
+        "Un aspect blanchâtre, couleur peau de chamois ou noirâtre, parfois indolore"
+      ],
+      "a": 2,
+      "why": "Un aspect blanchâtre, couleur peau de chamois ou noirâtre, parfois indolore, traduit une destruction profonde. Recommandations PS, fiche 08AC01."
+    },
+    {
+      "q": "Comment classes-tu une brûlure d'origine électrique ?",
+      "c": [
+        "Toujours grave",
+        "Simple si la peau est peu marquée",
+        "Grave seulement chez l'enfant"
+      ],
+      "a": 0,
+      "why": "Une brûlure d'origine électrique ou radiologique est une brûlure grave. Recommandations PS, fiche 08AC01."
+    },
+    {
+      "q": "Quelle surface corporelle représente la main de la victime, paume et doigts ?",
+      "c": [
+        "1 %",
+        "0,5 %",
+        "5 %",
+        "9 %"
+      ],
+      "a": 0,
+      "why": "La surface de la main, paume et doigts, vaut 1 % de la surface totale de la peau, quel que soit l'âge. Recommandations PS, fiche 08AC01."
+    },
+    {
+      "q": "Avec quelle eau refroidis-tu une brûlure thermique ?",
+      "c": [
+        "Eau glacée, proche de 0 °C",
+        "Eau tempérée, entre 15 et 25 °C, sans pression",
+        "Eau tiède, entre 30 et 35 °C",
+        "Eau sous forte pression"
+      ],
+      "a": 1,
+      "why": "Le refroidissement se fait à l'eau tempérée, 15 à 25 °C, ruisselant sans pression. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Dans quel délai le refroidissement d'une brûlure thermique est-il indiqué ?",
+      "c": [
+        "Moins de 30 minutes après la brûlure",
+        "Moins de 2 heures après la brûlure",
+        "À tout moment, sans limite"
+      ],
+      "a": 0,
+      "why": "Le refroidissement s'applique si la brûlure date de moins de 30 minutes, victime consciente et sans détresse circulatoire. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Brûlure thermique grave. Combien de temps arroses-tu ?",
+      "c": [
+        "2 minutes",
+        "5 minutes",
+        "Une heure",
+        "10 minutes minimum, idéalement 20 minutes"
+      ],
+      "a": 3,
+      "why": "Pour une brûlure grave, l'arrosage s'arrête après 10 minutes minimum, idéalement 20 minutes. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Au-delà de quelle surface brûlée chez l'adulte ne refroidis-tu pas ?",
+      "c": [
+        "5 %",
+        "50 %",
+        "20 %"
+      ],
+      "a": 2,
+      "why": "Le refroidissement se pratique si la surface brûlée reste inférieure à 20 % chez l'adulte et 10 % chez l'enfant ou le nourrisson. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Les vêtements de la victime collent à la brûlure. Que fais-tu ?",
+      "c": [
+        "Tu ne retires pas ceux qui adhèrent à la peau",
+        "Tu les découpes et tu les retires entièrement",
+        "Tu les arraches d'un coup sec"
+      ],
+      "a": 0,
+      "why": "Les vêtements se retirent le plus tôt possible, sauf ceux qui adhèrent à la peau. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Que fais-tu des cloques d'une brûlure ?",
+      "c": [
+        "Tu les perces pour soulager",
+        "Tu ne les perces pas",
+        "Tu retires la peau des cloques"
+      ],
+      "a": 1,
+      "why": "Percer les cloques fait partie des gestes à proscrire. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Les vêtements de la victime sont en feu. Quel est le bon réflexe ?",
+      "c": [
+        "La laisser courir vers un point d'eau",
+        "La rouler par terre",
+        "Étouffer les flammes avec un vêtement ou une couverture, idéalement mouillé"
+      ],
+      "a": 2,
+      "why": "On étouffe les flammes avec un vêtement ou une couverture, idéalement mouillé. On ne laisse pas la victime courir ni se rouler par terre. Recommandations PS, fiche 08PR05."
+    },
+    {
+      "q": "Brûlure chimique sur la peau. Comment rinces-tu ?",
+      "c": [
+        "À grande eau tempérée, 15 à 25 °C, pendant 20 minutes au moins",
+        "Avec un produit neutralisant pendant 2 minutes",
+        "À l'eau froide pendant 5 minutes",
+        "Avec une compresse sèche, sans eau"
+      ],
+      "a": 0,
+      "why": "La zone atteinte se lave à grande eau tempérée, 15 à 25 °C, durant vingt minutes au moins. Recommandations PS, fiche 08PR01."
+    },
+    {
+      "q": "Projection chimique dans un œil. Quelle précaution prends-tu pendant le rinçage ?",
+      "c": [
+        "Tu fermes l'œil atteint",
+        "Tu veilles à ce que l'eau de lavage ne coule pas sur l'autre œil",
+        "Tu rinces les deux yeux en même temps avec la même eau"
+      ],
+      "a": 1,
+      "why": "Pendant le rinçage, l'eau ne doit pas couler sur l'autre œil. Un ophtalmologiste est consulté immédiatement. Recommandations PS, fiche 08PR01."
+    },
+    {
+      "q": "Victime électrisée. Que fais-tu avant de la toucher ?",
+      "c": [
+        "Tu vérifies son pouls",
+        "Tu l'arroses pour refroidir la brûlure",
+        "Tu écartes tout risque électrique"
+      ],
+      "a": 2,
+      "why": "La victime ne se touche qu'après avoir écarté tout risque électrique. On recherche ensuite les points d'entrée et de sortie. Fiche procédure SSUAP Les brûlures."
+    }
+  ]
+}

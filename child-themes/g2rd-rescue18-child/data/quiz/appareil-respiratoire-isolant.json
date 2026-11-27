@@ -1,0 +1,166 @@
+{
+ "slug": "appareil-respiratoire-isolant",
+ "titre": "ARI : contrôles, binôme et règles de retour",
+ "theme": "Incendie",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Vérifie que tu maîtrises l'engagement sous ARI : pressions minimales, RAPACE, rôle du contrôleur et retour au point d'entrée.",
+ "sources": [
+  [
+   "INC-FM-24 Appareil respiratoire isolant circuit ouvert (ENASIS)",
+   "https://enasis.fr/pluginfile.php/14463/mod_folder/content/0/INC-FM-24-Appareil%20respiratoire%20isolant%20circuit%20ouvert.pdf"
+  ],
+  [
+   "GDOD Engagement en milieu vicié, 2025 (guide départemental publié sur ENASIS)",
+   "https://enasis.fr/pluginfile.php/6953/mod_resource/content/2/GDOD%20engagement%20en%20milieu%20vici%C3%A9_2025.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Quelle est la pression minimale pour engager un porteur avec une bouteille chargée à 300 bar ?",
+   "c": [
+    "270 bar",
+    "150 bar",
+    "200 bar",
+    "300 bar"
+   ],
+   "a": 0,
+   "why": "La pression minimale d'engagement est de 270 bar pour une bouteille à 300 bar et de 180 bar pour une bouteille à 200 bar, soit 90 % de la charge."
+  },
+  {
+   "q": "Et pour une bouteille chargée à 200 bar ?",
+   "c": [
+    "180 bar",
+    "100 bar",
+    "150 bar"
+   ],
+   "a": 0,
+   "why": "Le seuil est de 180 bar pour une bouteille à 200 bar. En dessous, la bouteille est remplacée."
+  },
+  {
+   "q": "Ta bouteille affiche une pression inférieure au minimum d'engagement. Que fais-tu ?",
+   "c": [
+    "Tu t'engages quand même pour une mission complète",
+    "Tu remplaces la bouteille",
+    "Tu échanges ta bouteille avec celle de ton binôme"
+   ],
+   "a": 1,
+   "why": "Sous la pression minimale, on remplace la bouteille. Un engagement en dessous reste limité à des missions courtes et à vue. On n'échange jamais les bouteilles entre appareils."
+  },
+  {
+   "q": "Comment ouvres-tu le robinet de la bouteille lors de la mise en œuvre ?",
+   "c": [
+    "Complètement et lentement, puis tu refermes d'un quart de tour",
+    "D'un coup sec, à fond",
+    "À moitié seulement pour économiser l'air",
+    "Tu le laisses fermé jusqu'à l'entrée dans le volume"
+   ],
+   "a": 0,
+   "why": "Le guide demande d'ouvrir le robinet complètement et lentement, puis de le refermer d'un quart de tour. Tu contrôles le sifflet à l'ouverture et à la fermeture."
+  },
+  {
+   "q": "Dans la méthode RAPACE, que contrôle la lettre P ?",
+   "c": [
+    "La présence du binôme",
+    "Le port des gants",
+    "La pression de la bouteille",
+    "La position du masque"
+   ],
+   "a": 2,
+   "why": "RAPACE : Robinet ouvert, Ajustement du harnais, Pression au moins égale au minimum, Alarme sonore armée, Code de communication, Étanchéité du masque."
+  },
+  {
+   "q": "Dans RAPACE, que vérifie la lettre E ?",
+   "c": [
+    "L'étanchéité du masque",
+    "L'éclairage",
+    "L'état de la tenue",
+    "L'extincteur"
+   ],
+   "a": 0,
+   "why": "Le E de RAPACE correspond à l'étanchéité du masque, contrôlée juste avant l'engagement."
+  },
+  {
+   "q": "Comment se fait le contrôle croisé du binôme avant l'engagement ?",
+   "c": [
+    "Il est facultatif si chacun a fait son RAPACE",
+    "Il est réalisé par le conducteur de l'engin seul",
+    "Il est obligatoire et se fait face à face"
+   ],
+   "a": 2,
+   "why": "Le contrôle croisé est obligatoire. Il se fait face à face, sous la responsabilité du binôme, et le responsable du point d'entrée le valide."
+  },
+  {
+   "q": "Un membre du binôme ne peut plus poursuivre sa mission. Que fait l'autre ?",
+   "c": [
+    "Il continue seul pour finir la reconnaissance",
+    "Il attend seul sur place les renforts",
+    "Le binôme se retire ensemble"
+   ],
+   "a": 2,
+   "why": "Le binôme est indissociable. Un sapeur-pompier ne s'engage jamais seul. Si l'un ne peut plus continuer, le binôme se retire."
+  },
+  {
+   "q": "Le sifflet de fin de charge retentit. Quelle est la conduite à tenir ?",
+   "c": [
+    "Tu termines ta mission puis tu reviens",
+    "Tu coupes le sifflet et tu continues",
+    "Tu reviens immédiatement et systématiquement au point d'entrée",
+    "Tu attends que ton binôme siffle aussi"
+   ],
+   "a": 2,
+   "why": "Au déclenchement du sifflet, le binôme revient immédiatement et systématiquement au point d'entrée, calmement et à allure régulière."
+  },
+  {
+   "q": "Lors d'un engagement complexe, quand le binôme doit-il entamer son retour ?",
+   "c": [
+    "À mi-pression",
+    "Au déclenchement du sifflet uniquement",
+    "À la fin de la bouteille"
+   ],
+   "a": 0,
+   "why": "Pour les engagements complexes, le retour se fait à mi-pression. Le chemin du retour demande autant d'air que l'aller."
+  },
+  {
+   "q": "Que note le contrôleur pour chaque binôme engagé ?",
+   "c": [
+    "Seulement le nom du chef d'agrès",
+    "Les pressions des porteurs et les heures d'entrée et de sortie",
+    "Le numéro de série des masques uniquement"
+   ],
+   "a": 1,
+   "why": "Le contrôleur inscrit les binômes sur le tableau de gestion, note les pressions, les heures d'entrée et de sortie, la mission et l'heure maximale de retour."
+  },
+  {
+   "q": "L'heure maximale de retour d'un binôme est dépassée. Que fait le contrôleur ?",
+   "c": [
+    "Il attend la fin de l'intervention",
+    "Il engage le binôme de sécurité",
+    "Il part seul chercher le binôme"
+   ],
+   "a": 1,
+   "why": "Le contrôleur calcule le temps maximal d'engagement à partir des pressions et de la consommation. En cas de dépassement, il fait engager le binôme de sécurité."
+  },
+  {
+   "q": "Bouteille de 6 L à 300 bar, réserve de 60 bar retirée, consommation forte de 100 l/min. Quelle autonomie environ avant le sifflet ?",
+   "c": [
+    "Environ 13 minutes",
+    "Environ 4 minutes",
+    "Environ 30 minutes",
+    "Environ 60 minutes"
+   ],
+   "a": 0,
+   "why": "6 L x 240 bar = 1 440 L, corrigé du facteur de compressibilité 1,1, soit environ 1 309 L. À 100 l/min, cela donne environ 13 minutes (exemple du guide)."
+  },
+  {
+   "q": "En position d'attente avant l'engagement, comment est ton appareil ?",
+   "c": [
+    "Bouteille ouverte, masque autour du cou",
+    "Bouteille fermée, masque rangé dans le sac",
+    "Bouteille ouverte, masque déjà sur le visage"
+   ],
+   "a": 0,
+   "why": "En position d'attente, la bouteille est ouverte et le masque pend autour du cou. Tu le capelles au moment de l'engagement."
+  }
+ ]
+}

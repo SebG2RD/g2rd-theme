@@ -1,0 +1,50 @@
+{
+ "slug": "pse-accouchement-inopine",
+ "titre": "Accouchement inopiné : expulsion, nouveau-né et délivrance",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Face à une parturiente, tu réalises un bilan spécifique et tu demandes un avis médical. Si le transport est impossible, tu assistes l'accouchement sur place, tu prends en charge le nouveau-né et tu surveilles la mère jusqu'après la délivrance.",
+ "cles": [
+  "Terme normal : entre 37 et 41 semaines révolues d'aménorrhée. Avant 37 semaines, l'accouchement est prématuré.",
+  "Trois étapes : le travail, l'expulsion, la délivrance.",
+  "Poche des eaux rompue, envie irrépressible de pousser ou tête visible à la vulve : l'accouchement est imminent.",
+  "Bilan spécifique : suivi de grossesse, accouchements antérieurs, terme prévu, grossesse multiple, présentation, contractions, couleur du liquide.",
+  "Installe la femme enceinte sur le côté. L'installation sur le dos est à proscrire.",
+  "Prépare serviettes propres et sèches, récipient, oxygène, insufflateur pédiatrique, aspirateur de mucosités et oxymètre.",
+  "Protège-toi : gants à usage unique, masque et lunettes contre les projections.",
+  "Tête sortie : recherche un circulaire du cordon autour du cou et dégage-le.",
+  "Nouveau-né en bonne santé : peau contre peau sur le ventre de la mère, séché par tamponnement, enveloppé sauf la face.",
+  "Note l'heure de naissance. Transport du nouveau-né dans un système fermé et fixé."
+ ],
+ "retenir": [
+  "Fais pousser jusqu'à l'apparition de la moitié de la tête, puis arrête et ralentis la sortie de la tête d'une main.",
+  "Clampe le cordon au minimum après 1 minute de vie chez le nouveau-né en bonne santé. Premier clamp à 10 à 15 cm de l'ombilic.",
+  "Nouveau-né qui ne respire pas ou hypotonique : clampage immédiat, tête en position neutre, 40 insufflations à l'air en 1 minute.",
+  "État inchangé : RCP avec oxygène et sans DAE, 3 compressions pour 1 insufflation, fréquence de 120 par minute.",
+  "Délivrance 20 à 30 minutes après la naissance : ne tire pas, recueille le placenta pour l'hôpital et guette une hémorragie."
+ ],
+ "pieges": [
+  "Ne pas tirer sur le nouveau-né ni sur le cordon ombilical.",
+  "Ne pas s'opposer à la rotation de la tête pendant la descente.",
+  "Ne pas sectionner le cordon en dehors de l'espace entre les deux clamps.",
+  "Ne pas oublier la pâleur du nouveau-né : signale-la dans le bilan.",
+  "Ne pas relâcher la surveillance de la mère après la délivrance : une hémorragie gravissime survient parfois."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Yawning Infant, August 2018.jpg",
+   "auteur": "Martin Falbisoner",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Yawning_Infant,_August_2018.jpg",
+   "alt": "Nouveau-né endormi qui baille sur une couverture jaune."
+  }
+ ]
+}

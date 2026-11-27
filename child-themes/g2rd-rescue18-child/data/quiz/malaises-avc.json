@@ -1,0 +1,101 @@
+{
+ "slug": "malaises-avc",
+ "titre": "Malaises, AVC et hypoglycémie : les bons réflexes",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Teste tes réflexes face à un malaise : signes FAST de l'AVC, heure de début, douleur thoracique et resucrage du diabétique.",
+ "sources": [
+  ["HAS, Accident vasculaire cérébral : des signes d'alerte à votre retour à domicile", "https://www.has-sante.fr/jcms/p_3701212/fr/accident-vasculaire-cerebral-des-signes"],
+  ["Santé publique France, Accident vasculaire cérébral : la maladie", "https://www.santepubliquefrance.fr/accident-vasculaire-cerebral/la-maladie"],
+  ["ENASIS, Fiche procédure Chef d'agrès VSAV : AVC (MAJ 22/03/2024)", "https://enasis.fr/pluginfile.php/192704/mod_resource/content/0/PR%20-%20AVC.pdf"],
+  ["ENASIS, Équipier VSAV : Les affections spécifiques (MAJ 18/04/2023)", "https://enasis.fr/pluginfile.php/217251/mod_folder/content/0/AC%20-%20Les%20affections%20sp%C3%A9cifiques.pdf"],
+  ["ENASIS, SSUAP : PR Malaise hypoglycémique chez le diabétique (MAJ 07-2025)", "https://enasis.fr/pluginfile.php/217262/mod_folder/content/0/PR%20-%20Malaise%20hypoglyc%C3%A9mique%20chez%20le%20diab%C3%A9tique.pdf"]
+ ],
+ "questions": [
+  {
+   "q": "Avec le test FAST, quels signes d'AVC recherches-tu systématiquement ?",
+   "c": ["Fièvre, raideur de nuque et vomissements", "Asymétrie du visage, faiblesse d'un bras et trouble de la parole", "Douleur thoracique, sueurs et pâleur", "Toux, sifflement et cyanose"],
+   "a": 1,
+   "why": "La procédure AVC du référentiel SUAP impose de rechercher la déformation de la bouche, la chute d'un bras et la difficulté à parler. Le T de FAST rappelle de relever l'heure."
+  },
+  {
+   "q": "Face à une suspicion d'AVC, quelles heures dois-tu relever ?",
+   "c": ["L'heure de ton arrivée sur les lieux", "L'heure du dernier repas de la victime", "L'heure d'apparition des signes et l'heure où la victime a été vue pour la dernière fois sans signes", "L'heure de l'appel au centre de traitement de l'alerte"],
+   "a": 2,
+   "why": "La fiche AVC du référentiel SUAP demande l'heure d'apparition des signes et la dernière heure où la victime a été vue sans signes. Le médecin régulateur en a besoin pour orienter la victime."
+  },
+  {
+   "q": "Pourquoi l'heure de début des signes d'AVC compte-t-elle autant ?",
+   "c": ["Les traitements de l'AVC sont efficaces s'ils sont donnés tôt, dans les 2 à 3 heures", "Elle sert uniquement aux statistiques nationales", "Elle détermine la couleur du bilan transmis", "Elle remplace la mesure de la glycémie"],
+   "a": 0,
+   "why": "Le référentiel SUAP rappelle que le traitement précoce est efficace dans une fenêtre de 2 à 3 heures après le début des signes. La HAS insiste : plus le traitement débute tôt, plus on évite les séquelles."
+  },
+  {
+   "q": "Avant de retenir un AVC chez une victime qui présente un déficit, quelle mesure réalises-tu ?",
+   "c": ["Une prise de température", "Une glycémie capillaire", "Un score de douleur", "Une mesure du temps de recoloration"],
+   "a": 1,
+   "why": "Une hypoglycémie simule parfois un AVC. Le référentiel SUAP demande de mesurer la glycémie capillaire et de corriger une hypoglycémie avant de retenir un AVC."
+  },
+  {
+   "q": "Victime consciente, suspecte d'AVC, sans nausée ni vomissement. Dans quelle position l'installes-tu ?",
+   "c": ["Assise sur une chaise", "Demi-assise, dos calé", "À plat, en position strictement horizontale", "Allongée, jambes surélevées"],
+   "a": 2,
+   "why": "La procédure AVC du référentiel SUAP prévoit une position strictement horizontale chez la victime consciente. Tu maintiens cette position pendant le transport."
+  },
+  {
+   "q": "La même victime suspecte d'AVC se met à vomir. Que fais-tu ?",
+   "c": ["Tu la places en PLS", "Tu la fais boire pour rincer la bouche", "Tu la mets debout", "Tu la laisses sur le dos sans bouger"],
+   "a": 0,
+   "why": "Le référentiel SUAP prévoit la PLS en cas de nausées ou de vomissements chez la victime d'AVC. La PLS protège les voies aériennes."
+  },
+  {
+   "q": "Selon le référentiel SUAP, combien de temps durent en général les signes d'un accident ischémique transitoire (AIT) ?",
+   "c": ["Au moins 24 heures", "Quelques secondes à quelques minutes, jamais plus d'une heure", "Plusieurs jours", "Toujours plus de 6 heures"],
+   "a": 1,
+   "why": "Le référentiel SUAP décrit des signes qui durent quelques secondes à quelques minutes, jamais plus d'une heure. L'AIT est un signe d'alarme qui précède parfois un AVC constitué."
+  },
+  {
+   "q": "Un proche te décrit une faiblesse brutale d'un bras et une difficulté à parler. Quel réflexe recommande la HAS ?",
+   "c": ["Attendre une heure pour voir si ça passe", "Prendre rendez-vous chez le médecin traitant", "Appeler le 15 immédiatement", "Donner un verre d'eau sucrée et observer"],
+   "a": 2,
+   "why": "La HAS classe l'AVC en urgence médicale et demande d'appeler le 15 immédiatement. Santé publique France rappelle aussi d'appeler le SAMU dès le doute."
+  },
+  {
+   "q": "Chez l'adulte, sous quel seuil de glycémie parle-t-on d'hypoglycémie ?",
+   "c": ["1,2 g/L", "1,0 g/L", "0,2 g/L", "0,6 g/L"],
+   "a": 3,
+   "why": "Le référentiel SUAP retient une hypoglycémie sous 0,6 g/L, soit 60 mg/dL ou 3,3 mmol/L. Utilise de préférence le lecteur de la victime et note l'unité affichée."
+  },
+  {
+   "q": "Un adulte diabétique en hypoglycémie est réveillé, réactif et avale sans difficulté. Quelle quantité de sucre lui donnes-tu ?",
+   "c": ["1 morceau", "4 morceaux ou 4 cuillères à café", "8 morceaux", "12 morceaux"],
+   "a": 1,
+   "why": "La fiche resucrage du référentiel SSUAP prévoit 4 morceaux ou cuillères à café de sucre chez l'adulte. Chez l'enfant, la dose est de 2 à 3 morceaux."
+  },
+  {
+   "q": "À quelle condition peux-tu faire prendre du sucre à une victime en hypoglycémie ?",
+   "c": ["Elle est réveillée, réactive et capable d'avaler", "Elle a perdu connaissance mais respire", "Elle convulse", "Elle est en PLS"],
+   "a": 0,
+   "why": "Le référentiel SSUAP réserve le resucrage par la bouche à la victime réveillée, réactive et capable d'avaler. La fiche pose ces trois conditions avant tout apport de sucre."
+  },
+  {
+   "q": "Après le resucrage, au bout de combien de temps attends-tu une amélioration ?",
+   "c": ["1 à 2 minutes", "1 heure", "10 à 15 minutes", "4 heures"],
+   "a": 2,
+   "why": "Le référentiel SSUAP indique 10 à 15 minutes pour voir la glycémie remonter. Sans changement après 15 minutes, une seconde dose de sucre est possible."
+  },
+  {
+   "q": "Quel tableau évoque une hypoglycémie chez un diabétique ?",
+   "c": ["Peau sèche et chaude avec fièvre", "Plaques rouges qui démangent", "Douleur isolée du genou", "Sueurs abondantes, pâleur et comportement d'ébriété sans alcool"],
+   "a": 3,
+   "why": "Le référentiel SUAP cite sueurs abondantes, pâleur et troubles du comportement comme signes d'hypoglycémie. L'agressivité ou l'ébriété sans alcool font partie des signes classiques."
+  },
+  {
+   "q": "Douleur thoracique non traumatique, sans détresse évidente. Que fais-tu d'abord ?",
+   "c": ["Tu mets la victime au repos immédiat, en position de confort", "Tu la fais marcher jusqu'au VSAV", "Tu lui proposes un repas léger", "Tu lui demandes de monter un étage pour tester sa tolérance"],
+   "a": 0,
+   "why": "Le référentiel SUAP prévoit repos immédiat, position de confort et avis médical après le bilan. Tu vérifies aussi qu'un défibrillateur est à proximité, car un infarctus peut évoluer vers l'arrêt cardiaque."
+  }
+ ]
+}

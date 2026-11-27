@@ -1,0 +1,57 @@
+{
+ "slug": "gnr-sauvetage-aquatique",
+ "titre": "Sauvetage aquatique : emplois, sécurité et tests annuels",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Équipier",
+ "document": "Guide national de référence Sauvetage aquatique, DDSC, novembre 2002",
+ "resume": "Le sauvetage aquatique couvre les secours aux victimes en détresse à la surface de l'eau, en eaux intérieures et en mer. Le GNR fixe les emplois, la composition des équipes, les règles de sécurité et les tests annuels.",
+ "cles": [
+  "Quatre emplois : nageur sauveteur aquatique, nageur sauveteur côtier, chef de bord sauveteur côtier, conseiller technique.",
+  "Le nageur sauveteur aquatique agit en surface, en eaux intérieures, sous l'autorité du chef d'agrès.",
+  "Eaux intérieures : équipe de 2 nageurs sauveteurs aquatiques, intégrée à un VSAV, un engin pompe ou un autre engin.",
+  "En mer : 2 ou 3 sauveteurs selon l'embarcation, dont au moins un chef de bord sauveteur côtier.",
+  "Entrée par saut : zone de réception sans obstacle, profondeur proportionnelle à la hauteur du saut.",
+  "Hélicoptère en eaux intérieures : opération réalisée par deux nageurs sauveteurs aquatiques.",
+  "Hélicoptère en mer : un chef de bord et un nageur sauveteur côtier sont acheminés en priorité.",
+  "Équipement de base : palmes, masque, tuba, vêtement isothermique. En eaux vives : casque, corde de sécurité, couteau.",
+  "Embarcations : pneumatiques à coque rigide de 4 à 5 m, moteur de 40 à 50 CV, ou motos marines à selle.",
+  "Entraînements répartis sur 12 mois, d'une durée effective de 2 heures au moins chacun."
+ ],
+ "retenir": [
+  "Sauvetage de vie humaine en eaux intérieures ou dans les 300 m : l'opération démarre avec un sauveteur, sous l'autorité du COS.",
+  "Frange des 300 m : conseiller technique ou chef de bord obligatoire sur place, avec une unité de 1 ou 2 sauveteurs.",
+  "Test annuel du nageur sauveteur aquatique : 1 000 m palmes, masque et tuba en moins de 20 minutes.",
+  "Épreuve de sauvetage : saut, 25 m, mannequin par 3 m de fond, retour à la berge tête hors de l'eau, en 2 min 30 au plus.",
+  "Le sauveteur refuse une mission hors conditions de sécurité ou hors cadre réglementaire et le notifie par écrit au chef de corps."
+ ],
+ "pieges": [
+  "Ne pas sauter sans avoir reconnu la zone de réception.",
+  "Confondre sauvetage aquatique, en surface, et secours subaquatiques, sous la surface.",
+  "Ne pas engager une intervention sans autorisation du COS, qui en valide la durée, le lieu et la mission.",
+  "Confondre le test d'entrée en SAV 1, 500 m nage libre en 12 minutes, et le test annuel, 1 000 m palmes en 20 minutes.",
+  "Ne pas laisser un nageur sauveteur côtier diriger seul une reconnaissance en mer sans chef de bord ou conseiller technique."
+ ],
+ "quiz": "noyade-sauvetage-aquatique",
+ "sources": [
+  [
+   "Guide national de référence Sauvetage aquatique (DDSC, 2002)",
+   "https://rescue18.com/telechargement/sauvetage-aquatique/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Water rescue training.jpg",
+   "auteur": "Staffsfire",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Water_rescue_training.jpg",
+   "alt": "Sauveteurs en combinaison progressant en eau vive lors d'un entraînement."
+  },
+  {
+   "fichier": "File:Lifeguard August 2010-2.jpg",
+   "auteur": "Alvesgaspar",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Lifeguard_August_2010-2.jpg",
+   "alt": "Sauveteur surveillant la baignade sur une plage."
+  }
+ ]
+}

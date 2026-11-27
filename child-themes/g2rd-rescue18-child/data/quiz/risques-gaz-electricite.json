@@ -1,0 +1,185 @@
+{
+ "slug": "risques-gaz-electricite",
+ "titre": "Fuite de gaz et risque électrique : les bons réflexes",
+ "theme": "Risques technologiques",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Fais le point sur les réflexes face à une fuite de gaz et à un ouvrage électrique : sources d'ignition, LIE, distances et tension de pas.",
+ "sources": [
+  [
+   "EDF, Données de sécurité gaz naturel (fiche 1.3)",
+   "https://www.edf.fr/sites/default/files/contrib/entreprise/cgv-gaz/2019/donnees_de_securite_gaz_1.3.pdf"
+  ],
+  [
+   "Guide méthanisation (ministère de l'Agriculture)",
+   "https://agriculture.gouv.fr/sites/default/files/documents/pdf/Guide_MethanisationV9_1-2.pdf"
+  ],
+  [
+   "INRS ED 139",
+   "https://inrs.fr/dam/inrs/CataloguePapier/ED/TI-ED-139.pdf"
+  ],
+  [
+   "Conduite à tenir en cas de contact avec un réseau électrique (préfecture de La Réunion)",
+   "https://www.reunion.gouv.fr/contenu/telechargement/28809/214090/file/22b_-_conduite_a_tenir_en_cas_de_contact_avec_un_reseau_electrique_-_ind_b.pdf"
+  ],
+  [
+   "TOP.03 Intervention impliquant un ouvrage électrique (mémento opérationnel SDIS de la Drôme)",
+   "https://enasis.fr/pluginfile.php/70220/mod_resource/content/1/04-TOP.03%20Intervention%20impliquant%20un%20ouvrage%20%C3%A9lectrique.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Tu entres dans un local où ça sent le gaz. Que fais-tu des interrupteurs et appareils électriques ?",
+   "c": [
+    "Tu n'y touches pas",
+    "Tu allumes la lumière pour mieux voir",
+    "Tu les éteins tous un par un"
+   ],
+   "a": 0,
+   "why": "La consigne officielle : ne toucher à aucun appareil ou installation électrique. Allumer comme éteindre peut créer une étincelle."
+  },
+  {
+   "q": "Pourquoi ne pas téléphoner avec un portable au cœur de la zone de fuite ?",
+   "c": [
+    "Le réseau ne passe pas",
+    "Le gaz abîme l'écran",
+    "Le portable peut produire une étincelle"
+   ],
+   "a": 2,
+   "why": "La fiche de sécurité gaz classe le téléphone portable parmi les objets qui peuvent produire une étincelle, comme la sonnette ou le briquet. On appelle depuis l'extérieur de la zone."
+  },
+  {
+   "q": "Quelle action contribue à faire baisser la concentration de gaz dans le local ?",
+   "c": [
+    "Aérer au maximum",
+    "Fermer portes et fenêtres",
+    "Allumer la hotte aspirante"
+   ],
+   "a": 0,
+   "why": "La consigne est d'aérer le plus possible le lieu où l'odeur est perçue. Mettre en route une hotte reviendrait à actionner un appareil électrique."
+  },
+  {
+   "q": "Où faut-il de préférence couper l'alimentation en gaz ?",
+   "c": [
+    "Au plus près de la fuite, à l'intérieur",
+    "Depuis l'extérieur de la zone concernée",
+    "On ne coupe jamais le gaz"
+   ],
+   "a": 1,
+   "why": "La fiche EDF demande d'arrêter l'alimentation en gaz, de préférence depuis l'extérieur de la zone."
+  },
+  {
+   "q": "Quel est le numéro gratuit Urgence sécurité gaz de GRDF ?",
+   "c": [
+    "0 800 47 33 33",
+    "3949",
+    "0 800 112 112",
+    "17"
+   ],
+   "a": 0,
+   "why": "Le numéro Urgence sécurité gaz de GRDF est le 0 800 47 33 33, appel gratuit. Le 112 reste le numéro d'urgence européen."
+  },
+  {
+   "q": "Quelles sont les limites d'explosivité du méthane dans l'air ?",
+   "c": [
+    "LIE 1 %, LSE 5 %",
+    "LIE 15 %, LSE 50 %",
+    "LIE 5 %, LSE 15 %",
+    "LIE 0,5 %, LSE 2 %"
+   ],
+   "a": 2,
+   "why": "Le méthane, principal composant du gaz naturel, s'enflamme entre 5 % (LIE) et 15 % (LSE) dans l'air."
+  },
+  {
+   "q": "Ton explosimètre affiche 100 % de la LIE pour du méthane. Quelle concentration de méthane cela représente-t-il dans l'air ?",
+   "c": [
+    "100 % de méthane",
+    "5 % de méthane",
+    "15 % de méthane"
+   ],
+   "a": 1,
+   "why": "L'explosimètre mesure en pourcentage de la LIE. Pour le méthane, la LIE vaut 5 % en volume. 100 % de la LIE correspond donc à 5 % de méthane dans l'air."
+  },
+  {
+   "q": "Que se passe-t-il au-dessus de la LSE ?",
+   "c": [
+    "Le mélange est trop riche en gaz pour s'enflammer, mais il le redevient s'il se dilue",
+    "Le mélange est sans aucun danger",
+    "Le mélange explose plus fort"
+   ],
+   "a": 0,
+   "why": "Entre LIE et LSE, le mélange est inflammable. Au-dessus de la LSE, il est trop riche, mais une aération le fait repasser dans la plage d'explosivité. Le danger reste entier."
+  },
+  {
+   "q": "Le gaz naturel est-il plus lourd ou plus léger que l'air ?",
+   "c": [
+    "Plus lourd, il stagne au sol",
+    "Plus léger, il monte",
+    "Même densité que l'air"
+   ],
+   "a": 1,
+   "why": "La fiche de sécurité gaz naturel indique une densité de 0,54 à 0,66 : c'est un gaz plus léger que l'air."
+  },
+  {
+   "q": "Fuite de GPL (propane, butane). Où le gaz risque-t-il de s'accumuler ?",
+   "c": [
+    "Sous les plafonds",
+    "Il se dissipe toujours immédiatement",
+    "Dans les parties basses et les espaces confinés"
+   ],
+   "a": 2,
+   "why": "L'INRS rappelle que le GPL gazeux est près de deux fois plus lourd que l'air. Sans mouvement d'air, il s'accumule dans les parties basses."
+  },
+  {
+   "q": "Un câble électrique gît au sol après un accident. Comment le considères-tu ?",
+   "c": [
+    "Hors tension s'il ne fait pas d'étincelles",
+    "Hors tension s'il est tombé depuis plus d'une heure",
+    "Toujours sous tension"
+   ],
+   "a": 2,
+   "why": "Tout câble à terre est à considérer sous tension. Un détecteur qui ne détecte rien ne prouve pas l'absence de tension."
+  },
+  {
+   "q": "Pourquoi progresser à très petits pas près d'un câble tombé au sol ?",
+   "c": [
+    "Pour ne pas glisser",
+    "Pour faire moins de bruit",
+    "Pour limiter la tension de pas"
+   ],
+   "a": 2,
+   "why": "Le courant qui se diffuse dans le sol crée une différence de potentiel entre tes deux pieds, la tension de pas. Des pas d'environ 10 cm la réduisent."
+  },
+  {
+   "q": "Quelle distance minimale le Code du travail impose-t-il avec une ligne aérienne de moins de 50 000 volts ?",
+   "c": [
+    "3 m",
+    "1 m",
+    "5 m",
+    "10 m"
+   ],
+   "a": 0,
+   "why": "L'article R4534-108 du Code du travail fixe 3 m pour les lignes de moins de 50 kV et 5 m pour les lignes de 50 kV et plus."
+  },
+  {
+   "q": "Un engin touche une ligne aérienne. Le conducteur est indemne. Que doit-il faire ?",
+   "c": [
+    "Descendre tout de suite en se tenant à la portière",
+    "Rester en cabine et empêcher les tiers d'approcher",
+    "Toucher la carrosserie pour vérifier le courant"
+   ],
+   "a": 1,
+   "why": "Le conducteur reste dans la cabine et fait signe aux tiers de ne pas approcher. S'il doit sortir, il saute sans toucher le sol et l'engin en même temps, puis s'éloigne à pieds joints."
+  },
+  {
+   "q": "Après un défaut, une ligne aérienne s'est coupée. Pourquoi ne pas la croire hors tension ?",
+   "c": [
+    "Le réseau se réenclenche automatiquement plusieurs fois",
+    "Les câbles gardent l'électricité comme une pile",
+    "La foudre recharge les lignes"
+   ],
+   "a": 0,
+   "why": "L'exploitant réenclenche automatiquement le réseau à plusieurs reprises. On attend la confirmation écrite de mise hors tension par le concessionnaire."
+  }
+ ]
+}

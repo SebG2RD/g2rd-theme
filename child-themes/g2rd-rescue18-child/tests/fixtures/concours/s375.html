@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Concours-Territorial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- application icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <!-- CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/select2.min.css" rel="stylesheet">
+    <link href="./css/concours.css?v=639290765443349576" rel="stylesheet">
+    <link href="./css/complement.css?v=639290765443349576" rel="stylesheet">
+    <link href="./fonts/style.css" rel="stylesheet">
+    <!-- JS -->
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/select2.min.js"></script>
+    <script type="text/javascript" src="./js/application.min.js?v=639290765443349576"></script>
+    <!-- Matomo -->
+    <script type="text/javascript">
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "https://support.gipcdg.fr/stats/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '6']);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript'; g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+</head>
+<body>
+    <form method="post" action="./session.aspx?id=375" id="ApplicationFormulaire">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=D9drwtSJ4hBA6O8UhT6CQsoxLt-tudZZm_vSnN37ZaSm4d7eX-GYAS6jxFnG2jaFkqbzDRyDlXBC8YB_N1825zCWInRTv_yTR-P-RyutU0HuQOhZt98YoFwxqI5P9r3IAmL8elqwaqCPH750edQnDowWB1WRUUF3TgGH42eXWA01&amp;t=ffffffffbec1863d" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="41588512" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="k1z7u0UR2c8+Xn49scZyCZzgUTYl8i6aH1Zx9YV10x7Fe6pUbSy6eA4HUW07mHPQEyCC4QjUUvqzbjKIENIgYR/CV6w+l7OydFtyROJmKEwTK+p7Kp0uNVZXXbxybK10GPI7TALsoTWHC/JFiHzg7Inu9yMRtmhyi1lPaMBREzBlD+wnQRI1aLZf/B3rsT11" />
+        <header id="HeaderCommun">
+            <div id="Niveau0" class="bg-light pt-2">
+                <div id="BlocOnglets" class="container">
+                    <span>
+                        <a href="./Index.aspx" class="gip-header-onglet gip-header-onglet-concours" title="Inscrivez-vous aux concours de la Fonction Publique Territoriale sur concours-territorial.fr">
+                            <span class="icon-charte-pin active pr-1" aria-hidden="true"></span>&nbsp;concours
+                        </a>
+                    </span>
+                    <span>
+                        <a href="https://www.emploi-territorial.fr/accueil/" class="gip-header-onglet gip-header-onglet-emploi" title="Trouvez un emploi dans la Fonction Publique Territoriale sur emploi-territorial.fr">
+                            <span class="icon-charte-pin inactive pr-1" aria-hidden="true"></span>&nbsp;emploi
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div id="Niveau1" class="bg-dark">
+                <div id="BlocMenu" class="container pt-2 pb-2 pt-sm-3 pb-sm-3">
+                    <div class="row">
+                        <div class="col-4 gip-header-logo">
+                            <h1 id="BlocLogo"><a href="./Index.aspx" title="Accueil Coucours-Territorial">
+                                <img src="img/logo_concours_xd.png" alt="Concours-Territorial.fr" /></a></h1>
+                        </div>
+                        <div class="col-8 text-right gip-header-menu">
+                            <span id="bouton_notifications" class="d-none">
+                                <a href="#" onclick="return false;" class="gip-header-menuicon mi-notif rounded-circle hover-notifications" title="Mes alertes">
+                                    <span class="icon icon-charte-alert"></span>
+                                    <span class="sr-only">Alertes</span>
+                                </a>
+                            </span>
+                            <span id="bouton_favoris" class="d-none">
+                                <a href="#" onclick="return false;" class="gip-header-menuicon mi-fav rounded-circle hover-favoris" title="Mes favoris">
+                                    <span class="icon icon-charte-favori-default-2"></span>
+                                    <span class="sr-only">Favoris</span>
+                                </a>
+                            </span>
+                            <span>
+                                <a href="./Faq.aspx" class="gip-header-menuicon mi-faq rounded-circle" title="Questions / réponses">
+                                    <span class="icon icon-help"></span>
+                                    <span class="sr-only">Questions / Réponses</span>
+                                </a>
+                            </span>
+                            <span class="d-md-none">
+                                <a href="#" class="gip-header-menuicon gip-header-menuicon-concours mi-cnx rounded-circle" title="Mes inscriptions - accès à mon compte" onclick="mon_compte();">
+                                    <span class="icon icon-charte-id"></span>
+                                    <span class="sr-only">Mes inscriptions</span>
+                                </a>
+                            </span>
+                            <span class="d-none d-md-inline-block">
+                                <a href="#" id="MasterMonCompte" class="gip-button gip-button-concours" title="Accès à mon compte" onclick="mon_compte();">mes inscriptions</a>
+                            </span>
+                            <span>
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Insérer ici le contenu de la page -->
+        
+	<script type="text/javascript" src="./js/page.session.min.js?v=639290765443349576"></script>
+	<header id="HeaderLocal">
+		<div id="Niveau2" class="bg-light">
+			<div class="gip-fil-ariane container">
+				<div class="d-sm-flex">
+					<div class="gip-header-logo-spacing"></div>
+					<div class="flex-fill">
+						<a href="./index.aspx" class="gip-fil-ariane-item">Accueil</a>
+						| <a href="./resultats.aspx" class="gip-fil-ariane-item">Recherche</a>
+						<span id="Contenu_filariane_container_session">| <span id="Contenu_filarianesession" class="gip-fil-ariane-item active">Fiche concours</span></span>
+						<span id="Contenu_filariane_container" class="d-none">| <a href="#" id="Contenu_filariane" onclick="click_onglet_session(&#39;session.aspx&#39;);" class="gip-fil-ariane-item active">Fiche concours</a>
+						| <span id="Contenu_filariane_child" class="gip-fil-ariane-item active">Session</span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main class="container gip-std-page">
+		<input name="ctl00$ctl00$Contenu$ValeurConcours" type="hidden" id="Contenu_ValeurConcours" value="375" />
+		<input name="ctl00$ctl00$Contenu$ValeurSpecialite" type="hidden" id="Contenu_ValeurSpecialite" value="0" />
+		<input name="ctl00$ctl00$Contenu$ValeurCDG" type="hidden" id="Contenu_ValeurCDG" value="0" />
+		<div class="gip-back-line pt-3"><a href="./resultats.aspx" class="gip-back-link"><span class="icon icon-charte-arrow-back gip-color-concours"></span>Retour</a></div>
+		<!-- Début entête générée -->
+		<div id="Contenu_Entete"><input type="hidden" value="Concours Lieutenant 2ème classe de sapeurs-pompiers professionnels session 2027" id="ValeurLibelleConcours"></input><div class="gip-session-title d-md-flex"><div class="flex-fill"><h2 class="text-left mt-2">Lieutenant 2ème classe de sapeurs-pompiers professionnels</h2></div><div class="text-right gip-search-result-indicators"><span class="badge badge-light bg-white gip-badge-inscriptions"><span class="icon icon-charte-lock gip-color-gold"></span> Inscriptions terminées</span></div></div><div class="gip-session-badges"><div class="mb-1"><span class="badge badge-dark gip-badge-type-concours">Concours</span><span class="badge badge-dark gip-badge-type-categorie">Catégorie B </span><span class="badge badge-dark gip-badge-type-filiere">Sapeurs pompiers</span><span class="badge badge-light gip-badge-session gip-color-concours">Session 2027</span></div><div><span class="gip-dates-epreuves">Date indicative des premières épreuves : le 20/04/2027</span></div></div></div>
+		<!-- Fin entête générée -->
+		<div class="row mt-3">
+			<div class="col col-xl-9">
+				<div class="gip-session-card card" id="ContenuFiche">
+					<div class="card-header p-0 bg-transparent">
+						<ul id="Contenu_onglet_main" class="gip-card-nav nav nav-pills nav-fill"><li class="nav-item"><a class="nav-link active" href="#" onclick="click_onglet_session(&#39;session.aspx&#39;); return false;">Organisateurs</a></li><li class="nav-item d-none d-sm-block"><a class="nav-link" href="#" onclick="click_onglet_session(&#39;missions.aspx&#39;); return false;">Missions</a></li><li class="nav-item d-none d-sm-block"><a class="nav-link" href="#" onclick="click_onglet_session(&#39;epreuves.aspx&#39;); return false;">Épreuves</a></li><li class="nav-item d-none d-sm-block"><a class="nav-link" href="#" onclick="click_onglet_session(&#39;conditions.aspx&#39;); return false;">Conditions d'accès</a></li><li class="nav-item d-none d-sm-block"><a class="nav-link" href="#" onclick="click_onglet_session(&#39;preparation.aspx&#39;); return false;">Se préparer</a></li></ul>
+					</div>
+					<div class="card-body bg-white">
+						
+						<div id="Contenu_Contenu_InfoSessionListe"><p class="mb-4">Les inscriptions sont terminées : il n'est plus possible de déposer un nouveau dossier d'inscription. Si vous êtes inscrit auprès d'un de ces centres organisateurs, rendez-vous sur la page <a href="#" onclick="mon_compte();">Mes inscriptions</a> pour suivre votre dossier.</p></div>
+						<!-- Début liste centre organisateurs -->
+						<ul id="Contenu_Contenu_ListeCentreOrganisateurs" class="gip-session-cdg-list">
+						<li class="gip-session-cdg-item mb-4 mb-md-2" cdg_id="69"><div class="row"><div class="d-flex col-12 col-md-8 col-xl-9"><div class="align-self-center"></div><div class="align-self-center gip-cdg-logo d-none d-sm-block"><img src="./logos/cdg-69.png" alt="Logo du Centre de Gestion 69"></img></div><div class="ml-4 mr-3">&nbsp;</div><div class="flex-fill align-self-center"><span class="gip-cdg-name h5 font-weight-bold">CENTRE DE GESTION DU RHONE ET DE LA METROPOLE DE LYON (69)</span><div><p><strong>Voies:</strong>&nbsp;INTERNE</p><p class="font-weight-bold"><a href="https://www.agirhe-concours.fr/Index.aspx?dep=69" target="_blank"><span class="icon-link big gip-color-concours"></span>&nbsp;Plus d'informations</a></p></div></div></div><div class="col-12 col-md-4 col-xl-3 align-self-center text-center gip-cdg-inscription mt-3 mb-n3 mt-md-0 mb-md-0"></div></div></li><li class="gip-session-cdg-item mb-4 mb-md-2" cdg_id="78"><div class="row"><div class="d-flex col-12 col-md-8 col-xl-9"><div class="align-self-center"></div><div class="align-self-center gip-cdg-logo d-none d-sm-block"><img src="./logos/cdg-78.png" alt="Logo du Centre de Gestion 78"></img></div><div class="ml-4 mr-3">&nbsp;</div><div class="flex-fill align-self-center"><span class="gip-cdg-name h5 font-weight-bold">CENTRE INTERDEPARTEMENTAL DE GESTION DE LA GRANDE COURONNE</span><div>Organisé en conventionnement avec le CDG 77 , le CIG de la Petite Couronne <p style="margin-top: 16px;"><strong>Voies:</strong>&nbsp;INTERNE</p><p class="font-weight-bold"><a href="https://www.agirhe-concours.fr/?dep=78" target="_blank"><span class="icon-link big gip-color-concours"></span>&nbsp;Plus d'informations</a></p></div></div></div><div class="col-12 col-md-4 col-xl-3 align-self-center text-center gip-cdg-inscription mt-3 mb-n3 mt-md-0 mb-md-0"></div></div></li></ul>
+						<!-- Fin liste centre organisateurs -->
+
+					</div>
+				</div>
+			</div>
+			<div id="Contenu_onglet_mobile" class="col-12 d-sm-none mb-3 mt-n4"><div class="card mb-2"><div class="card-body body-only text-center p-2"><a href="#" onclick="click_onglet_session(&#39;session.aspx&#39;); return false;" class="gip-color-dark d-block text-decoration-none"><span class="icon-plus float-right bigger pt-2 pb-2"></span><span class="card-pseudo-header d-inline-block big font-weight-bold">Organisateurs</span></a></div></div><div class="card mb-2"><div class="card-body body-only text-center p-2"><a href="#" onclick="click_onglet_session(&#39;missions.aspx&#39;); return false;" class="gip-color-dark d-block text-decoration-none"><span class="icon-plus float-right bigger pt-2 pb-2"></span><span class="card-pseudo-header d-inline-block big font-weight-bold">Missions</span></a></div></div><div class="card mb-2"><div class="card-body body-only text-center p-2"><a href="#" onclick="click_onglet_session(&#39;epreuves.aspx&#39;); return false;" class="gip-color-dark d-block text-decoration-none"><span class="icon-plus float-right bigger pt-2 pb-2"></span><span class="card-pseudo-header d-inline-block big font-weight-bold">Épreuves</span></a></div></div><div class="card mb-2"><div class="card-body body-only text-center p-2"><a href="#" onclick="click_onglet_session(&#39;conditions.aspx&#39;); return false;" class="gip-color-dark d-block text-decoration-none"><span class="icon-plus float-right bigger pt-2 pb-2"></span><span class="card-pseudo-header d-inline-block big font-weight-bold">Conditions d'accès</span></a></div></div><div class="card mb-2"><div class="card-body body-only text-center p-2"><a href="#" onclick="click_onglet_session(&#39;preparation.aspx&#39;); return false;" class="gip-color-dark d-block text-decoration-none"><span class="icon-plus float-right bigger pt-2 pb-2"></span><span class="card-pseudo-header d-inline-block big font-weight-bold">Se préparer</span></a></div></div></div>
+			<div id="BlocEmploi" class="col-12 col-xl-3 ">
+				<div class="card card-emploi">
+					<div class="card-header">
+						<h2>Portail emploi-territorial</h2>
+					</div>
+					<div class="card-body text-center">
+						<div class="gip-bg-light rounded-lg pt-3">
+							<img src="img/promo_emploi.png" alt="" class="mw-100">
+						</div>
+						<div class="row">
+							<div class="col-12 col-sm-6 col-xl-12">
+								<p class="mt-2 mb-4">
+									<strong><span class="h3 d-block mb-0 font-weight-bold"><a href="https://www.emploi-territorial.fr/page.php?controller=rechercheoffre&search-gradenet=TRL1" id="Contenu_offre_emploi" target="_blank" class="gip-lien-emploi">58 offres d'emplois</a></span>
+										correspondantes actuellement publiées</strong>
+								</p>
+								<!-- Lien direct vers les offres Emploi-Territorial -->
+								<div class="mb-4"><a href="https://www.emploi-territorial.fr/page.php?controller=rechercheoffre&search-gradenet=TRL1" id="Contenu_offre_emploi_bouton" target="_blank" class="gip-button gip-button-emploi">Accéder aux offres</a></div>
+							</div>
+							<div class="col-12 col-sm-6 col-xl-12 mt-2">
+								<p><strong>Évolution du nombre d'offres</strong></p>
+								<div class="d-flex justify-content-around">
+									<!-- Compteur d'offres par années N-1 et N-2 (à mettre en cache si possible, la valeur retournée est toujours la même par grade et par année)
+									curl -X GET "https://demo.emploi-territorial.fr/api/stats/barometreemploi?debut=2019-01-01&fin=2019-12-31&grade=TAT1&type=-1&partenaire=1&retour=compteur" -H  "accept: application/json"  -H  "X-API-Key: super-secret-token-a-demander" -->
+									<div class="card mb-2">
+										<div class="card-header bg-dark pb-2"><strong id="Contenu_offre_emploi_2">En 2024</strong></div>
+										<div class="card-body gip-bg-light pt-2 pl-4 pr-4"><span id="Contenu_offre_emploi_2_nb" class="number h4 gip-color-emploi d-block font-weight-bold">357</span> <span class="label mt-n2 small d-block">offres</span></div>
+									</div>
+									<div class="card mb-2">
+										<div class="card-header bg-dark pb-2"><strong id="Contenu_offre_emploi_1">En 2025</strong></div>
+										<div class="card-body gip-bg-light pt-2 pl-4 pr-4"><span id="Contenu_offre_emploi_1_nb" class="number h4 gip-color-emploi d-block font-weight-bold">376</span> <span class="label mt-n2 small d-block">offres</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div id="Modals">
+		<div class="modal fade" id="ModalInscriptionUnique">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">L'inscription unique aux sessions de concours</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>En application de l'<a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038923813/" target="faqlink">article 36 de la loi n° 84-53 du 26 janvier 1984 portant dispositions
+                        statutaires relatives à la fonction publique territoriale</a> et du
+                        <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038923813/" target="faqlink">décret n°2021-376 du 31 mars 2021</a>,
+                        il n'est désormais plus possible de s’inscrire à plusieurs concours d’accès à un même grade d’un cadre d’emplois,
+                        organisés simultanément par différents Centres de Gestion.</p>
+                        <p>Chaque candidat est libre de s’inscrire dans le Centre de Gestion de son choix en fonction de critères personnels,
+                        et sans limitation à plusieurs concours ou examens professionnels organisés à des dates différentes.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="gip-button gip-color-concours" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="ModalChoixInscription">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Comment choisir un centre organisateur ?</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Vous êtes libre de choisir le centre organisateur de votre choix : y compris pour
+						les examens professionnels, vous n'êtes pas tenus de vous inscrire auprès du centre
+						organisateur du département ou de la région de votre employeur.</p>
+						<p>Plusieurs critères peuvent être pris en considération :</p>
+						<ul>
+						    <li>la proximité du lieu d'organisation des épreuves, pour moins de stress et de frais liés aux déplacements le jour des épreuves</li>
+						    <li>les spécialités ou options organisées par le centre organisateur : sur certains concours ou examens professionnels
+						    contenant de nombreuses options (par exemple pour le cadre d'emplois d'adjoint technique ou de professeur d'enseignement artistique),
+						    les centres organisateurs se répartissent les spécialités, options ou disciplines</li>
+						    <li>le nombre de postes ouverts sur les différentes voies ou spécialités : consultez les brochures
+						    ou arrêtés d'ouverture fournis par chaque centre organisateur pour connaître le nombre de postes
+						    à pourvoir. Attention, il y a généralement plus d'inscrits et donc plus de concurrence auprès
+						    des organisateurs proposant le plus de postes.</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="gip-button gip-color-concours" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="ModalAnnulationInscription">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Est-ce que je peux changer de centre organisateur après mon inscription ?</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+                        <p>Il est possible de modifier son choix en se connectant sur son espace personnel du portail concours-territorial en cliquant sur le bouton "annuler".
+                        Cette modification ne peut intervenir que jusqu’à la date de clôture des inscriptions.</p>
+                        <p>L’inscription précédemment effectuée sera définitivement supprimée. Le (la) candidat(e) et le Centre de Gestion organisateur en seront informés par notification électronique.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="gip-button gip-color-concours" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="ModalChoixVoie">
+			<div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Je choisis une voie d'accès</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<ul class="gip-session-cdg-list" id="ListeVoies">
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="gip-button gip-button-concours" data-dismiss="modal" id="ValideChoixVoie">Je valide</button>
+						<button type="button" class="gip-button" data-dismiss="modal">Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+        <!-- Fin du contenu de la page -->
+        <footer class="bg-dark">
+            <div id="Niveau7" class="container pt-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gip-footer-menu">
+                    <div id="BlocRappelConnexion" class="text-center mb-3">
+                        <h2>Restez connecté(e)</h2>
+                        <p class="mb-4">
+                            Pour vous inscrire et suivre vos inscriptions aux concours et examens
+													professionnels de la Fonction Publique Territoriale
+                        </p>
+                        <div class="m-3">
+                            <a href="#" id="MasterMonCompte1" class="gip-button gip-button-concours" onclick="mon_compte();">m'inscrire</a>
+                            
+                        </div>
+                        <div id="BoutonCompte"><a href="./Connexion.aspx">J'ai déjà un compte</a></div>
+                    </div>
+                    <div id="BlocContact" class="text-center mt-4 mb-3 mt-md-0">
+                        <h2>Contact</h2>
+                        <p class="mb-4">Pour demander des renseignements ou obtenir une assistance, cliquez ci dessous</p>
+                        <div class="m-3"><a href="./Contact.aspx" class="gip-button">contactez-nous</a></div>
+                    </div>
+                    <div id="BlocInfos" class="text-center col-md-12 mb-3 mt-3 mt-lg-0">
+                        <h2>Infos pratiques</h2>
+                        <ul>
+                            <li><a href="./Resultats.aspx">Se renseigner et s'inscrire aux concours et examens</a></li>
+                            <li><a href="./Faq.aspx">Questions / réponses</a></li>
+                            <li><a href="./Mentions.aspx">Protections des données personnelles et conditions d'utilisation</a></li>
+                            <li><a href="./Accessibilite.aspx">Accessibilité : partiellement conforme</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="BlocCopyright" class="row p-1 mt-5 gip-footer-copyright">
+                    <p class="small text-center col-12">Site développé et maintenu par le <a href="https://www.gipcdg.fr">GIP Informatique des Centres de Gestion</a></p>
+                </div>
+            </div>
+            <div class="gip-elevator">
+                <a href="#Niveau0" onclick='window.scrollTo({top: 0, behavior: "smooth"}); return false;'><span class="icon-arrow-up" title="Retour en haut de page"></span><span class="sr-only">Retour en haut de page</span></a>
+            </div>
+        </footer>
+        <div class="modal" id="ModalInformation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ModalInformationTitre"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="ModalInformationTexte"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="gip-button gip-button-concours" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="ModalQuestion" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ModalQuestionTitre"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="ModalQuestionTexte"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="gip-button gip-button-concours" data-dismiss="modal" id="ModalQuestionConfirm">Valider</button>
+                        <button type="button" class="gip-button" data-dismiss="modal" id="ModalQuestionCancel">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ModalSpecialites">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sélectionnez une spécialité</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-3 text-center pl-2 pr-2">
+                            <p>
+                                <strong><span id="SpecialitesPopupLibelle">Libellé - Session XXXX</span> -</strong> les spécialités suivantes sont organisées,
+                                veuillez en sélectionner une pour accéder à la liste des centres organisateurs :
+                            </p>
+                            <div class="gip-select p-2">
+                                <label class="d-block">
+                                    <span class="gip-select-placeholder">Spécialité</span>
+                                    <select id="specialites">
+                                        <option value="" hidden selected>Spécialité</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <p><em>Vous pourrez modifier ce choix par la suite.</em></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="gip-button gip-button-concours" id="BoutonValideResultats">Je valide</a>
+                        <button type="button" class="gip-button" data-dismiss="modal" id="BoutonAnnuleResultats">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="ModalConnexion">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="text-center pl-3 alert alert-primary m-auto"><span class="icon-charte-info pr-2"></span><strong>Pour accéder à votre espace personnel, vous pouvez soit vous connecter avec FranceConnect, soit utiliser un compte spécifique Concours-Territorial.</strong></div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body mt-3">
+                        <div class="text-center d-none d-lg-block">
+                            <div style="position: absolute; margin-top: 2rem; display: inline-block; padding: 1.5rem; border-radius: 2rem; margin-left: -2rem; font-weight: bold; z-index: 1;" class="big gip-bg-grey">ou</div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-lg-2">
+                            <div class="col border-right">
+                                <div class="text-center">
+                                    <h2>Me connecter avec FranceConnect</h2>
+                                    <p class="mt-5">FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne.</p>
+                                    <div>
+                                        <a id="ValidationInscriptionFC" href="javascript:__doPostBack(&#39;ctl00$ctl00$ValidationInscriptionFC&#39;,&#39;&#39;)">
+                                            <img src="img/franceconnect-bouton.png" alt="S'identifier avec FranceConnect" onmouseover="this.src='img/franceconnect-bouton-hover.png'" onmouseout="this.src='img/franceconnect-bouton.png'" /></a>
+                                    </div>
+                                    <div class="mt-1"><a href="https://franceconnect.gouv.fr" target="_blank" class="gip-color-blue">Une question sur FranceConnect ?</a></div>
+                                </div>
+                            </div>
+                            <div class="d-lg-none text-center big font-weight-bold mt-n4 mb-4">ou</div>
+                            <div class="col">
+                                <h2>Me connecter avec mon compte Concours-Territorial</h2>
+                                <div>
+                                    <fieldset class="gip-connexion mt-3">
+                                        <legend>J'ai déjà un compte personnel</legend>
+                                        <div class="gip-input">
+                                            <label for="mail">
+                                                <span class="gip-input-placeholder">Courriel</span>
+                                                <span class="icon-mail gip-color-greydark pr-2"></span>
+                                                <input type="text" placeholder="Courriel" name="loginmail" id="loginmail" maxlength="50">
+                                            </label>
+                                        </div>
+                                        <div class="gip-input">
+                                            <label for="password">
+                                                <span class="gip-input-placeholder">Mot de passe</span>
+                                                <span class="icon-charte-lock gip-color-greydark pr-2"></span>
+                                                <input type="password" placeholder="Mot de passe" name="loginpassword" id="loginpassword">
+                                            </label>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <button class="gip-button gip-button-concours" id="BoutonConnexion" onclick="valider_connexion('connexion');return false;">Me connecter</button>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#ModalPassword">Mot de passe oublié ?</a>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="gip-connexion">
+                                        <legend>Je n'ai pas encore de compte personnel</legend>
+                                        <div class="text-center mt-2">
+                                            <a href="./inscription.aspx" class="gip-button gip-button-concours">Créer un compte</a>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-center m-auto">
+                            <button type="button" class="gip-button gip-button-cancel" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="ModalPassword">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Récupération de mon mot de passe</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success mt-3 mb-3">
+                            <span class="icon-charte-info pr-2"></span>
+                            Veuillez indiquer l'adresse de courriel utilisée lors de votre inscription.
+              Vous recevrez à cette adresse un lien qui vous permettra de réinitialiser votre mot de passe
+                        </div>
+                        <div class="alert alert-info mt-3 mb-3">
+                            <span class="icon-alert-triangle pr-2"></span>
+                            Un délai de quelques minutes peut survenir entre votre demande et la réception de l'e-mail sur votre messagerie.
+                        </div>
+                        <div class="gip-input">
+                            <label for="mailoublie">
+                                <span class="gip-input-placeholder">Adresse e-mail</span>
+                                <span class="icon-mail gip-color-greydark pr-2"></span>
+                                <input type="text" name="mailoublie" id="mailoublie" placeholder="Adresse e-mail">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="gip-button gip-button-concours" data-dismiss="modal" onclick="email_motdepasse_oublie();">Valider</button>
+                        <button type="button" class="gip-button" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

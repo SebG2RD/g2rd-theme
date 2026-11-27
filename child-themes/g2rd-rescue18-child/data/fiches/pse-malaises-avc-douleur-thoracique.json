@@ -1,0 +1,50 @@
+{
+ "slug": "pse-malaises-avc-douleur-thoracique",
+ "titre": "Malaise, AVC et douleur thoracique",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Un malaise grave évolue à tout moment vers une détresse vitale. L'accident vasculaire cérébral (AVC) se repère au test FAST et impose un avis médical immédiat. Devant une douleur thoracique, assure-toi d'un défibrillateur à proximité.",
+ "cles": [
+  "Malaise bénin : pas de détresse vitale, signes disparus après quelques minutes de repos.",
+  "Signes de gravité : sueurs sans effort, pâleur intense, difficulté à respirer, paralysie même transitoire, trouble de la parole.",
+  "Malaise : relève une FC au-delà de 120 ou en dessous de 40 battements par minute, une FR au-delà de 20 mouvements par minute.",
+  "Mise au repos : allongée le plus souvent, assise ou demi-assise si gêne respiratoire, sinon dans la position où elle se sent le mieux.",
+  "Malaise vagal connu : accroupissement, croisement des jambes, crochetage des doigts avec tension des bras.",
+  "FAST : sourire asymétrique, bras qui retombe, parole anormale. Un seul signe suffit pour suspecter un AVC.",
+  "Accident ischémique transitoire (AIT) : mêmes signes, de quelques secondes à quelques minutes, jamais plus d'une heure. Même gravité.",
+  "AVC conscient : position strictement horizontale à plat, ou PLS si nausées ou vomissements, oxygène si besoin.",
+  "Douleur thoracique : précise le type, le siège, l'irradiation vers cou, mâchoire, épaules ou bras, la durée et la sévérité.",
+  "Douleur thoracique sans détresse : repos, position confortable, oxygène si besoin, avis médical après le 4e regard."
+ ],
+ "retenir": [
+  "AVC : note l'heure d'apparition des signes et l'heure où la victime a été vue pour la dernière fois sans signes.",
+  "Mesure toujours la glycémie capillaire : une hypoglycémie simule un AVC.",
+  "Infarctus cérébral : 85 % des AVC, traitement efficace s'il est donné 2 à 3 heures après le début des signes.",
+  "Près des 2/3 des victimes d'AVC présentent des troubles de la déglutition.",
+  "Douleur thoracique : un infarctus se complique d'une fibrillation ventriculaire et d'un arrêt cardiaque, garde le défibrillateur à portée."
+ ],
+ "pieges": [
+  "Ne pas négliger des signes d'AVC qui disparaissent : gravité et conduite à tenir restent les mêmes.",
+  "Confondre AIT et simple malaise.",
+  "Ne pas affirmer un AVC avant d'avoir écarté une hypoglycémie.",
+  "Ne pas donner un médicament sans demande de la victime ou du médecin régulateur : il s'agit de son traitement prescrit.",
+  "Ne pas changer la position de la victime d'AVC pendant le transport : garde la position initiale."
+ ],
+ "quiz": "malaises-avc",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Heartache-1846050 1920.jpg",
+   "auteur": "freestocks.org",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Heartache-1846050_1920.jpg",
+   "alt": "Personne se tenant la poitrine des deux mains, photo en noir et blanc."
+  }
+ ]
+}

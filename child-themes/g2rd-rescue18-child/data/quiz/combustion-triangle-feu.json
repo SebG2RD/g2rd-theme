@@ -1,0 +1,182 @@
+{
+ "slug": "combustion-triangle-feu",
+ "titre": "Triangle du feu, propagation et extinction",
+ "theme": "Incendie",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Teste tes bases sur la combustion, les quatre modes de propagation et les actions qui éteignent un feu.",
+ "sources": [
+  [
+   "GDO Interventions sur les incendies de structures, DGSCGC, 2018 (PNRS ENSOSP)",
+   "https://pnrs.ensosp.fr/content/download/40515/668868/file/GDO-incendies-de-structures-2018-V2.pdf"
+  ],
+  [
+   "INRS ED 990, Incendie et lieu de travail",
+   "https://www.inrs.fr/dam/jcr:29f82e1a-7ce5-4c8f-8b25-9235f3fbf0a8/ed990.pdf"
+  ],
+  [
+   "INRS ED 6054, Les extincteurs d'incendie portatifs, mobiles et fixes, 2023",
+   "https://www.inrs.fr/dam/inrs/CataloguePapier/ED/TI-ED-6054.pdf"
+  ],
+  [
+   "Guide Incendie formation initiale, chapitre Le feu, 2018",
+   "https://45.enasis.fr/pluginfile.php/83360/mod_label/intro/GUIDE_INC_2018.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Quels sont les trois éléments du triangle du feu ?",
+   "c": [
+    "Combustible, comburant, énergie d'activation",
+    "Combustible, fumée, oxygène",
+    "Chaleur, flamme, braise",
+    "Comburant, vapeur d'eau, énergie"
+   ],
+   "a": 0,
+   "why": "La combustion exige un combustible, un comburant et une source d'énergie. Le GDO Incendies de structures et l'INRS ED 990 décrivent ces trois éléments interdépendants."
+  },
+  {
+   "q": "Dans un incendie courant, quel est le comburant ?",
+   "c": [
+    "Le bois",
+    "L'oxygène de l'air",
+    "Le monoxyde de carbone",
+    "La vapeur d'eau"
+   ],
+   "a": 1,
+   "why": "Le comburant est la substance qui se combine au combustible. Dans un feu courant, c'est l'oxygène de l'air (INRS ED 990)."
+  },
+  {
+   "q": "Que se passe-t-il si tu supprimes un seul des trois éléments du triangle du feu ?",
+   "c": [
+    "Le feu change de classe",
+    "Le feu produit plus de fumée",
+    "Rien tant que les deux autres restent présents",
+    "La combustion ne peut pas se poursuivre"
+   ],
+   "a": 3,
+   "why": "La présence simultanée des trois éléments est nécessaire. En retirer un empêche la combustion, c'est la base de la prévention et de l'extinction (INRS ED 990)."
+  },
+  {
+   "q": "Les poudres BC et ABC agissent notamment par inhibition. Sur quoi agissent-elles ?",
+   "c": [
+    "Sur la température du combustible",
+    "Sur la quantité de combustible",
+    "Sur la pression des fumées",
+    "Sur la réaction en chaîne de la combustion"
+   ],
+   "a": 3,
+   "why": "L'inhibition interrompt la réaction en chaîne, le quatrième élément que le tétraèdre du feu ajoute au triangle. L'INRS ED 6054 l'attribue aux poudres BC et ABC."
+  },
+  {
+   "q": "Quel mode de propagation transmet la chaleur de proche en proche dans un même matériau, par exemple le long d'une poutre métallique ?",
+   "c": [
+    "La convection",
+    "Le rayonnement",
+    "Le déplacement de matière",
+    "La conduction"
+   ],
+   "a": 3,
+   "why": "La conduction est un transfert de proche en proche dans le matériau lui-même (GDO Incendies de structures)."
+  },
+  {
+   "q": "Les fumées et gaz chauds qui montent dans une cage d'escalier propagent la chaleur par :",
+   "c": [
+    "Conduction",
+    "Rayonnement",
+    "Convection",
+    "Inhibition"
+   ],
+   "a": 2,
+   "why": "La convection est un transfert par un fluide en mouvement. En incendie, ce sont les fumées et les gaz chauds qui se déplacent dans les volumes (GDO Incendies de structures)."
+  },
+  {
+   "q": "Quel mode de propagation transmet la chaleur sans contact matériel, par ondes électromagnétiques ?",
+   "c": [
+    "La convection",
+    "Le rayonnement",
+    "La conduction",
+    "Le déplacement de matière"
+   ],
+   "a": 1,
+   "why": "Le rayonnement propage l'énergie par ondes électromagnétiques, sans contact. Il dépend de la température du corps émetteur (GDO Incendies de structures)."
+  },
+  {
+   "q": "Un liquide enflammé s'écoule sous une porte et allume la pièce voisine. De quel mode de propagation s'agit-il ?",
+   "c": [
+    "Conduction",
+    "Rayonnement",
+    "Convection",
+    "Déplacement de matière en combustion"
+   ],
+   "a": 3,
+   "why": "Le feu se propage aussi par le déplacement de substances déjà en combustion, comme un liquide en feu qui coule ou des brandons emportés (INRS ED 990)."
+  },
+  {
+   "q": "Dans la pièce de référence décrite par le GDO, quel mode assure la plus grande part des transferts de chaleur ?",
+   "c": [
+    "Le rayonnement, environ 70 %",
+    "La conduction, environ 70 %",
+    "Les trois à parts égales",
+    "La convection, environ 70 %"
+   ],
+   "a": 3,
+   "why": "Le GDO Incendies de structures donne en moyenne 70 % par convection, 25 % par rayonnement et 5 % par conduction."
+  },
+  {
+   "q": "L'eau projetée sur les fumées agit surtout par refroidissement. Comment ?",
+   "c": [
+    "Elle chasse l'oxygène du volume",
+    "Elle absorbe l'énergie en se vaporisant",
+    "Elle bloque la réaction en chaîne",
+    "Elle forme une croûte vitreuse"
+   ],
+   "a": 1,
+   "why": "L'eau absorbe l'énergie en se vaporisant, ce qui abaisse la température des fumées (GDO Incendies de structures, INRS ED 6054)."
+  },
+  {
+   "q": "Tu fermes la porte d'une pièce en feu pour limiter l'arrivée d'air. Sur quel élément agis-tu ?",
+   "c": [
+    "Le combustible",
+    "L'énergie d'activation",
+    "La réaction en chaîne",
+    "Le comburant"
+   ],
+   "a": 3,
+   "why": "Contrôler l'arrivée d'air, c'est l'antiventilation. Le GDO la classe dans l'étouffement, une action sur le comburant."
+  },
+  {
+   "q": "Sur une fuite de gaz enflammée, tu fermes la vanne d'alimentation. Quel mode d'extinction appliques-tu ?",
+   "c": [
+    "Refroidissement",
+    "Inhibition",
+    "Étouffement",
+    "Suppression du combustible"
+   ],
+   "a": 3,
+   "why": "Couper l'alimentation agit sur le combustible. Le guide Incendie de formation initiale range la coupure d'alimentation dans les actions sur le combustible."
+  },
+  {
+   "q": "Selon l'INRS, par quels effets le CO2 éteint-il un feu ?",
+   "c": [
+    "Inhibition seule",
+    "Étouffement et refroidissement",
+    "Suppression du combustible",
+    "Formation d'un film flottant"
+   ],
+   "a": 1,
+   "why": "Le CO2 étouffe en abaissant la teneur en oxygène et refroidit par la détente du gaz (INRS ED 6054)."
+  },
+  {
+   "q": "Évacuer des stocks combustibles hors d'un local menacé correspond à quelle famille d'actions ?",
+   "c": [
+    "Inhibition",
+    "Étouffement",
+    "Suppression du combustible",
+    "Refroidissement des fumées"
+   ],
+   "a": 2,
+   "why": "Le GDO Incendies de structures cite l'évacuation des matières comme moyen de limiter la quantité de combustible."
+  }
+ ]
+}

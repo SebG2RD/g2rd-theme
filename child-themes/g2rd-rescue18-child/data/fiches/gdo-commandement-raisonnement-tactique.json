@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-commandement-raisonnement-tactique",
+ "titre": "Raisonnement tactique, idée de manœuvre et ordre initial",
+ "theme": "Commandement",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Exercice du commandement et conduite des opérations, DGSCGC, juin 2020, 2e édition",
+ "resume": "Le GDO commandement décrit la démarche du COS, de l'arrivée sur les lieux jusqu'à l'ordre : réactions immédiates, raisonnement tactique, balance bénéfice-risque, puis ordre initial et ordres de conduite.",
+ "cles": [
+  "Réactions immédiates dès l'arrivée : action (sauvetages, mises en sécurité), renseignement, information. Elles précèdent le raisonnement.",
+  "Le raisonnement tactique structure le commandement et répartit les missions entre les moyens engagés.",
+  "Questions du raisonnement : qui, où, par où, jusqu'où, contre quoi, quoi faire, comment faire, avec quoi, quels besoins, quelles règles.",
+  "Ajoute la question « malgré quoi ? » pour repérer les contraintes.",
+  "La marche générale des opérations (MGO) rappelle les phases : reconnaissance, sauvetages, actions spécifiques, protection, reconditionnement.",
+  "La balance bénéfice-risque répond à deux questions : le jeu en vaut-il la chandelle, l'engagement est-il justifié ?",
+  "Ordre initial : il lance les premières actions. Ordre de conduite : il lance les suivantes selon l'évolution.",
+  "Chef de groupe : ordre SOIEC. Chef de colonne et chef de site : ordre SAOIELC.",
+  "Un ordre est clair, précis, concis, réaliste, réalisable et adapté à la situation.",
+  "À l'arrivée d'un supérieur, fais un point de situation avant sa prise de commandement."
+ ],
+ "retenir": [
+  "SMES du chef d'agrès et du chef d'équipe : Situation, Mission, Exécution, Sécurité.",
+  "SOIEC : Situation, Objectif, Idée de manœuvre, Exécution, Commandement.",
+  "Idée de manœuvre : réponse à « comment faire ? », formulée « Je veux… ». Objectif : « Nous devons… ».",
+  "Commander : 4 subordonnés au maximum, ordres aux subordonnés directs, contrôle de l'exécution, compte rendu au supérieur direct.",
+  "Trois phases d'une opération : montée en puissance, stabilisation, sortie de l'opération de secours."
+ ],
+ "pieges": [
+  "Confondre ordre initial et ordre de conduite : le second suit l'évolution de la situation.",
+  "Confondre objectif et idée de manœuvre : l'objectif dit quoi faire, l'idée de manœuvre dit comment.",
+  "Ne pas relâcher la vigilance en fin d'opération : la sortie est accidentogène, comme la montée en puissance.",
+  "Ne pas laisser le CODIS décider à ta place : les informations transmises ne retirent rien aux prérogatives du COS.",
+  "Ne pas oublier de formaliser la prise de COS au terrain, au CODIS et aux acteurs présents."
+ ],
+ "quiz": "messages-ordres-operationnels",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Exercice du commandement et conduite des opérations (DGSCGC, 2020)",
+   "https://interieur.gouv.fr/content/download/133613/1059035/file/GDO-Exercice-Commandement-Conduite-Operations-V2.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Véhicule Iveco Poste de Commandement PC12 des pompiers de Paris..JPG",
+   "auteur": "Arnaud Lambert",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:V%C3%A9hicule_Iveco_Poste_de_Commandement_PC12_des_pompiers_de_Paris..JPG",
+   "alt": "Véhicule poste de commandement des sapeurs-pompiers de Paris déployé dans une rue."
+  },
+  {
+   "fichier": "File:Véhicule Poste de Commandement (VPC).jpg",
+   "auteur": "U.Carbonnier",
+   "licence": "CC BY 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:V%C3%A9hicule_Poste_de_Commandement_(VPC).jpg",
+   "alt": "Officiers sapeurs-pompiers réunis devant un véhicule poste de commandement."
+  }
+ ]
+}

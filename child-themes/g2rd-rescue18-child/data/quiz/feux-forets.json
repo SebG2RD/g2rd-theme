@@ -1,0 +1,182 @@
+{
+ "slug": "feux-forets",
+ "titre": "Feux de forêts : propagation, attaque et sécurité du groupe",
+ "theme": "Feux de forêts",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Teste tes bases FDF : facteurs de propagation, choix de l'attaque, règles de sécurité et autoprotection des engins.",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle Feux de forêts et d'espaces naturels (DGSCGC)",
+   "https://interieur.gouv.fr/content/download/133614/1059040/file/GDO-Feux-Forets-Espaces-Naturels.pdf"
+  ],
+  [
+   "Guide de techniques opérationnelles FDF, 1re édition 2021 (DGSCGC, PNRS ENSOSP)",
+   "https://pnrs.ensosp.fr/content/download/40517/668888/file/GTO_FDF_1e edition_2021_BDFE_DGSCGC.pdf"
+  ],
+  [
+   "FDF 1-2 Les règles de sécurité collectives et individuelles (ENASIS, 2021)",
+   "https://enasis.fr/pluginfile.php/14954/mod_label/intro/2021%20FDF%201-2%20Les%20r%C3%A8gles%20de%20s%C3%A9curit%C3%A9%20collectives%20et%20individuelles.pdf"
+  ],
+  [
+   "FDF 2 MGO Choix du type d'attaque (ENASIS, 2021)",
+   "https://enasis.fr/pluginfile.php/14953/mod_label/intro/2021%20FDF%202%20MGO%20choix%20du%20type%20dattaque.pdf"
+  ],
+  [
+   "IP 07 Feux de forêts et d'espaces naturels (ENASIS, 2024)",
+   "https://enasis.fr/pluginfile.php/64888/mod_resource/content/3/IP%2007%20-%20Feux%20de%20for%C3%AAts%20et%20despaces%20naturels%20-%202024.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Selon le GDO feux de forêts, quelle valeur empirique relie la vitesse de propagation du feu à la vitesse du vent moyen ?",
+   "c": [
+    "Environ 3 % de la vitesse du vent",
+    "Environ 30 % de la vitesse du vent",
+    "Environ 50 % de la vitesse du vent",
+    "La même vitesse que le vent"
+   ],
+   "a": 0,
+   "why": "Le GDO retient une vitesse de propagation d'environ 3 % de la vitesse du vent moyen. Elle monte à 4 à 10 % en sécheresse extrême."
+  },
+  {
+   "q": "Avec cette règle des 3 %, à quelle vitesse avance un feu poussé par un vent moyen de 40 km/h ?",
+   "c": [
+    "Environ 12 km/h",
+    "Environ 1,2 km/h",
+    "Environ 4 km/h",
+    "Environ 0,4 km/h"
+   ],
+   "a": 1,
+   "why": "3 % de 40 km/h donnent 1,2 km/h. Le GDO précise que cette valeur augmente nettement en sécheresse extrême."
+  },
+  {
+   "q": "La règle dite des 30 signale un risque majeur. Quel critère n'en fait pas partie ?",
+   "c": [
+    "Pente supérieure à 30°",
+    "Température supérieure à 30 °C",
+    "Hygrométrie inférieure à 30 %",
+    "Plus de 30 hectares déjà brûlés"
+   ],
+   "a": 3,
+   "why": "Le GDO cite quatre seuils : pente supérieure à 30°, température supérieure à 30 °C, hygrométrie inférieure à 30 % et vent supérieur à 30 km/h. La surface brûlée n'en fait pas partie."
+  },
+  {
+   "q": "Un feu aborde une pente montante. Comment évolue sa propagation ?",
+   "c": [
+    "Elle ralentit",
+    "Elle accélère",
+    "Elle ne change pas"
+   ],
+   "a": 1,
+   "why": "Le GDO indique qu'une pente montante accélère le feu car la zone exposée au rayonnement en aval du front augmente. Une pente descendante le ralentit."
+  },
+  {
+   "q": "Le vent emporte des particules incandescentes qui allument de nouveaux foyers devant le front. Comment s'appelle ce mode de propagation ?",
+   "c": [
+    "Les sautes de feu",
+    "La conduction",
+    "Le rayonnement",
+    "Le feu de sol"
+   ],
+   "a": 0,
+   "why": "Le GDO distingue quatre modes de propagation : conduction, rayonnement, convection et sautes de feu. Les sautes de feu viennent du transport de particules incandescentes par le vent."
+  },
+  {
+   "q": "Quels sont les trois types de feux décrits par le GDO selon la strate qui brûle ?",
+   "c": [
+    "Feux de tête, feux de flanc, feux de queue",
+    "Feux de sol, feux de surface, feux de cimes",
+    "Feux lents, feux rapides, feux éclairs"
+   ],
+   "a": 1,
+   "why": "Le GDO classe les feux en feux de sol, feux de surface et feux de cimes."
+  },
+  {
+   "q": "La végétation est haute, dense, sèche et continue. Quel type de manœuvre le GDO conseille-t-il de privilégier ?",
+   "c": [
+    "Une attaque de front systématique",
+    "Des manœuvres défensives",
+    "Une attaque par percée de flanc sans délai",
+    "Aucune manœuvre, on laisse brûler"
+   ],
+   "a": 1,
+   "why": "Le GDO indique qu'une végétation haute, dense, sèche et continue impose de privilégier les manœuvres défensives. Une végétation basse, éparse et discontinue permet l'offensive."
+  },
+  {
+   "q": "Quelles zones le GDO classe-t-il comme dangereuses pour les intervenants ?",
+   "c": [
+    "Les zones déjà brûlées",
+    "Les pistes DFCI larges",
+    "Les cols, les crêtes et les versants au vent",
+    "Les zones débroussaillées"
+   ],
+   "a": 2,
+   "why": "Le GDO désigne les cols, les crêtes, les versants au vent et les zones à effet venturi comme dangereux. Toute action des secours y est à éviter dans la mesure du possible."
+  },
+  {
+   "q": "En attaque de flanc, où engages-tu les moyens et dans quel sens progresses-tu ?",
+   "c": [
+    "Sur l'avant du flanc le plus défavorable, en remontant vers la tête",
+    "Sur la queue du feu, en restant statique",
+    "Devant la tête du feu, à contre-vent",
+    "Au centre de la zone non brûlée"
+   ],
+   "a": 0,
+   "why": "La fiche GTO sur le choix du type d'attaque définit l'attaque de flanc ainsi : engager les moyens sur l'avant du flanc le plus défavorable, puis remonter jusqu'à la tête pour stopper la propagation."
+  },
+  {
+   "q": "À quelle condition l'attaque de front, qui casse la tête du feu par l'extérieur, est-elle possible ?",
+   "c": [
+    "Par vent fort, pour profiter de l'effet de souffle",
+    "Dans tous les cas, c'est l'attaque par défaut",
+    "Seulement de nuit",
+    "Par vent nul à modéré, avec des moyens suffisants"
+   ],
+   "a": 3,
+   "why": "Selon la fiche GTO sur le choix du type d'attaque, l'attaque de front n'est possible que par vent nul à modéré et avec des moyens suffisants."
+  },
+  {
+   "q": "De combien de CCF se compose un groupe d'intervention feux de forêts (GIFF) ?",
+   "c": [
+    "2 CCF et 1 VLTT",
+    "4 CCF et 1 VLTT",
+    "6 CCF et 1 VLTT",
+    "8 CCF et 2 VLTT"
+   ],
+   "a": 1,
+   "why": "Le GIFF réunit 1 VLTT de commandement et 4 CCF. L'UIFF n'en compte que 2 (IP 07 FDF, d'après le GTO)."
+  },
+  {
+   "q": "Pendant le repli de ton binôme vers l'engin, que fais-tu de la lance alimentée ?",
+   "c": [
+    "Tu ne l'abandonnes jamais",
+    "Tu la lâches pour aller plus vite",
+    "Tu la fermes et tu la poses au sol"
+   ],
+   "a": 0,
+   "why": "Les règles de sécurité collectives FDF imposent de ne jamais abandonner une lance alimentée lors du retour à l'engin. Elle reste ta protection contre le flux thermique."
+  },
+  {
+   "q": "Dans quel cas un groupe déclenche-t-il l'autoprotection des engins ?",
+   "c": [
+    "À chaque arrivée sur le feu",
+    "En urgence, quand le repli devient impossible",
+    "Pour économiser l'eau pendant l'attaque",
+    "Uniquement pendant les largages aériens"
+   ],
+   "a": 1,
+   "why": "L'autoprotection est une action d'urgence, pas une manœuvre courante. Le groupe y recourt quand le repli est impossible. Les équipages se regroupent dans les cabines et l'eau est déclenchée au dernier moment."
+  },
+  {
+   "q": "Quelle autonomie minimale en air respirable est demandée dans la cabine d'un CCF en autoprotection ?",
+   "c": [
+    "2 minutes pour 2 personnes",
+    "10 minutes pour 4 personnes",
+    "30 minutes pour 6 personnes"
+   ],
+   "a": 1,
+   "why": "Les règles de sécurité FDF fixent une autonomie minimale de 10 minutes pour 4 personnes, sur une base de consommation de 30 l/min par personne."
+  }
+ ]
+}

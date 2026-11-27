@@ -1,0 +1,760 @@
+/*
+Theme Name: G2RD Créa Pub
+Theme URI: https://g2rd.fr
+Description: Thème enfant du thème G2RD pour Créa Pub Communication, agence de communication visuelle à Vernon (27). Reprend la charte et le design de crea-pub-communication.fr (noir, rose #e8007d, Montserrat 900, barre de contact, méga-menu à icônes, tuiles blanches, vague, footer) et l'enrichit : hero animé avec H1 réel, prestations, process, FAQ, appels à l'action. Pages et sections en blocs natifs, CPT verrouillés en champs à remplir, installateur 1 clic (Apparence › Installation Créa Pub ou `wp creapub install`) qui importe aussi les visuels du site actuel dans la médiathèque.
+Author: G2RD Agence Web
+Author URI: https://g2rd.fr
+Template: g2rd-theme
+Version: 1.4.1
+Requires at least: 6.6
+Requires Parent: 1.39.0
+Tested up to: 7.0
+Requires PHP: 8.1
+License: EUPL-1.2
+License URI: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+Text Domain: g2rd-creapub
+Domain Path: /languages
+Tags: full-site-editing, block-styles, communication, creapub
+*/
+
+/* ==========================================================================
+   Valeurs relevées sur crea-pub-communication.fr (CSS inline du site actuel)
+   ========================================================================== */
+:root {
+	--cp-rose: var(--wp--preset--color--rose, #e8007d);
+	--cp-rose-vif: var(--wp--preset--color--rose-vif, #ff1a8c);
+	--cp-noir: #000;
+	--cp-panneau: #0d0d0d;
+	--cp-dark: #1a1a1a;
+	--cp-ligne: #333;
+}
+
+body.creapub { overflow-x: clip; }
+.creapub a { transition: color .25s; }
+
+/* Sections pleine largeur collées les unes aux autres, comme le site actuel */
+.creapub .wp-block-post-content > .alignfull,
+.creapub .wp-site-blocks > main > .alignfull,
+.creapub .wp-site-blocks > * { margin-block-start: 0; margin-block-end: 0; }
+.creapub main.wp-block-group { margin-block-start: 0; }
+
+/* Mot-clé rose dans les titres */
+.creapub h1 strong, .creapub h2 strong, .creapub h3 strong { color: var(--cp-rose); font-weight: inherit; }
+
+/* Texte réservé aux lecteurs d'écran */
+.creapub .screen-reader-text {
+	position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+	overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* Focus visible (WCAG 2.4.7) */
+.creapub :focus-visible { outline: 3px solid var(--cp-rose); outline-offset: 2px; }
+
+/* ==========================================================================
+   EN-TÊTE : barre de contact + navigation collante
+   ========================================================================== */
+.creapub header.wp-block-template-part {
+	position: sticky; top: -46px; z-index: 1000; /* la barre de contact défile, la navigation reste */
+}
+.creapub-topbar {
+	background: var(--cp-noir); color: #fff;
+	padding: 8px 40px !important; min-height: 46px;
+	font-size: 13px; gap: 12px;
+}
+.creapub-topbar p { margin: 0; display: flex; gap: 24px; flex-wrap: wrap; }
+.creapub-topbar a { color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.creapub-topbar a:hover { color: var(--cp-rose); }
+
+/* Icônes en masque CSS : couleur du texte, aucune image dans le contenu */
+.creapub-ico-tel::before, .creapub-ico-mail::before, .creapub-ico-pin::before, .creapub-ico-clock::before {
+	content: ""; width: 14px; height: 14px; flex-shrink: 0; display: inline-block;
+	background: currentColor; -webkit-mask: var(--cp-ico) center / contain no-repeat; mask: var(--cp-ico) center / contain no-repeat;
+}
+.creapub-ico-tel::before   { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z'/%3E%3C/svg%3E"); }
+.creapub-ico-mail::before  { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E"); }
+.creapub-ico-pin::before   { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z'/%3E%3Ccircle cx='12' cy='10' r='2.5'/%3E%3C/svg%3E"); }
+.creapub-ico-clock::before { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 3'/%3E%3C/svg%3E"); }
+
+/* Réseaux sociaux en pastilles (barre du haut et footer) */
+.creapub-socials.wp-block-social-links { gap: 8px !important; margin: 0; }
+.creapub-socials .wp-social-link {
+	width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%;
+	background: transparent !important; color: rgba(255,255,255,.7) !important;
+	display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s;
+}
+.creapub-socials .wp-social-link { padding: 0 !important; line-height: 0; flex: 0 0 30px; }
+.creapub-socials .wp-social-link a { padding: 0 !important; margin: 0 !important; color: inherit !important; display: flex !important; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.creapub-socials .wp-social-link svg { width: 14px; height: 14px; fill: currentColor; margin: 0 !important; }
+.creapub-socials .wp-social-link:hover { border-color: var(--cp-rose); color: var(--cp-rose) !important; }
+
+/* Barre de navigation */
+.creapub-navbar {
+	background: var(--cp-noir);
+	padding: 14px 40px !important;
+	box-shadow: 0 2px 20px rgba(0,0,0,.5);
+	border-bottom: 3px solid var(--cp-rose);
+	gap: 24px;
+}
+.creapub-navbar .wp-block-site-logo img { height: 80px; width: auto !important; }
+.creapub-navbar .wp-block-buttons .wp-block-button__link { padding: 10px 20px; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; }
+
+/* Liens de premier niveau : majuscules, graisse 700, soulignement rose animé */
+.creapub-nav .wp-block-navigation__container { gap: 32px; }
+.creapub-nav .wp-block-navigation-item__content,
+.creapub-nav .wp-block-navigation-submenu__toggle {
+	color: #fff; font-weight: 700; font-size: 14px; letter-spacing: .5px; text-transform: uppercase;
+	position: relative; padding-bottom: 4px;
+}
+.creapub-nav > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--cp-rose); transition: width .3s;
+}
+.creapub-nav .wp-block-navigation-item__content:hover,
+.creapub-nav .wp-block-navigation-submenu__toggle:hover { color: var(--cp-rose); }
+.creapub-nav > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after { width: 100%; }
+.creapub-nav .wp-block-navigation__submenu-icon { color: var(--cp-rose); }
+
+/* Méga-menu « Nos prestations » : panneau noir, bordure rose, icônes rondes */
+@media (min-width: 600px) {
+	.creapub-nav .wp-block-navigation__submenu-container {
+		left: 50% !important; transform: translateX(-50%);
+		top: calc(100% + 18px) !important;
+		background: var(--cp-panneau) !important;
+		border: 1px solid rgba(232,0,125,.25) !important;
+		border-top: 3px solid var(--cp-rose) !important;
+		border-radius: 0 0 12px 12px;
+		padding: 20px 32px 24px !important;
+		min-width: 560px !important;
+		box-shadow: 0 20px 50px rgba(0,0,0,.7), 0 0 0 1px rgba(232,0,125,.1);
+		flex-direction: row !important; justify-content: center; gap: 12px;
+	}
+	/* Pont invisible : le panneau ne se ferme pas entre le lien et lui */
+	.creapub-nav .wp-block-navigation__submenu-container::before {
+		content: ""; position: absolute; left: 0; right: 0; top: -22px; height: 22px;
+	}
+	.creapub-nav .wp-block-navigation__submenu-container .wp-block-navigation-item { flex: 0 0 auto; }
+	.creapub-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+		display: flex !important; flex-direction: column; align-items: center; gap: 10px;
+		padding: 12px 10px !important; min-width: 84px; border-radius: 8px;
+		font-size: 12px; text-align: center; color: #fff !important;
+	}
+	.creapub-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content::before {
+		content: ""; width: 72px; height: 72px; border-radius: 50%;
+		background: #000 var(--cp-menu-ico, none) center / 48px 48px no-repeat;
+		transition: transform .25s ease, box-shadow .25s ease;
+	}
+	.creapub-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover { background: rgba(232,0,125,.08); color: var(--cp-rose) !important; }
+	.creapub-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover::before {
+		transform: scale(1.12); box-shadow: 0 0 16px rgba(232,0,125,.4);
+	}
+}
+
+/* Menu mobile (surcouche du bloc Navigation) : fond noir, liens blancs */
+.creapub-nav .wp-block-navigation__responsive-container.is-menu-open {
+	background: rgba(0,0,0,.97) !important; color: #fff !important; padding-top: 90px;
+}
+.creapub-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	font-size: 18px; color: #fff !important;
+}
+.creapub-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container {
+	background: transparent !important; border: 0 !important; padding: 8px 0 8px 14px !important;
+}
+.creapub-nav .wp-block-navigation__responsive-container-open svg,
+.creapub-nav .wp-block-navigation__responsive-container-close svg { fill: #fff; width: 32px; height: 32px; }
+
+/* ==========================================================================
+   HERO ANIMÉ (logo → kicker → H1 tapé → pinceau → pitch → CTA)
+   ========================================================================== */
+.creapub-hero { background: var(--cp-noir); text-align: center; padding: 40px 20px 56px !important; overflow: hidden; }
+.creapub-hero .creapub-logo img { width: min(420px, 80vw); height: auto; }
+
+/* Vidéo d'origine (800 × 800) : cadrée en 4:3 pour masquer la phrase incrustée en bas,
+   le vrai H1 est tapé juste dessous. */
+.creapub-hero-video.wp-block-video { width: min(600px, 100%); margin: 0 auto !important; aspect-ratio: 4 / 3; overflow: hidden; }
+.creapub-hero-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; background: #000; pointer-events: none; }
+.creapub-hero--video h1 { margin-top: 0; }
+.creapub-hero .creapub-kicker { color: #fff; font-size: clamp(18px, 2.4vw, 24px); font-weight: 300; letter-spacing: .02em; margin-top: 4px; }
+.creapub-hero .creapub-kicker strong { display: block; color: var(--cp-rose); font-weight: 800; letter-spacing: .16em; text-transform: uppercase; font-size: .78em; }
+.creapub-hero h1 { margin-top: 18px; letter-spacing: -1px; }
+.creapub-hero .creapub-pitch { color: #ccc; max-width: 600px; margin: 14px auto 0; font-size: 16px; }
+.creapub-hero .creapub-pitch em { color: #fff; font-weight: 600; }
+.creapub-hero .wp-block-buttons { margin-top: 26px; }
+
+.creapub-brush { position: relative; display: inline-block; white-space: nowrap; color: var(--cp-rose); }
+.creapub-brush::after {
+	content: ""; position: absolute; left: -2%; right: -2%; bottom: -6px; height: 9px;
+	background: var(--cp-rose); border-radius: 3px 6px 4px 7px;
+	transform: skewX(-16deg) rotate(-1deg); opacity: .95;
+}
+
+.creapub-anim .creapub-hero .creapub-logo { animation: creapub-logo-in .9s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes creapub-logo-in { from { transform: scale(2.4); opacity: 0; } 60% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
+.creapub-anim .creapub-hero .creapub-kicker { opacity: 0; animation: creapub-fade-up .5s ease .8s forwards; }
+.creapub-anim .creapub-hero h1 { opacity: 0; animation: creapub-fade-in .01s linear .95s forwards; }
+.creapub-anim .creapub-hero .creapub-pitch { opacity: 0; animation: creapub-fade-up .5s ease 2.4s forwards; }
+.creapub-anim .creapub-hero .wp-block-buttons { opacity: 0; animation: creapub-fade-up .5s ease 2.7s forwards; }
+.creapub-anim .creapub-hero--video h1 { animation-delay: 3.75s; }
+.creapub-anim .creapub-hero--video .creapub-pitch { animation-delay: 5.4s; }
+.creapub-anim .creapub-hero--video .wp-block-buttons { animation-delay: 5.7s; }
+@keyframes creapub-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes creapub-fade-in { to { opacity: 1; } }
+.creapub-anim .creapub-hero h1 .ch { visibility: hidden; }
+.creapub-caret { display: inline-block; width: 3px; height: .9em; background: var(--cp-rose); vertical-align: -.08em; margin-left: 3px; animation: creapub-blink .8s step-end infinite; }
+@keyframes creapub-blink { 50% { opacity: 0; } }
+.creapub-anim .creapub-brush::after { transform: scaleX(0) skewX(-16deg) rotate(-1deg); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.3,1); }
+.creapub-anim .creapub-brush.drawn::after { transform: scaleX(1) skewX(-16deg) rotate(-1deg); }
+
+/* Bouton contour (secondaire) */
+.creapub .is-style-outline .wp-block-button__link {
+	border: 2px solid #fff; color: #fff; background: transparent; box-shadow: none;
+}
+.creapub .is-style-outline .wp-block-button__link:hover { border-color: var(--cp-rose); color: var(--cp-rose); }
+
+/* ==========================================================================
+   SECTIONS (valeurs du site actuel)
+   ========================================================================== */
+.creapub-section { background: var(--cp-noir); text-align: center; padding: 60px 40px !important; }
+.creapub-section > h2 { margin: 0 0 8px; }
+.creapub-section .creapub-intro { color: #ccc; max-width: 620px; margin: 12px auto 0; font-size: 15px; }
+
+/* Bande des prestations (icônes rondes du méga-menu) */
+.creapub-icones { gap: 28px !important; justify-content: center; padding: 10px 20px 50px !important; background: var(--cp-noir); }
+.creapub-icone { text-align: center; }
+.creapub-icone a { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+.creapub-icone a::before {
+	content: ""; width: 84px; height: 84px; border-radius: 50%;
+	background: #0d0d0d var(--cp-menu-ico, none) center / 56px 56px no-repeat;
+	border: 1px solid rgba(232,0,125,.25); transition: transform .25s, box-shadow .25s;
+}
+.creapub-icone a:hover { color: var(--cp-rose); }
+.creapub-icone a:hover::before { transform: scale(1.08); box-shadow: 0 0 16px rgba(232,0,125,.4); }
+
+/* Chiffres clés */
+.creapub-chiffres__grid { justify-content: center; gap: 60px !important; margin: 40px 0 30px !important; }
+.creapub-chiffre { text-align: center; }
+.creapub-chiffre .creapub-num { color: var(--cp-rose); font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1; margin: 0; }
+.creapub-chiffre .creapub-label {
+	color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin: 0;
+	display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.creapub-chiffre .creapub-label::before {
+	content: ""; width: 32px; height: 32px; margin-top: 8px;
+	background: var(--cp-rose); -webkit-mask: var(--cp-ico) center / contain no-repeat; mask: var(--cp-ico) center / contain no-repeat;
+}
+.creapub-ico-calendar { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3Cpath d='M12 14l1.5 3h3l-2.5 2 1 3-3-2-3 2 1-3-2.5-2h3z'/%3E%3C/svg%3E"); }
+.creapub-ico-trophy   { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4a2 2 0 0 1-2-2V5a1 1 0 0 1 1-1h3'/%3E%3Cpath d='M18 9h2a2 2 0 0 0 2-2V5a1 1 0 0 0-1-1h-3'/%3E%3Cpath d='M12 17c-3.31 0-6-2.69-6-6V4h12v7c0 3.31-2.69 6-6 6z'/%3E%3Cpath d='M8 21h8'/%3E%3Cpath d='M12 17v4'/%3E%3C/svg%3E"); }
+.creapub-ico-briefcase{ --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2'/%3E%3Cpath d='M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2'/%3E%3Cline x1='12' y1='12' x2='12' y2='16'/%3E%3Cline x1='10' y1='14' x2='14' y2='14'/%3E%3C/svg%3E"); }
+
+/* Barres de répartition */
+.creapub-barres { max-width: 500px; margin: 0 auto !important; }
+.creapub-barre { gap: 10px !important; margin: 6px 0 !important; flex-wrap: nowrap !important; }
+.creapub-barre .creapub-pct { color: var(--cp-rose); font-weight: 700; min-width: 45px; text-align: right; margin: 0; font-size: 14px; }
+.creapub-barre .creapub-barre__bg { flex: 1; background: var(--cp-ligne); border-radius: 4px; height: 6px; overflow: hidden; position: relative; min-height: 6px; }
+.creapub-barre .creapub-barre__bg::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--cp-pct, 0%); background: var(--cp-rose); border-radius: 4px; transition: width 1.1s cubic-bezier(.2,.7,.3,1); }
+.creapub-barre--50 { --cp-pct: 50%; } .creapub-barre--15 { --cp-pct: 15%; } .creapub-barre--10 { --cp-pct: 10%; }
+.creapub-barre .creapub-barre__label { min-width: 170px; text-align: left; color: #ddd; font-size: 13px; margin: 0; }
+
+/* Cartes sombres (prestations, process) */
+.creapub-cartes { gap: 18px !important; margin-top: 40px !important; }
+.creapub-carte {
+	background: var(--cp-panneau); border: 1px solid #232323; border-radius: 14px;
+	padding: 26px 24px !important; text-align: left; position: relative; overflow: hidden;
+	transition: transform .22s, border-color .22s;
+}
+.creapub-carte::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background: var(--cp-rose); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+.creapub-carte:hover { transform: translateY(-4px); border-color: #3a3a3a; }
+.creapub-carte:hover::after { transform: scaleX(1); }
+.creapub-carte h3 { font-size: 17px; font-weight: 800; margin: 0 0 8px; color: #fff; }
+.creapub-carte p { font-size: 14px; color: #ccc; margin: 0; }
+.creapub-carte .creapub-more { color: var(--cp-rose); font-weight: 700; margin-top: 14px; font-size: 13px; }
+.creapub-carte .creapub-more a { color: inherit; text-decoration: none; }
+.creapub-carte--icone h3::before {
+	content: ""; display: block; width: 56px; height: 56px; margin-bottom: 14px; border-radius: 50%;
+	background: #000 var(--cp-menu-ico, none) center / 38px 38px no-repeat; border: 1px solid rgba(232,0,125,.25);
+}
+.creapub-carte--contact { border-color: var(--cp-rose); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.creapub-etape-num { font-size: 34px; font-weight: 900; color: var(--cp-rose) !important; line-height: 1; margin-bottom: 10px !important; }
+
+/* Carrousel « Ils nous font confiance » */
+.creapub-carousel { overflow: hidden; margin-top: 40px !important; }
+.creapub-carousel__track {
+	display: flex !important; flex-wrap: nowrap !important; gap: 70px !important;
+	width: max-content; animation: creapub-scroll-logos 40s linear infinite;
+}
+.creapub-carousel__track:hover { animation-play-state: paused; }
+@keyframes creapub-scroll-logos { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.creapub-logo-slide.wp-block-image {
+	background: #fff; border-radius: 8px; width: 160px; height: 100px; margin: 0 !important;
+	display: flex; align-items: center; justify-content: center; padding: 12px 16px; flex-shrink: 0;
+	transition: box-shadow .3s;
+}
+.creapub-logo-slide:hover { box-shadow: 0 0 0 3px var(--cp-rose); }
+.creapub-logo-slide img { max-width: 100%; max-height: 76px; width: auto !important; height: auto !important; object-fit: contain; }
+
+/* Bandeau brochure */
+.creapub-brochure-band { background: var(--cp-noir); padding: 28px 20px !important; text-align: center; border-top: 1px solid rgba(232,0,125,.15); border-bottom: 1px solid rgba(232,0,125,.15); }
+.creapub-brochure-band p { margin: 0; }
+.creapub-brochure-band a { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; color: #fff; text-decoration: none; letter-spacing: .3px; }
+.creapub-brochure-band a strong { color: var(--cp-rose); font-weight: 800; }
+.creapub-brochure-band a::before {
+	content: ""; width: 22px; height: 22px; background: var(--cp-rose);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='12' y1='18' x2='12' y2='12'/%3E%3Cline x1='9' y1='15' x2='15' y2='15'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='12' y1='18' x2='12' y2='12'/%3E%3Cline x1='9' y1='15' x2='15' y2='15'/%3E%3C/svg%3E") center / contain no-repeat;
+	transition: transform .2s;
+}
+.creapub-brochure-band a:hover { opacity: .8; color: #fff; }
+.creapub-brochure-band a:hover::before { transform: translateY(-2px); }
+
+/* Partenaires : tuiles blanches */
+.creapub-partners { justify-content: center; gap: 14px !important; max-width: 1200px; margin: 40px auto 0 !important; }
+.creapub-partner.wp-block-image {
+	background: #fff; border-radius: 6px; height: 60px; width: 110px; margin: 0 !important;
+	display: flex; align-items: center; justify-content: center; padding: 8px 12px; overflow: hidden; flex-shrink: 0;
+	transition: box-shadow .3s;
+}
+.creapub-partner:hover { box-shadow: 0 0 0 2px var(--cp-rose); }
+.creapub-partner img { max-width: 100%; max-height: 44px; width: auto !important; height: auto !important; object-fit: contain; }
+
+/* Avis clients : cartes claires, texte sombre (contraste garanti) */
+.creapub-avis { padding: 70px 40px !important; }
+.creapub-avis > h2 { font-size: clamp(16px, 3vw, 26px); line-height: 1.4; margin-bottom: 40px !important; }
+.creapub-avis-grid { justify-content: center; align-items: stretch !important; gap: 24px !important; max-width: 900px; margin: 0 auto 30px !important; }
+.creapub-avis-card {
+	background: var(--wp--preset--color--carte, #f7f7f7); color: #1a1a1a; border-radius: 12px;
+	padding: 20px !important; max-width: 400px; flex: 1 1 320px; text-align: left;
+	display: flex; flex-direction: column; justify-content: flex-start;
+	box-shadow: 0 2px 14px rgba(0,0,0,.08); transition: transform .3s, box-shadow .3s;
+}
+.creapub-avis-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(232,0,125,.15); }
+.creapub-avis-header { gap: 12px !important; margin-bottom: 10px !important; flex-wrap: nowrap !important; }
+.creapub-avatar {
+	width: 40px; height: 40px; border-radius: 50%; background: var(--cp-rose); color: #fff !important;
+	display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; margin: 0; flex-shrink: 0;
+}
+.creapub-avis-card .creapub-avis-name { font-weight: 700; font-size: 14px; color: #1a1a1a !important; margin: 0; }
+.creapub-avis-card .creapub-stars { color: #b06a00 !important; font-size: 13px; margin: 0; letter-spacing: 1px; }
+.creapub-avis-card .creapub-avis-text { font-size: 13px; color: #555 !important; line-height: 1.6; margin: 0; }
+.creapub-voir-avis a { display: inline-block; border-bottom: 2px solid var(--cp-rose); color: var(--cp-rose); font-weight: 700; font-size: 13px; letter-spacing: .5px; text-decoration: none; }
+.creapub-voir-avis a:hover { opacity: .75; }
+
+/* FAQ */
+.creapub-faq .wp-block-details {
+	background: var(--cp-panneau); border: 1px solid #232323; border-radius: 12px;
+	padding: 16px 20px; margin: 0 auto 12px; max-width: 760px; text-align: left;
+}
+.creapub-faq .wp-block-details summary { cursor: pointer; font-weight: 700; color: #fff; }
+.creapub-faq .wp-block-details p { color: #ccc; font-size: 14px; margin-top: 10px; }
+
+/* Bandeau CTA rose */
+.creapub-cta { background: linear-gradient(100deg, #e8007d, #b4006b); text-align: center; padding: 56px 20px !important; }
+.creapub-cta h2, .creapub-cta p { color: #fff; }
+.creapub-cta p { max-width: 560px; margin: 12px auto 0; }
+.creapub-cta .wp-block-button__link { background: #fff !important; color: #b4006b !important; }
+.creapub-cta .wp-block-button__link:hover { background: #000 !important; color: #fff !important; }
+.creapub-cta .creapub-cta-tel a { color: #fff; font-weight: 700; }
+
+/* ==========================================================================
+   VAGUE + PIED DE PAGE
+   ========================================================================== */
+.creapub-wave {
+	background: var(--cp-noir) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z' fill='%231a1a1a'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+	height: 60px; min-height: 60px; margin: 0 !important;
+}
+.creapub-footer { background: var(--cp-noir); color: #fff; padding: 50px 40px 30px !important; }
+.creapub-footer .wp-block-columns { max-width: 1100px; margin: 0 auto 30px; gap: 40px; }
+.creapub-footer .wp-block-site-logo img { height: 160px; width: auto !important; }
+.creapub-footer p, .creapub-footer a { font-size: 13px; color: #aaa; line-height: 2; }
+.creapub-footer a { text-decoration: none; }
+.creapub-footer a:hover { color: var(--cp-rose); }
+.creapub-footer .creapub-footer__title { font-size: 16px; font-weight: 900; color: var(--cp-rose); margin: 0 0 16px; letter-spacing: .5px; text-transform: uppercase; }
+.creapub-footer .creapub-footer__item { display: flex; gap: 8px; align-items: center; margin: 0 0 6px; }
+.creapub-footer .creapub-footer__baseline { margin-top: 14px; line-height: 1.7; }
+.creapub-footer-bottom { border-top: 1px solid var(--cp-ligne); padding-top: 20px !important; text-align: center; }
+.creapub-footer-bottom p { font-size: 12px; color: #888; margin: 0; }
+.creapub-footer-bottom a { color: #aaa; }
+
+/* ==========================================================================
+   PAGES INTÉRIEURES ET CPT (héritage des lots 1-3)
+   ========================================================================== */
+.creapub .has-carte-background-color, .creapub .has-base-background-color { color: #1a1a1a; }
+.creapub .has-carte-background-color a:not(.wp-element-button), .creapub .has-base-background-color a:not(.wp-element-button) { color: #b4006b; }
+.creapub .has-rose-band-gradient-background { color: #fff; }
+.creapub-strip figure { border-radius: 14px; overflow: hidden; }
+.creapub-tuile { background: #fff; border-radius: 12px; }
+
+/* ==========================================================================
+   PAGES INTÉRIEURES (valeurs relevées sur team.html, contact.html, print.html…)
+   ========================================================================== */
+
+/* Bandeau zèbre rose + titre (prestations) */
+.creapub-zebre {
+	position: relative; height: 220px; overflow: hidden; margin: 0 !important;
+	display: flex; align-items: center; justify-content: center;
+	background: #000 var(--cp-zebre, none) center / cover no-repeat;
+}
+.creapub-zebre::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.18); }
+.creapub-zebre > * { position: relative; z-index: 2; }
+.creapub-zebre .creapub-zebre__title, .creapub-zebre h1 {
+	font-size: clamp(44px, 9vw, 96px) !important; font-weight: 900; color: #fff;
+	letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 4px 24px rgba(0,0,0,.5); margin: 0; line-height: 1.05; text-align: center;
+}
+
+/* Intro centrée (mot-clé rose italique) */
+.creapub-intro, .creapub-prestation .creapub-intro-text { background: #000; padding: 48px 40px 36px !important; text-align: center; }
+.creapub-intro p, .creapub-prestation .creapub-intro-text { max-width: 620px; margin: 0 auto !important; font-size: 15px; color: #ccc; line-height: 1.8; }
+.creapub-intro em, .creapub-prestation .creapub-intro-text em { color: var(--cp-rose); font-style: italic; font-weight: 600; }
+
+/* Titre de section rose avec trait (« Nos réalisations ») */
+.creapub-section-heading, .creapub-prestation h2.creapub-section-heading {
+	font-size: clamp(22px, 4vw, 32px) !important; font-weight: 900; color: var(--cp-rose) !important;
+	text-align: center; margin: 10px 0 32px !important;
+}
+.creapub-section-heading h2 { color: var(--cp-rose) !important; }
+.creapub-prestation h2.creapub-section-heading::after, .creapub-section-heading h2::after {
+	content: ""; display: inline-block; width: 60px; height: 3px; background: var(--cp-rose); border-radius: 2px; vertical-align: middle; margin-left: 14px;
+}
+
+/* Contenu des prestations : largeur 1100, fond noir, textes clairs */
+.creapub-prestation { padding: 0 40px 40px; }
+.creapub-prestation > h2:not(.creapub-section-heading) { text-align: center; margin-top: 56px; }
+.creapub-prestation > p:not(.creapub-intro-text), .creapub-prestation > ul { color: #ccc; max-width: 760px; margin-left: auto !important; margin-right: auto !important; }
+.creapub-prestation > ul li::marker { color: var(--cp-rose); }
+.creapub-prestation .wp-block-details {
+	background: var(--cp-panneau); border: 1px solid #232323; border-radius: 12px; padding: 16px 20px;
+	max-width: 760px; margin: 0 auto 12px !important;
+}
+.creapub-prestation .wp-block-details summary { cursor: pointer; font-weight: 700; color: #fff; }
+.creapub-prestation .wp-block-details p { color: #ccc; font-size: 14px; margin-top: 10px; }
+
+/* Galeries « Nos réalisations » : 3 colonnes, 4:3, arrondis, survol rose */
+.creapub-realisations.wp-block-gallery, .creapub-atelier-photos.wp-block-gallery { gap: 18px !important; max-width: 1100px; margin: 0 auto 50px !important; }
+.creapub-realisations .wp-block-image, .creapub-atelier-photos .wp-block-image {
+	border-radius: 12px; overflow: hidden; position: relative; background: #111; aspect-ratio: 4 / 3;
+}
+.creapub-realisations .wp-block-image img, .creapub-atelier-photos .wp-block-image img {
+	width: 100% !important; height: 100% !important; object-fit: cover !important; transition: transform .4s; cursor: zoom-in;
+}
+.creapub-realisations .wp-block-image:hover img, .creapub-atelier-photos .wp-block-image:hover img { transform: scale(1.06); }
+.creapub-realisations .wp-block-image::after { content: ""; position: absolute; inset: 0; background: rgba(232,0,125,0); transition: background .3s; pointer-events: none; }
+.creapub-realisations .wp-block-image:hover::after { background: rgba(232,0,125,.12); }
+.creapub-atelier-photos .wp-block-image { aspect-ratio: 3 / 4; }
+
+/* Vidéo de prestation (textile, véhicule) */
+.creapub-video.wp-block-video { max-width: 740px; margin: 0 auto 50px !important; border-radius: 16px; overflow: hidden; background: #111; aspect-ratio: 16 / 9; box-shadow: 0 8px 40px rgba(0,0,0,.6); }
+.creapub-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Bandeau photo (contact, agence) : façade, voile, titre rose en bas à gauche */
+.creapub-banner {
+	position: relative; height: 400px; overflow: hidden; margin: 0 !important;
+	background: #111 var(--cp-agence, none) center top / cover no-repeat;
+	display: flex; align-items: flex-end;
+}
+.creapub-banner::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.3); }
+.creapub-banner__overlay { position: relative; width: 100%; padding: 40px 40px 30px !important; background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 100%); }
+.creapub-banner h1 { color: var(--cp-rose); font-size: clamp(36px, 5vw, 58px); font-weight: 700; text-shadow: 0 2px 12px rgba(0,0,0,.8); margin: 0; text-align: left; }
+.creapub-banner .creapub-banner__sub { color: #ddd; font-size: 15px; margin-top: 8px; max-width: 560px; }
+
+/* Titres roses des pages Contact */
+.creapub h2.creapub-script-title { color: var(--cp-rose); font-size: clamp(26px, 3.6vw, 38px); font-weight: 700; margin-bottom: 28px; }
+
+/* Contact : grille formulaire / coordonnées */
+.creapub-contact { text-align: left; }
+.creapub-contact__grid { max-width: 1100px; margin: 0 auto !important; gap: 60px !important; }
+.creapub-coord { display: flex; align-items: flex-start; gap: 16px; margin: 0 0 24px !important; font-size: 14px; color: #fff; line-height: 1.7; }
+.creapub-coord::before {
+	content: ""; width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; border: 2px solid var(--cp-rose);
+	background: var(--cp-rose); -webkit-mask: none; mask: none;
+	background: radial-gradient(circle, transparent 0, transparent 100%);
+}
+.creapub-coord { position: relative; }
+.creapub-coord::after {
+	content: ""; position: absolute; left: 12px; top: 12px; width: 20px; height: 20px; background: var(--cp-rose);
+	-webkit-mask: var(--cp-ico) center / contain no-repeat; mask: var(--cp-ico) center / contain no-repeat;
+}
+.creapub-coord--mail { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E"); }
+.creapub-coord--tel { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z'/%3E%3C/svg%3E"); }
+.creapub-coord--pin { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
+.creapub-coord--clock { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E"); font-size: 13px; line-height: 1.8; }
+.creapub-coord strong { display: block; font-size: 14px; margin-bottom: 4px; }
+.creapub-coord a { color: #fff; text-decoration: none; }
+.creapub-coord a:hover { color: var(--cp-rose); }
+.creapub-coord br + br { content: ""; }
+
+/* Formulaire */
+.creapub-form { text-align: left; }
+.creapub-form p { margin: 0; }
+.creapub-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.creapub-form__group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px !important; }
+.creapub-form label { font-size: 13px; font-weight: 600; color: #fff; }
+.creapub-form .req { color: var(--cp-rose); margin-left: 2px; }
+.creapub-form__hint { font-weight: 400; color: #aaa; }
+.creapub-form input[type=text], .creapub-form input[type=tel], .creapub-form input[type=email], .creapub-form select, .creapub-form textarea {
+	border: 1.5px solid #ddd; border-radius: 6px; padding: 10px 14px; font-size: 14px; font-family: inherit;
+	color: #1a1a1a; background: #fff; transition: border-color .2s, box-shadow .2s; width: 100%;
+}
+.creapub-form input:focus, .creapub-form select:focus, .creapub-form textarea:focus { border-color: var(--cp-rose); box-shadow: 0 0 0 3px rgba(232,0,125,.25); outline: none; }
+.creapub-form input::placeholder, .creapub-form textarea::placeholder { color: #8a8a8a; }
+.creapub-form select {
+	appearance: none; padding-right: 36px;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;
+}
+.creapub-form textarea { resize: vertical; min-height: 110px; }
+.creapub-form input[type=file] { color: #ccc; font-size: 13px; }
+.creapub-form input[type=file]::file-selector-button {
+	background: var(--cp-rose); color: #fff; border: 0; border-radius: 6px; padding: 10px 20px; font-weight: 700; font-family: inherit; cursor: pointer; margin-right: 12px;
+}
+.creapub-form__rgpd { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px !important; }
+.creapub-form__rgpd input { margin-top: 3px; accent-color: var(--cp-rose); width: 16px; height: 16px; flex-shrink: 0; }
+.creapub-form__rgpd label { font-size: 12px; font-weight: 400; color: #ccc; line-height: 1.6; }
+.creapub-form__rgpd a { color: #fff; text-decoration: underline; }
+.creapub-form__legend { font-size: 12px; color: #aaa; margin-bottom: 20px !important; }
+.creapub-form__submit {
+	background: var(--cp-rose); color: #fff; border: none; border-radius: 6px; padding: 14px 36px; font-size: 15px; font-weight: 700;
+	cursor: pointer; font-family: inherit; letter-spacing: .5px; transition: background .2s, transform .2s;
+}
+.creapub-form__submit:hover { background: var(--cp-rose-vif); transform: translateY(-2px); }
+.creapub-form__hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.creapub-form__alert { padding: 14px 18px; border-radius: 8px; margin-bottom: 20px !important; font-size: 14px; line-height: 1.6; }
+.creapub-form__alert--ok { background: #0d2e1a; border: 1.5px solid #28a745; color: #6fcf97; }
+.creapub-form__alert--err { background: #2e0d0d; border: 1.5px solid var(--cp-rose); color: #ff9db8; }
+
+/* Carte + atelier + zones */
+.creapub-map { max-width: 900px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,.15); }
+.creapub-map iframe { width: 100%; height: 380px; border: 0; display: block; }
+.creapub-atelier > p { max-width: 900px; margin: 0 auto 24px !important; color: #fdfdfd; font-size: 14px; line-height: 1.8; }
+.creapub-atelier .creapub-atelier-photos { max-width: 900px; }
+.creapub-zones { background: #000; padding: 30px 40px !important; }
+.creapub-zones p { color: #ccc; font-size: 14px; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+.creapub-zones a { color: var(--cp-rose); font-weight: 700; }
+
+/* La Team : bandeau, cartes blanches photo + bio */
+.creapub-team-banner { margin: 0 !important; background: #000; }
+.creapub-team-banner__img.wp-block-image { margin: 0 !important; }
+.creapub-team-banner__img img { width: 100%; height: auto; display: block; }
+.creapub-team { padding-bottom: 20px !important; }
+.creapub-team > h2 { font-size: clamp(22px, 4vw, 34px); margin-bottom: 30px !important; }
+.creapub-team-grid { max-width: 1060px; margin: 0 auto !important; gap: 28px !important; }
+.creapub-team-solo { display: flex; justify-content: center; margin-top: 28px !important; }
+.creapub-team-solo .creapub-team-card { max-width: 520px; width: 100%; }
+.creapub-team-card {
+	background: #fff; border-radius: 14px; overflow: hidden; gap: 0 !important; text-align: left;
+	transition: transform .3s, box-shadow .3s; align-items: stretch !important;
+}
+.creapub-team-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(232,0,125,.25); }
+.creapub-team-card__photo.wp-block-image { flex: 0 0 155px; margin: 0 !important; overflow: hidden; background: #ccc; }
+.creapub-team-card__photo img { width: 100% !important; height: 100% !important; object-fit: cover; object-position: top center; display: block; transition: transform .3s; }
+.creapub-team-card:hover .creapub-team-card__photo img { transform: scale(1.05); }
+.creapub-team-card__body { flex: 1; padding: 22px 18px !important; background: #fff; color: #1a1a1a; }
+.creapub-team-card__body > * { margin: 0 !important; }
+.creapub-team-card__name { font-size: 19px; font-weight: 900; color: #1a1a1a !important; line-height: 1; }
+.creapub-team-card .creapub-sep { width: 30px !important; height: 3px; background: var(--cp-rose) !important; border: 0 !important; border-radius: 2px; margin: 12px 0 !important; opacity: 1; }
+.creapub-team-card__text { font-size: 12.5px; color: #555 !important; line-height: 1.75; }
+
+/* Valeurs */
+.creapub-valeurs > h2 { margin-bottom: 50px !important; }
+.creapub-valeurs-grid { max-width: 1000px; margin: 0 auto !important; gap: 36px !important; }
+.creapub-valeur { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.creapub-valeur > * { margin: 0 !important; }
+.creapub-valeur__title { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.creapub-valeur__title::before {
+	content: ""; width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(232,0,125,.35);
+	background: var(--cp-rose); box-sizing: border-box;
+	-webkit-mask: var(--cp-ico) center / 28px 28px no-repeat, linear-gradient(#000 0 0) content-box; mask: var(--cp-ico) center / 28px 28px no-repeat;
+	transition: transform .3s;
+}
+.creapub-valeur:hover .creapub-valeur__title::before { transform: scale(1.1); }
+.creapub-valeur__text { font-size: 13px; color: #aaa; line-height: 1.7; }
+.creapub-ico-users { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M23 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E"); }
+.creapub-ico-pin.creapub-valeur__title { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
+.creapub-ico-check { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Cpolyline points='9 11 12 14 22 4'/%3E%3Cpath d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'/%3E%3C/svg%3E"); }
+.creapub-ico-bulb { --cp-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21h6'/%3E%3Cpath d='M12 3a6 6 0 0 1 6 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 0 1 6-6z'/%3E%3Cpath d='M9 17v1h6v-1'/%3E%3C/svg%3E"); }
+
+/* Histoire : frise alternée */
+.creapub-histoire { padding-bottom: 90px !important; }
+.creapub-histoire > h2 { margin-bottom: 60px !important; }
+.creapub-timeline { position: relative; max-width: 680px; margin: 0 auto !important; }
+.creapub-timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--cp-rose) 0%, rgba(232,0,125,.15) 100%); transform: translateX(-50%); }
+.creapub-tl-item { position: relative; display: flex; margin: 0 0 44px !important; }
+.creapub-tl-item:last-child { margin-bottom: 0 !important; }
+.creapub-tl-item:nth-child(even) { flex-direction: row-reverse; }
+.creapub-tl-item::after { content: ""; position: absolute; left: 50%; top: 16px; transform: translateX(-50%); width: 15px; height: 15px; background: var(--cp-rose); border-radius: 50%; border: 3px solid #000; box-shadow: 0 0 0 2px var(--cp-rose); z-index: 1; }
+.creapub-tl-content { width: calc(50% - 32px); background: #111; border: 1px solid #222; border-radius: 12px; padding: 16px 18px !important; text-align: left; transition: border-color .3s; }
+.creapub-tl-item:nth-child(even) .creapub-tl-content { text-align: right; }
+.creapub-tl-item:hover .creapub-tl-content { border-color: rgba(232,0,125,.45); }
+.creapub-tl-content > * { margin: 0 !important; }
+.creapub-tl-year { font-size: 22px; font-weight: 900; color: var(--cp-rose); line-height: 1; }
+.creapub-tl-desc { margin-top: 7px !important; font-size: 13px; color: #bbb; line-height: 1.6; }
+
+/* Page Prestations : rangées alternées */
+.creapub-prest-rows { display: flex; flex-direction: column; gap: 56px; max-width: 1100px; margin: 0 auto !important; }
+.creapub-prest-row { display: grid !important; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; text-align: left; }
+.creapub-prest-row--rev .creapub-prest-row__img { order: 2; }
+.creapub-prest-row__img.wp-block-image { margin: 0 !important; border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; }
+.creapub-prest-row__img img { width: 100% !important; height: 100% !important; object-fit: cover; transition: transform .4s; }
+.creapub-prest-row:hover .creapub-prest-row__img img { transform: scale(1.04); }
+.creapub-prest-row__body p { color: #ccc; }
+.creapub-prest-row__body em { color: var(--cp-rose); font-weight: 600; }
+.creapub-prest-row__title { display: flex; align-items: center; gap: 14px; font-size: clamp(24px, 3vw, 32px) !important; }
+.creapub-prest-row__title::before {
+	content: ""; width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%;
+	background: #000 var(--cp-menu-ico, none) center / 38px 38px no-repeat; border: 1px solid rgba(232,0,125,.25);
+}
+.creapub-checklist { list-style: none; padding: 0 !important; color: #ddd; }
+.creapub-checklist li { padding-left: 26px; position: relative; margin-bottom: 6px; font-size: 14px; }
+.creapub-checklist li::before { content: ""; position: absolute; left: 0; top: 7px; width: 14px; height: 8px; border-left: 3px solid var(--cp-rose); border-bottom: 3px solid var(--cp-rose); transform: rotate(-45deg); }
+
+/* Agence : intro */
+.creapub-agence-intro > p { max-width: 760px; margin-left: auto !important; margin-right: auto !important; color: #ccc; line-height: 1.8; }
+.creapub-agence-intro .wp-block-buttons { margin-top: 28px; }
+
+@media (max-width: 900px) {
+	.creapub-timeline::before { left: 20px; }
+	.creapub-tl-item, .creapub-tl-item:nth-child(even) { flex-direction: column; padding-left: 48px; }
+	.creapub-tl-content, .creapub-tl-item:nth-child(even) .creapub-tl-content { width: 100%; text-align: left; }
+	.creapub-tl-item::after { left: 20px; }
+	.creapub-prest-row { grid-template-columns: 1fr; gap: 20px; }
+	.creapub-prest-row--rev .creapub-prest-row__img { order: 0; }
+	.creapub-realisations.wp-block-gallery { --wp--style--unstable-gallery-gap: 12px; }
+}
+@media (max-width: 768px) {
+	.creapub-zebre { height: 160px; }
+	.creapub-intro, .creapub-prestation .creapub-intro-text { padding: 32px 20px !important; }
+	.creapub-prestation { padding: 0 16px 30px; }
+	.creapub-banner { height: 300px; }
+	.creapub-banner__overlay { padding: 24px 20px 20px !important; }
+	.creapub-form__row { grid-template-columns: 1fr; }
+	.creapub-team-card { flex-direction: column; }
+	.creapub-team-card__photo.wp-block-image { flex: none; width: 100%; }
+	.creapub-team-card__photo img { height: auto !important; max-height: 320px; object-fit: contain; background: #111; }
+	.creapub-zones { padding: 24px 20px !important; }
+}
+
+/* ==========================================================================
+   BOUCLES SUR LES CPT (Team, Prestations, Portfolio)
+   ========================================================================== */
+.creapub .wp-block-post-template { margin: 0; padding: 0; list-style: none; }
+
+/* Team : grille 2 colonnes, dernier membre seul centré (comme Adrien sur le site) */
+.creapub-team-grid.wp-block-post-template { max-width: 1060px; margin: 0 auto !important; gap: 28px !important; }
+.creapub-team-grid > li { display: flex; }
+.creapub-team-grid > li > .creapub-team-card { width: 100%; }
+.creapub-team-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: 100%; max-width: 520px; }
+.creapub-team-card .wp-block-post-featured-image.creapub-team-card__photo { flex: 0 0 155px; margin: 0 !important; overflow: hidden; background: #ccc; }
+.creapub-team-card .wp-block-post-featured-image img { width: 100% !important; height: 100% !important; object-fit: cover; object-position: top center; transition: transform .3s; }
+.creapub-team-card:hover .wp-block-post-featured-image img { transform: scale(1.05); }
+.creapub-team-card h3.creapub-team-card__name { font-size: 19px !important; font-weight: 900; color: #1a1a1a !important; line-height: 1; margin: 0 !important; }
+.creapub-team-card__text, .creapub-team-card__text p { font-size: 12.5px; color: #555 !important; line-height: 1.75; margin: 0 !important; }
+
+/* Page Prestations : rangées alternées */
+.creapub-prest-rows.wp-block-post-template { display: flex !important; flex-direction: column; gap: 56px; max-width: 1100px; margin: 0 auto !important; }
+.creapub-prest-rows > li:nth-child(even) .creapub-prest-row__img { order: 2; }
+.creapub-prest-row .wp-block-post-featured-image { margin: 0 !important; border-radius: 14px; overflow: hidden; }
+.creapub-prest-row .wp-block-post-featured-image img { transition: transform .4s; }
+.creapub-prest-row:hover .wp-block-post-featured-image img { transform: scale(1.04); }
+.creapub-prest-row__title a { color: #fff; text-decoration: none; }
+.creapub-prest-row__title a:hover { color: var(--cp-rose); }
+.creapub-prest-row__title::before { display: none; }
+.creapub-prest-row__excerpt { color: #ccc; font-size: 15px; line-height: 1.8; }
+.creapub-prest-row__excerpt .wp-block-post-excerpt__more-text { margin-top: 18px; }
+.creapub-prest-row__excerpt .wp-block-post-excerpt__more-link {
+	display: inline-block; background: var(--cp-rose); color: #fff; border-radius: 999px; padding: 12px 26px;
+	font-weight: 700; font-size: 14px; text-decoration: none; transition: background .2s;
+}
+.creapub-prest-row__excerpt .wp-block-post-excerpt__more-link:hover { background: var(--cp-rose-vif); color: #fff; }
+
+/* Accueil : cartes prestations avec photo */
+.creapub-prest-cards { margin-top: 40px !important; }
+.creapub-prest-cards .wp-block-post-template { gap: 18px !important; }
+.creapub-carte--photo { padding: 0 !important; height: 100%; }
+.creapub-carte--photo .wp-block-post-featured-image { margin: 0 !important; overflow: hidden; }
+.creapub-carte--photo .wp-block-post-featured-image img { transition: transform .4s; }
+.creapub-carte--photo:hover .wp-block-post-featured-image img { transform: scale(1.05); }
+.creapub-carte--photo h3 { padding: 18px 22px 0; margin: 0 0 8px !important; }
+.creapub-carte--photo h3 a { color: #fff; text-decoration: none; }
+.creapub-carte--photo .wp-block-post-excerpt { padding: 0 22px 22px; margin: 0; }
+.creapub-carte--photo .wp-block-post-excerpt__excerpt { font-size: 14px; color: #ccc; margin: 0; }
+.creapub-carte--photo .wp-block-post-excerpt__more-link { color: var(--cp-rose); font-weight: 700; font-size: 13px; text-decoration: none; }
+.creapub-prest-contact { margin-top: 26px !important; color: #ccc; }
+.creapub-prest-contact a { color: var(--cp-rose); font-weight: 700; text-decoration: none; }
+
+/* Réalisations (portfolio) : grille 3 colonnes 4:3, survol rose */
+.creapub-realisations-auto { max-width: 1100px; margin: 0 auto 50px !important; }
+.creapub-realisations-auto .wp-block-post-template { gap: 18px !important; }
+.creapub-realisations-auto .wp-block-post-featured-image { margin: 0 !important; border-radius: 12px; overflow: hidden; position: relative; background: #111; }
+.creapub-realisations-auto .wp-block-post-featured-image img { transition: transform .4s; cursor: zoom-in; }
+.creapub-realisations-auto .wp-block-post-featured-image:hover img { transform: scale(1.06); }
+.creapub-realisations-auto .wp-block-post-featured-image::after { content: ""; position: absolute; inset: 0; background: rgba(232,0,125,0); transition: background .3s; pointer-events: none; }
+.creapub-realisations-auto .wp-block-post-featured-image:hover::after { background: rgba(232,0,125,.12); }
+.creapub-realisations-auto img:focus-visible { outline: 3px solid var(--cp-rose); outline-offset: -3px; }
+.creapub-realisations-auto .wp-block-query-pagination { margin-top: 30px; }
+.creapub-realisations-auto .wp-block-query-pagination a, .creapub-realisations-auto .wp-block-query-pagination .current { color: #fff; padding: 6px 12px; border-radius: 6px; }
+.creapub-realisations-auto .wp-block-query-pagination .current { background: var(--cp-rose); }
+
+/* Filtres de catégories (page Nos réalisations) */
+.creapub-filtres.wp-block-categories { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 0; margin: 0 auto 34px !important; }
+.creapub-filtres li a {
+	display: inline-block; border: 2px solid #fff; color: #fff; border-radius: 999px; padding: 8px 18px;
+	font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; transition: .2s;
+}
+.creapub-filtres li a:hover, .creapub-filtres li.current-cat a { border-color: var(--cp-rose); background: var(--cp-rose); color: #fff; }
+.creapub-realisations-page .creapub-intro-text { max-width: 620px; margin: 0 auto 30px !important; color: #ccc; }
+.creapub-realisations-page .creapub-intro-text em { color: var(--cp-rose); font-weight: 600; }
+
+/* Visionneuse */
+.creapub-lb { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; animation: creapub-lb-in .25s ease; }
+.creapub-lb[hidden] { display: none; }
+@keyframes creapub-lb-in { from { opacity: 0; } to { opacity: 1; } }
+.creapub-lb__fig { margin: 0; max-width: 88vw; max-height: 85vh; }
+.creapub-lb__fig img { max-width: 88vw; max-height: 85vh; border-radius: 10px; box-shadow: 0 8px 60px rgba(0,0,0,.8); object-fit: contain; display: block; }
+.creapub-lb__close, .creapub-lb__arrow {
+	position: fixed; border: 0; border-radius: 50%; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+	background: rgba(232,0,125,.85); transition: background .2s, transform .2s; z-index: 2;
+}
+.creapub-lb__close { top: 18px; right: 22px; width: 44px; height: 44px; font-size: 22px; }
+.creapub-lb__arrow { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; font-size: 24px; }
+.creapub-lb__prev { left: 16px; } .creapub-lb__next { right: 16px; }
+.creapub-lb__close:hover, .creapub-lb__arrow:hover { background: var(--cp-rose); }
+.creapub-lb__count { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.7); font-size: 13px; letter-spacing: 1px; margin: 0; }
+html.creapub-lb-open { overflow: hidden; }
+
+@media (max-width: 900px) {
+	.creapub-prest-rows > li:nth-child(even) .creapub-prest-row__img { order: 0; }
+	.creapub-realisations-auto .wp-block-post-template, .creapub-prest-cards .wp-block-post-template { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 768px) {
+	.creapub-team-grid.wp-block-post-template { grid-template-columns: 1fr !important; }
+	.creapub-team-card { flex-direction: column !important; }
+	.creapub-team-card .wp-block-post-featured-image.creapub-team-card__photo { flex: none; width: 100%; }
+	.creapub-team-card .wp-block-post-featured-image img { height: auto !important; max-height: 320px; object-fit: contain; background: #111; }
+}
+@media (max-width: 480px) {
+	.creapub-realisations-auto .wp-block-post-template, .creapub-prest-cards .wp-block-post-template { grid-template-columns: 1fr !important; }
+}
+
+/* ==========================================================================
+   RESPONSIVE (points de rupture du site actuel)
+   ========================================================================== */
+@media (max-width: 768px) {
+	.creapub header.wp-block-template-part { top: 0; }
+	.creapub-hero-video.wp-block-video { width: min(340px, 100%); }
+	.creapub-topbar { display: none !important; }
+	.creapub-navbar { padding: 10px 16px !important; }
+	.creapub-navbar .wp-block-site-logo img { height: 55px; }
+	.creapub-navbar .wp-block-buttons { display: none; }
+	.creapub-section, .creapub-avis { padding: 40px 16px !important; }
+	.creapub-chiffres__grid { gap: 24px !important; }
+	.creapub-barre .creapub-barre__label { min-width: 100px; font-size: 11px; }
+	.creapub-logo-slide.wp-block-image { width: 120px; height: 75px; }
+	.creapub-partner.wp-block-image { width: 90px; height: 52px; }
+	.creapub-avis-card { max-width: 100%; }
+	.creapub-footer { padding: 40px 16px 20px !important; }
+	.creapub-footer .wp-block-site-logo img { height: 120px; }
+}
+@media (max-width: 480px) {
+	.creapub-navbar .wp-block-site-logo img { height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.creapub-carousel__track { animation: none; flex-wrap: wrap !important; width: auto; justify-content: center; }
+	.creapub-anim .creapub-hero * { animation: none !important; opacity: 1 !important; }
+	.creapub-barre .creapub-barre__bg::after, .creapub-carte, .creapub-avis-card { transition: none; }
+}

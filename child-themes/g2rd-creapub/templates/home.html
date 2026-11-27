@@ -1,0 +1,47 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"align":"full","backgroundColor":"noir","gradient":"halo-rose","style":{"spacing":{"padding":{"top":"3rem","bottom":"1.5rem"}}},"layout":{"type":"constrained","contentSize":"760px"}} -->
+<div class="wp-block-group alignfull has-noir-background-color has-halo-rose-gradient-background has-background" style="padding-top:3rem;padding-bottom:1.5rem">
+	<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"12.5px","letterSpacing":"0.16em","textTransform":"uppercase","fontWeight":"600"}},"textColor":"rose"} -->
+	<p class="has-text-align-center has-rose-color has-text-color" style="font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600">Le blog</p>
+	<!-- /wp:paragraph -->
+	<!-- wp:heading {"textAlign":"center","level":1} -->
+	<h1 class="wp-block-heading has-text-align-center">Nos <strong>actualités</strong></h1>
+	<!-- /wp:heading -->
+	<!-- wp:paragraph {"align":"center","textColor":"gris-txt"} -->
+	<p class="has-text-align-center has-gris-txt-color has-text-color">Chantiers récents, conseils et vie de l'atelier — toute l'actualité de votre agence à Vernon.</p>
+	<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","backgroundColor":"noir","style":{"spacing":{"padding":{"bottom":"3rem"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-noir-background-color has-background" style="padding-bottom:3rem">
+	<!-- wp:query {"query":{"postType":"post","perPage":9,"inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+			<!-- wp:group {"style":{"border":{"radius":"14px","width":"1px"}},"borderColor":"ligne","backgroundColor":"noir-3","layout":{"type":"constrained"}} -->
+			<div class="wp-block-group has-border-color has-ligne-border-color has-noir-3-background-color has-background" style="border-width:1px;border-radius:14px">
+				<!-- wp:post-featured-image {"aspectRatio":"16/9","isLink":true,"style":{"border":{"radius":"14px 14px 0 0"}},"className":"gsap-zoom-in"} /-->
+				<!-- wp:group {"style":{"spacing":{"padding":{"left":"1.1rem","right":"1.1rem","bottom":"1.1rem","top":"0.8rem"}}},"layout":{"type":"constrained"}} -->
+				<div class="wp-block-group" style="padding:0.8rem 1.1rem 1.1rem">
+					<!-- wp:post-terms {"term":"category","style":{"typography":{"fontSize":"11.5px","letterSpacing":"0.1em","textTransform":"uppercase","fontWeight":"600"}},"textColor":"rose"} /-->
+					<!-- wp:post-title {"level":2,"isLink":true,"style":{"typography":{"fontSize":"17px"}}} /-->
+					<!-- wp:post-date {"style":{"typography":{"fontSize":"12.5px"}},"textColor":"gris-soft"} /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+			<!-- wp:query-pagination-previous /-->
+			<!-- wp:query-pagination-numbers /-->
+			<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:pattern {"slug":"g2rd-creapub/bande-cta"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

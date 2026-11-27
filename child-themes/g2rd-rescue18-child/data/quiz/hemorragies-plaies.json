@@ -1,0 +1,182 @@
+{
+ "slug": "hemorragies-plaies",
+ "titre": "Hémorragies et plaies : compression, pansement et garrot",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Révise la conduite à tenir face à une hémorragie externe, la pose du garrot et la prise en charge des plaies graves.",
+ "sources": [
+  [
+   "Recommandations PS (DGSCGC), fiche 05AC05 Hémorragie externe, MAJ 06-2018",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/D%C3%A9tresse%20circulatoire/AC%20H%C3%A9morragie%20externe%20reco%20PS%202018%20%EF%80%A2%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 05FT03 Compression manuelle, MAJ 11-2021",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/06%20-%20URGENCES%20VITALES/D%C3%A9tresse%20circulatoire/FT%20Compression%20manuelle%20%28h%C3%A9morragie%29%20reco%20PS%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 06FT01 Positions d'attente et de transport, MAJ 09-2014",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/13%20-%20POSITIONS%20DATTENTE/FT%20Positions%20dattentes%20reco%20PS%202014%20%EF%80%A2%202021.pdf"
+  ],
+  [
+   "Fiche technique SSUAP SQ 2.2.1 Le garrot, MAJ 05-2024",
+   "https://enasis.fr/pluginfile.php/204761/mod_resource/content/0/FT%20-%20Le%20garrot.pdf"
+  ],
+  [
+   "Fiche procédure SSUAP SQ 2.2.1 Hémorragie externe, MAJ 05-2024",
+   "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20Hemorragie%20externe.pdf"
+  ],
+  [
+   "Fiche procédure SSUAP Les plaies, MAJ 05-2024",
+   "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20Plaies.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Comment définit-on une hémorragie externe ?",
+   "c": [
+    "Un saignement qui s'arrête seul en quelques minutes",
+    "Un saignement sous la peau sans plaie",
+    "Un épanchement de sang abondant et visible qui ne s'arrête pas spontanément",
+    "Un écoulement de sang par le nez uniquement"
+   ],
+   "a": 2,
+   "why": "L'hémorragie externe est un épanchement de sang abondant et visible, à travers une plaie, qui ne s'arrête pas spontanément. Recommandations PS, fiche 05AC05."
+  },
+  {
+   "q": "Quel est ton premier geste face à une hémorragie externe accessible ?",
+   "c": [
+    "Appuyer fortement sur l'endroit qui saigne, mains gantées",
+    "Poser un garrot",
+    "Surélever le membre sans toucher la plaie"
+   ],
+   "a": 0,
+   "why": "La compression manuelle consiste à appuyer fortement sur l'endroit qui saigne, mains protégées par des gants. Recommandations PS, fiche 05FT03."
+  },
+  {
+   "q": "Pendant la compression manuelle, que places-tu le plus tôt possible entre ta main et la plaie ?",
+   "c": [
+    "Plusieurs compresses ou un tissu propre",
+    "Un sachet de glace",
+    "Rien, le contact direct reste obligatoire"
+   ],
+   "a": 0,
+   "why": "Il faut interposer le plus tôt possible plusieurs compresses entre la main et la plaie. Recommandations PS, fiche 05FT03."
+  },
+  {
+   "q": "Jusqu'à quand maintiens-tu la compression manuelle ?",
+   "c": [
+    "Pendant 2 minutes",
+    "Jusqu'à ce que la victime se sente mieux",
+    "Jusqu'au relais par un pansement compressif",
+    "Jusqu'à l'arrivée à l'hôpital, sans exception"
+   ],
+   "a": 2,
+   "why": "La compression se maintient jusqu'au relais par un pansement compressif. Recommandations PS, fiche 05FT03."
+  },
+  {
+   "q": "Il y a plusieurs victimes et tu ne peux pas tenir la compression. Quelle solution prévoit le référentiel ?",
+   "c": [
+    "Faire appuyer la victime elle-même si elle en est capable",
+    "Laisser saigner le temps de s'occuper des autres",
+    "Poser systématiquement un garrot"
+   ],
+   "a": 0,
+   "why": "Si le secouriste ne peut pas maintenir la compression, la victime peut appuyer elle-même si elle en est capable. Recommandations PS, fiche 05FT03."
+  },
+  {
+   "q": "Dans quelle position installes-tu une victime qui saigne abondamment ?",
+   "c": [
+    "Assise",
+    "Allongée",
+    "Debout, appuyée contre un mur",
+    "En position latérale de sécurité"
+   ],
+   "a": 1,
+   "why": "La conduite à tenir prévoit d'allonger la victime avant d'observer la plaie. Fiche procédure SSUAP Hémorragie externe."
+  },
+  {
+   "q": "Dans quel cas le garrot est-il indiqué ?",
+   "c": [
+    "Pour toute plaie d'un membre",
+    "Uniquement en cas de fracture ouverte",
+    "Quand la compression directe est inefficace ou impossible"
+   ],
+   "a": 2,
+   "why": "Le garrot est indiqué lorsque la compression directe est inefficace ou impossible. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "Où poses-tu le garrot ?",
+   "c": [
+    "Sur l'articulation la plus proche de la plaie",
+    "Directement sur la plaie",
+    "À quelques centimètres de la plaie, idéalement 5 à 7 cm, entre la plaie et la racine du membre",
+    "Toujours à la racine du membre"
+   ],
+   "a": 2,
+   "why": "Le garrot se place à quelques centimètres de la plaie, idéalement 5 à 7 cm, entre la plaie et la racine du membre, jamais sur une articulation. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "Une fois le garrot serré, quelle information notes-tu obligatoirement ?",
+   "c": [
+    "La pression artérielle de la victime",
+    "L'heure de pose",
+    "Le nom du fabricant du garrot"
+   ],
+   "a": 1,
+   "why": "L'heure de pose se note sur le garrot, sur la fiche de la victime ou sur son front en cas de nombreuses victimes. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "Qui décide de desserrer un garrot ?",
+   "c": [
+    "Le secouriste toutes les 20 minutes",
+    "La victime si elle a mal",
+    "Un médecin",
+    "Le chef d'agrès à l'arrivée à l'hôpital"
+   ],
+   "a": 2,
+   "why": "Une fois posé, le garrot ne se desserre que sur ordre d'un médecin. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "Le saignement persiste malgré un garrot bien posé et resserré. Que fais-tu ?",
+   "c": [
+    "Tu poses un second garrot entre le premier et la racine du membre",
+    "Tu retires le garrot et tu recommences plus bas",
+    "Tu desserres le garrot pour soulager la victime"
+   ],
+   "a": 0,
+   "why": "Si le resserrage ne suffit pas, un second garrot se pose entre le premier et la racine du membre. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "La plaie qui saigne se situe au cou. Peux-tu poser un garrot ?",
+   "c": [
+    "Non, tu utilises une compression manuelle ou un pansement compressif",
+    "Oui, sous la plaie",
+    "Oui, au-dessus de la plaie"
+   ],
+   "a": 0,
+   "why": "Le garrot ne se pose pas sur une plaie du cou. On recourt à la compression manuelle ou au pansement compressif. Fiche SSUAP Le garrot."
+  },
+  {
+   "q": "Un objet est planté dans la plaie. Que fais-tu ?",
+   "c": [
+    "Tu le retires doucement puis tu comprimes",
+    "Tu ne le retires jamais",
+    "Tu le retires uniquement s'il est petit",
+    "Tu le coupes au ras de la peau"
+   ],
+   "a": 1,
+   "why": "Un corps étranger pénétrant ne se retire jamais. Fiche procédure SSUAP Les plaies."
+  },
+  {
+   "q": "Quelle position d'attente choisis-tu pour une plaie grave de l'abdomen ?",
+   "c": [
+    "Position demi-assise",
+    "Cuisses fléchies et jambes repliées",
+    "Allongée sur le ventre"
+   ],
+   "a": 1,
+   "why": "La position cuisses fléchies et jambes repliées est indiquée pour une plaie grave de l'abdomen. Recommandations PS, fiche 06FT01."
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "slug": "gnr-feux-forets-emplois-formations",
+ "titre": "Feux de forêts : emplois, seuils de commandement et formations FDF",
+ "theme": "Feux de forêts",
+ "niveau": "Tous niveaux",
+ "document": "Guide national de référence Feux de forêts (version V1.1, mise à jour du 26/06/2020)",
+ "resume": "Ce GNR définit les emplois et les formations feux de forêts, du FDF1 au FDF5. Il fixe les seuils de commandement, les conditions d'admission et les équivalences.",
+ "cles": [
+  "Le GNR s'applique aux sapeurs-pompiers professionnels et volontaires.",
+  "Le GNR définit cinq emplois feux de forêts.",
+  "Trois emplois relèvent du domaine spécialisé : chef de groupe, chef de colonne, chef de site.",
+  "Le chef de groupe a pour formation initiale le FDF3. Il assure aussi la surveillance dissuasive avec son groupe.",
+  "Le chef de colonne a pour formation initiale le FDF4. Il rédige un OCT, organise le PC et met en place les points de transit.",
+  "Le chef de site a pour formation initiale le FDF5. Il commande une opération feux de forêts sectorisée.",
+  "Le DIH1 forme l'équipier héliporté. Il s'adresse aux titulaires du FDF1.",
+  "Les formations AER1 à AER4 couvrent l'emploi des moyens aériens.",
+  "Les demandes d'équivalence FDF1, FDF2, DIH1, AER1 et AER2 vont au chef de corps."
+ ],
+ "retenir": [
+  "Chef de groupe : opération engageant des moyens inférieurs à 3 GIFF ou 6 unités.",
+  "Chef de colonne : moyens supérieurs ou égaux à 3 GIFF ou à 6 unités d'intervention FDF.",
+  "FDF1 et FDF2 : environ 30 h chacun. Le FDF2 exige le FDF1 et le grade de caporal au moins.",
+  "FDF3 : environ 80 h. Il exige le FDF2 et le grade de sergent au moins.",
+  "FDF4 : FDF3 détenu depuis un an au moins. FDF5 : FDF4 détenu depuis 2 ans au moins."
+ ],
+ "pieges": [
+  "Confondre les cinq emplois FDF avec les trois emplois du domaine spécialisé.",
+  "Confondre le seuil du chef de groupe, moins de 3 GIFF, et celui du chef de colonne, 3 GIFF ou plus.",
+  "Ne pas oublier la condition de grade : caporal pour le FDF2, sergent pour le FDF3.",
+  "Confondre les UV FDF, lutte au sol, et les formations AER, emploi des moyens aériens."
+ ],
+ "quiz": "feux-forets",
+ "sources": [
+  [
+   "Guide national de référence Feux de forêts, V1.1 mise à jour du 26/06/2020 (DGSCGC, 2020)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gnr-fdf-2020.pdf"
+  ]
+ ]
+}

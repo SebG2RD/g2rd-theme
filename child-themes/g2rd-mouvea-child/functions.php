@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const G2RD_MOOVEA_VERSION = '1.10.4';
+const G2RD_MOOVEA_VERSION = '1.10.6';
 
 /**
  * Polices Google Fonts du projet moovéa.
@@ -110,8 +110,8 @@ function g2rd_moovea_annee_courante( string $content ): string {
 	}
 	return str_replace( '{{annee}}', esc_html( wp_date( 'Y' ) ), $content );
 }
-add_filter( 'render_block_core_paragraph', 'g2rd_moovea_annee_courante' );
-add_filter( 'render_block_core_heading', 'g2rd_moovea_annee_courante' );
+// Filtre general : `render_block_core_paragraph` n'existe pas (voir g2rd_moovea_jetons).
+add_filter( 'render_block', 'g2rd_moovea_annee_courante' );
 
 /* ==========================================================================
    Places restantes sur l'offre Founders
@@ -360,3 +360,59 @@ function g2rd_moovea_load_textdomain(): void {
 	load_child_theme_textdomain( 'g2rd-mouvea-child', get_stylesheet_directory() . '/languages' );
 }
 add_action( 'after_setup_theme', 'g2rd_moovea_load_textdomain' );
+
+/**
+ * Titres d'affichage secables sur mobile.
+ *
+ * Un espace insecable dans un titre .mv-display soude toute la ligne : a la
+ * taille mini du clamp, « Choisissez votre rythme » faisait 429 px et poussait
+ * la page Tarifs a 446 px de large sur un ecran de 375 px (fond coupe, bouton
+ * de l'en-tete hors ecran). Le CSS ne sait pas rendre un insecable secable :
+ * on le remplace au rendu, sur ces titres uniquement. Les insecables des prix
+ * (« 80 € ») ne sont pas touches.
+ *
+ * @param string $content Rendu du bloc.
+ * @param array  $block   Bloc analyse.
+ * @return string
+ */
+function g2rd_moovea_titres_secables( string $content, array $block ): string {
+	if ( 'core/heading' !== ( $block['blockName'] ?? '' ) ) {
+		return $content;
+	}
+	if ( false === strpos( $content, 'mv-display' ) ) {
+		return $content;
+	}
+	return str_replace( array( '&nbsp;', '&#160;', "\u{00A0}" ), ' ', $content );
+}
+add_filter( 'render_block', 'g2rd_moovea_titres_secables', 10, 2 );
+
+/**
+ * Coupe la version Markdown des pages servie aux agents IA par le thème parent.
+ *
+ * G2RD\AgentDiscovery::serveMarkdown() renvoie la page en Markdown quand la
+ * requête envoie « Accept: text/markdown », avec « Cache-Control: public » et
+ * sans « Vary: Accept ». LiteSpeed et le CDN Hostinger stockent alors cette
+ * réponse sous l'URL normale et la servent ensuite aux visiteurs : page en texte
+ * brut, constatée le 24/11 sur /ines-belhamid/ dans Safari.
+ *
+ * Tant que le parent ne rend pas cette réponse non cachable, on retire le
+ * crochet sur ce site. Les agents reçoivent le HTML, comme un navigateur.
+ *
+ * @return void
+ */
+function g2rd_moovea_sans_markdown_agents(): void {
+	global $wp_filter;
+	if ( empty( $wp_filter['template_redirect'] ) ) {
+		return;
+	}
+	foreach ( $wp_filter['template_redirect']->callbacks as $priorite => $rappels ) {
+		foreach ( $rappels as $rappel ) {
+			$fn = $rappel['function'];
+			if ( is_array( $fn ) && is_object( $fn[0] ) && 'G2RD\\AgentDiscovery' === get_class( $fn[0] ) && 'serveMarkdown' === $fn[1] ) {
+				remove_action( 'template_redirect', $fn, $priorite );
+			}
+		}
+	}
+}
+add_action( 'template_redirect', 'g2rd_moovea_sans_markdown_agents', 0 );
+

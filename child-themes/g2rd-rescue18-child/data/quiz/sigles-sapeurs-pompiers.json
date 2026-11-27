@@ -1,0 +1,38 @@
+{
+ "slug": "sigles-sapeurs-pompiers",
+ "titre": "Les sigles des sapeurs-pompiers : FPT, VSAV, COS et les autres",
+ "theme": "Culture pompier",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Engins, centres, doctrine et institutions : décode quinze sigles du quotidien des sapeurs-pompiers.",
+ "sources": [
+  ["SDIS 63, Les engins incendie", "https://enasis.fr/pluginfile.php/5071/mod_folder/content/0/02%20-%20ENGINS%20INC%20V3.pdf"],
+  ["Vie-publique.fr, rapport sur les sapeurs-pompiers", "https://www.vie-publique.fr/files/rapport/pdf/114000162.pdf"],
+  ["Présentation et terminologie des moyens élévateurs aériens", "https://enasis.fr/pluginfile.php/226007/mod_resource/content/2/3%20-%20Pr%C3%A9sentation%20et%20terminologie%20MEA.pdf"],
+  ["Code général des collectivités territoriales, article R1424-44", "https://www.thetradehub.eu/en/reglementation/france/codes-nationaux/cgct-art-r1424-44"],
+  ["IRMA, Sigles", "https://www.irma-grenoble.com/PDF/05documentation/00dossiers/10acteurs/Sigles.pdf"],
+  ["DGSCGC, GDO Interventions sur les incendies de structures (2018)", "https://pnrs.ensosp.fr/content/download/40515/668868/file/GDO-incendies-de-structures-2018-V2.pdf"],
+  ["Ministère de l'Intérieur, plaquette SSUAP", "https://www.interieur.gouv.fr/content/download/133437/1057695/file/2023.01.05%20_Plaquette_SSUAP_MD_Pages.pdf"],
+  ["Gendarmerie nationale, C2NRBC", "https://www.gendarmerie.interieur.gouv.fr/gendinfo/sur-le-terrain/immersion/2020/c2nrbc-la-boite-a-outils-de-la-gendarmerie-contre-les-risques-nrbc"],
+  ["Loi n° 96-369 du 3 mai 1996 (AIDA)", "https://aida.ineris.fr/reglementation/loi-ndeg-96-369-030596-relative-services-dincendie-secours"],
+  ["France compétences, Premiers secours en équipe de niveau 1", "https://www.francecompetences.fr/recherche/rs/2573"],
+  ["Emploi public, L'ENSOSP, l'école de formation des officiers sapeurs-pompiers", "https://infos.emploipublic.fr/article/l-ensosp-l-ecole-de-formation-des-officiers-sapeurs-pompiers-eea-12241"]
+ ],
+ "questions": [
+  {"q": "Que signifie FPT ?", "c": ["Fourgon de protection technique", "Fourgon pompe tonne", "Force de première intervention", "Fourgon polyvalent de transport"], "a": 1, "why": "Le FPT est le fourgon pompe tonne, engin de base de la lutte contre l'incendie (SDIS 63)."},
+  {"q": "Que signifie VSAV ?", "c": ["Véhicule de soutien et d'appui à la victime", "Véhicule sanitaire d'aide vitale", "Véhicule de secours et d'assistance aux victimes", "Véhicule de sauvetage avancé"], "a": 2, "why": "Le VSAV est le véhicule de secours et d'assistance aux victimes (vie-publique.fr)."},
+  {"q": "Que signifie EPA ?", "c": ["Échelle pivotante automatique", "Engin de protection aérienne", "Équipe de premier appel", "Échelle portable articulée"], "a": 0, "why": "EPA signifie échelle pivotante automatique. C'est l'ancienne appellation des échelles pivotantes à mouvements combinés (EPC)."},
+  {"q": "Que signifie CCF ?", "c": ["Centre de commandement des feux", "Cellule de coordination feux", "Camion-citerne de feu urbain", "Camion-citerne feu de forêt"], "a": 3, "why": "Le CCF est le camion-citerne feu de forêt (SDIS 63)."},
+  {"q": "Que signifie CTA ?", "c": ["Centre technique d'appui", "Centre de traitement de l'alerte", "Cellule tactique d'attaque", "Commandement territorial adjoint"], "a": 1, "why": "Les centres de traitement de l'alerte reçoivent et traitent les appels d'urgence, dont le 18 (CGCT, article R1424-44)."},
+  {"q": "Que signifie CODIS ?", "c": ["Centre opérationnel départemental d'incendie et de secours", "Comité d'organisation des interventions de secours", "Commandement des opérations de défense incendie", "Centre d'orientation des secours"], "a": 0, "why": "Le CODIS est le centre opérationnel départemental d'incendie et de secours (IRMA)."},
+  {"q": "Que signifie COS ?", "c": ["Chef des opérations sanitaires", "Coordinateur opérationnel de sécurité", "Commandant des opérations de secours", "Centre opérationnel de soutien"], "a": 2, "why": "Le COS est l'officier qui commande les opérations de secours. Il ne faut pas le confondre avec le DOS, directeur des opérations de secours (GDO incendies de structures)."},
+  {"q": "Que signifie GDO ?", "c": ["Groupe de défense opérationnelle", "Guide des officiers", "Garde départementale opérationnelle", "Guide de doctrine opérationnelle"], "a": 3, "why": "Le GDO est un guide de doctrine opérationnelle, publié par la DGSCGC, comme celui sur les incendies de structures."},
+  {"q": "Que signifie RETEX ?", "c": ["Retour d'expérience", "Relève technique d'extinction", "Réseau d'extinction", "Retrait d'exercice"], "a": 0, "why": "Le RETEX, ou REX, est le retour d'expérience (GDO incendies de structures)."},
+  {"q": "Que signifie PSE ?", "c": ["Protection sanitaire d'équipe", "Premiers secours en équipe", "Poste de secours d'entreprise", "Plan de sauvegarde de l'environnement"], "a": 1, "why": "PSE signifie premiers secours en équipe. Le niveau 1 est une certification du ministère de l'Intérieur (France compétences)."},
+  {"q": "Que signifie SSUAP ?", "c": ["Service de santé d'urgence et d'aide publique", "Soutien sanitaire aux unités d'appui", "Secours et soins d'urgence aux personnes", "Sauvetage et secours en unité aquatique"], "a": 2, "why": "Le SSUAP désigne le secours et soins d'urgence aux personnes (ministère de l'Intérieur)."},
+  {"q": "Que signifie NRBC ?", "c": ["Nucléaire, radiologique, biologique, chimique", "Neutralisation des risques en bâtiment clos", "Niveau de risque bas ou critique", "Nouvelles règles de balisage et de circulation"], "a": 0, "why": "NRBC désigne les risques nucléaires, radiologiques, biologiques ou chimiques (Gendarmerie nationale)."},
+  {"q": "Que signifie SDIS ?", "c": ["Service de défense incendie et de sauvetage", "Syndicat départemental des intervenants de secours", "Service des interventions spécialisées", "Service départemental d'incendie et de secours"], "a": 3, "why": "Le SDIS est le service départemental d'incendie et de secours, créé dans chaque département par la loi du 3 mai 1996."},
+  {"q": "Que signifie DGSCGC ?", "c": ["Direction générale des services de commandement et de garde civile", "Direction générale de la sécurité civile et de la gestion des crises", "Délégation générale aux secours civils et à la gendarmerie", "Direction de la garde et de la sécurité des collectivités"], "a": 1, "why": "La DGSCGC est la direction générale de la Sécurité civile et de la gestion des crises, au ministère de l'Intérieur."},
+  {"q": "Que signifie ENSOSP ?", "c": ["École nationale des secours et des opérations de sécurité publique", "Établissement national de soutien aux officiers et sous-officiers", "École nationale supérieure des officiers sapeurs-pompiers", "École normale de sécurité opérationnelle"], "a": 2, "why": "L'ENSOSP est l'école nationale supérieure des officiers sapeurs-pompiers, implantée principalement à Aix-en-Provence (Emploi public)."}
+ ]
+}

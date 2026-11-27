@@ -1,0 +1,521 @@
+/* ==========================================================================
+   Rescue 18 · socle : alias de jetons, base, boutons, étiquettes, cartes.
+   Toutes les couleurs viennent de theme.json (presets r18-*). Les rgba des
+   ombres et halos décoratifs restent locaux : ils ne portent pas la charte.
+   ========================================================================== */
+
+:root {
+	--r18-red: var(--wp--preset--color--r18-rouge, #E21422);
+	--r18-red-d: var(--wp--preset--color--r18-rouge-fonce, #C90E1B);
+	/* Rouge des petits textes et liens : 4,5:1 minimum sur tous les fonds clairs (RGAA 3.2). */
+	--r18-red-text: var(--wp--preset--color--r18-rouge-texte, #BE0C19);
+	/* Bordure des champs de formulaire : 3:1 minimum (RGAA 3.3). */
+	--r18-field: var(--wp--preset--color--r18-bordure, #7E8896);
+	--r18-bordeaux: var(--wp--preset--color--r18-bordeaux, #8C0E1C);
+	--r18-vif: var(--wp--preset--color--r18-rouge-vif, #FF4B58);
+	--r18-rose: var(--wp--preset--color--r18-rose, #FFF0F2);
+	--r18-ink: var(--wp--preset--color--r18-encre, #111319);
+	--r18-night: var(--wp--preset--color--r18-nuit, #10141D);
+	--r18-night-2: var(--wp--preset--color--r18-nuit-2, #151B28);
+	--r18-foot: var(--wp--preset--color--r18-pied, #11161F);
+	--r18-slate: var(--wp--preset--color--r18-ardoise, #4F5968);
+	--r18-grey: var(--wp--preset--color--r18-gris, #535D6A);
+	--r18-line: var(--wp--preset--color--r18-gris-clair, #E1E5E9);
+	--r18-filet: var(--wp--preset--color--r18-filet, #EEF0F3);
+	--r18-bg: var(--wp--preset--color--r18-brume, #F5F6F8);
+	--r18-white: var(--wp--preset--color--r18-blanc, #FFFFFF);
+	--r18-ok: var(--wp--preset--color--r18-vert, #11643B);
+	--r18-ok-bg: var(--wp--preset--color--r18-vert-fond, #E9F7EF);
+	--r18-wait: var(--wp--preset--color--r18-ambre, #8A5300);
+	--r18-wait-bg: var(--wp--preset--color--r18-ambre-fond, #FFF6E5);
+	--r18-surface: var(--wp--preset--color--surface, #F1F3F6);
+	--r18-shadow: var(--wp--preset--shadow--carte, 0 12px 26px rgba(14,22,35,.045));
+	--r18-shadow-hover: var(--wp--preset--shadow--carte-survol, 0 22px 44px rgba(14,22,35,.14));
+	--r18-shadow-panel: var(--wp--preset--shadow--panneau, 0 22px 55px rgba(13,21,33,.07));
+	--r18-wrap: 1254px;
+	--r18-gutter: var(--wp--preset--spacing--gouttiere, clamp(1.25rem, 0.5rem + 3vw, 3rem));
+	--r18-hdr: var(--wp--custom--header--height, 78px);
+	--r18-ease: cubic-bezier(.19, 1, .22, 1);
+}
+
+/* Base ------------------------------------------------------------------- */
+body.r18 {
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+.r18 *,
+.r18 *::before,
+.r18 *::after { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--r18-hdr) + 16px); }
+.r18 ::selection { background: rgba(226, 20, 34, .16); }
+.r18 :where(a, button, input, select, textarea, summary):focus-visible {
+	outline: 3px solid var(--r18-red);
+	outline-offset: 3px;
+}
+.r18 img { max-width: 100%; height: auto; }
+.r18-svg {
+	width: 18px;
+	height: 18px;
+	flex: none;
+	vertical-align: middle;
+}
+.r18-red,
+.r18 mark.r18-red { color: var(--r18-red); background: none; }
+.r18-mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8125rem; }
+.r18-na { color: var(--r18-grey); font-weight: 500; }
+
+/* Icônes en masque (classes r18-i--*, voir icons.css) */
+.r18-ico::before,
+[class*="r18-i--"] > a::before {
+	content: "";
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask: var(--r18-icon) center / contain no-repeat;
+	mask: var(--r18-icon) center / contain no-repeat;
+}
+
+/* Surtitre ---------------------------------------------------------------- */
+.r18-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: var(--wp--custom--tracking--label, 0.16em);
+	font-size: var(--wp--preset--font-size--label, 0.6875rem);
+	font-weight: 900;
+	line-height: 1.3;
+	color: var(--r18-red-text);
+}
+.r18-eyebrow::before {
+	content: "";
+	width: 25px;
+	height: 3px;
+	border-radius: 4px;
+	background: currentColor;
+	flex: none;
+}
+.r18-on-dark .r18-eyebrow,
+.r18-eyebrow.is-vif { color: var(--r18-vif); }
+
+/* Titres de section ------------------------------------------------------- */
+.r18-h2,
+.r18 .r18-h2 {
+	font-size: var(--wp--preset--font-size--xl, clamp(2.125rem, 1.2rem + 3.4vw, 3.875rem));
+	line-height: 1.04;
+	letter-spacing: var(--wp--custom--tracking--titre, -0.055em);
+	font-weight: 900;
+	margin: 12px 0 14px;
+}
+.r18-lead {
+	max-width: 600px;
+	color: var(--r18-slate);
+	font-size: 1rem;
+	line-height: 1.6;
+	margin: 0;
+}
+.r18-on-dark .r18-lead { color: #bec5d1; }
+.r18-head {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	margin-bottom: 30px !important; /* le gap de bloc du parent s'appliquerait sinon */
+	flex-wrap: wrap;
+}
+.r18-head > * { margin-block: 0; }
+.r18-section {
+	padding-block: var(--wp--preset--spacing--xl, clamp(4.125rem, 3rem + 3vw, 5.625rem)) !important;
+}
+.r18-section.has-r18-blanc-background-color,
+.r18-section--blanc { background: var(--r18-white); }
+
+/* Liens fléchés ----------------------------------------------------------- */
+.r18-link,
+.r18-more a {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font-weight: 800;
+	font-size: .875rem;
+	color: var(--r18-ink);
+	text-decoration: none;
+}
+.r18-link--small { font-size: .75rem; }
+.r18-more { margin: 0; }
+.r18-more a::after {
+	content: "";
+	width: 18px;
+	height: 18px;
+	background: currentColor;
+	-webkit-mask: var(--r18-arrow) center / contain no-repeat;
+	mask: var(--r18-arrow) center / contain no-repeat;
+}
+.r18-link:hover,
+.r18-more a:hover { color: var(--r18-red-text); }
+
+/* Boutons ----------------------------------------------------------------- */
+.r18-btn,
+.r18 .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 48px;
+	padding: 0 20px;
+	border-radius: 12px;
+	font-size: .875rem;
+	font-weight: 800;
+	line-height: 1.2;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	cursor: pointer;
+	font-family: inherit;
+	text-decoration: none;
+	transition: transform .25s, box-shadow .25s, background-color .25s, color .25s;
+}
+.r18-btn:hover,
+.r18 .wp-block-button__link:hover { transform: translateY(-3px); }
+.r18-btn--red {
+	background: var(--r18-red);
+	color: var(--r18-white);
+	box-shadow: var(--wp--preset--shadow--rouge, 0 12px 24px rgba(226,20,34,.23));
+}
+.r18-btn--red:hover,
+.r18-btn--red:focus-visible {
+	background: var(--r18-red-d);
+	color: var(--r18-white);
+	box-shadow: 0 17px 32px rgba(226, 20, 34, .3);
+}
+.r18-btn--dark,
+.r18 .is-style-r18-sombre .wp-block-button__link {
+	background: var(--r18-night);
+	color: var(--r18-white);
+	box-shadow: none;
+}
+.r18-btn--dark:hover,
+.r18 .is-style-r18-sombre .wp-block-button__link:hover { color: var(--r18-white); background: var(--r18-ink); }
+.r18-btn--white,
+.r18 .is-style-r18-blanc .wp-block-button__link {
+	background: var(--r18-white);
+	color: var(--r18-ink);
+	border-color: var(--r18-line);
+	box-shadow: 0 9px 22px rgba(0, 0, 0, .05);
+}
+.r18-btn--white:hover,
+.r18 .is-style-r18-blanc .wp-block-button__link:hover { color: var(--r18-red-text); background: var(--r18-white); }
+.r18 .is-style-r18-lien .wp-block-button__link {
+	background: none;
+	box-shadow: none;
+	padding: 0;
+	min-height: 0;
+	color: var(--r18-ink);
+}
+.r18 .is-style-r18-lien .wp-block-button__link:hover { color: var(--r18-red-text); }
+.r18-btn--block { width: 100%; }
+.r18-btn .r18-svg { width: 17px; height: 17px; }
+
+/* Flèche après le libellé des boutons (classe r18-arrow sur le bouton) */
+:root { --r18-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16m-7-7 7 7-7 7'/%3E%3C/svg%3E"); }
+.r18 .r18-arrow .wp-block-button__link::after {
+	content: "";
+	width: 17px;
+	height: 17px;
+	background: currentColor;
+	-webkit-mask: var(--r18-arrow) center / contain no-repeat;
+	mask: var(--r18-arrow) center / contain no-repeat;
+}
+.r18 .wp-block-buttons { gap: 11px; }
+
+/* Étiquettes, pastilles --------------------------------------------------- */
+.r18-chip {
+	display: inline-flex;
+	align-items: center;
+	align-self: flex-start;
+	font-weight: 900;
+	font-size: .625rem;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	background: var(--r18-red);
+	color: var(--r18-white);
+	border-radius: 5px;
+	padding: 6px 9px;
+	line-height: 1.2;
+}
+.r18-chip a { color: inherit; }
+.r18-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: .6875rem;
+	font-weight: 800;
+	border-radius: 100px;
+	padding: 5px 10px;
+	line-height: 1.2;
+	background: var(--r18-rose);
+	color: #b0102a;
+	border: 1px solid #f5d7dc;
+	white-space: nowrap;
+}
+.r18-pill--ok { background: var(--r18-ok-bg); color: var(--r18-ok); border-color: #c7ead5; }
+.r18-pill--wait { background: var(--r18-wait-bg); color: var(--r18-wait); border-color: #f3dfb4; }
+.r18-pill--grey { background: var(--r18-surface); color: var(--r18-slate); border-color: var(--r18-line); }
+
+.r18-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.r18-tag {
+	font-size: .6875rem;
+	font-weight: 900;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	padding: 7px 10px;
+	border-radius: 8px;
+	background: var(--r18-red);
+	color: var(--r18-white);
+}
+.r18-tag--ghost { background: rgba(255, 255, 255, .12); }
+.r18-light .r18-tag--ghost { background: var(--r18-surface); color: var(--r18-slate); }
+.r18-state {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font-size: .75rem;
+	font-weight: 800;
+	border-radius: 100px;
+	padding: 6px 11px;
+	background: var(--r18-surface);
+	color: var(--r18-slate);
+	border: 1px solid var(--r18-line);
+}
+.r18-state i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.r18-state--en-vigueur { background: var(--r18-ok-bg); color: var(--r18-ok); }
+.r18-state--modifie { background: var(--r18-wait-bg); color: var(--r18-wait); }
+
+/* Cartes éditoriales ------------------------------------------------------ */
+.r18-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--r18-line);
+	background: var(--r18-white);
+	border-radius: var(--wp--custom--radius--l, 21px);
+	overflow: hidden;
+	box-shadow: var(--r18-shadow);
+	transition: transform .32s, box-shadow .32s;
+}
+.r18-card:hover { transform: translateY(-7px) rotateX(1deg); box-shadow: var(--r18-shadow-hover); }
+.r18-card h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.r18-card__body {
+	padding: 22px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex: 1;
+}
+.r18-card__body h3,
+.r18-card .wp-block-post-title {
+	font-size: 1.375rem;
+	line-height: 1.16;
+	letter-spacing: -.045em;
+	margin: 0;
+	font-weight: 900;
+}
+.r18-card__body p,
+.r18-card .wp-block-post-excerpt { font-size: .8125rem; line-height: 1.55; color: var(--r18-grey); margin: 0; }
+.r18-card .wp-block-post-excerpt__excerpt { margin: 0; }
+.r18-meta,
+.r18-card .wp-block-post-date,
+.r18-card .wp-block-post-author-name { color: var(--r18-grey); font-size: .75rem; margin-top: auto; }
+
+/* Couverture : image à la une, sinon dégradé « 18 » de la maquette */
+.r18-cover,
+.r18-card .wp-block-post-featured-image {
+	position: relative;
+	height: 222px;
+	margin: 0;
+	overflow: hidden;
+	background:
+		radial-gradient(circle at 82% 13%, rgba(246, 77, 57, .75), transparent 37%),
+		linear-gradient(125deg, #192231, #5f2730, #0b141f);
+}
+.r18-cover img,
+.r18-card .wp-block-post-featured-image img { width: 100%; height: 100%; object-fit: cover; }
+.r18-cover::after,
+.r18-card .wp-block-post-featured-image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(0deg, rgba(0, 0, 0, .32), transparent 72%);
+	pointer-events: none;
+}
+
+/* Placeholders lisibles (4,5:1) */
+.r18 ::placeholder { color: var(--r18-grey); opacity: 1; }
+.r18-cover__mark {
+	position: absolute;
+	right: -3%;
+	bottom: -24%;
+	font-size: 270px;
+	line-height: 1;
+	font-weight: 900;
+	font-style: italic;
+	letter-spacing: -.1em;
+	color: var(--r18-white);
+	opacity: .08;
+}
+.r18-card:nth-child(3n+2) .r18-cover,
+.r18-card:nth-child(3n+2) .wp-block-post-featured-image {
+	background: radial-gradient(circle at 69% 27%, rgba(255, 78, 64, .5), transparent 40%), linear-gradient(112deg, #132131, #314a53, #10141e);
+}
+.r18-card:nth-child(3n) .r18-cover,
+.r18-card:nth-child(3n) .wp-block-post-featured-image {
+	background: radial-gradient(ellipse at 25% 68%, rgba(251, 108, 16, .75), transparent 36%), linear-gradient(120deg, #1b0e13, #422126, #09141f);
+}
+.r18-cards {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+}
+.r18-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Encadrés ---------------------------------------------------------------- */
+.r18-box {
+	background: var(--r18-white);
+	border: 1px solid var(--r18-line);
+	border-radius: 20px;
+	padding: 22px;
+}
+.r18-box h2,
+.r18-box-title {
+	font-size: .75rem !important;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	margin: 0 0 14px;
+	color: var(--r18-grey);
+	font-weight: 900;
+}
+.r18-panel {
+	background: var(--r18-white);
+	border: 1px solid var(--r18-line);
+	border-radius: 22px;
+	padding: 30px !important;
+	box-shadow: 0 18px 40px rgba(13, 21, 33, .05);
+}
+.r18-panel > .r18-eyebrow + h2 {
+	font-size: clamp(1.5rem, 2.6vw, 2rem);
+	line-height: 1.1;
+	letter-spacing: -.045em;
+	margin: 10px 0 16px;
+}
+
+/* Champs ------------------------------------------------------------------ */
+.r18-input,
+.r18-select {
+	height: 42px;
+	border: 1px solid var(--r18-field);
+	border-radius: 11px;
+	padding: 0 12px;
+	font: inherit;
+	font-size: .8125rem;
+	background: var(--r18-white);
+	color: var(--r18-ink);
+}
+
+/* Pagination -------------------------------------------------------------- */
+.r18-pagination,
+.r18 .wp-block-query-pagination {
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 36px;
+}
+.r18-pagination .page-numbers,
+.r18 .wp-block-query-pagination a,
+.r18 .wp-block-query-pagination .page-numbers {
+	min-width: 42px;
+	height: 42px;
+	padding: 0 12px;
+	display: inline-grid;
+	place-items: center;
+	border-radius: 11px;
+	border: 1px solid var(--r18-line);
+	background: var(--r18-white);
+	font-weight: 800;
+	font-size: .8125rem;
+}
+.r18-pagination .current,
+.r18 .wp-block-query-pagination .current { background: var(--r18-ink); color: var(--r18-white); border-color: var(--r18-ink); }
+
+/* Apparition au défilement : rien n'est masqué sans JavaScript ------------ */
+.r18-motion .r18-reveal {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity .8s ease, transform .8s var(--r18-ease);
+}
+.r18-motion .r18-reveal.is-shown { opacity: 1; transform: none; }
+
+@keyframes r18-lev { 50% { transform: translateY(-16px); } }
+@keyframes r18-fl { 50% { translate: 0 -11px; } }
+@keyframes r18-oa { 50% { rotate: 180deg; } }
+@keyframes r18-ob { 50% { rotate: -180deg; } }
+@keyframes r18-sh { 50% { translate: 0 7px; opacity: .2; } }
+@keyframes r18-mq { to { transform: translateX(-50%); } }
+
+@media (max-width: 1180px) {
+	.r18-cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+	.r18-cards { grid-template-columns: 1fr; }
+	.r18-head { align-items: flex-start; }
+}
+@media (max-width: 560px) {
+	.r18-cards--4 { grid-template-columns: 1fr; }
+	.r18-btn,
+	.r18 .wp-block-button__link { font-size: .8125rem; padding: 0 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.r18 *,
+	.r18 *::before,
+	.r18 *::after {
+		animation-duration: .001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .001ms !important;
+	}
+	.r18-motion .r18-reveal { opacity: 1; transform: none; }
+}
+
+/* Filets de sécurité : la charte reste correcte même si WordPress ne génère
+   pas les classes de couleur des presets (cache, version du parent). */
+.r18 .has-r18-rouge-color { color: var(--r18-red) !important; }
+.r18 .has-r18-rouge-vif-color { color: var(--r18-vif) !important; }
+.r18 .r18-on-dark :is(h1, h2, h3, h4),
+.r18 .r18-on-dark .wp-block-post-title { color: var(--r18-white); }
+.r18 .r18-on-dark .r18-eyebrow { color: var(--r18-vif); }
+
+/* Autonomie du thème : boutons, titres et fond ne dépendent pas des styles
+   globaux générés par WordPress (variation, presets). */
+body.r18 {
+	background: var(--r18-bg);
+	color: var(--r18-ink);
+	font-family: var(--wp--preset--font-family--inter, Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif);
+}
+.r18 :where(h1, h2, h3, h4) { color: var(--r18-ink); font-weight: 900; }
+.r18 .wp-block-button__link {
+	background-color: var(--r18-red);
+	color: var(--r18-white);
+	box-shadow: var(--wp--preset--shadow--rouge, 0 12px 24px rgba(226, 20, 34, .23));
+}
+.r18 .wp-block-button__link:hover,
+.r18 .wp-block-button__link:focus-visible { background-color: var(--r18-red-d); color: var(--r18-white); }
+.r18 .is-style-r18-blanc .wp-block-button__link,
+.r18 .is-style-r18-sombre .wp-block-button__link,
+.r18 .is-style-r18-lien .wp-block-button__link { box-shadow: none; }
+.r18 .is-style-r18-blanc .wp-block-button__link { box-shadow: 0 9px 22px rgba(0, 0, 0, .05); }
+.r18 .r18-on-dark .is-style-r18-blanc .wp-block-button__link,
+.r18 .r18-pod-panel .is-style-r18-blanc .wp-block-button__link { background: var(--r18-white); color: var(--r18-ink); }
+.r18 .r18-pod-panel :is(h1, h2, h3),
+.r18 .r18-legal-vis :is(h1, h2, h3, p),
+.r18 .r18-tool.is-feat :is(h3, p, a) { color: var(--r18-white); }
+.r18 .r18-pod-panel p:not(.r18-eyebrow) { color: #cfd6df; }

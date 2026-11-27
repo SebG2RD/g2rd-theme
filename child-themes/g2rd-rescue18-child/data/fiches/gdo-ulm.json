@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-ulm",
+ "titre": "Interventions sur ULM : parachute pyrotechnique, carburant, conduite à tenir",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle « Interventions sur des aéronefs de type Ultra Léger Motorisé » (GDO V1-2017, DGSCGC, décembre 2017)",
+ "resume": "Un ULM transporte 2 personnes au plus et embarque parfois un parachute balistique, actif même après le crash. Tu approches avec prudence, tu restes hors de la zone d'éjection et tu préserves le site pour le BEA.",
+ "cles": [
+  "La France compte 6 classes d'ULM : paramoteur, pendulaire, multiaxes, autogire, aérostat dirigeable et hélicoptère ultraléger.",
+  "Masse maximale de la plupart des classes : 300 kg en monoplace, 450 kg en biplace.",
+  "Pathologies dominantes : traumatismes et brûlures. La structure légère ne demande pas de moyens de désincarcération lourds.",
+  "Carburant : d'une dizaine à une centaine de litres, type super sans plomb, plus rarement kérosène, en réservoir plastique ou résine.",
+  "Le parachute balistique comprend un parachute, une charge pyrotechnique, un câble de commande et une poignée de déclenchement.",
+  "Son signalement reste une recommandation et disparaît parfois après impact et feu. Le système reste actif et instable.",
+  "60 % des accidents surviennent sur les lieux de décollage et d'atterrissage ou à proximité immédiate.",
+  "Aéronef en difficulté : contacte l'ARCC de Lyon par son numéro d'urgence unique, le 191.",
+  "Feu d'ULM : tenue de feu et protection respiratoire obligatoires, engagements limités, mousse selon la quantité de carburant.",
+  "La neutralisation du parachute relève des services de déminage."
+ ],
+ "retenir": [
+  "Le parachute s'éjecte sur une vingtaine de mètres à grande vitesse. Considère sa présence dans tous les cas.",
+  "Décès manifeste des occupants : zone d'exclusion de 100 m autour de l'aéronef jusqu'à la levée de doute sur le parachute.",
+  "Conseils aux témoins : se tenir à une centaine de mètres, gestes de premiers secours si possible, balisage, guidage des secours.",
+  "BEA (bureau d'enquêtes et d'analyses) : accès immédiat au site. Aucun prélèvement ni déplacement de l'épave sans son autorisation expresse.",
+  "Désincarcération : avance prudemment pour ne pas sectionner les câbles du parachute, puis verbalise tes actions aux enquêteurs."
+ ],
+ "pieges": [
+  "Ne pas te fier à l'absence de marquage : considère le parachute présent.",
+  "Ne pas déduire une ligne d'approche de l'emplacement du parachute : il reste aléatoire d'un appareil à l'autre.",
+  "Ne pas modifier l'état du site avant l'arrivée du BEA, sauf si les secours l'imposent.",
+  "Ne pas négliger le carburant sans feu : explosion à l'air libre, inflammation, pollution.",
+  "Ne pas compter sur un interlocuteur sur un aérodrome non contrôlé : sans tour de contrôle, aucun n'est garanti."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Interventions sur des aéronefs de type ULM, Guide de doctrine opérationnelle (DGSCGC, 2017)",
+   "https://rescue18.com/wp-content/uploads/2023/11/gdo-interventions_sur_des_aeronefs_type_ulm_2017.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:2017-08-24 01 Ultralight aircraft, Silence Twister (G-FUUN) at Kulusuk, Eastern Greenland.jpg",
+   "auteur": "Gordon Leggett",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:2017-08-24_01_Ultralight_aircraft,_Silence_Twister_(G-FUUN)_at_Kulusuk,_Eastern_Greenland.jpg",
+   "alt": "ULM orange stationné sur une piste en gravier."
+  },
+  {
+   "fichier": "File:Microlight aircraft at Leven beach - geograph.org.uk - 6520495.jpg",
+   "auteur": "Bill Kasman",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Microlight_aircraft_at_Leven_beach_-_geograph.org.uk_-_6520495.jpg",
+   "alt": "ULM pendulaire posé sur une plage."
+  }
+ ]
+}

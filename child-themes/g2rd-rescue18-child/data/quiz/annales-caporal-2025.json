@@ -1,0 +1,137 @@
+{
+  "slug": "annales-caporal-2025",
+  "titre": "Concours caporal 2025 : le QCM de maths de la session",
+  "theme": "Concours",
+  "niveau": "Caporal",
+  "duree": "15 min",
+  "resume": "Rejoue 11 questions du QCM de mathématiques du concours externe de caporal 2025. Durées, vitesses, débits, pourcentages : chaque calcul est détaillé.",
+  "sources": [
+    [
+      "Sujet officiel, concours externe de caporal SPP 2025, QCM de mathématiques (SDMIS et CDG 69, publié par les CDG Auvergne-Rhône-Alpes)",
+      "https://www.cdg-aura.fr/sites/default/files/Annales/2025-capospp-qcm-math.pdf"
+    ]
+  ],
+  "questions": [
+    {
+      "q": "Un malaise survient à 9 h 51 min 30 s. Un citoyen sauveteur alerté par l'application se trouve à 12 min 40 s de trajet. À quelle heure arrive-t-il auprès de la victime ?",
+      "c": [
+        "10 h 04 min 30 s",
+        "10 h 04 min 10 s",
+        "9 h 04 min 10 s",
+        "9 h 53 min 10 s"
+      ],
+      "a": 1,
+      "why": "9 h 51 min 30 s + 12 min 40 s donne 10 h 04 min 10 s. Ajoute d'abord les secondes, puis les minutes."
+    },
+    {
+      "q": "Un autre citoyen sauveteur parcourt 1 500 m en 9 min. Quelle est sa vitesse en km/h ?",
+      "c": [
+        "9,5 km/h",
+        "10 km/h",
+        "9 km/h",
+        "8 km/h"
+      ],
+      "a": 1,
+      "why": "1,5 km en 9 min, soit 0,15 h. 1,5 divisé par 0,15 donne 10 km/h."
+    },
+    {
+      "q": "Un engin roule 7,5 km à 50 km/h, puis 5,25 km à 70 km/h. Combien de temps dure le trajet ?",
+      "c": [
+        "12 min 50 s",
+        "12 min 30 s",
+        "13 min 30 s",
+        "13 min 50 s"
+      ],
+      "a": 2,
+      "why": "7,5 / 50 = 0,15 h, soit 9 min. 5,25 / 70 = 0,075 h, soit 4 min 30 s. Total : 13 min 30 s."
+    },
+    {
+      "q": "Les sapeurs-pompiers ont réalisé 4 284 900 interventions de secours en 2022 et 4 082 224 en 2023. De quel pourcentage ce nombre a-t-il baissé ?",
+      "c": [
+        "9,5 %",
+        "0,95 %",
+        "5,73 %",
+        "4,73 %"
+      ],
+      "a": 3,
+      "why": "Écart : 202 676. 202 676 divisé par 4 284 900 donne 0,0473, soit une baisse de 4,73 %."
+    },
+    {
+      "q": "En 2023, les centres de traitement de l'alerte ont décroché 18 526 517 appels. Les trois cinquièmes venaient du 18, le reste du 112. Combien d'appels venaient du 112, à l'unité près ?",
+      "c": [
+        "6 175 506",
+        "3 705 303",
+        "7 410 607",
+        "11 115 910"
+      ],
+      "a": 2,
+      "why": "Le 112 représente 2/5 des appels. 18 526 517 × 2 / 5 = 7 410 606,8, arrondi à 7 410 607."
+    },
+    {
+      "q": "Un poteau d'incendie délivre 45 m³/h. Les secours utilisent 4 poteaux pendant 3 heures. Quel volume d'eau ont-ils utilisé ?",
+      "c": [
+        "540 000 L",
+        "585 m³",
+        "146,25 m³",
+        "135 000 L"
+      ],
+      "a": 0,
+      "why": "45 × 4 × 3 = 540 m³, soit 540 000 L."
+    },
+    {
+      "q": "Un ARI consomme 90 L d'air par minute. La bouteille contient 1 800 L d'air. Combien de minutes dure l'air si toute la bouteille est utilisée ?",
+      "c": [
+        "20 min",
+        "25 min",
+        "15 min",
+        "30 min"
+      ],
+      "a": 0,
+      "why": "1 800 divisé par 90 donne 20 minutes."
+    },
+    {
+      "q": "Il faut 3 L/min par m² de bâtiment. L'extinction dure 1 heure et consomme 9 000 L d'eau. Quelle est la surface du bâtiment ?",
+      "c": [
+        "60 m²",
+        "65 m²",
+        "50 m²",
+        "55 m²"
+      ],
+      "a": 2,
+      "why": "9 000 L en 60 min donnent 150 L/min. 150 divisé par 3 L/min/m² donne 50 m²."
+    },
+    {
+      "q": "Un camion-citerne feux de forêts contient 2 500 L. Le tuyau branché sur sa pompe débite 30 m³/h. En combien de temps la citerne est-elle vide ?",
+      "c": [
+        "10 min",
+        "20 min",
+        "15 min",
+        "5 min"
+      ],
+      "a": 3,
+      "why": "30 m³/h donnent 500 L/min. 2 500 divisé par 500 donne 5 minutes."
+    },
+    {
+      "q": "Une boule de glace sphérique mesure 40 cm³. Avec π = 3,14, quel est son rayon ?",
+      "c": [
+        "2,5 cm",
+        "2,12 cm",
+        "2 cm",
+        "1,8 cm"
+      ],
+      "a": 1,
+      "why": "V = 4/3 × π × r³. r³ = 40 × 3 / (4 × 3,14), soit 9,55. La racine cubique donne 2,12 cm."
+    },
+    {
+      "q": "Sur 180 coupes vendues, 65 % ont une boule à 2,80 €, les autres deux boules à 3,50 €. Quelle est la recette totale ?",
+      "c": [
+        "548,10 €",
+        "585,90 €",
+        "504 €",
+        "630 €"
+      ],
+      "a": 0,
+      "why": "117 coupes × 2,80 € = 327,60 €. 63 coupes × 3,50 € = 220,50 €. Total : 548,10 €."
+    }
+  ]
+}

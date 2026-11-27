@@ -1,0 +1,57 @@
+{
+ "slug": "gto-ventilation-operationnelle",
+ "titre": "Ventilation opérationnelle : entrants, sortants et sécurité",
+ "theme": "Incendie",
+ "niveau": "Tous niveaux",
+ "document": "Guide de techniques opérationnelles : Ventilation opérationnelle",
+ "resume": "La ventilation opérationnelle agit sur les flux de gaz et de chaleur en ouvrant ou en fermant des ouvrants, avec ou sans ventilateur. Elle sert à protéger, désenfumer ou attaquer.",
+ "cles": [
+  "Un entrant fait entrer l'air frais. Un sortant laisse sortir les fumées.",
+  "Deux moteurs déplacent les gaz : les différences de pression, comme le vent, et les différences de température.",
+  "La ventilation poursuit trois objectifs : protéger, désenfumer, attaquer.",
+  "La ventilation naturelle repose sur le vent ou la température. La ventilation mécanique utilise des ventilateurs.",
+  "La VPP sert à protéger, désenfumer ou attaquer.",
+  "En ventilation d'attaque, place le sortant près du feu, en partie haute.",
+  "Un sortant de moins de 1 m² risque d'être trop petit.",
+  "Le recloisonnement est rapide et peu risqué.",
+  "En protection par mise en pression, la puissance du ventilateur dépend des fuites et non du volume.",
+  "L'antiventilation limite l'apport d'air au feu."
+ ],
+ "retenir": [
+  "Ne place jamais victimes ou équipes entre le feu et un sortant lors d'une ventilation d'attaque.",
+  "Les équipes ne passent jamais par le sortant.",
+  "Vent défavorable de plus de 18 km/h (5 m/s) : la ventilation d'attaque devient risquée.",
+  "Ventilateur thermique : reste vigilant au monoxyde de carbone.",
+  "Local borgne : ventilateur à environ 1 m de l'ouverture, 2 m pour un ventilateur à jet concentré."
+ ],
+ "pieges": [
+  "Confondre entrant et sortant.",
+  "Ne pas lancer une ventilation d'attaque dans un grand volume : tu suroxygènes le feu.",
+  "Ne pas compter sur une porte fermée si d'autres ouvertures existent.",
+  "Ne pas placer le ventilateur à moins de 1 m de l'ouverture : risque de réaspiration.",
+  "Ne pas oublier de vérifier le cheminement de l'air, comme une porte qui se referme sous le courant d'air."
+ ],
+ "quiz": "ventilation-operationnelle",
+ "sources": [
+  [
+   "Guide de techniques opérationnelles : Ventilation opérationnelle (DGSCGC, 2019)",
+   "https://pnrs.ensosp.fr/content/download/40517/668891/file/GTO%20ventilation%20operationnelle_VF_2019.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:High-Rise Fire Test; Positive Pressure Ventilation Fans (5887634583).jpg",
+   "auteur": "National Institute of Standards and Technology",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:High-Rise_Fire_Test;_Positive_Pressure_Ventilation_Fans_(5887634583).jpg",
+   "alt": "Fumée noire sortant d'un immeuble lors d'un essai de ventilation."
+  },
+  {
+   "fichier": "File:Altus AFB hosts training for community firefighters 150625-F-HB285-158.jpg",
+   "auteur": "Airman 1st Class Megan Acs",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Altus_AFB_hosts_training_for_community_firefighters_150625-F-HB285-158.jpg",
+   "alt": "Pompiers sous ARI pratiquant la ventilation hydraulique par une fenêtre."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-gaz-fuite-conduite",
+ "titre": "Fuite de gaz sur réseau ou en bâtiment : mesures, périmètres et coupure",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Interventions en présence de gaz (DGSCGC, 1re édition, décembre 2021)",
+ "resume": "Une fuite de gaz non maîtrisée expose à l'explosion. Tu poses un périmètre a priori, tu mesures, tu coupes par les seuls organes autorisés et tu arrêtes la stratégie avec l'exploitant du réseau.",
+ "cles": [
+  "Trois facteurs pilotent les effets d'une fuite : le débit de fuite, le confinement et la présence d'une source d'ignition.",
+  "Le méthane, constituant principal du gaz naturel, a une densité de 0,55 par rapport à l'air. Il a tendance à monter.",
+  "Arrive par un axe qui t'évite de passer devant l'adresse. Stationne en amont, dans le sens de circulation, à bonne distance.",
+  "Mesure en partie haute pour un gaz léger, en partie basse pour un gaz lourd, puis dans tout le volume. Retiens la valeur la plus élevée.",
+  "Fuite visible à l'air libre : risque d'inflammation, de projection et de cheminement. Fuite fermée, non visible : cheminement par fourreaux, égouts, caves.",
+  "Procédure gaz renforcée (PGR) systématique : fuite fermée sur la voie publique à toute pression, feu de coffret gaz en façade.",
+  "Le COS requalifie une procédure gaz classique (PGC) en PGR. Le CTA retransmet alors la demande à GRDF.",
+  "Le COS fait poser un périmètre de sécurité et un réseau de mesures : explosimètres du SIS, catharomètres de l'exploitant.",
+  "Basse pression (moins de 50 mbar) sans risque d'accumulation : le colmatage direct prime souvent sur la coupure. Moyenne pression : coupure en priorité.",
+  "L'arrêt de la fuite ne supprime pas le risque. Ventile jusqu'à disparition du danger, puis fais un dernier relevé à la source et dans les cheminements."
+ ],
+ "retenir": [
+  "Réseau de distribution, périmètres par défaut : zone d'exclusion 50 m, zone contrôlée 100 m. Canalisation à périmètre de sécurité étendu (CPSE) : 110 m et 180 m.",
+  "Réseau de transport sous 16 bar : rayon d'exclusion en mètres égal au diamètre de la canalisation en millimètres. Au-delà de 16 bar : rayons définis au cas par cas.",
+  "Interdit aux sapeurs-pompiers : manœuvrer un robinet de réseau de transport ou de distribution. Exploitant absent et situation l'exigeant : tu fermes l'organe de coupure générale ou individuel.",
+  "Gaz fermé (barré) : repère du carré de manœuvre perpendiculaire à l'axe de la conduite. Après manœuvre, un sapeur-pompier reste sur place ou tu poses un signal d'interdiction.",
+  "Méthane : plage d'explosivité de 5 % (LIE) à 15 % (LSE). Une atmosphère saturée au-delà de la LSE repasse toujours par la plage d'explosivité pendant la ventilation."
+ ],
+ "pieges": [
+  "Ne pas allumer l'explosimètre au contact du gaz : le point de référence se décale et la mesure sous-estime le risque.",
+  "Ne pas sous-estimer une PGC : ses risques sont identiques à ceux d'une PGR. Il n'existe pas de « petite fuite de gaz ».",
+  "Ne pas rouvrir un organe de coupure fermé : la remise en gaz revient aux agents du gestionnaire de réseau.",
+  "Ne pas couper le courant sans évacuation totale préalable des immeubles, habitants et secours engagés compris.",
+  "Confondre explosimètre et catharomètre : le premier affiche un pourcentage de la LIE, le second un pourcentage de gaz dans l'air."
+ ],
+ "quiz": "risques-gaz-electricite",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions en présence de gaz (DGSCGC, 2021)",
+   "https://rescue18.com/wp-content/uploads/2023/09/20211215-gdo-gaz-vd.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Brooklyn Gas Leak (25073120063).jpg",
+   "auteur": "Metropolitan Transportation Authority of the",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Brooklyn_Gas_Leak_(25073120063).jpg",
+   "alt": "Pompiers en intervention de nuit sur une fuite de gaz avec un rideau d'eau."
+  },
+  {
+   "fichier": "File:Brooklyn Gas Leak (25069329034).jpg",
+   "auteur": "Metropolitan Transportation Authority of the",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Brooklyn_Gas_Leak_(25069329034).jpg",
+   "alt": "Deux pompiers établissent une lance pour disperser le gaz."
+  }
+ ]
+}

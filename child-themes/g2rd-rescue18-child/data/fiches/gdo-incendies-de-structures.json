@@ -1,0 +1,49 @@
+{
+ "slug": "gdo-incendies-de-structures",
+ "titre": "Incendies de structures : tactiques, phénomènes thermiques et sécurité",
+ "theme": "Incendie",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Interventions sur les incendies de structures",
+ "resume": "Ce GDO fixe les objectifs et les choix tactiques face aux feux de structures. Il décrit les phénomènes thermiques à cinétique rapide et les risques pour les intervenants.",
+ "cles": [
+  "Trois objectifs : protéger les personnes, préserver les biens, protéger l'environnement.",
+  "Le COS choisit sa tactique selon trois critères : évolution de la situation, sécurité, moyens disponibles.",
+  "La tactique offensive fait régresser le feu au plus vite. Elle expose les sapeurs-pompiers.",
+  "La tactique défensive expose moins les équipes. Elle se mène en périphérie du volume.",
+  "L'attaque d'atténuation et le repli défensif sont des tactiques de transition.",
+  "Sur feu naissant, privilégie la rapidité d'action. Replie-toi si l'extinction tarde.",
+  "Dans un local, la chaleur se transmet à 70 % par convection, 25 % par rayonnement et 5 % par conduction.",
+  "Isole le feu quand des victimes se trouvent sur le cheminement des fumées.",
+  "Face au risque électrique, applique l'éloignement et la mise en sécurité de l'installation."
+ ],
+ "retenir": [
+  "Les actions offensives dans un volume se font toujours en binôme. Le COS met en place un binôme de sécurité au plus tôt.",
+  "Flashover : passage brutal d'un feu localisé à l'embrasement généralisé d'un volume ventilé.",
+  "Backdraft : explosion des fumées d'un feu sous-ventilé après un apport d'air soudain.",
+  "FGI : inflammation de gaz imbrûlés accumulés au contact d'une source de chaleur.",
+  "Stabilité au feu minimale des structures en ERP et code du travail : 30 minutes."
+ ],
+ "pieges": [
+  "Confondre flashover, sur volume ventilé, et backdraft, sur feu sous-ventilé.",
+  "Confondre feu éclair, sans onde de pression, et explosion de fumées, avec onde de pression.",
+  "Ne pas engager une attaque intérieure avec des moyens hydrauliques ou de ventilation insuffisants.",
+  "Ne pas oublier le risque électrique au déblai, lors du dégarnissage.",
+  "Ne pas surestimer la protection des EPI : elle diminue quand leur face interne chauffe."
+ ],
+ "quiz": "phenomenes-thermiques",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions sur les incendies de structures (DGSCGC, 2018)",
+   "https://pnrs.ensosp.fr/content/download/40515/668868/file/GDO-incendies-de-structures-2018-V2.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Prytania Third Fire March 2012 Tall Ladder Hose.JPG",
+   "auteur": "Infrogmation of New Orleans",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Prytania_Third_Fire_March_2012_Tall_Ladder_Hose.JPG",
+   "alt": "Échelle aérienne et tuyaux déployés devant une maison après un incendie."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "vademecum-doctrine-sis",
+ "titre": "La doctrine des SIS : cadre, documents et élaboration",
+ "theme": "Commandement",
+ "niveau": "Chef d'agrès",
+ "document": "Vadémécum : La doctrine à l'usage des services d'incendie et de secours, DGSCGC, janvier 2024, 3e édition",
+ "resume": "Ce vadémécum de la DGSCGC définit la doctrine opérationnelle, son cadre juridique et ses documents (GDO, GTO, PIO). Il explique son élaboration, son lien avec la formation et sa déclinaison locale par chaque SIS.",
+ "cles": [
+  "L'État définit la doctrine de sécurité civile (article L112-2 du code de la sécurité intérieure).",
+  "La DGSCGC élabore la doctrine avec des référents des SIS et des experts, en représentant toutes les zones de défense.",
+  "Acte de droit souple : aucune obligation par lui-même, mais une référence opposable soumise à l'appréciation du juge.",
+  "GDO généraux (commandement, toxicité des fumées) et GDO spécifiques à un milieu (feux de forêts, milieu agricole).",
+  "Guides de techniques opérationnelles (GTO) : méthodes communes, adaptables par le COS au terrain.",
+  "Partage d'information opérationnelle (PIO) : information rapide sur un sujet nouveau, intégrée ensuite dans un GDO.",
+  "Depuis l'arrêté du 22 août 2019, la formation suit la doctrine. Les RNAC et RNE remplacent peu à peu les GNR.",
+  "Le choix d'une technique combine une tactique, une technique et un outil : le principe des 3T.",
+  "Le SIS décline la doctrine selon son SDACR, ses équipements et ses ressources humaines et financières.",
+  "La doctrine évolue sur des écarts répétés dans plusieurs partages et retours d'expérience (PEX, RETEX)."
+ ],
+ "retenir": [
+  "Trois principes d'action : liberté d'action, économie de moyens, concentration des efforts.",
+  "Avant tout travail de doctrine, trois questions : est-ce de la doctrine, est-ce une mission des SIS, quel impact sur formation, équipements et cadre juridique ?",
+  "RIM : environ 1 400 pages, dernière édition annexée à l'arrêté du 1er février 1978, abrogé le 20 janvier 2023.",
+  "Guides nationaux de référence (GNR) instaurés en 1999 autour de 3 volets : formation, équipements, pratiques opérationnelles.",
+  "Label de sécurité civile française institué par arrêté du 4 juillet 2017 pour les équipements et matériels."
+ ],
+ "pieges": [
+  "Confondre GDO et GTO : le GDO fixe la stratégie, le GTO décrit les techniques.",
+  "Ne pas voir la doctrine comme un carcan : s'en écarter relève du pouvoir d'appréciation du commandement.",
+  "Ne pas réclamer une évolution de doctrine sur un cas isolé : il faut des écarts répétés.",
+  "Ne pas chercher un matériel imposé dans un GDO : photos et schémas ne recommandent aucun équipement.",
+  "Confondre GNR et doctrine : les GNR portent surtout sur les emplois et la formation."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Vadémécum : La doctrine à l'usage des services d'incendie et de secours (DGSCGC, 2024)",
+   "https://rescue18.com/telechargement/doctrine-a-lusage-des-incendie-et-de-secours/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Personnalités, troupes de sapeurs-pompiers, Mussidan (09).jpg",
+   "auteur": "Cjp24",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Personnalit%C3%A9s,_troupes_de_sapeurs-pompiers,_Mussidan_(09).jpg",
+   "alt": "Sapeurs-pompiers français en tenue de cérémonie avec le drapeau."
+  },
+  {
+   "fichier": "File:Sapeurs Pompiers - centre de secours Bitche, 30 July 2008.jpg",
+   "auteur": "Christopher Lancaster from Toronto, Canada",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Sapeurs_Pompiers_-_centre_de_secours_Bitche,_30_July_2008.jpg",
+   "alt": "Centre de secours des sapeurs-pompiers de Paris au bord d'un canal."
+  }
+ ]
+}

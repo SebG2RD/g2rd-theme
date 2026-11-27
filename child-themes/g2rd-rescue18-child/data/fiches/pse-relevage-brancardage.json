@@ -1,0 +1,57 @@
+{
+ "slug": "pse-relevage-brancardage",
+ "titre": "Relevage et brancardage : techniques, manutention et effectifs",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Le relevage place la victime sur un brancard, le brancardage la déplace. Chaque manœuvre se fait sous les ordres d'un chef, avec un effectif adapté à la corpulence de la victime et à la suspicion d'un traumatisme du rachis.",
+ "cles": [
+  "Quatre principes de manutention : stabilité et sécurité des positions, fermeté des prises, bonne répartition des charges, synchronisation.",
+  "Debout : pieds écartés et décalés. À genoux : position du trépied. Dos plat, travail avec les cuisses. Mieux vaut s'accroupir.",
+  "Prise à pleines mains, la charge porte sur les avant-bras. Rapproche la charge au maximum des porteurs.",
+  "Ordres en deux temps, à voix haute : ordre préparatoire puis ordre d'exécution, par exemple « Attention pour lever… Levez ».",
+  "En brancardage, le chef se place de préférence à l'arrière pour voir son équipe et surveiller la victime.",
+  "Brancard toujours horizontal. Déplacement en marchant, sans secousse ni balancement. Les porteurs de l'avant annoncent les obstacles.",
+  "Escalier à trois : en montée, un devant et deux derrière. En descente, deux devant et un derrière.",
+  "Chaise de transport : victime sans détresse ni atteinte grave, capable de supporter la position assise.",
+  "Aide à la marche et déplacement d'une victime non valide : jamais si un traumatisme du rachis ou des membres est suspecté.",
+  "Chargement dans le véhicule jamais à un seul secouriste. Le conducteur répond de l'arrimage et de la fermeture des portes."
+ ],
+ "retenir": [
+  "Une manœuvre de relevage ou de brancardage mobilise 3 à 6 secouristes selon les cas.",
+  "Brancardage tête en avant en règle générale. En descente de pente ou d'escalier, pieds en avant.",
+  "Arrimage par 3 sangles : haut du thorax, bassin, cuisses au-dessus des genoux. Aucune sangle sur une blessure, le cou, le bas du thorax ou le haut de l'abdomen.",
+  "Brancard cuillère : moyen de première intention pour relever un suspect du rachis allongé sur le dos. Il demande 3 secouristes.",
+  "Pont à 4 porteurs si la corpulence l'exige ou si la cuillère est inutilisable, plus une 5e personne pour glisser le brancard. Pont à 3 porteurs plus un aide sinon."
+ ],
+ "pieges": [
+  "Ne pas se pencher dos rond : garde le dos plat et travaille avec les membres inférieurs.",
+  "Ne pas brancarder une victime sans l'avoir arrimée.",
+  "Ne pas utiliser de cordes ou cordages pour arrimer la victime faute de sangles intégrées : prends des sangles.",
+  "Ne pas fermer le brancard cuillère sans placer les mains de la victime sur ses cuisses ni sans contrôler le verrouillage.",
+  "Ne pas lâcher la tête d'un suspect du rachis avant une restriction des mouvements du rachis cervical par blocs de tête ou MID."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:ZZS MSK, záchranáři, zajištění krční páteře a transport na scoop rámu (09).jpg",
+   "auteur": "Radim Holiš",
+   "licence": "CC BY-SA 3.0 cz",
+   "page": "https://commons.wikimedia.org/wiki/File:ZZS_MSK,_z%C3%A1chran%C3%A1%C5%99i,_zaji%C5%A1t%C4%9Bn%C3%AD_kr%C4%8Dn%C3%AD_p%C3%A1te%C5%99e_a_transport_na_scoop_r%C3%A1mu_(09).jpg",
+   "alt": "Secouristes installant une victime simulée sur un brancard cuillère."
+  },
+  {
+   "fichier": "File:Scoop stretcher spain.jpg",
+   "auteur": "[1] from Spain",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Scoop_stretcher_spain.jpg",
+   "alt": "Secouristes espagnols manipulant un brancard cuillère."
+  }
+ ]
+}

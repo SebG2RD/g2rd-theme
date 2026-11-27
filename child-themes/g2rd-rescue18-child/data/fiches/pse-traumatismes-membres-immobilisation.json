@@ -1,0 +1,57 @@
+{
+ "slug": "pse-traumatismes-membres-immobilisation",
+ "titre": "Traumatismes des membres : fractures, luxations, entorses et attelles",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches à jour de décembre 2023",
+ "resume": "Face à un traumatisme de membre, tu empêches tout mouvement de la zone blessée, tu recherches les complications et tu immobilises avant tout déplacement. Le choix de l'attelle dépend du segment atteint.",
+ "cles": [
+  "Entorse : lésion d'un ou plusieurs ligaments après un mouvement forcé de l'articulation.",
+  "Luxation : perte complète et permanente des rapports articulaires. L'articulation est déboîtée.",
+  "Fracture compliquée : lésion de nerfs, vaisseaux, muscles ou ligaments, plaie associée ou déplacement.",
+  "Membre froid et pâle, gonflement : pense atteinte des vaisseaux. Fourmillements ou perte de sensibilité : pense atteinte des nerfs.",
+  "Une fracture de cuisse ou plusieurs fractures de membres entraînent parfois une détresse circulatoire.",
+  "Membre inférieur atteint : victime allongée. Membre supérieur atteint : victime assise, membre soutenu contre la poitrine.",
+  "Fracture avec plaie non hémorragique : pansement stérile sur la plaie avant l'immobilisation.",
+  "Fracture avec plaie qui saigne abondamment : traite l'hémorragie avant toute immobilisation.",
+  "Attelle à dépression ou modulable : coude, avant-bras, poignet, genou, jambe, cheville. Écharpes en l'absence de ces attelles.",
+  "Épaule avec bras écarté du corps : rembourrage entre bras et tronc, ne rapproche jamais le coude du corps."
+ ],
+ "retenir": [
+  "Immobilise toujours la lésion et les articulations situées au-dessus et en dessous.",
+  "Froid : 20 minutes au plus, enveloppé dans un linge. Jamais sur une plaie ni chez une victime qui a perdu connaissance.",
+  "Réalignement d'avant-bras ou de jambe à fracture fermée sur avis médical, si membre froid, pâle, insensible ou si la déformation bloque l'attelle.",
+  "Attelle à dépression : 3 secouristes au minimum pour le membre inférieur, 2 pour le membre supérieur.",
+  "Après la pose, contrôle : articulations immobilisées, attelle fixée, douleur en baisse, circulation correcte en aval."
+ ],
+ "pieges": [
+  "Ne pas réaligner une fracture avec déformation sans médecin : immobilise en respectant la déformation.",
+  "Ne pas toucher un morceau d'os ou un corps étranger visible dans la plaie.",
+  "Ne pas poursuivre un réalignement face à une résistance ou une douleur intolérable : stoppe et redemande un avis médical.",
+  "Ne pas relâcher la traction avant la fin de l'immobilisation du membre.",
+  "Ne pas poser une attelle à traction sans demande et présence d'un médecin, ni sur un membre non réaligné."
+ ],
+ "quiz": "traumatismes-immobilisation",
+ "sources": [
+  [
+   "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:US Navy 090714-A-1839I-038 Hospital Corpsman 1st Class Elizabeth Gracie demonstrates how to apply an arm splint during a first aid class given to Brazilian Navy sailors aboard the amphibious dock landing ship USS Oak Hill (LSD.jpg",
+   "auteur": "U.S. Navy photo",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:US_Navy_090714-A-1839I-038_Hospital_Corpsman_1st_Class_Elizabeth_Gracie_demonstrates_how_to_apply_an_arm_splint_during_a_first_aid_class_given_to_Brazilian_Navy_sailors_aboard_the_amphibious_dock_landing_ship_USS_Oak_Hill_(LSD.jpg",
+   "alt": "Formateur posant une attelle sur le bras d'un stagiaire."
+  },
+  {
+   "fichier": "File:Vakuumschiene01.jpg",
+   "auteur": "René Kieselmann rmk",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Vakuumschiene01.jpg",
+   "alt": "Secouriste posant une attelle à dépression sur un skieur dans la neige."
+  }
+ ]
+}

@@ -11,9 +11,9 @@
  * Text Domain: g2rd-mouvea-child
  */
 ?>
-<!-- wp:group {"align":"full","className":"mv-section mv-on-dark","backgroundColor":"bordeaux","layout":{"type":"constrained","wideSize":"1320px"}} -->
+<!-- wp:group {"align":"full","className":"mv-section mv-hero-typo mv-on-dark","backgroundColor":"bordeaux","layout":{"type":"constrained","wideSize":"1320px"}} -->
 <div
-  class="wp-block-group alignfull mv-section mv-on-dark has-bordeaux-background-color has-background"
+  class="wp-block-group alignfull mv-section mv-hero-typo mv-on-dark has-bordeaux-background-color has-background"
 >
   <!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|l","left":"var:preset|spacing|l"}}}} -->
   <div class="wp-block-columns alignwide are-vertically-aligned-center">

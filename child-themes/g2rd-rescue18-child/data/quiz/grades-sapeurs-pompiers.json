@@ -1,0 +1,32 @@
+{
+ "slug": "grades-sapeurs-pompiers",
+ "titre": "Du sapeur au contrôleur général : les grades",
+ "theme": "Statut et carrière",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Cadres d'emplois, catégories et appellations : retrouve la place de chaque grade dans la hiérarchie des sapeurs-pompiers professionnels.",
+ "sources": [
+  ["Le cadre d'emplois de sapeur et caporal de sapeur-pompier professionnel (emploi-collectivites.fr)", "https://www.emploi-collectivites.fr/sapeurs-pompiers-blog-territorial"],
+  ["Le cadre d'emplois de sous-officier de sapeur-pompier professionnel (emploi-collectivites.fr)", "https://www.emploi-collectivites.fr/sergent-adjudant-pompiers-blog-territorial"],
+  ["Le cadre d'emplois des lieutenants de sapeurs-pompiers professionnels (emploi-collectivites.fr)", "https://www.emploi-collectivites.fr/lieutenant-spp-blog-territorial"],
+  ["Capitaines, commandants et lieutenants-colonels de SPP, décret n° 2016-2008 (Weka)", "https://www.weka.fr/actualite/?p=45739"],
+  ["Direction des sapeurs-pompiers professionnels, décret n° 2016-2002 (Weka)", "https://www.weka.fr/actualite/?p=45724"],
+  ["Missions et organisation opérationnelle des SIS, formation initiale (SDIS de l'Ain, plateforme ENSOSP)", "https://enasis.fr/pluginfile.php/70077/mod_label/intro/Missions%20et%20organisation%20op%C3%A9rationnelle.pdf"]
+ ],
+ "questions": [
+  {"q": "À quelle catégorie de la fonction publique appartient le cadre d'emplois des sapeurs et caporaux de SPP ?", "c": ["Catégorie A", "Catégorie B", "Catégorie C"], "a": 2, "why": "Les sapeurs et caporaux relèvent de la catégorie C. Source : décret n° 2012-520 du 20 avril 2012."},
+  {"q": "Quel est le grade le plus élevé du cadre d'emplois des sapeurs et caporaux ?", "c": ["Caporal-chef", "Sergent", "Caporal", "Adjudant"], "a": 0, "why": "Le cadre d'emplois compte sapeur, caporal et caporal-chef. Source : décret n° 2012-520 du 20 avril 2012."},
+  {"q": "Quels grades composent le cadre d'emplois des sous-officiers de SPP ?", "c": ["Caporal et caporal-chef", "Sergent et adjudant", "Adjudant et lieutenant"], "a": 1, "why": "Le cadre d'emplois des sous-officiers compte deux grades : sergent et adjudant. Source : décret n° 2012-521 du 20 avril 2012."},
+  {"q": "À quelle catégorie appartiennent les sous-officiers de SPP ?", "c": ["Catégorie A", "Catégorie C", "Catégorie B"], "a": 1, "why": "Les sous-officiers de SPP sont classés en catégorie C de la filière sapeurs-pompiers. Source : décret n° 2012-521 du 20 avril 2012."},
+  {"q": "À quelle catégorie appartient le cadre d'emplois des lieutenants de SPP ?", "c": ["Catégorie A", "Catégorie B", "Catégorie C"], "a": 1, "why": "Les lieutenants de SPP relèvent de la catégorie B. Source : décret n° 2012-522 du 20 avril 2012."},
+  {"q": "Quel est le premier grade du cadre d'emplois des lieutenants ?", "c": ["Lieutenant hors classe", "Lieutenant de 1re classe", "Sous-lieutenant", "Lieutenant de 2e classe"], "a": 3, "why": "Le cadre d'emplois compte lieutenant de 2e classe, lieutenant de 1re classe et lieutenant hors classe, dans cet ordre. Source : décret n° 2012-522."},
+  {"q": "Quels grades composent le cadre d'emplois de catégorie A créé par le décret n° 2016-2008 ?", "c": ["Capitaine, commandant et lieutenant-colonel", "Lieutenant, capitaine et commandant", "Colonel, colonel hors classe et contrôleur général"], "a": 0, "why": "Ce cadre d'emplois de catégorie A réunit capitaine, commandant et lieutenant-colonel. Source : décret n° 2016-2008 du 30 décembre 2016."},
+  {"q": "Quel grade se situe juste au-dessus de commandant ?", "c": ["Capitaine", "Colonel", "Lieutenant-colonel"], "a": 2, "why": "L'ordre est capitaine, commandant, lieutenant-colonel. Source : décret n° 2016-2008."},
+  {"q": "Quel est le grade le plus élevé chez les sapeurs-pompiers professionnels ?", "c": ["Colonel hors classe", "Contrôleur général", "Lieutenant-colonel", "Colonel"], "a": 1, "why": "Le cadre d'emplois de conception et de direction compte colonel, colonel hors classe et contrôleur général. Source : décret n° 2016-2002 du 30 décembre 2016."},
+  {"q": "Quel grade se situe entre colonel et contrôleur général ?", "c": ["Colonel hors classe", "Lieutenant-colonel", "Colonel de 1re classe"], "a": 0, "why": "Les trois grades du cadre d'emplois de conception et de direction sont colonel, colonel hors classe et contrôleur général. Source : décret n° 2016-2002."},
+  {"q": "Un adjudant appartient à quel ensemble hiérarchique ?", "c": ["Les officiers", "Les hommes du rang", "Les sous-officiers"], "a": 2, "why": "L'adjudant relève du cadre d'emplois des sous-officiers, avec le sergent. Source : décret n° 2012-521."},
+  {"q": "En quels trois ensembles la formation initiale classe-t-elle les grades ?", "c": ["Équipiers, chefs d'agrès, chefs de groupe", "Hommes du rang, sous-officiers, officiers", "Volontaires, professionnels, militaires"], "a": 1, "why": "La formation initiale du SDIS de l'Ain distingue hommes du rang, sous-officiers et officiers."},
+  {"q": "Comment t'adresses-tu à un lieutenant-colonel ?", "c": ["Mon colonel", "Mon lieutenant", "Mon commandant"], "a": 0, "why": "Un lieutenant-colonel s'appelle colonel. Source : formation initiale du SDIS de l'Ain."},
+  {"q": "Quelle formule de salut emploies-tu face à un capitaine ?", "c": ["Bonjour, capitaine", "Mes respects, mon capitaine", "Salut, chef"], "a": 1, "why": "Pour un capitaine, un commandant ou un colonel, la formule est mes respects, mon capitaine, mon commandant ou mon colonel. Source : formation initiale du SDIS de l'Ain."}
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-interventions-silos",
+ "titre": "Interventions dans les silos : feux, explosions, ensevelissement",
+ "theme": "Risques technologiques",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle « Interventions dans les silos » (GDO 2019)",
+ "resume": "Le silo cumule explosion de poussières, auto-échauffement, asphyxie et ensevelissement. Tu poses un périmètre, tu arrêtes les flux avec l'exploitant et tu choisis entre inertage, mousse et vidange, sans noyer le grain.",
+ "cles": [
+  "Le silo regroupe stockage, réception, distribution et conservation des matières végétales.",
+  "Les poussières combustibles de diamètre inférieur à 500 µm, voire 1000 µm, explosent en suspension.",
+  "L'hexagone d'explosion ajoute au triangle du feu la suspension, le domaine d'explosivité et le confinement.",
+  "L'auto-échauffement dégage CO et CO2 avec peu de chaleur visible au début.",
+  "Au-delà de 15 % de teneur en eau, le grain risque la fermentation.",
+  "En feu de cellule, arrête les flux, isole parties hautes et basses et coupe les énergies avec l'exploitant.",
+  "La coupure électrique reste partielle pour garder manutention, éclairage, thermométrie et automatismes.",
+  "L'inertage injecte CO2 ou diazote en ciel et en base pour faire baisser le taux d'oxygène.",
+  "La vidange suit le circuit le plus court, à vitesse maîtrisée, jusqu'à extraction de la masse incandescente.",
+  "L'exploitant reste le référent technique : plans, produits, températures, historique."
+ ],
+ "retenir": [
+  "Périmètre réflexe : 25 m pour un silo plat, 50 m pour un silo vertical. Périmètre réfléchi : 1,5 fois la hauteur de l'installation.",
+  "Feu à cœur : point chaud supérieur à 60 °C pour les céréales. En inertage, vise un taux d'O2 inférieur à 8 % si possible.",
+  "Feu à cœur : pas d'eau directement dans le stockage de grain et pas de poussière en suspension.",
+  "Feu de surface : eau en faible quantité, en jet diffusé, si le feu est directement accessible sur le grain.",
+  "Enfoncée jusqu'aux genoux, une personne ne se dégage pratiquement plus seule du grain."
+ ],
+ "pieges": [
+  "Ne pas noyer un feu à cœur : l'eau est à proscrire pour l'extinction.",
+  "Ne pas couper toute l'électricité du site sans concertation avec l'exploitant.",
+  "Ne pas entrer dans les cellules ni ouvrir d'orifices pendant l'inertage.",
+  "Ne pas vidanger par le système de manutention sauf en dernier recours : tu risques de réinjecter des points chauds.",
+  "Ne pas laisser ouvertes les portes de découplage après ton passage."
+ ],
+ "quiz": "combustion-triangle-feu",
+ "sources": [
+  [
+   "Interventions dans les silos, Guide de doctrine opérationnelle (DGSCGC, 2019)",
+   "https://interieur.gouv.fr/content/download/133628/1059112/file/GDO-Interventions-Silos.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Joymoni Grain Silo (28300640212).jpg",
+   "auteur": "David Stanley from Nanaimo, Canada",
+   "licence": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Joymoni_Grain_Silo_(28300640212).jpg",
+   "alt": "Grand silo à grain en béton au bord d'une rivière."
+  },
+  {
+   "fichier": "File:R&H Hall Silo On Fire 2006 Viewed From Kennedy Park.jpg",
+   "auteur": "Downdaboggy",
+   "licence": "CC BY-SA 3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:R%26H_Hall_Silo_On_Fire_2006_Viewed_From_Kennedy_Park.jpg",
+   "alt": "Fumée s'échappant d'un silo en feu derrière des arbres."
+  }
+ ]
+}

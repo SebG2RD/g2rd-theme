@@ -1,0 +1,50 @@
+{
+ "slug": "pse-bilan-victime",
+ "titre": "Bilan de la victime : les 4 regards, la surveillance et la transmission",
+ "theme": "Secours à personne",
+ "niveau": "Chef d'agrès",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "Le bilan recueille les informations pour évaluer la situation et l'état de la victime pendant toute la prise en charge. Il suit 4 regards successifs, puis une surveillance continue et une transmission structurée au médecin régulateur.",
+ "cles": [
+  "Trois principes : du global vers le détail, traiter d'abord ce qui tue en premier, travailler en cercles évaluer, agir, contrôler, réévaluer.",
+  "1er regard : nature de l'intervention, dangers évidents ou cachés, nombre de victimes, moyens suffisants ou non.",
+  "Nombreuses victimes : transmets sans délai leur nombre approximatif et leur gravité apparente.",
+  "2e regard : cherche une hémorragie externe grave, une obstruction des voies aériennes, une absence de réaction sans respiration normale.",
+  "Toute détresse vitale constatée déclenche un avis médical ou une demande de renfort, en parallèle des gestes.",
+  "3e regard : évalue une à une les 3 fonctions vitales et agis dès la première détresse identifiée, sans finir l'examen.",
+  "4e regard : interrogatoire, examen des lésions, mesure systématique de la fréquence respiratoire (FR), de la SpO2, de la fréquence cardiaque (FC) et de la pression artérielle (PA).",
+  "Analyse de la plainte : facteur déclencheur, qualité, région du corps, sévérité, temporalité.",
+  "Antécédents : maladies et chirurgie, hospitalisations, traitements en cours, allergies, facteurs de risque.",
+  "Fin du 4e regard : transmets au médecin régulateur tous les éléments recueillis, sans les interpréter."
+ ],
+ "retenir": [
+  "Surveillance : elle débute au 2e regard et dure jusqu'au relais. Paramètres toutes les 5 min en détresse vitale, sinon toutes les 10 à 15 min.",
+  "Détresse vitale : demande sans délai un renfort médical en précisant nature de l'intervention, motif de la demande, sexe et âge de la victime.",
+  "Sans détresse vitale : transmets le motif réel, le sexe et l'âge, la plainte principale, le résultat du bilan et les gestes entrepris.",
+  "Valeurs normales de l'adulte : FR de 12 à 20 mouvements par minute, FC de 60 à 100 battements par minute, temps de recoloration cutanée (TRC) inférieur à 2 s.",
+  "Score EVDA : Éveillé, réactif à la Voix, réactif à la Douleur par pression à la base de l'ongle, Aréactif."
+ ],
+ "pieges": [
+  "Ne pas aborder la victime avant d'avoir identifié les dangers au 1er regard.",
+  "Ne pas terminer l'évaluation d'une fonction avant d'agir sur une détresse identifiée.",
+  "Ne pas interpréter les éléments transmis au médecin régulateur : rapporte les faits.",
+  "Ne pas oublier la stabilisation du rachis cervical dès le 2e regard si un traumatisme est évident ou suspecté.",
+  "Ne pas laisser un appareil de mesure retarder un geste de secours face à une détresse."
+ ],
+ "quiz": "bilan-victime",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Pulse oximetry and peripheral pulse assessment on foot (2026)-bs.jpg",
+   "auteur": "Minja Klarić",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Pulse_oximetry_and_peripheral_pulse_assessment_on_foot_(2026)-bs.jpg",
+   "alt": "Mesure de la saturation et du pouls avec un oxymètre au pied."
+  }
+ ]
+}

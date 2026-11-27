@@ -1,0 +1,50 @@
+{
+ "slug": "gdo-routier-securisation-balisage",
+ "titre": "Secours routier : sécurisation, balisage et zonage du chantier",
+ "theme": "Secours routier",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle : Opérations de secours en milieu routier, DGSCGC, juillet 2025, 1re édition",
+ "resume": "Le sur-accident est l'un des principaux risques des sapeurs-pompiers sur la route. Le GDO fixe l'arrivée des engins, la signalisation temporaire d'urgence, les zones du chantier et le zonage rouge, orange, vert.",
+ "cles": [
+  "Porte un EPI haute visibilité en complément de ta tenue sur toute intervention routière.",
+  "Vérifie le trafic avant de descendre et sors de l'engin du côté opposé à la circulation.",
+  "À l'approche, ralentis progressivement, garde les avertisseurs lumineux et place-toi du côté des engins déjà engagés.",
+  "Les engins manœuvrent obligatoirement guidés. À l'arrêt, braque les roues vers l'opposé de la zone de flux.",
+  "La régulation de la circulation revient aux forces de l'ordre, pas aux sapeurs-pompiers.",
+  "Sur réseau concédé, le gestionnaire remplace au plus vite toute la signalisation posée par le SIS.",
+  "Ordre du chantier : zone d'approche, zone tampon, zone de travail, zone de stationnement.",
+  "La zone de travail regroupe quatre sphères : SUAP côté victime, secours routier, risque incendie, commandement.",
+  "Stationnement en file indienne dans le sens de circulation. Le COS choisit l'épi pour une opération de grande ampleur.",
+  "Au départ, retire la signalisation dans le sens inverse de la pose, sous la protection d'un véhicule."
+ ],
+ "retenir": [
+  "Pas plus de 2 flèches lumineuses d'urgence (FLU) en même temps, gestionnaires de voirie et sapeurs-pompiers compris.",
+  "Feu de véhicule : zonage a priori fixé à 50 mètres.",
+  "Zonage réflexe type : zone d'exclusion de 50 m de rayon, zone contrôlée de 100 m de rayon.",
+  "Zone rouge : danger absolu, fais couper la circulation pour y entrer. Zone orange : présence limitée aux premiers secours, à la désincarcération et au commandement.",
+  "Longueur de la zone tampon fixée par le COS selon le type d'axe, sa configuration, la météo et l'heure."
+ ],
+ "pieges": [
+  "Ne pas réguler la circulation toi-même : c'est la mission des forces de l'ordre.",
+  "Confondre zone tampon et zone de travail : la zone tampon reste libre pour arrêter un véhicule qui n'a pas vu le dispositif.",
+  "Ne pas marcher sur la chaussée sans vigilance : seul, passe derrière les glissières, au plus loin du trafic.",
+  "Ne pas garder sur place les engins et les personnels dont la mission est terminée.",
+  "Ne pas placer la zone de poser de l'hélicoptère trop près : les effets de souffle projettent poussières et débris."
+ ],
+ "quiz": "secours-routier",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Opérations de secours en milieu routier (DGSCGC, 2025)",
+   "https://enasis.fr/pluginfile.php/97203/mod_label/intro/GDO_2025-07_OPERATIONS_DE_SECOURS_EN_MILIEU_ROUTIER.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Road accident response, Hull (geograph 7541484).jpg",
+   "auteur": "Paul Harrop",
+   "licence": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Road_accident_response,_Hull_(geograph_7541484).jpg",
+   "alt": "Engin de pompiers en protection sur les lieux d'un accident de la route."
+  }
+ ]
+}

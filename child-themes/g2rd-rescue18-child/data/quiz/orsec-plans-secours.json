@@ -1,0 +1,200 @@
+{
+ "slug": "orsec-plans-secours",
+ "titre": "ORSEC, NOVI, POI, PPI, PCS : maîtrise les plans de secours",
+ "theme": "Organisation des secours",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Dispositif ORSEC, plan NOVI, plans industriels et plan communal de sauvegarde : sais-tu qui pilote quoi en cas de crise ?",
+ "sources": [
+  [
+   "Décret n° 2005-1157 relatif au plan ORSEC, fiche AIDA (INERIS)",
+   "https://aida.ineris.fr/reglementation/decret-ndeg-2005-1157-130905-relatif-plan-orsec-pris-application-larticle-14-loi"
+  ],
+  [
+   "Parcours de sensibilisation à la résilience, module 2 Gestion de crise (CNED)",
+   "https://snr-elus.cned.fr/wp-content/uploads/2025/03/Module2.pdf"
+  ],
+  [
+   "Présentation de la gestion de crise (préfecture du Puy-de-Dôme)",
+   "https://www.puy-de-dome.gouv.fr/contenu/telechargement/12160/122045/file/diaporama_presentation.pdf"
+  ],
+  [
+   "Guide de doctrine opérationnelle départementale Nombreuses victimes, plan NOVI 63 (SDIS du Puy-de-Dôme)",
+   "https://enasis.fr/pluginfile.php/109977/mod_resource/content/0/guide-doctrine-departementale-novi-63.pdf"
+  ],
+  [
+   "Communiqué exercice NOVI (préfecture des Vosges)",
+   "https://www.vosges.gouv.fr/contenu/telechargement/25483/177343/file/04102022_CP_NOVI.pdf"
+  ],
+  [
+   "Le risque industriel (préfecture d'Indre-et-Loire)",
+   "https://www.indre-et-loire.gouv.fr/index.php/contenu/telechargement/2224/10680/file/industriel-1.pdf"
+  ],
+  [
+   "Communiqué exercice PPI Adisseo (préfecture de l'Allier)",
+   "https://allier.gouv.fr/contenu/telechargement/6558/55173/file/20191122_cp_exercice_adisseo_20_nov.pdf"
+  ],
+  [
+   "Plans communaux et intercommunaux de sauvegarde (Maire info, AMF)",
+   "https://www.maire-info.com/securite-civile/plans-communaux-et-intercommunaux-de-sauvegarde-8-200-communes-supplementaires-et-1-125-epci-concernes-art26-26548"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Que signifie le sigle ORSEC ?",
+   "c": [
+    "Organisation des secours en cas de catastrophe",
+    "Organisation de la réponse de sécurité civile",
+    "Opération de recherche et de sauvetage en commune"
+   ],
+   "a": 1,
+   "why": "ORSEC signifie organisation de la réponse de sécurité civile. Source : préfecture du Puy-de-Dôme et SDIS du Puy-de-Dôme."
+  },
+  {
+   "q": "En plus du niveau départemental, quels niveaux compte le dispositif ORSEC ?",
+   "c": [
+    "Communal et régional",
+    "National et européen",
+    "Zonal et maritime",
+    "Intercommunal et cantonal"
+   ],
+   "a": 2,
+   "why": "Le plan ORSEC se décline aux niveaux départemental, de zone et maritime. Source : décret ORSEC (AIDA) et module CNED gestion de crise."
+  },
+  {
+   "q": "Qui arrête le plan ORSEC de zone ?",
+   "c": [
+    "Le préfet de zone",
+    "Le ministre de l'Intérieur",
+    "Le préfet maritime",
+    "Le président du conseil régional"
+   ],
+   "a": 0,
+   "why": "Chaque niveau est arrêté par son préfet : préfet de département, préfet de zone ou préfet maritime. Source : décret ORSEC (AIDA)."
+  },
+  {
+   "q": "Dans ORSEC, à quoi servent les dispositions spécifiques ?",
+   "c": [
+    "À gérer tout type d'événement",
+    "À traiter les conséquences prévisibles d'un risque recensé",
+    "À fixer le budget du SDIS"
+   ],
+   "a": 1,
+   "why": "Les dispositions générales couvrent tout type d'événement. Les dispositions spécifiques visent les conséquences prévisibles de chaque risque recensé. Source : décret ORSEC (AIDA)."
+  },
+  {
+   "q": "Que signifie NOVI ?",
+   "c": [
+    "Nouvelle organisation des victimes",
+    "Noria d'évacuation des victimes",
+    "Nombreuses victimes"
+   ],
+   "a": 2,
+   "why": "NOVI signifie nombreuses victimes. C'est un volet du dispositif ORSEC. Source : préfecture des Vosges et SDIS du Puy-de-Dôme."
+  },
+  {
+   "q": "Quel ancien plan le dispositif NOVI a-t-il remplacé ?",
+   "c": [
+    "Le plan blanc",
+    "Le plan Vigipirate",
+    "Le plan POLMAR",
+    "Le plan rouge"
+   ],
+   "a": 3,
+   "why": "Le plan Nombreuses victimes remplace l'ancien plan rouge. Source : préfecture des Vosges."
+  },
+  {
+   "q": "Qui décide l'activation d'ORSEC NOVI et prend la direction des opérations de secours ?",
+   "c": [
+    "Le COS",
+    "Le directeur des secours médicaux",
+    "Le préfet",
+    "Le maire"
+   ],
+   "a": 2,
+   "why": "Le préfet décide l'activation d'ORSEC NOVI et prend la DOS. Source : guide NOVI 63, SDIS du Puy-de-Dôme."
+  },
+  {
+   "q": "Dans la chaîne NOVI, où les victimes sont-elles catégorisées et soignées avant leur évacuation vers l'hôpital ?",
+   "c": [
+    "Au poste médical avancé",
+    "Au centre d'accueil des familles",
+    "Au point de rassemblement des moyens"
+   ],
+   "a": 0,
+   "why": "Le PMA regroupe, catégorise, identifie et soigne les victimes avant leur évacuation. Source : guide NOVI 63, SDIS du Puy-de-Dôme."
+  },
+  {
+   "q": "Dans la catégorisation des victimes, que signifie UA ?",
+   "c": [
+    "Urgence absolue",
+    "Unité d'accueil",
+    "Urgence aggravée"
+   ],
+   "a": 0,
+   "why": "UA signifie urgence absolue et UR urgence relative. Un médecin, ou à défaut un infirmier, attribue ces catégories. Source : guide NOVI 63."
+  },
+  {
+   "q": "Qui rédige le plan d'opération interne (POI) d'un site industriel ?",
+   "c": [
+    "Le préfet",
+    "Le maire",
+    "Le SDIS",
+    "L'exploitant"
+   ],
+   "a": 3,
+   "why": "Le POI est rédigé par l'exploitant, sous sa responsabilité. Il vise un accident circonscrit à l'établissement. Source : préfecture d'Indre-et-Loire."
+  },
+  {
+   "q": "Qui établit le plan particulier d'intervention (PPI) ?",
+   "c": [
+    "Le préfet",
+    "L'exploitant",
+    "Le maire de la commune du site"
+   ],
+   "a": 0,
+   "why": "Le PPI est établi par la préfecture. Il s'applique quand les conséquences débordent ou risquent de déborder du site. Source : préfectures d'Indre-et-Loire et de l'Allier."
+  },
+  {
+   "q": "Sous l'autorité de qui est placé le plan communal de sauvegarde (PCS) ?",
+   "c": [
+    "Du préfet",
+    "Du maire",
+    "Du directeur du SDIS"
+   ],
+   "a": 1,
+   "why": "Le PCS est placé sous l'autorité du maire. Il organise l'alerte, l'information et la protection de la population. Source : module CNED et Maire info."
+  },
+  {
+   "q": "Quelle commune doit disposer d'un PCS ?",
+   "c": [
+    "Une commune de plus de 50 000 habitants seulement",
+    "Une commune siège d'un CIS",
+    "Une commune comprise dans le champ d'un PPI"
+   ],
+   "a": 2,
+   "why": "Le PCS est obligatoire notamment pour les communes dotées d'un PPR naturels approuvé ou comprises dans le champ d'un PPI. La loi du 25 novembre 2021 a élargi cette liste. Source : préfecture du Puy-de-Dôme et Maire info."
+  },
+  {
+   "q": "Qui préside le centre opérationnel départemental (COD) ?",
+   "c": [
+    "Le préfet",
+    "Le directeur du SDIS",
+    "Le maire du chef-lieu",
+    "Le directeur du SAMU"
+   ],
+   "a": 0,
+   "why": "Le COD est présidé par le préfet en tant que DOS. Il assure la conduite et la coordination des opérations. Source : préfecture du Puy-de-Dôme."
+  },
+  {
+   "q": "Où s'installe le poste de commandement opérationnel (PCO) ?",
+   "c": [
+    "À la préfecture, dans la salle du COD",
+    "Au plus près du lieu d'action, hors zone à risques",
+    "Au CTA du SDIS"
+   ],
+   "a": 1,
+   "why": "Le PCO s'installe au plus près du lieu d'action, hors zone à risques. Il est en général dirigé par le sous-préfet de l'arrondissement. Source : préfecture du Puy-de-Dôme."
+  }
+ ]
+}

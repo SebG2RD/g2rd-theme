@@ -1,0 +1,170 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "palette": [
+        {
+          "slug": "noir",
+          "name": "Noir",
+          "color": "#000000"
+        },
+        {
+          "slug": "noir-2",
+          "name": "Noir panneau",
+          "color": "#0d0d0d"
+        },
+        {
+          "slug": "noir-3",
+          "name": "Anthracite",
+          "color": "#1a1a1a"
+        },
+        {
+          "slug": "rose",
+          "name": "Rose Créa Pub",
+          "color": "#e8007d"
+        },
+        {
+          "slug": "rose-vif",
+          "name": "Rose vif (survol)",
+          "color": "#ff1a8c"
+        },
+        {
+          "slug": "base",
+          "name": "Blanc",
+          "color": "#ffffff"
+        },
+        {
+          "slug": "gris-txt",
+          "name": "Gris texte",
+          "color": "#cccccc"
+        },
+        {
+          "slug": "gris-soft",
+          "name": "Gris discret",
+          "color": "#aaaaaa"
+        },
+        {
+          "slug": "carte",
+          "name": "Carte claire",
+          "color": "#f7f7f7"
+        },
+        {
+          "slug": "ligne",
+          "name": "Ligne / bordure",
+          "color": "#333333"
+        },
+        {
+          "slug": "primary",
+          "name": "Primaire",
+          "color": "#e8007d"
+        },
+        {
+          "slug": "secondary",
+          "name": "Secondaire",
+          "color": "#0d0d0d"
+        }
+      ],
+      "gradients": [
+        {
+          "slug": "rose-band",
+          "name": "Bandeau rose",
+          "gradient": "linear-gradient(100deg,#e8007d 0%,#b4006b 100%)"
+        },
+        {
+          "slug": "halo-rose",
+          "name": "Halo rose",
+          "gradient": "radial-gradient(ellipse 50% 42% at 50% 30%, rgba(232,0,125,0.16) 0%, rgba(0,0,0,0) 70%)"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "poppins",
+          "name": "Poppins",
+          "fontFamily": "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "300",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfecg.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "500",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "600",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "800",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1xlFQ.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Poppins",
+              "fontDisplay": "swap",
+              "fontStyle": "normal",
+              "fontWeight": "900",
+              "src": [
+                "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5Z1xlFQ.woff2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "%",
+        "vh",
+        "vw"
+      ]
+    },
+    "layout": {
+      "contentSize": "1100px",
+      "wideSize": "1200px"
+    }
+  }
+}

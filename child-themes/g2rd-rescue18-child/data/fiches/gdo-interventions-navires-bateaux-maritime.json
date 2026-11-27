@@ -1,0 +1,55 @@
+{
+ "slug": "gdo-interventions-navires-bateaux-maritime",
+ "titre": "Navires en milieu maritime : commandement, IBNB et sécurité à bord",
+ "theme": "Commandement",
+ "niveau": "Tous niveaux",
+ "document": "Guide de doctrine opérationnelle : Interventions à bord des navires et bateaux en milieu maritime (IBNB), novembre 2017",
+ "resume": "Ce GDO donne un cadre commun pour les interventions à bord des navires et bateaux en milieu maritime. Il précise qui dirige les secours, à quai ou en mer, et les règles d'engagement des unités IBNB.",
+ "cles": [
+  "Trois priorités dans l'ordre : vies humaines, biens, environnement.",
+  "À quai, dans les limites administratives du port, le DOS est le préfet de département et le COS relève du SDIS.",
+  "En mer, le DOS est le préfet maritime. Il n'y a pas de COS : le CROSS compétent coordonne.",
+  "Le capitaine du navire reste maître à bord et prête son concours au COS.",
+  "L'intervention suit une phase réflexe, puis une phase de renfort IBNB en concertation avec le bord.",
+  "L'unité d'investigation IBNB est le module opérationnel de base de la lutte contre l'incendie à bord.",
+  "Les moyens du bord s'emploient après concertation avec le capitaine et selon leur fiabilité.",
+  "L'engagement de personnel non qualifié IBNB relève du responsable des secours, hors zone d'exclusion."
+ ],
+ "retenir": [
+  "Au moins une équipe de sécurité par point de pénétration reste parée à intervenir.",
+  "Le capitaine est seul à pouvoir ordonner l'abandon du navire.",
+  "Étaler une voie d'eau : obtenir un débit de pompage supérieur au débit d'entrée d'eau.",
+  "Signal d'alerte incendie à bord : signal continu pendant au moins 10 secondes.",
+  "La probabilité d'un phénomène thermique ne doit jamais être exclue à bord d'un navire."
+ ],
+ "pieges": [
+  "Confondre le DOS à quai, préfet de département, et le DOS en mer, préfet maritime.",
+  "Ne pas chercher de COS en mer : la coordination revient au CROSS.",
+  "Ne pas exclure le risque de phénomène thermique à bord.",
+  "Ne pas sous-estimer la réparation navale : c'est la période où la probabilité d'un sinistre est la plus élevée.",
+  "Ne pas oublier la stabilité : les forts débits des remorqueurs exposent au risque de carène liquide."
+ ],
+ "quiz": "organisation-secours",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Interventions à bord des navires et bateaux en milieu maritime (DGSCGC, 2017)",
+   "https://interieur.gouv.fr/content/download/133626/1059102/file/GDO-Interventions-Navires-Bateaux-Milieu-Maritime.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Fire Fighter ship, Long Island 2018 32.jpg",
+   "auteur": "Photograph by Mike Peel",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Fire_Fighter_ship,_Long_Island_2018_32.jpg",
+   "alt": "Lances-canons sur le pont d'un navire de lutte contre l'incendie."
+  },
+  {
+   "fichier": "File:Cargo ship USS Ophir (ID 2800) burning at Gibraltar in November 1918.jpg",
+   "auteur": "U.S. Navy",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Cargo_ship_USS_Ophir_(ID_2800)_burning_at_Gibraltar_in_November_1918.jpg",
+   "alt": "Cargo en feu dégageant une épaisse fumée, photo d'archive de 1918."
+  }
+ ]
+}

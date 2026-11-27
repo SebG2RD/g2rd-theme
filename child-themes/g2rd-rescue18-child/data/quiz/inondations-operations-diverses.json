@@ -1,0 +1,31 @@
+{
+ "slug": "inondations-operations-diverses",
+ "titre": "Inondations et opérations diverses : les bons réflexes",
+ "theme": "Opérations diverses",
+ "niveau": "Tous publics",
+ "duree": "8 min",
+ "resume": "Crues, vigilance, nids de frelons et missions des pompiers : apprends ce qu'il faut faire et qui intervient.",
+ "sources": [
+  ["Info.gouv.fr, Crues et inondations : les comportements qui sauvent", "https://www.info.gouv.fr/actualite/crues-et-inondations-les-comportements-qui-sauvent"],
+  ["Vigicrues, service d'information sur le risque de crues", "https://www.vigicrues.gouv.fr/"],
+  ["Code général des collectivités territoriales, article L1424-42", "https://www.thetradehub.eu/de/reglementation/france/codes-nationaux/cgct-art-l1424-42"],
+  ["DGSCGC, Les statistiques des services d'incendie et de secours, édition 2023", "https://interieur.gouv.fr/content/download/135829/1075709/file/StatsSDIS23BD(3).pdf"],
+  ["Assemblée nationale, question écrite n° 8536 sur la destruction des nids de frelons asiatiques", "https://www.assemblee-nationale.fr/dyn/16/questions/QANR5L16QE8536.pdf"]
+ ],
+ "questions": [
+  {"q": "Quelle hauteur d'eau suffit pour emporter une voiture ?", "c": ["Plus d'un mètre", "Moins de 30 cm", "Au moins 80 cm", "Il faut que l'eau dépasse le toit"], "a": 1, "why": "Moins de 30 cm d'eau suffisent pour emporter une voiture (info.gouv.fr)."},
+  {"q": "Une route est inondée devant toi. Que fais-tu ?", "c": ["Tu passes vite en voiture", "Tu traverses à pied en te tenant aux murs", "Tu suis la voiture de devant", "Tu ne t'engages ni en voiture ni à pied"], "a": 3, "why": "En cas d'inondation, ne t'engage ni en voiture ni à pied sur une route inondée (info.gouv.fr)."},
+  {"q": "La crue monte pendant que tes enfants sont à l'école. Que fais-tu ?", "c": ["Tu les laisses à l'école, où ils sont en sécurité", "Tu fonces les chercher en voiture", "Tu demandes à un voisin d'aller les chercher", "Tu les appelles pour qu'ils rentrent à pied"], "a": 0, "why": "Ne va pas chercher tes enfants à l'école. Ils y sont en sécurité (info.gouv.fr)."},
+  {"q": "L'eau envahit ta maison. Où te réfugies-tu ?", "c": ["Dans la cave", "Dans le garage", "À l'étage, en hauteur", "Dans ta voiture"], "a": 2, "why": "Réfugie-toi à l'étage, en hauteur, et ne descends pas au sous-sol (info.gouv.fr)."},
+  {"q": "Pendant une inondation, faut-il descendre au sous-sol pour sauver tes affaires ?", "c": ["Oui, rapidement", "Oui, si l'eau est encore basse", "Oui, avec une lampe", "Non, jamais"], "a": 3, "why": "Ne descends pas dans les sous-sols pendant une inondation (info.gouv.fr)."},
+  {"q": "Avec quelle anticipation Vigicrues prévient-il d'un risque de crue ?", "c": ["Dans les 24 heures", "Dans la semaine", "Dans le mois", "Dans l'heure seulement"], "a": 0, "why": "Vigicrues surveille les principaux cours d'eau et prévient les autorités et le public d'un risque de crue dans les 24 heures (info.gouv.fr)."},
+  {"q": "Quelle longueur de cours d'eau Vigicrues surveille-t-il ?", "c": ["2 300 km", "8 000 km", "23 000 km", "230 000 km"], "a": 2, "why": "Vigicrues surveille 23 000 km de cours d'eau (info.gouv.fr)."},
+  {"q": "Que signifie la vigilance crues rouge ?", "c": ["Pas de vigilance particulière", "Débordements et dommages localisés", "Débordements importants", "Risque de crue majeure, menace directe et généralisée"], "a": 3, "why": "Le rouge signale un risque de crue majeure, avec une menace directe et généralisée pour les personnes et les biens (Vigicrues)."},
+  {"q": "Que signifie la vigilance crues jaune ?", "c": ["Crue majeure", "Risque de débordements et de dommages localisés", "Fin de l'alerte", "Rupture de barrage"], "a": 1, "why": "Le jaune signale un risque de crue génératrice de débordements et de dommages localisés, avec des montées d'eau rapides possibles (Vigicrues)."},
+  {"q": "Combien de Français vivent en zone inondable ?", "c": ["1 million", "5 millions", "17 millions", "40 millions"], "a": 2, "why": "17 millions de Français vivent en zone inondable, dans plus de 10 000 communes (info.gouv.fr)."},
+  {"q": "Un SDIS intervient pour une mission hors de ses missions de service public. Que peut-il faire ?", "c": ["Demander une participation aux frais à la personne aidée", "Infliger une amende", "Refuser par principe toute intervention", "Facturer l'État"], "a": 0, "why": "Le SDIS ne doit que les interventions liées à ses missions. Pour les autres, il peut demander une participation aux frais fixée par son conseil d'administration (CGCT, article L1424-42)."},
+  {"q": "En 2022, quelle part des interventions des SDIS relève des opérations diverses ?", "c": ["Environ 1 %", "Environ 30 %", "Environ 7 %", "Environ 60 %"], "a": 2, "why": "Les opérations diverses représentent 343 526 interventions sur 4,97 millions, soit environ 7 % (DGSCGC, statistiques 2022)."},
+  {"q": "En 2022, quelle activité représente la grande majorité des interventions des SDIS ?", "c": ["Les incendies", "Les opérations diverses", "Les accidents de la route seuls", "Le secours d'urgence aux personnes"], "a": 3, "why": "Le secours d'urgence aux personnes compte 4,28 millions d'interventions, environ 86 % du total. Les incendies pèsent environ 6 % (DGSCGC, statistiques 2022)."},
+  {"q": "Qui paie en général la destruction d'un nid de frelons asiatiques chez un particulier ?", "c": ["L'État, dans tous les cas", "Le particulier, sauf aide locale de sa collectivité", "Les sapeurs-pompiers, gratuitement", "L'apiculteur le plus proche"], "a": 1, "why": "L'État ne finance pas la destruction des nids. Le coût reste à la charge des particuliers, avec parfois une aide des collectivités (réponse ministérielle du 4 juin 2024)."}
+ ]
+}

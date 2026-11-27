@@ -1,0 +1,36 @@
+{
+ "slug": "organisation-secours",
+ "titre": "Qui fait quoi dans l'organisation des secours",
+ "theme": "Organisation des secours",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "SDIS, CTA, CODIS, COS, DOS, BSPP, BMPM, DGSCGC et numéros d'urgence : teste ta connaissance de la chaîne des secours.",
+ "sources": [
+  ["Numéros d'urgence (service-public.gouv.fr)", "https://www.service-public.gouv.fr/particuliers/actualites/A17758?lang=fr"],
+  ["Les services départementaux d'incendie et de secours (choisirleservicepublic.gouv.fr)", "https://choisirleservicepublic.gouv.fr/territoire/normandie/les-services-departementaux-dincendie-et-de-secours-sdis/"],
+  ["Gestion des appels d'urgence : pour une plateforme 112 (FNSPF, pompiers.fr)", "https://www.pompiers.fr/sites/default/files/publications/file/2015_fnspf_plateforme112.pdf"],
+  ["Missions et organisation opérationnelle des SIS, formation initiale (SDIS de l'Ain, plateforme ENSOSP)", "https://enasis.fr/pluginfile.php/70077/mod_label/intro/Missions%20et%20organisation%20op%C3%A9rationnelle.pdf"],
+  ["Guide de doctrine opérationnelle Exercice du commandement et conduite des opérations (DGSCGC)", "https://interieur.gouv.fr/content/download/133613/1059035/file/GDO-Exercice-Commandement-Conduite-Operations-V2.pdf"],
+  ["Présentation de la gestion de crise (préfecture du Puy-de-Dôme)", "https://www.puy-de-dome.gouv.fr/contenu/telechargement/12160/122045/file/diaporama_presentation.pdf"],
+  ["Brigade de sapeurs-pompiers de Paris (defense.gouv.fr)", "https://www.defense.gouv.fr/terre/unites-larmee-terre/armes/genie/brigade-sapeurs-pompiers-paris"],
+  ["Une nouvelle page s'ouvre pour le BMPM et la Marine à Marseille (defense.gouv.fr)", "https://www.defense.gouv.fr/marine/actualites/nouvelle-page-souvre-bmpm-marine-marseille"],
+  ["La sécurité civile en France, formation initiale SPV (plateforme ENSOSP)", "https://enasis.fr/pluginfile.php/70075/mod_label/intro/La%20s%C3%A9curit%C3%A9%20civile%20en%20France.pdf"]
+ ],
+ "questions": [
+  {"q": "Quel numéro permet de joindre le SAMU ?", "c": ["17", "15", "18", "114"], "a": 1, "why": "Le 15 joint le SAMU, le 18 les sapeurs-pompiers, le 17 la police ou la gendarmerie. Source : service-public.gouv.fr."},
+  {"q": "À quoi correspond le 112 ?", "c": ["Au sauvetage maritime", "Au numéro d'urgence pour les personnes sourdes et malentendantes", "Au numéro d'urgence européen"], "a": 2, "why": "Le 112 est le numéro d'urgence européen. Le 114 sert aux personnes sourdes et malentendantes. Source : service-public.gouv.fr."},
+  {"q": "Quel est le statut d'un SDIS ?", "c": ["Un établissement public administratif", "Un service de la préfecture", "Une association loi 1901", "Une unité militaire"], "a": 0, "why": "Le SDIS est un établissement public administratif autonome qui organise l'activité des centres du département. Source : choisirleservicepublic.gouv.fr."},
+  {"q": "Pour la gestion administrative et financière, de qui relève le directeur départemental du SDIS ?", "c": ["Du préfet de zone", "Du ministre de la Santé", "Du président du conseil d'administration du SDIS"], "a": 2, "why": "Le directeur relève du préfet et des maires pour l'opérationnel, et du président du conseil d'administration pour la gestion administrative et financière. Source : choisirleservicepublic.gouv.fr."},
+  {"q": "Quelle structure reçoit et traite les appels de secours adressés aux sapeurs-pompiers ?", "c": ["Le COD", "Le CTA", "Le PCO", "Le centre 15"], "a": 1, "why": "Le centre de traitement de l'alerte reçoit et traite les appels jusqu'à l'ordre de mission. Source : FNSPF, gestion des appels d'urgence."},
+  {"q": "Quelle structure suit les interventions en cours et fait remonter l'information ?", "c": ["Le CODIS", "Le CTA", "La mairie"], "a": 0, "why": "Le centre opérationnel départemental d'incendie et de secours suit les interventions et remonte l'information. Source : FNSPF, gestion des appels d'urgence."},
+  {"q": "Sur une intervention courante dans une commune, qui est en général le directeur des opérations de secours ?", "c": ["Le chef de centre", "Le préfet", "Le maire", "Le médecin du SAMU"], "a": 2, "why": "Au quotidien, le DOS est généralement le maire, au titre de ses pouvoirs de police. Source : préfecture du Puy-de-Dôme."},
+  {"q": "L'événement touche plusieurs communes ou dépasse les capacités locales. Qui prend la direction des opérations de secours ?", "c": ["Le préfet de département", "Le maire de la plus grande commune", "Le chef de colonne"], "a": 0, "why": "Quand l'événement dépasse les capacités locales ou touche plusieurs communes, le préfet de département devient DOS. Source : préfecture du Puy-de-Dôme."},
+  {"q": "Qui dirige la partie opérationnelle de l'intervention sur le terrain ?", "c": ["Le DOS", "Le COS", "L'opérateur du CTA", "Le président du conseil d'administration"], "a": 1, "why": "Le commandant des opérations de secours est un sapeur-pompier qui dirige la partie opérationnelle sous l'autorité du DOS. Source : SDIS de l'Ain, formation initiale."},
+  {"q": "À qui le COS rend-il compte ?", "c": ["Au CTA", "Au chef de site", "Au DOS"], "a": 2, "why": "Le COS agit sous l'autorité du préfet ou du maire et rend compte au DOS. Sa responsabilité ne se délègue pas. Source : GDO Exercice du commandement."},
+  {"q": "À quelle armée appartient la brigade de sapeurs-pompiers de Paris ?", "c": ["La Marine nationale", "L'armée de l'Air et de l'Espace", "L'armée de Terre", "La Gendarmerie nationale"], "a": 2, "why": "La BSPP est une unité de l'armée de Terre, affectée à l'arme du génie. Source : defense.gouv.fr."},
+  {"q": "Sous quelle autorité la BSPP est-elle placée pour ses missions ?", "c": ["La préfecture de police", "Le maire de Paris", "Le conseil départemental"], "a": 0, "why": "La BSPP est mise sous l'autorité de la préfecture de police. Elle couvre Paris et les départements de la petite couronne. Source : defense.gouv.fr."},
+  {"q": "À quelle armée appartient le bataillon de marins-pompiers de Marseille ?", "c": ["L'armée de Terre", "La Marine nationale", "La Gendarmerie nationale"], "a": 1, "why": "Le BMPM est une unité militaire de la Marine nationale, commandée par un officier général de marine. Source : defense.gouv.fr."},
+  {"q": "Sous l'autorité de quel ministre est placée la DGSCGC ?", "c": ["Le ministre des Armées", "Le ministre de la Santé", "Le ministre de l'Intérieur", "Le ministre de la Transition écologique"], "a": 2, "why": "La direction générale de la sécurité civile et de la gestion des crises est placée sous l'autorité du ministre de l'Intérieur. Source : La sécurité civile en France, plateforme ENSOSP."},
+  {"q": "Quelles missions figurent parmi celles des SDIS ?", "c": ["Le maintien de l'ordre public", "La lutte contre les incendies et le secours d'urgence aux personnes", "La régulation médicale des appels au 15"], "a": 1, "why": "Les SDIS assurent la prévention, la protection et la lutte contre les incendies et le secours d'urgence aux personnes. Source : choisirleservicepublic.gouv.fr."}
+ ]
+}

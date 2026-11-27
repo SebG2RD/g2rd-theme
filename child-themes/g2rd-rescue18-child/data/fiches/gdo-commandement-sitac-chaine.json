@@ -1,0 +1,50 @@
+{
+ "slug": "gdo-commandement-sitac-chaine",
+ "titre": "Chaîne de commandement, postes de commandement et SITAC",
+ "theme": "Commandement",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle : Exercice du commandement et conduite des opérations, DGSCGC, juin 2020, 2e édition",
+ "resume": "Le GDO commandement décrit les niveaux de commandement, du chef d'équipe au chef de site. Il présente les outils du COS : postes de commandement, situation tactique (SITAC), ordres de transmission, sectorisation et messages.",
+ "cles": [
+  "Chef d'agrès : premier COS en général. Il commande jusqu'à un agrès en plus du sien ou jusqu'à l'arrivée de l'échelon supérieur.",
+  "Chef de groupe : 2 à 4 agrès. Chef de colonne : 2 à 4 groupes. Chef de site : au-delà d'une colonne.",
+  "Le maire ou le préfet dirige les secours (DOS). Le COS met en œuvre tous les moyens publics et privés.",
+  "En cas de péril imminent, le COS prend les mesures de protection puis rend compte au DOS.",
+  "PC de colonne : un officier renseignements et un officier moyens autour du chef de colonne.",
+  "PC de site : chef de PC, officiers renseignements, moyens, action et anticipation.",
+  "La SITAC schématise la zone d'intervention, les moyens, les actions et le commandement, selon une charte graphique commune.",
+  "L'ordre complémentaire de transmission (OCT), exprimé avec l'ordre initial, relie chaque niveau au supérieur et à l'inférieur.",
+  "Sectorisation géographique (une aire) ou fonctionnelle (une mission sur toute la zone), formalisée au niveau colonne.",
+  "Message d'ambiance : je suis, je vois, je demande. Compte rendu : je suis, je vois, je prévois, je fais, je demande."
+ ],
+ "retenir": [
+  "Liaisons tactiques : niveau 1 COS, PC et chefs de secteur, niveau 2 secteurs et sous-secteurs, niveau 3 sous-secteur et groupes, niveau 4 chefs d'agrès d'un groupe.",
+  "Zonage : exclusion rouge, contrôlée orange, soutien vert. La zone public se situe au-delà, sans restriction.",
+  "Aéronef habité sur zone : vol de drone formellement interdit.",
+  "Ordre préparatoire PATRACDR : prévoir 24 heures d'autonomie alimentaire pour le détachement.",
+  "Les fonctions de chef de détachement de spécialité et de COS restent dissociées."
+ ],
+ "pieges": [
+  "Confondre DOS et COS : le DOS dirige les opérations, le COS commande les moyens de secours.",
+  "Ne pas donner d'ordre aux équipes d'un autre chef : passe par tes subordonnés directs.",
+  "Confondre sectorisation géographique et fonctionnelle : la seconde n'a pas de limite dans l'espace.",
+  "Ne pas engager un drone sans la validation de l'officier AERO quand il est présent.",
+  "Ne pas oublier l'anticipation réflexe : tout COS envisage l'évolution à court terme, pas le seul officier anticipation."
+ ],
+ "quiz": "organisation-secours",
+ "sources": [
+  [
+   "Guide de doctrine opérationnelle : Exercice du commandement et conduite des opérations (DGSCGC, 2020)",
+   "https://interieur.gouv.fr/content/download/133613/1059035/file/GDO-Exercice-Commandement-Conduite-Operations-V2.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Orange Bull US-Dutch Firefighters exercise on Chièvres Air Base (7760001).jpg",
+   "auteur": "U.S. Army photo by Pierre Courtejoie",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Orange_Bull_US-Dutch_Firefighters_exercise_on_Chi%C3%A8vres_Air_Base_(7760001).jpg",
+   "alt": "Pompiers en réunion dans une salle de commandement équipée d'écrans."
+  }
+ ]
+}

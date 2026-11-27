@@ -1,0 +1,102 @@
+{
+ "slug": "secours-enfants-nourrissons",
+ "titre": "Enfant et nourrisson : âges, constantes, RCP et étouffement",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Vérifie que tu maîtrises les tranches d'âge, les valeurs normales et les gestes adaptés à l'enfant et au nourrisson.",
+ "sources": [
+  ["ENASIS, Mémento SSUAP (V. 2026-02)", "https://enasis.fr/pluginfile.php/217833/mod_resource/content/2/Memento%20SSUAP.pdf"],
+  ["ENASIS, SSUAP : PR Arrêt cardiaque chez l'enfant et le nourrisson (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/217248/mod_folder/content/0/PR%20-%20Arr%C3%AAt%20Cardiaque%20chez%20lenfant%20et%20le%20nourrisson.pdf"],
+  ["ENASIS, SSUAP : FT Compression thoracique (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/204752/mod_resource/content/0/FT%20-%20Compression%20thoracique.pdf"],
+  ["ENASIS, SSUAP : FT Désobstruction par la méthode des claques dans le dos (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/204756/mod_resource/content/0/FT%20-%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20claques%20dans%20le%20dos.pdf"],
+  ["ENASIS, SSUAP : FT Désobstruction par la méthode des compressions thoraciques (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/204759/mod_resource/content/0/FT%20-%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20compressions%20thoraciques.pdf"],
+  ["ENASIS, SSUAP : FT Désobstruction par la méthode des compressions abdominales (MAJ 05-2024)", "https://enasis.fr/pluginfile.php/204755/mod_resource/content/0/FT%20-%20D%C3%A9sobstruction%20par%20la%20m%C3%A9thode%20des%20compressions%20abdominales.pdf"]
+ ],
+ "questions": [
+  {
+   "q": "Selon le référentiel SUAP, à partir de quand une victime est-elle considérée comme adulte ?",
+   "c": ["À partir de 8 ans", "À partir de la puberté", "À partir de 18 ans", "À partir de 25 kg"],
+   "a": 1,
+   "why": "Le Mémento SSUAP classe la victime comme adulte à partir de la puberté. L'âge civil n'entre pas en compte."
+  },
+  {
+   "q": "Quelle tranche d'âge correspond à l'enfant dans le référentiel SUAP ?",
+   "c": ["De la naissance à 6 ans", "De 3 ans à 12 ans", "De 1 an à la puberté", "De 6 mois à 15 ans"],
+   "a": 2,
+   "why": "Le Mémento SSUAP définit l'enfant de 1 an à la puberté. Avant 1 an, tu prends en charge un nourrisson ou un nouveau-né."
+  },
+  {
+   "q": "Tu prends en charge un bébé de 8 mois. Dans quelle catégorie le classes-tu ?",
+   "c": ["Nourrisson", "Nouveau-né", "Enfant", "Adulte de petit gabarit"],
+   "a": 0,
+   "why": "Le Mémento SSUAP place le nourrisson avant 1 an, après la période du nouveau-né. Un bébé de 8 mois est un nourrisson."
+  },
+  {
+   "q": "Quelle est la fréquence respiratoire normale d'un enfant ?",
+   "c": ["12 à 20 mouvements par minute", "40 à 60 mouvements par minute", "30 à 40 mouvements par minute", "20 à 30 mouvements par minute"],
+   "a": 3,
+   "why": "Le Mémento SSUAP donne 20 à 30 mouvements par minute chez l'enfant. L'adulte respire 12 à 20 fois par minute, le nourrisson 30 à 40 fois."
+  },
+  {
+   "q": "Quelle est la fréquence cardiaque normale d'un nourrisson ?",
+   "c": ["60 à 100 battements par minute", "100 à 160 battements par minute", "70 à 140 battements par minute", "160 à 220 battements par minute"],
+   "a": 1,
+   "why": "Le Mémento SSUAP retient 100 à 160 battements par minute chez le nourrisson. Chez l'enfant, la norme est de 70 à 140."
+  },
+  {
+   "q": "Quelle est la fréquence respiratoire normale d'un nouveau-né ?",
+   "c": ["40 à 60 mouvements par minute", "20 à 30 mouvements par minute", "12 à 20 mouvements par minute", "80 à 100 mouvements par minute"],
+   "a": 0,
+   "why": "Le Mémento SSUAP indique 40 à 60 mouvements par minute chez le nouveau-né. Sa fréquence cardiaque normale va de 120 à 160."
+  },
+  {
+   "q": "Quelle est la fréquence cardiaque normale d'un adulte au repos ?",
+   "c": ["40 à 50 battements par minute", "100 à 160 battements par minute", "60 à 100 battements par minute", "120 à 160 battements par minute"],
+   "a": 2,
+   "why": "Le Mémento SSUAP fixe la norme adulte entre 60 et 100 battements par minute. Sa fréquence respiratoire normale va de 12 à 20."
+  },
+  {
+   "q": "En équipe, quel rythme de RCP appliques-tu chez l'enfant et le nourrisson en arrêt cardiaque ?",
+   "c": ["30 compressions pour 2 insufflations", "5 compressions pour 1 insufflation", "Compressions seules, sans insufflation", "15 compressions pour 2 insufflations"],
+   "a": 3,
+   "why": "La procédure SSUAP arrêt cardiaque de l'enfant et du nourrisson prévoit des cycles de 15 compressions suivies de 2 insufflations. Chez l'adulte, le rapport est de 30 pour 2."
+  },
+  {
+   "q": "Chez l'enfant, avec quoi réalises-tu les compressions thoraciques ?",
+   "c": ["Le talon d'une seule main", "La pulpe de deux doigts", "Le poing fermé", "Les deux pouces côte à côte"],
+   "a": 0,
+   "why": "La fiche technique SSUAP compression thoracique prévoit le talon d'une seule main chez l'enfant. Chez un grand enfant, la technique de l'adulte reste possible."
+  },
+  {
+   "q": "Quelle profondeur de compression vises-tu chez l'enfant ?",
+   "c": ["1 à 2 cm", "Au moins un tiers de l'épaisseur du thorax, soit environ 5 cm", "La moitié de l'épaisseur du thorax", "8 à 10 cm"],
+   "a": 1,
+   "why": "La fiche technique SSUAP demande d'enfoncer d'au moins un tiers de l'épaisseur du thorax, soit environ 5 cm chez l'enfant. Chez le nourrisson, cela représente environ 4 cm."
+  },
+  {
+   "q": "À quelle fréquence réalises-tu les compressions thoraciques chez l'enfant ?",
+   "c": ["60 à 80 par minute", "140 à 160 par minute", "100 à 120 par minute", "200 par minute"],
+   "a": 2,
+   "why": "La fiche technique SSUAP fixe 100 à 120 compressions par minute chez l'enfant, comme chez l'adulte. Le temps de compression égale le temps de relâchement."
+  },
+  {
+   "q": "Obstruction totale chez un nourrisson. Comment le places-tu pour les claques dans le dos ?",
+   "c": ["Assis sur tes genoux, dos droit", "À califourchon sur ton avant-bras, face vers le sol, tête plus basse que le thorax", "Allongé sur le dos sur une table", "Debout, maintenu sous les aisselles"],
+   "a": 1,
+   "why": "La fiche technique SSUAP place le nourrisson à califourchon sur l'avant-bras, face vers le sol, tête plus basse que le thorax. Tu donnes de 1 à 5 claques entre les omoplates avec le talon de la main."
+  },
+  {
+   "q": "Les claques dans le dos restent inefficaces chez un nourrisson. Quelle technique utilises-tu ensuite ?",
+   "c": ["Des compressions thoraciques avec la pulpe de deux doigts", "Des compressions abdominales avec le poing", "Un balayage de la bouche au doigt", "Une mise en position assise et de l'eau à boire"],
+   "a": 0,
+   "why": "La fiche technique SSUAP prévoit chez le nourrisson 1 à 5 compressions thoraciques avec deux doigts, sur la moitié inférieure du sternum. Les compressions abdominales concernent l'adulte et l'enfant."
+  },
+  {
+   "q": "Chez un enfant conscient en obstruction totale, quand passes-tu aux compressions abdominales ?",
+   "c": ["Dès le début, sans claques", "Uniquement s'il tousse fort", "Jamais chez l'enfant", "Après une série de 5 claques dans le dos inefficaces"],
+   "a": 3,
+   "why": "La fiche technique SSUAP indique les compressions abdominales après une série de 5 claques dans le dos inefficaces. Tu réalises 1 à 5 compressions vers l'arrière et vers le haut."
+  }
+ ]
+}

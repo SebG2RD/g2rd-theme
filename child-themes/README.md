@@ -25,6 +25,8 @@ child-themes/
 │   ├── functions.php
 │   └── styles/
 │       └── moovea.json    # Variation de styles propre au client (v1.39.0+)
+├── g2rd-glassauto-child/  # GlassAuto Vernon (2026) : blocs dynamiques PHP, installateur WP-CLI
+│                          # (pages, articles, SEOPress), jetons {{tel}}…, gabarit page-prestation
 └── g2rd-child-<client>/
 ```
 

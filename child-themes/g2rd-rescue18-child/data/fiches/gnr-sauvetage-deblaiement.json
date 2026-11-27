@@ -1,0 +1,57 @@
+{
+ "slug": "gnr-sauvetage-deblaiement",
+ "titre": "Sauvetage-déblaiement : phases, zonage et recherche de victimes",
+ "theme": "Sauvetage et milieux périlleux",
+ "niveau": "Équipier",
+ "document": "Guide national de référence Sauvetage-déblaiement, DDSC, avril 2003",
+ "resume": "Le sauvetage-déblaiement intervient en milieu effondré ou menaçant ruine, là où les moyens courants sont inadaptés ou dangereux. Le GNR fixe les unités, les quatre phases de l'opération, le zonage et la méthode de recherche des victimes.",
+ "cles": [
+  "Unité : 1 chef d'unité et 5 binômes de sauveteurs déblayeurs. Section : 3 unités et 1 chef de section.",
+  "Reconnaissance initiale par le COS, le conseiller technique et les chefs de section. Chaque chef de section reçoit un secteur.",
+  "Recueille auprès des témoins : heure, origine de l'effondrement, nature des bâtiments, plans, nombre de victimes, dangers secondaires.",
+  "Le premier COS pose un zonage réflexe a priori, avec les forces de l'ordre.",
+  "Zones : exclusion, soutien spécialisé, soutien général, public.",
+  "La zone d'exclusion se divise en secteurs, confiés aux chefs de section, puis en sous-secteurs, confiés aux chefs d'unité.",
+  "Sécurité individuelle : équipement de base, ARI si besoin, engagement en binôme, liaison avec le chef d'unité.",
+  "Étaiement de l'unité : 5 étais métalliques de chaque taille, 5 bastaings de 4 m environ, 50 m de planches et de chevrons.",
+  "Levage : vérins de 10 t au moins, appareil de traction de plus de 3,5 t, coussins de 10 t avec clapet anti-retour.",
+  "Victime d'effondrement : pense compression de membres, polytraumatisme et syndrome de l'emmuré."
+ ],
+ "retenir": [
+  "Quatre phases : reconnaissance initiale, zonage du site, opérations de sauvetage, marquage.",
+  "Sauvetage en trois temps : recherche et localisation, dégagement, traitement et évacuation des victimes.",
+  "Recherche par étapes : surface, parties peu endommagées, victimes non visibles, enlèvement sélectionné puis général des décombres.",
+  "Toute intervention exige au moins une unité et un responsable sur place : conseiller technique, chef de section ou chef d'unité.",
+  "Les engins lourds entrent en action quand aucune victime vivante n'est plus envisageable, avec surveillance des décombres."
+ ],
+ "pieges": [
+  "Ne pas lancer de recherche dans un nouveau secteur sans avoir localisé au mieux les victimes.",
+  "Confondre détection, déceler la présence d'une victime, et localisation, la situer avec précision.",
+  "Ne pas laisser évoluer du personnel non spécialisé sur le site sans prise en charge par l'unité.",
+  "Ne pas omettre le marquage des bâtiments visités : les unités suivantes refont sinon les recherches.",
+  "Ne pas oublier les dangers secondaires : incendie, gaz, électricité, radioactivité."
+ ],
+ "quiz": "",
+ "sources": [
+  [
+   "Guide national de référence Sauvetage-déblaiement (DDSC, 2003)",
+   "https://rescue18.com/telechargement/sauvetagedeblaiement/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Search and rescue operations.jpg",
+   "auteur": "Voice of America",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Search_and_rescue_operations.jpg",
+   "alt": "Sauveteurs casqués travaillant sur les décombres d'un bâtiment."
+  },
+  {
+   "fichier": "File:US Navy 100122-N-6639M-040 Members of the Fairfax County Search and Rescue team continue to dig through the rubble of what used to be the Hotel Montana in Port-au-Prince.jpg",
+   "auteur": "U.S. Navy photo by Mass Communication",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:US_Navy_100122-N-6639M-040_Members_of_the_Fairfax_County_Search_and_Rescue_team_continue_to_dig_through_the_rubble_of_what_used_to_be_the_Hotel_Montana_in_Port-au-Prince.jpg",
+   "alt": "Engin de chantier et sauveteurs dégageant des décombres."
+  }
+ ]
+}

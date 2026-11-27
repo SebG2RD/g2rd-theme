@@ -1,0 +1,194 @@
+{
+ "slug": "bilan-victime",
+ "titre": "Le bilan de la victime, de l'arrivée à la transmission",
+ "theme": "Secours d'urgence aux personnes",
+ "niveau": "Équipier",
+ "duree": "8 min",
+ "resume": "Teste ta maîtrise des quatre temps du bilan et de la transmission au médecin régulateur.",
+ "sources": [
+  [
+   "Recommandations PS (DGSCGC), fiche 02AC01 Généralités sur les bilans, MAJ 09-2019",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/03%20-%20LES%20BILANS/AC%20G%C3%A9n%C3%A9ralit%C3%A9s%20sur%20les%20bilans%20Reco%20PS%202019%20_%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 02PR02 Bilan d'urgence vitale, MAJ 11-2019",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/03%20-%20LES%20BILANS/PR%20Bilan%20durgence%20vitale%20reco%20PS%202019%20%EF%80%A2%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 02PR03 Bilan complémentaire suite à un malaise ou à l'aggravation d'une maladie, MAJ 09-2019",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/03%20-%20LES%20BILANS/PR%20Bilan%20compl%C3%A9mentaire%20suite%20%C3%A0%20un%20malaise%20ou%20%C3%A0%20laggravation%20dune%20maladie%20Reco%20PS%202019%20%EF%80%A22021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 02PR05 Surveillance de la victime, MAJ 09-2019",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/03%20-%20LES%20BILANS/PR%20Surveillance%20de%20la%20victime%20Reco%20PS%202019%20.%202021.pdf"
+  ],
+  [
+   "Recommandations PS (DGSCGC), fiche 02PR06 Transmission du bilan, MAJ 09-2019",
+   "https://preproduction.enasis.fr/pluginfile.php/2277/mod_folder/content/0/03%20-%20LES%20BILANS/PR%20Transmission%20du%20bilan%20reco%20PS%20%202019.%202021.pdf"
+  ],
+  [
+   "Référentiel technique SUAP, tableau récapitulatif des constantes",
+   "https://enasis.fr/pluginfile.php/10300/mod_folder/content/0/0-Tableau%20r%C3%A9capitulatif.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Dans quel ordre se déroulent les phases du bilan ?",
+   "c": [
+    "Urgence vitale, circonstanciel, complémentaire, surveillance",
+    "Circonstanciel, complémentaire, urgence vitale, surveillance",
+    "Circonstanciel, urgence vitale, complémentaire, surveillance",
+    "Complémentaire, circonstanciel, urgence vitale, surveillance"
+   ],
+   "a": 2,
+   "why": "Le bilan commence par le circonstanciel, puis l'urgence vitale, le complémentaire et la surveillance. Recommandations PS, fiche 02AC01."
+  },
+  {
+   "q": "À quoi sert le bilan circonstanciel ?",
+   "c": [
+    "Mesurer les constantes vitales de la victime",
+    "Apprécier la situation dans sa globalité, évaluer les risques et assurer la sécurité",
+    "Recueillir les antécédents et les traitements de la victime"
+   ],
+   "a": 1,
+   "why": "Le bilan circonstanciel apprécie la situation dans sa globalité pour évaluer les risques et prendre les mesures de sécurité. Recommandations PS, fiche 02AC01."
+  },
+  {
+   "q": "Que recherche le bilan d'urgence vitale ?",
+   "c": [
+    "Les antécédents médicaux de la victime",
+    "Les circonstances exactes de l'accident",
+    "Une détresse qui menace la vie immédiatement ou à très court terme",
+    "Les lésions des membres"
+   ],
+   "a": 2,
+   "why": "Le bilan d'urgence vitale recherche une détresse qui menace la vie à court terme et déclenche les gestes immédiats. Recommandations PS, fiche 02AC01."
+  },
+  {
+   "q": "Dès ton arrivée, tu vois une hémorragie externe. Que fais-tu ?",
+   "c": [
+    "Tu arrêtes immédiatement l'hémorragie puis tu reprends le bilan",
+    "Tu termines d'abord le bilan d'urgence vitale",
+    "Tu transmets le bilan avant tout geste"
+   ],
+   "a": 0,
+   "why": "Une hémorragie externe évidente s'arrête immédiatement, puis le bilan reprend. Recommandations PS, fiche 02PR02."
+  },
+  {
+   "q": "Quand considères-tu qu'une victime a perdu connaissance ?",
+   "c": [
+    "Elle garde les yeux fermés",
+    "Elle ne répond pas et n'obéit pas aux ordres simples",
+    "Elle répond de façon confuse",
+    "Elle ne se souvient pas de l'accident"
+   ],
+   "a": 1,
+   "why": "La perte de connaissance est retenue quand la victime ne répond pas et n'obéit pas aux ordres simples. Recommandations PS, fiche 02PR02."
+  },
+  {
+   "q": "Quel repère indique une respiration absente ou anormale ?",
+   "c": [
+    "Moins d'un mouvement respiratoire efficace en 10 secondes",
+    "Moins de 12 mouvements par minute",
+    "Moins de 3 mouvements en 30 secondes"
+   ],
+   "a": 0,
+   "why": "Moins d'un mouvement respiratoire efficace en 10 secondes signe une respiration absente ou anormale. Recommandations PS, fiche 02PR02."
+  },
+  {
+   "q": "Pendant combien de temps comptes-tu la fréquence respiratoire d'une victime qui respire ?",
+   "c": [
+    "60 secondes",
+    "10 secondes",
+    "15 secondes",
+    "30 secondes"
+   ],
+   "a": 0,
+   "why": "La fréquence respiratoire se compte sur 60 secondes. Recommandations PS, fiche 02PR02."
+  },
+  {
+   "q": "Quelle est la valeur normale du temps de recoloration cutanée ?",
+   "c": [
+    "Inférieur à 2 secondes",
+    "Inférieur à 5 secondes",
+    "Inférieur à 3 secondes"
+   ],
+   "a": 0,
+   "why": "Un temps de recoloration cutanée normal est inférieur à 2 secondes. Recommandations PS, fiche 02PR02."
+  },
+  {
+   "q": "Quelle est la fréquence respiratoire de référence chez l'adulte ?",
+   "c": [
+    "8 à 10 mouvements par minute",
+    "20 à 30 mouvements par minute",
+    "30 à 40 mouvements par minute",
+    "12 à 20 mouvements par minute"
+   ],
+   "a": 3,
+   "why": "Chez l'adulte, la fréquence respiratoire de référence va de 12 à 20 mouvements par minute. Référentiel technique SUAP, tableau des constantes."
+  },
+  {
+   "q": "Lors du bilan complémentaire, comment notes-tu les plaintes de la victime ?",
+   "c": [
+    "En termes médicaux",
+    "Uniquement si elle les répète deux fois",
+    "Avec ses propres mots"
+   ],
+   "a": 2,
+   "why": "Le secouriste note les plaintes avec les mots de la victime et précise si l'information vient d'un tiers. Recommandations PS, fiche 02PR03."
+  },
+  {
+   "q": "Ta victime présente une détresse. À quel rythme la surveilles-tu ?",
+   "c": [
+    "Toutes les 15 minutes",
+    "Toutes les 10 minutes",
+    "Une fois avant le transport",
+    "Toutes les 5 minutes au maximum"
+   ],
+   "a": 3,
+   "why": "En cas de détresse, la surveillance se fait toutes les 5 minutes au maximum. Recommandations PS, fiche 02PR05."
+  },
+  {
+   "q": "Hors détresse, à quel rythme surveilles-tu la victime ?",
+   "c": [
+    "Toutes les 30 minutes",
+    "Toutes les 10 à 15 minutes",
+    "Toutes les heures"
+   ],
+   "a": 1,
+   "why": "Hors détresse, la surveillance a lieu toutes les 10 à 15 minutes. Recommandations PS, fiche 02PR05."
+  },
+  {
+   "q": "L'état de la victime s'aggrave pendant le transport. Quelle démarche suis-tu ?",
+   "c": [
+    "Tu attends l'arrivée à l'hôpital pour en parler",
+    "Tu changes uniquement la position de la victime",
+    "Tu refais un bilan d'urgence vitale et tu transmets un nouveau bilan à la régulation",
+    "Tu appelles la famille"
+   ],
+   "a": 2,
+   "why": "En cas d'aggravation, tu refais un bilan d'urgence vitale puis tu transmets un nouveau bilan à la régulation. Recommandations PS, fiche 02PR05."
+  },
+  {
+   "q": "Victime sans détresse évidente. Quelle information transmets-tu en premier au médecin ?",
+   "c": [
+    "Les gestes de secours réalisés",
+    "La plainte principale",
+    "Le motif réel de l'intervention",
+    "Les constantes vitales"
+   ],
+   "a": 2,
+   "why": "La transmission commence par le motif réel de l'intervention, puis le sexe et l'âge, la plainte, les résultats des bilans et les gestes. Recommandations PS, fiche 02PR06."
+  },
+  {
+   "q": "Tu identifies une détresse vitale. Que transmets-tu en priorité ?",
+   "c": [
+    "Un bilan complet après le bilan complémentaire",
+    "Une demande de moyen médical en renfort, sans délai",
+    "Rien avant l'arrivée à l'hôpital"
+   ],
+   "a": 1,
+   "why": "En cas d'urgence vitale, tu demandes sans délai un moyen médical en renfort, puis tu complètes par un bilan complet. Recommandations PS, fiche 02PR06."
+  }
+ ]
+}

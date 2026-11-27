@@ -1,0 +1,57 @@
+{
+ "slug": "gnr-risque-chimique-decontamination",
+ "titre": "Risque chimique et biologique : décontamination et tenues",
+ "theme": "Risques technologiques",
+ "niveau": "Équipier",
+ "document": "Guide national de référence Risques chimiques et biologiques, DDSC, mars 2006",
+ "resume": "Le GNR impose la décontamination systématique des intervenants et des matériels, conduite dans la zone contrôlée. Il fixe la dotation de la CMIC en tenues, en matériel de décontamination et en protection contre le risque biologique.",
+ "cles": [
+  "Dès la reconnaissance, contrôle la présence ou l'absence de contamination : personnels, matériels, air, environnement.",
+  "L'équipe intervention décontamine intervenants et matériels, puis contrôle si besoin la décontamination.",
+  "Prends toutes les dispositions pour limiter le transfert de contamination.",
+  "Les moyens de décontamination se placent dans la zone contrôlée, entre zone d'exclusion et zone de soutien.",
+  "Tenues de type 1a ou 1b conformes à la norme EN 943-1, complétées par des tenues de type 3.",
+  "Prévois une surprotection chimique pour les tenues 1b.",
+  "Lot décontamination de la CMIC : douche, solutions, terre de foulon, pulvérisateurs haute pression et manuel.",
+  "Risque biologique : masques et lunettes bio, gants nitrile, surbottes, par lots de 50 par équipe.",
+  "Sur risque biologique, le conseiller risques biologiques du SSSM conseille le COS, avec le conseiller technique chimique.",
+  "La CMIC dispose d'un lot de sas pour le passage entre les zones."
+ ],
+ "retenir": [
+  "Décontamination systématique des personnels et matériels d'intervention, dès la reconnaissance.",
+  "Zone contrôlée : tenue de protection adaptée obligatoire et implantation des moyens de décontamination.",
+  "Tenues 1a ou 1b selon EN 943-1 : 1 pour le chef de CMIC, 3 par équipe reconnaissance ou intervention.",
+  "Fin d'opération : reconditionne le matériel selon la présence ou non de contamination et fais traiter les déchets.",
+  "Décontamination de masse : unités de décontamination pour de nombreuses victimes, activité complémentaire après formation NRBC."
+ ],
+ "pieges": [
+  "Ne pas ranger un matériel avant d'avoir établi s'il est contaminé.",
+  "Ne pas oublier la surprotection chimique sur une tenue 1b.",
+  "Confondre décontamination des intervenants, systématique, et décontamination de masse, activité complémentaire avec formation NRBC.",
+  "Ne pas oublier le conseiller risques biologiques, issu du SSSM, sur une intervention à risque biologique.",
+  "Ne pas laisser sortir victimes, impliqués ou matériels de la zone sans mesure contre le transfert de contamination."
+ ],
+ "quiz": "matieres-dangereuses-signalisation",
+ "sources": [
+  [
+   "Guide national de référence Risques chimiques et biologiques (DDSC, 2006)",
+   "https://rescue18.com/telechargement/risques-chimiques-et-biologiques/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:BH 25-2- 18th CES conducts HAZMAT decontamination training (9015323).jpg",
+   "auteur": "U.S. Air Force photo by Senior Airman Alexis",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:BH_25-2-_18th_CES_conducts_HAZMAT_decontamination_training_(9015323).jpg",
+   "alt": "Intervenants en tenue de protection sur une chaîne de décontamination."
+  },
+  {
+   "fichier": "File:Csa-dekon.jpg",
+   "auteur": "Magnus Mertens",
+   "licence": "CC BY-SA 2.0 de",
+   "page": "https://commons.wikimedia.org/wiki/File:Csa-dekon.jpg",
+   "alt": "Décontamination d'un porteur de tenue chimique sous une tente."
+  }
+ ]
+}

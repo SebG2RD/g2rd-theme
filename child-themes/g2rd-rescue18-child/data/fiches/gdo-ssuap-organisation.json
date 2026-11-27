@@ -1,0 +1,57 @@
+{
+ "slug": "gdo-ssuap-organisation",
+ "titre": "SSUAP : organisation, réponse graduée et régulation médicale",
+ "theme": "Secours à personne",
+ "niveau": "Chef d'agrès",
+ "document": "Guide de doctrine opérationnelle « Secours et soins d'urgence aux personnes » (DGSCGC, 1re édition V1.1, novembre 2022)",
+ "resume": "Le SSUAP représente 71 % de l'activité des SIS en 2020. Tu agis dans une chaîne graduée, du prompt secours au médecin, et toute opération avec au moins une victime passe par la régulation médicale du SAMU.",
+ "cles": [
+  "Le SSUAP (secours et soins d'urgence aux personnes) couvre les victimes d'accidents, les détresses vitales et les détresses fonctionnelles justifiant l'urgence à agir.",
+  "La réponse se gradue : citoyen sauveteur, équipe de prompt secours en VL, équipe VSAV, puis moyens médicaux ou paramédicaux du SIS.",
+  "Le prompt secours prend en charge sans délai une détresse. Son intérêt tient à son caractère réflexe et rapide.",
+  "Le SAMU répond par des moyens exclusivement médicaux et joint ses moyens à ceux du SIS quand sauvetage et médecine sont nécessaires.",
+  "Quand le CRRA 15 sollicite des moyens du SIS, le CTA-CODIS reste décisionnaire de leur déclenchement.",
+  "Départ réflexe avant régulation : urgence vitale identifiée ou suspectée, voie publique ou lieu public, circonstances à risque médical.",
+  "En zone protégée, hors urgence vitale ou fonctionnelle, pas de départ réflexe : une personne compétente sur place transmet le bilan.",
+  "Carence ambulancière : transport sanitaire prescrit par le SAMU après un défaut de disponibilité des transporteurs sanitaires privés.",
+  "Le SIS module, temporise, voire refuse les carences pour préserver ses moyens d'urgence.",
+  "Sur place, le COS met en œuvre tous les moyens publics et privés mobilisés."
+ ],
+ "retenir": [
+  "Régulation médicale systématique dès une victime, assurée par le CRRA du SAMU : réponse médicale, choix de l'établissement, transport, admission.",
+  "Catégorisation secouriste : état léger (EL) ou état grave (EG). UA (pronostic vital engagé) et UR (pronostic vital non engagé) servent uniquement en plan NOVI.",
+  "Le bilan patient-victime part au médecin régulateur dans les meilleurs délais, avant l'évacuation. Le médecin régulateur fixe la destination.",
+  "La victime reste sous la responsabilité du chef d'agrès jusqu'à sa prise en charge par le soignant d'accueil, après un dernier bilan horodaté.",
+  "Aggravation pendant le transport : nouveau bilan et rappel en urgence du médecin régulateur, à toute distance de l'hôpital."
+ ],
+ "pieges": [
+  "Confondre carence ambulancière et désaccord SIS-SAMU sur l'urgence : ce désaccord ne constitue pas une carence.",
+  "Ne pas partager le secret médical avec les forces de l'ordre ni avec le conjoint de la victime.",
+  "Ne pas croire à une couverture du conducteur par un avis médical d'arrivée rapide : en cas d'accident, sa responsabilité reste engagée.",
+  "Ne pas forcer une victime majeure et lucide à te suivre : informe-la, transmets un bilan de refus au régulateur, fais signer une décharge.",
+  "Ne pas oublier : arrêter des moyens avant leur arrivée sur les lieux n'exonère pas le SIS de sa responsabilité."
+ ],
+ "quiz": "organisation-secours",
+ "sources": [
+  [
+   "Secours et soins d'urgence aux personnes, Guide de doctrine opérationnelle (DGSCGC, 2022)",
+   "https://rescue18.com/wp-content/uploads/2023/09/gdo_ssuap_v1.1.pdf"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Paris VSAV 158, sapeurs-pompiers de Paris.jpg",
+   "auteur": "Kevin.B",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Paris_VSAV_158,_sapeurs-pompiers_de_Paris.jpg",
+   "alt": "VSAV des sapeurs-pompiers de Paris dans une rue."
+  },
+  {
+   "fichier": "File:Renault ambulance in Albert, France, Gricourt Assu 7, pc2.JPG",
+   "auteur": "Alf van Beem",
+   "licence": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Renault_ambulance_in_Albert,_France,_Gricourt_Assu_7,_pc2.JPG",
+   "alt": "Ambulance privée blanche stationnée en France."
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
+<main class="wp-block-group"><!-- wp:group {"align":"full","className":"creapub-zebre","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull creapub-zebre"><!-- wp:query-title {"type":"archive","textAlign":"center","level":1,"showPrefix":false,"className":"creapub-zebre__title"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"creapub-section creapub-realisations-page","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull creapub-section creapub-realisations-page"><!-- wp:paragraph {"align":"center","className":"creapub-intro-text gsap-fade-in"} -->
+<p class="has-text-align-center creapub-intro-text gsap-fade-in">Print, signalétique, véhicules, textile, goodies : <em>une sélection de projets</em> conçus et fabriqués dans notre atelier de Vernon. Toutes nos réalisations de cette catégorie, cliquez sur une photo pour l'agrandir.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:categories {"taxonomy":"type-projets","showEmpty":false,"className":"creapub-filtres"} /-->
+
+<!-- wp:query {"queryId":4246,"query":{"perPage":24,"pages":0,"offset":0,"postType":"portfolio","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"className":"creapub-realisations-auto creapub-realisations-archive"} -->
+<div class="wp-block-query creapub-realisations-auto creapub-realisations-archive"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+<!-- wp:post-featured-image {"aspectRatio":"4/3","sizeSlug":"large","className":"gsap-zoom-in"} /-->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group -->
+
+<!-- wp:pattern {"slug":"g2rd-creapub/bande-cta"} /--></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

@@ -1,0 +1,178 @@
+{
+ "slug": "statuts-spv-spp-jsp",
+ "titre": "SPV, SPP, JSP : connais-tu les statuts ?",
+ "theme": "Statut et carrière",
+ "niveau": "Initiation",
+ "duree": "8 min",
+ "resume": "Âge, engagement, indemnités, PFR, concours et brevet JSP : fais le point sur les règles qui encadrent chaque statut.",
+ "sources": [
+  [
+   "Sapeur-pompier volontaire (SPV), fiche F72 (service-public.gouv.fr)",
+   "https://www.service-public.gouv.fr/particuliers/vosdroits/F72"
+  ],
+  [
+   "Dossier de rentrée des jeunes sapeurs-pompiers (pompiers.fr)",
+   "https://www.pompiers.fr/sites/default/files/content/download-file/dossier_rentree_jsp.pdf"
+  ],
+  [
+   "Plaquette les métiers de sapeur-pompier (CNFPT)",
+   "https://www.cnfpt.fr/sites/default/files/14435-plaquettesp-v3_0.pdf"
+  ]
+ ],
+ "questions": [
+  {
+   "q": "Quel âge minimal faut-il avoir pour devenir sapeur-pompier volontaire ?",
+   "c": [
+    "14 ans",
+    "16 ans",
+    "17 ans",
+    "18 ans"
+   ],
+   "a": 1,
+   "why": "Il faut avoir au minimum 16 ans pour devenir SPV. Source : service-public.gouv.fr, fiche F72."
+  },
+  {
+   "q": "Quelle est la durée d'un engagement de SPV ?",
+   "c": [
+    "1 an renouvelable",
+    "3 ans non renouvelables",
+    "5 ans renouvelables"
+   ],
+   "a": 2,
+   "why": "L'engagement de SPV dure 5 ans et se renouvelle si les conditions restent remplies, notamment l'aptitude physique. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Quel est le régime fiscal des indemnités de SPV ?",
+   "c": [
+    "Elles sont exonérées d'impôt sur le revenu",
+    "Elles sont imposées comme un salaire",
+    "Elles sont imposées au-delà de 1 000 euros par an"
+   ],
+   "a": 0,
+   "why": "Les indemnités horaires du SPV sont exonérées d'impôt sur le revenu. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Dans le cas général, à quel âge l'engagement d'un SPV prend-il fin automatiquement ?",
+   "c": [
+    "60 ans",
+    "62 ans",
+    "65 ans",
+    "67 ans"
+   ],
+   "a": 3,
+   "why": "L'engagement prend fin automatiquement à 67 ans. Des limites plus hautes existent pour certains personnels de santé. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Quelle est la durée de la formation initiale d'un SPV ?",
+   "c": [
+    "10 à 30 jours répartis sur 1 à 3 ans",
+    "6 mois à temps plein",
+    "2 jours avant la première garde"
+   ],
+   "a": 0,
+   "why": "La formation initiale dure 10 à 30 jours répartis sur 1 à 3 ans. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Ton employeur peut-il refuser ton départ en mission de SPV ?",
+   "c": [
+    "Oui, sans justification",
+    "Non, jamais",
+    "Oui, pour nécessité absolue de service, avec un refus motivé transmis au SDIS"
+   ],
+   "a": 2,
+   "why": "L'employeur ne peut refuser que pour nécessité absolue de service. Son refus doit être motivé et transmis au SDIS. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Pourquoi n'y a-t-il pas de SPV à Paris, en petite couronne et à Marseille ?",
+   "c": [
+    "Parce que les pompiers y sont militaires",
+    "Parce que les SDIS n'y recrutent que des professionnels civils",
+    "Parce que la loi y interdit le volontariat depuis 2004"
+   ],
+   "a": 0,
+   "why": "Dans ces territoires, les secours relèvent de pompiers militaires, BSPP et BMPM. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Que signifie le sigle PFR ?",
+   "c": [
+    "Prime de formation et de recrutement",
+    "Prestation de fidélisation et de reconnaissance",
+    "Plan de fin de responsabilité"
+   ],
+   "a": 1,
+   "why": "La PFR est la prestation de fidélisation et de reconnaissance versée aux SPV qui cessent leur engagement. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Depuis le 27 novembre 2021, combien d'années de service faut-il en principe pour bénéficier de la PFR ?",
+   "c": [
+    "10 ans",
+    "15 ans",
+    "20 ans",
+    "25 ans"
+   ],
+   "a": 1,
+   "why": "Il faut au moins 15 ans de service, contre 20 ans auparavant. Le seuil passe à 10 ans en cas d'incapacité opérationnelle reconnue. Source : service-public.gouv.fr."
+  },
+  {
+   "q": "Quelle tranche d'âge vise en principe la formation de jeune sapeur-pompier ?",
+   "c": [
+    "6 à 10 ans",
+    "16 à 25 ans",
+    "11 à 18 ans"
+   ],
+   "a": 2,
+   "why": "Les JSP ont de 11 à 18 ans, avec des variations possibles selon les départements. Source : dossier de rentrée JSP, pompiers.fr."
+  },
+  {
+   "q": "Combien de cycles compte la formation des JSP ?",
+   "c": [
+    "Deux",
+    "Trois",
+    "Quatre",
+    "Six"
+   ],
+   "a": 2,
+   "why": "La formation des JSP dure quatre cycles. Source : dossier de rentrée JSP, pompiers.fr."
+  },
+  {
+   "q": "Quel diplôme vient conclure la formation des JSP ?",
+   "c": [
+    "Le brevet national de jeune sapeur-pompier",
+    "Le certificat d'équipier volontaire",
+    "Le diplôme d'État de secouriste"
+   ],
+   "a": 0,
+   "why": "La formation se conclut par le brevet national de jeune sapeur-pompier (BNJSP). Source : dossier de rentrée JSP, pompiers.fr."
+  },
+  {
+   "q": "À partir de quand un JSP peut-il passer le brevet national ?",
+   "c": [
+    "Dès 11 ans",
+    "Dans l'année civile de ses 16 ans",
+    "Après ses 18 ans"
+   ],
+   "a": 1,
+   "why": "Le BNJSP se passe de l'année civile de ses 16 ans jusqu'au 31 décembre de l'année de ses 18 ans. Source : dossier de rentrée JSP, pompiers.fr."
+  },
+  {
+   "q": "Un JSP titulaire du brevet devient SPV. Que se passe-t-il pour sa formation initiale ?",
+   "c": [
+    "Il doit repasser tous les modules",
+    "Il est dispensé de visite médicale",
+    "Il n'a pas à repasser l'ensemble des modules"
+   ],
+   "a": 2,
+   "why": "Le référentiel JSP est calqué sur celui de l'équipier SPV. Le titulaire du BNJSP suit les seuls modules qui lui manquent. Source : dossier de rentrée JSP, pompiers.fr."
+  },
+  {
+   "q": "Tu réussis un concours de sapeur-pompier professionnel. Es-tu recruté d'office ?",
+   "c": [
+    "Non, tu es inscrit sur une liste d'aptitude et un SIS doit te recruter",
+    "Oui, le concours vaut recrutement",
+    "Oui, par la DGSCGC dans le département de ton choix"
+   ],
+   "a": 0,
+   "why": "La réussite au concours ne vaut pas recrutement dans la fonction publique territoriale. Le lauréat est inscrit sur une liste d'aptitude. Source : CNFPT."
+  }
+ ]
+}

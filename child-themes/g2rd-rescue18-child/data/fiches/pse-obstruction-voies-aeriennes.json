@@ -1,0 +1,57 @@
+{
+ "slug": "pse-obstruction-voies-aeriennes",
+ "titre": "Obstruction des voies aériennes par un corps étranger",
+ "theme": "Secours à personne",
+ "niveau": "Équipier",
+ "document": "Recommandations relatives aux premiers secours en équipe PSE 1 et PSE 2 (DGSCGC), fiches actualisées jusqu'en décembre 2023",
+ "resume": "L'obstruction est partielle quand l'air atteint encore les poumons, complète quand il ne passe plus. L'obstruction complète tue en quelques minutes : claques dans le dos puis compressions adaptées au gabarit de la victime.",
+ "cles": [
+  "Corps étrangers fréquents : aliments comme noix, cacahuètes, carottes, et objets comme aimants ou jouets.",
+  "Obstruction complète : la victime ne parle plus, ne tousse plus ou tousse sans effet, garde la bouche béante, s'agite et bleuit.",
+  "Obstruction partielle : la victime parle ou crie, tousse vigoureusement et reste consciente.",
+  "Obstruction partielle : jamais de manœuvre de désobstruction. Installe la victime à son aise et encourage-la à tousser.",
+  "Claques : vigoureuses, entre les omoplates, avec le talon de la main à plat, victime penchée en avant.",
+  "Nourrisson : à califourchon sur ton avant-bras, face vers le sol, tête sous le niveau du thorax, sans appuyer sur la gorge.",
+  "Compressions abdominales chez l'adulte et l'enfant : poing juste au-dessus du nombril, tire vers l'arrière et vers le haut.",
+  "Obèse ou femme enceinte : poing au milieu du sternum, tire vers l'arrière, sans appuyer sur la pointe du sternum.",
+  "Nourrisson : compressions thoraciques avec 2 doigts, au point de compression de la réanimation, tête sous le niveau du corps.",
+  "Personne alitée difficile à mobiliser : compressions thoraciques comme en arrêt cardiaque."
+ ],
+ "retenir": [
+  "Cycle : 1 à 5 claques dans le dos, puis 1 à 5 compressions si les claques échouent, et répète.",
+  "Arrête dès l'apparition de toux, cris ou pleurs, la reprise de la respiration ou le rejet du corps étranger.",
+  "Obstruction partielle avec toux inefficace et fatigue, devenue complète ou avec arrêt respiratoire : passe à la conduite de l'obstruction complète.",
+  "Perte de connaissance : accompagne au sol, RCP en commençant par les compressions à tout âge, vérifie la bouche à la fin de chaque cycle.",
+  "Désobstruction réussie : avis médical systématique. De petits fragments passent dans les poumons et les compressions causent des lésions internes."
+ ],
+ "pieges": [
+  "Ne pas pratiquer de désobstruction sur une victime qui tousse et parle.",
+  "Ne pas réduire la vigueur des claques par peur de blesser : elle conditionne le rejet du corps étranger.",
+  "Confondre compressions abdominales et thoraciques : femme enceinte, obèse et nourrisson reçoivent des compressions thoraciques.",
+  "Ne pas appuyer sur la gorge du nourrisson en tenant sa tête.",
+  "Ne pas laisser partir une victime désobstruée sans transmettre le bilan pour avis médical."
+ ],
+ "quiz": "obstruction-voies-aeriennes",
+ "sources": [
+  [
+   "Recommandations Premiers secours en équipe PSE 1 et PSE 2 (DGSCGC, 2023)",
+   "https://rescue18.com/telechargement/pse-1-pse-2/"
+  ]
+ ],
+ "images": [
+  {
+   "fichier": "File:Angeline Sanchez, a newly joined Texas State Guardsman, practices the Heimlich Maneuver on a dummy.jpg",
+   "auteur": "Sgt. 1st Class Malcolm McClendon",
+   "licence": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Angeline_Sanchez,_a_newly_joined_Texas_State_Guardsman,_practices_the_Heimlich_Maneuver_on_a_dummy.jpg",
+   "alt": "Secouriste s'exerçant aux compressions abdominales sur une partenaire."
+  },
+  {
+   "fichier": "File:Back blows (back slaps) against choking for adult people.jpg",
+   "auteur": "Trakotako",
+   "licence": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Back_blows_(back_slaps)_against_choking_for_adult_people.jpg",
+   "alt": "Dessin des claques dans le dos sur une personne penchée en avant."
+  }
+ ]
+}

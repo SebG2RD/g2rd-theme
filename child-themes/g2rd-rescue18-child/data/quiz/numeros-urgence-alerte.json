@@ -1,0 +1,31 @@
+{
+ "slug": "numeros-urgence-alerte",
+ "titre": "Numéros d'urgence : sais-tu qui appeler ?",
+ "theme": "Prévention",
+ "niveau": "Tous publics",
+ "duree": "8 min",
+ "resume": "18, 15, 112, 114, 196 et FR-Alert : vérifie que tu sais joindre le bon service et donner la bonne alerte.",
+ "sources": [
+  ["Service-Public.fr, Quels sont les numéros en cas d'urgence (Samu, pompiers...) et les numéros d'écoute ?", "https://www.service-public.gouv.fr/particuliers/actualites/A15841"],
+  ["Service-Public.fr, Numéros d'urgence et 0 800 112 112", "https://www.service-public.gouv.fr/particuliers/actualites/A17758?lang=fr"],
+  ["Info.gouv.fr, FR-Alert, comment ça marche ?", "https://www.info.gouv.fr/actualite/fr-alert-comment-ca-marche"],
+  ["Préfecture du Cantal, Le traitement de l'alerte", "https://www.cantal.gouv.fr/contenu/telechargement/5706/67862/file/Le_traitement_de_l_alerte_cle2acca2.pdf"]
+ ],
+ "questions": [
+  {"q": "Un feu se déclare dans ton immeuble. Quel numéro national joint directement les sapeurs-pompiers ?", "c": ["15", "17", "18", "115"], "a": 2, "why": "Le 18 joint les pompiers pour une situation de péril ou un accident : incendie, accident de la route, noyade, inondation, fuite de gaz toxique (Service-Public.fr)."},
+  {"q": "Quel numéro appelles-tu pour une urgence médicale ?", "c": ["15", "119", "196", "114"], "a": 0, "why": "Le 15 joint le Samu pour une urgence médicale (Service-Public.fr)."},
+  {"q": "Tu es témoin d'une agression. Quel numéro composes-tu ?", "c": ["18", "17", "15", "191"], "a": 1, "why": "Le 17, Police secours, sert à signaler une infraction et joint la police ou la gendarmerie (Service-Public.fr)."},
+  {"q": "Quelle est la particularité du 112 ?", "c": ["Il est réservé aux secours en montagne", "Il ne marche que depuis un fixe", "Il est payant à l'étranger", "C'est le numéro d'urgence européen, utilisable dans tous les pays de l'Union"], "a": 3, "why": "Le 112 est le numéro d'urgence européen. Il fonctionne depuis un fixe ou un mobile dans tous les pays de l'Union européenne (Service-Public.fr)."},
+  {"q": "À qui s'adresse le 114 ?", "c": ["Aux enfants en danger", "Aux personnes sourdes, malentendantes, sourdaveugles ou aphasiques", "Aux marins en détresse", "Aux personnes sans abri"], "a": 1, "why": "Le 114 est le numéro d'urgence des personnes sourdes, malentendantes, sourdaveugles et aphasiques. Il se joint par application, site web ou SMS (Service-Public.fr)."},
+  {"q": "Une personne sans logement a besoin d'aide en urgence. Quel numéro appeler ?", "c": ["119", "196", "115", "17"], "a": 2, "why": "Le 115 joint le Samu social, qui aide en urgence les personnes sans logement (Service-Public.fr)."},
+  {"q": "Tu t'inquiètes pour un enfant victime de violences. Quel numéro joins-tu ?", "c": ["119", "115", "191", "114"], "a": 0, "why": "Le 119, Enfance en danger, s'adresse aux enfants victimes de violences et à toute personne inquiète pour un enfant (Service-Public.fr)."},
+  {"q": "Depuis la côte, tu vois un bateau en difficulté. Quel numéro appelles-tu ?", "c": ["191", "115", "17", "196"], "a": 3, "why": "Le 196 joint les secours maritimes depuis le littoral (Service-Public.fr)."},
+  {"q": "En mer, quel moyen d'alerte est privilégié pour les secours maritimes ?", "c": ["Le SMS au 114", "Le canal 16 de la VHF", "Un appel au 115", "Une fusée éclairante seule"], "a": 1, "why": "En mer, le canal 16 de la VHF est à privilégier pour joindre les secours maritimes (Service-Public.fr)."},
+  {"q": "Tu assistes à la chute d'un avion. Quel numéro dédié existe pour les secours aéronautiques ?", "c": ["196", "119", "191", "3117"], "a": 2, "why": "Le 191 sert aux secours aéronautiques : aéronef en détresse, accident d'avion constaté ou avion disparu (Service-Public.fr)."},
+  {"q": "Quel numéro les services d'urgence utilisent-ils depuis le 1er octobre 2024 pour te rappeler ?", "c": ["0 800 112 112", "0 800 18 18 18", "3114", "116 000"], "a": 0, "why": "Les services d'urgence rappellent avec le 0 800 112 112. Il est gratuit. Enregistre-le sous « Services d'urgence » (Service-Public.fr)."},
+  {"q": "Quel trio d'informations transmets-tu lors d'un appel aux secours ?", "c": ["Ton nom, ton âge, ta profession", "La météo, l'heure, ton opérateur", "Ton assurance, ta plaque, ton employeur", "Le lieu précis, la nature de l'accident, le nombre de victimes et leur état"], "a": 3, "why": "Donne le lieu précis (commune, rue, numéro, étage), la nature de l'accident et le nombre de victimes avec leur état apparent (préfecture du Cantal)."},
+  {"q": "À la fin de ton appel au 18, que fais-tu ?", "c": ["Tu attends que l'opérateur mette fin à l'appel", "Tu raccroches dès que l'adresse est donnée", "Tu rappelles le 15 dans la foulée", "Tu raccroches pour libérer la ligne"], "a": 0, "why": "Ne raccroche jamais en premier. L'opérateur met fin à l'appel et te pose ses questions (préfecture du Cantal)."},
+  {"q": "Comment reçois-tu une alerte FR-Alert sur ton téléphone ?", "c": ["Tu dois télécharger une application officielle", "Tu dois t'inscrire en mairie", "Ton téléphone la reçoit s'il se trouve dans la zone concernée, sans inscription ni application", "Tu la reçois par courrier"], "a": 2, "why": "FR-Alert passe par les réseaux mobiles. Les téléphones présents dans la zone reçoivent l'alerte, sans application ni inscription (info.gouv.fr)."},
+  {"q": "Depuis quand FR-Alert fonctionne-t-il en métropole et outre-mer ?", "c": ["Janvier 2015", "Juin 2022", "Septembre 2001", "Mars 2010"], "a": 1, "why": "FR-Alert est opérationnel en métropole et outre-mer depuis juin 2022 (info.gouv.fr)."}
+ ]
+}
